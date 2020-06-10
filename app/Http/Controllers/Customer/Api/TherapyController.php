@@ -15,6 +15,6 @@ class TherapyController extends Controller
             'data'=>[
 
             ]
-        ]
+        ];
     }
 }

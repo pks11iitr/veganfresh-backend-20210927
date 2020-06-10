@@ -13,7 +13,8 @@ class HomeController extends Controller
 
         $products=Product::active()->where('show_on_home', true)->get();
 
-        $services=[[
+        $services=[
+            [
             'name'=>'Therapy at clinics',
             'url'=>route('clinics.list')
             ],
