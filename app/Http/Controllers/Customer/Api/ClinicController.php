@@ -20,4 +20,15 @@ class ClinicController extends Controller
             ]
         ];
     }
+
+
+    public function details(Request $request, $id){
+        $clinic=Clinic::active()->with(['gallery'])->where('id', $id)->first();
+        return [
+            'status'=>'success',
+            'data'=>[
+                'clinic'=>$clinic
+            ]
+        ];
+    }
 }

@@ -25,3 +25,4 @@ $api->post('resend-otp', 'Customer\Auth\OtpController@resend');
 $api->get('home', 'Customer\Api\HomeController@home');
 $api->get('clinics', ['as'=>'clinics.list', 'uses'=>'Customer\Api\ClinicController@index']);
 $api->get('therapies', ['as'=>'therapies.list', 'uses'=>'Customer\Api\TherapyController@index']);
+$api->get('clinic/{id}', ['as'=>'clinics.details', 'uses'=>'Customer\Api\ClinicController@details']);

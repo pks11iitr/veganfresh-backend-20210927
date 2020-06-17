@@ -11,6 +11,7 @@ class Document extends Model
 
     protected $fillable=['entity_type','entity_id', 'file_path', 'file_type'];
 
+    protected $hidden = ['created_at','deleted_at','updated_at','entity_id', 'entity_type'];
 
     public function entity(){
         $this->morphTo();
