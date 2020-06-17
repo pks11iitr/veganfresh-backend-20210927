@@ -16,7 +16,7 @@ class ClinicController extends Controller
         return [
             'status'=>'succecss',
             'data'=>[
-                'clinics'=>Clinic::active()->with('gallery')->get()
+                'clinics'=>Clinic::active()->with(['commentscount', 'avgreviews'])->get()
             ]
         ];
     }

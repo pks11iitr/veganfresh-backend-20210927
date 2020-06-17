@@ -9,7 +9,6 @@ class Clinic extends Model
 {
     protected $table = 'clinics';
 
-
     public function getImageAttribute($value){
         if($value)
             return Storage::url($value);
