@@ -12,9 +12,11 @@ class Therapy extends Model
     protected $table='therapies';
 
 
-    public function getFilePathAttribute($value){
+    public function getImageAttribute($value){
         if($value)
             return Storage::url($value);
         return '';
     }
+
+
 }

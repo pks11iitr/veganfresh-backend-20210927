@@ -9,7 +9,7 @@ use App\Http\Controllers\Controller;
 class TherapyController extends Controller
 {
     public function index(Request $request){
-        $therapies=Therapy::active()->get();
+        $therapies=Therapy::active()->with(['commentscount', 'avgreviews'])->get();
         return [
             'status'=>'succecss',
             'data'=>[
