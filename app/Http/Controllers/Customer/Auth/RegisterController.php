@@ -21,9 +21,9 @@ class RegisterController extends Controller
     {
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:100', 'unique:customers'],
+            'email' => ['required', 'string', 'email', 'max:100'],
             'password' => ['required', 'string', 'min:6'],
-            'mobile'=>['required', 'string', 'max:10', 'unique:customers']
+            'mobile'=>['required', 'string', 'max:10']
         ]);
     }
 
@@ -46,6 +46,13 @@ class RegisterController extends Controller
     public function register(Request $request)
     {
         $this->validator($request->all())->validate();
+
+        if($customer=Customer::where('mobile', $request->mobile)->orWhere('email', $request->email)->first()){
+            return [
+                'status'=>'failed',
+                'message'=>'Email or mobile already registered'
+            ];
+        }
 
         event(new CustomerRegistered($user = $this->create($request->all())));
 

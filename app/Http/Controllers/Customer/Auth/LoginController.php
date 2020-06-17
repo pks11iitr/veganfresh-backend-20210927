@@ -37,7 +37,7 @@ class LoginController extends Controller
     protected function validateLogin(Request $request)
     {
         $request->validate([
-            'user_id' => $this->userId($request)=='email'?'required|email|string|exists:customers':'required|digits:10|string|exists:customers',
+            'user_id' => $this->userId($request)=='email'?'required|email|string|exists:customers,email':'required|digits:10|string|exists:customers,mobile',
             'password' => 'required|string',
         ], ['user_id.exists'=>'This account is not registered with us. Please signup to continue']);
     }
@@ -78,8 +78,12 @@ class LoginController extends Controller
     }
 
     protected function sendLoginResponse($user, $token){
-        if($user->status==0)
+        if($user->status==0){
+            $otp=OTPModel::createOTP('customer', $user->id, 'login');
+            $msg=str_replace('{{otp}}', $otp, config('sms-templates.login'));
+            Msg91::send($user->mobile,$msg);
             return ['status'=>'success', 'message'=>'otp verify', 'token'=>''];
+        }
         else if($user->status==1)
             return ['status'=>'success', 'message'=>'Login Successfull', 'token'=>$token];
         else
@@ -99,7 +103,7 @@ class LoginController extends Controller
     public function loginWithOtp(Request $request){
         $this->validateOTPLogin($request);
 
-        $user=Customer::where('mobile', $request->mobile)->first;
+        $user=Customer::where('mobile', $request->mobile)->first();
         if(!$user)
             return ['status'=>'failed', 'message'=>'This account is not registered with us. Please signup to continue'];
 
