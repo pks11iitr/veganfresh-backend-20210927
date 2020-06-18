@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Customer\Api;
 
 use App\Models\Clinic;
+use App\Models\Therapy;
 use App\Models\Traits\Active;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -32,5 +33,15 @@ class ClinicController extends Controller
                 'clinic'=>$clinic
             ]
         ];
+    }
+
+    public function clinicTherapyDetails(Request $request, $clinicid, $therapyid){
+        $clinic=Clinic::active()->find($clinicid);
+        if($clinic)
+            return [
+                'status'=>'failed',
+                'message'=>'No clinic found'
+            ];
+        //$therapy=Therapy::active()->
     }
 }
