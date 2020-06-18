@@ -14,4 +14,13 @@ class Clinic extends Model
             return Storage::url($value);
         return null;
     }
+
+    public function therapies(){
+        return $this->belongsToMany('App\Models\Therapy', 'clinic_therapies', 'clinic_id', 'therapy_id');
+    }
+
+
+    public function getGrade1OriginalPriceAttribute($value){
+
+    }
 }

@@ -23,7 +23,9 @@ class ClinicController extends Controller
 
 
     public function details(Request $request, $id){
-        $clinic=Clinic::active()->with(['gallery'])->where('id', $id)->first();
+        $clinic=Clinic::active()->with(['gallery', 'commentscount', 'avgreviews','therapies'=>function($therapies){
+            $therapies->where('therapies.isactive', true);
+        }])->where('id', $id)->first();
         return [
             'status'=>'success',
             'data'=>[
