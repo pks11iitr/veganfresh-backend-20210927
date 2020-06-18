@@ -74,7 +74,7 @@ class OtpController extends Controller
         if(in_array($user->status, [0,1])){
             if(OTPModel::verifyOTP('customer',$user->id,$request->type,$request->otp)){
 
-                $user->status==1;
+                $user->status=1;
                 $user->save();
 
                 return [
