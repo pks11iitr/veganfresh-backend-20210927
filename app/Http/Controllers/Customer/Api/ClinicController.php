@@ -36,12 +36,42 @@ class ClinicController extends Controller
     }
 
     public function clinicTherapyDetails(Request $request, $clinicid, $therapyid){
-        $clinic=Clinic::active()->find($clinicid);
-        if($clinic)
+        $timings=[];
+        $dates=[];
+        $clinic=Clinic::active()->with(['therapies'=>function($therapies) use ($therapyid){
+            $therapies->where('therapies.id', $therapyid)->with(['commentscount', 'avgreviews','gallery']);
+        }])->find($clinicid);
+        if(!$clinic)
             return [
                 'status'=>'failed',
                 'message'=>'No clinic found'
             ];
-        //$therapy=Therapy::active()->
+
+        $date=date('Y-m-d');
+        for($i=1; $i<=7;$i++){
+            $dates[]=[
+                'text'=>($i==1)?'Today':($i==2?'Tomorrow':date('d F', strtotime($date))),
+                'text2'=>($i==1)?'':($i==2?'':date('D')),
+                'value'=>$date
+            ];
+            $date=date('Y-m-d', strtotime('+'.$i.' days', strtotime($date, strtotime($date))));
+        }
+        echo $date=date('Y-m-d h:i:s');
+        for($i=9; $i<=17;$i++){
+            $timings[]=[
+                'text'=>date('h:i A', strtotime($date)),
+                'value'=>date('H:i', strtotime($date))
+            ];
+            $date=date('Y-m-d H:i:s', strtotime('+1 hours', strtotime($date)));
+        }
+
+        return [
+            'status'=>'success',
+            'data'=>[
+                'clinic'=>$clinic,
+                'dates'=>$dates,
+                'timings'=>$timings
+            ]
+        ];
     }
 }
