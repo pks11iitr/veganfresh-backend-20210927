@@ -27,11 +27,20 @@ class ClinicController extends Controller
         $clinic=Clinic::active()->with(['gallery', 'commentscount', 'avgreviews','therapies'=>function($therapies){
             $therapies->where('therapies.isactive', true);
         }])->where('id', $id)->first();
+        if($clinic)
+            return [
+                'status'=>'success',
+                'data'=>[
+                    'clinic'=>$clinic
+                ]
+            ];
+
         return [
-            'status'=>'success',
+            'status'=>'failed',
             'data'=>[
-                'clinic'=>$clinic
-            ]
+
+            ],
+            'message'=>'No clinic found'
         ];
     }
 
@@ -56,7 +65,7 @@ class ClinicController extends Controller
             ];
             $date=date('Y-m-d', strtotime('+'.$i.' days', strtotime($date, strtotime($date))));
         }
-        echo $date=date('Y-m-d h:i:s');
+        $date=date('Y-m-d h:i:s');
         for($i=9; $i<=17;$i++){
             $timings[]=[
                 'text'=>date('h:i A', strtotime($date)),
