@@ -16,11 +16,27 @@ class Clinic extends Model
     }
 
     public function therapies(){
-        return $this->belongsToMany('App\Models\Therapy', 'clinic_therapies', 'clinic_id', 'therapy_id');
+        return $this->belongsToMany('App\Models\Therapy', 'clinic_therapies', 'clinic_id', 'therapy_id')->withPivot('grade1_price', 'grade2_price','grade3_price','grade4_price', 'grade1_original_price','grade2_original_price','grade3_original_price','grade4_original_price');
     }
 
-
     public function getGrade1OriginalPriceAttribute($value){
-
+        if($this->pivot->grade1_original_price==null)
+            return '';
+        return $value;
+    }
+    public function getGrade2OriginalPriceAttribute($value){
+        if($value==null)
+            return '';
+        return $value;
+    }
+    public function getGrade3OriginalPriceAttribute($value){
+        if($value==null)
+            return '';
+        return $value;
+    }
+    public function getGrade4OriginalPriceAttribute($value){
+        if($value==null)
+            return '';
+        return $value;
     }
 }
