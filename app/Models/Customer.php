@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\Storage;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
 class Customer extends Authenticatable implements JWTSubject
@@ -14,7 +15,7 @@ class Customer extends Authenticatable implements JWTSubject
     ];
 
     protected $hidden = [
-        'password','created_at','deleted_at','updated_at'
+        'password','created_at','deleted_at','updated_at','email','mobile'
     ];
 
     /**
@@ -35,5 +36,11 @@ class Customer extends Authenticatable implements JWTSubject
     public function getJWTCustomClaims()
     {
         return [];
+    }
+
+    public function getImageAttribute($value){
+        if($value)
+            return Storage::url($value);
+        return null;
     }
 }

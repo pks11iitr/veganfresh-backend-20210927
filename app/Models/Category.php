@@ -5,9 +5,9 @@ namespace App\Models;
 use App\Models\BaseModel as Model;
 use Illuminate\Support\Facades\Storage;
 
-class Banner extends Model
+class Category extends Model
 {
-    protected $table='banners';
+    protected $table='categories';
 
     public function getImageAttribute($value){
         if($value)

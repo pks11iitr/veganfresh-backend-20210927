@@ -19,8 +19,8 @@ class Review extends Model
         return $this->morphTo();
     }
 
-    public function user(){
-        return $this->belongsTo('App\User', 'user_id');
+    public function customer(){
+        return $this->belongsTo('App\Models\Customer', 'user_id');
     }
 
 }

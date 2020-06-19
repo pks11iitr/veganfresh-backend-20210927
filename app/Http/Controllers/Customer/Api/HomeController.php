@@ -12,7 +12,7 @@ class HomeController extends Controller
     public function home(Request $request){
 
         $banners=Banner::active()->get();
-        $products=Product::active()->where('show_on_home', true)->get();
+        $products=Product::active()->where('top_deal', true)->get();
 
         $services=[
             [

@@ -31,3 +31,7 @@ $api->get('therapy/{id}', ['as'=>'therapy.details', 'uses'=>'Customer\Api\Therap
 
 $api->get('products-home', ['as'=>'products.home', 'uses'=>'Customer\Api\ProductController@home']);
 $api->get('product/{id}', ['as'=>'product.details', 'uses'=>'Customer\Api\ProductController@details']);
+$api->get('topdeals-products', ['as'=>'product.deals', 'uses'=>'Customer\Api\ProductController@topdeals']);
+$api->get('bestseller-products', ['as'=>'product.deals', 'uses'=>'Customer\Api\ProductController@bestseller']);
+
+$api->get('reviews/{type}/{id}', ['as'=>'reviews', 'uses'=>'Customer\Api\ReviewController@index']);
