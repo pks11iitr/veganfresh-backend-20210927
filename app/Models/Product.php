@@ -8,5 +8,7 @@ use App\Models\Traits\DocumentUploadTrait;
 
 class Product extends Model
 {
-    use Active, DocumentUploadTrait;
+
+    protected $table='products';
+
 }
