@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Customer\Api;
 
+use App\Models\Banner;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -10,7 +11,7 @@ class HomeController extends Controller
 {
     public function home(Request $request){
 
-
+        $banners=Banner::active()->get();
         $products=Product::active()->where('show_on_home', true)->get();
 
         $services=[
@@ -30,7 +31,7 @@ class HomeController extends Controller
 
         return [
             'status'=>'success',
-            'data'=>compact('services','products','videos')
+            'data'=>compact('services','products','videos', 'banners')
         ];
     }
 }

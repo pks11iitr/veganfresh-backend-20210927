@@ -28,3 +28,6 @@ $api->get('therapies', ['as'=>'therapies.list', 'uses'=>'Customer\Api\TherapyCon
 $api->get('clinic/{id}', ['as'=>'clinics.details', 'uses'=>'Customer\Api\ClinicController@details']);
 $api->get('clinic-therapy/{clinicid}/{therapyid}', ['as'=>'clinics.therapy.details', 'uses'=>'Customer\Api\ClinicController@clinicTherapyDetails']);
 $api->get('therapy/{id}', ['as'=>'therapy.details', 'uses'=>'Customer\Api\TherapyController@details']);
+
+$api->get('products-home', ['as'=>'products.home', 'uses'=>'Customer\Api\ProductController@home']);
+$api->get('product/{id}', ['as'=>'product.details', 'uses'=>'Customer\Api\ProductController@details']);
