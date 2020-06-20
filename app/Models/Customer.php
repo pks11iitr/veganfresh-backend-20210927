@@ -2,12 +2,15 @@
 
 namespace App\Models;
 
+use App\Models\Traits\DocumentUploadTrait;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Facades\Storage;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
 class Customer extends Authenticatable implements JWTSubject
 {
+    use DocumentUploadTrait;
+
     protected $table='customers';
 
     protected $fillable = [

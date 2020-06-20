@@ -37,3 +37,7 @@ $api->get('bestseller-products', ['as'=>'product.deals', 'uses'=>'Customer\Api\P
 $api->get('reviews/{type}/{id}', ['as'=>'reviews', 'uses'=>'Customer\Api\ReviewController@index']);
 
 $api->get('search', ['as'=>'search', 'uses'=>'Customer\Api\SearchController@index']);
+
+
+$api->get('profile', ['as'=>'profile', 'uses'=>'Customer\Api\ProfileController@view']);
+$api->post('profile', ['as'=>'profile', 'uses'=>'Customer\Api\ProfileController@update']);
