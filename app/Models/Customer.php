@@ -14,7 +14,7 @@ class Customer extends Authenticatable implements JWTSubject
     protected $table='customers';
 
     protected $fillable = [
-        'name', 'email', 'mobile', 'password', 'image', 'dob','address','city', 'dob'
+        'name', 'email', 'mobile', 'password', 'image', 'dob','address','city', 'state'
     ];
 
     protected $hidden = [
