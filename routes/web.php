@@ -17,4 +17,7 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', 'SuperAdmin\HomeController@index')->name('home');
+Route::group(['middle'=>['auth', 'acl'], 'is'=>'admin'], function(){
+    Route::get('/home', 'SuperAdmin\HomeController@index')->name('home');
+});
+
