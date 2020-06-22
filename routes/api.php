@@ -41,3 +41,16 @@ $api->get('search', ['as'=>'search', 'uses'=>'Customer\Api\SearchController@inde
 
 $api->get('profile', ['as'=>'profile', 'uses'=>'Customer\Api\ProfileController@view']);
 $api->post('profile', ['as'=>'profile', 'uses'=>'Customer\Api\ProfileController@update']);
+
+
+//Order apis
+$api->post('initiate-order', ['as'=>'initiate.order', 'uses'=>'Customer\Api\OrderController@initiateOrder']);
+
+$api->get('order-details/{id}', ['as'=>'order.details', 'uses'=>'Customer\Api\OrderController@orderdetails']);
+
+$api->post('update-contact/{id}', ['as'=>'order.contact.details', 'uses'=>'Customer\Api\OrderController@addContactDetails']);
+
+//payment apis
+$api->post('initiate-payment', ['as'=>'order.details', 'uses'=>'Customer\Api\OrderController@orderdetails']);
+
+
