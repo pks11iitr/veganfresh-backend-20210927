@@ -6,6 +6,7 @@ use App\Models\Clinic;
 use App\Models\Order;
 use App\Models\OrderDetail;
 use App\Models\OrderStatus;
+use App\Models\Therapy;
 use App\Models\Wallet;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -92,7 +93,79 @@ class OrderController extends Controller
             'entity_id'=>$clinic->therapies[0]->id,
             'clinic_id'=>$clinic->id,
             'cost'=>$cost,
-            'quantity'=>$num_sessions
+            'quantity'=>$num_sessions,
+            'grade'=>$request->grade
+        ]);
+
+        return [
+            'status'=>'success',
+            'data'=>[
+                'order_id'=>$order->id
+            ]
+        ];
+    }
+
+    public function initiateTherapyBooking(Request $request){
+        $request->validate([
+            'therapy_id'=>'required|integer',
+            'booking_type'=>'required|in:instant,schedule',
+            'num_sessions'=>'required_if:booking_type,schedule|integer',
+            'grade'=>'required|integer|in:1,2,3,4',
+            'time'=>'required_if:booking_type,schedule|date_format:H:i',
+            'date'=>'required_if:booking_type,schedule|date_format:Y-m-d',
+        ]);
+
+        $therapy=Therapy::active()->find($request->therapy_id);
+
+        if(!$therapy)
+            return [
+                'status'=>'failed',
+                'message'=>'Invalid Operation Performed'
+            ];
+
+        //return $clinic;
+        $grade=$request->grade??1;
+        if($request->booking_type=='schedule'){
+            $num_sessions=$request->num_sessions??1;
+        }else{
+            $num_sessions=1;
+        }
+
+        switch($grade){
+            case 1:$cost=($therapy->grade1_price??0);
+                break;
+            case 2:$cost=($therapy->grade2_price??0);
+                break;
+            case 3:$cost=($therapy->grade3_price??0);
+                break;
+            case 4:$cost=($therapy->grade4_price??0);
+                break;
+        }
+
+        $refid=env('MACHINE_ID').time();
+
+        $order=Order::create([
+            'user_id'=>auth()->guard('customerapi')->user()->id,
+            'refid'=>$refid,
+            'status'=>'pending',
+            'total_cost'=>$cost*$num_sessions,
+            'booking_date'=>($request->booking_type=='schedule')?$request->date:null,
+            'booking_time'=>($request->booking_type=='schedule')?$request->time:null,
+            'is_instant'=>($request->booking_type=='instant')?true:false
+        ]);
+
+        OrderStatus::create([
+            'order_id'=>$order->id,
+            'current_status'=>$order->status
+        ]);
+        OrderDetail::create([
+            'order_id'=>$order->id,
+            'entity_type'=>'App\Models\Therapy',
+            'entity_id'=>$therapy->id,
+            'clinic_id'=>null,
+            'cost'=>$cost,
+            'quantity'=>$num_sessions,
+            'grade'=>$request->grade
         ]);
 
         return [
@@ -156,20 +229,24 @@ class OrderController extends Controller
 
         $itemdetails=[];
         foreach($order->details as $detail){
-            $itemdetails[]=[
-                'name'=>($detail->entity->name??'')." ( Grade $detail->grade )",
-                'small'=>$detail->quantity.' sesions at '.($detail->clinic->name??''),
-                'price'=>$detail->cost,
-                'quantity'=>$detail->quantity,
-                'image'=>$detail->entity->image??''
-            ];
+            if($detail->entity instanceof Therapy){
+                $itemdetails[]=[
+                    'name'=>($detail->entity->name??'')." ( Grade $detail->grade )",
+                    'small'=>$detail->quantity.(!empty($detail->clinic->name)?' sesions at '.$detail->clinic->name:' sessions'),
+                    'price'=>$detail->cost,
+                    'quantity'=>$detail->quantity,
+                    'image'=>$detail->entity->image??''
+                ];
+            }
+            else{
+                $itemdetails=[];
+            }
         }
-
 
         return [
             'status'=>'success',
             'data'=>[
-                'orderdetails'=>$order->only('total_cost','refid', 'status','payment_mode', 'name', 'mobile', 'email', 'address','booking_date', 'booking_time'),
+                'orderdetails'=>$order->only('total_cost','refid', 'status','payment_mode', 'name', 'mobile', 'email', 'address','booking_date', 'booking_time','is_instant'),
                 'itemdetails'=>$itemdetails,
                 'balance'=>Wallet::balance($user->id),
                 'points'=>Wallet::points($user->id)
@@ -177,9 +254,7 @@ class OrderController extends Controller
         ];
     }
 
-    public function initiateTherapyBooking(){
 
-    }
 
     public function initiateProductPurchase(){
 

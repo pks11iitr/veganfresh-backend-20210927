@@ -8,7 +8,7 @@ class Order extends Model
 {
     protected $table='orders';
 
-    protected $fillable=[ 'refid', 'total_cost', 'status', 'payment_mode', 'order_details_completed', 'booking_date', 'booking_time', 'user_id', 'name', 'email', 'mobile', 'address', 'lat', 'lang'];
+    protected $fillable=[ 'refid', 'total_cost', 'status', 'payment_mode', 'order_details_completed', 'booking_date', 'booking_time', 'user_id', 'name', 'email', 'mobile', 'address', 'lat', 'lang', 'is_instant'];
 
     public function details(){
         return $this->hasMany('App\Models\OrderDetail', 'order_id');
