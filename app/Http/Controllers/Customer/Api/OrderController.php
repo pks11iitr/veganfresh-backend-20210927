@@ -169,7 +169,7 @@ class OrderController extends Controller
         return [
             'status'=>'success',
             'data'=>[
-                'orderdetails'=>$order->only('total_cost','refid', 'status','payment_mode', 'name', 'mobile', 'email', 'address'),
+                'orderdetails'=>$order->only('total_cost','refid', 'status','payment_mode', 'name', 'mobile', 'email', 'address','booking_date', 'booking_time'),
                 'itemdetails'=>$itemdetails,
                 'balance'=>Wallet::balance($user->id),
                 'points'=>Wallet::points($user->id)
