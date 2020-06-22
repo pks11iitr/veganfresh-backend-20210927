@@ -145,7 +145,7 @@ class OrderController extends Controller
                 'status'=>'failed',
                 'message'=>'Please login to continue'
             ];
-        $order=Order::with('details.entity')->where('user_id', $user->id)->find($id);
+        $order=Order::with(['details.entity', 'details.clinic'])->where('user_id', $user->id)->find($id);
 
         if(!$order)
             return [
@@ -157,7 +157,8 @@ class OrderController extends Controller
         $itemdetails=[];
         foreach($order->details as $detail){
             $itemdetails[]=[
-                'name'=>$detail->entity->name??'',
+                'name'=>($detail->entity->name??'')." ( Grade $detail->grade )",
+                'small'=>$detail->quantity.' sesions at '.($detail->clinic->name??''),
                 'price'=>$detail->cost,
                 'quantity'=>$detail->quantity,
                 'image'=>$detail->entity->image??''
