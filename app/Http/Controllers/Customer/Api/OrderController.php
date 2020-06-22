@@ -154,11 +154,22 @@ class OrderController extends Controller
             ];
 
 
+        $itemdetails=[];
+        foreach($order->details as $detail){
+            $itemdetails[]=[
+                'name'=>$detail->entity->name??'',
+                'price'=>$detail->cost,
+                'quantity'=>$detail->quantity,
+                'image'=>$detail->entity->image??''
+            ];
+        }
+
+
         return [
             'status'=>'success',
             'data'=>[
                 'orderdetails'=>$order->only('total_cost','refid', 'status','payment_mode', 'name', 'mobile', 'email', 'address'),
-                'itemdetails'=>$order->details,
+                'itemdetails'=>$itemdetails,
                 'balance'=>Wallet::balance($user->id),
                 'points'=>Wallet::points($user->id)
             ]
