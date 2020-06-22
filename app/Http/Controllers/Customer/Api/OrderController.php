@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Customer\Api;
 
+use App\Models\Cart;
 use App\Models\Clinic;
 use App\Models\Order;
 use App\Models\OrderDetail;
@@ -176,6 +177,58 @@ class OrderController extends Controller
         ];
     }
 
+    public function initiateProductPurchase(Request $request){
+
+        $cartitems=Cart::where('user_id', auth()->guard('customerapi')->user()->id)
+            ->with(['product'])
+            ->whereHas('product', function($product){
+            $product->where('isactive', true);
+        })->get();
+
+        if(!$cartitems)
+            return [
+                'status'=>'failed',
+                'message'=>'Cart is empty'
+            ];
+
+        $refid=env('MACHINE_ID').time();
+        $total_cost=0;
+        foreach($cartitems as $item) {
+            $total_cost=$total_cost+$item->product->price??0;
+        }
+
+        $order=Order::create([
+            'user_id'=>auth()->guard('customerapi')->user()->id,
+            'refid'=>$refid,
+            'status'=>'pending',
+            'total_cost'=>$total_cost,
+        ]);
+
+        OrderStatus::create([
+            'order_id'=>$order->id,
+            'current_status'=>$order->status
+        ]);
+
+        foreach($cartitems as $item){
+            OrderDetail::create([
+                'order_id'=>$order->id,
+                'entity_type'=>'App\Models\Product',
+                'entity_id'=>$item->id,
+                'clinic_id'=>null,
+                'cost'=>$item->product->price??0,
+                'quantity'=>$item->quantity
+            ]);
+        }
+
+        return [
+            'status'=>'success',
+            'data'=>[
+                'order_id'=>$order->id
+            ]
+        ];
+
+    }
+
     public function addContactDetails(Request $request, $id){
 
         $request->validate([
@@ -239,7 +292,13 @@ class OrderController extends Controller
                 ];
             }
             else{
-                $itemdetails=[];
+                $itemdetails[]=[
+                    'name'=>$detail->entity->name??'',
+                    'small'=>$detail->entity->company??'',
+                    'price'=>$detail->cost,
+                    'quantity'=>$detail->quantity,
+                    'image'=>$detail->entity->image??''
+                ];
             }
         }
 
@@ -253,12 +312,5 @@ class OrderController extends Controller
             ]
         ];
     }
-
-
-
-    public function initiateProductPurchase(){
-
-    }
-
 
 }
