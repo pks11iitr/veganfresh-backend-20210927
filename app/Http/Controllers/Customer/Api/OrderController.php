@@ -73,7 +73,7 @@ class OrderController extends Controller
                 break;
         }
 
-        $refid=rand(1,9).date('y-m-d H:i:s');
+        $refid=env('MACHINE_ID').time();
         $order=Order::create([
             'user_id'=>auth()->guard('customerapi')->user()->id,
             'refid'=>$refid,
