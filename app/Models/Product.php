@@ -7,8 +7,11 @@ use Illuminate\Support\Facades\Storage;
 
 class Product extends Model
 {
+	protected $table='products';
+    protected $fillable=['name','description','company','price','cut_price','ratings','top_deal','best_seller','image','isactive'];
 
-    protected $table='products';
+    protected $hidden = ['created_at','deleted_at','updated_at'];
+
 
 
     public function getImageAttribute($value){

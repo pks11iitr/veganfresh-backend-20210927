@@ -9,6 +9,10 @@ class Clinic extends Model
 {
     protected $table = 'clinics';
 
+    protected $fillable=['name','description','address','city','state','contact','lat','lang','image','isactive'];
+
+    protected $hidden = ['created_at','deleted_at','updated_at'];
+    
     public function getImageAttribute($value){
         if($value)
             return Storage::url($value);
