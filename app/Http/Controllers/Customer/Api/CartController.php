@@ -28,7 +28,8 @@ class CartController extends Controller
                 'quantity'=>$item->quantity,
                 'price'=>$item->product->price??0,
                 'image'=>$item->product->image??null,
-                'company'=>$item->product->company??null
+                'company'=>$item->product->company??null,
+                'id'=>$item->product->id??0
             ];
         }
 
