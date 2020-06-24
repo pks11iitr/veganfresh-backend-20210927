@@ -25,7 +25,7 @@ class ClinicController extends Controller
 
     public function details(Request $request, $id){
         $clinic=Clinic::active()->with(['gallery', 'commentscount', 'avgreviews','therapies'=>function($therapies){
-            $therapies->where('therapies.isactive', true);
+            $therapies->where('therapies.isactive', true)->where('clinic_therapies.isactive', true);
         }])->where('id', $id)->first();
         if($clinic)
             return [
@@ -48,7 +48,7 @@ class ClinicController extends Controller
         $timings=[];
         $dates=[];
         $clinic=Clinic::active()->with(['therapies'=>function($therapies) use ($therapyid){
-            $therapies->where('therapies.id', $therapyid)->with(['commentscount', 'avgreviews','gallery']);
+            $therapies->where('therapies.isactive', true)->where('therapies.id', $therapyid)->where('clinic_therapies.isactive', true)->with(['commentscount', 'avgreviews','gallery']);
         }])->find($clinicid);
         if(!$clinic)
             return [
