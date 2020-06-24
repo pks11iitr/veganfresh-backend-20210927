@@ -60,13 +60,19 @@
                     <input type="text" name="ratings" class="form-control" id="exampleInputEmail3" placeholder="Enter rating">
                   </div>
                   <div class="form-group">
-                    <label for="exampleInputEmail1">Top Deal</label>
-                    <input type="text"name="top_deal" class="form-control" id="exampleInputEmail1" placeholder="Enter top deal">
-                  </div>
-                  <div class="form-group">
-                    <label for="exampleInputEmail1">Best Seller</label>
-                    <input type="text"name="best_seller" class="form-control" id="exampleInputEmail1" placeholder="Enter Best Seller">
-                  </div>
+                        <label>Top Deal</</label>
+                        <select class="form-control" name="top_deal" required>
+                           <option value="1">Yes</option>
+                           <option value="0">No</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Best Seller</label>
+                        <select class="form-control" name="best_seller" required>
+                           <option value="1">Yes</option>
+                           <option value="0">No</option>
+                        </select>
+                    </div>
                    <div class="form-group">
                         <label>Is Active</label>
                         <select class="form-control" name="isactive" required>

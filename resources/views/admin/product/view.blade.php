@@ -56,8 +56,16 @@
 					  <td>{{$product->price}}</td>
 					  <td>{{$product->cut_price}}</td>
 					  <td>{{$product->ratings}}</td>
-					  <td>{{$product->top_deal}}</td>
-					  <td>{{$product->best_seller}}</td>
+					   <td>
+                        @if($product->top_deal==1){{'Yes'}}
+                             @else{{'No'}}
+                             @endif
+                        </td>
+                         <td>
+                        @if($product->best_seller==1){{'Yes'}}
+                             @else{{'No'}}
+                             @endif
+                        </td>
                       <td><img src="{{$product->image}}" height="80px" width="80px"/></td>
                        <td>
                         @if($product->isactive==1){{'Yes'}}

@@ -41,8 +41,8 @@
                     <input type="text" name="name" class="form-control" id="exampleInputEmail1" placeholder="Enter Name" value="{{$customers->name}}">
                   </div>
                   <div class="form-group">
-                    <label for="exampleInputEmail1">Description</label>
-                    <input type="text" name="description" class="form-control" id="exampleInputEmail1" placeholder="Enter Description" value="{{$customers->description}}">
+                    <label for="exampleInputEmail1">DOB</label>
+                    <input type="text" name="dob" class="form-control" id="exampleInputEmail1" placeholder="Enter Description" value="{{$customers->dob}}">
                   </div>
                   <div class="form-group">
                     <label for="exampleInputEmail1">Address</label>
@@ -56,23 +56,13 @@
                     <label for="exampleInputEmail1">State</label>
                     <input type="text" name="state" class="form-control" id="exampleInputEmail1" placeholder="Enter State" value="{{$customers->state}}">
                   </div>
-                  <div class="form-group">
-                    <label for="exampleInputEmail1">Contact</label>
-                    <input type="text"name="contact" class="form-control" id="exampleInputEmail1" placeholder="Enter Contact" value="{{$customers->contact}}">
-                  </div>
-                  <div class="form-group">
-                    <label for="exampleInputEmail1">Lat</label>
-                    <input type="text"name="lat" class="form-control" id="exampleInputEmail1" placeholder="Enter Lat" value="{{$customers->lat}}">
-                  </div>
-                  <div class="form-group">
-                    <label for="exampleInputEmail1">Lang</label>
-                    <input type="text"name="lang" class="form-control" id="exampleInputEmail1" placeholder="Enter Lang" value="{{$customers->lang}}">
-                  </div>
+              
                     <div class="form-group">
                         <label>Is Active</label>
-                        <select class="form-control" name="isactive" required>
-                           <option  selected="selected" value="1" {{$customers->isactive==1?'selected':''}}>Yes</option>
-                            <option value="0" {{$customers->isactive==0?'selected':''}}>No</option>
+                        <select class="form-control" name="status" required>
+                           <option  selected="selected" value="1" {{$customers->status==1?'selected':''}}>Active</option>
+                            <option value="0" {{$customers->status==0?'selected':''}}>Inactive</option>
+                            <option value="2" {{$customers->status==2?'selected':''}}>Blocked</option>
                         </select>
                       </div>
                   <div class="form-group">

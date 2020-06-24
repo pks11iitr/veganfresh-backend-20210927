@@ -22,42 +22,34 @@ class CustomerController extends Controller
 
     public function update(Request $request,$id){
              $request->validate([
-                             'isactive'=>'required',
+                             'status'=>'required',
                   			'name'=>'required',
-                  			'description'=>'required',
+                  			'dob'=>'required',
                   			'address'=>'required',
                   			'city'=>'required',
-                  			'state'=>'required',
-                  			'contact'=>'required',
-                  			'lat'=>'required',
-                  			'lang'=>'required'
+                  			'state'=>'required'
                   			]);
                       
              $customers = Customer::findOrFail($id);
           if($request->image){                  
 			 $customers->update([
-                      'isactive'=>$request->isactive,
+                      'status'=>$request->status,
                       'name'=>$request->name,
-                      'description'=>$request->description,
+                      'dob'=>$request->dob,
                       'address'=>$request->address,
                       'city'=>$request->city,
                       'state'=>$request->state,
-                      'contact'=>$request->contact,
-                      'lat'=>$request->lat,
-                      'lang'=>$request->lang,
                       'image'=>'a']);
-             $customers->saveImage($request->image, 'clinics');
+             $customers->saveImage($request->image, 'customers');
         }else{
              $customers->update([
-                      'isactive'=>$request->isactive,
+                      'status'=>$request->status,
                       'name'=>$request->name,
-                      'description'=>$request->description,
+                      'dob'=>$request->dob,
                       'address'=>$request->address,
                       'city'=>$request->city,
-                      'state'=>$request->state,
-                      'contact'=>$request->contact,
-                      'lat'=>$request->lat,
-                      'lang'=>$request->lang ]);
+                      'state'=>$request->state
+                         ]);
              }
           if($customers)
              {
