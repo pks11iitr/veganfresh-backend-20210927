@@ -3,7 +3,8 @@
 namespace App\Http\Controllers\SuperAdmin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Therapist;
+use App\Models\Therapy;
+use App\Models\Document;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Storage;
@@ -11,7 +12,7 @@ use Storage;
 class TherapistController extends Controller
 {
      public function index(Request $request){
-            $therapist=Therapist::paginate(10);;
+            $therapist=Therapy::paginate(10);;
             return view('admin.therapy.view',['therapist'=>$therapist]);
               }
 
@@ -37,7 +38,7 @@ class TherapistController extends Controller
              // saveImage($path, 'banners');
             //  Storage::put($path, file_get_contents($file));
 
-          if($therapy=Therapist::create([
+          if($therapy=Therapy::create([
                       'isactive'=>$request->isactive,
                       'name'=>$request->name,
                       'description'=>$request->description,
@@ -54,8 +55,9 @@ class TherapistController extends Controller
           }
           
     public function edit(Request $request,$id){
-             $therapy = Therapist::findOrFail($id);
-             return view('admin.therapy.edit',['therapy'=>$therapy]);
+             $therapy = Therapy::findOrFail($id);
+             $documents = $therapy->gallery;
+             return view('admin.therapy.edit',['therapy'=>$therapy,'documents'=>$documents]);
              }
 
     public function update(Request $request,$id){
@@ -68,7 +70,7 @@ class TherapistController extends Controller
                   			'price3'=>'required',
                   			'price4'=>'required'
                                ]);
-             $therapy = Therapist::findOrFail($id);
+             $therapy = Therapy::findOrFail($id);
           if($request->image){                  
 			 $therapy->update([
                       'isactive'=>$request->isactive,
@@ -97,5 +99,21 @@ class TherapistController extends Controller
            return redirect()->back()->with('error', 'Therapy update failed');
 
       }
+      
+   public function document(Request $request, $id){
 
+                $therapy=Therapy::find($id);
+              foreach($request->file_path as $file){
+                $therapy->saveDocument($file, 'therapies');
+                  }
+             if($therapy)  {         
+                   return redirect()->route('therapy.list')->with('success', 'Therapy has been created');
+                     }
+                   return redirect()->back()->with('error', 'Therapy create failed');
+          }
+      
+     public function delete(Request $request, $id){
+           Document::where('id', $id)->delete();
+           return redirect()->back()->with('success', 'Document has been deleted');
+        }     
   }

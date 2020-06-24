@@ -60,14 +60,20 @@
                     <label for="exampleInputEmail1">Rating</label>
                     <input type="text" name="ratings" class="form-control" id="exampleInputEmail1" placeholder="Enter Rating" value="{{$products->ratings}}">
                   </div>
-                  <div class="form-group">
-                    <label for="exampleInputEmail1">Top Deal</label>
-                    <input type="text"name="top_deal" class="form-control" id="exampleInputEmail1" placeholder="Enter Top Deal" value="{{$products->top_deal}}">
-                  </div>
-                  <div class="form-group">
-                    <label for="exampleInputEmail1">Best Seller</label>
-                    <input type="text"name="best_seller" class="form-control" id="exampleInputEmail1" placeholder="Enter Seller" value="{{$products->best_seller}}">
-                  </div>
+                   <div class="form-group">
+                        <label>Top Deal</label>
+                        <select class="form-control" name="top_deal" required>
+                           <option  selected="selected" value="1" {{$products->isactive==1?'selected':''}}>Yes</option>
+                            <option value="0" {{$products->isactive==0?'selected':''}}>No</option>
+                        </select>
+                      </div>
+                       <div class="form-group">
+                        <label>Best Seller</label>
+                        <select class="form-control" name="best_seller" required>
+                           <option  selected="selected" value="1" {{$products->isactive==1?'selected':''}}>Yes</option>
+                            <option value="0" {{$products->isactive==0?'selected':''}}>No</option>
+                        </select>
+                      </div>
                     <div class="form-group">
                         <label>Is Active</label>
                         <select class="form-control" name="isactive" required>
@@ -106,6 +112,59 @@
       </div><!-- /.container-fluid -->
     </section>
     <!-- /.content -->
+     <!--*******************************************************************************************************************-->
+            <section class="content">
+            <div class="container-fluid">
+                <!-- SELECT2 EXAMPLE -->
+                <div class="card card-default">
+                    <div class="card-header">
+                        <h3 class="card-title">Add Document Images</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <form action="{{route('product.document',['id'=>$products->id])}}" method="post" enctype="multipart/form-data">
+                        @csrf  
+                            <div class="card-body">
+                            <!-- /.row -->
+                            <div class="row">
+                                <!-- /.col -->
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Header Image</label>
+                                        <input type="file" class="form-control" name="file_path[]" id="exampleInputEmail1" placeholder="Select image" multiple>
+                                        <br>
+                                    </div>
+                                    <!-- /.form-group -->
+                                 </div>
+                                <!-- /.col -->
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">.</label>
+                                        <button type="submit" class="btn btn-block btn-primary btn-sm">Add</button>
+                                    </div>
+                                    <!-- /.form-group -->
+                                </div>
+                                <!-- /.col -->
+                            </div>
+                            <div class="row">
+                                <!-- /.col -->
+                                @foreach($documents as $document) 
+                                 <div class="form-group">
+                                        <img src="{{$document->file_path}}" height="100" width="200"> &nbsp; &nbsp; <a href="{{route('product.delete',['id'=>$document->id])}}">X</a>
+                                        &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;          &nbsp; &nbsp; &nbsp; &nbsp;          
+                                  </div>
+                               @endforeach
+                                 <!-- /.form-group -->
+                                    <!-- /.form-group -->
+                                <!-- /.col -->
+                            </div>
+                            <!-- /.row -->
+                    </form>
+                </div>
+
+
+
+            </div>
+        </section>
   
 </div>
 <!-- ./wrapper -->

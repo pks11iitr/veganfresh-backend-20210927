@@ -4,6 +4,7 @@ namespace App\Http\Controllers\SuperAdmin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Clinic;
+use App\Models\Document;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Storage;
@@ -32,7 +33,7 @@ class ClinicController extends Controller
                   			'lang'=>'required',
                   			'image'=>'required|image'
                                ]);
-       //    var_dump($request->address); die;
+      
           if($clinic=Clinic::create([
                       'name'=>$request->name,
                       'description'=>$request->description,
@@ -53,7 +54,8 @@ class ClinicController extends Controller
           
     public function edit(Request $request,$id){
              $clinic = Clinic::findOrFail($id);
-             return view('admin.clinic.edit',['clinic'=>$clinic]);
+             $documents = $clinic->gallery;
+             return view('admin.clinic.edit',['clinic'=>$clinic,'documents'=>$documents]);
              }
 
     public function update(Request $request,$id){
@@ -102,5 +104,21 @@ class ClinicController extends Controller
            return redirect()->back()->with('error', 'Clinic update failed');
 
       }
+      public function document(Request $request, $id){
+
+                $clinic=Clinic::find($id);
+              foreach($request->file_path as $file){
+                $clinic->saveDocument($file, 'clinics');
+                  }
+             if($clinic)  {         
+                   return redirect()->route('clinic.list')->with('success', 'Clinic has been created');
+                     }
+                   return redirect()->back()->with('error', 'Therapy create failed');
+          }
+      
+     public function delete(Request $request, $id){
+           Document::where('id', $id)->delete();
+           return redirect()->back()->with('success', 'Document has been deleted');
+        }
 
   }

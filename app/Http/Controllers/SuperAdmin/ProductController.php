@@ -4,6 +4,7 @@ namespace App\Http\Controllers\SuperAdmin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Product;
+use App\Models\Document;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Storage;
@@ -52,7 +53,8 @@ class ProductController extends Controller
           
     public function edit(Request $request,$id){
              $products = Product::findOrFail($id);
-             return view('admin.product.edit',['products'=>$products]);
+             $documents = $products->gallery;
+             return view('admin.product.edit',['products'=>$products,'documents'=>$documents]);
              }
 
     public function update(Request $request,$id){
@@ -102,5 +104,22 @@ class ProductController extends Controller
            return redirect()->back()->with('error', 'Product update failed');
 
       }
+      
+      public function document(Request $request, $id){
+
+                $product=Product::find($id);
+              foreach($request->file_path as $file){
+                $product->saveDocument($file, 'products');
+                  }
+             if($product)  {         
+                   return redirect()->route('product.list')->with('success', 'Product has been created');
+                     }
+                   return redirect()->back()->with('error', 'Product create failed');
+          }
+      
+     public function delete(Request $request, $id){
+           Document::where('id', $id)->delete();
+           return redirect()->back()->with('success', 'Document has been deleted');
+        }  
 
   }

@@ -34,6 +34,8 @@ Route::group(['middle'=>['auth', 'acl'], 'is'=>'admin'], function(){
         Route::post('store','SuperAdmin\TherapistController@store')->name('therapy.store');
         Route::get('edit/{id}','SuperAdmin\TherapistController@edit')->name('therapy.edit');
         Route::post('update/{id}','SuperAdmin\TherapistController@update')->name('therapy.update');
+        Route::post('document/{id}','SuperAdmin\TherapistController@document')->name('therapy.document');
+        Route::get('delete/{id}','SuperAdmin\TherapistController@delete')->name('therapy.delete');
     });
   Route::group(['prefix'=>'clinic'], function(){
         Route::get('/','SuperAdmin\ClinicController@index')->name('clinic.list');
@@ -41,6 +43,8 @@ Route::group(['middle'=>['auth', 'acl'], 'is'=>'admin'], function(){
         Route::post('store','SuperAdmin\ClinicController@store')->name('clinic.store');
         Route::get('edit/{id}','SuperAdmin\ClinicController@edit')->name('clinic.edit');
         Route::post('update/{id}','SuperAdmin\ClinicController@update')->name('clinic.update');
+        Route::post('document/{id}','SuperAdmin\ClinicController@document')->name('clinic.document');
+        Route::get('delete/{id}','SuperAdmin\ClinicController@delete')->name('clinic.delete');
     });    
     Route::group(['prefix'=>'customer'], function(){
         Route::get('/','SuperAdmin\CustomerController@index')->name('customer.list');
@@ -53,6 +57,8 @@ Route::group(['middle'=>['auth', 'acl'], 'is'=>'admin'], function(){
         Route::post('store','SuperAdmin\ProductController@store')->name('product.store');
         Route::get('edit/{id}','SuperAdmin\ProductController@edit')->name('product.edit');
         Route::post('update/{id}','SuperAdmin\ProductController@update')->name('product.update');
+        Route::post('document/{id}','SuperAdmin\ProductController@document')->name('product.document');
+        Route::get('delete/{id}','SuperAdmin\ProductController@delete')->name('product.delete');
     });   
 });
 
