@@ -35,7 +35,7 @@
                   <thead>
                   <tr>
                     <th>Name</th>
-                    <th>Description</th>
+                    <!--<th>Description</th>-->
                     <th>Grade First</th>
                     <th>Grade Second</th>
                     <th>Grade Third</th>
@@ -49,7 +49,7 @@
 				@foreach($therapist as $therapy)  
                   <tr>
 					  <td>{{$therapy->name}}</td>
-					  <td>{{$therapy->description}}</td>
+					  <!--<td>{{$therapy->description}}</td>-->
 					  <td>{{$therapy->grade1_price}}</td>
 					  <td>{{$therapy->grade2_price}}</td>
 					  <td>{{$therapy->grade3_price}}</td>
@@ -60,7 +60,7 @@
                              @else{{'No'}}
                              @endif
                         </td>
-                      <td><a href="{{route('therapy.edit',['id'=>$therapy->id])}}" class="btn btn-success">Edit</a></br></br>
+                      <td><a href="{{route('therapy.edit',['id'=>$therapy->id])}}" class="btn btn-success">Edit</a></td>
                   <!--    <a href="{{route('banners.delete',['id'=>$therapy->id])}}" class="btn btn-success">Delete</a></td>-->
                  </tr>
                  @endforeach
@@ -68,7 +68,7 @@
                   <tfoot>
                   <tr>
                     <th>Name</th>
-                    <th>Description</th>
+                   <!-- <th>Description</th>-->
                     <th>Grade First</th>
                     <th>Grade Second</th>
                     <th>Grade Third</th>

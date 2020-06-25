@@ -41,11 +41,12 @@
                     <input type="text" name="name" class="form-control" id="exampleInputEmail1" placeholder="Enter Name" value="{{$therapy->name}}">
                   </div>
                   <div class="form-group">
-                    <label for="exampleInputEmail1">Description</label>
-                    <input type="text" name="description" class="form-control" id="exampleInputEmail1" placeholder="Enter Description" value="{{$therapy->description}}">
+                    <label for="exampleInputEmail1">Description</label><br>
+                    <textarea id="w3review" name="description" rows="4" cols="120">{{$therapy->description}} </textarea>
+                   <!-- <input type="text" name="description" class="form-control" id="exampleInputEmail1" placeholder="Enter Description" value="{{$therapy->description}}">-->
                   </div>
                   <div class="form-group">
-                    <label for="exampleInputEmail1">Grede First Price</label>
+                    <label for="exampleInputEmail1">Grede First Price</label> 
                     <input type="text" name="price1" class="form-control" id="exampleInputEmail1" placeholder="Enter price" value="{{$therapy->grade1_price}}">
                   </div>
                   <div class="form-group">

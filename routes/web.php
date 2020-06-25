@@ -45,6 +45,8 @@ Route::group(['middle'=>['auth', 'acl'], 'is'=>'admin'], function(){
         Route::post('update/{id}','SuperAdmin\ClinicController@update')->name('clinic.update');
         Route::post('document/{id}','SuperAdmin\ClinicController@document')->name('clinic.document');
         Route::get('delete/{id}','SuperAdmin\ClinicController@delete')->name('clinic.delete');
+        Route::post('therapystore/{id}','SuperAdmin\ClinicController@therapystore')->name('clinic.therapystore');
+        Route::get('therapyedelete/{id}','SuperAdmin\ClinicController@therapyedelete')->name('clinic.therapyedelete');
     });    
     Route::group(['prefix'=>'customer'], function(){
         Route::get('/','SuperAdmin\CustomerController@index')->name('customer.list');

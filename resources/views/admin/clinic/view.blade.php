@@ -18,7 +18,6 @@
         </div>
       </div><!-- /.container-fluid -->
     </section>
-
     <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
@@ -35,7 +34,7 @@
                   <thead>
                   <tr>
                     <th>Name</th>
-                    <th>Description</th>
+                    <!--<th>Description</th>-->
                     <th>Address</th>
                     <th>City</th>
                     <th>State</th>
@@ -50,7 +49,7 @@
 				@foreach($clinics as $clinic)  
                   <tr>
 					  <td>{{$clinic->name}}</td>
-					  <td>{{$clinic->description}}</td>
+					 <!-- <td>{{$clinic->description}}</td>-->
 					  <td>{{$clinic->address}}</td>
 					  <td>{{$clinic->city}}</td>
 					  <td>{{$clinic->state}}</td>
@@ -62,7 +61,7 @@
                              @else{{'No'}}
                              @endif
                         </td>
-                      <td><a href="{{route('clinic.edit',['id'=>$clinic->id])}}" class="btn btn-success">Edit</a></br></br>
+                      <td><a href="{{route('clinic.edit',['id'=>$clinic->id])}}" class="btn btn-success">Edit</a></td>
                  </tr>
                  @endforeach
                   </tbody>
