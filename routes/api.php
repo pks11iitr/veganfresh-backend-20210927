@@ -48,6 +48,10 @@ $api->post('initiate-order', ['as'=>'initiate.order', 'uses'=>'Customer\Api\Orde
 
 $api->get('order-details/{id}', ['as'=>'order.details', 'uses'=>'Customer\Api\OrderController@orderdetails']);
 
+$api->get('order-history', ['as'=>'order.history', 'uses'=>'Customer\Api\OrderController@index']);
+
+
+
 $api->post('update-contact/{id}', ['as'=>'order.contact.details', 'uses'=>'Customer\Api\OrderController@addContactDetails']);
 
 $api->post('update-cart', ['as'=>'cart.update', 'uses'=>'Customer\Api\CartController@updateCartItems']);

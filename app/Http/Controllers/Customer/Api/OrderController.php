@@ -14,6 +14,40 @@ use App\Http\Controllers\Controller;
 
 class OrderController extends Controller
 {
+    public function index(Request $request){
+        $user=auth()->guard('customerapi')->user();
+        if(!$user)
+            return [
+                'status'=>'failed',
+                'message'=>'Please login to continue'
+            ];
+        $orders=Order::with(['details.entity','details.clinic'])
+            ->where('status', '!=','pending')
+            ->where('user_id', $user->id)
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        $lists=[];
+
+        foreach($orders as $order) {
+            //echo $order->id.' ';
+            $total = count($order->details);
+            $lists[] = [
+                'id' => $order->id,
+                'title' => ($order->details[0]->entity->name ?? '') . ' ' . ($total > 1 ? 'and ' . ($total - 1) . ' more' : ''),
+                'booking_id' => $order->refid,
+                'datetime' => date('D d M,Y', strtotime($order->created_at)),
+                'total_price' => $order->total_cost,
+                'image' => $order->details[0]->entity->image ?? ''
+            ];
+        }
+        return [
+            'status'=>'success',
+            'data'=>$lists
+        ];
+
+    }
+
     public function initiateOrder(Request $request){
 
         $user=auth()->guard('customerapi')->user();
