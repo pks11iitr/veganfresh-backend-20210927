@@ -5,6 +5,8 @@ namespace App\Http\Controllers\SuperAdmin;
 use App\Http\Controllers\Controller;
 use App\Models\Clinic;
 use App\Models\Document;
+use App\Models\Therapy;
+use App\Models\ClinicTherapy;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Storage;
@@ -12,7 +14,7 @@ use Storage;
 class ClinicController extends Controller
 {
      public function index(Request $request){
-            $clinics=Clinic::paginate(10);;
+            $clinics=Clinic::paginate(10);
             return view('admin.clinic.view',['clinics'=>$clinics]);
               }
 
@@ -55,7 +57,9 @@ class ClinicController extends Controller
     public function edit(Request $request,$id){
              $clinic = Clinic::findOrFail($id);
              $documents = $clinic->gallery;
-             return view('admin.clinic.edit',['clinic'=>$clinic,'documents'=>$documents]);
+             $therapys=Therapy::where('isactive',1)->get();
+             $clinictherapys=ClinicTherapy::where('clinic_id',$id)->paginate(5);
+             return view('admin.clinic.edit',['clinic'=>$clinic,'documents'=>$documents,'therapys'=>$therapys,'clinictherapys'=>$clinictherapys]);
              }
 
     public function update(Request $request,$id){
@@ -120,5 +124,43 @@ class ClinicController extends Controller
            Document::where('id', $id)->delete();
            return redirect()->back()->with('success', 'Document has been deleted');
         }
+        
+     public function therapystore(Request $request,$id){
+               $request->validate([
+                  			'isactive'=>'required',
+                  			'therapy_id'=>'required',
+                  			'grade1_price'=>'required',
+                  			'grade2_price'=>'required',
+                  			'grade3_price'=>'required',
+                  			'grade4_price'=>'required',
+                  			'grade1_original_price'=>'required',
+                  			'grade2_original_price'=>'required',
+                  			'grade3_original_price'=>'required',
+                  			'grade4_original_price'=>'required'
+                               ]);
+      
+          if($clinictherapy=ClinicTherapy::create([
+                       'clinic_id'=>$id,
+                       'therapy_id'=>$request->therapy_id,
+                      'grade1_price'=>$request->grade1_price,
+                      'grade2_price'=>$request->grade2_price,
+                      'grade3_price'=>$request->grade3_price,
+                      'grade4_price'=>$request->grade4_price,
+                      'grade1_original_price'=>$request->grade1_original_price,
+                      'grade2_original_price'=>$request->grade2_original_price,
+                      'grade3_original_price'=>$request->grade3_original_price,
+                      'grade4_original_price'=>$request->grade4_original_price,
+                      'isactive'=>$request->isactive,
+                      ]))
+            {
+             return redirect()->route('clinic.list')->with('success', 'Clinic has been created');
+            }
+             return redirect()->back()->with('error', 'Clinic create failed');
+          } 
+          
+          public function therapyedelete(Request $request, $id){
+           ClinicTherapy::where('id', $id)->delete();
+           return redirect()->back()->with('success', 'Clinic Therapy has been deleted');
+        }       
 
   }
