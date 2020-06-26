@@ -69,6 +69,8 @@ class PaymentController extends Controller
 
         $result=$this->initiateGatewayPayment($order);
 
+        return $result;
+
     }
 
     private function initiateGatewayPayment($order){
@@ -82,7 +84,7 @@ class PaymentController extends Controller
             $order->order_id=$responsearr->id;
             $order->order_id_response=$response;
             $order->save();
-            return response()->json([
+            return [
                 'status'=>'success',
                 'message'=>'success',
                 'data'=>[
@@ -96,14 +98,14 @@ class PaymentController extends Controller
                     'currency'=>'INR',
                     'merchantid'=>$this->pay->merchantkey,
                 ],
-            ], 200);
+            ];
         }else{
-            return response()->json([
+            return [
                 'status'=>'failed',
                 'message'=>'Payment cannot be initiated',
                 'data'=>[
                 ],
-            ], 200);
+            ];
         }
     }
 
