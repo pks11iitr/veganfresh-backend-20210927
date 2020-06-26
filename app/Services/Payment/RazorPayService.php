@@ -8,14 +8,16 @@ use GuzzleHttp;
 class RazorPayService
 {
 
-    public $merchantkey='Dvd9xhIQc0l4L3';
-    public $api_key='rzp_test_zAvfify4pZWTAH';
-    protected $api_secret='R47Ub82h0pGfoMiyYZu1BKGc';
-//    protected $api_key='rzp_live_SChlKx3R6N9pbQ';
-//    protected $api_secret='qHjt9dFUSZGEAh3dTbxriGzg';
+    public $merchantkey='';
+    public $api_key='';
+    protected $api_secret='';
 
     public function __construct(GuzzleHttp\Client $client){
         $this->client=$client;
+        $this->api_key=env('RAZORPAY_KEY');
+        $this->api_secret=env('RAZORPAY_SECRET');
+        $this->merchantkey==env('RAZORPAY_MERCHANTID');
+
     }
 
 

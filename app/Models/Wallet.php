@@ -12,7 +12,7 @@ class Wallet extends Model
 
     protected $fillable=['refid','type','amount','description','iscomplete', 'order_id', 'order_id_response', 'payment_id', 'payment_id_response','user_id', 'amount_type'];
 
-    protected $hidden=['created_at', 'updated_at', 'deleted_at','iscomplete'];
+    protected $hidden=['created_at', 'updated_at', 'deleted_at','iscomplete', 'order_id_response', 'payment_id', 'payment_id_response', 'order_id'];
 
     protected $appends=['icon','date'];
 
@@ -64,9 +64,9 @@ class Wallet extends Model
 
     public function getIconAttribute($value){
         if($this->type=='Debit')
-            return asset('images/red.png');
+            return Storage::url('images/red.png');
         else
-            return asset('images/green.png');
+            return Storage::url('images/green.png');
 
     }
 

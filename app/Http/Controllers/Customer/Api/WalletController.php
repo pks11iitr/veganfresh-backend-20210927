@@ -15,16 +15,26 @@ class WalletController extends Controller
     }
 
     public function history(Request $request){
-        $user=auth()->user();
+        $user=auth()->guard('customerapi')->user();
+        if(!$user)
+            return [
+                'status'=>'failed',
+                'message'=>'Please login to continue'
+            ];
         if($user){
             $history=Wallet::where('user_id', $user->id)->where('iscomplete', true)->orderBy('id','desc')->get();
             $balance=Wallet::balance($user->id);
+            $points=Wallet::points($user->id);
         }else{
             $history=[];
             $balance=0;
+            $points=0;
         }
 
-        return compact('history','balance');
+        return [
+            'status'=>'success',
+            'data'=>compact('history','balance', 'points')
+        ];
     }
 
     public function addMoney(Request $request){
@@ -32,13 +42,18 @@ class WalletController extends Controller
             'amount'=>'required|integer|min:1'
         ]);
 
-        $user=auth()->user();
+        $user=auth()->guard('customerapi')->user();
+        if(!$user)
+            return [
+                'status'=>'failed',
+                'message'=>'Please login to continue'
+            ];
         if($user){
             //delete all incomplete attempts
             Wallet::where('user_id', $user->id)->where('iscomplete', false)->delete();
 
             //start new attempt
-            $wallet=Wallet::create(['refid'=>date('YmdHis'), 'type'=>'Credit', 'amount'=>$request->amount, 'description'=>'Wallet Recharge','user_id'=>$user->id]);
+            $wallet=Wallet::create(['refid'=>env('MACHINE_ID').time(), 'type'=>'Credit', 'amount_type'=>'CASH', 'amount'=>$request->amount, 'description'=>'Wallet Recharge','user_id'=>$user->id]);
 
             $response=$this->pay->generateorderid([
                 "amount"=>$wallet->amount*100,
@@ -78,7 +93,12 @@ class WalletController extends Controller
     }
 
     public function verifyRecharge(Request $request){
-        $user=auth()->user();
+        $user=auth()->guard('customerapi')->user();
+        if(!$user)
+            return [
+                'status'=>'failed',
+                'message'=>'Please login to continue'
+            ];
         $wallet=Wallet::where('order_id', $request->razorpay_order_id)->firstOrFail();
         $paymentresult=$this->pay->verifypayment($request->all());
         if($paymentresult){
@@ -86,7 +106,9 @@ class WalletController extends Controller
             $wallet->payment_id_response=$request->razorpay_signature;
             $wallet->iscomplete=true;
             $wallet->save();
-            event(new RechargeSuccess($wallet));
+
+            //event(new RechargeSuccess($wallet));
+
             return response()->json([
                 'status'=>'success',
                 'message'=>'Payment is successfull',
@@ -106,9 +128,17 @@ class WalletController extends Controller
     }
 
     public function getWalletBalance(Request $request){
-        $user=auth()->user();
+        $user=auth()->guard('customerapi')->user();
+        if(!$user)
+            return [
+                'status'=>'failed',
+                'message'=>'Please login to continue'
+            ];
         if($user){
-            return ['balance'=>Wallet::balance($user->id)];
+            return [
+                'balance'=>Wallet::balance($user->id),
+                'points'=>Wallet::points($user->id)
+            ];
         }
     }
 }

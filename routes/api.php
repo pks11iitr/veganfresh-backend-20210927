@@ -62,3 +62,10 @@ $api->get('cart-details', ['as'=>'cart.details', 'uses'=>'Customer\Api\CartContr
 $api->post('initiate-payment', ['as'=>'order.payment', 'uses'=>'Customer\Api\OrderController@orderdetails']);
 
 
+//wallet apis
+$api->get('wallet-balance', ['as'=>'wallet.balance', 'uses'=>'Customer\Api\WalletController@getWalletBalance']);
+$api->get('wallet-history', ['as'=>'wallet.history', 'uses'=>'Customer\Api\WalletController@history']);
+
+$api->post('recharge', ['as'=>'wallet.add.money', 'uses'=>'Customer\Api\WalletController@addMoney']);
+$api->post('verify-recharge', ['as'=>'wallet.add.money', 'uses'=>'Customer\Api\WalletController@verifyRecharge']);
+
