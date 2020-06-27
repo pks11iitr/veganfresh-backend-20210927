@@ -333,7 +333,9 @@ class OrderController extends Controller
                     'small'=>$detail->entity->company??'',
                     'price'=>$detail->cost,
                     'quantity'=>$detail->quantity,
-                    'image'=>$detail->entity->image??''
+                    'image'=>$detail->entity->image??'',
+                    'booking_date'=>$order->booking_date,
+                    'booking_time'=>$order->booking_time
                 ];
             }
         }
