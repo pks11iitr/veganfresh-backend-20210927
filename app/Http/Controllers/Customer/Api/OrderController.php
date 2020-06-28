@@ -7,6 +7,7 @@ use App\Models\Clinic;
 use App\Models\Order;
 use App\Models\OrderDetail;
 use App\Models\OrderStatus;
+use App\Models\Product;
 use App\Models\Therapy;
 use App\Models\Wallet;
 use Illuminate\Http\Request;
@@ -349,6 +350,118 @@ class OrderController extends Controller
                 'points'=>Wallet::points($user->id)
             ]
         ];
+    }
+
+    public function resheduleOrder(Request $request, $id){
+
+        $request->validate([
+            'time'=>'required|date_format:H:i',
+            'date'=>'required|date_format:Y-m-d',
+        ]);
+
+        $therapy_reschedule_status=[
+            'confirmed'
+        ];
+
+        $user=auth()->guard('customerapi')->user();
+        if(!$user)
+            return [
+                'status'=>'failed',
+                'message'=>'Please login to continue'
+            ];
+
+        $order=Order::with(['details.entity', 'details.clinic'])->where('user_id', $user->id)->where('status', 'pending')->find($id);
+
+        if(!$order)
+            return [
+                'status'=>'failed',
+                'message'=>'Invalid Operation Performed'
+            ];
+
+        if(!in_array($order->status, $therapy_reschedule_status)){
+            return [
+                'status'=>'failed',
+                'message'=>'Order cannot be cancelled now'
+            ];
+        }
+
+        if($order->details[0]->entity instanceof Therapy){
+            $order->booking_date=$request->date;
+            $order->booking_time=$request->time;
+            $order->save();
+            return [
+                'status'=>'success',
+                'message'=>'Your booking has been rescheduled'
+            ];
+        }
+
+    }
+
+    public function cancelOrder(Request $request, $id){
+        $user=auth()->guard('customerapi')->user();
+        if(!$user)
+            return [
+                'status'=>'failed',
+                'message'=>'Please login to continue'
+            ];
+
+        $order=Order::with(['details.entity', 'details.clinic'])->where('user_id', $user->id)->where('status', 'pending')->find($id);
+
+        if(!$order)
+            return [
+                'status'=>'failed',
+                'message'=>'Invalid Operation Performed'
+            ];
+
+        if($order->details[0]->entity instanceof Product)
+            return $this->cancelProductsBooking($order);
+        if($order->details[0]->entity instanceof Therapy)
+            return $this->cancelTherapyBooking($order);
+
+    }
+
+
+    public function cancelProductBooking($order){
+
+        $product_cancellation_status=[
+            'confirmed'
+        ];
+
+        if(in_array($order->status, $product_cancellation_status)){
+            $order->status='cancelled';
+            $order->save();
+            return [
+                'status'=>'success',
+                'message'=>'Order has been cancelled. Refund process will be initiated shortly'
+            ];
+        }else{
+            return [
+                'status'=>'failed',
+                'message'=>'Order cannot be cancelled now'
+            ];
+        }
+    }
+
+
+    private function cancelTherapyBooking($order){
+        $therapy_cancellation_status=[
+            'confirmed'
+        ];
+
+        if(in_array($order->status, $therapy_cancellation_status)){
+            return [
+                'status'=>'failed',
+                'message'=>'Order cannot be cancelled now'
+            ];
+        }
+
+        $order->status='cancelled';
+        $order->save();
+        return [
+            'status'=>'success',
+            'message'=>'Your booking has been cancelled. Refund process will be initiated shortly'
+        ];
+
     }
 
 }

@@ -50,6 +50,10 @@ $api->get('order-details/{id}', ['as'=>'order.details', 'uses'=>'Customer\Api\Or
 
 $api->get('order-history', ['as'=>'order.history', 'uses'=>'Customer\Api\OrderController@index']);
 
+$api->get('cancel-order', ['as'=>'order.cancel', 'uses'=>'Customer\Api\OrderController@cancelOrder']);
+
+$api->get('reschedule-order', ['as'=>'order.reschedule', 'uses'=>'Customer\Api\OrderController@resheduleOrder']);
+
 
 
 $api->post('update-contact/{id}', ['as'=>'order.contact.details', 'uses'=>'Customer\Api\OrderController@addContactDetails']);
@@ -59,7 +63,7 @@ $api->get('cart-details', ['as'=>'cart.details', 'uses'=>'Customer\Api\CartContr
 
 
 //payment apis
-$api->post('initiate-payment', ['as'=>'order.payment', 'uses'=>'Customer\Api\OrderController@orderdetails']);
+$api->post('initiate-payment/{id}', ['as'=>'order.payment', 'uses'=>'Customer\Api\PaymentController@initiatePayment']);
 
 
 //wallet apis
