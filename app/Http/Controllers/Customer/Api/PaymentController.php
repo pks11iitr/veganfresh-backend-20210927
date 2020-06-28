@@ -52,7 +52,8 @@ class PaymentController extends Controller
                     'message'=>'Congratulations! Your order at Arogyapeeth is successful',
                     'data'=>[
                         'payment_done'=>'yes',
-                        'ref_id'=>$order->refid
+                        'ref_id'=>$order->refid,
+                        'order_id'=>$order->id
                     ]
                 ];
             }
@@ -66,7 +67,8 @@ class PaymentController extends Controller
                     'message'=>'Congratulations! Your order at Arogyapeeth is successful',
                     'data'=>[
                         'payment_done'=>'yes',
-                        'ref_id'=>$order->refid
+                        'ref_id'=>$order->refid,
+                        'order_id'=>$order->id
                     ]
                 ];
             }
