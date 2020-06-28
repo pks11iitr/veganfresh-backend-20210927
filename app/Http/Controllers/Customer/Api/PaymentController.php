@@ -196,7 +196,7 @@ class PaymentController extends Controller
     public function verifyPayment(Request $request){
         $order=Order::where('order_id', $request->razorpay_order_id)->first();
 
-        if(!$order || $order->status=='pending')
+        if(!$order || $order->status!='pending')
             return [
                 'status'=>'failed',
                 'message'=>'Invalid Operation Performed'
