@@ -8,11 +8,17 @@ use App\Models\Order;
 use App\Models\OrderStatus;
 use App\Models\Therapy;
 use App\Models\Wallet;
+use App\Services\Payment\RazorPayService;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class PaymentController extends Controller
 {
+    public function __construct(RazorPayService $pay)
+    {
+        $this->pay=$pay;
+    }
+
     public function initiatePayment(Request $request, $id){
         $user=auth()->guard('customerapi')->user();
         if(!$user)
