@@ -81,11 +81,12 @@ class PaymentController extends Controller
 
     private function initiateGatewayPayment($order){
         $response=$this->pay->generateorderid([
-            "amount"=>($order->total-$order->balance_used)*100,
+            "amount"=>($order->total_cost-$order->balance_used)*100,
             "currency"=>"INR",
             "receipt"=>$order->refid,
         ]);
         $responsearr=json_decode($response);
+        //var_dump($responsearr);die;
         if(isset($responsearr->id)){
             $order->order_id=$responsearr->id;
             $order->order_id_response=$response;
@@ -238,7 +239,8 @@ class PaymentController extends Controller
                 'status'=>'success',
                 'message'=> 'Congratulations! Your order at Arogyapeeth is successful',
                 'data'=>[
-                    'ref_id'=>$order->refid
+                    'ref_id'=>$order->refid,
+                    'order_id'=>$order->id
                 ]
             ];
         }else{

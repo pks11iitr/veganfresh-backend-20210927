@@ -64,6 +64,7 @@ $api->get('cart-details', ['as'=>'cart.details', 'uses'=>'Customer\Api\CartContr
 
 //payment apis
 $api->post('initiate-payment/{id}', ['as'=>'order.payment', 'uses'=>'Customer\Api\PaymentController@initiatePayment']);
+$api->post('verify-payment', ['as'=>'order.payment.verify', 'uses'=>'Customer\Api\PaymentController@verifyPayment']);
 
 
 //wallet apis
