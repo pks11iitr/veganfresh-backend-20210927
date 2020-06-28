@@ -50,9 +50,9 @@ $api->get('order-details/{id}', ['as'=>'order.details', 'uses'=>'Customer\Api\Or
 
 $api->get('order-history', ['as'=>'order.history', 'uses'=>'Customer\Api\OrderController@index']);
 
-$api->get('cancel-order', ['as'=>'order.cancel', 'uses'=>'Customer\Api\OrderController@cancelOrder']);
+$api->get('cancel-order/{id}', ['as'=>'order.cancel', 'uses'=>'Customer\Api\OrderController@cancelOrder']);
 
-$api->get('reschedule-order', ['as'=>'order.reschedule', 'uses'=>'Customer\Api\OrderController@resheduleOrder']);
+$api->post('reschedule-order/{id}', ['as'=>'order.reschedule', 'uses'=>'Customer\Api\OrderController@rescheduleOrder']);
 
 
 

@@ -341,18 +341,27 @@ class OrderController extends Controller
             }
         }
 
+        // options to be displayed
+        if($order->status=='confirmed'){
+            $show_cancel=1;
+            if($order->details[0]->entity instanceof Therapy  && $order->details[0]->is_instant!=1)
+                $show_reschedule=1;
+        }
+
         return [
             'status'=>'success',
             'data'=>[
                 'orderdetails'=>$order->only('total_cost','refid', 'status','payment_mode', 'name', 'mobile', 'email', 'address','booking_date', 'booking_time','is_instant'),
                 'itemdetails'=>$itemdetails,
                 'balance'=>Wallet::balance($user->id),
-                'points'=>Wallet::points($user->id)
+                'points'=>Wallet::points($user->id),
+                'show_cancel'=>$show_cancel??0,
+                'show_reschedule'=>$show_reschedule??0
             ]
         ];
     }
 
-    public function resheduleOrder(Request $request, $id){
+    public function rescheduleOrder(Request $request, $id){
 
         $request->validate([
             'time'=>'required|date_format:H:i',
@@ -360,7 +369,7 @@ class OrderController extends Controller
         ]);
 
         $therapy_reschedule_status=[
-            'confirmed'
+            'confirmed', 'in-process'
         ];
 
         $user=auth()->guard('customerapi')->user();
@@ -370,7 +379,7 @@ class OrderController extends Controller
                 'message'=>'Please login to continue'
             ];
 
-        $order=Order::with(['details.entity', 'details.clinic'])->where('user_id', $user->id)->where('status', 'pending')->find($id);
+        $order=Order::with(['details.entity', 'details.clinic'])->where('user_id', $user->id)->find($id);
 
         if(!$order)
             return [
@@ -381,17 +390,22 @@ class OrderController extends Controller
         if(!in_array($order->status, $therapy_reschedule_status)){
             return [
                 'status'=>'failed',
-                'message'=>'Order cannot be cancelled now'
+                'message'=>'Order cannot be rescheduled now'
             ];
         }
 
-        if($order->details[0]->entity instanceof Therapy){
+        if($order->details[0]->entity instanceof Therapy && $order->details[0]->is_instant != 1){
             $order->booking_date=$request->date;
             $order->booking_time=$request->time;
             $order->save();
             return [
                 'status'=>'success',
                 'message'=>'Your booking has been rescheduled'
+            ];
+        }else{
+            return [
+                'status'=>'failed',
+                'message'=>'Invalid operation performed'
             ];
         }
 
@@ -405,7 +419,7 @@ class OrderController extends Controller
                 'message'=>'Please login to continue'
             ];
 
-        $order=Order::with(['details.entity', 'details.clinic'])->where('user_id', $user->id)->where('status', 'pending')->find($id);
+        $order=Order::with(['details.entity', 'details.clinic'])->where('user_id', $user->id)->find($id);
 
         if(!$order)
             return [
@@ -427,19 +441,20 @@ class OrderController extends Controller
             'confirmed'
         ];
 
-        if(in_array($order->status, $product_cancellation_status)){
-            $order->status='cancelled';
-            $order->save();
-            return [
-                'status'=>'success',
-                'message'=>'Order has been cancelled. Refund process will be initiated shortly'
-            ];
-        }else{
+        if(!in_array($order->status, $product_cancellation_status)){
             return [
                 'status'=>'failed',
                 'message'=>'Order cannot be cancelled now'
             ];
         }
+
+        $order->status='cancelled';
+        $order->save();
+        return [
+            'status'=>'success',
+            'message'=>'Order has been cancelled. Refund process will be initiated shortly'
+        ];
+
     }
 
 
@@ -448,7 +463,7 @@ class OrderController extends Controller
             'confirmed'
         ];
 
-        if(in_array($order->status, $therapy_cancellation_status)){
+        if(!in_array($order->status, $therapy_cancellation_status)){
             return [
                 'status'=>'failed',
                 'message'=>'Order cannot be cancelled now'
