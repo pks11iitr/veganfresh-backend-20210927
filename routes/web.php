@@ -19,7 +19,7 @@ Auth::routes();
 
 Route::group(['middle'=>['auth', 'acl'], 'is'=>'admin'], function(){
     Route::get('/home', 'SuperAdmin\HomeController@index')->name('home');
-    
+
    Route::group(['prefix'=>'banners'], function(){
         Route::get('/','SuperAdmin\BannerController@index')->name('banners.list');
         Route::get('create','SuperAdmin\BannerController@create')->name('banners.create');
@@ -46,13 +46,14 @@ Route::group(['middle'=>['auth', 'acl'], 'is'=>'admin'], function(){
         Route::post('document/{id}','SuperAdmin\ClinicController@document')->name('clinic.document');
         Route::get('delete/{id}','SuperAdmin\ClinicController@delete')->name('clinic.delete');
         Route::post('therapystore/{id}','SuperAdmin\ClinicController@therapystore')->name('clinic.therapystore');
-        Route::get('therapyedelete/{id}','SuperAdmin\ClinicController@therapyedelete')->name('clinic.therapyedelete');
-    });    
+        Route::get('therapyeedit/{id}','SuperAdmin\ClinicController@therapyedit')->name('clinic.therapyedit');
+        Route::post('therapyeedit/{id}','SuperAdmin\ClinicController@therapyupdate');
+    });
     Route::group(['prefix'=>'customer'], function(){
         Route::get('/','SuperAdmin\CustomerController@index')->name('customer.list');
         Route::get('edit/{id}','SuperAdmin\CustomerController@edit')->name('customer.edit');
         Route::post('update/{id}','SuperAdmin\CustomerController@update')->name('customer.update');
-    }); 
+    });
    Route::group(['prefix'=>'product'], function(){
         Route::get('/','SuperAdmin\ProductController@index')->name('product.list');
         Route::get('create','SuperAdmin\ProductController@create')->name('product.create');
@@ -61,6 +62,6 @@ Route::group(['middle'=>['auth', 'acl'], 'is'=>'admin'], function(){
         Route::post('update/{id}','SuperAdmin\ProductController@update')->name('product.update');
         Route::post('document/{id}','SuperAdmin\ProductController@document')->name('product.document');
         Route::get('delete/{id}','SuperAdmin\ProductController@delete')->name('product.delete');
-    });   
+    });
 });
 

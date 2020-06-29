@@ -46,11 +46,11 @@ class ProductController extends Controller
                       'image'=>'a']))
             {
 				$products->saveImage($request->image, 'products');
-             return redirect()->route('product.list')->with('success', 'Product has been created');
+             return redirect()->route('product.edit', ['id'=>$products->id])->with('success', 'Product has been created');
             }
              return redirect()->back()->with('error', 'Product create failed');
           }
-          
+
     public function edit(Request $request,$id){
              $products = Product::findOrFail($id);
              $documents = $products->gallery;
@@ -69,9 +69,9 @@ class ProductController extends Controller
                   			'top_deal'=>'required',
                   			'best_seller'=>'required'
                                ]);
-                      
+
              $product = Product::findOrFail($id);
-          if($request->image){                  
+          if($request->image){
 			 $product->update([
                       'name'=>$request->name,
                       'description'=>$request->description,
@@ -99,27 +99,27 @@ class ProductController extends Controller
              }
           if($product)
              {
-           return redirect()->route('product.list')->with('success', 'Product has been updated');
+           return redirect()->back()->with('success', 'Product has been updated');
               }
            return redirect()->back()->with('error', 'Product update failed');
 
       }
-      
+
       public function document(Request $request, $id){
 
                 $product=Product::find($id);
               foreach($request->file_path as $file){
                 $product->saveDocument($file, 'products');
                   }
-             if($product)  {         
-                   return redirect()->route('product.list')->with('success', 'Product has been created');
+             if($product)  {
+                   return redirect()->back()->with('success', 'Product has been created');
                      }
                    return redirect()->back()->with('error', 'Product create failed');
           }
-      
+
      public function delete(Request $request, $id){
            Document::where('id', $id)->delete();
            return redirect()->back()->with('success', 'Document has been deleted');
-        }  
+        }
 
   }

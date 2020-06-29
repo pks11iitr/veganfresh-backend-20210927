@@ -31,11 +31,11 @@ class ClinicController extends Controller
                   			'city'=>'required',
                   			'state'=>'required',
                   			'contact'=>'required',
-                  			'lat'=>'required',
-                  			'lang'=>'required',
+                  			//'lat'=>'required',
+                  			//'lang'=>'required',
                   			'image'=>'required|image'
                                ]);
-      
+
           if($clinic=Clinic::create([
                       'name'=>$request->name,
                       'description'=>$request->description,
@@ -49,11 +49,11 @@ class ClinicController extends Controller
                       'image'=>'a']))
             {
 				$clinic->saveImage($request->image, 'clinics');
-             return redirect()->route('clinic.list')->with('success', 'Clinic has been created');
+             return redirect()->route('clinic.edit', ['id'=>$clinic->id])->with('success', 'Clinic has been created');
             }
              return redirect()->back()->with('error', 'Clinic create failed');
           }
-          
+
     public function edit(Request $request,$id){
              $clinic = Clinic::findOrFail($id);
              $documents = $clinic->gallery;
@@ -71,12 +71,12 @@ class ClinicController extends Controller
                   			'city'=>'required',
                   			'state'=>'required',
                   			'contact'=>'required',
-                  			'lat'=>'required',
-                  			'lang'=>'required'
+                  			//'lat'=>'required',
+                  			//'lang'=>'required'
                   			]);
-                      
+
              $clinic = Clinic::findOrFail($id);
-          if($request->image){                  
+          if($request->image){
 			 $clinic->update([
                       'isactive'=>$request->isactive,
                       'name'=>$request->name,
@@ -85,8 +85,8 @@ class ClinicController extends Controller
                       'city'=>$request->city,
                       'state'=>$request->state,
                       'contact'=>$request->contact,
-                      'lat'=>$request->lat,
-                      'lang'=>$request->lang,
+                      //'lat'=>$request->lat,
+                      //'lang'=>$request->lang,
                       'image'=>'a']);
              $clinic->saveImage($request->image, 'clinics');
         }else{
@@ -98,12 +98,13 @@ class ClinicController extends Controller
                       'city'=>$request->city,
                       'state'=>$request->state,
                       'contact'=>$request->contact,
-                      'lat'=>$request->lat,
-                      'lang'=>$request->lang ]);
+                      //'lat'=>$request->lat,
+                      //'lang'=>$request->lang
+             ]);
              }
           if($clinic)
              {
-           return redirect()->route('clinic.list')->with('success', 'Clinic has been updated');
+           return redirect()->back()->with('success', 'Clinic has been updated');
               }
            return redirect()->back()->with('error', 'Clinic update failed');
 
@@ -114,17 +115,17 @@ class ClinicController extends Controller
               foreach($request->file_path as $file){
                 $clinic->saveDocument($file, 'clinics');
                   }
-             if($clinic)  {         
-                   return redirect()->route('clinic.list')->with('success', 'Clinic has been created');
+             if($clinic)  {
+                   return redirect()->back()->with('success', 'Images ahve been uploaded');
                      }
-                   return redirect()->back()->with('error', 'Therapy create failed');
+                   return redirect()->back()->with('error', 'Clinic create failed');
           }
-      
+
      public function delete(Request $request, $id){
            Document::where('id', $id)->delete();
            return redirect()->back()->with('success', 'Document has been deleted');
         }
-        
+
      public function therapystore(Request $request,$id){
                $request->validate([
                   			'isactive'=>'required',
@@ -138,7 +139,7 @@ class ClinicController extends Controller
                   			'grade3_original_price'=>'required',
                   			'grade4_original_price'=>'required'
                                ]);
-      
+
           if($clinictherapy=ClinicTherapy::create([
                        'clinic_id'=>$id,
                        'therapy_id'=>$request->therapy_id,
@@ -153,14 +154,55 @@ class ClinicController extends Controller
                       'isactive'=>$request->isactive,
                       ]))
             {
-             return redirect()->route('clinic.list')->with('success', 'Clinic has been created');
+             return redirect()->back()->with('success', 'Therapy has been added');
             }
              return redirect()->back()->with('error', 'Clinic create failed');
-          } 
-          
+          }
+
+   public function therapyedit(Request $request,$id){
+         $therapy = ClinicTherapy::with(['clinic', 'therapy'])->find($id);
+
+         return view('admin.clinic.clinic-therapy', compact('therapy'));
+   }
+
+    public function therapyupdate(Request $request,$id){
+        $request->validate([
+            'isactive'=>'required',
+            //'therapy_id'=>'required',
+            'grade1_price'=>'required',
+            'grade2_price'=>'required',
+            'grade3_price'=>'required',
+            'grade4_price'=>'required',
+            'grade1_original_price'=>'required',
+            'grade2_original_price'=>'required',
+            'grade3_original_price'=>'required',
+            'grade4_original_price'=>'required'
+        ]);
+
+        $therapy=ClinicTherapy::find($id);
+
+        if($clinictherapy=$therapy->update([
+            //'clinic_id'=>$id,
+            //'therapy_id'=>$request->therapy_id,
+            'grade1_price'=>$request->grade1_price,
+            'grade2_price'=>$request->grade2_price,
+            'grade3_price'=>$request->grade3_price,
+            'grade4_price'=>$request->grade4_price,
+            'grade1_original_price'=>$request->grade1_original_price,
+            'grade2_original_price'=>$request->grade2_original_price,
+            'grade3_original_price'=>$request->grade3_original_price,
+            'grade4_original_price'=>$request->grade4_original_price,
+            'isactive'=>$request->isactive,
+        ]))
+        {
+            return redirect()->back()->with('success', 'Therapy has been added');
+        }
+        return redirect()->back()->with('error', 'Clinic create failed');
+    }
+
           public function therapyedelete(Request $request, $id){
            ClinicTherapy::where('id', $id)->delete();
            return redirect()->back()->with('success', 'Clinic Therapy has been deleted');
-        }       
+        }
 
   }

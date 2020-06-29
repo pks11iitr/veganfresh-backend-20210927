@@ -18,8 +18,8 @@
         </div>
       </div><!-- /.container-fluid -->
     </section>
-    
-    
+
+
     <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
@@ -61,14 +61,14 @@
                     <label for="exampleInputEmail1">Contact</label>
                     <input type="text"name="contact" class="form-control" id="exampleInputEmail1" placeholder="Enter Contact" value="{{$clinic->contact}}">
                   </div>
-                  <div class="form-group">
-                    <label for="exampleInputEmail1">Lat</label>
-                    <input type="text"name="lat" class="form-control" id="exampleInputEmail1" placeholder="Enter Lat" value="{{$clinic->lat}}">
-                  </div>
-                  <div class="form-group">
-                    <label for="exampleInputEmail1">Lang</label>
-                    <input type="text"name="lang" class="form-control" id="exampleInputEmail1" placeholder="Enter Lang" value="{{$clinic->lang}}">
-                  </div>
+{{--                  <div class="form-group">--}}
+{{--                    <label for="exampleInputEmail1">Lat</label>--}}
+{{--                    <input type="text"name="lat" class="form-control" id="exampleInputEmail1" placeholder="Enter Lat" value="{{$clinic->lat}}">--}}
+{{--                  </div>--}}
+{{--                  <div class="form-group">--}}
+{{--                    <label for="exampleInputEmail1">Lang</label>--}}
+{{--                    <input type="text"name="lang" class="form-control" id="exampleInputEmail1" placeholder="Enter Lang" value="{{$clinic->lang}}">--}}
+{{--                  </div>--}}
                     <div class="form-group">
                         <label>Is Active</label>
                         <select class="form-control" name="isactive" required>
@@ -82,13 +82,13 @@
                       <div class="custom-file">
                         <input type="file" name="image" class="custom-file-input" id="exampleInputFile" accept="image/*">
                         <label class="custom-file-label" for="exampleInputFile">Choose file</label>
-                         
+
                       </div>
                       <div class="input-group-append">
                         <span class="input-group-text" id="">Upload</span>
-                        
+
                       </div>
-                    
+
                     </div>
                   </div>
                   <image src="{{$clinic->image}}" height="100" width="200">
@@ -113,11 +113,11 @@
                 <!-- SELECT2 EXAMPLE -->
                 <div class="card card-default">
                     <div class="card-header">
-                        <h3 class="card-title">Add Document Images</h3>
+                        <h3 class="card-title">Add Images</h3>
                     </div>
                     <!-- /.card-header -->
                     <form action="{{route('clinic.document',['id'=>$clinic->id])}}" method="post" enctype="multipart/form-data">
-                        @csrf  
+                        @csrf
                             <div class="card-body">
                             <!-- /.row -->
                             <div class="row">
@@ -142,10 +142,10 @@
                             </div>
                             <div class="row">
                                 <!-- /.col -->
-                                @foreach($documents as $document) 
+                                @foreach($documents as $document)
                                  <div class="form-group">
                                         <img src="{{$document->file_path}}" height="100" width="200"> &nbsp; &nbsp; <a href="{{route('clinic.delete',['id'=>$document->id])}}">X</a>
-                                        &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;          &nbsp; &nbsp; &nbsp; &nbsp;          
+                                        &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;          &nbsp; &nbsp; &nbsp; &nbsp;
                                   </div>
                                @endforeach
                                  <!-- /.form-group -->
@@ -160,7 +160,75 @@
 
             </div>
         </section>
-  <!--**********************************************************************************************************************-->      
+  <!--**********************************************************************************************************************-->
+
+      <section class="content">
+          <div class="container-fluid">
+              <div class="row">
+                  <div class="col-12">
+                      <div class="card">
+                          <div class="card-header">
+                              Therapies Provided By {{$clinic->name}}
+
+                          </div>
+                          <!-- /.card-header -->
+                          <div class="card-body">
+                              <table id="example2" class="table table-bordered table-hover">
+                                  <thead>
+                                  <tr>
+                                      <th>Threapy Name</th>
+                                      <th>Grade 1</th>
+                                      <th>Grade 2</th>
+                                      <th>Grade 3</th>
+                                      <th>Grade 4</th>
+                                      <th>Isactive</th>
+                                      <th>Action</th>
+                                  </tr>
+                                  </thead>
+                                  <tbody>
+                                  @foreach($clinictherapys as $clinictherapy)
+                                      <tr>
+                                          <td>{{$clinictherapy->therapy->name}}</td>
+                                          <td>{{'Price: '.$clinictherapy->grade1_price}} @if(!empty($clinictherapy->grade1_original_price))<br> {{'Old Price: '.$clinictherapy->grade1_original_price}}@endif </td>
+                                          <td>{{'Price: '.$clinictherapy->grade2_price}} @if(!empty($clinictherapy->grade2_original_price))<br> {{'Old Price: '.$clinictherapy->grade2_original_price}}@endif </td>
+                                          <td>{{'Price: '.$clinictherapy->grade3_price}} @if(!empty($clinictherapy->grade3_original_price))<br> {{'Old Price: '.$clinictherapy->grade3_original_price}}@endif </td>
+                                          <td>{{'Price: '.$clinictherapy->grade4_price}} @if(!empty($clinictherapy->grade4_original_price))<br> {{'Old Price: '.$clinictherapy->grade4_original_price}}@endif </td>
+                                          <td>
+                                              @if($clinictherapy->isactive==1){{'Yes'}}
+                                              @else{{'No'}}
+                                              @endif
+                                          </td>
+{{--                                          <td><a href="{{route('clinic.therapyedelete',['id'=>$clinictherapy->id])}}" class="btn btn-success">Delete</a><br><br>--}}
+                                          <td><a href="{{route('clinic.therapyedit',['id'=>$clinictherapy->id])}}" class="btn btn-success">Edit</a>
+                                          </td>
+                                      </tr>
+                                  @endforeach
+                                  </tbody>
+                                  <tfoot>
+                                  <tr>
+                                      <th>Threapy Name</th>
+                                      <th>Grade 1 </th>
+                                      <th>Grade 2 </th>
+                                      <th>Grade 3</th>
+                                      <th>Grade 4</th>
+                                      <th>Isactive</th>
+                                      <th>Action</th>
+                                  </tr>
+                                  </tfoot>
+                              </table>
+                          </div>
+                      {{$clinictherapys->links()}}
+                      <!-- /.card-body -->
+                      </div>
+                      <!-- /.card -->
+                      <!-- /.card -->
+                  </div>
+                  <!-- /.col -->
+              </div>
+              <!-- /.row -->
+          </div>
+          <!-- /.container-fluid -->
+      </section>
   <section class="content">
       <div class="container-fluid">
         <div class="row">
@@ -169,7 +237,7 @@
             <!-- general form elements -->
             <div class="card card-primary">
               <div class="card-header">
-                <h3 class="card-title">Clinic Therapy</h3>
+                <h3 class="card-title">Add Therapy</h3>
               </div>
               <!-- /.card-header -->
               <!-- form start -->
@@ -177,7 +245,7 @@
                  @csrf
                 <div class="card-body">
 		       <div class="row">
-				<div class="col-md-12">  
+				<div class="col-md-12">
                     <div class="form-group">
                         <label>Therapy Name</label>
                         <select name="therapy_id" class="form-control" id="exampleInputistop" placeholder="">
@@ -186,7 +254,7 @@
                                    @endforeach
                              </select>
                       </div>
-                    </div>   
+                    </div>
 				<div class="col-md-6">
                   <div class="form-group">
                     <label for="exampleInputEmail1">Grade1 Price</label>
@@ -204,38 +272,38 @@
                     <label for="exampleInputEmail1">Grade2 Price</label>
                     <input type="text" name="grade2_price" class="form-control" id="exampleInputEmail1" placeholder="Enter price" >
                     </div>
-                </div>  
-                <div class="col-md-6">  
+                </div>
+                <div class="col-md-6">
                   <div class="form-group">
                     <label for="exampleInputEmail1">Grade2 Old Price</label>
                      <input type="text" name="grade2_original_price" class="form-control" id="exampleInputEmail1" placeholder="Enter price" >
                      </div>
-                </div>  
-                <div class="col-md-6">  
+                </div>
+                <div class="col-md-6">
                   <div class="form-group">
                     <label for="exampleInputEmail1">Grade3 Price</label>
                     <input type="text" name="grade3_price" class="form-control" id="exampleInputEmail1" placeholder="Enter price" >
                      </div>
-                </div>  
+                </div>
                <div class="col-md-6">
                   <div class="form-group">
                     <label for="exampleInputEmail1">Grade3 Old Price</label>
                     <input type="text" name="grade3_original_price" class="form-control" id="exampleInputEmail1" placeholder="Enter price" >
                      </div>
-                </div>  
-                <div class="col-md-6">  
+                </div>
+                <div class="col-md-6">
                   <div class="form-group">
                     <label for="exampleInputEmail1">Grade4 Price</label>
                    <input type="text" name="grade4_price" class="form-control" id="exampleInputEmail1" placeholder="Enter price" >
                     </div>
-                </div>  
-                <div class="col-md-6">  
+                </div>
+                <div class="col-md-6">
                   <div class="form-group">
                     <label for="exampleInputEmail1">Grade4 Old Price</label>
                     <input type="text" name="grade4_original_price" class="form-control" id="exampleInputEmail1" placeholder="Enter price" >
                      </div>
-                </div>  
-                <div class="col-md-6">  
+                </div>
+                <div class="col-md-6">
                     <div class="form-group">
                         <label>Is Active</label>
                         <select name="isactive" class="form-control" id="exampleInputistop" placeholder="">
@@ -243,8 +311,8 @@
                                 <option value="0">No</option>
                           </select>
                       </div>
-                    </div>  
-                  
+                    </div>
+
                     </div>
                      </div>
                 <!-- /.card-body -->
@@ -261,73 +329,9 @@
       </div><!-- /.container-fluid -->
     </section>
     <!--****************************************************************************************************************-->
-     <section class="content">
-      <div class="container-fluid">
-        <div class="row">
-          <div class="col-12">
-            <div class="card">
-              <div class="card-header">
-                Clinic Therapy List
-             
-              </div>
-              <!-- /.card-header -->
-              <div class="card-body">
-                <table id="example2" class="table table-bordered table-hover">
-                  <thead>
-                  <tr>
-                    <th>Threapy Name</th>
-                    <th>Grade1 Price/Grade1 Old Price</th>
-                    <th>Grade2 Price/Grade2 Old Price</th>
-                    <th>Grade3 Price/Grade3 Old Price</th>
-                    <th>Grade4 Price/Grade4 Old Price</th>
-                    <th>Isactive</th>
-                   <th>Action</th>
-                  </tr>
-                  </thead>
-                  <tbody>
-				@foreach($clinictherapys as $clinictherapy)  
-                  <tr>
-					  <td>{{$clinictherapy->therapy->name}}</td>
-					  <td>{{$clinictherapy->grade1_price}} / {{$clinictherapy->grade1_original_price}} </td>
-					  <td>{{$clinictherapy->grade2_price}} / {{$clinictherapy->grade2_original_price}} </td>
-					  <td>{{$clinictherapy->grade3_price}} / {{$clinictherapy->grade3_original_price}} </td>
-					  <td>{{$clinictherapy->grade4_price}} / {{$clinictherapy->grade4_original_price}} </td>
-                       <td>
-                        @if($clinic->isactive==1){{'Yes'}}
-                             @else{{'No'}}
-                             @endif
-                        </td>
-                      <td><a href="{{route('clinic.therapyedelete',['id'=>$clinictherapy->id])}}" class="btn btn-success">Delete</a></br></br>
-                 </tr>
-                 @endforeach
-                  </tbody>
-                  <tfoot>
-                  <tr>
-                    <th>Threapy Name</th>
-                    <th>Grade1 Price/Grade1 Old Price</th>
-                    <th>Grade2 Price/Grade2 Old Price</th>
-                    <th>Grade3 Price/Grade3 Old Price</th>
-                    <th>Grade4 Price/Grade4 Old Price</th>
-                    <th>Isactive</th>
-                   <th>Action</th>
-                  </tr>                 
-                  </tfoot>
-                </table>
-              </div>
-              {{$clinictherapys->links()}}
-              <!-- /.card-body -->
-            </div>
-            <!-- /.card -->
-            <!-- /.card -->
-          </div>
-          <!-- /.col -->
-        </div>
-        <!-- /.row -->
-      </div>
-      <!-- /.container-fluid -->
-    </section>
-    
-    
+
+
+
 </div>
 <!-- ./wrapper -->
 @endsection

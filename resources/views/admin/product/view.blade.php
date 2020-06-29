@@ -27,7 +27,7 @@
             <div class="card">
               <div class="card-header">
                 <a href="{{route('product.create')}}" class="btn btn-primary">Add Product</a>
-             
+
               </div>
               <!-- /.card-header -->
               <div class="card-body">
@@ -35,7 +35,7 @@
                   <thead>
                   <tr>
                     <th>Name</th>
-                    <th>Description</th>
+{{--                    <th>Description</th>--}}
                     <th>Company</th>
                     <th>Price</th>
                     <th>Cut Price</th>
@@ -48,10 +48,10 @@
                   </tr>
                   </thead>
                   <tbody>
-				@foreach($products as $product)  
+				@foreach($products as $product)
                   <tr>
 					  <td>{{$product->name}}</td>
-					  <td>{{$product->description}}</td>
+{{--					  <td>{{$product->description}}</td>--}}
 					  <td>{{$product->company}}</td>
 					  <td>{{$product->price}}</td>
 					  <td>{{$product->cut_price}}</td>
@@ -79,7 +79,7 @@
                   <tfoot>
                   <tr>
                     <th>Name</th>
-                    <th>Description</th>
+{{--                    <th>Description</th>--}}
                     <th>Company</th>
                     <th>Price</th>
                     <th>Cut Price</th>
@@ -89,7 +89,7 @@
                     <th>Image</th>
                     <th>Isactive</th>
                    <th>Action</th>
-                  </tr>                 
+                  </tr>
                   </tfoot>
                 </table>
               </div>

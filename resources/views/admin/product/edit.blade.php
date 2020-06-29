@@ -18,8 +18,8 @@
         </div>
       </div><!-- /.container-fluid -->
     </section>
-    
-    
+
+
     <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
@@ -42,7 +42,7 @@
                   </div>
                   <div class="form-group">
                     <label for="exampleInputEmail1">Description</label>
-                    <input type="text" name="description" class="form-control" id="exampleInputEmail1" placeholder="Enter Description" value="{{$products->description}}">
+                      <textarea type="text" name="description" class="form-control" id="exampleInputEmail1" placeholder="Enter Description" >{{$products->description}}</textarea>
                   </div>
                   <div class="form-group">
                     <label for="exampleInputEmail1">Company</label>
@@ -87,13 +87,13 @@
                       <div class="custom-file">
                         <input type="file" name="image" class="custom-file-input" id="exampleInputFile" accept="image/*">
                         <label class="custom-file-label" for="exampleInputFile">Choose file</label>
-                         
+
                       </div>
                       <div class="input-group-append">
                         <span class="input-group-text" id="">Upload</span>
-                        
+
                       </div>
-                      
+
                     </div>
                   </div>
                   <image src="{{$products->image}}" height="100" width="200">
@@ -122,7 +122,7 @@
                     </div>
                     <!-- /.card-header -->
                     <form action="{{route('product.document',['id'=>$products->id])}}" method="post" enctype="multipart/form-data">
-                        @csrf  
+                        @csrf
                             <div class="card-body">
                             <!-- /.row -->
                             <div class="row">
@@ -147,10 +147,10 @@
                             </div>
                             <div class="row">
                                 <!-- /.col -->
-                                @foreach($documents as $document) 
+                                @foreach($documents as $document)
                                  <div class="form-group">
                                         <img src="{{$document->file_path}}" height="100" width="200"> &nbsp; &nbsp; <a href="{{route('product.delete',['id'=>$document->id])}}">X</a>
-                                        &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;          &nbsp; &nbsp; &nbsp; &nbsp;          
+                                        &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;          &nbsp; &nbsp; &nbsp; &nbsp;
                                   </div>
                                @endforeach
                                  <!-- /.form-group -->
@@ -165,7 +165,7 @@
 
             </div>
         </section>
-  
+
 </div>
 <!-- ./wrapper -->
 @endsection

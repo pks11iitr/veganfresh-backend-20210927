@@ -31,7 +31,7 @@ class TherapistController extends Controller
                   			'price4'=>'required',
                   			'image'=>'required|image'
                                ]);
-                               
+
              //// $file=$request->image->path();
              // $name=str_replace(' ', '_', $request->image->getClientOriginalName());
              // $path='therapies/'.$name;
@@ -49,11 +49,11 @@ class TherapistController extends Controller
                       'image'=>'a']))
             {
 				$therapy->saveImage($request->image, 'therapies');
-             return redirect()->route('therapy.list')->with('success', 'Therapy has been created');
+             return redirect()->route('therapy.edit', ['id'=>$therapy->id])->with('success', 'Therapy has been created');
             }
              return redirect()->back()->with('error', 'Therapy create failed');
           }
-          
+
     public function edit(Request $request,$id){
              $therapy = Therapy::findOrFail($id);
              $documents = $therapy->gallery;
@@ -71,7 +71,7 @@ class TherapistController extends Controller
                   			'price4'=>'required'
                                ]);
              $therapy = Therapy::findOrFail($id);
-          if($request->image){                  
+          if($request->image){
 			 $therapy->update([
                       'isactive'=>$request->isactive,
                       'name'=>$request->name,
@@ -94,26 +94,26 @@ class TherapistController extends Controller
              }
           if($therapy)
              {
-           return redirect()->route('therapy.list')->with('success', 'Therapy has been updated');
+           return redirect()->back()->with('success', 'Therapy has been updated');
               }
            return redirect()->back()->with('error', 'Therapy update failed');
 
       }
-      
+
    public function document(Request $request, $id){
 
                 $therapy=Therapy::find($id);
               foreach($request->file_path as $file){
                 $therapy->saveDocument($file, 'therapies');
                   }
-             if($therapy)  {         
-                   return redirect()->route('therapy.list')->with('success', 'Therapy has been created');
+             if($therapy)  {
+                   return redirect()->back()->with('success', 'Therapy has been created');
                      }
                    return redirect()->back()->with('error', 'Therapy create failed');
           }
-      
+
      public function delete(Request $request, $id){
            Document::where('id', $id)->delete();
            return redirect()->back()->with('success', 'Document has been deleted');
-        }     
+        }
   }

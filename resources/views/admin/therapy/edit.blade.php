@@ -18,8 +18,8 @@
         </div>
       </div><!-- /.container-fluid -->
     </section>
-    
-    
+
+
     <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
@@ -46,19 +46,19 @@
                    <!-- <input type="text" name="description" class="form-control" id="exampleInputEmail1" placeholder="Enter Description" value="{{$therapy->description}}">-->
                   </div>
                   <div class="form-group">
-                    <label for="exampleInputEmail1">Grede First Price</label> 
+                    <label for="exampleInputEmail1">Grade 1 Price</label>
                     <input type="text" name="price1" class="form-control" id="exampleInputEmail1" placeholder="Enter price" value="{{$therapy->grade1_price}}">
                   </div>
                   <div class="form-group">
-                    <label for="exampleInputEmail1">Grede Second Price</label>
+                    <label for="exampleInputEmail1">Grade 2 Price</label>
                     <input type="text" name="price2" class="form-control" id="exampleInputEmail1" placeholder="Enter price" value="{{$therapy->grade2_price}}">
                   </div>
                   <div class="form-group">
-                    <label for="exampleInputEmail1">Grede Third Price</label>
+                    <label for="exampleInputEmail1">Grade 3 Price</label>
                     <input type="text" name="price3" class="form-control" id="exampleInputEmail1" placeholder="Enter price" value="{{$therapy->grade3_price}}">
                   </div>
                   <div class="form-group">
-                    <label for="exampleInputEmail1">Grede Fourth Price</label>
+                    <label for="exampleInputEmail1">Grade 4 Price</label>
                     <input type="text"name="price4" class="form-control" id="exampleInputEmail1" placeholder="Enter price" value="{{$therapy->grade4_price}}">
                   </div>
                     <div class="form-group">
@@ -74,13 +74,13 @@
                       <div class="custom-file">
                         <input type="file" name="image" class="custom-file-input" id="exampleInputFile" accept="image/*">
                         <label class="custom-file-label" for="exampleInputFile">Choose file</label>
-                         
+
                       </div>
                       <div class="input-group-append">
                         <span class="input-group-text" id="">Upload</span>
-                        
+
                       </div>
-                      
+
                     </div>
                   </div>
                   <image src="{{$therapy->image}}" height="100" width="200">
@@ -105,11 +105,11 @@
                 <!-- SELECT2 EXAMPLE -->
                 <div class="card card-default">
                     <div class="card-header">
-                        <h3 class="card-title">Add Document Images</h3>
+                        <h3 class="card-title">Add Images</h3>
                     </div>
                     <!-- /.card-header -->
                     <form action="{{route('therapy.document',['id'=>$therapy->id])}}" method="post" enctype="multipart/form-data">
-                        @csrf  
+                        @csrf
                             <div class="card-body">
                             <!-- /.row -->
                             <div class="row">
@@ -134,10 +134,10 @@
                             </div>
                             <div class="row">
                                 <!-- /.col -->
-                                @foreach($documents as $document) 
+                                @foreach($documents as $document)
                                  <div class="form-group">
                                         <img src="{{$document->file_path}}" height="100" width="200"> &nbsp; &nbsp; <a href="{{route('therapy.delete',['id'=>$document->id])}}">X</a>
-                                        &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;          &nbsp; &nbsp; &nbsp; &nbsp;          
+                                        &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;          &nbsp; &nbsp; &nbsp; &nbsp;
                                   </div>
                                @endforeach
                                  <!-- /.form-group -->
@@ -152,8 +152,8 @@
 
             </div>
         </section>
-  
-  
+
+
 </div>
 <!-- ./wrapper -->
 @endsection

@@ -25,7 +25,7 @@ class BannerController extends Controller
                   			'isactive'=>'required',
                   			'image'=>'required|image'
                                ]);
-                               
+
               //$file=$request->image->path();
               //$name=str_replace(' ', '_', $request->image->getClientOriginalName());
               //$path='banners/'.$name;
@@ -38,11 +38,11 @@ class BannerController extends Controller
                       'image'=>'a']))
             {
 				$banner->saveImage($request->image, 'banners');
-             return redirect()->route('banners.list')->with('success', 'Banner has been created');
+             return redirect()->route('banners.edit', ['id'=>$banner->id])->with('success', 'Banner has been created');
             }
              return redirect()->back()->with('error', 'Banner create failed');
           }
-          
+
     public function edit(Request $request,$id){
              $banner = Banner::findOrFail($id);
              return view('admin.banner.edit',['banner'=>$banner]);
@@ -63,14 +63,14 @@ class BannerController extends Controller
                         'type'=>$request->type,
                         'image'=>'a']);
              $banner->saveImage($request->image, 'banners');
-             
+
         }else{
             $banner->update([
                         'isactive'=>$request->isactive,
                         'type'=>$request->type]);
              }
           if($banner){
-           return redirect()->route('banners.list')->with('success', 'Banner has been updated');
+           return redirect()->back()->with('success', 'Banner has been updated');
               }
            return redirect()->back()->with('error', 'Banner update failed');
 

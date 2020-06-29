@@ -44,19 +44,19 @@
                     <input type="text" name="description" class="form-control" id="exampleInputEmail1" placeholder="Enter Description">
                   </div>
                   <div class="form-group">
-                    <label for="exampleInputEmail1">Grede First Price</label>
+                    <label for="exampleInputEmail1">Grade 1 Price</label>
                     <input type="text" name="price1" class="form-control" id="exampleInputEmail1" placeholder="Enter price">
                   </div>
                   <div class="form-group">
-                    <label for="exampleInputEmail1">Grede Second Price</label>
+                    <label for="exampleInputEmail1">Grade 2 Price</label>
                     <input type="text" name="price2" class="form-control" id="exampleInputEmail1" placeholder="Enter price">
                   </div>
                   <div class="form-group">
-                    <label for="exampleInputEmail1">Grede Third Price</label>
+                    <label for="exampleInputEmail1">Grade 3 Price</label>
                     <input type="text" name="price3" class="form-control" id="exampleInputEmail1" placeholder="Enter price">
                   </div>
                   <div class="form-group">
-                    <label for="exampleInputEmail1">Grede Fourth Price</label>
+                    <label for="exampleInputEmail1">Grade 4 Price</label>
                     <input type="text"name="price4" class="form-control" id="exampleInputEmail1" placeholder="Enter price">
                   </div>
                    <div class="form-group">

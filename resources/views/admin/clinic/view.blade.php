@@ -26,35 +26,37 @@
             <div class="card">
               <div class="card-header">
                 <a href="{{route('clinic.create')}}" class="btn btn-primary">Add Clinic</a>
-             
+
               </div>
               <!-- /.card-header -->
               <div class="card-body">
                 <table id="example2" class="table table-bordered table-hover">
                   <thead>
                   <tr>
+                    <th>ID</th>
                     <th>Name</th>
                     <!--<th>Description</th>-->
                     <th>Address</th>
                     <th>City</th>
                     <th>State</th>
                     <th>Contact</th>
-                    <th>Lat/Lang</th>
+{{--                    <th>Lat/Lang</th>--}}
                     <th>Image</th>
                     <th>Isactive</th>
                    <th>Action</th>
                   </tr>
                   </thead>
                   <tbody>
-				@foreach($clinics as $clinic)  
+				@foreach($clinics as $clinic)
                   <tr>
+					  <td>{{$clinic->id}}</td>
 					  <td>{{$clinic->name}}</td>
 					 <!-- <td>{{$clinic->description}}</td>-->
 					  <td>{{$clinic->address}}</td>
 					  <td>{{$clinic->city}}</td>
 					  <td>{{$clinic->state}}</td>
 					  <td>{{$clinic->contact}}</td>
-					  <td>{{$clinic->lat}}/{{$clinic->lang}}</td>
+{{--					  <td>{{$clinic->lat}}/{{$clinic->lang}}</td>--}}
                       <td><img src="{{$clinic->image}}" height="80px" width="80px"/></td>
                        <td>
                         @if($clinic->isactive==1){{'Yes'}}
@@ -73,11 +75,11 @@
                     <th>City</th>
                     <th>State</th>
                     <th>Contact</th>
-                    <th>Lat/Lang</th>
+{{--                    <th>Lat/Lang</th>--}}
                     <th>Image</th>
                     <th>Isactive</th>
                    <th>Action</th>
-                  </tr>                 
+                  </tr>
                   </tfoot>
                 </table>
               </div>

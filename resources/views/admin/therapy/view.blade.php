@@ -27,7 +27,7 @@
             <div class="card">
               <div class="card-header">
                 <a href="{{route('therapy.create')}}" class="btn btn-primary">Add Therapy</a>
-             
+
               </div>
               <!-- /.card-header -->
               <div class="card-body">
@@ -36,17 +36,17 @@
                   <tr>
                     <th>Name</th>
                     <!--<th>Description</th>-->
-                    <th>Grade First</th>
-                    <th>Grade Second</th>
-                    <th>Grade Third</th>
-                    <th>Grade Fourth</th>
+                    <th>Grade 1 Price</th>
+                    <th>Grade 2 Price</th>
+                    <th>Grade 3 Price</th>
+                    <th>Grade 4 Price</th>
                     <th>Image</th>
                     <th>Isactive</th>
                    <th>Action</th>
                   </tr>
                   </thead>
                   <tbody>
-				@foreach($therapist as $therapy)  
+				@foreach($therapist as $therapy)
                   <tr>
 					  <td>{{$therapy->name}}</td>
 					  <!--<td>{{$therapy->description}}</td>-->
@@ -76,7 +76,7 @@
                     <th>Image</th>
                     <th>Isactive</th>
                    <th>Action</th>
-                  </tr>                 
+                  </tr>
                   </tfoot>
                 </table>
               </div>
@@ -93,7 +93,7 @@
       <!-- /.container-fluid -->
     </section>
     <!-- /.content -->
- 
+
   <!-- /.control-sidebar -->
 </div>
 <!-- ./wrapper -->

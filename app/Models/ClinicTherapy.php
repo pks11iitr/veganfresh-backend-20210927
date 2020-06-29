@@ -14,9 +14,13 @@ class ClinicTherapy extends Model
 	protected $fillable=['clinic_id','therapy_id','grade1_price','grade2_price','grade3_price','grade4_price','grade1_original_price','grade2_original_price','grade3_original_price','grade4_original_price','isactive'];
 
     protected $hidden = ['created_at','deleted_at','updated_at'];
-    
+
     public function therapy(){
         return $this->belongsTo('App\Models\Therapy', 'therapy_id');
+    }
+
+    public function clinic(){
+        return $this->belongsTo('App\Models\Clinic', 'clinic_id');
     }
 
 }
