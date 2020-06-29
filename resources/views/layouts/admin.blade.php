@@ -167,7 +167,7 @@
             <!-- Sidebar user panel (optional) -->
             <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                 <div class="image">
-                    <img src="{{\Illuminate\Support\Facades\Storage::url('images/logo')}}" class="img-circle elevation-2" alt="User Image">
+                    <img src="{{\Illuminate\Support\Facades\Storage::url('images/logo.jpeg')}}" class="img-circle elevation-2" alt="User Image">
                 </div>
                 <div class="info">
                     <a href="#" class="d-block">Arogyapeeth</a>
@@ -252,6 +252,15 @@
                             <i class="nav-icon fas fa-th"></i>
                             <p>
                                 Product
+
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{route('orders.list')}}" class="nav-link">
+                            <i class="nav-icon fas fa-th"></i>
+                            <p>
+                                Orders
 
                             </p>
                         </a>

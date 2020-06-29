@@ -63,5 +63,11 @@ Route::group(['middle'=>['auth', 'acl'], 'is'=>'admin'], function(){
         Route::post('document/{id}','SuperAdmin\ProductController@document')->name('product.document');
         Route::get('delete/{id}','SuperAdmin\ProductController@delete')->name('product.delete');
     });
+
+    Route::group(['prefix'=>'orders'], function(){
+        Route::get('/','SuperAdmin\OrderController@index')->name('orders.list');
+        Route::get('view/{id}','SuperAdmin\OrderController@details')->name('order.view');
+    });
+
 });
 
