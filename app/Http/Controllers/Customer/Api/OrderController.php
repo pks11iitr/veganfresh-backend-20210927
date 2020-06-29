@@ -343,9 +343,15 @@ class OrderController extends Controller
 
         // options to be displayed
         if($order->status=='confirmed'){
-            $show_cancel=1;
-            if($order->details[0]->entity instanceof Therapy  && $order->details[0]->is_instant!=1)
+            if($order->details[0]->entity instanceof Product){
+                $show_cancel_product=1;
+            }else{
+                $show_cancel=1;
+            }
+            if($order->details[0]->entity instanceof Therapy  && $order->details[0]->is_instant!=1){
                 $show_reschedule=1;
+            }
+
         }
 
         return [
@@ -356,7 +362,8 @@ class OrderController extends Controller
                 'balance'=>Wallet::balance($user->id),
                 'points'=>Wallet::points($user->id),
                 'show_cancel'=>$show_cancel??0,
-                'show_reschedule'=>$show_reschedule??0
+                'show_reschedule'=>$show_reschedule??0,
+                'show_cancel_product'=>$show_cancel_product??0
             ]
         ];
     }
@@ -435,7 +442,7 @@ class OrderController extends Controller
     }
 
 
-    public function cancelProductBooking($order){
+    public function cancelProductsBooking($order){
 
         $product_cancellation_status=[
             'confirmed'
