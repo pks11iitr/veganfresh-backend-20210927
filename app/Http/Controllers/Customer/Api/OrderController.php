@@ -240,7 +240,7 @@ class OrderController extends Controller
         ]);
 
         OrderStatus::create([
-            'order_id'=>$order->id,
+            'order_id'=>$order->product_id,
             'current_status'=>$order->status
         ]);
 
