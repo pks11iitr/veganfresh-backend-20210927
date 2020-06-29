@@ -99,7 +99,7 @@ class PaymentController extends Controller
                 'data'=>[
                     'paymentdone'=>'no',
                     'razorpay_order_id'=> $order->order_id,
-                    'total'=>($order->total-$order->balance_used)*100,
+                    'total'=>($order->total_cost-$order->balance_used)*100,
                     'email'=>$order->email,
                     'mobile'=>$order->mobile,
                     'description'=>'Order Booking at Aarogyapeeth',
