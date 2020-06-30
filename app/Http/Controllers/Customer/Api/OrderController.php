@@ -270,7 +270,7 @@ class OrderController extends Controller
            'name'=>'required|max:60|string',
            'email'=>'email',
            'mobile'=>'required|digits:10',
-            'address'=>'string|max:100',
+            'address'=>'string|max:100|nullable',
             'lat'=>'numeric',
             'lang'=>'numeric'
         ]);

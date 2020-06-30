@@ -56,7 +56,7 @@ $api->post('reschedule-order/{id}', ['as'=>'order.reschedule', 'uses'=>'Customer
 
 
 
-$api->post('update-contact/{id}', ['as'=>'order.contact.details', 'uses'=>'Customer\Api\OrderController@addContactDetails']);
+$api->post('update-contact/{id}', ['as'=>'order.contact.update', 'uses'=>'Customer\Api\OrderController@addContactDetails']);
 
 $api->post('update-cart', ['as'=>'cart.update', 'uses'=>'Customer\Api\CartController@updateCartItems']);
 $api->get('cart-details', ['as'=>'cart.details', 'uses'=>'Customer\Api\CartController@index']);
