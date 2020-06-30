@@ -354,6 +354,26 @@ class OrderController extends Controller
 
         }
 
+
+        $date=date('Y-m-d');
+        for($i=1; $i<=7;$i++){
+            $dates[]=[
+                'text'=>($i==1)?'Today':($i==2?'Tomorrow':date('d F', strtotime($date))),
+                'text2'=>($i==1)?'':($i==2?'':date('D')),
+                'value'=>$date
+            ];
+            $date=date('Y-m-d', strtotime('+'.$i.' days', strtotime($date, strtotime($date))));
+        }
+        $date=date('Y-m-d h:i:s');
+        for($i=9; $i<=17;$i++){
+            $timings[]=[
+                'text'=>date('h:i A', strtotime($date)),
+                'value'=>date('H:i', strtotime($date))
+            ];
+            $date=date('Y-m-d H:i:s', strtotime('+1 hours', strtotime($date)));
+        }
+
+
         return [
             'status'=>'success',
             'data'=>[
@@ -363,7 +383,9 @@ class OrderController extends Controller
                 'points'=>Wallet::points($user->id),
                 'show_cancel'=>$show_cancel??0,
                 'show_reschedule'=>$show_reschedule??0,
-                'show_cancel_product'=>$show_cancel_product??0
+                'show_cancel_product'=>$show_cancel_product??0,
+                'dates'=>$dates,
+                'timings'=>$timings
             ]
         ];
     }
