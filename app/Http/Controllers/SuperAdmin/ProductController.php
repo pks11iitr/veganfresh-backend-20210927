@@ -13,8 +13,22 @@ class ProductController extends Controller
 {
      public function index(Request $request){
             $products=Product::paginate(10);;
-            return view('admin.product.view',['products'=>$products]);
+            return view('admin.product.view',['products'=>$products,'search'=>'','ordertype'=>'']);
               }
+              
+      public function product_search(Request $request) {
+	      $search=$request->input("search");
+	      $ordertype=$request->input("ordertype");
+	   if($ordertype=='ASC'){
+		     $products=Product::where('name','LIKE','%'.$search.'%')->orderBy('name','ASC')->paginate(10);
+			}elseif($ordertype=='DESC')
+			{
+		     $products=Product::where('name','LIKE','%'.$search.'%')->orderBy('name','DESC')->paginate(10);
+		    }else{
+	         $products=Product::where('name','LIKE','%'.$search.'%')->orderBy('name','ASC')->paginate(10);
+	         }
+            return view('admin.product.view',['products'=>$products,'search'=>$search,'ordertype'=>$ordertype]);
+        }        
 
     public function create(Request $request){
             return view('admin.product.add');

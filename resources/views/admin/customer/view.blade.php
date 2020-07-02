@@ -26,7 +26,48 @@
           <div class="col-12">
             <div class="card">
               <div class="card-header">
-				              
+				 <div class="row">
+                          <div class="col-12">
+							   
+        <form class="form-validate form-horizontal"  method="post" action="/therapy/therapy_search " enctype="multipart/form-data">
+                           <input type = "hidden" name = "_token" value = "<?php echo csrf_token(); ?>">
+                     <div class="row">
+					      <div class="col-4"> 
+                           <input  id="fullname" onfocus="this.value=''" class="form-control" name="search" placeholder=" search name" value=""  type="text" />
+                           </div>
+					  <div class="col-4">
+                          <select id="ordertype" name="ordertype" class="form-control" >
+							  
+                             <option value="">Please Select Order</option>
+                             
+                             <option value="ASC">ASC</option>
+                             <option value="DESC">DESC</option>
+                          </select>
+                      </div>
+                      <div class="col-4">
+                          <select id="status" name="status" class="form-control" >
+							  
+                             <option value="">Please Select Status</option>
+                             
+                             <option value="active">Active</option>
+                             <option value="inactive">Inactive</option>
+                             <option value="blocked">Blocked</option>
+                          </select>
+                      </div><br><br>
+                      <div class="col-4"> 
+                           <input  id="fullname" onfocus="this.value=''" class="form-control" name="fromdate" placeholder=" search name" value=""  type="date" />
+                           </div>
+                           <div class="col-4"> 
+                           <input  id="fullname" onfocus="this.value=''" class="form-control" name="todate" placeholder=" search name" value=""  type="date" />
+                           </div>
+                    <div class="col-4"> 
+                       <button type="submit" name="save" class="btn btn-primary">Submit</button>
+                     </div>                            
+                  </div>                            
+              </form>
+         </div> 
+
+     </div>              
               </div>
               <!-- /.card-header -->
               <div class="card-body">

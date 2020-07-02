@@ -12,9 +12,23 @@ use Storage;
 class TherapistController extends Controller
 {
      public function index(Request $request){
-            $therapist=Therapy::paginate(10);;
-            return view('admin.therapy.view',['therapist'=>$therapist]);
+            $therapist=Therapy::orderBy('name','ASC')->paginate(10);
+            return view('admin.therapy.view',['therapist'=>$therapist,'search'=>'','ordertype'=>'']);
               }
+              
+     public function therapy_search(Request $request) {
+	      $search=$request->input("search");
+	      $ordertype=$request->input("ordertype");
+	   if($ordertype=='ASC'){
+		     $therapist=Therapy::where('name','LIKE','%'.$search.'%')->orderBy('name','ASC')->paginate(10);
+			}elseif($ordertype=='DESC')
+			{
+		     $therapist=Therapy::where('name','LIKE','%'.$search.'%')->orderBy('name','DESC')->paginate(10);
+		    }else{
+	         $therapist=Therapy::where('name','LIKE','%'.$search.'%')->orderBy('name','ASC')->paginate(10);
+	         }
+            return view('admin.therapy.view',['therapist'=>$therapist,'search'=>$search,'ordertype'=>$ordertype]);
+        }        
 
     public function create(Request $request){
             return view('admin.therapy.add');
