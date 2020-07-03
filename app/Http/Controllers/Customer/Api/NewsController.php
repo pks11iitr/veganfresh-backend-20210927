@@ -9,7 +9,7 @@ use App\Http\Controllers\Controller;
 class NewsController extends Controller
 {
     public function index(Request $request){
-        $updates=NewsUpdate::active()->orderBy('id', 'desc')->get();
+        $updates=NewsUpdate::active()->orderBy('id', 'desc')->select('id','created_at','title', 'image', 'short_description')->get();
 
         return [
             'status'=>'success',
