@@ -8,8 +8,13 @@ class Complaint extends Model
 {
     protected $table='complaints';
 
+    protected $fillable=['user_id', 'subject', 'refid'];
 
-    public function messsages(){
-        return $this->hasMany('App\Models\ComplainMessage', 'complaint_id');
+    public function messages(){
+        return $this->hasMany('App\Models\ComplaintMessage', 'complaint_id');
+    }
+
+    public function user(){
+        return $this->belongsTo('App\Models\Customer', 'user_id');
     }
 }
