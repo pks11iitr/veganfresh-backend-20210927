@@ -79,3 +79,8 @@ $api->get('complaints', ['as'=>'complaints.list', 'uses'=>'Customer\Api\Complain
 $api->post('complaints', ['as'=>'complaints.list', 'uses'=>'Customer\Api\ComplaintController@create']);
 $api->get('complaint/{id}', ['as'=>'complaints.list', 'uses'=>'Customer\Api\ComplaintController@messages']);
 $api->post('complaint/{id}', ['as'=>'complaints.list', 'uses'=>'Customer\Api\ComplaintController@postMessage']);
+
+//news api
+$api->get('news', ['as'=>'new.list', 'uses'=>'Customer\Api\NewsController@index']);
+$api->get('news/{id}', ['as'=>'new.list', 'uses'=>'Customer\Api\NewsController@details']);
+
