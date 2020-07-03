@@ -14,8 +14,10 @@ class Complaint extends Model
         return $this->belongsTo('App\Models\Customer', 'user_id');
     }
 
-    public function messsages(){
+    public function messsages()
+    {
         return $this->hasMany('App\Models\ComplainMessage', 'complaint_id');
+    }
 
     public function messages(){
         return $this->hasMany('App\Models\ComplaintMessage', 'complaint_id');
