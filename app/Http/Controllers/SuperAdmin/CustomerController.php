@@ -14,6 +14,37 @@ class CustomerController extends Controller
             $customers=Customer::paginate(10);
             return view('admin.customer.view',['customers'=>$customers]);
               }
+              
+     public function customer_search(Request $request) {
+	      $search=$request->input("search");
+	      $ordertype=$request->input("ordertype");
+	      $status=$request->input("status");
+	     // var_dump($status); die;
+	      $fromdate=$request->input("fromdate");
+	      $todate1=$request->input("todate");
+	      $todate = date('Y-m-d', strtotime($todate1. ' + 1 days'));
+	      
+	   if($ordertype=='ASC'&& $search && $status && $fromdate && $todate){
+		   
+		     $customers=Customer::orderBy('created_at','ASC')->whereBetween('created_at', [$fromdate, $todate])->where('status','=',$status)->where('name','LIKE','%'.$search.'%')->orwhere('mobile','LIKE','%'.$search.'%')->orwhere('email','LIKE','%'.$search.'%')->paginate(10);
+			}elseif($ordertype=='DESC'&& $search && $status && $fromdate && $todate)
+			{
+		     $customers=Customer::orderBy('created_at','DESC')->whereBetween('created_at', [$fromdate, $todate])->where('status','=',$status)->where('name','LIKE','%'.$search.'%')->orwhere('mobile','LIKE','%'.$search.'%')->orwhere('email','LIKE','%'.$search.'%')->paginate(10);
+		    }elseif($ordertype=='ASC'){
+			$customers=Customer::orderBy('created_at','ASC')->paginate(10);
+	         }elseif($ordertype=='DESC'){
+		    $customers=Customer::orderBy('created_at','DESC')->paginate(10);
+		     }elseif($status){
+	        $customers=Customer::orderBy('created_at','DESC')->where('status','=',$status)->paginate(10);
+             }elseif($search){
+			$customers=Customer::orderBy('created_at','DESC')->where('name','LIKE','%'.$search.'%')->orwhere('mobile','LIKE','%'.$search.'%')->orwhere('email','LIKE','%'.$search.'%')->paginate(10);
+            }elseif($fromdate && $todate){	
+		     $customers=Customer::orderBy('created_at','DESC')->whereBetween('created_at', [$fromdate, $todate])->paginate(10);
+            }else{
+			$customers=Customer::orderBy('created_at','DESC')->paginate(10);
+            }
+            return view('admin.customer.view',['customers'=>$customers]);
+        }
 
     public function edit(Request $request,$id){
              $customers = Customer::findOrFail($id);

@@ -56,6 +56,7 @@ Route::group(['middle'=>['auth', 'acl'], 'is'=>'admin'], function(){
         Route::get('/','SuperAdmin\CustomerController@index')->name('customer.list');
         Route::get('edit/{id}','SuperAdmin\CustomerController@edit')->name('customer.edit');
         Route::post('update/{id}','SuperAdmin\CustomerController@update')->name('customer.update');
+        Route::post('customer_search','SuperAdmin\CustomerController@customer_search')->name('customer.customer_search');
     });
    Route::group(['prefix'=>'product'], function(){
         Route::get('/','SuperAdmin\ProductController@index')->name('product.list');
@@ -71,6 +72,24 @@ Route::group(['middle'=>['auth', 'acl'], 'is'=>'admin'], function(){
     Route::group(['prefix'=>'orders'], function(){
         Route::get('/','SuperAdmin\OrderController@index')->name('orders.list');
         Route::get('view/{id}','SuperAdmin\OrderController@details')->name('order.view');
+        Route::get('product','SuperAdmin\OrderController@product')->name('orders.product');
+        Route::post('therapy_search','SuperAdmin\OrderController@therapy_search')->name('orders.therapy_search');
+        Route::post('order_search','SuperAdmin\OrderController@order_search')->name('orders.order_search');
+    });
+    
+    Route::group(['prefix'=>'complain'], function(){
+        Route::get('/','SuperAdmin\ComplainController@index')->name('complain.list');
+        Route::get('view/{id}','SuperAdmin\ComplainController@details')->name('complain.view');
+       
+    });
+    
+    Route::group(['prefix'=>'news'], function(){
+        Route::get('/','SuperAdmin\NewsUpdateController@index')->name('news.list');
+        Route::get('create','SuperAdmin\NewsUpdateController@create')->name('news.create');
+        Route::post('store','SuperAdmin\NewsUpdateController@store')->name('news.store');
+        Route::get('edit/{id}','SuperAdmin\NewsUpdateController@edit')->name('news.edit');
+        Route::post('update/{id}','SuperAdmin\NewsUpdateController@update')->name('news.update');
+
     });
 
 });

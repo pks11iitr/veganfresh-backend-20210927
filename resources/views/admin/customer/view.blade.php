@@ -29,7 +29,7 @@
 				 <div class="row">
                           <div class="col-12">
 							   
-        <form class="form-validate form-horizontal"  method="post" action="/therapy/therapy_search " enctype="multipart/form-data">
+        <form class="form-validate form-horizontal"  method="post" action="/customer/customer_search " enctype="multipart/form-data">
                            <input type = "hidden" name = "_token" value = "<?php echo csrf_token(); ?>">
                      <div class="row">
 					      <div class="col-4"> 
@@ -49,9 +49,9 @@
 							  
                              <option value="">Please Select Status</option>
                              
-                             <option value="active">Active</option>
-                             <option value="inactive">Inactive</option>
-                             <option value="blocked">Blocked</option>
+                             <option value="1">Active</option>
+                             <option value="0">Inactive</option>
+                             <option value="2">Blocked</option>
                           </select>
                       </div><br><br>
                       <div class="col-4"> 
