@@ -12,10 +12,15 @@ class NewsUpdate extends Model
     protected $table='news_update';
 
     protected $fillable = ['image', 'description', 'isactive'];
-    
+
     public function getImageAttribute($value){
         if($value)
             return Storage::url($value);
         return '';
+    }
+
+    public function getCreatedAtAttribute($value)
+    {
+        return date('d/m/y', strtotime($value));
     }
 }

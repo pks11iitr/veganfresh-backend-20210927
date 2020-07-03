@@ -56,7 +56,11 @@ class ComplaintController extends Controller
 
             return [
                 'status'=>'success',
-                'message'=>'Your Complaint Has Been Submitted'
+                'message'=>'Your Complaint Has Been Submitted',
+                'data'=>[
+                    'complaint_id'=>$complaint->id
+                ]
+
             ];
         }
 
