@@ -8,8 +8,11 @@ use Illuminate\Support\Facades\Storage;
 
 class NewsUpdate extends Model
 {
+
     use Active;
     protected $table='news_update';
+
+    protected $hidden = ['deleted_at','updated_at'];
 
     protected $fillable = ['image', 'description', 'isactive'];
 
