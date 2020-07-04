@@ -15,7 +15,7 @@ class TherapistController extends Controller
             $therapist=Therapy::orderBy('name','ASC')->paginate(10);
             return view('admin.therapy.view',['therapist'=>$therapist,'search'=>'','ordertype'=>'']);
               }
-              
+
      public function therapy_search(Request $request) {
 	      $search=$request->input("search");
 	      $ordertype=$request->input("ordertype");
@@ -28,7 +28,7 @@ class TherapistController extends Controller
 	         $therapist=Therapy::where('name','LIKE','%'.$search.'%')->orderBy('name','ASC')->paginate(10);
 	         }
             return view('admin.therapy.view',['therapist'=>$therapist,'search'=>$search,'ordertype'=>$ordertype]);
-        }        
+        }
 
     public function create(Request $request){
             return view('admin.therapy.add');
@@ -117,7 +117,7 @@ class TherapistController extends Controller
 
    public function document(Request $request, $id){
                    $request->validate([
-                               'file_path'=>'image'
+                               'file_path.*'=>'image'
                                ]);
                 $therapy=Therapy::find($id);
               foreach($request->file_path as $file){

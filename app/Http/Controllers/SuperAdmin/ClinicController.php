@@ -29,7 +29,7 @@ class ClinicController extends Controller
              $clinics=Clinic::where('name','LIKE','%'.$search.'%')->orderBy('name','ASC')->paginate(10);
 	         }
             return view('admin.clinic.view',['clinics'=>$clinics,'search'=>$search,'ordertype'=>$ordertype]);
-        }        
+        }
 
     public function create(Request $request){
             return view('admin.clinic.add');
@@ -120,6 +120,10 @@ class ClinicController extends Controller
 
       }
       public function document(Request $request, $id){
+
+                $request->validate([
+                    'file_path.*'=>'required|image'
+                ]);
 
                 $clinic=Clinic::find($id);
               foreach($request->file_path as $file){

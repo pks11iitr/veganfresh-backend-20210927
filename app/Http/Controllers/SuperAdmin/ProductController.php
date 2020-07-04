@@ -15,7 +15,7 @@ class ProductController extends Controller
             $products=Product::paginate(10);;
             return view('admin.product.view',['products'=>$products,'search'=>'','ordertype'=>'']);
               }
-              
+
       public function product_search(Request $request) {
 	      $search=$request->input("search");
 	      $ordertype=$request->input("ordertype");
@@ -28,7 +28,7 @@ class ProductController extends Controller
 	         $products=Product::where('name','LIKE','%'.$search.'%')->orderBy('name','ASC')->paginate(10);
 	         }
             return view('admin.product.view',['products'=>$products,'search'=>$search,'ordertype'=>$ordertype]);
-        }        
+        }
 
     public function create(Request $request){
             return view('admin.product.add');
@@ -122,7 +122,7 @@ class ProductController extends Controller
 
       public function document(Request $request, $id){
                      $request->validate([
-                               'file_path'=>'image'
+                               'file_path.*'=>'image'
                                ]);
                 $product=Product::find($id);
               foreach($request->file_path as $file){
