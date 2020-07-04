@@ -84,3 +84,5 @@ $api->post('complaint/{id}', ['as'=>'complaints.list', 'uses'=>'Customer\Api\Com
 $api->get('news', ['as'=>'new.list', 'uses'=>'Customer\Api\NewsController@index']);
 $api->get('news/{id}', ['as'=>'new.list', 'uses'=>'Customer\Api\NewsController@details']);
 
+//notifications api
+$api->get('notifications', ['as'=>'notifications.list', 'uses'=>'Customer\Api\NotificationController@index']);
