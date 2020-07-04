@@ -6,8 +6,8 @@ use App\Models\BaseModel as Model;
 use Illuminate\Support\Facades\Storage;
 
 class Therapist extends Model
-{ 
-	protected $table='therapies';
+{
+	protected $table='therapists';
 
     public function locations(){
         return $this->hasMany('App\Models\TherapistLocations', 'therapist_id')->orderBy('id', 'desc');
@@ -15,7 +15,7 @@ class Therapist extends Model
 
 
     public function therapies(){
-        return $this->belongsToMany('App\Models\Therapy', 'therapist_therapies', 'therapist_id', 'therapy_id');
+        return $this->belongsToMany('App\Models\Therapy', 'therapist_therapies', 'therapist_id', 'therapy_id')->withPivot('therapy_id', 'therapist_id', 'therapist_grade');
     }
-    
+
 }

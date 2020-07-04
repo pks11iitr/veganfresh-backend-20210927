@@ -21,13 +21,19 @@ $api->post('forgot', 'Customer\Auth\ForgotPasswordController@forgot');
 $api->post('verify-otp', 'Customer\Auth\OtpController@verify');
 $api->post('resend-otp', 'Customer\Auth\OtpController@resend');
 
-
+//home page api
 $api->get('home', 'Customer\Api\HomeController@home');
+
+//clinic screen apis
 $api->get('clinics', ['as'=>'clinics.list', 'uses'=>'Customer\Api\ClinicController@index']);
 $api->get('therapies', ['as'=>'therapies.list', 'uses'=>'Customer\Api\TherapyController@index']);
 $api->get('clinic/{id}', ['as'=>'clinics.details', 'uses'=>'Customer\Api\ClinicController@details']);
 $api->get('clinic-therapy/{clinicid}/{therapyid}', ['as'=>'clinics.therapy.details', 'uses'=>'Customer\Api\ClinicController@clinicTherapyDetails']);
+
+//therapy screen api
 $api->get('therapy/{id}', ['as'=>'therapy.details', 'uses'=>'Customer\Api\TherapyController@details']);
+$api->post('nearby-therapists', ['as'=>'therapy.nearby.therapist', 'uses'=>'Customer\Api\TherapyController@nearbyTherapists']);
+
 
 $api->get('products-home', ['as'=>'products.home', 'uses'=>'Customer\Api\ProductController@home']);
 $api->get('product/{id}', ['as'=>'product.details', 'uses'=>'Customer\Api\ProductController@details']);

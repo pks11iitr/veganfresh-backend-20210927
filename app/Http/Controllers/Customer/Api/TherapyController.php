@@ -74,4 +74,43 @@ class TherapyController extends Controller
 
     }
 
+    public function nearbyTherapists(Request $request){
+        $request->validate([
+            'lat'=>'required|numeric',
+            'lang'=>'required|numeric',
+            'therapy_id'=>'required|integer',
+        ]);
+
+
+        $therapist=Therapist::active()
+            ->with([
+                'therapies'=>function($therapies)use($request){
+                    $therapies->where('therapies.id', $request->therapy_id)->select('therapies.id');
+                }
+            ])
+            ->whereHas(
+                'therapies',function($therapies)use($request){
+                    $therapies->where('therapies.id', $request->therapy_id);
+                    }
+            )
+            //->select('last_lat', 'last_lang')
+            ->get();
+
+        $nearby=[];
+        foreach($therapist as $t){
+            $nearby[]=[
+                'lat'=>$t->last_lat,
+                'lang'=>$t->last_lang,
+                'grade'=>$t->therapies[0]->pivot->therapist_grade
+            ];
+        }
+
+        return [
+            'status'=>'success',
+            'data'=>compact('nearby')
+        ];
+
+
+    }
+
 }
