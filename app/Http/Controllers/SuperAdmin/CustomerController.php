@@ -4,6 +4,7 @@ namespace App\Http\Controllers\SuperAdmin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Customer;
+use App\Models\Notification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Storage;
@@ -58,7 +59,8 @@ class CustomerController extends Controller
                   			'dob'=>'required',
                   			'address'=>'required',
                   			'city'=>'required',
-                  			'state'=>'required'
+                  			'state'=>'required',
+                  			'image'=>'image'
                   			]);
                       
              $customers = Customer::findOrFail($id);
@@ -89,5 +91,25 @@ class CustomerController extends Controller
            return redirect()->back()->with('error', 'Customer update failed');
 
       }
+      
+      function send_message(Request $request)
+        {
+ 
+        $cusid=$request->cusid;
+        $title=$request->title;
+        $des=$request->des;
+        $Notification=Notification::create([
+                      'title'=>$title,
+                      'description'=>$des,
+                      'user_id'=>$cusid,
+                      'type'=>'individual'
+                      ]);
+         if($Notification){
+           return response()->json(['users' => $Notification], 200);
+       }else{
+              return response()->json(['msg' => 'No result found!'], 404);
+       }
+        
+        }
 
   }

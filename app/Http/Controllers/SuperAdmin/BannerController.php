@@ -50,7 +50,8 @@ class BannerController extends Controller
 
     public function update(Request $request,$id){
              $request->validate([
-                            'isactive'=>'required'
+                            'isactive'=>'required',
+                            'image'=>'image'
                                    ]);
              $banner = Banner::findOrFail($id);
           if($request->image){

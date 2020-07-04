@@ -81,7 +81,8 @@ class ProductController extends Controller
                   			'cut_price'=>'required',
                   			'ratings'=>'required',
                   			'top_deal'=>'required',
-                  			'best_seller'=>'required'
+                  			'best_seller'=>'required',
+                  			'image'=>'image'
                                ]);
 
              $product = Product::findOrFail($id);
@@ -120,7 +121,9 @@ class ProductController extends Controller
       }
 
       public function document(Request $request, $id){
-
+                     $request->validate([
+                               'file_path'=>'image'
+                               ]);
                 $product=Product::find($id);
               foreach($request->file_path as $file){
                 $product->saveDocument($file, 'products');

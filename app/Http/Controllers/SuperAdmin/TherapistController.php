@@ -82,7 +82,8 @@ class TherapistController extends Controller
                   			'price1'=>'required',
                   			'price2'=>'required',
                   			'price3'=>'required',
-                  			'price4'=>'required'
+                  			'price4'=>'required',
+                  			'image'=>'image'
                                ]);
              $therapy = Therapy::findOrFail($id);
           if($request->image){
@@ -115,7 +116,9 @@ class TherapistController extends Controller
       }
 
    public function document(Request $request, $id){
-
+                   $request->validate([
+                               'file_path'=>'image'
+                               ]);
                 $therapy=Therapy::find($id);
               foreach($request->file_path as $file){
                 $therapy->saveDocument($file, 'therapies');

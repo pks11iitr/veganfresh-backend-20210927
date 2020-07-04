@@ -44,8 +44,6 @@ class ClinicController extends Controller
                   			'city'=>'required',
                   			'state'=>'required',
                   			'contact'=>'required',
-                  			//'lat'=>'required',
-                  			//'lang'=>'required',
                   			'image'=>'required|image'
                                ]);
 
@@ -84,8 +82,7 @@ class ClinicController extends Controller
                   			'city'=>'required',
                   			'state'=>'required',
                   			'contact'=>'required',
-                  			//'lat'=>'required',
-                  			//'lang'=>'required'
+                  			'image'=>'image'
                   			]);
 
              $clinic = Clinic::findOrFail($id);

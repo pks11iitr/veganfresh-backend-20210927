@@ -57,6 +57,7 @@ Route::group(['middle'=>['auth', 'acl'], 'is'=>'admin'], function(){
         Route::get('edit/{id}','SuperAdmin\CustomerController@edit')->name('customer.edit');
         Route::post('update/{id}','SuperAdmin\CustomerController@update')->name('customer.update');
         Route::post('customer_search','SuperAdmin\CustomerController@customer_search')->name('customer.customer_search');
+        Route::post('send_message','SuperAdmin\CustomerController@send_message')->name('customer.send_message');
     });
    Route::group(['prefix'=>'product'], function(){
         Route::get('/','SuperAdmin\ProductController@index')->name('product.list');
@@ -80,6 +81,7 @@ Route::group(['middle'=>['auth', 'acl'], 'is'=>'admin'], function(){
     Route::group(['prefix'=>'complain'], function(){
         Route::get('/','SuperAdmin\ComplainController@index')->name('complain.list');
         Route::get('view/{id}','SuperAdmin\ComplainController@details')->name('complain.view');
+        Route::post('message','SuperAdmin\ComplainController@send_message')->name('complain.message');
        
     });
     
@@ -89,6 +91,13 @@ Route::group(['middle'=>['auth', 'acl'], 'is'=>'admin'], function(){
         Route::post('store','SuperAdmin\NewsUpdateController@store')->name('news.store');
         Route::get('edit/{id}','SuperAdmin\NewsUpdateController@edit')->name('news.edit');
         Route::post('update/{id}','SuperAdmin\NewsUpdateController@update')->name('news.update');
+        Route::post('news_search','SuperAdmin\NewsUpdateController@news_search')->name('news.news_search');
+
+    });
+    
+    Route::group(['prefix'=>'notification'], function(){
+        Route::get('create','SuperAdmin\NotificationController@create')->name('notification.create');
+        Route::post('store','SuperAdmin\NotificationController@store')->name('notification.store');
 
     });
 

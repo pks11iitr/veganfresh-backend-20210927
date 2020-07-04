@@ -1,5 +1,6 @@
 @extends('layouts.admin')
 @section('content')
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -33,7 +34,7 @@
                            <input type = "hidden" name = "_token" value = "<?php echo csrf_token(); ?>">
                      <div class="row">
 					      <div class="col-4"> 
-                           <input  id="fullname" onfocus="this.value=''" class="form-control" name="search" placeholder=" search name" value=""  type="text" />
+                           <input  class="form-control" name="search" placeholder=" search name" value=""  type="text" />
                            </div>
 					  <div class="col-4">
                           <select id="ordertype" name="ordertype" class="form-control" >
@@ -55,10 +56,10 @@
                           </select>
                       </div><br><br>
                       <div class="col-4"> 
-                           <input  id="fullname" onfocus="this.value=''" class="form-control" name="fromdate" placeholder=" search name" value=""  type="date" />
+                           <input   class="form-control" name="fromdate" placeholder=" search name" value=""  type="date" />
                            </div>
                            <div class="col-4"> 
-                           <input  id="fullname" onfocus="this.value=''" class="form-control" name="todate" placeholder=" search name" value=""  type="date" />
+                           <input  class="form-control" name="todate" placeholder=" search name" value=""  type="date" />
                            </div>
                     <div class="col-4"> 
                        <button type="submit" name="save" class="btn btn-primary">Submit</button>
@@ -78,9 +79,9 @@
                     <th>Mobile</th>
                     <th>Email</th>
                     <th>DOB</th>
-                    <th>Address</th>
+                  <!--  <th>Address</th>
                     <th>City</th>
-                    <th>State</th>
+                    <th>State</th>-->
                     <th>Image</th>
                     <th>Isactive</th>
                    <th>Action</th>
@@ -93,9 +94,9 @@
 					  <td>{{$customer->mobile}}</td>
 					  <td>{{$customer->email}}</td>
 					  <td>{{$customer->dob}}</td>
-					  <td>{{$customer->address}}</td>
+					 <!-- <td>{{$customer->address}}</td>
 					  <td>{{$customer->city}}</td>
-					  <td>{{$customer->state}}</td>
+					  <td>{{$customer->state}}</td>-->
                       <td><img src="{{$customer->image}}" height="80px" width="80px"/></td>
                        <td>
                         @if($customer->status==1){{'Active'}}
@@ -103,6 +104,7 @@
                              @endif
                         </td>
                       <td><a href="{{route('customer.edit',['id'=>$customer->id])}}" class="btn btn-success">Edit</a></br></br>
+                      <a href="{{route('customer.edit',['id'=>$customer->id])}}" class="open-AddBookDialog btn btn-success" data-toggle="modal" data-target="#exampleModal" data-id="{{$customer->id}}">Notification</a></td>
                  </tr>
                  @endforeach
                   </tbody>
@@ -112,9 +114,9 @@
                     <th>Mobile</th>
                     <th>Email</th>
                     <th>DOB</th>
-                    <th>Address</th>
+                   <!-- <th>Address</th>
                     <th>City</th>
-                    <th>State</th>
+                    <th>State</th>-->
                     <th>Image</th>
                     <th>Isactive</th>
                    <th>Action</th>
@@ -132,12 +134,68 @@
         </div>
         <!-- /.row -->
       </div>
+      <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Send Notification</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form role="form" enctype="multipart/form-data" onsubmit=" return verifySubmit()" >
+			 @csrf
+          <div class="form-group">
+            <label for="recipient-name" class="col-form-label">Title:</label>
+            <input type="text" name="title" class="form-control" id="recipient-name" required>
+          </div>
+          <div class="form-group">
+            <label for="message-text" class="col-form-label">Message:</label>
+            <textarea class="form-control" name="message" id="message-text" required></textarea>
+          </div>
+          <input type="hidden" name="cusid" class="form-control" id="cusid">
+           <div class="modal-footer">
+             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+             <button class="btn btn-primary" type="submit">Send message</button>
+           </div>
+        </form>
+      </div>
+ 
+    </div>
+  </div>
+</div>
+<script>
+	
+$(document).on("click", ".open-AddBookDialog", function () {
+     var myBookId = $(this).data('id');
+     $(".modal-body #cusid").val( myBookId );
+     // As pointed out in comments, 
+     // it is unnecessary to have to manually call the modal.
+     // $('#addBookDialog').modal('show');
+});
+function verifySubmit(){
+	
+	var cusid = $("#cusid").val();
+	var title = $("#recipient-name").val();
+	var des = $("#message-text").val();
+	
+	$.post('{{route('customer.send_message')}}', {cusid:cusid, _token:'{{csrf_token()}}', title:title, des:des}, function(data){
+					alert('Message has been sent successfully')
+			})
+
+             window.location.reload();
+           // console.log(data);
+
+	}
+ </script>
       <!-- /.container-fluid -->
     </section>
+    </div>
     <!-- /.content -->
 
   <!-- /.control-sidebar -->
-</div>
+
 <!-- ./wrapper -->
 @endsection
 

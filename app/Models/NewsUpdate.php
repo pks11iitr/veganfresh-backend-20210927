@@ -14,7 +14,7 @@ class NewsUpdate extends Model
 
     protected $hidden = ['deleted_at','updated_at'];
 
-    protected $fillable = ['image', 'description', 'isactive'];
+    protected $fillable = ['image', 'description', 'isactive','title','short_description'];
 
     public function getImageAttribute($value){
         if($value)

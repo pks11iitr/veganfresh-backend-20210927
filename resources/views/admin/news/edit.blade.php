@@ -36,6 +36,14 @@
               <form role="form" method="post" enctype="multipart/form-data" action="{{route('news.update',['id'=>$newsupdate->id])}}">
                  @csrf
                 <div class="card-body">
+					<div class="form-group">
+                    <label for="exampleInputEmail1">Title</label>
+                    <input type="text" name="title" class="form-control" id="exampleInputEmail1" placeholder="Enter title" value="{{$newsupdate->title}}">
+                  </div>
+					<div class="form-group">
+                    <label for="exampleInputEmail1">Short Description</label><br>
+                    <textarea id="w3review" name="short_description" rows="4" cols="120">{{$newsupdate->short_description}} </textarea>
+                  </div>
                   <div class="form-group">
                     <label for="exampleInputEmail1">Description</label><br>
                     <textarea id="w3review" name="description" rows="4" cols="120">{{$newsupdate->description}} </textarea>
