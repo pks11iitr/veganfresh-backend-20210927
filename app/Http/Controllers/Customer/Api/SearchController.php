@@ -12,11 +12,11 @@ use App\Http\Controllers\Controller;
 class SearchController extends Controller
 {
     public function index(Request $request){
-        if(!$request->search)
-            return [
-                'status'=>'failed',
-                'message'=>'Please type your search'
-            ];
+//        if(!$request->search)
+//            return [
+//                'status'=>'failed',
+//                'message'=>'Please type your search'
+//            ];
 
         switch($request->type){
             case 'product':
