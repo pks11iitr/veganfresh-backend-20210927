@@ -20,4 +20,8 @@ class Product extends Model
         return null;
     }
 
+    public function category(){
+        return $this->belongsToMany('App\Models\Category', 'product_categories', 'product_id', 'category_id');
+    }
+
 }
