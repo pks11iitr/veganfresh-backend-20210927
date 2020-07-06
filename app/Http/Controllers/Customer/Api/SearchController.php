@@ -26,7 +26,9 @@ class SearchController extends Controller
                     $product=$product->whereHas('category', function($category) use($request){
                         $category->where('categories.id', $request->category_id);
                     });
-                $product=$product->where('name', 'like', "%".$request->search."%")->get();
+                if(!empty($request->search))
+                    $product=$product->where('name', 'like', "%".$request->search."%");
+                $product=$product->get();
                 return [
                     'status'=>'success',
                     'data'=>[
@@ -39,7 +41,11 @@ class SearchController extends Controller
                 break;
             case 'clinic':
 
-                $clinics=Clinic::active()->with(['commentscount', 'avgreviews'])->where('name', 'like', "%".$request->search."%")->get();
+                $clinics=Clinic::active()->with(['commentscount', 'avgreviews']);
+
+                if(!empty($request->search))
+                    $clinics=$clinics->where('name', 'like', "%".$request->search."%");
+                $clinics=$clinics->get();
                 return [
                     'status'=>'success',
                     'data'=>[
@@ -52,7 +58,11 @@ class SearchController extends Controller
                 break;
             case 'therapy':
 
-                $therapies=Therapy::active()->with(['commentscount', 'avgreviews'])->where('name', 'like', "%".$request->search."%")->get();
+                $therapies=Therapy::active()->with(['commentscount', 'avgreviews']);
+
+                if(!empty($request->search))
+                    $therapies=$therapies->where('name', 'like', "%".$request->search."%");
+                $therapies=$therapies->get();
                 return [
                     'status'=>'success',
                     'data'=>[
