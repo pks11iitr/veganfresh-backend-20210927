@@ -97,7 +97,16 @@ class TherapyController extends Controller
             ->get();
 
         $nearby=[];
+
+        $activegrades=[
+            'grade1'=>'no',
+            'grade2'=>'no',
+            'grade3'=>'no',
+            'grade4'=>'no',
+        ];
+
         foreach($therapist as $t){
+            $activegrades['grade'.$t->therapies[0]->pivot->therapist_grade]='yes';
             $nearby[]=[
                 'lat'=>$t->last_lat,
                 'lang'=>$t->last_lang,
@@ -107,7 +116,7 @@ class TherapyController extends Controller
 
         return [
             'status'=>'success',
-            'data'=>compact('nearby')
+            'data'=>compact('nearby', 'activegrades');
         ];
 
 
