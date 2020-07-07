@@ -27,7 +27,7 @@
             <div class="card">
               <div class="card-header">
 				  <a href="{{route('video.create')}}" class="btn btn-primary">Add Video</a>
-				   </div>                        
+				   </div>
               <!-- /.card-header -->
               <div class="card-body">
                 <table id="example2" class="table table-bordered table-hover">
@@ -44,7 +44,7 @@
                   <tr>
                       <td><img src="{{$video->image}}" height="80px" width="80px"/></td>
                      <!-- <td> <object type="text/html" data='{{$video->url}}' width='560px' height='315px'></object></td>-->
-                        <td> <a href="{{$video->url}}" type="button" class="btn btn-success" target="_blank">Play</a></td>
+                        <td> <a href="{{'https://www.youtube.com/watch?v='.$video->url}}" type="button" class="btn btn-success" target="_blank">Play</a></td>
                        <td>
                         @if($video->isactive==1){{'Yes'}}
                              @else{{'No'}}
