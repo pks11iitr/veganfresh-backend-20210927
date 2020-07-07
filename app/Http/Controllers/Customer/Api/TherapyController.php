@@ -116,7 +116,7 @@ class TherapyController extends Controller
 
         return [
             'status'=>'success',
-            'data'=>compact('nearby', 'activegrades');
+            'data'=>compact('nearby', 'activegrades'),
         ];
 
 
