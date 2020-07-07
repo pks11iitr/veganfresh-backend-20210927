@@ -100,6 +100,16 @@ Route::group(['middle'=>['auth', 'acl'], 'is'=>'admin'], function(){
         Route::post('store','SuperAdmin\NotificationController@store')->name('notification.store');
 
     });
+    
+    Route::group(['prefix'=>'video'], function(){
+        Route::get('/','SuperAdmin\VideoController@index')->name('video.list');
+        Route::get('create','SuperAdmin\VideoController@create')->name('video.create');
+        Route::post('store','SuperAdmin\VideoController@store')->name('video.store');
+        Route::get('edit/{id}','SuperAdmin\VideoController@edit')->name('video.edit');
+        Route::post('update/{id}','SuperAdmin\VideoController@update')->name('video.update');
+        Route::get('delete/{id}','SuperAdmin\VideoController@delete')->name('video.delete');        
+
+    });
 
 });
 
