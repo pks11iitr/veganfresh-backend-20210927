@@ -180,7 +180,7 @@
                     <!-- Add icons to the links using the .nav-icon class
                          with font-awesome or any other icon font library -->
                     <li class="nav-item has-treeview menu-open">
-                        <a href="#" class="nav-link active">
+                        <a href="{{route('home')}}" class="nav-link active">
                             <i class="nav-icon fas fa-tachometer-alt"></i>
                             <p>
                                 Dashboard
@@ -270,15 +270,15 @@
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Therapy</p>
                                </a>
-                           </li> 
+                           </li>
                            <li class="nav-item">
                                 <a href="{{route('orders.product')}}" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Product</p>
                                </a>
-                           </li> 
-                           </ul>                       
-                        
+                           </li>
+                           </ul>
+
                     </li>
                     <li class="nav-item">
                         <a href="{{route('complain.list')}}" class="nav-link">
@@ -298,7 +298,7 @@
                             </p>
                         </a>
                     </li>
-                    
+
                     <li class="nav-item">
                         <a href="{{route('notification.create')}}" class="nav-link">
                             <i class="nav-icon fas fa-th"></i>
@@ -317,7 +317,7 @@
                             </p>
                         </a>
                     </li>
-                                       
+
                     <!--**********************************************************************************************************-->
 {{--                    <li class="nav-item">--}}
 {{--                        <a href="pages/widgets.html" class="nav-link">--}}
