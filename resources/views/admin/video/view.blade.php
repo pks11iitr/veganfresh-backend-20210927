@@ -43,8 +43,8 @@
 				@foreach($videos as $video)
                   <tr>
                       <td><img src="{{$video->image}}" height="80px" width="80px"/></td>
-                      <td> <object type="text/html" data='{{$video->url}}' width='560px' height='315px'></object>
-                         <a href="{{$video->url}}" class="button" target="_blank">view</a></td>
+                     <!-- <td> <object type="text/html" data='{{$video->url}}' width='560px' height='315px'></object></td>-->
+                        <td> <a href="{{$video->url}}" type="button" class="btn btn-success" target="_blank">Play</a></td>
                        <td>
                         @if($video->isactive==1){{'Yes'}}
                              @else{{'No'}}
