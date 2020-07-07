@@ -44,18 +44,55 @@ class HomeController extends BaseController
         }
         $therapy_orders_array['total']=$total_order;
 
+        $product_orders=Order::whereHas('details',function($details){
+            $details->where('entity_type', 'App\Models\Product');
+        })
+            ->where('status', '!=', 'pending')
+            ->groupBy('status')
+            ->selectRaw('count(*) as total, status')
+            ->get();
+        $product_orders_array=[];
+        $total_order=0;
+        foreach($product_orders as $o){
+            if(isset($product_orders_array[$o->status]))
+                $product_orders_array[$o->status]=0;
+            $product_orders_array[$o->status]=$o->total;
+            $total_order=$total_order+$o->total;
+        }
+        $therapy_orders_array['total']=$total_order;
+
+
         $customers=Customer::selectRaw('count(*) as total, status')->groupBy('status')->get();
         $customers_array=[];
         $total_order=0;
         foreach($customers as $customer){
-            if(isset($customers_array[$o->status]))
-                $customers_array[$o->status]=0;
-            $customers_array[$o->status]=$o->total;
-            $total_order=$total_order+$o->total;
+            if(isset($customers_array[$customer->status]))
+                $customers_array[$customer->status]=0;
+            $customers_array[$customer->status]=$customer->total;
+            $total_order=$total_order+$customer->total;
         }
+        $customers_array['total']=$total_order;
+        //echo '<pre>';
+        //print_r($customers_array);die;
+
+        $revenue_therapy=Order::whereHas('details',function($details){
+            $details->where('entity_type', 'App\Models\Therapy');
+        })->where('status', 'confirmed')->sum('total_cost');
+
+        $revenue_product=Order::whereHas('details',function($details){
+            $details->where('entity_type', 'App\Models\Product');
+        })->where('status', 'confirmed')->sum('total_cost');
+
+        $revenue=[];
+        $revenue['product']=$revenue_product;
+        $revenue['therapy']=$revenue_therapy;
+        $revenue['total']=$revenue_therapy+$revenue_product;
+
         return view('admin.home', [
             'therapy'=>$therapy_orders_array,
-            'customers'=>$customers_array
+            'product'=>$product_orders_array,
+            'customer'=>$customers_array,
+            'revenue'=>$revenue
         ]);
     }
 }
