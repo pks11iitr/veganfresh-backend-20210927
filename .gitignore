@@ -1,5 +1,6 @@
 /node_modules
 /public/
+/public/admin-theme/*
 /public/hot
 /public/storage
 /storage/*.key

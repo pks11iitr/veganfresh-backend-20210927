@@ -23,7 +23,16 @@ class EventServiceProvider extends ServiceProvider
         ],
         'App\Events\SendOtp'=>[
             'App\Listeners\SendOtpListner',
+        ],
+
+        'App\Events\OrderConfirmed'=>[
+            'App\Listners\OrderConfirmListner'
+        ],
+
+        'App\Events\OrderConfirmed'=>[
+            'App\Listners\OrderConfirmListner'
         ]
+
 
     ];
 

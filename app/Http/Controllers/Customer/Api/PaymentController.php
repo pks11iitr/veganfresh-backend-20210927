@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Customer\Api;
 
+use App\Events\OrderConfirmed;
 use App\Events\OrderSuccessfull;
 use App\Models\Cart;
 use App\Models\Order;
@@ -47,6 +48,9 @@ class PaymentController extends Controller
         if($request->use_points==1) {
             $result=$this->payUsingPoints($order);
             if($result['status']=='success'){
+
+                event(new OrderConfirmed($order));
+
                 return [
                     'status'=>'success',
                     'message'=>'Congratulations! Your order at Arogyapeeth is successful',
@@ -62,6 +66,9 @@ class PaymentController extends Controller
         if($request->use_balance==1) {
             $result=$this->payUsingBalance($order);
             if($result['status']=='success'){
+
+                event(new OrderConfirmed($order));
+
                 return [
                     'status'=>'success',
                     'message'=>'Congratulations! Your order at Arogyapeeth is successful',
@@ -236,7 +243,7 @@ class PaymentController extends Controller
             Cart::where('user_id', $order->user_id)->delete();
 
             //event(new OrderSuccessfull($order));
-
+            event(new OrderConfirmed($order));
             return [
                 'status'=>'success',
                 'message'=> 'Congratulations! Your order at Arogyapeeth is successful',
