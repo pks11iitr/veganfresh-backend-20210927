@@ -138,7 +138,7 @@ class PaymentController extends Controller
                 $order->payment_status='paid';
                 $order->status='confirmed';
                 $order->use_balance=true;
-                $order->balance_used=$order->total_cost*env('POINTS_CONVERSION_RATE');
+                $order->balance_used=$order->total_cost;
                 $order->payment_mode='online';
                 $order->save();
 
