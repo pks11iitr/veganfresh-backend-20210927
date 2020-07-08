@@ -66,7 +66,7 @@
                             <div class="icon">
                                 <i class="ion ion-person-add"></i>
                             </div>
-                            <a href="#" class="small-box-footer">Customers info <i class="fas fa-info-circle"></i></a>
+                            <span class="small-box-footer">Customers info <i class="fas fa-info-circle"></i></span>
                         </div>
                     </div>
                     <!-- ./col -->
@@ -81,7 +81,7 @@
                             <div class="icon">
                                 <i class="ion ion-pie-graph"></i>
                             </div>
-                            <a href="#" class="small-box-footer">Revenue info <i class="fas fa-info-circle"></i></a>
+                            <span class="small-box-footer">Revenue info <i class="fas fa-info-circle"></i></span>
                         </div>
                     </div>
                     <!-- ./col -->
