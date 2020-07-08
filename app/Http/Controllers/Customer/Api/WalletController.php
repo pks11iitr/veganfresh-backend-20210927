@@ -107,7 +107,7 @@ class WalletController extends Controller
             $wallet->iscomplete=true;
             $wallet->save();
 
-            //event(new RechargeSuccess($wallet));
+            event(new RechargeConfirmed($wallet));
 
             return response()->json([
                 'status'=>'success',
