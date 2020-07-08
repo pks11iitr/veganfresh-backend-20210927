@@ -33,40 +33,50 @@ class HomeController extends BaseController
         })
         ->where('status', '!=', 'pending')
         ->groupBy('status')
-        ->selectRaw('count(*) as total, status')
+        ->selectRaw('count(*) as count, status')
         ->get();
         $therapy_orders_array=[];
         $total_order=0;
         foreach($therapy_orders as $o){
             if(isset($therapy_orders_array[$o->status]))
                 $therapy_orders_array[$o->status]=0;
-            $therapy_orders_array[$o->status]=$o->total;
-            $total_order=$total_order+$o->total??0;
+            $therapy_orders_array[$o->status]=$o->count;
+            $total_order=$total_order+$o->count??0;
         }
 
 
         $therapy_orders_array['total']=$total_order;
         //var_dump($therapy_orders_array);die;
 
+        //var_dump($therapy_orders_array);die;
+
+
         $product_orders=Order::whereHas('details',function($details){
             $details->where('entity_type', 'App\Models\Product');
         })
             ->where('status', '!=', 'pending')
             ->groupBy('status')
-            ->selectRaw('count(*) as total, status')
+            ->selectRaw('count(*) as count, status')
             ->get();
         $product_orders_array=[];
         $total_order=0;
+        //echo '<pre>';
+        //var_dump($product_orders);die;
+        //echo '<pre>';
         foreach($product_orders as $o){
-            if(isset($product_orders_array[$o->status]))
+            //echo $o->count??0;
+            if(!isset($product_orders_array[$o->status]))
                 $product_orders_array[$o->status]=0;
-            $product_orders_array[$o->status]=$o->total;
-            $total_order=$total_order+$o->total??0;
+            $product_orders_array[$o->status]=$o->count??0;
+            $total_order=$total_order+($o->count??0);
+
+            //var_dump($therapy_orders_array);
         }
 
 
-        $therapy_orders_array['total']=$total_order;
+        $product_orders_array['total']=$total_order;
 
+        //var_dump($therapy_orders_array);die;
 
         $customers=Customer::selectRaw('count(*) as total, status')->groupBy('status')->get();
         $customers_array=[];
@@ -130,7 +140,7 @@ class HomeController extends BaseController
         $revenue['product']=$revenue_product;
         $revenue['therapy']=$revenue_therapy;
         $revenue['total']=$revenue_therapy+$revenue_product;
-
+        //var_dump($therapy_orders_array);die;
         return view('admin.home', [
             'therapy'=>$therapy_orders_array,
             'product'=>$product_orders_array,
