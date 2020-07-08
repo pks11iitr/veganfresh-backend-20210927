@@ -680,15 +680,11 @@
         // Donut Chart
         var pieChartCanvas = $('#sales-chart-canvas').get(0).getContext('2d')
         var pieData        = {
-            labels: [
-                'Instore Sales',
-                'Download Sales',
-                'Mail-Order Sales',
-            ],
+            labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
             datasets: [
                 {
-                    data: [30,12,20],
-                    backgroundColor : ['#f56954', '#00a65a', '#f39c12'],
+                    data: [{{($sales['product'][1]??0)+($sales['therapy'][1]??0)}},{{($sales['product'][2]??0)+($sales['therapy'][2]??0)}},{{($sales['product'][3]??0)+($sales['therapy'][3]??0)}},{{($sales['product'][4]??0)+($sales['therapy'][4]??0)}},{{($sales['product'][5]??0)+($sales['therapy'][5]??0)}},{{($sales['product'][6]??0)+($sales['therapy'][6]??0)}},{{($sales['product'][7]??0)+($sales['therapy'][7]??0)}},{{($sales['product'][8]??0)+($sales['therapy'][8]??0)}},{{($sales['product'][9]??0)+($sales['therapy'][9]??0)}},{{($sales['product'][10]??0)+($sales['therapy'][10]??0)}},{{($sales['product'][11]??0)+($sales['therapy'][11]??0)}},{{($sales['product'][12]??0)+($sales['therapy'][12]??0)}},],
+                    backgroundColor : ['#f56954', '#00a65a', '#f39c12', '#0DB507', '#536953','#685369', '#AE12B4','#44E7B7','#07E32B', '#9A07E3', '#9A07E3','#D04D14'],
                 }
             ]
         }
