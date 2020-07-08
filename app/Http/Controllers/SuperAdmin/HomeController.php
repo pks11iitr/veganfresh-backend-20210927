@@ -41,9 +41,12 @@ class HomeController extends BaseController
             if(isset($therapy_orders_array[$o->status]))
                 $therapy_orders_array[$o->status]=0;
             $therapy_orders_array[$o->status]=$o->total;
-            $total_order=$total_order+$o->total;
+            $total_order=$total_order+$o->total??0;
         }
+
+
         $therapy_orders_array['total']=$total_order;
+        //var_dump($therapy_orders_array);die;
 
         $product_orders=Order::whereHas('details',function($details){
             $details->where('entity_type', 'App\Models\Product');
@@ -58,8 +61,10 @@ class HomeController extends BaseController
             if(isset($product_orders_array[$o->status]))
                 $product_orders_array[$o->status]=0;
             $product_orders_array[$o->status]=$o->total;
-            $total_order=$total_order+$o->total;
+            $total_order=$total_order+$o->total??0;
         }
+
+
         $therapy_orders_array['total']=$total_order;
 
 
