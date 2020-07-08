@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Customer\Api;
 
+use App\Events\RechargeConfirmed;
 use App\Events\RechargeSuccess;
 use App\Models\Wallet;
 use App\Services\Payment\RazorPayService;
