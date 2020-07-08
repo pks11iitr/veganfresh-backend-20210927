@@ -7,6 +7,7 @@ use App\Models\Customer;
 use App\Models\Order;
 use Illuminate\Http\Request;
 use App\Http\Controllers\SuperAdmin\BaseController;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends BaseController
 {
@@ -83,6 +84,43 @@ class HomeController extends BaseController
             $details->where('entity_type', 'App\Models\Product');
         })->where('status', 'confirmed')->sum('total_cost');
 
+        $therapy_orders_data=Order::where('status', 'confirmed')
+        ->where('created_at', '>=', date('Y').'-01-01 00:00:00')
+            ->whereHas('details',function($details){
+            $details->where('entity_type', 'App\Models\Therapy');
+        })
+            ->select(DB::raw('Month(created_at) as month'), DB::raw('SUM(total_cost) as total_cost'))
+        ->groupBy(DB::raw('Month(created_at)'))
+        ->orderBy(DB::raw('Month(created_at)'), 'asc')
+        ->get();
+
+        $therapy_sales=[];
+        foreach($therapy_orders_data as $d){
+            $therapy_sales[$d->month]=$d->total_cost;
+        }
+
+        $product_orders_data=Order::where('status', 'confirmed')
+            ->where('created_at', '>=', date('Y').'-01-01 00:00:00')
+            ->whereHas('details',function($details){
+                $details->where('entity_type', 'App\Models\Product');
+            })
+            ->select(DB::raw('Month(created_at) as month'), DB::raw('SUM(total_cost) as total_cost'))
+            ->groupBy(DB::raw('Month(created_at)'))
+            ->orderBy(DB::raw('Month(created_at)'), 'asc')
+            ->get();
+        $product_sales=[];
+        foreach($product_orders_data as $d){
+            $product_sales[$d->month]=$d->total_cost;
+        }
+
+
+        //var_dump($therapy_orders_data->toArray());die;
+
+        $sales_data=[
+            'therapy'=>$therapy_sales,
+            'product'=>$product_sales
+        ];
+
         $revenue=[];
         $revenue['product']=$revenue_product;
         $revenue['therapy']=$revenue_therapy;
@@ -92,7 +130,8 @@ class HomeController extends BaseController
             'therapy'=>$therapy_orders_array,
             'product'=>$product_orders_array,
             'customer'=>$customers_array,
-            'revenue'=>$revenue
+            'revenue'=>$revenue,
+            'sales'=>$sales_data
         ]);
     }
 }

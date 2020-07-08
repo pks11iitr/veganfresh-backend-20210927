@@ -912,5 +912,8 @@
 <script src="{{asset('admin-theme/js/pages/dashboard.js')}}"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="{{asset('admin-theme/js/demo.js')}}"></script>
+
+@yield('scripts')
+
 </body>
 </html>
