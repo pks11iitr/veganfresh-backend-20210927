@@ -104,7 +104,7 @@ class PaymentController extends Controller
                 'status'=>'success',
                 'message'=>'success',
                 'data'=>[
-                    'paymentdone'=>'no',
+                    'payment_done'=>'no',
                     'razorpay_order_id'=> $order->order_id,
                     'total'=>($order->total_cost-$order->balance_used)*100,
                     'email'=>$order->email,
