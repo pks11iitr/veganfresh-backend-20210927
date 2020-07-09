@@ -17,7 +17,7 @@ class NotificationController extends Controller
                 'message'=>'Please login to continue'
             ];
 
-        $notifications=Notification::where('user_id', $user->id)->orWhere('type', 'all')->select('title', 'description', 'created_at')->get();
+        $notifications=Notification::where('user_id', $user->id)->orWhere('type', 'all')->select('title', 'description', 'created_at')->orderBy('created_at', 'desc')->get();
 
         return [
             'status'=>'success',
