@@ -348,7 +348,7 @@ class OrderController extends Controller
             }else{
                 $show_cancel=1;
             }
-            if($order->details[0]->entity instanceof Therapy  && $order->details[0]->is_instant!=1){
+            if($order->details[0]->entity instanceof Therapy  && $order->is_instant!=1){
                 $show_reschedule=1;
             }
 
@@ -423,7 +423,7 @@ class OrderController extends Controller
             ];
         }
 
-        if($order->details[0]->entity instanceof Therapy && $order->details[0]->is_instant != 1){
+        if($order->details[0]->entity instanceof Therapy && $order->is_instant != 1){
             $order->booking_date=$request->date;
             $order->booking_time=$request->time;
             $order->save();
