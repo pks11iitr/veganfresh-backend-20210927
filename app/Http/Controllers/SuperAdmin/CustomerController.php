@@ -27,7 +27,7 @@ class CustomerController extends Controller
                 $customers=$customers->where('status', $request->status);
 
             if($request->ordertype)
-                $customers=$customers->orderBy('created_by', $request->order_type);
+                $customers=$customers->orderBy('created_by', $request->ordertype);
 
             $customers=Customer::paginate(10);
             return view('admin.customer.view',['customers'=>$customers]);
