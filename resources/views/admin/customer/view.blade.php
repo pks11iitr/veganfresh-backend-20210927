@@ -38,7 +38,7 @@
 					  <div class="col-4">
                           <select id="ordertype" name="ordertype" class="form-control" >
                              <option value="DESC" {{ request('ordertype')=='DESC'?'selected':''}}>DESC</option>
-                              <option value="ASC" {{ request('ordertype')=='DESC'?'selected':''}}>ASC</option>
+                              <option value="ASC" {{ request('ordertype')=='ASC'?'selected':''}}>ASC</option>
                           </select>
                       </div>
                       <div class="col-4">
