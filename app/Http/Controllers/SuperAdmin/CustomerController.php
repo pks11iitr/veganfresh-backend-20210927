@@ -21,7 +21,7 @@ class CustomerController extends Controller
                 $customers=$customers->where('created_at', '>=', $request->fromdate.'00:00:00');
 
             if($request->todate)
-                $customers=$customers->where('created_at', '<=', $request->todate1.'23:59:50');
+                $customers=$customers->where('created_at', '<=', $request->todate.'23:59:50');
 
             if($request->status)
                 $customers=$customers->where('status', $request->status);
