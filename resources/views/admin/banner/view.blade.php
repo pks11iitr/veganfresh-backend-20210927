@@ -27,7 +27,7 @@
             <div class="card">
               <div class="card-header">
                 <a href="{{route('banners.create')}}" class="btn btn-primary">Add Banner</a>
-             
+
               </div>
               <!-- /.card-header -->
               <div class="card-body">
@@ -41,7 +41,7 @@
                   </tr>
                   </thead>
                   <tbody>
-				@foreach($banners as $bann)  
+				@foreach($banners as $bann)
                   <tr>
                       <td><img src="{{$bann->image}}" height="80px" width="80px"/></td>
                       <td>{{$bann->type}}</td>
@@ -61,7 +61,7 @@
                     <th>Type</th>
                     <th>Isactive</th>
                     <th>Action</th>
-                  </tr>                 
+                  </tr>
                   </tfoot>
                 </table>
               </div>
@@ -77,7 +77,7 @@
       <!-- /.container-fluid -->
     </section>
     <!-- /.content -->
- 
+
   <!-- /.control-sidebar -->
 </div>
 <!-- ./wrapper -->

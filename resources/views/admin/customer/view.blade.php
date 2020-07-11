@@ -29,46 +29,42 @@
               <div class="card-header">
 				 <div class="row">
                           <div class="col-12">
-							   
-        <form class="form-validate form-horizontal"  method="post" action="/customer/customer_search " enctype="multipart/form-data">
-                           <input type = "hidden" name = "_token" value = "<?php echo csrf_token(); ?>">
+
+        <form class="form-validate form-horizontal"  method="get" action="" enctype="multipart/form-data">
                      <div class="row">
-					      <div class="col-4"> 
-                           <input  class="form-control" name="search" placeholder=" search name" value=""  type="text" />
+					      <div class="col-4">
+                           <input  class="form-control" name="search" placeholder=" search name" value="{{request('search')}}"  type="text" />
                            </div>
 					  <div class="col-4">
                           <select id="ordertype" name="ordertype" class="form-control" >
-							  
-                             <option value="">Please Select Order</option>
-                             
-                             <option value="ASC">ASC</option>
-                             <option value="DESC">DESC</option>
+                             <option value="DESC" {{ request('ordertype')=='DESC'?'selected':''}}>DESC</option>
+                              <option value="ASC" {{ request('ordertype')=='DESC'?'selected':''}}>ASC</option>
                           </select>
                       </div>
                       <div class="col-4">
                           <select id="status" name="status" class="form-control" >
-							  
+
                              <option value="">Please Select Status</option>
-                             
-                             <option value="1">Active</option>
-                             <option value="0">Inactive</option>
-                             <option value="2">Blocked</option>
+
+                             <option value="1" {{ request('status')=='1'?'selected':''}}>Active</option>
+                             <option value="0" {{ isset(request('status')) && request('status')=='0'?'selected':''}}>Inactive</option>
+                             <option value="2" {{ request('status')=='2'?'selected':''}}>Blocked</option>
                           </select>
                       </div><br><br>
-                      <div class="col-4"> 
-                           <input   class="form-control" name="fromdate" placeholder=" search name" value=""  type="date" />
+                      <div class="col-4">
+                           <input   class="form-control" name="fromdate" placeholder=" search name" value="{{request('fromdate')}}"  type="date" />
                            </div>
-                           <div class="col-4"> 
-                           <input  class="form-control" name="todate" placeholder=" search name" value=""  type="date" />
+                           <div class="col-4">
+                           <input  class="form-control" name="todate" placeholder=" search name" value="{{request('todate')}}"  type="date" />
                            </div>
-                    <div class="col-4"> 
+                    <div class="col-4">
                        <button type="submit" name="save" class="btn btn-primary">Submit</button>
-                     </div>                            
-                  </div>                            
+                     </div>
+                  </div>
               </form>
-         </div> 
+         </div>
 
-     </div>              
+     </div>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
@@ -88,7 +84,7 @@
                   </tr>
                   </thead>
                   <tbody>
-				@foreach($customers as $customer)  
+				@foreach($customers as $customer)
                   <tr>
 					  <td>{{$customer->name}}</td>
 					  <td>{{$customer->mobile}}</td>
@@ -120,7 +116,7 @@
                     <th>Image</th>
                     <th>Isactive</th>
                    <th>Action</th>
-                  </tr>                 
+                  </tr>
                   </tfoot>
                 </table>
               </div>
@@ -161,25 +157,25 @@
            </div>
         </form>
       </div>
- 
+
     </div>
   </div>
 </div>
 <script>
-	
+
 $(document).on("click", ".open-AddBookDialog", function () {
      var myBookId = $(this).data('id');
      $(".modal-body #cusid").val( myBookId );
-     // As pointed out in comments, 
+     // As pointed out in comments,
      // it is unnecessary to have to manually call the modal.
      // $('#addBookDialog').modal('show');
 });
 function verifySubmit(){
-	
+
 	var cusid = $("#cusid").val();
 	var title = $("#recipient-name").val();
 	var des = $("#message-text").val();
-	
+
 	$.post('{{route('customer.send_message')}}', {cusid:cusid, _token:'{{csrf_token()}}', title:title, des:des}, function(data){
 					alert('Message has been sent successfully')
 			})

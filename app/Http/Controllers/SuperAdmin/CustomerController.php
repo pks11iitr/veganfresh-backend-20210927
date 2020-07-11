@@ -12,10 +12,27 @@ use Storage;
 class CustomerController extends Controller
 {
      public function index(Request $request){
+
+            $customers=Customer::where(function($customers) use($request){
+                $customers->where('name','LIKE','%'.$request->search.'%')->orwhere('mobile','LIKE','%'.$request->search.'%')->orwhere('email','LIKE','%'.$request->search.'%');
+            });
+
+            if($request->fromdate)
+                $customers=$customers->where('created_at', '>=', $request->fromdate.'00:00:00');
+
+            if($request->todate)
+                $customers=$customers->where('created_at', '<=', $request->todate1.'23:59:50');
+
+            if($request->status)
+                $customers=$customers->where('status', $request->status);
+
+            if($request->ordertype)
+                $customers=$customers->orderBy('created_by', $request->order_type);
+
             $customers=Customer::paginate(10);
             return view('admin.customer.view',['customers'=>$customers]);
-              }
-              
+     }
+
      public function customer_search(Request $request) {
 	      $search=$request->input("search");
 	      $ordertype=$request->input("ordertype");
@@ -24,9 +41,9 @@ class CustomerController extends Controller
 	      $fromdate=$request->input("fromdate");
 	      $todate1=$request->input("todate");
 	      $todate = date('Y-m-d', strtotime($todate1. ' + 1 days'));
-	      
+
 	   if($ordertype=='ASC'&& $search && $status && $fromdate && $todate){
-		   
+
 		     $customers=Customer::orderBy('created_at','ASC')->whereBetween('created_at', [$fromdate, $todate])->where('status','=',$status)->where('name','LIKE','%'.$search.'%')->orwhere('mobile','LIKE','%'.$search.'%')->orwhere('email','LIKE','%'.$search.'%')->paginate(10);
 			}elseif($ordertype=='DESC'&& $search && $status && $fromdate && $todate)
 			{
@@ -39,7 +56,7 @@ class CustomerController extends Controller
 	        $customers=Customer::orderBy('created_at','DESC')->where('status','=',$status)->paginate(10);
              }elseif($search){
 			$customers=Customer::orderBy('created_at','DESC')->where('name','LIKE','%'.$search.'%')->orwhere('mobile','LIKE','%'.$search.'%')->orwhere('email','LIKE','%'.$search.'%')->paginate(10);
-            }elseif($fromdate && $todate){	
+            }elseif($fromdate && $todate){
 		     $customers=Customer::orderBy('created_at','DESC')->whereBetween('created_at', [$fromdate, $todate])->paginate(10);
             }else{
 			$customers=Customer::orderBy('created_at','DESC')->paginate(10);
@@ -62,9 +79,9 @@ class CustomerController extends Controller
                   			'state'=>'required',
                   			'image'=>'image'
                   			]);
-                      
+
              $customers = Customer::findOrFail($id);
-          if($request->image){                  
+          if($request->image){
 			 $customers->update([
                       'status'=>$request->status,
                       'name'=>$request->name,
@@ -91,10 +108,10 @@ class CustomerController extends Controller
            return redirect()->back()->with('error', 'Customer update failed');
 
       }
-      
+
       function send_message(Request $request)
         {
- 
+
         $cusid=$request->cusid;
         $title=$request->title;
         $des=$request->des;
@@ -109,7 +126,7 @@ class CustomerController extends Controller
        }else{
               return response()->json(['msg' => 'No result found!'], 404);
        }
-        
+
         }
 
   }
