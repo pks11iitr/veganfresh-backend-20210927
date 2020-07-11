@@ -120,7 +120,7 @@
                   </tfoot>
                 </table>
               </div>
-              {{$customers->links()}}
+              {{$customers->appends(request()->query())->links()}}
               <!-- /.card-body -->
             </div>
             <!-- /.card -->
