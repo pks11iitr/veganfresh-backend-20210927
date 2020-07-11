@@ -47,7 +47,7 @@
                              <option value="">Please Select Status</option>
 
                              <option value="1" {{ request('status')=='1'?'selected':''}}>Active</option>
-                             <option value="0" {{ isset(request('status')) && request('status')=='0'?'selected':''}}>Inactive</option>
+                             <option value="0" {{ request('status')==='0'?'selected':''}}>Inactive</option>
                              <option value="2" {{ request('status')=='2'?'selected':''}}>Blocked</option>
                           </select>
                       </div><br><br>
