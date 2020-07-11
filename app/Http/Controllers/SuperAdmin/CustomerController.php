@@ -14,7 +14,9 @@ class CustomerController extends Controller
      public function index(Request $request){
 
             $customers=Customer::where(function($customers) use($request){
-                $customers->where('name','LIKE','%'.$request->search.'%')->orwhere('mobile','LIKE','%'.$request->search.'%')->orwhere('email','LIKE','%'.$request->search.'%');
+                $customers->where('name','LIKE','%'.$request->search.'%')
+                    ->orWhere('mobile','LIKE','%'.$request->search.'%')
+                    ->orWhere('email','LIKE','%'.$request->search.'%');
             });
 
             if($request->fromdate)
