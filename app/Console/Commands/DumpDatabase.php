@@ -54,5 +54,8 @@ class DumpDatabase extends Command
         $command = sprintf('mysqldump -h %s -u %s -p\'%s\' %s > %s', $host, $username, $password, $database, $path.'/dbbackup.mysql');
 
         exec($command);
+
+        exec('cp '.getcwd().'/.env '.getcwd().'/.env.example');
+
     }
 }
