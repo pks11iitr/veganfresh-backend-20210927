@@ -1,0 +1,1096 @@
+-- MySQL dump 10.13  Distrib 5.7.30, for Linux (x86_64)
+--
+-- Host: 127.0.0.1    Database: arogyapeeth
+-- ------------------------------------------------------
+-- Server version	5.7.30-0ubuntu0.18.04.1
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `banners`
+--
+
+DROP TABLE IF EXISTS `banners`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `banners` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `image` varchar(500) NOT NULL,
+  `type` varchar(100) NOT NULL DEFAULT 'all',
+  `isactive` tinyint(1) NOT NULL DEFAULT '1',
+  `created_at` datetime DEFAULT NULL,
+  `deleted_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `banners`
+--
+
+LOCK TABLES `banners` WRITE;
+/*!40000 ALTER TABLE `banners` DISABLE KEYS */;
+INSERT INTO `banners` VALUES (1,'banners/homebanner1.jpeg','all',1,NULL,NULL,NULL),(2,'banners/homebanner2.jpeg','all',1,NULL,NULL,NULL),(3,'banners/homebanner3.jpeg','all',1,NULL,NULL,NULL),(4,'banners/homebanner4.jpeg','all',1,NULL,NULL,NULL),(5,'banners/5/477_product3banner.jpeg','all',1,'2020-06-29 13:37:10',NULL,'2020-06-29 13:37:11');
+/*!40000 ALTER TABLE `banners` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `cart`
+--
+
+DROP TABLE IF EXISTS `cart`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `cart` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `product_id` int(11) NOT NULL,
+  `quantity` int(11) NOT NULL,
+  `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime DEFAULT NULL,
+  `deleted_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `cart`
+--
+
+LOCK TABLES `cart` WRITE;
+/*!40000 ALTER TABLE `cart` DISABLE KEYS */;
+/*!40000 ALTER TABLE `cart` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `categories`
+--
+
+DROP TABLE IF EXISTS `categories`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `categories` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(200) NOT NULL,
+  `image` varchar(500) NOT NULL,
+  `isactive` tinyint(1) NOT NULL DEFAULT '1',
+  `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
+  `deleted_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `categories`
+--
+
+LOCK TABLES `categories` WRITE;
+/*!40000 ALTER TABLE `categories` DISABLE KEYS */;
+INSERT INTO `categories` VALUES (1,'Heathcare Devices','categories/healthcare.png',1,'2020-06-19 13:22:06',NULL,NULL),(2,'Herbal Products','categories/herbal.jpeg',1,'2020-06-19 13:22:06',NULL,NULL),(3,'Fitness Suplements','categories/fitness.jpeg',1,'2020-06-19 13:22:56',NULL,NULL),(4,'Personal Care','categories/personal.png',1,'2020-06-19 13:22:56',NULL,NULL);
+/*!40000 ALTER TABLE `categories` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `clinic_therapies`
+--
+
+DROP TABLE IF EXISTS `clinic_therapies`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `clinic_therapies` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `clinic_id` int(11) NOT NULL,
+  `therapy_id` int(11) NOT NULL,
+  `isactive` tinyint(1) NOT NULL DEFAULT '1',
+  `created_at` datetime DEFAULT NULL,
+  `deleted_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  `grade1_price` int(11) NOT NULL,
+  `grade2_price` int(11) NOT NULL,
+  `grade3_price` int(11) NOT NULL,
+  `grade4_price` int(11) NOT NULL,
+  `grade1_original_price` int(11) DEFAULT NULL,
+  `grade2_original_price` int(11) DEFAULT NULL,
+  `grade3_original_price` int(11) DEFAULT NULL,
+  `grade4_original_price` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `clinic_therapies`
+--
+
+LOCK TABLES `clinic_therapies` WRITE;
+/*!40000 ALTER TABLE `clinic_therapies` DISABLE KEYS */;
+INSERT INTO `clinic_therapies` VALUES (1,1,1,0,NULL,NULL,NULL,700,800,900,1000,NULL,NULL,NULL,NULL),(2,1,3,1,NULL,NULL,NULL,0,0,0,0,NULL,NULL,NULL,NULL),(3,1,2,1,NULL,NULL,NULL,0,0,0,0,NULL,NULL,NULL,NULL),(4,4,4,1,'2020-06-29 11:45:16',NULL,'2020-06-29 13:29:48',1100,1200,1400,1600,1200,1400,1600,1900),(5,1,4,0,'2020-06-29 13:32:29',NULL,'2020-06-29 13:32:51',1000,1200,1400,1600,1200,1400,1600,1800);
+/*!40000 ALTER TABLE `clinic_therapies` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `clinics`
+--
+
+DROP TABLE IF EXISTS `clinics`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `clinics` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(250) NOT NULL,
+  `description` text NOT NULL,
+  `image` varchar(500) NOT NULL,
+  `address` varchar(250) NOT NULL,
+  `city` varchar(50) DEFAULT NULL,
+  `state` varchar(50) DEFAULT NULL,
+  `contact` varchar(20) NOT NULL,
+  `lat` int(11) DEFAULT NULL,
+  `lang` int(11) DEFAULT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `isactive` tinyint(1) NOT NULL DEFAULT '1' COMMENT 'for applicaton display',
+  `deleted_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `clinics`
+--
+
+LOCK TABLES `clinics` WRITE;
+/*!40000 ALTER TABLE `clinics` DISABLE KEYS */;
+INSERT INTO `clinics` VALUES (1,'Fortis Noida','A clinic (or outpatient clinic or ambulatory care clinic) is a healthcare facility that is primarily focused on the care of outpatients. ... Most commonly, the English word clinic refers to a general medical practice, run by one or more general practitioners, but it can also mean a specialist clinic.','clinics/fortis.jpeg','G-10, Sector 63 Rd, E Block, Sector 63, Noida, Uttar Pradesh 201301','Noida','Uttar Pradesh','8802035788',12,13,'2020-03-11 00:00:00',1,NULL,'2020-03-11 00:00:00'),(2,'Jaypee Noida','A clinic (or outpatient clinic or ambulatory care clinic) is a healthcare facility that is primarily focused on the care of outpatients. ... Most commonly, the English word clinic refers to a general medical practice, run by one or more general practitioners, but it can also mean a specialist clinic.','clinics/jaypee.jpeg','G-10, Sector 63 Rd, E Block, Sector 63, Noida, Uttar Pradesh 201301','Noida','Uttar Pradesh','8802035788',12,13,'2020-03-11 00:00:00',1,NULL,'2020-03-11 00:00:00'),(3,'Medanta','A clinic (or outpatient clinic or ambulatory care clinic) is a healthcare facility that is primarily focused on the care of outpatients. ... Most commonly, the English word clinic refers to a general medical practice, run by one or more general practitioners, but it can also mean a specialist clinic.','clinics/medanta.jpeg','G-10, Sector 63 Rd, E Block, Sector 63, Noida, Uttar Pradesh 201301','Noida','Uttar Pradesh','8802035788',12,13,'2020-03-11 00:00:00',1,NULL,'2020-03-11 00:00:00'),(4,'Arrogra','ddc','clinics/4/951_neet.jpeg','ccd','cdc','dcd','8802035788',NULL,NULL,'2020-06-29 13:07:43',1,NULL,'2020-06-29 13:07:43');
+/*!40000 ALTER TABLE `clinics` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `complaint_messages`
+--
+
+DROP TABLE IF EXISTS `complaint_messages`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `complaint_messages` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `description` text NOT NULL,
+  `type` varchar(25) NOT NULL,
+  `complaint_id` int(11) NOT NULL,
+  `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
+  `deleted_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `complaint_messages`
+--
+
+LOCK TABLES `complaint_messages` WRITE;
+/*!40000 ALTER TABLE `complaint_messages` DISABLE KEYS */;
+INSERT INTO `complaint_messages` VALUES (1,'1. Paragraph Writing and Web MappingSome of you might still be looking for ways to improve your writing,whether a paragraph, or a whole essay. Below are some good tips thatshould help your writing to unfold more clearly and logically. Letsbegin with the paragraph. Consider the diagram below. It stands forthe five sentence paragraph.','user',1,'2020-07-02 05:40:35',NULL,NULL),(2,'Letsbegin with the paragraph. Consider the diagram below. It stands forthe five sentence paragraph.','admin',1,'2020-07-02 05:41:04',NULL,NULL),(3,'I booked order which is cancelled by arogya team.May I know what was the erason?','user',3,'2020-07-03 11:40:19',NULL,'2020-07-03 11:40:19'),(4,'I am still waiting for reply. pls respond','user',3,'2020-07-03 11:43:05',NULL,'2020-07-03 11:43:05'),(5,'1. Paragraph Writing and Web MappingSome of you might still be looking for ways to improve your writing,whether a paragraph, or a whole essay. Below are some good tips thatshould help your writing to unfold more clearly and logically. Letsbegin with the paragraph. Consider the diagram below. It stands forthe five sentence paragraph.','user',1,'2020-07-02 05:40:35',NULL,NULL),(6,'Letsbegin with the paragraph. Consider the diagram below. It stands forthe five sentence paragraph.','admin',1,'2020-07-02 05:41:04',NULL,NULL),(7,'I booked order which is cancelled by arogya team.May I know what was the erason?','user',3,'2020-07-03 11:40:19',NULL,'2020-07-03 11:40:19'),(8,'I am still waiting for reply. pls respond','user',3,'2020-07-03 11:43:05',NULL,'2020-07-03 11:43:05');
+/*!40000 ALTER TABLE `complaint_messages` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `complaints`
+--
+
+DROP TABLE IF EXISTS `complaints`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `complaints` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `refid` varchar(50) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime DEFAULT NULL,
+  `deleted_at` datetime DEFAULT NULL,
+  `subject` varchar(150) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `complaints`
+--
+
+LOCK TABLES `complaints` WRITE;
+/*!40000 ALTER TABLE `complaints` DISABLE KEYS */;
+INSERT INTO `complaints` VALUES (1,'CARA124356',1,'2020-07-02 05:39:42',NULL,NULL,'I have issue with placing order'),(2,'CARA1593756526',1,'2020-07-03 11:38:46','2020-07-03 11:38:46',NULL,'My therapy booking is cancelled'),(3,'CARA1593756618',1,'2020-07-03 11:40:18','2020-07-03 11:40:18',NULL,'My therapy booking is cancelled'),(4,'CARA124356',1,'2020-07-02 05:39:42',NULL,NULL,'I have issue with placing order'),(5,'CARA1593756526',1,'2020-07-03 11:38:46','2020-07-03 11:38:46',NULL,'My therapy booking is cancelled'),(6,'CARA1593756618',1,'2020-07-03 11:40:18','2020-07-03 11:40:18',NULL,'My therapy booking is cancelled');
+/*!40000 ALTER TABLE `complaints` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `configurations`
+--
+
+DROP TABLE IF EXISTS `configurations`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `configurations` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `param` varchar(100) NOT NULL,
+  `value` varchar(500) NOT NULL,
+  `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime DEFAULT NULL,
+  `deleted_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `configurations`
+--
+
+LOCK TABLES `configurations` WRITE;
+/*!40000 ALTER TABLE `configurations` DISABLE KEYS */;
+INSERT INTO `configurations` VALUES (1,'channel_url','https://www.youtube.com/user/ramgopaldixit','2020-07-07 10:30:34',NULL,NULL);
+/*!40000 ALTER TABLE `configurations` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `customers`
+--
+
+DROP TABLE IF EXISTS `customers`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `customers` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `mobile` varchar(10) DEFAULT NULL,
+  `email` varchar(100) DEFAULT NULL,
+  `password` varchar(100) DEFAULT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0 inactive, 1 active, 2 blocked',
+  `name` varchar(100) DEFAULT NULL,
+  `image` varchar(500) DEFAULT 'customers/default.png',
+  `dob` date DEFAULT NULL,
+  `address` varchar(500) DEFAULT NULL,
+  `city` varchar(50) DEFAULT NULL,
+  `state` varchar(50) DEFAULT NULL,
+  `notification_token` varchar(1000) DEFAULT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  `deleted_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `customers`
+--
+
+LOCK TABLES `customers` WRITE;
+/*!40000 ALTER TABLE `customers` DISABLE KEYS */;
+INSERT INTO `customers` VALUES (1,'8802035788','pks11iitr@gmail.com','$2y$10$uAvo6n1jyhvqoUATwwH/BuGVd4pT5vMsyqCff8fyu7uvC/KQ2llAu',1,'Pankaj S','customers/1/187_down.png','1983-11-11','D36 Lal kuan','Ghaziabad','Uttar Pradesh',NULL,'2020-03-13 12:08:59','2020-06-20 12:37:05',NULL),(2,'8802035789','pks12iitr@gmail.com','$2y$10$4XM81pr/f4EUuNU8F9LtUOPAeOSBvyn8Fm.B8sY8x134E/AoX8ofW',2,'pankaj kumar sengar','customers/default.png',NULL,NULL,NULL,NULL,NULL,'2020-03-13 12:34:49','2020-03-13 12:34:49',NULL),(3,'8802035778','pks777iitr@gmail.com','$2y$10$f1VwoKdmrMcCPpKzzsPW2uKVyOh4Tbe.upu9ZeuAVpgIVUdgn9cda',0,'pankaj','customers/default.png',NULL,NULL,NULL,NULL,NULL,'2020-06-17 10:22:57','2020-06-17 10:22:57',NULL);
+/*!40000 ALTER TABLE `customers` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `details`
+--
+
+DROP TABLE IF EXISTS `details`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `details` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `order_id` int(11) NOT NULL,
+  `entity_id` int(11) NOT NULL,
+  `entity_type` varchar(500) NOT NULL,
+  `clinic_id` int(11) DEFAULT NULL,
+  `description` text,
+  `cost` int(11) NOT NULL DEFAULT '0',
+  `grade` int(11) DEFAULT NULL,
+  `quantity` int(11) NOT NULL DEFAULT '1',
+  `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime DEFAULT NULL,
+  `deleted_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `details`
+--
+
+LOCK TABLES `details` WRITE;
+/*!40000 ALTER TABLE `details` DISABLE KEYS */;
+INSERT INTO `details` VALUES (3,3,1,'App\\Models\\Therapy',1,NULL,800,1,10,'2020-06-22 12:09:58','2020-06-22 12:09:58',NULL),(4,4,1,'App\\Models\\Therapy',1,NULL,800,1,10,'2020-06-22 12:22:45','2020-06-22 12:22:45',NULL),(5,5,1,'App\\Models\\Therapy',1,NULL,800,1,10,'2020-06-22 12:25:28','2020-06-22 12:25:28',NULL),(6,6,1,'App\\Models\\Therapy',NULL,NULL,1200,NULL,1,'2020-06-22 16:10:16','2020-06-22 16:10:16',NULL),(7,7,1,'App\\Models\\Therapy',NULL,NULL,1200,NULL,1,'2020-06-22 16:12:45','2020-06-22 16:12:45',NULL),(8,8,1,'App\\Models\\Therapy',NULL,NULL,1200,NULL,4,'2020-06-22 16:15:04','2020-06-22 16:15:04',NULL),(9,9,1,'App\\Models\\Therapy',NULL,NULL,1200,4,4,'2020-06-22 16:18:09','2020-06-22 16:18:09',NULL),(10,11,1,'App\\Models\\Therapy',NULL,NULL,1500,NULL,10,'2020-06-22 18:11:19','2020-06-22 18:11:19',NULL),(12,12,1,'App\\Models\\Product',NULL,NULL,1500,NULL,10,'2020-06-22 18:12:10','2020-06-22 18:12:10',NULL),(13,12,2,'App\\Models\\Product',NULL,NULL,1000,NULL,5,'2020-06-22 18:12:10','2020-06-22 18:12:10',NULL),(14,13,1,'App\\Models\\Therapy',1,NULL,800,2,10,'2020-06-30 16:59:49','2020-06-30 16:59:49',NULL);
+/*!40000 ALTER TABLE `details` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `documents`
+--
+
+DROP TABLE IF EXISTS `documents`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `documents` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `entity_type` varchar(100) NOT NULL,
+  `entity_id` int(11) NOT NULL,
+  `file_path` varchar(500) NOT NULL,
+  `file_type` varchar(50) NOT NULL DEFAULT 'image',
+  `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
+  `deleted_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `documents`
+--
+
+LOCK TABLES `documents` WRITE;
+/*!40000 ALTER TABLE `documents` DISABLE KEYS */;
+INSERT INTO `documents` VALUES (1,'App\\Models\\Clinic',1,'clinics/clinicbanner1.jpeg','image','2020-06-17 17:42:02',NULL,NULL),(2,'App\\Models\\Clinic',1,'clinics/clinicbanner2.jpeg','image','2020-06-17 17:42:02',NULL,NULL),(3,'App\\Models\\Clinic',1,'clinics/clinicbanner3.jpeg','image','2020-06-17 17:42:02',NULL,NULL),(4,'App\\Models\\Clinic',2,'clinics/clinicbanner4.jpeg','image','2020-06-17 17:42:02',NULL,NULL),(5,'App\\Models\\Clinic',2,'clinics/clinicbanner5.jpeg','image','2020-06-17 17:42:02',NULL,NULL),(6,'App\\Models\\Clinic',3,'clinics/clinicbanner1.jpeg','image','2020-06-17 17:42:02',NULL,NULL),(7,'App\\Models\\Clinic',3,'clinics/clinicbanner3.jpeg','image','2020-06-17 17:42:02',NULL,NULL),(8,'App\\Models\\Clinic',3,'clinics/clinicbanner4.jpeg','image','2020-06-17 17:42:02',NULL,NULL),(9,'App\\Models\\Therapy',1,'therapies/therapiesbanner1.jpeg','image','2020-06-17 17:42:02',NULL,NULL),(10,'App\\Models\\Therapy',1,'therapies/therapiesbanner2.jpeg','image','2020-06-17 17:42:02',NULL,NULL),(11,'App\\Models\\Therapy',1,'therapies/therapiesbanner3.jpeg','image','2020-06-17 17:42:02',NULL,NULL),(12,'App\\Models\\Therapy',2,'therapies/therapiesbanner5.jpeg','image','2020-06-17 17:42:02',NULL,NULL),(13,'App\\Models\\Therapy',2,'therapies/therapiesbanner6.jpeg','image','2020-06-17 17:42:02',NULL,NULL),(14,'App\\Models\\Therapy',3,'therapies/therapybanner4.jpeg','image','2020-06-17 17:42:02',NULL,NULL),(15,'App\\Models\\Therapy',3,'therapies/therapiesbanner2.jpeg','image','2020-06-17 17:42:02',NULL,NULL),(16,'App\\Models\\Therapy',3,'therapies/therapiesbanner3.jpeg','image','2020-06-17 17:42:02',NULL,NULL),(17,'App\\Models\\Product',1,'products/productbanner1.jpeg','image','2020-06-17 17:42:02',NULL,NULL),(18,'App\\Models\\Product',1,'products/product3banner.jpeg','image','2020-06-17 17:42:02',NULL,NULL),(19,'App\\Models\\Product',1,'products/productbanner5.jpeg','image','2020-06-17 17:42:02',NULL,NULL),(20,'App\\Models\\Product',2,'products/productbanner6.jpeg','image','2020-06-17 17:42:02',NULL,NULL),(21,'App\\Models\\Product',2,'products/product4banner.jpeg','image','2020-06-17 17:42:02',NULL,NULL),(22,'App\\Models\\Product',3,'products/product3banner.jpeg','image','2020-06-17 17:42:02',NULL,NULL),(23,'App\\Models\\Product',3,'products/productbanner1.jpeg','image','2020-06-17 17:42:02',NULL,NULL),(24,'App\\Models\\Product',3,'products/productbanner1.jpeg','image','2020-06-17 17:42:02',NULL,NULL),(25,'App\\Models\\Clinic',1,'dkjee','image','2020-06-23 16:56:57',NULL,'2020-06-23 16:56:57'),(26,'App\\Models\\Product',1,'products/1/575_healthcare.png','image','2020-06-29 13:42:23',NULL,'2020-06-29 13:42:23');
+/*!40000 ALTER TABLE `documents` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `migrations`
+--
+
+DROP TABLE IF EXISTS `migrations`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `migrations` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `batch` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `migrations`
+--
+
+LOCK TABLES `migrations` WRITE;
+/*!40000 ALTER TABLE `migrations` DISABLE KEYS */;
+INSERT INTO `migrations` VALUES (1,'2014_10_12_000000_create_users_table',1),(2,'2014_10_12_100000_create_password_resets_table',1),(3,'2015_02_07_172606_create_roles_table',2),(4,'2015_02_07_172633_create_role_user_table',2),(5,'2015_02_07_172649_create_permissions_table',2),(6,'2015_02_07_172657_create_permission_role_table',2),(7,'2015_02_17_152439_create_permission_user_table',2),(8,'2015_11_30_232041_bigint_user_keys',3),(9,'2016_02_06_172606_create_users_table',3);
+/*!40000 ALTER TABLE `migrations` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `news_update`
+--
+
+DROP TABLE IF EXISTS `news_update`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `news_update` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `image` varchar(500) DEFAULT NULL,
+  `title` varchar(200) NOT NULL,
+  `short_description` text NOT NULL,
+  `description` text NOT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `deleted_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  `isactive` tinyint(1) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `news_update`
+--
+
+LOCK TABLES `news_update` WRITE;
+/*!40000 ALTER TABLE `news_update` DISABLE KEYS */;
+/*!40000 ALTER TABLE `news_update` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `notifications`
+--
+
+DROP TABLE IF EXISTS `notifications`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `notifications` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(250) NOT NULL,
+  `description` varchar(500) NOT NULL,
+  `data` text,
+  `user_id` int(11) NOT NULL,
+  `type` varchar(10) NOT NULL,
+  `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
+  `deleted_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `notifications`
+--
+
+LOCK TABLES `notifications` WRITE;
+/*!40000 ALTER TABLE `notifications` DISABLE KEYS */;
+/*!40000 ALTER TABLE `notifications` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `order_statuses`
+--
+
+DROP TABLE IF EXISTS `order_statuses`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `order_statuses` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `order_id` int(11) NOT NULL,
+  `current_status` varchar(50) NOT NULL,
+  `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
+  `deleted_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `order_statuses`
+--
+
+LOCK TABLES `order_statuses` WRITE;
+/*!40000 ALTER TABLE `order_statuses` DISABLE KEYS */;
+INSERT INTO `order_statuses` VALUES (3,3,'pending','2020-06-22 12:09:58',NULL,'2020-06-22 12:09:58'),(4,4,'pending','2020-06-22 12:22:45',NULL,'2020-06-22 12:22:45'),(5,5,'pending','2020-06-22 12:25:28',NULL,'2020-06-22 12:25:28'),(6,6,'pending','2020-06-22 16:10:16',NULL,'2020-06-22 16:10:16'),(7,7,'pending','2020-06-22 16:12:45',NULL,'2020-06-22 16:12:45'),(8,8,'pending','2020-06-22 16:15:04',NULL,'2020-06-22 16:15:04'),(9,9,'pending','2020-06-22 16:18:09',NULL,'2020-06-22 16:18:09'),(10,10,'pending','2020-06-22 18:10:00',NULL,'2020-06-22 18:10:00'),(11,11,'pending','2020-06-22 18:11:19',NULL,'2020-06-22 18:11:19'),(12,12,'pending','2020-06-22 18:12:10',NULL,'2020-06-22 18:12:10'),(13,11,'confirmed','2020-06-28 21:05:34',NULL,'2020-06-28 21:05:34'),(14,11,'confirmed','2020-06-28 21:07:11',NULL,'2020-06-28 21:07:11'),(15,11,'confirmed','2020-06-28 21:08:31',NULL,'2020-06-28 21:08:31'),(16,11,'confirmed','2020-06-28 21:08:34',NULL,'2020-06-28 21:08:34'),(17,13,'pending','2020-06-30 16:59:49',NULL,'2020-06-30 16:59:49');
+/*!40000 ALTER TABLE `order_statuses` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `orders`
+--
+
+DROP TABLE IF EXISTS `orders`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `orders` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `refid` varchar(50) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `total_cost` int(11) NOT NULL DEFAULT '0',
+  `status` varchar(50) NOT NULL DEFAULT 'pending',
+  `payment_status` varchar(20) NOT NULL DEFAULT 'payment-wait',
+  `payment_mode` varchar(20) DEFAULT NULL,
+  `order_details_completed` tinyint(1) NOT NULL DEFAULT '0',
+  `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime DEFAULT NULL,
+  `deleted_at` datetime DEFAULT NULL,
+  `name` varchar(100) DEFAULT NULL,
+  `mobile` varchar(100) DEFAULT NULL,
+  `email` varchar(100) DEFAULT NULL,
+  `address` varchar(500) DEFAULT NULL,
+  `lat` decimal(20,12) DEFAULT NULL,
+  `lang` decimal(20,12) DEFAULT NULL,
+  `booking_date` varchar(20) DEFAULT NULL,
+  `booking_time` varchar(20) DEFAULT NULL,
+  `is_instant` tinyint(1) NOT NULL DEFAULT '0',
+  `use_points` tinyint(1) NOT NULL DEFAULT '0',
+  `use_balance` tinyint(1) NOT NULL DEFAULT '0',
+  `balance_used` int(11) NOT NULL DEFAULT '0',
+  `points_used` int(11) NOT NULL DEFAULT '0',
+  `order_id` varchar(500) DEFAULT NULL,
+  `order_id_response` text,
+  `payment_id_response` varchar(500) DEFAULT NULL,
+  `payment_id` varchar(500) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `orders`
+--
+
+LOCK TABLES `orders` WRITE;
+/*!40000 ALTER TABLE `orders` DISABLE KEYS */;
+INSERT INTO `orders` VALUES (3,'920-06-22 12:09:58',1,8000,'pending','payment-wait',NULL,0,'2020-06-22 12:09:58','2020-06-22 12:12:46',NULL,'pankaj sengar','8802035788','pks11iitr@gmail.com','new bus adda ghaziabad',-11.232323000000,-10.277344000000,'2020-11-11','10:00',0,0,0,0,0,NULL,NULL,NULL,NULL),(4,'220-06-22 12:22:45',1,8000,'pending','payment-wait',NULL,0,'2020-06-22 12:22:45','2020-06-22 12:22:45',NULL,NULL,NULL,NULL,NULL,NULL,NULL,'2020-11-11','10:00',0,0,0,0,0,NULL,NULL,NULL,NULL),(5,'AR11592808928',1,8000,'confirmed','payment-wait',NULL,0,'2020-06-22 12:25:28','2020-06-22 12:25:28',NULL,NULL,NULL,NULL,NULL,NULL,NULL,'2020-11-11','10:00',0,0,0,0,0,NULL,NULL,NULL,NULL),(6,'ARA1592822416',1,1200,'pending','payment-wait',NULL,0,'2020-06-22 16:10:16','2020-06-22 16:10:16',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,NULL,NULL,NULL),(7,'ARA1592822565',1,1200,'confirmed','payment-wait',NULL,0,'2020-06-22 16:12:45','2020-06-22 16:12:45',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,0,0,0,0,NULL,NULL,NULL,NULL),(8,'ARA1592822704',1,4800,'confirmed','payment-wait',NULL,0,'2020-06-22 16:15:04','2020-06-22 16:15:04',NULL,NULL,NULL,NULL,NULL,NULL,NULL,'2020-12-12','10:00',0,0,0,0,0,NULL,NULL,NULL,NULL),(9,'ARA1592822888',1,4800,'confirmed','payment-wait',NULL,0,'2020-06-22 16:18:09','2020-06-22 16:18:09',NULL,NULL,NULL,NULL,NULL,NULL,NULL,'2020-12-12','10:00',0,0,0,0,0,NULL,NULL,NULL,NULL),(10,'ARA1592829600',1,2500,'confirmed','payment-wait',NULL,0,'2020-06-22 18:10:00','2020-06-22 18:10:00',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,NULL,NULL,NULL),(11,'ARA1592829679',1,2500,'confirmed','paid','online',0,'2020-06-22 18:11:19','2020-06-28 21:53:47',NULL,NULL,NULL,NULL,NULL,NULL,NULL,'2020-06-30','13:00',0,0,0,0,0,'order_F85l201PP5tynY','{\"id\":\"order_F85l201PP5tynY\",\"entity\":\"order\",\"amount\":250000,\"amount_paid\":0,\"amount_due\":250000,\"currency\":\"INR\",\"receipt\":\"ARA1592829679\",\"offer_id\":null,\"status\":\"created\",\"attempts\":0,\"notes\":[],\"created_at\":1593357698}','8343jh34hj3434','3894jkfdkfjdkfj89454985489'),(12,'ARA1592829730',1,2500,'confirmed','payment-wait',NULL,0,'2020-06-22 18:12:10','2020-06-22 18:12:10',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,NULL,NULL,NULL),(13,'ARA1593516589',1,8000,'pending','payment-wait',NULL,0,'2020-06-30 16:59:49','2020-06-30 17:00:33',NULL,'pankaj','8802035788','pks11iitr@gmail.com',NULL,NULL,NULL,'2020-11-11','10:00',0,0,0,0,0,NULL,NULL,NULL,NULL);
+/*!40000 ALTER TABLE `orders` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `otps`
+--
+
+DROP TABLE IF EXISTS `otps`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `otps` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `entity` varchar(20) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `otp` varchar(6) NOT NULL,
+  `type` varchar(20) NOT NULL,
+  `expiry` datetime NOT NULL,
+  `isverified` tinyint(1) NOT NULL DEFAULT '0',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `otps`
+--
+
+LOCK TABLES `otps` WRITE;
+/*!40000 ALTER TABLE `otps` DISABLE KEYS */;
+INSERT INTO `otps` VALUES (1,'customer',1,'111111','register','2020-06-17 10:11:01',0,'2020-06-17 04:41:01','2020-06-17 04:41:01',NULL),(2,'customer',1,'111111','login','2020-06-17 10:13:20',1,'2020-06-17 04:43:20','2020-06-17 04:43:24',NULL),(3,'customer',1,'111111','login','2020-06-17 10:15:06',1,'2020-06-17 04:45:06','2020-06-17 04:45:21',NULL),(4,'customer',3,'111111','register','2020-06-17 10:22:57',0,'2020-06-17 04:52:57','2020-06-17 04:52:57',NULL),(5,'customer',1,'111111','login','2020-06-20 12:05:04',1,'2020-06-20 06:35:04','2020-06-20 06:35:20',NULL);
+/*!40000 ALTER TABLE `otps` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `password_resets`
+--
+
+DROP TABLE IF EXISTS `password_resets`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `password_resets` (
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `token` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  KEY `password_resets_email_index` (`email`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `password_resets`
+--
+
+LOCK TABLES `password_resets` WRITE;
+/*!40000 ALTER TABLE `password_resets` DISABLE KEYS */;
+/*!40000 ALTER TABLE `password_resets` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `permission_role`
+--
+
+DROP TABLE IF EXISTS `permission_role`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `permission_role` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `permission_id` int(10) unsigned NOT NULL,
+  `role_id` int(10) unsigned NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `permission_role_permission_id_index` (`permission_id`),
+  KEY `permission_role_role_id_index` (`role_id`),
+  CONSTRAINT `permission_role_permission_id_foreign` FOREIGN KEY (`permission_id`) REFERENCES `permissions` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `permission_role_role_id_foreign` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `permission_role`
+--
+
+LOCK TABLES `permission_role` WRITE;
+/*!40000 ALTER TABLE `permission_role` DISABLE KEYS */;
+/*!40000 ALTER TABLE `permission_role` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `permission_user`
+--
+
+DROP TABLE IF EXISTS `permission_user`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `permission_user` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `permission_id` int(10) unsigned NOT NULL,
+  `user_id` int(10) unsigned NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `permission_user_permission_id_index` (`permission_id`),
+  KEY `permission_user_user_id_index` (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `permission_user`
+--
+
+LOCK TABLES `permission_user` WRITE;
+/*!40000 ALTER TABLE `permission_user` DISABLE KEYS */;
+/*!40000 ALTER TABLE `permission_user` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `permissions`
+--
+
+DROP TABLE IF EXISTS `permissions`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `permissions` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `inherit_id` int(10) unsigned DEFAULT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `slug` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `permissions_inherit_id_index` (`inherit_id`),
+  KEY `permissions_name_index` (`name`),
+  KEY `permissions_slug_index` (`slug`),
+  CONSTRAINT `permissions_inherit_id_foreign` FOREIGN KEY (`inherit_id`) REFERENCES `permissions` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `permissions`
+--
+
+LOCK TABLES `permissions` WRITE;
+/*!40000 ALTER TABLE `permissions` DISABLE KEYS */;
+/*!40000 ALTER TABLE `permissions` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `product_categories`
+--
+
+DROP TABLE IF EXISTS `product_categories`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `product_categories` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `product_id` int(11) NOT NULL,
+  `category_id` int(11) NOT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  `deleted_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `product_categories`
+--
+
+LOCK TABLES `product_categories` WRITE;
+/*!40000 ALTER TABLE `product_categories` DISABLE KEYS */;
+INSERT INTO `product_categories` VALUES (1,1,1,NULL,NULL,NULL),(2,1,2,NULL,NULL,NULL),(3,1,3,NULL,NULL,NULL),(4,1,4,NULL,NULL,NULL),(5,2,3,NULL,NULL,NULL),(6,2,2,NULL,NULL,NULL),(7,3,1,NULL,NULL,NULL),(8,3,4,NULL,NULL,NULL),(9,4,1,NULL,NULL,NULL),(10,4,2,NULL,NULL,NULL);
+/*!40000 ALTER TABLE `product_categories` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `products`
+--
+
+DROP TABLE IF EXISTS `products`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `products` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) NOT NULL,
+  `description` text NOT NULL,
+  `company` varchar(150) NOT NULL,
+  `price` int(11) NOT NULL,
+  `image` varchar(500) NOT NULL,
+  `cut_price` int(11) DEFAULT NULL,
+  `ratings` decimal(2,1) NOT NULL,
+  `isactive` tinyint(1) NOT NULL DEFAULT '1',
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  `deleted_at` datetime DEFAULT NULL,
+  `top_deal` tinyint(1) NOT NULL DEFAULT '0',
+  `best_seller` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `products`
+--
+
+LOCK TABLES `products` WRITE;
+/*!40000 ALTER TABLE `products` DISABLE KEYS */;
+INSERT INTO `products` VALUES (1,'Heat Bag','Muscle pain can really bring you down and the body ache almost makes you immobile. Muscle pain can be caused due to stress or overworking. At times even injury can cause your muscles to ache. Therefore, a good pain relief product is good to have at hand. The Shenao Hot Water Bag is easy to use and relieves pain in the most natural way possible. Analgesic ointments might cause allergies for those with sensitive skin, but this hot water bag is skin-friendly and can work effectively, to get you moving again. It is air tight, making sure that the hot water does not leak out and cause a mess or any accidents. This product is now available at Snapdeal at an affordable price. CLOUR AS PER STOCK.','Den Pharma',1000,'products/product3.jpeg',1200,5.0,1,NULL,NULL,NULL,1,1),(2,'Red Fish Massager','Muscle pain can really bring you down and the body ache almost makes you immobile. Muscle pain can be caused due to stress or overworking. At times even injury can cause your muscles to ache. Therefore, a good pain relief product is good to have at hand. The Shenao Hot Water Bag is easy to use and relieves pain in the most natural way possible. Analgesic ointments might cause allergies for those with sensitive skin, but this hot water bag is skin-friendly and can work effectively, to get you moving again. It is air tight, making sure that the hot water does not leak out and cause a mess or any accidents. This product is now available at Snapdeal at an affordable price. CLOUR AS PER STOCK.','Arogya Pharma',1500,'products/product1.jpeg',2000,4.2,1,NULL,NULL,NULL,1,1),(3,'Pain Relief Gel','Muscle pain can really bring you down and the body ache almost makes you immobile. Muscle pain can be caused due to stress or overworking. At times even injury can cause your muscles to ache. Therefore, a good pain relief product is good to have at hand. The Shenao Hot Water Bag is easy to use and relieves pain in the most natural way possible. Analgesic ointments might cause allergies for those with sensitive skin, but this hot water bag is skin-friendly and can work effectively, to get you moving again. It is air tight, making sure that the hot water does not leak out and cause a mess or any accidents. This product is now available at Snapdeal at an affordable price. CLOUR AS PER STOCK.','Den Pharma',1000,'products/product4.jpeg',1200,5.0,1,NULL,NULL,NULL,1,1),(4,'Full Body Massager','Muscle pain can really bring you down and the body ache almost makes you immobile. Muscle pain can be caused due to stress or overworking. At times even injury can cause your muscles to ache. Therefore, a good pain relief product is good to have at hand. The Shenao Hot Water Bag is easy to use and relieves pain in the most natural way possible. Analgesic ointments might cause allergies for those with sensitive skin, but this hot water bag is skin-friendly and can work effectively, to get you moving again. It is air tight, making sure that the hot water does not leak out and cause a mess or any accidents. This product is now available at Snapdeal at an affordable price. CLOUR AS PER STOCK.','Arogya Pharma',1500,'products/product2.jpeg',2000,4.2,1,NULL,NULL,NULL,1,1);
+/*!40000 ALTER TABLE `products` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `reviews`
+--
+
+DROP TABLE IF EXISTS `reviews`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `reviews` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `order_id` int(11) NOT NULL,
+  `rating` int(11) NOT NULL,
+  `description` text,
+  `entity_id` int(11) NOT NULL,
+  `entity_type` varchar(250) NOT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `deleted_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  `isactive` tinyint(1) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `reviews`
+--
+
+LOCK TABLES `reviews` WRITE;
+/*!40000 ALTER TABLE `reviews` DISABLE KEYS */;
+INSERT INTO `reviews` VALUES (8,1,4,5,'awesome',2,'App\\Models\\Clinic','2019-12-17 08:25:46',NULL,'2019-12-17 08:25:46',1),(9,2,4,5,'awesome',1,'App\\Models\\Clinic','2019-12-17 08:25:46',NULL,'2019-12-17 08:25:46',1),(10,3,53,3,NULL,2,'App\\Models\\Clinic','2020-03-09 17:11:42',NULL,'2020-03-09 17:11:42',1),(11,1,4,5,'awesome',2,'App\\Models\\Therapy','2019-12-17 08:25:46',NULL,'2019-12-17 08:25:46',1),(12,2,4,5,'awesome',1,'App\\Models\\Therapy','2019-12-17 08:25:46',NULL,'2019-12-17 08:25:46',1),(13,3,53,3,NULL,2,'App\\Models\\Therapy','2020-03-09 17:11:42',NULL,'2020-03-09 17:11:42',1),(14,1,4,5,'awesome',1,'App\\Models\\Product','2019-12-17 08:25:46',NULL,'2019-12-17 08:25:46',1),(15,2,4,5,'awesome',1,'App\\Models\\Product','2019-12-17 08:25:46',NULL,'2019-12-17 08:25:46',1),(16,3,53,3,NULL,2,'App\\Models\\Product','2020-03-09 17:11:42',NULL,'2020-03-09 17:11:42',1),(17,1,4,5,'awesome',2,'App\\Models\\Product','2019-12-17 08:25:46',NULL,'2019-12-17 08:25:46',1),(18,2,4,5,'awesome',3,'App\\Models\\Product','2019-12-17 08:25:46',NULL,'2019-12-17 08:25:46',1),(19,3,53,3,NULL,3,'App\\Models\\Product','2020-03-09 17:11:42',NULL,'2020-03-09 17:11:42',1);
+/*!40000 ALTER TABLE `reviews` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `role_user`
+--
+
+DROP TABLE IF EXISTS `role_user`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `role_user` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `role_id` int(10) unsigned NOT NULL,
+  `user_id` bigint(20) unsigned NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `role_user_role_id_index` (`role_id`),
+  KEY `role_user_user_id_index` (`user_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `role_user`
+--
+
+LOCK TABLES `role_user` WRITE;
+/*!40000 ALTER TABLE `role_user` DISABLE KEYS */;
+INSERT INTO `role_user` VALUES (1,1,1,NULL,NULL);
+/*!40000 ALTER TABLE `role_user` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `roles`
+--
+
+DROP TABLE IF EXISTS `roles`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `roles` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `slug` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `roles_name_unique` (`name`),
+  UNIQUE KEY `roles_slug_unique` (`slug`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `roles`
+--
+
+LOCK TABLES `roles` WRITE;
+/*!40000 ALTER TABLE `roles` DISABLE KEYS */;
+INSERT INTO `roles` VALUES (1,'admin','admin','Super Admin',NULL,NULL),(2,'clinic-admin','clinic-admin','Admin For Clinics',NULL,NULL),(3,'clinic-therapist','clinic-therapist','Therapist from the clinic',NULL,NULL);
+/*!40000 ALTER TABLE `roles` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `therapies`
+--
+
+DROP TABLE IF EXISTS `therapies`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `therapies` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(500) NOT NULL,
+  `description` text NOT NULL,
+  `image` varchar(500) NOT NULL,
+  `grade1_price` int(11) NOT NULL,
+  `grade2_price` int(11) NOT NULL,
+  `grade3_price` int(11) NOT NULL,
+  `grade4_price` int(11) NOT NULL,
+  `grade1_original_price` int(11) DEFAULT NULL,
+  `grade2_original_price` int(11) DEFAULT NULL,
+  `grade3_original_price` int(11) DEFAULT NULL,
+  `grade4_original_price` int(11) DEFAULT NULL,
+  `isactive` tinyint(1) NOT NULL DEFAULT '1',
+  `created_at` datetime DEFAULT NULL,
+  `deleted_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `therapies`
+--
+
+LOCK TABLES `therapies` WRITE;
+/*!40000 ALTER TABLE `therapies` DISABLE KEYS */;
+INSERT INTO `therapies` VALUES (1,'Knee Pain','Do use \"RICE.\" Rest, ice, compression, and elevation (RICE) is good for knee pain caused by a minor injury or an arthritis flare. Give your knee some rest, apply ice to reduce swelling, wear a compressive bandage, and keep your knee elevated.','therapies/kneepain.jpeg',500,800,1000,1200,NULL,NULL,NULL,NULL,1,NULL,NULL,NULL),(2,'Shoulder Pain','Do use \"RICE.\" Rest, ice, compression, and elevation (RICE) is good for knee pain caused by a minor injury or an arthritis flare. Give your knee some rest, apply ice to reduce swelling, wear a compressive bandage, and keep your knee elevated.','therapies/shoulderpain.jpeg',500,800,1000,1200,NULL,NULL,NULL,NULL,1,NULL,NULL,NULL),(3,'Back Pain','Do use \"RICE.\" Rest, ice, compression, and elevation (RICE) is good for knee pain caused by a minor injury or an arthritis flare. Give your knee some rest, apply ice to reduce swelling, wear a compressive bandage, and keep your knee elevated.','therapies/backpain.jpeg',500,800,1000,1200,NULL,NULL,NULL,NULL,1,NULL,NULL,NULL),(4,'Full MUscle Relax','jsu a description test','therapies/4/572_homebanner4.jpeg',100,200,300,400,NULL,NULL,NULL,NULL,1,'2020-06-29 11:38:58',NULL,'2020-06-29 11:38:59');
+/*!40000 ALTER TABLE `therapies` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `therapist_locations`
+--
+
+DROP TABLE IF EXISTS `therapist_locations`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `therapist_locations` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `lat` decimal(20,12) NOT NULL,
+  `lang` decimal(20,12) NOT NULL,
+  `therapist_id` int(11) NOT NULL,
+  `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` date DEFAULT NULL,
+  `deleted_at` date DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `therapist_locations`
+--
+
+LOCK TABLES `therapist_locations` WRITE;
+/*!40000 ALTER TABLE `therapist_locations` DISABLE KEYS */;
+INSERT INTO `therapist_locations` VALUES (1,12.220000000000,12.230000000000,1,'2020-06-18 16:48:30',NULL,NULL),(2,11.220000000000,10.210000000000,1,'2020-06-18 16:48:30',NULL,NULL);
+/*!40000 ALTER TABLE `therapist_locations` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `therapist_therapies`
+--
+
+DROP TABLE IF EXISTS `therapist_therapies`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `therapist_therapies` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `therapist_id` int(11) NOT NULL,
+  `therapy_id` int(11) NOT NULL,
+  `therapist_grade` int(11) NOT NULL DEFAULT '1',
+  `isactive` tinyint(1) NOT NULL DEFAULT '1',
+  `created_at` datetime DEFAULT NULL,
+  `deleted_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `therapist_therapies`
+--
+
+LOCK TABLES `therapist_therapies` WRITE;
+/*!40000 ALTER TABLE `therapist_therapies` DISABLE KEYS */;
+INSERT INTO `therapist_therapies` VALUES (1,1,1,1,1,NULL,NULL,NULL),(2,1,2,1,1,NULL,NULL,NULL),(3,1,3,1,1,NULL,NULL,NULL);
+/*!40000 ALTER TABLE `therapist_therapies` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `therapists`
+--
+
+DROP TABLE IF EXISTS `therapists`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `therapists` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `clinic_id` int(11) DEFAULT NULL,
+  `name` varchar(100) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `mobile` varchar(10) NOT NULL,
+  `address` varchar(250) DEFAULT NULL,
+  `city` varchar(50) DEFAULT NULL,
+  `state` varchar(50) DEFAULT NULL,
+  `isactive` tinyint(1) NOT NULL DEFAULT '1',
+  `last_lat` decimal(20,12) DEFAULT NULL,
+  `last_lang` decimal(20,12) DEFAULT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `deleted_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `therapists`
+--
+
+LOCK TABLES `therapists` WRITE;
+/*!40000 ALTER TABLE `therapists` DISABLE KEYS */;
+INSERT INTO `therapists` VALUES (1,NULL,'Pankaj Sengar','pks11iitr@gmail.com','8802035788','ffd d dfd','Noida','Uttar Pradesh',1,NULL,NULL,'2020-06-18 00:00:00',NULL,NULL),(2,NULL,'Pankaj Sengar','pks11iitr@gmail.com','8802035788','ffd d dfd','Noida','Uttar Pradesh',1,NULL,NULL,'2020-06-18 00:00:00',NULL,NULL);
+/*!40000 ALTER TABLE `therapists` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `time_slots`
+--
+
+DROP TABLE IF EXISTS `time_slots`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `time_slots` (
+  `id` int(11) NOT NULL,
+  `clinic_id` int(11) NOT NULL,
+  `start` time NOT NULL,
+  `end` time NOT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  `deleted_at` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `time_slots`
+--
+
+LOCK TABLES `time_slots` WRITE;
+/*!40000 ALTER TABLE `time_slots` DISABLE KEYS */;
+/*!40000 ALTER TABLE `time_slots` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `users`
+--
+
+DROP TABLE IF EXISTS `users`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `users` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `mobile` varchar(10) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `email_verified_at` timestamp NULL DEFAULT NULL,
+  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `status` tinyint(4) NOT NULL DEFAULT '0' COMMENT '0 inactive, 1 active, 2 blocked',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `users`
+--
+
+LOCK TABLES `users` WRITE;
+/*!40000 ALTER TABLE `users` DISABLE KEYS */;
+INSERT INTO `users` VALUES (1,'Pankaj Sengar','pks11iitr@gmail.com',NULL,NULL,'$2y$10$iov/tGMQNUXaJw9pfxCfvuf7BJ.DWNZjnrAum7cJKUeI4ba6nqroi',NULL,0,'2020-06-19 06:06:50','2020-06-19 06:06:50');
+/*!40000 ALTER TABLE `users` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `videos`
+--
+
+DROP TABLE IF EXISTS `videos`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `videos` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `url` varchar(500) NOT NULL,
+  `image` varchar(500) NOT NULL,
+  `isactive` tinyint(1) NOT NULL DEFAULT '1',
+  `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
+  `deleted_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `videos`
+--
+
+LOCK TABLES `videos` WRITE;
+/*!40000 ALTER TABLE `videos` DISABLE KEYS */;
+INSERT INTO `videos` VALUES (1,'https://www.youtube.com/watch?v=KSO98LaO1NU','youtube/youtube1.jpeg',1,'2020-07-07 10:32:22',NULL,NULL),(2,'https://www.youtube.com/watch?v=0etGyHzRUGY','youtube/youtube2.jpeg',1,'2020-07-07 10:32:22',NULL,NULL),(3,'https://www.youtube.com/watch?v=VSSWpYyoNIk','youtube/youtube3.jpeg',1,'2020-07-07 10:32:38',NULL,NULL);
+/*!40000 ALTER TABLE `videos` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `wallet`
+--
+
+DROP TABLE IF EXISTS `wallet`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `wallet` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `refid` varchar(20) DEFAULT NULL,
+  `type` enum('Debit','Credit') NOT NULL,
+  `amount` int(11) NOT NULL,
+  `amount_type` enum('CASH','POINT') NOT NULL,
+  `description` varchar(100) DEFAULT NULL,
+  `iscomplete` tinyint(1) NOT NULL DEFAULT '0',
+  `order_id` varchar(50) DEFAULT NULL,
+  `order_id_response` text,
+  `payment_id` varchar(50) DEFAULT NULL,
+  `payment_id_response` text,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  `deleted_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `wallet`
+--
+
+LOCK TABLES `wallet` WRITE;
+/*!40000 ALTER TABLE `wallet` DISABLE KEYS */;
+INSERT INTO `wallet` VALUES (2,1,'20200626134910','Credit',500,'CASH','Wallet Recharge',1,'order_F7BUWn9Fq2DFP2','{\"id\":\"order_F7BUWn9Fq2DFP2\",\"entity\":\"order\",\"amount\":50000,\"amount_paid\":0,\"amount_due\":50000,\"currency\":\"INR\",\"receipt\":\"20200626134910\",\"offer_id\":null,\"status\":\"created\",\"attempts\":0,\"notes\":[],\"created_at\":1593159550}',NULL,NULL,'2020-06-26 13:49:10','2020-06-26 13:57:45',NULL),(3,1,'ARA1593160552','Credit',500,'CASH','Wallet Recharge',0,'order_F7BmAOK0sWpvpZ','{\"id\":\"order_F7BmAOK0sWpvpZ\",\"entity\":\"order\",\"amount\":50000,\"amount_paid\":0,\"amount_due\":50000,\"currency\":\"INR\",\"receipt\":\"ARA1593160552\",\"offer_id\":null,\"status\":\"created\",\"attempts\":0,\"notes\":[],\"created_at\":1593160552}',NULL,NULL,'2020-06-26 14:05:52','2020-06-26 14:05:52',NULL);
+/*!40000 ALTER TABLE `wallet` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2020-08-03 16:20:44
