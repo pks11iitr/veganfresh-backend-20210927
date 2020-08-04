@@ -16,7 +16,7 @@ class RazorPayService
         $this->client=$client;
         $this->api_key=env('RAZORPAY_KEY');
         $this->api_secret=env('RAZORPAY_SECRET');
-        $this->merchantkey==env('RAZORPAY_MERCHANTID');
+        $this->merchantkey=env('RAZORPAY_MERCHANT_ID');
 
     }
 
