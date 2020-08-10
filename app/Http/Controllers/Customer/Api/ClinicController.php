@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Customer\Api;
 
 use App\Models\Clinic;
 use App\Models\Therapy;
+use App\Models\TimeSlot;
 use App\Models\Traits\Active;
+use Cassandra\Time;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -57,13 +59,25 @@ class ClinicController extends Controller
             ];
 
         $date=date('Y-m-d');
+
+        for($i=1; $i<=7;$i++){
+            $datesarray[]=$date;
+            $date=date('Y-m-d', strtotime('+1 days', strtotime($date)));
+        }
+
+        $slotscount=TimeSlot::getDatewiseSlotsCount($clinic->id, $datesarray);
+
+        $date=date('Y-m-d');
+
         for($i=1; $i<=7;$i++){
             $dates[]=[
                 'text'=>($i==1)?'Today':($i==2?'Tomorrow':date('d F', strtotime($date))),
                 'text2'=>($i==1)?'':($i==2?'':date('D', strtotime($date))),
-                'value'=>$date
+                'value'=>$date,
+                'slots'=>($slotscount[$date]??0),
+                'slots_text'=>($slotscount[$date]??0>0)?($slotscount[$date].' slots available'):'No Slots Available'
             ];
-            $date=date('Y-m-d', strtotime('+'.$i.' days', strtotime($date)));
+            $date=date('Y-m-d', strtotime('+1 days', strtotime($date)));
         }
         $date=date('Y-m-d h:i:s');
         for($i=9; $i<=17;$i++){
@@ -74,13 +88,37 @@ class ClinicController extends Controller
             $date=date('Y-m-d H:i:s', strtotime('+1 hours', strtotime($date)));
         }
 
+        $display_text=[
+
+            'automatic'=>'One session per day will be booked at selected time based on availablity',
+            'cutom'=>'You can select any number of slot on any day based on availability',
+
+        ];
+
+
+
+
+
         return [
             'status'=>'success',
             'data'=>[
                 'clinic'=>$clinic,
                 'dates'=>$dates,
-                'timings'=>$timings
+                'timings'=>$timings,
+                'display_text'=>$display_text
             ]
+        ];
+    }
+
+
+    public function getAvailableSlots(Request $request, $clinic_id){
+        $date=$request->date;
+
+        $timeslots=TimeSlot::createTimeSlots($clinic_id, $date);
+
+        return [
+            'status'=>'success',
+            'data'=>$timeslots,
         ];
     }
 }
