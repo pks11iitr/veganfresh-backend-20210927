@@ -28,5 +28,9 @@ class Order extends Model
 
     }
 
+    public function schedule(){
+        return $this->hasMany('App\Models\BookingSlot', 'order_id');
+    }
+
 
 }

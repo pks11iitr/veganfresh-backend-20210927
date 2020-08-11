@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Customer\Api;
 
+use App\Models\BookingSlot;
 use App\Models\Cart;
 use App\Models\Clinic;
 use App\Models\Order;
@@ -9,6 +10,7 @@ use App\Models\OrderDetail;
 use App\Models\OrderStatus;
 use App\Models\Product;
 use App\Models\Therapy;
+use App\Models\TimeSlot;
 use App\Models\Wallet;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -132,34 +134,167 @@ class OrderController extends Controller
                 'message'=>'Please login to continue'
             ];
 
-        $order=Order::where('user_id', $user->id)->find($order_id);
+        $order=Order::with('details')
+        ->where('user_id', $user->id)->find($order_id);
 
-        if($order->status!='pending')
+        if(!$order)
+            return [
+                'status'=>'success',
+                'message'=>'Invalid Operation'
+            ];
+
+
+        if($order->status!='pending' && $order->entity_type=='App\Models\Therapy' && $order->details->clinic_id!=null)
             return [
                 'status'=>'failed',
                 'message'=>'Your Booking Cannot Be Updated'
             ];
 
-        if($order->schedule_type=='automatic')
+        if($order->schedule_type=='automatic'){
             $request->validate([
                 'num_sessions'=>'required|integer',
-                'grade'=>'required|integer|in:1,2,3,4',
-                'slot'=>'required|integer'
+                'slot'=>'required|integer|max:25',
+                'grade'=>'required|in:1,2,3,4'
+            ]);
+            $slot=TimeSlot::find($request->slot);
+            if(!$slot)
+                return [
+                    'status'=>'failed',
+                    'message'=>'Invalid Operation'
+                ];
+
+            BookingSlot::where('order_id', $order->id)->delete();
+
+            BookingSlot::createAutomaticSchedule($order, $request->grade, $slot, $request->num_sessions, 'pending');
+
+        }else if($order->schedule_type=='custom'){
+            $request->validate([
+                'slots'=>'required|array',
+                'slots.*'=>'integer',
+                'grade'=>'required|in:1,2,3,4'
             ]);
 
-//        $order->update([
-//            'bookingdate'=>$request->date,
-//            'num'
-//        ])
-//
-//        $request
+            $slots=TimeSlot::whereIn('id', $request->slots)->get();
+
+            if(empty($slots->toArray()))
+                return [
+                    'status'=>'failed',
+                    'message'=>'Invalid Operation'
+                ];
+
+            BookingSlot::where('order_id', $order->id)
+                ->whereIn('slot_id', $request->slots)->delete();
+
+            foreach($slots as $slot){
+
+                BookingSlot::create([
+                    'order_id'=>$order->id,
+                    'clinic_id'=>$order->details[0]->clinic_id,
+                    'therapy_id'=>$order->details[0]->entity_id,
+                    'slot_id'=>$slot->id,
+                    'grade'=>$request->grade,
+                    'status'=>'pending',
+                ]);
+            }
+
+
+        }else{
+            return [
+                'status'=>'failed',
+                'message'=>'Invalid Request'
+            ];
+        }
+
+        return [
+            'status'=>'success',
+            'message'=>'Therapy Timings have been Saved'
+        ];
 
     }
 
-    public function displaySchedule(Request $request, $id){
+    public function displaySchedule(Request $request, $order_id){
+
+        $user=auth()->guard('customerapi')->user();
+        if(!$user)
+            return [
+                'status'=>'failed',
+                'message'=>'Please login to continue'
+            ];
+
+        $order=Order::with('details')->where('user_id', $user->id)->find($order_id);
+
+        if(!$order)
+            return [
+                'status'=>'success',
+                'message'=>'Invalid Operation'
+            ];
+
+        if($order->status!='pending' && $order->entity_type=='App\Models\Therapy' && $order->details->clinic_id!=null)
+            return [
+                'status'=>'failed',
+                'message'=>'Your Booking Cannot Be Updated'
+            ];
+
+        $bookings=BookingSlot::with('timeslot')
+            ->where('order_id', $order->id)
+            ->orderBy('slot_id', 'asc')
+            ->get();
+
+        $schedules=[];
+
+        foreach($bookings as $schedule){
+            $grade=$schedule->grade==1?'Diamond':($schedule->grade==2?'Platinum':$schedule->grade==3?'Silver':$schedule->grade==4?'Gold':'');
+
+            //die('dd');
+            $schedules[]=[
+                'show_delete'=>1,
+                'date'=>$schedule->timeslot->date,
+                'time'=>'1 Session at '.$schedule->timeslot->start_time,
+                'grade'=>$grade,
+                'id'=>$schedule->id
+            ];
+        }
+
+        return [
+            'status'=>'success',
+            'data'=>compact('schedules')
+        ];
 
     }
 
+
+    public function deleteBooking(Request $request, $id){
+
+        $user=auth()->guard('customerapi')->user();
+        if(!$user)
+            return [
+                'status'=>'failed',
+                'message'=>'Please login to continue'
+            ];
+
+        $booking=BookingSlot::with('timeslot')->find($id);
+        if(!$booking)
+            return [
+                'status'=>'success',
+                'message'=>'Invalid Operation'
+            ];
+
+        $order=Order::where('user_id', $user->id)->find($booking->order_id);
+
+        if(!$order)
+            return [
+                'status'=>'success',
+                'message'=>'Invalid Operation'
+            ];
+
+        $booking->delete();
+
+        return [
+            'status'=>'success',
+            'message'=>'Session Has Been Deleted'
+        ];
+
+    }
 
 //    public function initiateClinicBooking(Request $request){
 //

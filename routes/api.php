@@ -63,6 +63,20 @@ $api->get('cancel-order/{id}', ['as'=>'order.cancel', 'uses'=>'Customer\Api\Orde
 $api->post('reschedule-order/{id}', ['as'=>'order.reschedule', 'uses'=>'Customer\Api\OrderController@rescheduleOrder']);
 
 
+// APis For New Therapy Bookings
+
+$api->post('initiate-order', ['as'=>'initiate.order', 'uses'=>'Customer\Api\OrderController@initiateOrder']);
+
+$api->post('create-schedule/{id}', ['as'=>'order.create.schedule', 'uses'=>'Customer\Api\OrderController@setSchedule']);
+
+$api->get('display-schedule/{id}', ['as'=>'order.display.reschedule', 'uses'=>'Customer\Api\OrderController@displaySchedule']);
+
+$api->get('delete-booking/{booking_id}', ['as'=>'order.delete.booking', 'uses'=>'Customer\Api\OrderController@deleteBooking']);
+
+
+
+
+
 
 $api->post('update-contact/{id}', ['as'=>'order.contact.update', 'uses'=>'Customer\Api\OrderController@addContactDetails']);
 
