@@ -30,7 +30,7 @@ $api->get('therapies', ['as'=>'therapies.list', 'uses'=>'Customer\Api\TherapyCon
 $api->get('clinic/{id}', ['as'=>'clinics.details', 'uses'=>'Customer\Api\ClinicController@details']);
 $api->get('clinic-therapy/{clinicid}/{therapyid}', ['as'=>'clinics.therapy.details', 'uses'=>'Customer\Api\ClinicController@clinicTherapyDetails']);
 
-$api->post('get-available-slots/{clinicid}', ['as'=>'clinics.available.slots', 'uses'=>'Customer\Api\ClinicController@getAvailableSlots']);
+$api->post('get-available-slots/{clinicid}/{therapy_id}', ['as'=>'clinics.available.slots', 'uses'=>'Customer\Api\ClinicController@getAvailableSlots']);
 
 //therapy screen api
 $api->get('therapy/{id}', ['as'=>'therapy.details', 'uses'=>'Customer\Api\TherapyController@details']);

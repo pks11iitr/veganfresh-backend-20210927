@@ -86,7 +86,7 @@ class OrderController extends Controller
             $therapies->where('therapies.isactive', true)->where('therapies.id', $request->therapy_id);
         }])->find($request->clinic_id);
 
-        if(!$clinic || empty($clinic->therapies)){
+        if(!$clinic || empty($clinic->therapies->toArray())){
             return [
                 'status'=>'failed',
                 'message'=>'Invalid Operation Performed'
@@ -106,6 +106,15 @@ class OrderController extends Controller
             'current_status'=>$order->status
         ]);
 
+        OrderDetail::create([
+            'order_id'=>$order->id,
+            'entity_type'=>'App\Models\Therapy',
+            'entity_id'=>$clinic->therapies[0]->id,
+            'clinic_id'=>$clinic->id,
+            'cost'=>0,
+            'quantity'=>0,
+        ]);
+
         return [
             'status'=>'success',
             'data'=>[
@@ -116,9 +125,35 @@ class OrderController extends Controller
 
     public function setSchedule(Request $request, $order_id){
 
-//        $order->
+        $user=auth()->guard('customerapi')->user();
+        if(!$user)
+            return [
+                'status'=>'failed',
+                'message'=>'Please login to continue'
+            ];
+
+        $order=Order::where('user_id', $user->id)->find($order_id);
+
+        if($order->status!='pending')
+            return [
+                'status'=>'failed',
+                'message'=>'Your Booking Cannot Be Updated'
+            ];
+
+        if($order->schedule_type=='automatic')
+            $request->validate([
+                'num_sessions'=>'required|integer',
+                'grade'=>'required|integer|in:1,2,3,4',
+                'slot'=>'required|integer'
+            ]);
+
+//        $order->update([
+//            'bookingdate'=>$request->date,
+//            'num'
+//        ])
 //
 //        $request
+
     }
 
     public function displaySchedule(Request $request, $id){

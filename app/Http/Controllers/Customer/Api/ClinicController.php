@@ -115,10 +115,21 @@ class ClinicController extends Controller
     /*
      * Get available time slots of clinic on given date
      */
-    public function getAvailableSlots(Request $request, $clinic_id){
+    public function getAvailableSlots(Request $request, $clinic_id, $therapy_id){
         $date=$request->date??date('Y-m-d');
 
-        $timeslots=TimeSlot::createTimeSlots($clinic_id, $date);
+
+        $clinic=Clinic::with(['therapies'=>function($therapies) use($therapy_id){
+            $therapies->where('therapies.isactive', true)->where('therapies.id', $therapy_id)->where('clinic_therapies.isactive', true);
+        }])->find($clinic_id);
+
+        if(!$clinic || empty($clinic->therapies->toArray()))
+            return [
+                'status'=>'failed',
+                'message'=>'No clinic found'
+            ];
+
+        return $timeslots=TimeSlot::getTimeSlots($clinic, $date);
 
         return [
             'status'=>'success',
