@@ -46,6 +46,10 @@ class ClinicController extends Controller
         ];
     }
 
+
+    /*
+     * In-Clinic Therapy Details
+     */
     public function clinicTherapyDetails(Request $request, $clinicid, $therapyid){
         $timings=[];
         $dates=[];
@@ -95,10 +99,6 @@ class ClinicController extends Controller
 
         ];
 
-
-
-
-
         return [
             'status'=>'success',
             'data'=>[
@@ -111,8 +111,12 @@ class ClinicController extends Controller
     }
 
 
+
+    /*
+     * Get available time slots of clinic on given date
+     */
     public function getAvailableSlots(Request $request, $clinic_id){
-        $date=$request->date;
+        $date=$request->date??date('Y-m-d');
 
         $timeslots=TimeSlot::createTimeSlots($clinic_id, $date);
 

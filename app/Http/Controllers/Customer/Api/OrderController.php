@@ -73,15 +73,13 @@ class OrderController extends Controller
         }
     }
 
+
     public function initiateClinicBooking(Request $request){
 
         $request->validate([
             'clinic_id'=>'required|integer',
             'therapy_id'=>'required|integer',
-            'num_sessions'=>'required|integer',
-            'grade'=>'required|integer|in:1,2,3,4',
-            'time'=>'required|date_format:H:i',
-            'date'=>'required|date_format:Y-m-d',
+            'schedule_type'=>'required|in:automatic,custom'
         ]);
 
         $clinic=Clinic::active()->with(['therapies'=>function($therapies)use($request){
@@ -95,42 +93,17 @@ class OrderController extends Controller
             ];
         }
 
-        //return $clinic;
-        $grade=$request->grade??1;
-        $num_sessions=$request->num_sessions??1;
-
-        switch($grade){
-            case 1:$cost=($clinic->therapies[0]->pivot->grade1_price??0);
-                break;
-            case 2:$cost=($clinic->therapies[0]->pivot->grade2_price??0);
-                break;
-            case 3:$cost=($clinic->therapies[0]->pivot->grade3_price??0);
-                break;
-            case 4:$cost=($clinic->therapies[0]->pivot->grade4_price??0);
-                break;
-        }
-
         $refid=env('MACHINE_ID').time();
         $order=Order::create([
             'user_id'=>auth()->guard('customerapi')->user()->id,
             'refid'=>$refid,
             'status'=>'pending',
-            'total_cost'=>$cost*$num_sessions,
-            'booking_date'=>$request->date,
-            'booking_time'=>$request->time
-        ]);
+            'schedule_type'=>$request->schedule_type,
+            'order_place_state'=>'stage_1'
+            ]);
         OrderStatus::create([
             'order_id'=>$order->id,
             'current_status'=>$order->status
-        ]);
-        OrderDetail::create([
-            'order_id'=>$order->id,
-            'entity_type'=>'App\Models\Therapy',
-            'entity_id'=>$clinic->therapies[0]->id,
-            'clinic_id'=>$clinic->id,
-            'cost'=>$cost,
-            'quantity'=>$num_sessions,
-            'grade'=>$request->grade
         ]);
 
         return [
@@ -140,6 +113,86 @@ class OrderController extends Controller
             ]
         ];
     }
+
+    public function setSchedule(Request $request, $order_id){
+
+//        $order->
+//
+//        $request
+    }
+
+    public function displaySchedule(Request $request, $id){
+
+    }
+
+
+//    public function initiateClinicBooking(Request $request){
+//
+//        $request->validate([
+//            'clinic_id'=>'required|integer',
+//            'therapy_id'=>'required|integer',
+//            'num_sessions'=>'required|integer',
+//            'grade'=>'required|integer|in:1,2,3,4',
+//            'time'=>'required|date_format:H:i',
+//            'date'=>'required|date_format:Y-m-d',
+//        ]);
+//
+//        $clinic=Clinic::active()->with(['therapies'=>function($therapies)use($request){
+//            $therapies->where('therapies.isactive', true)->where('therapies.id', $request->therapy_id);
+//        }])->find($request->clinic_id);
+//
+//        if(!$clinic || empty($clinic->therapies)){
+//            return [
+//                'status'=>'failed',
+//                'message'=>'Invalid Operation Performed'
+//            ];
+//        }
+//
+//        //return $clinic;
+//        $grade=$request->grade??1;
+//        $num_sessions=$request->num_sessions??1;
+//
+//        switch($grade){
+//            case 1:$cost=($clinic->therapies[0]->pivot->grade1_price??0);
+//                break;
+//            case 2:$cost=($clinic->therapies[0]->pivot->grade2_price??0);
+//                break;
+//            case 3:$cost=($clinic->therapies[0]->pivot->grade3_price??0);
+//                break;
+//            case 4:$cost=($clinic->therapies[0]->pivot->grade4_price??0);
+//                break;
+//        }
+//
+//        $refid=env('MACHINE_ID').time();
+//        $order=Order::create([
+//            'user_id'=>auth()->guard('customerapi')->user()->id,
+//            'refid'=>$refid,
+//            'status'=>'pending',
+//            'total_cost'=>$cost*$num_sessions,
+//            'booking_date'=>$request->date,
+//            'booking_time'=>$request->time
+//        ]);
+//        OrderStatus::create([
+//            'order_id'=>$order->id,
+//            'current_status'=>$order->status
+//        ]);
+//        OrderDetail::create([
+//            'order_id'=>$order->id,
+//            'entity_type'=>'App\Models\Therapy',
+//            'entity_id'=>$clinic->therapies[0]->id,
+//            'clinic_id'=>$clinic->id,
+//            'cost'=>$cost,
+//            'quantity'=>$num_sessions,
+//            'grade'=>$request->grade
+//        ]);
+//
+//        return [
+//            'status'=>'success',
+//            'data'=>[
+//                'order_id'=>$order->id
+//            ]
+//        ];
+//    }
 
     public function initiateTherapyBooking(Request $request){
         $request->validate([
