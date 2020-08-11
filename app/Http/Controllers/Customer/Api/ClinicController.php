@@ -129,11 +129,20 @@ class ClinicController extends Controller
                 'message'=>'No clinic found'
             ];
 
-        return $timeslots=TimeSlot::getTimeSlots($clinic, $date);
+        $timeslots=TimeSlot::getTimeSlots($clinic, $date);
+
+        for($i=1; $i<=7;$i++){
+            $dates[]=[
+                'text'=>($i==1)?'Today':($i==2?'Tomorrow':date('d F', strtotime($date))),
+                'text2'=>($i==1)?'':($i==2?'':date('D', strtotime($date))),
+                'value'=>$date,
+            ];
+            $date=date('Y-m-d', strtotime('+1 days', strtotime($date)));
+        }
 
         return [
             'status'=>'success',
-            'data'=>$timeslots,
+            'data'=>compact('timeslots','dates')
         ];
     }
 }
