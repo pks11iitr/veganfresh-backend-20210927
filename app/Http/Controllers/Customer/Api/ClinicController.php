@@ -140,6 +140,13 @@ class ClinicController extends Controller
             $date=date('Y-m-d', strtotime('+1 days', strtotime($date)));
         }
 
+        $timeslots=[
+            $timeslots['grade_1_slots'],
+            $timeslots['grade_2_slots'],
+            $timeslots['grade_3_slots'],
+            $timeslots['grade_4_slots'],
+        ];
+
         return [
             'status'=>'success',
             'data'=>compact('timeslots','dates')
