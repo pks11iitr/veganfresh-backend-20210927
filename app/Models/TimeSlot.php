@@ -29,23 +29,24 @@ class TimeSlot extends Model
         foreach ($timeslots as $ts)
             $tsids[] = $ts->id;
 
-        if ($tsids)
+        if ($tsids){
             $bookings = BookingSlot::whereIn('slot_id', $tsids)
                 ->where('status', 'confirmed')
                 ->groupBy('slot_id', 'grade')
                 ->select(DB::raw('count(*) as count'), 'slot_id', 'grade')
                 ->get();
-
-        //return $bookings;
-        foreach ($bookings as $b) {
-            if (!isset($booking_data[$b->slot_id])) {
-                $booking_data[$b->slot_id] = [];
+            //return $bookings;
+            foreach ($bookings as $b) {
+                if (!isset($booking_data[$b->slot_id])) {
+                    $booking_data[$b->slot_id] = [];
+                }
+                if(!isset($total_used[$b->grade]))
+                    $total_used[$b->grade]=0;
+                $booking_data[$b->slot_id][$b->grade] = $b->count;
+                $total_used[$b->grade]=$total_used[$b->grade]+$b->count;
             }
-            if(!isset($total_used[$b->grade]))
-                $total_used[$b->grade]=0;
-            $booking_data[$b->slot_id][$b->grade] = $b->count;
-            $total_used[$b->grade]=$total_used[$b->grade]+$b->count;
         }
+
         //var_dump($total_used);
         //return $booking_data;
 
