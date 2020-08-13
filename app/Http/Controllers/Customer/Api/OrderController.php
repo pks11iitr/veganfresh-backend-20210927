@@ -152,20 +152,27 @@ class OrderController extends Controller
 
         if($order->schedule_type=='automatic'){
             $request->validate([
-                'num_sessions'=>'required|integer',
+                'num_sessions'=>'required|integer|max:50',
                 'slot'=>'required|integer|max:25',
                 'grade'=>'required|in:1,2,3,4'
             ]);
             $slot=TimeSlot::find($request->slot);
-            if(!$slot)
+            if(!$slot || $slot->date<date('Y-m-d'))
                 return [
                     'status'=>'failed',
                     'message'=>'Invalid Operation'
                 ];
 
-            BookingSlot::where('order_id', $order->id)->delete();
+            BookingSlot::where('order_id', $order->id)
+                ->where('slot_id', $request->slot)
+                ->delete();
 
-            BookingSlot::createAutomaticSchedule($order, $request->grade, $slot, $request->num_sessions, 'pending');
+            if(!BookingSlot::createAutomaticSchedule($order, $request->grade, $slot, $request->num_sessions, 'pending')){
+                return [
+                    'status'=>'failed',
+                    'message'=>'Enough Slots Are Not Available'
+                ];
+            }
 
         }else if($order->schedule_type=='custom'){
             $request->validate([
@@ -204,6 +211,9 @@ class OrderController extends Controller
                 'message'=>'Invalid Request'
             ];
         }
+
+        $order->order_place_state='stage_2';
+        $order->save();
 
         return [
             'status'=>'success',
