@@ -118,6 +118,7 @@ class ClinicController extends Controller
     public function getAvailableSlots(Request $request, $clinic_id, $therapy_id){
         $date=$request->date??date('Y-m-d');
 
+        $today=date('Y-m-d');
 
         $clinic=Clinic::with(['therapies'=>function($therapies) use($therapy_id){
             $therapies->where('therapies.isactive', true)->where('therapies.id', $therapy_id)->where('clinic_therapies.isactive', true);
@@ -137,7 +138,7 @@ class ClinicController extends Controller
                 'text2'=>($i==1)?'':($i==2?'':date('D', strtotime($date))),
                 'value'=>$date,
             ];
-            $date=date('Y-m-d', strtotime('+1 days', strtotime($date)));
+            $today=date('Y-m-d', strtotime('+1 days', strtotime($today)));
         }
 
         $timeslots=[
