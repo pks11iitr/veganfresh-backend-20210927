@@ -134,9 +134,9 @@ class ClinicController extends Controller
 
         for($i=1; $i<=7;$i++){
             $dates[]=[
-                'text'=>($i==1)?'Today':($i==2?'Tomorrow':date('d F', strtotime($date))),
-                'text2'=>($i==1)?'':($i==2?'':date('D', strtotime($date))),
-                'value'=>$date,
+                'text'=>($i==1)?'Today':($i==2?'Tomorrow':date('d F', strtotime($today))),
+                'text2'=>($i==1)?'':($i==2?'':date('D', strtotime($today))),
+                'value'=>$today,
             ];
             $today=date('Y-m-d', strtotime('+1 days', strtotime($today)));
         }
