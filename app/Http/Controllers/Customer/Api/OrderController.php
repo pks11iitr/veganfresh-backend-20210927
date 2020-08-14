@@ -144,11 +144,16 @@ class OrderController extends Controller
             ];
 
 
-        if($order->status!='pending' && $order->entity_type=='App\Models\Therapy' && $order->details->clinic_id!=null)
+        if($order->status!='pending' || $order->details[0]->entity_type!='App\Models\Therapy' || $order->details[0]->clinic_id==null)
             return [
                 'status'=>'failed',
                 'message'=>'Your Booking Cannot Be Updated'
             ];
+
+        $clinic=Clinic::active()->with(['therapies'=>function($therapies)use($order){
+            $therapies->where('therapies.id', $order->details[0]->entity_id);
+        }])->find($order->details[0]->clinic_id);
+
 
         if($order->schedule_type=='automatic'){
             $request->validate([
@@ -157,14 +162,13 @@ class OrderController extends Controller
                 'grade'=>'required|in:1,2,3,4'
             ]);
             $slot=TimeSlot::find($request->slot);
-            if(!$slot || $slot->date<date('Y-m-d'))
+            if(!$slot || $slot->date < date('Y-m-d'))
                 return [
                     'status'=>'failed',
                     'message'=>'Invalid Operation'
                 ];
 
             BookingSlot::where('order_id', $order->id)
-                ->where('slot_id', $request->slot)
                 ->delete();
 
             if(!BookingSlot::createAutomaticSchedule($order, $request->grade, $slot, $request->num_sessions, 'pending')){
@@ -173,6 +177,22 @@ class OrderController extends Controller
                     'message'=>'Enough Slots Are Not Available'
                 ];
             }
+            //var_dump($clinic->toArray());die;
+            switch($request->grade){
+                case 1:$cost=($clinic->therapies[0]->pivot->grade1_price??0);
+                    break;
+                case 2:$cost=($clinic->therapies[0]->pivot->grade2_price??0);
+                    break;
+                case 3:$cost=($clinic->therapies[0]->pivot->grade3_price??0);
+                    break;
+                case 4:$cost=($clinic->therapies[0]->pivot->grade4_price??0);
+                    break;
+            }
+
+            $cost=$cost*$request->num_sessions;
+            $order->total_cost=$cost;
+            $order->order_place_state='stage_2';
+            $order->save();
 
         }else if($order->schedule_type=='custom'){
             $request->validate([
@@ -192,6 +212,8 @@ class OrderController extends Controller
             BookingSlot::where('order_id', $order->id)
                 ->whereIn('slot_id', $request->slots)->delete();
 
+            $cost=0;
+
             foreach($slots as $slot){
 
                 BookingSlot::create([
@@ -202,8 +224,22 @@ class OrderController extends Controller
                     'grade'=>$request->grade,
                     'status'=>'pending',
                 ]);
+
+                switch($request->grade){
+                    case 1:$cost=$cost+($clinic->therapies[0]->pivot->grade1_price??0);
+                        break;
+                    case 2:$cost=$cost+($clinic->therapies[0]->pivot->grade2_price??0);
+                        break;
+                    case 3:$cost=$cost+($clinic->therapies[0]->pivot->grade3_price??0);
+                        break;
+                    case 4:$cost=$cost+($clinic->therapies[0]->pivot->grade4_price??0);
+                        break;
+                }
             }
 
+            $order->total_cost=$order->total_cost+$cost;
+            $order->order_place_state='stage_2';
+            $order->save();
 
         }else{
             return [
@@ -211,9 +247,6 @@ class OrderController extends Controller
                 'message'=>'Invalid Request'
             ];
         }
-
-        $order->order_place_state='stage_2';
-        $order->save();
 
         return [
             'status'=>'success',
@@ -239,10 +272,10 @@ class OrderController extends Controller
                 'message'=>'Invalid Operation'
             ];
 
-        if($order->status!='pending' && $order->entity_type=='App\Models\Therapy' && $order->details->clinic_id!=null)
+        if($order->details[0]->entity_type!='App\Models\Therapy' || $order->details[0]->clinic_id==null)
             return [
                 'status'=>'failed',
-                'message'=>'Your Booking Cannot Be Updated'
+                'message'=>'Invalid Operation'
             ];
 
         $bookings=BookingSlot::with('timeslot')
@@ -283,7 +316,7 @@ class OrderController extends Controller
             ];
 
         $booking=BookingSlot::with('timeslot')->find($id);
-        if(!$booking)
+        if(!$booking && !in_array($booking->status,['confirmed', 'Pending']))
             return [
                 'status'=>'success',
                 'message'=>'Invalid Operation'
@@ -297,7 +330,31 @@ class OrderController extends Controller
                 'message'=>'Invalid Operation'
             ];
 
-        $booking->delete();
+        $clinic=Clinic::active()->with(['therapies'=>function($therapies)use($order){
+            $therapies->where('therapies.id', $order->details[0]->entity_id);
+        }])->find($order->details[0]->clinic_id);
+
+
+        switch($booking->grade){
+            case 1:$cost=($clinic->therapies[0]->pivot->grade1_price??0);
+                break;
+            case 2:$cost=($clinic->therapies[0]->pivot->grade2_price??0);
+                break;
+            case 3:$cost=($clinic->therapies[0]->pivot->grade3_price??0);
+                break;
+            case 4:$cost=($clinic->therapies[0]->pivot->grade4_price??0);
+                break;
+        }
+
+        if($booking->status=='pending'){
+            $booking->delete();
+        }else{
+            // apply deduction if criteria match
+            $booking->delete();
+        }
+
+        $order->total_cost=$order->total_cost-$cost;
+        $order->save();
 
         return [
             'status'=>'success',

@@ -32,5 +32,9 @@ class Order extends Model
         return $this->hasMany('App\Models\BookingSlot', 'order_id');
     }
 
+    public function payments(){
+        return $this->belongsTo('App\Models\Payments', 'order_id');
+    }
+
 
 }

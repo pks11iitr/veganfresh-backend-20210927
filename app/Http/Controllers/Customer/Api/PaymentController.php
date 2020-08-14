@@ -203,7 +203,7 @@ class PaymentController extends Controller
 
 
     public function verifyPayment(Request $request){
-        $order=Order::where('order_id', $request->razorpay_order_id)->first();
+        $order=Order::with('details')->where('order_id', $request->razorpay_order_id)->first();
 
         if(!$order || $order->status!='pending')
             return [
@@ -231,6 +231,10 @@ class PaymentController extends Controller
             $order->payment_status='paid';
             $order->payment_mode='online';
             $order->save();
+
+            if($order->details[0]->entity_type=='App\Models\Therapy' && $order->details[0]->clinic_id!=null){
+                $order->schedule()->where('bookings_slots.status', 'pending')->update(['bookings_slots.status'=>'confirmed']);
+            }
 
             OrderStatus::create([
                 'order_id'=>$order->id,

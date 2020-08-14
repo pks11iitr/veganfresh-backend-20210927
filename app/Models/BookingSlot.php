@@ -32,7 +32,7 @@ class BookingSlot extends Model
                 ];
             $bookings[$bs->timeslot->date]['g'.$bs->grade]+=1;
         }
-
+        //var_dump($bookings);
         $slots=TimeSlot::active()->
             where('clinic_id',$slot->clinic_id)
             ->where('date', '>=',  $slot->date)
@@ -57,7 +57,7 @@ class BookingSlot extends Model
             ->limit(200)
             ->get();
 
-        //var_dump('fd');die;
+        //var_dump($slots->toArray());die('3131');
 
         $i=0;
         $alloted=0;
@@ -90,7 +90,7 @@ class BookingSlot extends Model
             }
             $i++;
         }
-
+        //var_dump($i);die;
         return $alloted==$num_sessions;
     }
 
