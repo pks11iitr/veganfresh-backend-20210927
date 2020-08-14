@@ -278,6 +278,8 @@ class OrderController extends Controller
                 'status'=>'failed',
                 'message'=>'Invalid Operation'
             ];
+        $clinic_id=$order->details[0]->clinic_id;
+        $therapy_id=$order->details[0]->entity_id;
 
         $bookings=BookingSlot::with('timeslot')
             ->where('order_id', $order->id)
@@ -301,7 +303,7 @@ class OrderController extends Controller
 
         return [
             'status'=>'success',
-            'data'=>compact('schedules')
+            'data'=>compact('schedules','clinic_id', 'therapy_id')
         ];
 
     }
