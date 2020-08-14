@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Customer\Api;
 use App\Models\BookingSlot;
 use App\Models\Cart;
 use App\Models\Clinic;
+use App\Models\HomeBookingSlots;
 use App\Models\Order;
 use App\Models\OrderDetail;
 use App\Models\OrderStatus;
@@ -272,7 +273,7 @@ class OrderController extends Controller
                 'message'=>'Invalid Operation'
             ];
 
-        if($order->details[0]->entity_type!='App\Models\Therapy' || $order->details[0]->clinic_id==null)
+        if($order->details[0]->entity_type!='App\Models\Therapy' || ($order->details[0]->clinic_id==null && $order->is_instant==1))
             return [
                 'status'=>'failed',
                 'message'=>'Invalid Operation'
@@ -493,6 +494,8 @@ class OrderController extends Controller
             'quantity'=>$num_sessions,
             'grade'=>$request->grade
         ]);
+        if(!$order->is_instant)
+            HomeBookingSlots::createTimeSlots($order, $request->grade, $request->date, $request->time.':00', $num_sessions, 'pending');
 
         return [
             'status'=>'success',
@@ -590,6 +593,12 @@ class OrderController extends Controller
     }
 
     public function orderdetails(Request $request, $id){
+
+        $show_cancel_product=0;
+        $show_cancel=0;
+        $show_reschedule=0;
+        $show_time_slots_button=0;
+
         $user=auth()->guard('customerapi')->user();
         if(!$user)
             return [
@@ -644,6 +653,9 @@ class OrderController extends Controller
 
         }
 
+        if($order->details[0]->entity instanceof Therapy  && ( $order->details[0]->clinic_id!=null || $order->is_instant==0))
+            $show_time_slots_button=1;
+
 
         $date=date('Y-m-d');
         for($i=1; $i<=7;$i++){
@@ -675,7 +687,8 @@ class OrderController extends Controller
                 'show_reschedule'=>$show_reschedule??0,
                 'show_cancel_product'=>$show_cancel_product??0,
                 'dates'=>$dates,
-                'timings'=>$timings
+                'timings'=>$timings,
+                'show_time_slots_btn'=>$show_time_slots_button??0
             ]
         ];
     }

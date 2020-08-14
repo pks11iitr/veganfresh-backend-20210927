@@ -212,8 +212,8 @@ class PaymentController extends Controller
             ];
 
         $paymentresult=$this->pay->verifypayment($request->all());
-        if($paymentresult){
-            if($order->use_balance==true) {
+        if($paymentresult) {
+            if ($order->use_balance == true) {
                 $balance = Wallet::balance($order->user_id);
                 if ($balance < $order->balance_used) {
                     return response()->json([
@@ -225,15 +225,20 @@ class PaymentController extends Controller
                     ], 200);
                 }
             }
-            $order->status='confirmed';
-            $order->payment_id=$request->razorpay_payment_id;
-            $order->payment_id_response=$request->razorpay_signature;
-            $order->payment_status='paid';
-            $order->payment_mode='online';
+            $order->status = 'confirmed';
+            $order->payment_id = $request->razorpay_payment_id;
+            $order->payment_id_response = $request->razorpay_signature;
+            $order->payment_status = 'paid';
+            $order->payment_mode = 'online';
             $order->save();
 
-            if($order->details[0]->entity_type=='App\Models\Therapy' && $order->details[0]->clinic_id!=null){
-                $order->schedule()->where('bookings_slots.status', 'pending')->update(['bookings_slots.status'=>'confirmed']);
+            // comfirm slots booking
+            if ($order->details[0]->entity_type == 'App\Models\Therapy'){
+                if ($order->details[0]->clinic_id != null) {
+                    $order->schedule()->where('bookings_slots.status', 'pending')->update(['bookings_slots.status' => 'confirmed']);
+                }else if($order->is_instant==0){
+                    $order->homeschedule()->where('home_booking_slots.status', 'pending')->update(['home_booking_slots.status' => 'confirmed']);
+                }
             }
 
             OrderStatus::create([
