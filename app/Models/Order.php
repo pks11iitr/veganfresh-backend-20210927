@@ -36,5 +36,9 @@ class Order extends Model
         return $this->belongsTo('App\Models\Payments', 'order_id');
     }
 
+    public function bookingSlots(){
+        return $this->hasMany('App\Models\BookingSlot', 'order_id');
+    }
+
 
 }

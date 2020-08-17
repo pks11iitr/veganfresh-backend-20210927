@@ -27,6 +27,8 @@ class PaymentController extends Controller
                 'status'=>'failed',
                 'message'=>'Please login to continue'
             ];
+
+
         $order=Order::with('details.entity')->where('user_id', $user->id)->where('status', 'pending')->find($id);
 
         if(!$order)
@@ -34,6 +36,14 @@ class PaymentController extends Controller
                 'status'=>'failed',
                 'message'=>'Invalid Operation Performed'
             ];
+
+        if($order->bookingSlots()->where('status', 'pending')->count()==0){
+            if(!$order)
+                return [
+                    'status'=>'failed',
+                    'message'=>'Please Select Booking Schedule To Continue'
+                ];
+        }
 
         // set to initial state
         $order->update([
