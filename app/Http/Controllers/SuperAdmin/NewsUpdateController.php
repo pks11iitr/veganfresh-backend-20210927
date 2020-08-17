@@ -11,23 +11,18 @@ use Storage;
 class NewsUpdateController extends Controller
 {
      public function index(Request $request){
-            $newsupdates=NewsUpdate::orderBy('id','DESC')->paginate(10);
+		 
+               $newsupdates=NewsUpdate::where(function($newsupdates) use($request){
+                $newsupdates->where('title','LIKE','%'.$request->search.'%');
+                 });
+            
+            if($request->ordertype)
+                $newsupdates=$newsupdates->orderBy('created_at', $request->ordertype);
+                
+            $newsupdates=$newsupdates->paginate(10);
             return view('admin.news.view',['newsupdates'=>$newsupdates]);
               }
-     public function news_search(Request $request) {
-	      $search=$request->input("search");
-	      $ordertype=$request->input("ordertype");
-	   if($ordertype=='ASC'){
-		     $newsupdates=NewsUpdate::where('title','LIKE','%'.$search.'%')->orderBy('created_at','ASC')->paginate(10);
-			}elseif($ordertype=='DESC')
-			{
-		     $newsupdates=NewsUpdate::where('title','LIKE','%'.$search.'%')->orderBy('created_at','DESC')->paginate(10);
-		    }else{
-	         $newsupdates=NewsUpdate::where('title','LIKE','%'.$search.'%')->orderBy('created_at','ASC')->paginate(10);
-	         }
-            return view('admin.news.view',['newsupdates'=>$newsupdates,'search'=>$search,'ordertype'=>$ordertype]);
-        }         
-                     
+                          
 
     public function create(Request $request){
             return view('admin.news.add');

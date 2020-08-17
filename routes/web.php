@@ -36,7 +36,6 @@ Route::group(['middle'=>['auth', 'acl'], 'is'=>'admin'], function(){
         Route::post('update/{id}','SuperAdmin\TherapistController@update')->name('therapy.update');
         Route::post('document/{id}','SuperAdmin\TherapistController@document')->name('therapy.document');
         Route::get('delete/{id}','SuperAdmin\TherapistController@delete')->name('therapy.delete');
-        Route::post('therapy_search','SuperAdmin\TherapistController@therapy_search')->name('therapy.therapy_search');
 
     });
   Route::group(['prefix'=>'clinic'], function(){
@@ -50,13 +49,11 @@ Route::group(['middle'=>['auth', 'acl'], 'is'=>'admin'], function(){
         Route::post('therapystore/{id}','SuperAdmin\ClinicController@therapystore')->name('clinic.therapystore');
         Route::get('therapyeedit/{id}','SuperAdmin\ClinicController@therapyedit')->name('clinic.therapyedit');
         Route::post('therapyeedit/{id}','SuperAdmin\ClinicController@therapyupdate');
-        Route::post('clinic_search','SuperAdmin\ClinicController@clinic_search')->name('clinic.clinic_search');
     });
     Route::group(['prefix'=>'customer'], function(){
         Route::get('/','SuperAdmin\CustomerController@index')->name('customer.list');
         Route::get('edit/{id}','SuperAdmin\CustomerController@edit')->name('customer.edit');
         Route::post('update/{id}','SuperAdmin\CustomerController@update')->name('customer.update');
-        Route::post('customer_search','SuperAdmin\CustomerController@customer_search')->name('customer.customer_search');
         Route::post('send_message','SuperAdmin\CustomerController@send_message')->name('customer.send_message');
     });
    Route::group(['prefix'=>'product'], function(){
@@ -67,15 +64,12 @@ Route::group(['middle'=>['auth', 'acl'], 'is'=>'admin'], function(){
         Route::post('update/{id}','SuperAdmin\ProductController@update')->name('product.update');
         Route::post('document/{id}','SuperAdmin\ProductController@document')->name('product.document');
         Route::get('delete/{id}','SuperAdmin\ProductController@delete')->name('product.delete');
-        Route::post('product_search','SuperAdmin\ProductController@product_search')->name('product.product_search');
     });
 
     Route::group(['prefix'=>'orders'], function(){
         Route::get('/','SuperAdmin\OrderController@index')->name('orders.list');
         Route::get('view/{id}','SuperAdmin\OrderController@details')->name('order.view');
         Route::get('product','SuperAdmin\OrderController@product')->name('orders.product');
-        Route::post('therapy_search','SuperAdmin\OrderController@therapy_search')->name('orders.therapy_search');
-        Route::post('order_search','SuperAdmin\OrderController@order_search')->name('orders.order_search');
     });
     
     Route::group(['prefix'=>'complain'], function(){
@@ -91,7 +85,6 @@ Route::group(['middle'=>['auth', 'acl'], 'is'=>'admin'], function(){
         Route::post('store','SuperAdmin\NewsUpdateController@store')->name('news.store');
         Route::get('edit/{id}','SuperAdmin\NewsUpdateController@edit')->name('news.edit');
         Route::post('update/{id}','SuperAdmin\NewsUpdateController@update')->name('news.update');
-        Route::post('news_search','SuperAdmin\NewsUpdateController@news_search')->name('news.news_search');
 
     });
     

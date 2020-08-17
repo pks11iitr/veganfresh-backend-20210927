@@ -12,23 +12,16 @@ use Storage;
 class TherapistController extends Controller
 {
      public function index(Request $request){
-            $therapist=Therapy::orderBy('name','ASC')->paginate(10);
-            return view('admin.therapy.view',['therapist'=>$therapist,'search'=>'','ordertype'=>'']);
+		 $therapist=Therapy::where(function($therapist) use($request){
+                $therapist->where('name','LIKE','%'.$request->search.'%');
+            });
+            
+            if($request->ordertype)
+                $therapist=$therapist->orderBy('name', $request->ordertype);
+                
+            $therapist=$therapist->paginate(10);		 
+            return view('admin.therapy.view',['therapist'=>$therapist]);
               }
-
-     public function therapy_search(Request $request) {
-	      $search=$request->input("search");
-	      $ordertype=$request->input("ordertype");
-	   if($ordertype=='ASC'){
-		     $therapist=Therapy::where('name','LIKE','%'.$search.'%')->orderBy('name','ASC')->paginate(10);
-			}elseif($ordertype=='DESC')
-			{
-		     $therapist=Therapy::where('name','LIKE','%'.$search.'%')->orderBy('name','DESC')->paginate(10);
-		    }else{
-	         $therapist=Therapy::where('name','LIKE','%'.$search.'%')->orderBy('name','ASC')->paginate(10);
-	         }
-            return view('admin.therapy.view',['therapist'=>$therapist,'search'=>$search,'ordertype'=>$ordertype]);
-        }
 
     public function create(Request $request){
             return view('admin.therapy.add');
@@ -45,12 +38,6 @@ class TherapistController extends Controller
                   			'price4'=>'required',
                   			'image'=>'required|image'
                                ]);
-
-             //// $file=$request->image->path();
-             // $name=str_replace(' ', '_', $request->image->getClientOriginalName());
-             // $path='therapies/'.$name;
-             // saveImage($path, 'banners');
-            //  Storage::put($path, file_get_contents($file));
 
           if($therapy=Therapy::create([
                       'isactive'=>$request->isactive,
@@ -124,9 +111,9 @@ class TherapistController extends Controller
                 $therapy->saveDocument($file, 'therapies');
                   }
              if($therapy)  {
-                   return redirect()->back()->with('success', 'Therapy has been created');
+                   return redirect()->back()->with('success', 'Document has been created');
                      }
-                   return redirect()->back()->with('error', 'Therapy create failed');
+                   return redirect()->back()->with('error', 'Document create failed');
           }
 
      public function delete(Request $request, $id){

@@ -14,22 +14,17 @@ use Storage;
 class ClinicController extends Controller
 {
      public function index(Request $request){
-            $clinics=Clinic::paginate(10);
-            return view('admin.clinic.view',['clinics'=>$clinics,'search'=>'','ordertype'=>'']);
+		 
+		 $clinics=Clinic::where(function($clinics) use($request){
+                $clinics->where('name','LIKE','%'.$request->search.'%');
+            });
+            
+            if($request->ordertype)
+                $clinics=$clinics->orderBy('name', $request->ordertype);
+                
+            $clinics=$clinics->paginate(10);
+            return view('admin.clinic.view',['clinics'=>$clinics]);
               }
-      public function clinic_search(Request $request) {
-	      $search=$request->input("search");
-	      $ordertype=$request->input("ordertype");
-	   if($ordertype=='ASC'){
-		     $clinics=Clinic::where('name','LIKE','%'.$search.'%')->orderBy('name','ASC')->paginate(10);
-			}elseif($ordertype=='DESC')
-			{
-		     $clinics=Clinic::where('name','LIKE','%'.$search.'%')->orderBy('name','DESC')->paginate(10);
-		    }else{
-             $clinics=Clinic::where('name','LIKE','%'.$search.'%')->orderBy('name','ASC')->paginate(10);
-	         }
-            return view('admin.clinic.view',['clinics'=>$clinics,'search'=>$search,'ordertype'=>$ordertype]);
-        }
 
     public function create(Request $request){
             return view('admin.clinic.add');

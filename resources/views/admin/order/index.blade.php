@@ -29,36 +29,38 @@
                       <div class="row">
                           <div class="col-12">
 							   
-        <form class="form-validate form-horizontal"  method="post" action="/orders/therapy_search " enctype="multipart/form-data">
-                           <input type = "hidden" name = "_token" value = "<?php echo csrf_token(); ?>">
+        <form class="form-validate form-horizontal"  method="get" action="" enctype="multipart/form-data">
+                    
                      <div class="row">
 					      <div class="col-4"> 
-                           <input  id="fullname" onfocus="this.value=''" class="form-control" name="search" placeholder=" search name" value=""  type="text" />
+                           <input  id="fullname"  class="form-control" name="search" placeholder=" search name" value="{{request('search')}}"  type="text" />
                            </div>
 					  <div class="col-4">
-                          <select id="status" name="status" class="form-control" >
+						  
+						  <select id="status" name="status" class="form-control" >
 							  
-                             <option value="">Please Select Order Status</option>
-                             
-                             <option value="pending">Pending</option>
-                             <option value="confirmed">Confirmed</option>
-                             <option value="cancelled">Cancelled</option>
+                              <option value="" {{ request('status')==''?'selected':''}}>Please select</option>
+                             <option value="pending" {{ request('status')=='pending'?'selected':''}}>pending</option>
+                             <option value="confirmed" {{ request('status')==='confirmed'?'selected':''}}>confirmed</option>
+                             <option value="cancelled" {{ request('status')=='cancelled'?'selected':''}}>cancelled</option>
                           </select>
+						  
                       </div>
                       <div class="col-4">
                           <select id="payment_status" name="payment_status" class="form-control" >
-							  
-                             <option value="">Please Select Payment Status</option>
-                             
-                             <option value="paid">Paid</option>
-                             <option value="payment-wait">payment-wait</option>
-                          </select>
+                          
+							 <option value="" {{ request('payment_status')==''?'selected':''}}>Please Select</option>
+							 <option value="paid" {{ request('payment_status')=='paid'?'selected':''}}>paid</option>
+                             <option value="payment-wait" {{ request('payment_status')==='payment-wait'?'selected':''}}>payment-wait</option>
+          
+                          </select>  
+							 
                       </div><br><br>
                       <div class="col-4"> 
-                           <input  id="fullname" onfocus="this.value=''" class="form-control" name="fromdate" placeholder=" search name" value=""  type="date" />
+                           <input  id="fullname"  class="form-control" name="fromdate" placeholder=" search name" value="{{request('fromdate')}}"  type="date" />
                            </div>
                            <div class="col-4"> 
-                           <input  id="fullname" onfocus="this.value=''" class="form-control" name="todate" placeholder=" search name" value=""  type="date" />
+                           <input  id="fullname"  class="form-control" name="todate" placeholder=" search name" value="{{request('todate')}}"  type="date" />
                            </div>
                     <div class="col-4"> 
                        <button type="submit" name="save" class="btn btn-primary">Submit</button>
