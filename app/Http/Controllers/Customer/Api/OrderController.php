@@ -140,7 +140,7 @@ class OrderController extends Controller
 
         if(!$order)
             return [
-                'status'=>'success',
+                'status'=>'failed',
                 'message'=>'Invalid Operation'
             ];
 
@@ -159,7 +159,7 @@ class OrderController extends Controller
         if($order->schedule_type=='automatic'){
             $request->validate([
                 'num_sessions'=>'required|integer|max:50',
-                'slot'=>'required|integer|max:25',
+                'slot'=>'required|integer',
                 'grade'=>'required|in:1,2,3,4'
             ]);
             $slot=TimeSlot::find($request->slot);
