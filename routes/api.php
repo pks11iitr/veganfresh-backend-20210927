@@ -108,3 +108,28 @@ $api->get('news/{id}', ['as'=>'new.list', 'uses'=>'Customer\Api\NewsController@d
 
 //notifications api
 $api->get('notifications', ['as'=>'notifications.list', 'uses'=>'Customer\Api\NotificationController@index']);
+
+$api->group(['middleware' => ['therapist-auth']], function ($api) {
+
+});
+
+
+
+
+/*
+ * Therapist Apis Starts Here
+ */
+
+$api->group(['prefix' => 'therapist'], function ($api) {
+    $api->post('login', 'Therapist\Auth\LoginController@login');
+    $api->post('login-with-otp', 'Therapist\Auth\LoginController@loginWithOtp');
+    $api->post('register', 'Therapist\Auth\RegisterController@register');
+    $api->post('forgot', 'Therapist\Auth\ForgotPasswordController@forgot');
+    $api->post('verify-otp', 'Therapist\Auth\OtpController@verify');
+    $api->post('resend-otp', 'Therapist\Auth\OtpController@resend');
+
+    $api->group(['middleware' => ['therapist-auth']], function ($api) {
+
+    });
+
+});

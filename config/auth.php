@@ -43,7 +43,7 @@ return [
 
         'therapistapi' => [
             'driver' => 'jwt',
-            'provider' => 'users',
+            'provider' => 'therapists',
         ],
 
         'customerapi' => [
@@ -77,6 +77,10 @@ return [
         'customers' => [
             'driver' => 'eloquent',
             'model' => App\Models\Customer::class,
+        ],
+        'therapists' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Therapist::class,
         ],
 
         // 'users' => [
