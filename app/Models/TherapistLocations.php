@@ -8,4 +8,6 @@ class TherapistLocations extends Model
 {
     protected $table='therapist_locations';
 
+    protected $fillable=['lat','lang', 'therapist_id'];
+
 }

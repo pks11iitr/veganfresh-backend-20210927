@@ -14,7 +14,7 @@ class Therapy extends Model
 	protected $fillable=['name','description','grade1_price','grade2_price','grade3_price','grade4_price','image','isactive'];
 
     protected $hidden = ['created_at','deleted_at','updated_at'];
-    
+
     public function getImageAttribute($value){
         if($value)
             return Storage::url($value);
@@ -61,6 +61,12 @@ class Therapy extends Model
 //            return '';
 //        return $value;
 //    }
+
+    public function therapists(){
+
+        return $this->belongsToMany('App\Models\Therapist', 'therapist_therapies', 'therapy_id', 'therapist_id')->withPivot();
+
+    }
 
 
 }

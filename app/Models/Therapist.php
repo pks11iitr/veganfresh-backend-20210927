@@ -3,15 +3,18 @@
 namespace App\Models;
 
 use App\Models\BaseModel as Model;
+use App\Models\Traits\DocumentUploadTrait;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Facades\Storage;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
 class Therapist extends Authenticatable implements JWTSubject
 {
+    use DocumentUploadTrait;
+
 	protected $table='therapists';
 
-	protected $fillable=['name','email','mobile','password'];
+	protected $fillable=['name','email','mobile','password', 'image'];
 
     public function locations(){
         return $this->hasMany('App\Models\TherapistLocations', 'therapist_id')->orderBy('id', 'desc');
@@ -19,7 +22,7 @@ class Therapist extends Authenticatable implements JWTSubject
 
 
     public function therapies(){
-        return $this->belongsToMany('App\Models\Therapy', 'therapist_therapies', 'therapist_id', 'therapy_id')->withPivot('therapy_id', 'therapist_id', 'therapist_grade');
+        return $this->belongsToMany('App\Models\Therapy', 'therapist_therapies', 'therapist_id', 'therapy_id')->withPivot('therapy_id', 'therapist_id', 'therapist_grade', 'id');
     }
 
     /**
@@ -47,6 +50,5 @@ class Therapist extends Authenticatable implements JWTSubject
             return Storage::url($value);
         return null;
     }
-
 
 }

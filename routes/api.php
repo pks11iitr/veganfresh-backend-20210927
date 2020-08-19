@@ -129,6 +129,14 @@ $api->group(['prefix' => 'therapist'], function ($api) {
     $api->post('resend-otp', 'Therapist\Auth\OtpController@resend');
 
     $api->group(['middleware' => ['therapist-auth']], function ($api) {
+        $api->post('update-location', 'Therapist\Api\LocationController@updateLocation');
+        $api->post('upload-image', 'Therapist\Api\ProfileController@updateImage');
+
+        $api->post('add-services', 'Therapist\Api\ProfileController@addServices');
+
+        $api->get('delete-therapy/{id}', 'Therapist\Api\ProfileController@deleteService');
+
+        $api->get('my-profile', 'Therapist\Api\ProfileController@myProfile');
 
     });
 
