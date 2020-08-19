@@ -64,7 +64,7 @@ class Therapy extends Model
 
     public function therapists(){
 
-        return $this->belongsToMany('App\Models\Therapist', 'therapist_therapies', 'therapy_id', 'therapist_id')->withPivot();
+        return $this->belongsToMany('App\Models\Therapist', 'therapist_therapies', 'therapy_id', 'therapist_id');
 
     }
 

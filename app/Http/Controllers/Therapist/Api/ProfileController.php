@@ -32,9 +32,12 @@ class ProfileController extends Controller
     }
 
 
+
     public function addServices(Request $request){
 
         $user=$request->user;
+
+
 
 
 
@@ -65,13 +68,20 @@ class ProfileController extends Controller
 
         $user=$request->user;
 
+
+        //$therapist=Therapist::with('therapies')->find($user->id);
+
         $therapiesobj=$user->therapies;
+
+        //var_dump($therapiesobj->toArray());die;
 
         $therapies=[];
 
         foreach($therapiesobj as $therapy){
-               $thrapies[]=[
-                   'id'=>$therapy->pivot->id
+               $therapies[]=[
+                   'id'=>$therapy->pivot->id,
+                   'name'=>$therapy->name,
+                   'status'=>$therapy->pivot->isactive
                ];
         }
 
