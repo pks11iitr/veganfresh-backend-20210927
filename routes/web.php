@@ -17,8 +17,15 @@ Route::get('/', function () {
 
 Auth::routes();
 
+Route::group(['middle'=>['auth', 'acl'], 'is'=>'admin|clinic-admin|clinic-therapist'], function(){
+
+    Route::get('/role-check', 'SuperAdmin\HomeController@check_n_redirect')->name('user.role.check');
+
+});
+
+
 Route::group(['middle'=>['auth', 'acl'], 'is'=>'admin'], function(){
-    Route::get('/home', 'SuperAdmin\HomeController@index')->name('home');
+    Route::get('/dashboard', 'SuperAdmin\DashboardController@index')->name('home');
 
    Route::group(['prefix'=>'banners'], function(){
         Route::get('/','SuperAdmin\BannerController@index')->name('banners.list');
@@ -71,14 +78,14 @@ Route::group(['middle'=>['auth', 'acl'], 'is'=>'admin'], function(){
         Route::get('view/{id}','SuperAdmin\OrderController@details')->name('order.view');
         Route::get('product','SuperAdmin\OrderController@product')->name('orders.product');
     });
-    
+
     Route::group(['prefix'=>'complain'], function(){
         Route::get('/','SuperAdmin\ComplainController@index')->name('complain.list');
         Route::get('view/{id}','SuperAdmin\ComplainController@details')->name('complain.view');
         Route::post('message','SuperAdmin\ComplainController@send_message')->name('complain.message');
-       
+
     });
-    
+
     Route::group(['prefix'=>'news'], function(){
         Route::get('/','SuperAdmin\NewsUpdateController@index')->name('news.list');
         Route::get('create','SuperAdmin\NewsUpdateController@create')->name('news.create');
@@ -87,20 +94,20 @@ Route::group(['middle'=>['auth', 'acl'], 'is'=>'admin'], function(){
         Route::post('update/{id}','SuperAdmin\NewsUpdateController@update')->name('news.update');
 
     });
-    
+
     Route::group(['prefix'=>'notification'], function(){
         Route::get('create','SuperAdmin\NotificationController@create')->name('notification.create');
         Route::post('store','SuperAdmin\NotificationController@store')->name('notification.store');
 
     });
-    
+
     Route::group(['prefix'=>'video'], function(){
         Route::get('/','SuperAdmin\VideoController@index')->name('video.list');
         Route::get('create','SuperAdmin\VideoController@create')->name('video.create');
         Route::post('store','SuperAdmin\VideoController@store')->name('video.store');
         Route::get('edit/{id}','SuperAdmin\VideoController@edit')->name('video.edit');
         Route::post('update/{id}','SuperAdmin\VideoController@update')->name('video.update');
-        Route::get('delete/{id}','SuperAdmin\VideoController@delete')->name('video.delete');        
+        Route::get('delete/{id}','SuperAdmin\VideoController@delete')->name('video.delete');
 
     });
 
