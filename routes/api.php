@@ -139,6 +139,9 @@ $api->group(['prefix' => 'therapist'], function ($api) {
         $api->get('delete-therapy/{id}', 'Therapist\Api\ProfileController@deleteService');
 
         $api->get('my-profile', 'Therapist\Api\ProfileController@myProfile');
+        $api->post('update-availability', 'Therapist\Api\ProfileController@updateavalibility');
+        $api->get('my-availability', 'Therapist\Api\ProfileController@myapdateavalibility');
+        $api->get('open-booking', 'Therapist\Api\ProfileController@openbooking');
 
 
     });
