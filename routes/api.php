@@ -132,11 +132,14 @@ $api->group(['prefix' => 'therapist'], function ($api) {
         $api->post('update-location', 'Therapist\Api\LocationController@updateLocation');
         $api->post('upload-image', 'Therapist\Api\ProfileController@updateImage');
 
+        $api->get('get-services', 'Therapist\Api\ProfileController@getServices');
+
         $api->post('add-services', 'Therapist\Api\ProfileController@addServices');
 
         $api->get('delete-therapy/{id}', 'Therapist\Api\ProfileController@deleteService');
 
         $api->get('my-profile', 'Therapist\Api\ProfileController@myProfile');
+
 
     });
 
