@@ -977,7 +977,7 @@ CREATE TABLE `therapist_locations` (
   `updated_at` date DEFAULT NULL,
   `deleted_at` date DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -986,7 +986,7 @@ CREATE TABLE `therapist_locations` (
 
 LOCK TABLES `therapist_locations` WRITE;
 /*!40000 ALTER TABLE `therapist_locations` DISABLE KEYS */;
-INSERT INTO `therapist_locations` VALUES (1,12.220000000000,12.230000000000,1,'2020-06-18 16:48:30',NULL,NULL),(2,11.220000000000,10.210000000000,1,'2020-06-18 16:48:30',NULL,NULL);
+INSERT INTO `therapist_locations` VALUES (1,12.220000000000,12.230000000000,1,'2020-06-18 16:48:30',NULL,NULL),(2,11.220000000000,10.210000000000,1,'2020-06-18 16:48:30',NULL,NULL),(3,10.200000000000,-11.300000000000,3,'2020-08-19 10:40:14','2020-08-19',NULL);
 /*!40000 ALTER TABLE `therapist_locations` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1002,12 +1002,12 @@ CREATE TABLE `therapist_therapies` (
   `therapist_id` int(11) NOT NULL,
   `therapy_id` int(11) NOT NULL,
   `therapist_grade` int(11) NOT NULL DEFAULT '1',
-  `isactive` tinyint(1) NOT NULL DEFAULT '1',
+  `isactive` varchar(30) NOT NULL DEFAULT 'Applied' COMMENT 'Applied, Approved, Rejected, Revoked',
   `created_at` datetime DEFAULT NULL,
   `deleted_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1016,7 +1016,7 @@ CREATE TABLE `therapist_therapies` (
 
 LOCK TABLES `therapist_therapies` WRITE;
 /*!40000 ALTER TABLE `therapist_therapies` DISABLE KEYS */;
-INSERT INTO `therapist_therapies` VALUES (1,1,1,1,1,NULL,NULL,NULL),(2,1,2,1,1,NULL,NULL,NULL),(3,1,3,1,1,NULL,NULL,NULL);
+INSERT INTO `therapist_therapies` VALUES (1,3,1,1,'Approved',NULL,NULL,NULL),(2,3,2,1,'Applied',NULL,NULL,NULL),(3,3,3,1,'Rejected',NULL,NULL,NULL),(4,4,1,1,'Approved',NULL,NULL,NULL),(5,4,2,1,'Applied',NULL,NULL,NULL),(6,4,3,1,'Rejected',NULL,NULL,NULL),(10,3,4,1,'Approved',NULL,NULL,NULL);
 /*!40000 ALTER TABLE `therapist_therapies` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1031,6 +1031,7 @@ CREATE TABLE `therapists` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `clinic_id` int(11) DEFAULT NULL,
   `name` varchar(100) NOT NULL,
+  `image` varchar(500) DEFAULT NULL,
   `email` varchar(100) NOT NULL,
   `mobile` varchar(10) NOT NULL,
   `address` varchar(250) DEFAULT NULL,
@@ -1046,7 +1047,7 @@ CREATE TABLE `therapists` (
   `status` int(11) DEFAULT '0',
   `notification_token` varchar(1000) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1055,7 +1056,7 @@ CREATE TABLE `therapists` (
 
 LOCK TABLES `therapists` WRITE;
 /*!40000 ALTER TABLE `therapists` DISABLE KEYS */;
-INSERT INTO `therapists` VALUES (1,NULL,'Pankaj Sengar','pks11iitr@gmail.com','8802035788','ffd d dfd','Noida','Uttar Pradesh',1,NULL,NULL,'2020-06-18 00:00:00',NULL,NULL,NULL,0,NULL),(2,NULL,'Pankaj Sengar','pks11iitr@gmail.com','8802035788','ffd d dfd','Noida','Uttar Pradesh',1,NULL,NULL,'2020-06-18 00:00:00',NULL,NULL,NULL,0,NULL),(3,NULL,'Therapist Pankaj','pks12iitr@gmail.com','8802035791',NULL,NULL,NULL,1,NULL,NULL,'2020-08-17 13:24:44',NULL,'2020-08-17 13:41:14','$2y$10$ZwTtxsSHECWR6jLmozFvzOKZQKCKdcOUoJtqqehwVm.FM0CZl0TCi',1,NULL);
+INSERT INTO `therapists` VALUES (1,NULL,'Pankaj Sengar',NULL,'pks11iitr@gmail.com','8802035788','ffd d dfd','Noida','Uttar Pradesh',1,NULL,NULL,'2020-06-18 00:00:00',NULL,NULL,NULL,0,NULL),(2,NULL,'Pankaj Sengar',NULL,'pks11iitr@gmail.com','8802035788','ffd d dfd','Noida','Uttar Pradesh',1,NULL,NULL,'2020-06-18 00:00:00',NULL,NULL,NULL,0,NULL),(3,NULL,'Therapist Pankaj','therapist-images/3/747_svs3.jpeg','pks12iitr@gmail.com','8802035791',NULL,NULL,NULL,1,NULL,NULL,'2020-08-17 13:24:44',NULL,'2020-08-19 14:33:50','$2y$10$ZwTtxsSHECWR6jLmozFvzOKZQKCKdcOUoJtqqehwVm.FM0CZl0TCi',1,NULL);
 /*!40000 ALTER TABLE `therapists` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1202,4 +1203,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-08-17 14:20:09
+-- Dump completed on 2020-08-20 13:01:54
