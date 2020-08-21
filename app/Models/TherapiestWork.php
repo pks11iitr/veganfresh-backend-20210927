@@ -12,13 +12,12 @@ class TherapiestWork extends Model
 {
     protected $table = 'therapist_work';
 
-    protected $fillable = ['therapist_id', 'home_booking_id', 'status'];
+    protected $fillable = ['therapist_id', 'home_booking_id', 'status','treatment_id','start_time','end_time','message'];
 
     protected $hidden = ['created_at', 'deleted_at', 'updated_at'];
 
     public function therapieswork(){
         return $this->belongsTo('App\Models\HomeBookingSlots', 'home_booking_id');
     }
-
 
 }
