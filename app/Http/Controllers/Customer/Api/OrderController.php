@@ -626,6 +626,10 @@ class OrderController extends Controller
         $itemdetails=[];
         foreach($order->details as $detail){
             if($detail->entity instanceof Therapy){
+
+                $order->booking_date='2020-08-31';
+                $order->booking_time='08:00 PM';
+
                 $itemdetails[]=[
                     'name'=>($detail->entity->name??'')." ( Grade $detail->grade )",
                     'small'=>$detail->quantity.(!empty($detail->clinic->name)?' sesions at '.$detail->clinic->name:' sessions'),
@@ -636,8 +640,7 @@ class OrderController extends Controller
                     'booking_time'=>$order->booking_time
                 ];
 
-                $order->booking_date='2020-08-31';
-                $order->booking_time='08:00 PM';
+
 
             }
             else{
