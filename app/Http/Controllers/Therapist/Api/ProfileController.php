@@ -3,8 +3,12 @@
 namespace App\Http\Controllers\Therapist\Api;
 
 use App\Models\Therapist;
+use App\Models\TherapistLocations;
 use App\Models\TherapistTherapy;
 use App\Models\Therapy;
+use App\Models\UpdateAvalibility;
+use App\Models\TherapiestWork;
+use App\Models\HomeBookingSlots;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -131,4 +135,77 @@ class ProfileController extends Controller
 
     }
 
+    /////////////////////
+    public function updateavalibility(Request $request){
+
+        $request->validate([
+            'is_available'=>'required',
+            'from_date'=>'required',
+            'to_date'=>'required',
+        ]);
+
+        $user=$request->user;
+
+        UpdateAvalibility::create([
+            'is_available'=>$request->is_available,
+            'from_date'=>$request->from_date,
+            'to_date'=>$request->to_date,
+            'therapiest_id'=>$user->id
+        ]);
+
+
+        return [
+            'status'=>'success'
+        ];
+
+    }
+    public function myapdateavalibility(Request $request){
+        $user=$request->user;
+
+        $myapdateavalibility=UpdateAvalibility::where('therapiest_id', $user->id)
+            ->get();
+
+        if($myapdateavalibility) {
+            return [
+                'status' => 'success',
+                'data' =>$myapdateavalibility
+            ];
+
+        }
+        return [
+                'status'=>'failed',
+                'message'=>'No therapiest Found'
+            ];
+
+
+    }
+
+    public function openbooking(Request $request){
+        $user=$request->user;
+
+        $openbooking=TherapiestWork::with('therapieswork.therapiesorder.details.entity')->where('therapist_id', $user->id)->where('status','Pending')->get();
+        if($openbooking) {
+            foreach ($openbooking as $item) {
+                $order[]=array(
+                    'status'=>$item->status,
+                    'display_time'=>$item->therapieswork->display_time,
+                    'time'=>$item->therapieswork->time,
+                    'created_at'=>$item->therapieswork->created_at,
+                    'refid'=>$item->therapieswork->therapiesorder->refid,
+                    'refid'=>$item->therapieswork->therapiesorder->details[0]->entity->name,
+                );
+            }
+            return [
+                'status' => 'success',
+                'data' =>$order,
+            ];
+
+        }
+        return [
+            'status'=>'failed',
+            'message'=>'No Therapy Found'
+        ];
+
+
+    }
 }
