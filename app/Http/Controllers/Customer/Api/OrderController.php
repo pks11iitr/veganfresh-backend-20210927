@@ -635,6 +635,10 @@ class OrderController extends Controller
                     'booking_date'=>$order->booking_date,
                     'booking_time'=>$order->booking_time
                 ];
+
+                $order->booking_date='2020-08-31';
+                $order->booking_time='08:00 PM';
+
             }
             else{
                 $itemdetails[]=[
@@ -683,7 +687,6 @@ class OrderController extends Controller
             ];
             $date=date('Y-m-d H:i:s', strtotime('+1 hours', strtotime($date)));
         }
-
 
         return [
             'status'=>'success',
