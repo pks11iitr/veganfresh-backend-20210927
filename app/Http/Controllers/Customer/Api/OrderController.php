@@ -203,15 +203,20 @@ class OrderController extends Controller
             ]);
 
             $slots=TimeSlot::whereIn('id', $request->slots)->get();
-
             if(empty($slots->toArray()))
                 return [
                     'status'=>'failed',
                     'message'=>'Invalid Operation'
                 ];
 
-            BookingSlot::where('order_id', $order->id)
-                ->whereIn('slot_id', $request->slots)->delete();
+            $alldateslots=TimeSlot::where('date', $slots[0]->date)->select('id')->get();
+
+            $slotsarr=[];
+            foreach($alldateslots as $s)
+                $slotsarr[]=$s->id;
+            if(count($slotsarr))
+                BookingSlot::where('order_id', $order->id)
+                    ->whereIn('slot_id', $slotsarr)->delete();
 
             $cost=0;
 
