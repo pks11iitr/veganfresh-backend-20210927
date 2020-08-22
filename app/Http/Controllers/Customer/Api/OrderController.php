@@ -92,7 +92,7 @@ class OrderController extends Controller
         if(!$clinic || empty($clinic->therapies->toArray())){
             return [
                 'status'=>'failed',
-                'message'=>'Invalid Operation Performed'
+                'message'=>'Clinic Or Therapy No Longer Exists'
             ];
         }
 
@@ -141,7 +141,7 @@ class OrderController extends Controller
         if(!$order)
             return [
                 'status'=>'failed',
-                'message'=>'Invalid Operation'
+                'message'=>'No Such Order Exists'
             ];
 
 
@@ -206,7 +206,7 @@ class OrderController extends Controller
             if(empty($slots->toArray()))
                 return [
                     'status'=>'failed',
-                    'message'=>'Invalid Operation'
+                    'message'=>'No Time Slot Selected'
                 ];
 
             $alldateslots=TimeSlot::where('date', $slots[0]->date)->select('id')->get();
@@ -302,7 +302,9 @@ class OrderController extends Controller
                 'date'=>$schedule->timeslot->date,
                 'time'=>'1 Session at '.$schedule->timeslot->start_time,
                 'grade'=>$grade,
-                'id'=>$schedule->id
+                'id'=>$schedule->id,
+                'show_cancel'=>1,
+                'show_reschedule'=>1
             ];
         }
 
