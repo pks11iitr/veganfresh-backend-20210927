@@ -330,23 +330,21 @@ class OrderController extends Controller
                     'message'=>'No Time Slot Selected'
                 ];
 
-            $alldateslots=TimeSlot::where('date', $slots[0]->date)->select('id')->get();
+            $alldateslots=HomeBookingSlots::where('date', $slots[0]->date)->select('id')->get();
 
             $slotsarr=[];
             foreach($alldateslots as $s)
                 $slotsarr[]=$s->id;
             if(count($slotsarr))
-                BookingSlot::where('order_id', $order->id)
+                HomeBookingSlots::where('order_id', $order->id)
                     ->whereIn('slot_id', $slotsarr)->delete();
 
             $cost=0;
 
             foreach($slots as $slot){
 
-                BookingSlot::create([
+                HomeBookingSlots::create([
                     'order_id'=>$order->id,
-                    'clinic_id'=>$order->details[0]->clinic_id,
-                    'therapy_id'=>$order->details[0]->entity_id,
                     'slot_id'=>$slot->id,
                     'grade'=>$request->grade,
                     'status'=>'pending',
