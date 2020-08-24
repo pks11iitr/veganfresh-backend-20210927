@@ -27,6 +27,7 @@ class HomeBookingSlots extends Model
         }
 
     }
+
     public function therapiesorder(){
         return $this->belongsTo('App\Models\Order', 'order_id');
     }

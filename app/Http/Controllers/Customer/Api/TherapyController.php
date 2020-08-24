@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Customer\Api;
 
+use App\Models\Clinic;
 use App\Models\Therapist;
 use App\Models\Therapy;
+use App\Models\TimeSlot;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -120,6 +122,43 @@ class TherapyController extends Controller
         ];
 
 
+    }
+
+    public function getAvailableSlots(Request $request, $therapy_id){
+        $date=$request->date??date('Y-m-d');
+        $selected_date=$date;
+        $today=date('Y-m-d');
+
+        $therapy=Therapy::active()->with(['gallery', 'commentscount', 'avgreviews'])->find($therapy_id);
+
+        if(!$therapy)
+            return [
+                'status'=>'failed',
+                'message'=>'No Therapy found'
+            ];
+
+        $timeslots=TimeSlot::getTimeSlots($clinic, $date);
+
+        for($i=1; $i<=7;$i++){
+            $dates[]=[
+                'text'=>($i==1)?'Today':($i==2?'Tomorrow':date('d F', strtotime($today))),
+                'text2'=>($i==1)?'':($i==2?'':date('D', strtotime($today))),
+                'value'=>$today,
+            ];
+            $today=date('Y-m-d', strtotime('+1 days', strtotime($today)));
+        }
+
+        $timeslots=[
+            $timeslots['grade_1_slots'],
+            $timeslots['grade_2_slots'],
+            $timeslots['grade_3_slots'],
+            $timeslots['grade_4_slots'],
+        ];
+
+        return [
+            'status'=>'success',
+            'data'=>compact('timeslots','dates', 'selected_date')
+        ];
     }
 
 }

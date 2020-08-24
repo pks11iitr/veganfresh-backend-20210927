@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Customer\Api;
 use App\Models\BookingSlot;
 use App\Models\Cart;
 use App\Models\Clinic;
+use App\Models\DailyBookingsSlots;
 use App\Models\HomeBookingSlots;
 use App\Models\Order;
 use App\Models\OrderDetail;
@@ -823,6 +824,104 @@ class OrderController extends Controller
             'status'=>'success',
             'message'=>'Your booking has been cancelled. Refund process will be initiated shortly'
         ];
+
+    }
+
+    public function getAvailableSlots(Request $request, $order_id){
+
+        $user=$request->user;
+        $order=Order::with(['details'])->where('user_id', $user->id)->find($order_id);
+
+        if(!$order)
+            return [
+                'status'=>'failed',
+                'message'=>'No Such Record Found'
+            ];
+        //dd($order);
+        if($order->details[0]->entity_type=='App\Models\Therapy'){
+            if($order->details[0]->clinic_id){
+                return $this->getClinicAvailableSlots($order->details[0]->clinic_id, $order->details[0]->entity_id, $request->date??date('Y-m-d'));
+            }else{
+                return $this->getTherapyAvailableSlots($order->details[0]->entity_id, $request->date??date('Y-m-d'));
+            }
+        }
+
+        return [
+            'status'=>'failed',
+            'message'=>'Unreconized Request'
+        ];
+    }
+
+
+    private function getClinicAvailableSlots($clinic_id, $therapy_id, $date){
+        $date=date('Y-m-d', strtotime($date));
+        $selected_date=$date;
+        $today=date('Y-m-d');
+        //var_dump($therapy_id);die;
+        $clinic=Clinic::with(['therapies'=>function($therapies) use($therapy_id){
+            $therapies->where('therapies.isactive', true)->where('therapies.id', $therapy_id)->where('clinic_therapies.isactive', true);
+        }])->find($clinic_id);
+        //dd($clinic);
+        if(!$clinic || empty($clinic->therapies->toArray()))
+            return [
+                'status'=>'failed',
+                'message'=>'No clinic found'
+            ];
+
+        $timeslots=TimeSlot::getTimeSlots($clinic, $date);
+
+        for($i=1; $i<=7;$i++){
+            $dates[]=[
+                'text'=>($i==1)?'Today':($i==2?'Tomorrow':date('d F', strtotime($today))),
+                'text2'=>($i==1)?'':($i==2?'':date('D', strtotime($today))),
+                'value'=>$today,
+            ];
+            $today=date('Y-m-d', strtotime('+1 days', strtotime($today)));
+        }
+
+        $timeslots=[
+            $timeslots['grade_1_slots'],
+            $timeslots['grade_2_slots'],
+            $timeslots['grade_3_slots'],
+            $timeslots['grade_4_slots'],
+        ];
+
+        return [
+            'status'=>'success',
+            'data'=>compact('timeslots','dates', 'selected_date')
+        ];
+    }
+
+    private function getTherapyAvailableSlots($therapy_id, $date){
+        $therapy=Therapy::active()->find($therapy_id);
+        //dd($therapy);
+        $timeslots=DailyBookingsSlots::getTimeSlots($therapy, $date);
+
+        $today=date('Y-m-d');
+
+        for($i=1; $i<=7;$i++){
+            $dates[]=[
+                'text'=>($i==1)?'Today':($i==2?'Tomorrow':date('d F', strtotime($today))),
+                'text2'=>($i==1)?'':($i==2?'':date('D', strtotime($today))),
+                'value'=>$today,
+            ];
+            $today=date('Y-m-d', strtotime('+1 days', strtotime($today)));
+        }
+
+
+        $timeslots=[
+            $timeslots['grade_1_slots'],
+            $timeslots['grade_2_slots'],
+            $timeslots['grade_3_slots'],
+            $timeslots['grade_4_slots'],
+        ];
+
+        return [
+            'status'=>'success',
+            'data'=>compact('timeslots','dates', 'selected_date')
+        ];
+
+
 
     }
 
