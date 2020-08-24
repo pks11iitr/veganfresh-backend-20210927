@@ -54,7 +54,7 @@ class TherapyController extends Controller
                 'text2'=>($i==1)?'':($i==2?'':date('D')),
                 'value'=>$date
             ];
-            $date=date('Y-m-d', strtotime('+'.$i.' days', strtotime($date, strtotime($date))));
+            $date=date('Y-m-d', strtotime('+1 days', strtotime($date, strtotime($date))));
         }
         $date=date('Y-m-d h:i:s');
         for($i=9; $i<=17;$i++){
@@ -64,13 +64,22 @@ class TherapyController extends Controller
             ];
             $date=date('Y-m-d H:i:s', strtotime('+1 hours', strtotime($date)));
         }
+
+        $display_text=[
+
+            'automatic'=>'One session per day will be booked at selected time based on availablity',
+            'cutom'=>'You can select any number of slot on any day based on availability',
+
+        ];
+
         return [
             'status'=>'success',
             'data'=>[
                 'therapy'=>$therapy,
                 'dates'=>$dates,
                 'timings'=>$timings,
-                'therapist_locations'=>$therapistlocations
+                'therapist_locations'=>$therapistlocations,
+                'display_text'=>$display_text
             ]
         ];
 
@@ -121,44 +130,6 @@ class TherapyController extends Controller
             'data'=>compact('nearby', 'activegrades'),
         ];
 
-
-    }
-
-    public function getAvailableSlots(Request $request, $therapy_id){
-        $date=$request->date??date('Y-m-d');
-        $selected_date=$date;
-        $today=date('Y-m-d');
-
-        $therapy=Therapy::active()->with(['gallery', 'commentscount', 'avgreviews'])->find($therapy_id);
-
-        if(!$therapy)
-            return [
-                'status'=>'failed',
-                'message'=>'No Therapy found'
-            ];
-
-        $timeslots=TimeSlot::getTimeSlots($clinic, $date);
-
-        for($i=1; $i<=7;$i++){
-            $dates[]=[
-                'text'=>($i==1)?'Today':($i==2?'Tomorrow':date('d F', strtotime($today))),
-                'text2'=>($i==1)?'':($i==2?'':date('D', strtotime($today))),
-                'value'=>$today,
-            ];
-            $today=date('Y-m-d', strtotime('+1 days', strtotime($today)));
-        }
-
-        $timeslots=[
-            $timeslots['grade_1_slots'],
-            $timeslots['grade_2_slots'],
-            $timeslots['grade_3_slots'],
-            $timeslots['grade_4_slots'],
-        ];
-
-        return [
-            'status'=>'success',
-            'data'=>compact('timeslots','dates', 'selected_date')
-        ];
     }
 
 }

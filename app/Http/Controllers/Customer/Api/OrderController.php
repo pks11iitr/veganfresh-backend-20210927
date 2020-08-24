@@ -446,10 +446,11 @@ class OrderController extends Controller
         $request->validate([
             'therapy_id'=>'required|integer',
             'booking_type'=>'required|in:instant,schedule',
-            'num_sessions'=>'required_if:booking_type,schedule|integer',
-            'grade'=>'required|integer|in:1,2,3,4',
-            'time'=>'required_if:booking_type,schedule|date_format:H:i',
-            'date'=>'required_if:booking_type,schedule|date_format:Y-m-d',
+            //'num_sessions'=>'required_if:booking_type,schedule|integer',
+            'grade'=>'required_if:booking_type,instant|integer|in:1,2,3,4',
+            //'time'=>'required_if:booking_type,schedule|date_format:H:i',
+            //'date'=>'required_if:booking_type,schedule|date_format:Y-m-d',
+            'schedule_type'=>'required_if:booking_type,schedule|in:automatic,custom'
         ]);
 
         $therapy=Therapy::active()->find($request->therapy_id);
@@ -460,13 +461,53 @@ class OrderController extends Controller
                 'message'=>'Invalid Operation Performed'
             ];
 
+        if($request->booking_type=='schedule'){
+            $this->initiateTherapyScheduleBooking($request, $therapy);
+        }else{
+            $this->initiateTherapyInstantBooking($request, $therapy);
+        }
+
+    }
+
+
+    public function initiateTherapyScheduleBooking(Request $request, $therapy){
+
+        $refid=env('MACHINE_ID').time();
+
+        $order=Order::create([
+            'user_id'=>auth()->guard('customerapi')->user()->id,
+            'refid'=>$refid,
+            'status'=>'pending',
+            'total_cost'=>0,
+            'is_instant'=>false
+        ]);
+
+        OrderStatus::create([
+            'order_id'=>$order->id,
+            'current_status'=>$order->status
+        ]);
+        OrderDetail::create([
+            'order_id'=>$order->id,
+            'entity_type'=>'App\Models\Therapy',
+            'entity_id'=>$therapy->id,
+            'clinic_id'=>null,
+            'cost'=>0,
+            'quantity'=>0,
+            'grade'=>1
+        ]);
+
+        return [
+            'status'=>'success',
+            'data'=>[
+                'order_id'=>$order->id
+            ]
+        ];
+    }
+
+    public function initiateTherapyInstantBooking(Request $request, $therapy){
         //return $clinic;
         $grade=$request->grade??1;
-        if($request->booking_type=='schedule'){
-            $num_sessions=$request->num_sessions??1;
-        }else{
-            $num_sessions=1;
-        }
+        $num_sessions=1;
 
         switch($grade){
             case 1:$cost=($therapy->grade1_price??0);
@@ -504,8 +545,8 @@ class OrderController extends Controller
             'quantity'=>$num_sessions,
             'grade'=>$request->grade
         ]);
-        if(!$order->is_instant)
-            HomeBookingSlots::createTimeSlots($order, $request->grade, $request->date, $request->time.':00', $num_sessions, 'pending');
+
+        HomeBookingSlots::createTimeSlots($order, $request->grade, date('Y-m-d'), date('H:i:s'), $num_sessions, 'pending');
 
         return [
             'status'=>'success',
@@ -514,6 +555,7 @@ class OrderController extends Controller
             ]
         ];
     }
+
 
     public function initiateProductPurchase(Request $request){
 
@@ -840,9 +882,9 @@ class OrderController extends Controller
         //dd($order);
         if($order->details[0]->entity_type=='App\Models\Therapy'){
             if($order->details[0]->clinic_id){
-                return $this->getClinicAvailableSlots($order->details[0]->clinic_id, $order->details[0]->entity_id, $request->date??date('Y-m-d'));
+                return $this->getClinicAvailableSlots($order,$order->details[0]->clinic_id, $order->details[0]->entity_id, $request->date??date('Y-m-d'));
             }else{
-                return $this->getTherapyAvailableSlots($order->details[0]->entity_id, $request->date??date('Y-m-d'));
+                return $this->getTherapyAvailableSlots($order,$order->details[0]->entity_id, $request->date??date('Y-m-d'));
             }
         }
 
@@ -853,7 +895,7 @@ class OrderController extends Controller
     }
 
 
-    private function getClinicAvailableSlots($clinic_id, $therapy_id, $date){
+    private function getClinicAvailableSlots($order, $clinic_id, $therapy_id, $date){
         $date=date('Y-m-d', strtotime($date));
         $selected_date=$date;
         $today=date('Y-m-d');
@@ -885,17 +927,19 @@ class OrderController extends Controller
             $timeslots['grade_3_slots'],
             $timeslots['grade_4_slots'],
         ];
-
+        $order_id=$order->id;
         return [
             'status'=>'success',
-            'data'=>compact('timeslots','dates', 'selected_date')
+            'data'=>compact('timeslots','dates', 'selected_date', 'order_id')
         ];
     }
 
-    private function getTherapyAvailableSlots($therapy_id, $date){
+    private function getTherapyAvailableSlots($order,$therapy_id, $date){
         $therapy=Therapy::active()->find($therapy_id);
         //dd($therapy);
         $timeslots=DailyBookingsSlots::getTimeSlots($therapy, $date);
+
+        $selected_date=$date;
 
         $today=date('Y-m-d');
 
@@ -915,10 +959,10 @@ class OrderController extends Controller
             $timeslots['grade_3_slots'],
             $timeslots['grade_4_slots'],
         ];
-
+        $order_id=$order->id;
         return [
             'status'=>'success',
-            'data'=>compact('timeslots','dates', 'selected_date')
+            'data'=>compact('timeslots','dates', 'selected_date', 'order_id')
         ];
 
 
