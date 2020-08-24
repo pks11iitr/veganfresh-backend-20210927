@@ -10,6 +10,11 @@ class HomeBookingSlots extends Model
 
     protected $fillable=['order_id', 'grade', 'date', 'time', 'display_time', 'status', 'slot_id'];
 
+
+    public function timeslot(){
+        return $this->belongsTo('App\Models\DailyBookingSlots', 'slot_id');
+    }
+
     public static function createTimeSlots($order, $grade, $date, $time, $num_sessions, $status){
 
         for($i=0; $i<$num_sessions;$i++){

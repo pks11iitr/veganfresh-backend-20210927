@@ -406,10 +406,18 @@ class OrderController extends Controller
         $clinic_id=$order->details[0]->clinic_id;
         $therapy_id=$order->details[0]->entity_id;
 
-        $bookings=BookingSlot::with('timeslot')
-            ->where('order_id', $order->id)
-            ->orderBy('slot_id', 'asc')
-            ->get();
+        if($order->details[0]->clinic_id){
+            $bookings=BookingSlot::with('timeslot')
+                ->where('order_id', $order->id)
+                ->orderBy('slot_id', 'asc')
+                ->get();
+        }else{
+            $bookings=HomeBookingSlots::with('timeslot')
+                ->where('order_id',$order->id)
+                ->orderBy('slot_id', 'asc')
+                ->get();
+        }
+
 
         $schedules=[];
 
