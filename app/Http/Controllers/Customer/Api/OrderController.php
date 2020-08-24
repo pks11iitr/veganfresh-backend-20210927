@@ -436,9 +436,10 @@ class OrderController extends Controller
             ];
         }
 
+        $order_id=$order->id;
         return [
             'status'=>'success',
-            'data'=>compact('schedules','clinic_id', 'therapy_id')
+            'data'=>compact('schedules','clinic_id', 'therapy_id', 'order_id')
         ];
 
     }
