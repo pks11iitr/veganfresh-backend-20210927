@@ -12,6 +12,7 @@ class DailyBookingsSlots extends Model
     public static function getTimeSlots($therapy,$date){
 
         $timeslots=DailyBookingsSlots::orderBy('internal_start_time', 'asc')
+            ->where('date',$date)
             ->get();
 
         $startdate=date('Y-m-d', strtotime($date));
