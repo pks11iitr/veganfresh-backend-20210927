@@ -12,7 +12,7 @@ class HomeBookingSlots extends Model
 
 
     public function timeslot(){
-        return $this->belongsTo('App\Models\DailyBookingSlots', 'slot_id');
+        return $this->belongsTo('App\Models\DailyBookingsSlots', 'slot_id');
     }
 
     public static function createTimeSlots($order, $grade, $date, $time, $num_sessions, $status){
