@@ -598,7 +598,9 @@ class OrderController extends Controller
             'refid'=>$refid,
             'status'=>'pending',
             'total_cost'=>0,
-            'is_instant'=>false
+            'is_instant'=>false,
+            'schedule_type'=>$request->schedule_type,
+            'order_place_state'=>'stage_1'
         ]);
 
         OrderStatus::create([
