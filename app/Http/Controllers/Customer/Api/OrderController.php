@@ -398,7 +398,7 @@ class OrderController extends Controller
                 'message'=>'Invalid Operation'
             ];
 
-        if($order->details[0]->entity_type!='App\Models\Therapy' || ($order->details[0]->clinic_id==null && $order->is_instant==1))
+        if($order->details[0]->entity_type!='App\Models\Therapy' || $order->is_instant==1)
             return [
                 'status'=>'failed',
                 'message'=>'Invalid Operation'
