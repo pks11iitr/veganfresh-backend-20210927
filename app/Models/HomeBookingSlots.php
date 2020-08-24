@@ -28,6 +28,39 @@ class HomeBookingSlots extends Model
 
     }
 
+
+    public static function createAutomaticSchedule($order, $grade, $slot, $num_sessions, $status='pending'){
+
+        $alloted=0;
+
+        //var_dump($bookings);
+        $slots=DailyBookingsSlots::where('date', '>=',  $slot->date)
+            ->where('start_time', $slot->start_time)
+            ->orderBy('date', 'asc')
+            ->limit(200)
+            ->get();
+
+        if($slots < $alloted)
+            return false;
+
+
+        for($i=0; $i<$num_sessions; $i++){
+
+            HomeBookingSlots::create([
+                'order_id'=>$order->id,
+                'slot_id'=>$slot->id,
+                'grade'=>$grade,
+                'status'=>$status,
+            ]);
+            $alloted++;
+
+        }
+
+        return $alloted==$num_sessions;
+
+    }
+
+
     public function therapiesorder(){
         return $this->belongsTo('App\Models\Order', 'order_id');
     }
