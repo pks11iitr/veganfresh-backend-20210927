@@ -40,7 +40,7 @@ class HomeBookingSlots extends Model
             ->limit(200)
             ->get();
 
-        if($slots < $alloted)
+        if(count($slots) < $alloted)
             return false;
 
 
