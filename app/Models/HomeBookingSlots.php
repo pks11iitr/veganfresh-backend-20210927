@@ -48,17 +48,17 @@ class HomeBookingSlots extends Model
         if(count($slots) < $alloted)
             return false;
 
-
-        for($i=0; $i<$num_sessions; $i++){
+        $i=0;
+        while($i<$num_sessions && isset($slots[$i])){
 
             HomeBookingSlots::create([
                 'order_id'=>$order->id,
-                'slot_id'=>$slot->id,
+                'slot_id'=>$slots[$i]->id,
                 'grade'=>$grade,
                 'status'=>$status,
             ]);
             $alloted++;
-
+            $i++;
         }
 
         return $alloted==$num_sessions;
