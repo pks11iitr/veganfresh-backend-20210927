@@ -145,6 +145,13 @@ $api->group(['prefix' => 'therapist'], function ($api) {
         $api->post('update-availability', 'Therapist\Api\ProfileController@updateavalibility');
         $api->get('my-availability', 'Therapist\Api\ProfileController@myapdateavalibility');
         $api->get('open-booking', 'Therapist\Api\ProfileController@openbooking');
+        $api->get('open-booking-details/{id}', 'Therapist\Api\ProfileController@openbookingdetails');
+        $api->get('journey-started/{id}', 'Therapist\Api\ProfileController@journey_started');
+        $api->get('disease-point', 'Therapist\Api\ProfileController@diseasepoint');
+        $api->get('treatment-list', 'Therapist\Api\ProfileController@treatmentlist');
+        $api->post('send-disease-point/{id}', 'Therapist\Api\ProfileController@send_diesase_point');
+        $api->post('treatment-suggestation/{id}', 'Therapist\Api\ProfileController@treatmentsuggestation');
+        $api->get('painpoint-relif/{id}', 'Therapist\Api\ProfileController@pain_point_relif');
 
 
     });
