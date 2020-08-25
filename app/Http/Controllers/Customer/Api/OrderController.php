@@ -53,6 +53,10 @@ class OrderController extends Controller
 
     }
 
+
+    /*
+     * Product Purchase Or Therapy Book Start
+     */
     public function initiateOrder(Request $request){
 
         $user=auth()->guard('customerapi')->user();
@@ -77,8 +81,182 @@ class OrderController extends Controller
         }
     }
 
+    private function initiateProductPurchase(Request $request){
 
-    public function initiateClinicBooking(Request $request){
+        $cartitems=Cart::where('user_id', auth()->guard('customerapi')->user()->id)
+            ->with(['product'])
+            ->whereHas('product', function($product){
+                $product->where('isactive', true);
+            })->get();
+
+        if(!$cartitems)
+            return [
+                'status'=>'failed',
+                'message'=>'Cart is empty'
+            ];
+
+        $refid=env('MACHINE_ID').time();
+        $total_cost=0;
+        foreach($cartitems as $item) {
+            $total_cost=$total_cost+($item->product->price??0)*$item->quantity;
+        }
+
+        $order=Order::create([
+            'user_id'=>auth()->guard('customerapi')->user()->id,
+            'refid'=>$refid,
+            'status'=>'pending',
+            'total_cost'=>$total_cost,
+        ]);
+
+        OrderStatus::create([
+            'order_id'=>$order->id,
+            'current_status'=>$order->status
+        ]);
+
+        foreach($cartitems as $item){
+            OrderDetail::create([
+                'order_id'=>$order->id,
+                'entity_type'=>'App\Models\Product',
+                'entity_id'=>$item->product_id,
+                'clinic_id'=>null,
+                'cost'=>$item->product->price??0,
+                'quantity'=>$item->quantity
+            ]);
+        }
+
+        return [
+            'status'=>'success',
+            'data'=>[
+                'order_id'=>$order->id
+            ]
+        ];
+
+    }
+
+
+    private function initiateTherapyBooking(Request $request){
+        $request->validate([
+            'therapy_id'=>'required|integer',
+            'booking_type'=>'required|in:instant,schedule',
+            //'num_sessions'=>'required_if:booking_type,schedule|integer',
+            'grade'=>'required_if:booking_type,instant|integer|in:1,2,3,4',
+            //'time'=>'required_if:booking_type,schedule|date_format:H:i',
+            //'date'=>'required_if:booking_type,schedule|date_format:Y-m-d',
+            'schedule_type'=>'required_if:booking_type,schedule|in:automatic,custom'
+        ]);
+
+        $therapy=Therapy::active()->find($request->therapy_id);
+
+        if(!$therapy)
+            return [
+                'status'=>'failed',
+                'message'=>'Invalid Operation Performed'
+            ];
+
+        if($request->booking_type=='schedule'){
+            return $this->initiateTherapyScheduleBooking($request, $therapy);
+        }else{
+            return $this->initiateTherapyInstantBooking($request, $therapy);
+        }
+
+    }
+
+    private function initiateTherapyScheduleBooking(Request $request, $therapy){
+
+        $refid=env('MACHINE_ID').time();
+
+        $order=Order::create([
+            'user_id'=>auth()->guard('customerapi')->user()->id,
+            'refid'=>$refid,
+            'status'=>'pending',
+            'total_cost'=>0,
+            'is_instant'=>false,
+            'schedule_type'=>$request->schedule_type,
+            'order_place_state'=>'stage_1'
+        ]);
+
+        OrderStatus::create([
+            'order_id'=>$order->id,
+            'current_status'=>$order->status
+        ]);
+        OrderDetail::create([
+            'order_id'=>$order->id,
+            'entity_type'=>'App\Models\Therapy',
+            'entity_id'=>$therapy->id,
+            'clinic_id'=>null,
+            'cost'=>0,
+            'quantity'=>0,
+            'grade'=>1
+        ]);
+
+        return [
+            'status'=>'success',
+            'data'=>[
+                'order_id'=>$order->id
+            ]
+        ];
+    }
+
+    private function initiateTherapyInstantBooking(Request $request, $therapy){
+        //return $clinic;
+        $grade=$request->grade??1;
+        $num_sessions=1;
+
+        switch($grade){
+            case 1:$cost=($therapy->grade1_price??0);
+                break;
+            case 2:$cost=($therapy->grade2_price??0);
+                break;
+            case 3:$cost=($therapy->grade3_price??0);
+                break;
+            case 4:$cost=($therapy->grade4_price??0);
+                break;
+        }
+
+        $refid=env('MACHINE_ID').time();
+
+        $order=Order::create([
+            'user_id'=>auth()->guard('customerapi')->user()->id,
+            'refid'=>$refid,
+            'status'=>'pending',
+            'total_cost'=>$cost*$num_sessions,
+            'booking_date'=>($request->booking_type=='schedule')?$request->date:null,
+            'booking_time'=>($request->booking_type=='schedule')?$request->time:null,
+            'is_instant'=>($request->booking_type=='instant')?true:false
+        ]);
+
+        OrderStatus::create([
+            'order_id'=>$order->id,
+            'current_status'=>$order->status
+        ]);
+        OrderDetail::create([
+            'order_id'=>$order->id,
+            'entity_type'=>'App\Models\Therapy',
+            'entity_id'=>$therapy->id,
+            'clinic_id'=>null,
+            'cost'=>$cost,
+            'quantity'=>$num_sessions,
+            'grade'=>$request->grade
+        ]);
+
+        HomeBookingSlots::create([
+            'order_id'=>$order->id,
+            'date'=>date('Y-m-d'),
+            'grade'=>$request->grade,
+            'time'=>null,
+            'status'=>'pending',
+            'is_instant'=>true
+        ]);
+
+        return [
+            'status'=>'success',
+            'data'=>[
+                'order_id'=>$order->id
+            ]
+        ];
+    }
+
+    private function initiateClinicBooking(Request $request){
 
         $request->validate([
             'clinic_id'=>'required|integer',
@@ -127,6 +305,11 @@ class OrderController extends Controller
         ];
     }
 
+
+    /*
+     * Select Time Slots For Scheduled Bookings
+     */
+
     public function setSchedule(Request $request, $order_id){
 
         $user=auth()->guard('customerapi')->user();
@@ -159,7 +342,6 @@ class OrderController extends Controller
         }
 
     }
-
 
     private function setScheduleForClinicTherapy(Request $request, $order){
 
@@ -379,6 +561,11 @@ class OrderController extends Controller
         ];
     }
 
+
+
+    /*
+     * Display Scheduled For Therapy Bookings
+     */
     public function displaySchedule(Request $request, $order_id){
 
         $show_add_more_slots=0;
@@ -455,7 +642,10 @@ class OrderController extends Controller
     }
 
 
-    public function deleteBooking(Request $request, $id){
+    /*
+     * Delete a session only for non confirmed orders
+     */
+    public function deleteBooking(Request $request, $order_id, $booking_id){
 
         $user=auth()->guard('customerapi')->user();
         if(!$user)
@@ -464,290 +654,73 @@ class OrderController extends Controller
                 'message'=>'Please login to continue'
             ];
 
-        $booking=BookingSlot::with('timeslot')->find($id);
-        if(!$booking && !in_array($booking->status,['confirmed', 'Pending']))
+        $order=Order::with('order.details')
+            ->where('user_id', $user->id)
+            ->whereIn('status', ['pending'])
+            ->find($order_id);
+
+        if(!$order || $order->detail[0]->entity_type!='App\Models\Therapy')
             return [
-                'status'=>'success',
-                'message'=>'Invalid Operation'
+                'status'=>'failed',
+                'message'=>'Invalid Request'
             ];
 
-        $order=Order::where('user_id', $user->id)->find($booking->order_id);
+        if($order->details[0]->clinic_id){
+            $booking=BookingSlot::find($booking_id);
+            if(!in_array($booking->status, ['pending'])){
+                return [
+                    'status'=>'failed',
+                    'message'=>'Booking Cannot Be Cancelled'
+                ];
+            }
 
-        if(!$order)
-            return [
-                'status'=>'success',
-                'message'=>'Invalid Operation'
-            ];
+            $clinic=Clinic::active()->with(['therapies'=>function($therapies)use($order){
+                $therapies->where('therapies.id', $order->details[0]->entity_id);
+            }])->find($order->details[0]->clinic_id);
 
-        $clinic=Clinic::active()->with(['therapies'=>function($therapies)use($order){
-            $therapies->where('therapies.id', $order->details[0]->entity_id);
-        }])->find($order->details[0]->clinic_id);
-
-
-        switch($booking->grade){
-            case 1:$cost=($clinic->therapies[0]->pivot->grade1_price??0);
-                break;
-            case 2:$cost=($clinic->therapies[0]->pivot->grade2_price??0);
-                break;
-            case 3:$cost=($clinic->therapies[0]->pivot->grade3_price??0);
-                break;
-            case 4:$cost=($clinic->therapies[0]->pivot->grade4_price??0);
-                break;
-        }
-
-        if($booking->status=='pending'){
-            $booking->delete();
+            switch($booking->grade){
+                case 1:$cost=($clinic->therapies[0]->pivot->grade1_price??0);
+                    break;
+                case 2:$cost=($clinic->therapies[0]->pivot->grade2_price??0);
+                    break;
+                case 3:$cost=($clinic->therapies[0]->pivot->grade3_price??0);
+                    break;
+                case 4:$cost=($clinic->therapies[0]->pivot->grade4_price??0);
+                    break;
+            }
         }else{
-            // apply deduction if criteria match
-            $booking->delete();
+            $booking=HomeBookingSlots::find($booking_id);
+            if(!in_array($booking->status, ['pending'])){
+                return [
+                    'status'=>'failed',
+                    'message'=>'Booking Cannot Be Cancelled'
+                ];
+            }
+
+            $therapy=Therapy::find($order->details[0]->entity_id);
+
+            switch($booking->grade){
+                case 1:$cost=($therapy->grade1_price??0);
+                    break;
+                case 2:$cost=($therapy->grade2_price??0);
+                    break;
+                case 3:$cost=($therapy->grade3_price??0);
+                    break;
+                case 4:$cost=($therapy->grade4_price??0);
+                    break;
+            }
         }
 
         $order->total_cost=$order->total_cost-$cost;
         $order->save();
+        $booking->delete();
 
         return [
             'status'=>'success',
             'message'=>'Session Has Been Deleted'
         ];
-
     }
 
-//    public function initiateClinicBooking(Request $request){
-//
-//        $request->validate([
-//            'clinic_id'=>'required|integer',
-//            'therapy_id'=>'required|integer',
-//            'num_sessions'=>'required|integer',
-//            'grade'=>'required|integer|in:1,2,3,4',
-//            'time'=>'required|date_format:H:i',
-//            'date'=>'required|date_format:Y-m-d',
-//        ]);
-//
-//        $clinic=Clinic::active()->with(['therapies'=>function($therapies)use($request){
-//            $therapies->where('therapies.isactive', true)->where('therapies.id', $request->therapy_id);
-//        }])->find($request->clinic_id);
-//
-//        if(!$clinic || empty($clinic->therapies)){
-//            return [
-//                'status'=>'failed',
-//                'message'=>'Invalid Operation Performed'
-//            ];
-//        }
-//
-//        //return $clinic;
-//        $grade=$request->grade??1;
-//        $num_sessions=$request->num_sessions??1;
-//
-//        switch($grade){
-//            case 1:$cost=($clinic->therapies[0]->pivot->grade1_price??0);
-//                break;
-//            case 2:$cost=($clinic->therapies[0]->pivot->grade2_price??0);
-//                break;
-//            case 3:$cost=($clinic->therapies[0]->pivot->grade3_price??0);
-//                break;
-//            case 4:$cost=($clinic->therapies[0]->pivot->grade4_price??0);
-//                break;
-//        }
-//
-//        $refid=env('MACHINE_ID').time();
-//        $order=Order::create([
-//            'user_id'=>auth()->guard('customerapi')->user()->id,
-//            'refid'=>$refid,
-//            'status'=>'pending',
-//            'total_cost'=>$cost*$num_sessions,
-//            'booking_date'=>$request->date,
-//            'booking_time'=>$request->time
-//        ]);
-//        OrderStatus::create([
-//            'order_id'=>$order->id,
-//            'current_status'=>$order->status
-//        ]);
-//        OrderDetail::create([
-//            'order_id'=>$order->id,
-//            'entity_type'=>'App\Models\Therapy',
-//            'entity_id'=>$clinic->therapies[0]->id,
-//            'clinic_id'=>$clinic->id,
-//            'cost'=>$cost,
-//            'quantity'=>$num_sessions,
-//            'grade'=>$request->grade
-//        ]);
-//
-//        return [
-//            'status'=>'success',
-//            'data'=>[
-//                'order_id'=>$order->id
-//            ]
-//        ];
-//    }
-
-    public function initiateTherapyBooking(Request $request){
-        $request->validate([
-            'therapy_id'=>'required|integer',
-            'booking_type'=>'required|in:instant,schedule',
-            //'num_sessions'=>'required_if:booking_type,schedule|integer',
-            'grade'=>'required_if:booking_type,instant|integer|in:1,2,3,4',
-            //'time'=>'required_if:booking_type,schedule|date_format:H:i',
-            //'date'=>'required_if:booking_type,schedule|date_format:Y-m-d',
-            'schedule_type'=>'required_if:booking_type,schedule|in:automatic,custom'
-        ]);
-
-        $therapy=Therapy::active()->find($request->therapy_id);
-
-        if(!$therapy)
-            return [
-                'status'=>'failed',
-                'message'=>'Invalid Operation Performed'
-            ];
-
-        if($request->booking_type=='schedule'){
-            return $this->initiateTherapyScheduleBooking($request, $therapy);
-        }else{
-            return $this->initiateTherapyInstantBooking($request, $therapy);
-        }
-
-    }
-
-
-    public function initiateTherapyScheduleBooking(Request $request, $therapy){
-
-        $refid=env('MACHINE_ID').time();
-
-        $order=Order::create([
-            'user_id'=>auth()->guard('customerapi')->user()->id,
-            'refid'=>$refid,
-            'status'=>'pending',
-            'total_cost'=>0,
-            'is_instant'=>false,
-            'schedule_type'=>$request->schedule_type,
-            'order_place_state'=>'stage_1'
-        ]);
-
-        OrderStatus::create([
-            'order_id'=>$order->id,
-            'current_status'=>$order->status
-        ]);
-        OrderDetail::create([
-            'order_id'=>$order->id,
-            'entity_type'=>'App\Models\Therapy',
-            'entity_id'=>$therapy->id,
-            'clinic_id'=>null,
-            'cost'=>0,
-            'quantity'=>0,
-            'grade'=>1
-        ]);
-
-        return [
-            'status'=>'success',
-            'data'=>[
-                'order_id'=>$order->id
-            ]
-        ];
-    }
-
-    public function initiateTherapyInstantBooking(Request $request, $therapy){
-        //return $clinic;
-        $grade=$request->grade??1;
-        $num_sessions=1;
-
-        switch($grade){
-            case 1:$cost=($therapy->grade1_price??0);
-                break;
-            case 2:$cost=($therapy->grade2_price??0);
-                break;
-            case 3:$cost=($therapy->grade3_price??0);
-                break;
-            case 4:$cost=($therapy->grade4_price??0);
-                break;
-        }
-
-        $refid=env('MACHINE_ID').time();
-
-        $order=Order::create([
-            'user_id'=>auth()->guard('customerapi')->user()->id,
-            'refid'=>$refid,
-            'status'=>'pending',
-            'total_cost'=>$cost*$num_sessions,
-            'booking_date'=>($request->booking_type=='schedule')?$request->date:null,
-            'booking_time'=>($request->booking_type=='schedule')?$request->time:null,
-            'is_instant'=>($request->booking_type=='instant')?true:false
-        ]);
-
-        OrderStatus::create([
-            'order_id'=>$order->id,
-            'current_status'=>$order->status
-        ]);
-        OrderDetail::create([
-            'order_id'=>$order->id,
-            'entity_type'=>'App\Models\Therapy',
-            'entity_id'=>$therapy->id,
-            'clinic_id'=>null,
-            'cost'=>$cost,
-            'quantity'=>$num_sessions,
-            'grade'=>$request->grade
-        ]);
-
-        HomeBookingSlots::createTimeSlots($order, $request->grade, date('Y-m-d'), date('H:i:s'), $num_sessions, 'pending');
-
-        return [
-            'status'=>'success',
-            'data'=>[
-                'order_id'=>$order->id
-            ]
-        ];
-    }
-
-
-    public function initiateProductPurchase(Request $request){
-
-        $cartitems=Cart::where('user_id', auth()->guard('customerapi')->user()->id)
-            ->with(['product'])
-            ->whereHas('product', function($product){
-            $product->where('isactive', true);
-        })->get();
-
-        if(!$cartitems)
-            return [
-                'status'=>'failed',
-                'message'=>'Cart is empty'
-            ];
-
-        $refid=env('MACHINE_ID').time();
-        $total_cost=0;
-        foreach($cartitems as $item) {
-            $total_cost=$total_cost+($item->product->price??0)*$item->quantity;
-        }
-
-        $order=Order::create([
-            'user_id'=>auth()->guard('customerapi')->user()->id,
-            'refid'=>$refid,
-            'status'=>'pending',
-            'total_cost'=>$total_cost,
-        ]);
-
-        OrderStatus::create([
-            'order_id'=>$order->id,
-            'current_status'=>$order->status
-        ]);
-
-        foreach($cartitems as $item){
-            OrderDetail::create([
-                'order_id'=>$order->id,
-                'entity_type'=>'App\Models\Product',
-                'entity_id'=>$item->product_id,
-                'clinic_id'=>null,
-                'cost'=>$item->product->price??0,
-                'quantity'=>$item->quantity
-            ]);
-        }
-
-        return [
-            'status'=>'success',
-            'data'=>[
-                'order_id'=>$order->id
-            ]
-        ];
-
-    }
 
     public function addContactDetails(Request $request, $id){
 
@@ -941,7 +914,17 @@ class OrderController extends Controller
 
     }
 
-    public function cancelOrder(Request $request, $id){
+
+    /*
+     * Cancel Single Session
+     */
+
+    public function cancelBooking(Request $request, $id){
+
+        $request->validate([
+            'booking_id'=>'required|integer'
+        ]);
+
         $user=auth()->guard('customerapi')->user();
         if(!$user)
             return [
@@ -949,7 +932,7 @@ class OrderController extends Controller
                 'message'=>'Please login to continue'
             ];
 
-        $order=Order::with(['details.entity', 'details.clinic'])->where('user_id', $user->id)->find($id);
+        $order=Order::with(['details'])->where('user_id', $user->id)->find($id);
 
         if(!$order)
             return [
@@ -957,87 +940,77 @@ class OrderController extends Controller
                 'message'=>'Invalid Operation Performed'
             ];
 
-        if($order->details[0]->entity instanceof Product)
-            return $this->cancelProductsBooking($order);
-        if($order->details[0]->entity instanceof Therapy)
-            return $this->cancelTherapyBooking($request, $order);
+        if($order->details[0]->entity instanceof Therapy){
 
-    }
-
-
-    public function cancelProductsBooking($order){
-
-        $product_cancellation_status=[
-            'confirmed'
-        ];
-
-        if(!in_array($order->status, $product_cancellation_status)){
-            return [
-                'status'=>'failed',
-                'message'=>'Order cannot be cancelled now'
-            ];
-        }
-
-        $order->status='cancelled';
-        $order->save();
-        return [
-            'status'=>'success',
-            'message'=>'Order has been cancelled. Refund process will be initiated shortly'
-        ];
-
-    }
-
-
-//    private function cancelTherapyBooking($order){
-//
-//
-//
-//        $therapy_cancellation_status=[
-//            'confirmed'
-//        ];
-//
-//        if(!in_array($order->status, $therapy_cancellation_status)){
-//            return [
-//                'status'=>'failed',
-//                'message'=>'Order cannot be cancelled now'
-//            ];
-//        }
-//
-//        $order->status='cancelled';
-//        $order->save();
-//        return [
-//            'status'=>'success',
-//            'message'=>'Your booking has been cancelled. Refund process will be initiated shortly'
-//        ];
-//
-//    }
-
-    private function cancelTherapyBooking(Request $request,$order){
-
-        $request->validate([
-            'booking_id'=>'required|integer'
-        ]);
-
-
-
-        if($order->is_instant){
-            return $this->cancelInstantTherapyBooking($request, $order);
-        }else{
-            if($order->details[0]->clinic_id){
-                return $this->cancelClinicTherapyBooking($request, $order);
+            if($order->is_instant){
+                return $this->cancelInstantTherapyBooking($request, $order);
             }else{
-                return $this->cancelHomeTherapyBooking($request, $order);
+                if($order->details[0]->clinic_id){
+                    return $this->cancelClinicTherapyBooking($request, $order);
+                }else{
+                    return $this->cancelHomeTherapyBooking($request, $order);
+                }
             }
         }
 
-    }
 
-    public function cancelInstantTherapyBooking(Request $request, $order){
-        $therapy_cancellation_status=[
-            'confirmed'
+        return [
+            'status'=>'failed',
+            'message'=>'Unrecognized Request'
         ];
 
-        $booking=HomeBookingSlots::where('order_id', $order->id)->find($request->booking_id);
+    }
+
+    private function cancelInstantTherapyBooking(Request $request, $order){
+
+        $booking=HomeBookingSlots::where('order_id', $order->id)
+            ->whereIn('status', ['pending'])
+            ->find($request->booking_id);
+
+        if(!$booking)
+            return [
+                'status'=>'failed',
+                'message'=>'Booking Cannot Be Cancelled'
+            ];
+
+        $booking->status='cancelled';
+        $booking->save();
+
+        $order->status='cancelled';
+        $order->save();
+
+        return [
+            'status'=>'success',
+            'message'=>'Your booking has been cancelled. Refund process will be initiated shortly'
+        ];
+    }
+
+    private function cancelClinicTherapyBooking(Request $request, $order){
+
+        $booking=BookingSlot::where('order_id', $order->id)
+            ->whereIn('status', ['pending'])
+            ->find($request->booking_id);
+
+        if(!$booking)
+            return [
+                'status'=>'failed',
+                'message'=>'Booking Cannot Be Cancelled'
+            ];
+
+        $booking->status='cancelled';
+        $booking->save();
+
+        return [
+            'status'=>'success',
+            'message'=>'Your booking has been cancelled. Refund process will be initiated shortly'
+        ];
+    }
+
+    private function cancelHomeTherapyBooking(Request $request, $order){
+
+        $booking=HomeBookingSlots::where('order_id', $order->id)
+            ->whereIn('status', ['pending'])
+            ->find($request->booking_id);
 
         if(!$booking)
             return [
@@ -1045,77 +1018,19 @@ class OrderController extends Controller
                 'message'=>'Order cannot be cancelled now'
             ];
 
-        if(!in_array($booking->status, $therapy_cancellation_status)){
-            return [
-                'status'=>'failed',
-                'message'=>'Booking cannot be cancelled now'
-            ];
-        }
-
         $booking->status='cancelled';
         $booking->save();
+
         return [
             'status'=>'success',
             'message'=>'Your booking has been cancelled. Refund process will be initiated shortly'
         ];
     }
 
-    public function cancelClinicTherapyBooking(Request $request, $order){
-        $therapy_cancellation_status=[
-            'confirmed'
-        ];
 
-        $booking=BookingSlot::where('order_id', $order->id)->find($request->booking_id);
-
-        if(!$booking)
-            return [
-                'status'=>'failed',
-                'message'=>'Order cannot be cancelled now'
-            ];
-
-        if(!in_array($booking->status, $therapy_cancellation_status)){
-            return [
-                'status'=>'failed',
-                'message'=>'Booking cannot be cancelled now'
-            ];
-        }
-
-        $booking->status='cancelled';
-        $booking->save();
-        return [
-            'status'=>'success',
-            'message'=>'Your booking has been cancelled. Refund process will be initiated shortly'
-        ];
-    }
-
-    public function cancelHomeTherapyBooking(Request $request, $order){
-        $therapy_cancellation_status=[
-            'confirmed'
-        ];
-
-        $booking=HomeBookingSlots::where('order_id', $order->id)->find($request->booking_id);
-
-        if(!$booking)
-            return [
-                'status'=>'failed',
-                'message'=>'Order cannot be cancelled now'
-            ];
-
-        if(!in_array($booking->status, $therapy_cancellation_status)){
-            return [
-                'status'=>'failed',
-                'message'=>'Booking cannot be cancelled now'
-            ];
-        }
-
-        $booking->status='cancelled';
-        $booking->save();
-        return [
-            'status'=>'success',
-            'message'=>'Your booking has been cancelled. Refund process will be initiated shortly'
-        ];
-    }
-
+    /*
+     * Get Available Slots For Booking
+     */
 
     public function getAvailableSlots(Request $request, $order_id){
 
@@ -1141,7 +1056,6 @@ class OrderController extends Controller
             'message'=>'Unreconized Request'
         ];
     }
-
 
     private function getClinicAvailableSlots($order, $clinic_id, $therapy_id, $date){
         $date=date('Y-m-d', strtotime($date));
@@ -1213,8 +1127,214 @@ class OrderController extends Controller
             'data'=>compact('timeslots','dates', 'selected_date', 'order_id')
         ];
 
+    }
 
+
+    /*
+     * Cancellation Of Complete Order Sessions Or Product Purchase
+     */
+    public function cancelAll(Request $request, $order_id){
+        $user=$request->user;
+
+        $order=Order::with(['details', 'bookingslots', 'homebookingslots'])
+            ->where('user_id', $user->id)
+            ->find($order_id);
+        if(!$order)
+            return [
+                'status'=>'failed',
+                'message'=>'No record Found'
+            ];
+
+        if(!in_array($order->status, ['confirmed']))
+            return [
+                'status'=>'failed',
+                'message'=>'Booking Cannot Be Cancelled Now'
+            ];
+
+
+        if($order->details[0]->entity instanceof Product)
+            return $this->cancelProductsBooking($order);
+
+        if($order->details[0]->entity instanceof Therapy){
+            if($order->is_instant)
+                return $this->cancelAllInstantTherapy($order);
+            else{
+                if($order->details[0]->clinic_id)
+                    return $this->cancelAllClinicTherapy($order);
+                else
+                    return $this->cancelAllHomeTherapy($order);
+
+            }
+        }
+    }
+
+    private function cancelProductsBooking($order){
+
+        $product_cancellation_status=[
+            'confirmed'
+        ];
+
+        if(!in_array($order->status, $product_cancellation_status)){
+            return [
+                'status'=>'failed',
+                'message'=>'Order cannot be cancelled now'
+            ];
+        }
+
+        $order->status='cancelled';
+        $order->save();
+        return [
+            'status'=>'success',
+            'message'=>'Order has been cancelled. Refund process will be initiated shortly'
+        ];
 
     }
+
+    private function cancelAllInstantTherapy($order){
+        $booking=$order->homebookingslots[0];
+        $booking->status='cancelled';
+        $booking->save();
+        $order->status='cancelled';
+        $order->save();
+
+        /*
+         * Put Deduction Calculation Here
+         */
+
+        return [
+            'status'=>'success',
+            'message'=>'Your Booking Has Been Cancelled'
+        ];
+    }
+
+    private function cancelAllClinicTherapy($order){
+        $bookings=$order->bookingSlots;
+        foreach($bookings as $booking){
+            if($booking->status=='pending'){
+                $booking->status='cancelled';
+                $booking->save();
+            }
+        }
+
+        $order->status='cancelled';
+        $order->save();
+
+        return [
+            'status'=>'success',
+            'message'=>'Your Booking Has Been Cancelled'
+        ];
+
+    }
+
+    private function cancelAllHomeTherapy($order){
+        $bookings=$order->homebookingslots;
+        foreach($bookings as $booking){
+            if($booking->status=='pending'){
+                $booking->status='cancelled';
+                $booking->save();
+            }
+        }
+
+        $order->status='cancelled';
+        $order->save();
+
+        return [
+            'status'=>'success',
+            'message'=>'Your Booking Has Been Cancelled'
+        ];
+    }
+
+
+    //    private function cancelTherapyBooking($order){
+//
+//
+//
+//        $therapy_cancellation_status=[
+//            'confirmed'
+//        ];
+//
+//        if(!in_array($order->status, $therapy_cancellation_status)){
+//            return [
+//                'status'=>'failed',
+//                'message'=>'Order cannot be cancelled now'
+//            ];
+//        }
+//
+//        $order->status='cancelled';
+//        $order->save();
+//        return [
+//            'status'=>'success',
+//            'message'=>'Your booking has been cancelled. Refund process will be initiated shortly'
+//        ];
+//
+//    }
+
+    //    public function initiateClinicBooking(Request $request){
+//
+//        $request->validate([
+//            'clinic_id'=>'required|integer',
+//            'therapy_id'=>'required|integer',
+//            'num_sessions'=>'required|integer',
+//            'grade'=>'required|integer|in:1,2,3,4',
+//            'time'=>'required|date_format:H:i',
+//            'date'=>'required|date_format:Y-m-d',
+//        ]);
+//
+//        $clinic=Clinic::active()->with(['therapies'=>function($therapies)use($request){
+//            $therapies->where('therapies.isactive', true)->where('therapies.id', $request->therapy_id);
+//        }])->find($request->clinic_id);
+//
+//        if(!$clinic || empty($clinic->therapies)){
+//            return [
+//                'status'=>'failed',
+//                'message'=>'Invalid Operation Performed'
+//            ];
+//        }
+//
+//        //return $clinic;
+//        $grade=$request->grade??1;
+//        $num_sessions=$request->num_sessions??1;
+//
+//        switch($grade){
+//            case 1:$cost=($clinic->therapies[0]->pivot->grade1_price??0);
+//                break;
+//            case 2:$cost=($clinic->therapies[0]->pivot->grade2_price??0);
+//                break;
+//            case 3:$cost=($clinic->therapies[0]->pivot->grade3_price??0);
+//                break;
+//            case 4:$cost=($clinic->therapies[0]->pivot->grade4_price??0);
+//                break;
+//        }
+//
+//        $refid=env('MACHINE_ID').time();
+//        $order=Order::create([
+//            'user_id'=>auth()->guard('customerapi')->user()->id,
+//            'refid'=>$refid,
+//            'status'=>'pending',
+//            'total_cost'=>$cost*$num_sessions,
+//            'booking_date'=>$request->date,
+//            'booking_time'=>$request->time
+//        ]);
+//        OrderStatus::create([
+//            'order_id'=>$order->id,
+//            'current_status'=>$order->status
+//        ]);
+//        OrderDetail::create([
+//            'order_id'=>$order->id,
+//            'entity_type'=>'App\Models\Therapy',
+//            'entity_id'=>$clinic->therapies[0]->id,
+//            'clinic_id'=>$clinic->id,
+//            'cost'=>$cost,
+//            'quantity'=>$num_sessions,
+//            'grade'=>$request->grade
+//        ]);
+//
+//        return [
+//            'status'=>'success',
+//            'data'=>[
+//                'order_id'=>$order->id
+//            ]
+//        ];
+//    }
 
 }

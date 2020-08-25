@@ -98,4 +98,8 @@ class BookingSlot extends Model
         return $this->belongsTo('App\Models\TimeSlot', 'slot_id');
     }
 
+    public function order(){
+        return $this->belongsTo('App\Models\Order', 'order_id');
+    }
+
 }

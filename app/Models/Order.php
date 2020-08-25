@@ -40,5 +40,9 @@ class Order extends Model
         return $this->hasMany('App\Models\BookingSlot', 'order_id');
     }
 
+    public function homebookingslots(){
+        return $this->hasMany('App\Models\HomeBookingSlots', 'order_id');
+    }
+
 
 }
