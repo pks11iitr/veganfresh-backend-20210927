@@ -948,7 +948,7 @@ class OrderController extends Controller
         if($order->details[0]->entity instanceof Product)
             return $this->cancelProductsBooking($order);
         if($order->details[0]->entity instanceof Therapy)
-            return $this->cancelTherapyBooking($order);
+            return $this->cancelTherapyBooking($request, $order);
 
     }
 
@@ -976,26 +976,134 @@ class OrderController extends Controller
     }
 
 
-    private function cancelTherapyBooking($order){
+//    private function cancelTherapyBooking($order){
+//
+//
+//
+//        $therapy_cancellation_status=[
+//            'confirmed'
+//        ];
+//
+//        if(!in_array($order->status, $therapy_cancellation_status)){
+//            return [
+//                'status'=>'failed',
+//                'message'=>'Order cannot be cancelled now'
+//            ];
+//        }
+//
+//        $order->status='cancelled';
+//        $order->save();
+//        return [
+//            'status'=>'success',
+//            'message'=>'Your booking has been cancelled. Refund process will be initiated shortly'
+//        ];
+//
+//    }
+
+    private function cancelTherapyBooking(Request $request,$order){
+
+        $request->validate([
+            'booking_id'=>'required|integer'
+        ]);
+
+
+
+        if($order->is_instant){
+            return $this->cancelInstantTherapyBooking($request, $order);
+        }else{
+            if($order->details[0]->clinic_id){
+                return $this->cancelClinicTherapyBooking($request, $order);
+            }else{
+                return $this->cancelHomeTherapyBooking($request, $order);
+            }
+        }
+
+    }
+
+    public function cancelInstantTherapyBooking(Request $request, $order){
         $therapy_cancellation_status=[
             'confirmed'
         ];
 
-        if(!in_array($order->status, $therapy_cancellation_status)){
+        $booking=HomeBookingSlots::where('order_id', $order->id)->find($request->booking_id);
+
+        if(!$booking)
             return [
                 'status'=>'failed',
                 'message'=>'Order cannot be cancelled now'
             ];
+
+        if(!in_array($booking->status, $therapy_cancellation_status)){
+            return [
+                'status'=>'failed',
+                'message'=>'Booking cannot be cancelled now'
+            ];
         }
 
-        $order->status='cancelled';
-        $order->save();
+        $booking->status='cancelled';
+        $booking->save();
         return [
             'status'=>'success',
             'message'=>'Your booking has been cancelled. Refund process will be initiated shortly'
         ];
-
     }
+
+    public function cancelClinicTherapyBooking(Request $request, $order){
+        $therapy_cancellation_status=[
+            'confirmed'
+        ];
+
+        $booking=BookingSlot::where('order_id', $order->id)->find($request->booking_id);
+
+        if(!$booking)
+            return [
+                'status'=>'failed',
+                'message'=>'Order cannot be cancelled now'
+            ];
+
+        if(!in_array($booking->status, $therapy_cancellation_status)){
+            return [
+                'status'=>'failed',
+                'message'=>'Booking cannot be cancelled now'
+            ];
+        }
+
+        $booking->status='cancelled';
+        $booking->save();
+        return [
+            'status'=>'success',
+            'message'=>'Your booking has been cancelled. Refund process will be initiated shortly'
+        ];
+    }
+
+    public function cancelHomeTherapyBooking(Request $request, $order){
+        $therapy_cancellation_status=[
+            'confirmed'
+        ];
+
+        $booking=HomeBookingSlots::where('order_id', $order->id)->find($request->booking_id);
+
+        if(!$booking)
+            return [
+                'status'=>'failed',
+                'message'=>'Order cannot be cancelled now'
+            ];
+
+        if(!in_array($booking->status, $therapy_cancellation_status)){
+            return [
+                'status'=>'failed',
+                'message'=>'Booking cannot be cancelled now'
+            ];
+        }
+
+        $booking->status='cancelled';
+        $booking->save();
+        return [
+            'status'=>'success',
+            'message'=>'Your booking has been cancelled. Refund process will be initiated shortly'
+        ];
+    }
+
 
     public function getAvailableSlots(Request $request, $order_id){
 
