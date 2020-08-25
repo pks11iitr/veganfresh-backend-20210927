@@ -60,7 +60,7 @@ $api->get('order-details/{id}', ['as'=>'order.details', 'uses'=>'Customer\Api\Or
 
 $api->get('order-history', ['as'=>'order.history', 'uses'=>'Customer\Api\OrderController@index']);
 
-$api->get('cancel-order/{id}', ['as'=>'order.cancel', 'uses'=>'Customer\Api\OrderController@cancelBooking']);
+$api->get('cancel-booking/{order_id}', ['as'=>'order.cancel', 'uses'=>'Customer\Api\OrderController@cancelBooking']);
 
 $api->post('reschedule-order/{id}', ['as'=>'order.reschedule', 'uses'=>'Customer\Api\OrderController@rescheduleOrder']);
 
@@ -73,7 +73,7 @@ $api->post('create-schedule/{id}', ['as'=>'order.create.schedule', 'uses'=>'Cust
 
 $api->get('display-schedule/{id}', ['as'=>'order.display.reschedule', 'uses'=>'Customer\Api\OrderController@displaySchedule']);
 
-$api->get('delete-booking/{booking_id}', ['as'=>'order.delete.booking', 'uses'=>'Customer\Api\OrderController@deleteBooking']);
+$api->get('delete-booking/{order_id}/{booking_id}', ['as'=>'order.delete.booking', 'uses'=>'Customer\Api\OrderController@deleteBooking']);
 
 
 
@@ -114,7 +114,7 @@ $api->get('notifications', ['as'=>'notifications.list', 'uses'=>'Customer\Api\No
 $api->group(['middleware' => ['customer-auth']], function ($api) {
     $api->post('get-available-slots/{order_id}', ['as'=>'clinics.available.slots', 'uses'=>'Customer\Api\OrderController@getAvailableSlots']);
 
-    $api->get('cancel-all/{order_id}', ['as'=>'cancel.all.slots', 'uses'=>'Customer\Api\OrderController@cancelAll']);
+    $api->get('cancel-complete-order/{order_id}', ['as'=>'cancel.all.slots', 'uses'=>'Customer\Api\OrderController@cancelAll']);
 
 });
 
