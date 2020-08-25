@@ -421,6 +421,13 @@ class OrderController extends Controller
             $show_add_more_slots=1;
         }
 
+        if($order->status=='pending'){
+            $continue_text='Continue';
+        }else {
+            $continue_text='Close';
+        }
+
+
 
         $schedules=[];
 
@@ -442,7 +449,7 @@ class OrderController extends Controller
         $order_id=$order->id;
         return [
             'status'=>'success',
-            'data'=>compact('schedules','clinic_id', 'therapy_id', 'order_id', 'show_add_more_slots')
+            'data'=>compact('schedules','clinic_id', 'therapy_id', 'order_id', 'show_add_more_slots','continue_text')
         ];
 
     }
