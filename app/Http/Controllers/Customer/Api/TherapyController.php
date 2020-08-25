@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Customer\Api;
 
+use App\Models\Clinic;
 use App\Models\Therapist;
 use App\Models\Therapy;
+use App\Models\TimeSlot;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -52,7 +54,7 @@ class TherapyController extends Controller
                 'text2'=>($i==1)?'':($i==2?'':date('D')),
                 'value'=>$date
             ];
-            $date=date('Y-m-d', strtotime('+'.$i.' days', strtotime($date, strtotime($date))));
+            $date=date('Y-m-d', strtotime('+1 days', strtotime($date, strtotime($date))));
         }
         $date=date('Y-m-d h:i:s');
         for($i=9; $i<=17;$i++){
@@ -62,13 +64,22 @@ class TherapyController extends Controller
             ];
             $date=date('Y-m-d H:i:s', strtotime('+1 hours', strtotime($date)));
         }
+
+        $display_text=[
+
+            'automatic'=>'One session per day will be booked at selected time based on availablity',
+            'cutom'=>'You can select any number of slot on any day based on availability',
+
+        ];
+
         return [
             'status'=>'success',
             'data'=>[
                 'therapy'=>$therapy,
                 'dates'=>$dates,
                 'timings'=>$timings,
-                'therapist_locations'=>$therapistlocations
+                'therapist_locations'=>$therapistlocations,
+                'display_text'=>$display_text
             ]
         ];
 
@@ -118,7 +129,6 @@ class TherapyController extends Controller
             'status'=>'success',
             'data'=>compact('nearby', 'activegrades'),
         ];
-
 
     }
 
