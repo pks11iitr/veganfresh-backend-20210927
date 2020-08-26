@@ -271,27 +271,12 @@ class TimeSlot extends Model
                 }
             }
         }
-        $grade_4_slots['name'] = 'Silver';
-        $grade_4_slots['price'] = 'Rs. ' . $clinic->therapies[0]->pivot->grade4_price ?? 0;
-        $remaining=self::calculateRemainingSlotCount($grade_4_count, $total_used[4]??0);
-        $grade_4_slots['count'] = ( $remaining> 0) ? ($remaining . ' Slots Available') : 'No Slots Available';
-
-        $grade_3_slots['name'] = 'Gold';
-        $grade_3_slots['price'] = 'Rs. ' . $clinic->therapies[0]->pivot->grade3_price ?? 0;
-        $remaining=self::calculateRemainingSlotCount($grade_3_count, $total_used[3]??0);
-        $grade_3_slots['count'] = ($remaining > 0) ? ($remaining . ' Slots Available') : 'No Slots Available';
-
-        $grade_2_slots['name'] = 'Platinum';
-        $grade_2_slots['price'] = 'Rs. ' . $clinic->therapies[0]->pivot->grade2_price ?? 0;
-        $remaining=self::calculateRemainingSlotCount($grade_2_count, $total_used[2]??0);
-        $grade_2_slots['count'] = ($remaining > 0) ? ($remaining . ' Slots Available') : 'No Slots Available';
-
-        $grade_1_slots['name'] = 'Diamond';
-        $grade_1_slots['price'] = 'Rs. ' . $clinic->therapies[0]->pivot->grade1_price ?? 0;
-        $remaining=self::calculateRemainingSlotCount($grade_1_count, $total_used[1]??0);
-        $grade_1_slots['count'] = ($remaining > 0) ? ($remaining . ' Slots Available') : 'No Slots Available';
-        if($booking->grade)
-            return compact('grade_1_slots', 'grade_2_slots', 'grade_3_slots', 'grade_4_slots');
+        switch($booking->grade){
+            case '1':return $grade_1_slots;
+            case '2':return $grade_2_slots;
+            case '3':return $grade_3_slots;
+            case '4':return $grade_4_slots;
+        }
 
     }
 

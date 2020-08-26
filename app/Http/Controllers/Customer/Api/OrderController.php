@@ -1131,6 +1131,108 @@ class OrderController extends Controller
 
 
     /*
+     * Reschedule Functionality
+     */
+    public function getRescheduleSlots(Request $request, $order_id, $booking_id){
+
+        $date=$request->date??date('Y-m-d');
+        $selected_date=$date;
+        $today=date('Y-m-d');
+
+        $user=$request->user;
+
+        $order=Order::with('details.clinic', 'details.entity')
+            ->where('status', 'confirmed')
+            ->where('user_id', $user->id)
+            ->find($order_id);
+        if(!$order)
+            return [
+                'status'=>'failed',
+                'message'=>'No Such Record Found'
+            ];
+
+        if($order->details[0]->entity_type!='App\Models\Therapy')
+            return [
+                'status'=>'failed',
+                'message'=>'Unrecognized Request'
+            ];
+
+        if($order->details[0]->clinic_id){
+            $booking=BookingSlot::find($booking_id);
+        }else{
+            $booking=HomeBookingSlots::find($booking_id);
+        }
+        if(!$booking)
+            return [
+                'status'=>'failed',
+                'message'=>'No Such Record Found'
+            ];
+
+        if($order->details[0]->clinic_id){
+            $availableslots=TimeSlot::getRescheduleTimeSlots($order->details[0]->clinic, $date, $booking);
+        }else{
+            $availableslots=DailyBookingsSlots::getRescheduleTimeSlots($order->details[0]->entity, $date,$booking);
+        }
+
+        $timeslots=[
+            $availableslots
+        ];
+
+        for($i=1; $i<=7;$i++){
+            $dates[]=[
+                'text'=>($i==1)?'Today':($i==2?'Tomorrow':date('d F', strtotime($today))),
+                'text2'=>($i==1)?'':($i==2?'':date('D', strtotime($today))),
+                'value'=>$today,
+            ];
+            $today=date('Y-m-d', strtotime('+1 days', strtotime($today)));
+        }
+
+        $order_id=$order->id;
+        return [
+            'status'=>'success',
+            'data'=>compact('timeslots','dates', 'selected_date', 'order_id')
+        ];
+
+    }
+
+
+    public function rescheduleBooking(Request $request, $order_id, $booking_id){
+        $user=$request->user;
+
+        $order=Order::with('details')
+            ->where('status', 'confirmed')
+            ->where('user_id', $user->id)
+            ->find($order_id);
+        if(!$order)
+            return [
+                'status'=>'failed',
+                'message'=>'No Such Record Found'
+            ];
+
+        if($order->details[0]->entity_type!='App\Models\Therapy')
+            return [
+                'status'=>'failed',
+                'message'=>'Unrecognized Request'
+            ];
+
+        if($order->is_instant){
+
+        }else{
+            if($order->details[0]->clinic_id){
+
+            }else{
+
+            }
+        }
+    }
+
+
+    private function rescheduleInstantTherapyBooking(){
+
+    }
+
+
+    /*
      * Cancellation Of Complete Order Sessions Or Product Purchase
      */
     public function cancelAll(Request $request, $order_id){
@@ -1337,78 +1439,4 @@ class OrderController extends Controller
 //        ];
 //    }
 
-    public function getRescheduleSlots(Request $request, $order_id, $booking_id){
-
-        $date=$request->date??date('Y-m-d');
-
-        $today=date('Y-m-d');
-
-        $user=$request->user;
-
-        $order=Order::with('details')
-                ->where('status', 'confirmed')
-                ->where('user_id', $user->id)
-                ->find($order_id);
-        if(!$order)
-            return [
-                'status'=>'failed',
-                'message'=>'No Such Record Found'
-            ];
-
-        if($order->details[0]->entity_type!='App\Models\Therapy')
-            return [
-                'status'=>'failed',
-                'message'=>'Unrecognized Request'
-            ];
-
-        if($order->details[0]->clinic_id){
-               $booking=BookingSlot::find($booking_id);
-        }else{
-            $booking=HomeBookingSlots::find($booking_id);
-        }
-        if(!$booking)
-            return [
-                'status'=>'failed',
-                'message'=>'No Such Record Found'
-            ];
-
-
-
-    }
-
-
-    public function rescheduleBooking(Request $request, $order_id, $booking_id){
-        $user=$request->user;
-
-        $order=Order::with('details')
-            ->where('status', 'confirmed')
-            ->where('user_id', $user->id)
-            ->find($order_id);
-        if(!$order)
-            return [
-                'status'=>'failed',
-                'message'=>'No Such Record Found'
-            ];
-
-        if($order->details[0]->entity_type!='App\Models\Therapy')
-            return [
-                'status'=>'failed',
-                'message'=>'Unrecognized Request'
-            ];
-
-        if($order->is_instant){
-
-        }else{
-            if($order->details[0]->clinic_id){
-
-            }else{
-
-            }
-        }
-    }
-
-
-    private function rescheduleInstantTherapyBooking(){
-
-}
 }
