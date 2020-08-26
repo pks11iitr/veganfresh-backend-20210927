@@ -628,8 +628,8 @@ class OrderController extends Controller
                 'time'=>'1 Session at '.$schedule->timeslot->start_time,
                 'grade'=>$grade,
                 'id'=>$schedule->id,
-                'show_cancel'=>1,
-                'show_reschedule'=>1
+                'show_cancel'=>in_array($order->status,['confirmed'])?1:0,
+                'show_reschedule'=>in_array($order->status,['confirmed'])?1:0
             ];
         }
 
