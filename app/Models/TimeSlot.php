@@ -293,7 +293,7 @@ class TimeSlot extends Model
             return [
                 'id'=>$ts->id,
                 'display'=>$ts->start_time,
-                'is_active'=>(($ts->isactive?1:0) && ($booking_data[$ts->id][1]>=$ts->grade_1?0:1)) ? 1:0
+                'is_active'=>(($ts->isactive?1:0) && (($booking_data[$ts->id][1]??0)>=$ts->grade_1?0:1)) ? 1:0
             ];
 
         }

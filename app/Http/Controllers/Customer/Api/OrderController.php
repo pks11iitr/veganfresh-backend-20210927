@@ -1227,9 +1227,15 @@ class OrderController extends Controller
     }
 
 
-    private function rescheduleInstantTherapyBooking(){
+    private function rescheduleHomeTherapyBooking(){
 
     }
+
+    private function rescheduleClinicTherapyBooking(){
+
+    }
+
+
 
 
     /*
