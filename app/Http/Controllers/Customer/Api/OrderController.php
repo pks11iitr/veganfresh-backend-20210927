@@ -1190,7 +1190,7 @@ class OrderController extends Controller
         $order_id=$order->id;
         return [
             'status'=>'success',
-            'data'=>compact('timeslots','dates', 'selected_date', 'order_id')
+            'data'=>compact('timeslots','dates', 'selected_date', 'order_id', 'booking_id')
         ];
 
     }
