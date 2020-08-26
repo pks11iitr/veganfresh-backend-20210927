@@ -8,6 +8,7 @@ class DailyBookingsSlots extends Model
 {
     protected $table='daily_time_slots';
 
+    protected $fillable=['start_time','date','duration','internal_start_time', 'isactive'];
 
     public static function getTimeSlots($therapy,$date){
 

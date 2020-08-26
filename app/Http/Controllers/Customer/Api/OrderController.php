@@ -1337,4 +1337,78 @@ class OrderController extends Controller
 //        ];
 //    }
 
+    public function getRescheduleSlots(Request $request, $order_id, $booking_id){
+
+        $date=$request->date??date('Y-m-d');
+
+        $today=date('Y-m-d');
+
+        $user=$request->user;
+
+        $order=Order::with('details')
+                ->where('status', 'confirmed')
+                ->where('user_id', $user->id)
+                ->find($order_id);
+        if(!$order)
+            return [
+                'status'=>'failed',
+                'message'=>'No Such Record Found'
+            ];
+
+        if($order->details[0]->entity_type!='App\Models\Therapy')
+            return [
+                'status'=>'failed',
+                'message'=>'Unrecognized Request'
+            ];
+
+        if($order->details[0]->clinic_id){
+               $booking=BookingSlot::find($booking_id);
+        }else{
+            $booking=HomeBookingSlots::find($booking_id);
+        }
+        if(!$booking)
+            return [
+                'status'=>'failed',
+                'message'=>'No Such Record Found'
+            ];
+
+
+
+    }
+
+
+    public function rescheduleBooking(Request $request, $order_id, $booking_id){
+        $user=$request->user;
+
+        $order=Order::with('details')
+            ->where('status', 'confirmed')
+            ->where('user_id', $user->id)
+            ->find($order_id);
+        if(!$order)
+            return [
+                'status'=>'failed',
+                'message'=>'No Such Record Found'
+            ];
+
+        if($order->details[0]->entity_type!='App\Models\Therapy')
+            return [
+                'status'=>'failed',
+                'message'=>'Unrecognized Request'
+            ];
+
+        if($order->is_instant){
+
+        }else{
+            if($order->details[0]->clinic_id){
+
+            }else{
+
+            }
+        }
+    }
+
+
+    private function rescheduleInstantTherapyBooking(){
+
+}
 }

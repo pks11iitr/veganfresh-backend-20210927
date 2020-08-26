@@ -116,6 +116,8 @@ $api->group(['middleware' => ['customer-auth']], function ($api) {
 
     $api->get('cancel-complete-order/{order_id}', ['as'=>'cancel.all.slots', 'uses'=>'Customer\Api\OrderController@cancelAll']);
 
+    $api->get('get-reschedule-slots/{order_id}/{booking_id}', ['as'=>'cancel.all.slots', 'uses'=>'Customer\Api\OrderController@getRescheduleSlots']);
+
 });
 
 
