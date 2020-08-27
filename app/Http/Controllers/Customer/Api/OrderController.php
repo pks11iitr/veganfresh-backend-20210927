@@ -1225,9 +1225,9 @@ class OrderController extends Controller
             return $this->rescheduleHomeTherapyBooking($request, $order,$booking_id);
         }else{
             if($order->details[0]->clinic_id){
-                $this->rescheduleClinicTherapyBooking($request, $order,$booking_id);
+                return $this->rescheduleClinicTherapyBooking($request, $order,$booking_id);
             }else{
-                $this->rescheduleHomeTherapyBooking($request, $order,$booking_id);
+                return $this->rescheduleHomeTherapyBooking($request, $order,$booking_id);
             }
         }
     }
