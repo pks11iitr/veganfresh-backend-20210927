@@ -11,6 +11,7 @@ use App\Models\Order;
 use App\Models\OrderDetail;
 use App\Models\OrderStatus;
 use App\Models\Product;
+use App\Models\RescheduleRequest;
 use App\Models\Therapy;
 use App\Models\TimeSlot;
 use App\Models\Wallet;
@@ -1197,6 +1198,11 @@ class OrderController extends Controller
 
 
     public function rescheduleBooking(Request $request, $order_id, $booking_id){
+
+        $request->validate([
+            'slot_id'=>'required|integer'
+        ]);
+
         $user=$request->user;
 
         $order=Order::with('details')
@@ -1216,25 +1222,179 @@ class OrderController extends Controller
             ];
 
         if($order->is_instant){
-
+            return $this->rescheduleHomeTherapyBooking($request, $order,$booking_id);
         }else{
             if($order->details[0]->clinic_id){
-
+                $this->rescheduleClinicTherapyBooking($request, $order,$booking_id);
             }else{
-
+                $this->rescheduleHomeTherapyBooking($request, $order,$booking_id);
             }
         }
     }
 
 
-    private function rescheduleHomeTherapyBooking(){
+    private function rescheduleHomeTherapyBooking(Request $request,$order, $booking_id){
+
+        $slot=DailyBookingsSlots::find($request->slot_id);
+        if(!$slot)
+            return [
+                'status'=>'failed',
+                'message'=>'Invalid Request'
+            ];
+
+        $booking=HomeBookingSlots::with('timeslot')->where('status', 'confirmed')
+               ->where('order_id', $order->id)
+               ->find($booking_id);
+           if(!$booking)
+               return [
+                   'status'=>'failed',
+                   'message'=>'Booking Cannot Be Cancelled'
+               ];
+
+           if($booking->is_instant){
+               if($booking->date > date('Y-m-d')){
+
+                   RescheduleRequest::create([
+                       'order_id'=>$order->id,
+                       'booking_id'=>$booking_id,
+                       'new_slot_id'=>$request->slot_id
+                   ]);
+
+                   return [
+                       'status'=>'success',
+                       'data'=>[
+                           'payment_status'=>'no',
+                           'header'=>'Payment For Booking Reschedule',
+                           'old_time'=>$booking->date.' Instant Booking',
+                           'new_time'=>$slot->date.' '.$slot->start_time,
+                           'amount'=>'20% deduction'
+                       ]
+                   ];
+               }else{
+
+                   $booking->slot_id=$slot->id;
+                   $booking->is_instant=0;
+                   $booking->save();
+
+                   $order->is_instant=0;
+                   $order->save();
+
+                   return [
+                       'status'=>'success',
+                       'date'=>[
+                           'payment_status'=>'yes',
+                           'header'=>'Booking Reschedule Successfull',
+                           'old_time'=>'',
+                           'new_time'=>'',
+                           'amount'=>''
+                       ]
+                   ];
+               }
+           }else{
+               if($booking->timeslot->date.' '.$booking->internal_start_time > date('Y-m-d')){
+                   RescheduleRequest::create([
+                       'order_id'=>$order->id,
+                       'booking_id'=>$booking_id,
+                       'old_slot_id'=>$booking->slot_id,
+                       'new_slot_id'=>$request->slot_id,
+                   ]);
+
+                   return [
+                       'status'=>'success',
+                       'data'=>[
+                           'payment_status'=>'no',
+                           'header'=>'Payment For Booking Reschedule',
+                           'old_time'=>$booking->timeslot->date.' '.$booking->timeslot->start_time,
+                           'new_time'=>$slot->date.' '.$slot->start_time,
+                           'amount'=>'20% deduction'
+                       ]
+                   ];
+               }else{
+
+                   $booking->slot_id=$slot->id;
+                   $booking->save();
+
+                   return [
+                       'status'=>'success',
+                       'date'=>[
+                           'payment_status'=>'yes',
+                           'header'=>'Booking Reschedule Successfull',
+                           'old_time'=>'',
+                           'new_time'=>'',
+                           'amount'=>''
+                       ]
+                   ];
+               }
+           }
 
     }
 
-    private function rescheduleClinicTherapyBooking(){
+    private function rescheduleClinicTherapyBooking(Request $request,$order, $booking_id){
+        $slot=BookingSlot::find($request->slot_id);
+        if(!$slot)
+            return [
+                'status'=>'failed',
+                'message'=>'Invalid Request'
+            ];
+
+        $booking=TimeSlot::with('timeslot')->where('status', 'confirmed')
+            ->where('order_id', $order->id)
+            ->find($booking_id);
+
+        if(!$booking)
+            return [
+                'status'=>'failed',
+                'message'=>'Booking Cannot Be Rescheduled'
+            ];
+
+        if($booking->timeslot->date.' '.$booking->internal_start_time > date('Y-m-d')){
+
+            RescheduleRequest::create([
+                'order_id'=>$order->id,
+                'booking_id'=>$booking_id,
+                'old_slot_id'=>$booking->slot_id,
+                'new_slot_id'=>$request->slot_id,
+            ]);
+
+            return [
+                'status'=>'success',
+                'data'=>[
+                    'payment_status'=>'no',
+                    'header'=>'Payment For Booking Reschedule',
+                    'old_time'=>$booking->timeslot->date.' '.$booking->timeslot->start_time,
+                    'new_time'=>$slot->date.' '.$slot->start_time,
+                    'amount'=>'20% deduction'
+                ]
+            ];
+        }else{
+
+            $booking->slot_id=$slot->id;
+            $booking->save();
+
+            return [
+                'status'=>'success',
+                'date'=>[
+                    'date'=>[
+                        'payment_status'=>'yes',
+                        'header'=>'Booking Reschedule Successfull',
+                        'old_time'=>'',
+                        'new_time'=>'',
+                        'amount'=>''
+                    ]
+                ]
+            ];
+        }
 
     }
 
+
+    private function initiate_reschedule_payment(Request $request, $order, $booking_id){
+        RescheduleRequest::create([
+            'order_id'=>$order->id,
+            'booking_id'=>$booking_id,
+            'new_booking_id'=>$request->slot_id
+        ]);
+    }
 
 
 

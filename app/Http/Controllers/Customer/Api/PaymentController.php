@@ -281,4 +281,13 @@ class PaymentController extends Controller
             ];
         }
     }
+
+    public function initiateReschedulePayment(Request $request, $order_id, $booking_id){
+
+    }
+
+    public function verifyReschedulePayment(Request $request, $order_id, $booking_id){
+
+    }
+
 }

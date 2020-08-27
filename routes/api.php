@@ -118,6 +118,13 @@ $api->group(['middleware' => ['customer-auth']], function ($api) {
 
     $api->get('get-reschedule-slots/{order_id}/{booking_id}', ['as'=>'cancel.all.slots', 'uses'=>'Customer\Api\OrderController@getRescheduleSlots']);
 
+    $api->post('reschedule-booking/{order_id}/{booking_id}', ['as'=>'reschedule.booking', 'uses'=>'Customer\Api\OrderController@rescheduleBooking']);
+
+    $api->post('initiate-reschedule-payment/{order_id}/{booking_id}', ['as'=>'reschedule.payment.initiate', 'uses'=>'Customer\Api\PaymentController@initiateReschedulePayment']);
+
+    $api->post('verify-reschedule-payment/{order_id}/{booking_id}', ['as'=>'reschedule.payment.verify', 'uses'=>'Customer\Api\PaymentController@verifyReschedulePayment']);
+
+
 });
 
 
