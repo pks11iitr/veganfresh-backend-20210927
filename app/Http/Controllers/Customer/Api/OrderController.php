@@ -1248,7 +1248,7 @@ class OrderController extends Controller
            if(!$booking)
                return [
                    'status'=>'failed',
-                   'message'=>'Booking Cannot Be Cancelled'
+                   'message'=>'Booking Cannot Be Reschedules'
                ];
 
            if($booking->is_instant){
@@ -1291,7 +1291,7 @@ class OrderController extends Controller
                    ];
                }
            }else{
-               if($booking->timeslot->date.' '.$booking->internal_start_time > date('Y-m-d')){
+               if(date('Y-m-d H:i:s', strtotime('+2 hours')) > $booking->timeslot->date.' '.$booking->internal_start_time){
                    RescheduleRequest::create([
                        'order_id'=>$order->id,
                        'booking_id'=>$booking_id,
@@ -1347,7 +1347,7 @@ class OrderController extends Controller
                 'message'=>'Booking Cannot Be Rescheduled'
             ];
 
-        if($booking->timeslot->date.' '.$booking->internal_start_time > date('Y-m-d')){
+        if(date('Y-m-d H:i:s', strtotime('+2 hours')) > $booking->timeslot->date.' '.$booking->internal_start_time){
 
             RescheduleRequest::create([
                 'order_id'=>$order->id,
