@@ -101,7 +101,7 @@ class OrderController extends Controller
         foreach($cartitems as $item) {
             $total_cost=$total_cost+($item->product->price??0)*$item->quantity;
         }
-
+$refid=env('MACHINE_ID').time();
         $order=Order::create([
             'user_id'=>auth()->guard('customerapi')->user()->id,
             'refid'=>$refid,
@@ -1253,7 +1253,11 @@ class OrderController extends Controller
            if($booking->is_instant){
                if($booking->date > date('Y-m-d')){
 
+                   RescheduleRequest::where('order_id', $order->id)
+                       ->where('is_paid', 0)->delete();
+
                    RescheduleRequest::create([
+                       'refid'=>env('MACHINE_ID').time(),
                        'order_id'=>$order->id,
                        'booking_id'=>$booking_id,
                        'new_slot_id'=>$request->slot_id
@@ -1292,7 +1296,12 @@ class OrderController extends Controller
                }
            }else{
                if(date('Y-m-d H:i:s', strtotime('+2 hours')) > $booking->timeslot->date.' '.$booking->internal_start_time){
+
+                   RescheduleRequest::where('order_id', $order->id)
+                       ->where('is_paid', 0)->delete();
+
                    RescheduleRequest::create([
+                       'refid'=>env('MACHINE_ID').time(),
                        'order_id'=>$order->id,
                        'booking_id'=>$booking_id,
                        'old_slot_id'=>$booking->slot_id,
@@ -1350,7 +1359,11 @@ class OrderController extends Controller
 
         if(date('Y-m-d H:i:s', strtotime('+2 hours')) > $booking->timeslot->date.' '.$booking->internal_start_time){
 
+            RescheduleRequest::where('order_id', $order->id)
+                ->where('is_paid', 0)->delete();
+
             RescheduleRequest::create([
+                'refid'=>env('MACHINE_ID').time(),
                 'order_id'=>$order->id,
                 'booking_id'=>$booking_id,
                 'old_slot_id'=>$booking->slot_id,
@@ -1388,16 +1401,6 @@ class OrderController extends Controller
         }
 
     }
-
-
-    private function initiate_reschedule_payment(Request $request, $order, $booking_id){
-        RescheduleRequest::create([
-            'order_id'=>$order->id,
-            'booking_id'=>$booking_id,
-            'new_booking_id'=>$request->slot_id
-        ]);
-    }
-
 
 
     /*
