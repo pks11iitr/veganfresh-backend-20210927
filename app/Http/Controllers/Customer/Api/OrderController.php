@@ -1222,19 +1222,18 @@ class OrderController extends Controller
             ];
 
         if($order->is_instant){
-            return $this->rescheduleHomeTherapyBooking($request, $order,$booking_id);
+            return $this->rescheduleHomeTherapyBooking($request, $order,$booking_id,$user);
         }else{
             if($order->details[0]->clinic_id){
-                return $this->rescheduleClinicTherapyBooking($request, $order,$booking_id);
+                return $this->rescheduleClinicTherapyBooking($request, $order,$booking_id,$user);
             }else{
-                return $this->rescheduleHomeTherapyBooking($request, $order,$booking_id);
+                return $this->rescheduleHomeTherapyBooking($request, $order,$booking_id,$user);
             }
         }
     }
 
 
-    private function rescheduleHomeTherapyBooking(Request $request,$order, $booking_id){
-
+    private function rescheduleHomeTherapyBooking(Request $request,$order, $booking_id, $user){
         $slot=DailyBookingsSlots::find($request->slot_id);
         if(!$slot)
             return [
@@ -1267,7 +1266,8 @@ class OrderController extends Controller
                            'header'=>'Payment For Booking Reschedule',
                            'old_time'=>$booking->date.' Instant Booking',
                            'new_time'=>$slot->date.' '.$slot->start_time,
-                           'amount'=>'20% deduction'
+                           'amount'=>'20% deduction',
+                           'wallet_balance'=>Wallet::balance($user->id)
                        ]
                    ];
                }else{
@@ -1306,7 +1306,8 @@ class OrderController extends Controller
                            'header'=>'Payment For Booking Reschedule',
                            'old_time'=>$booking->timeslot->date.' '.$booking->timeslot->start_time,
                            'new_time'=>$slot->date.' '.$slot->start_time,
-                           'amount'=>'20% deduction'
+                           'amount'=>'20% deduction',
+                           'wallet_balance'=>Wallet::balance($user->id)
                        ]
                    ];
                }else{
@@ -1329,7 +1330,7 @@ class OrderController extends Controller
 
     }
 
-    private function rescheduleClinicTherapyBooking(Request $request,$order, $booking_id){
+    private function rescheduleClinicTherapyBooking(Request $request,$order, $booking_id, $user){
         $slot=BookingSlot::find($request->slot_id);
         if(!$slot)
             return [
@@ -1363,7 +1364,8 @@ class OrderController extends Controller
                     'header'=>'Payment For Booking Reschedule',
                     'old_time'=>$booking->timeslot->date.' '.$booking->timeslot->start_time,
                     'new_time'=>$slot->date.' '.$slot->start_time,
-                    'amount'=>'20% deduction'
+                    'amount'=>'20% deduction',
+                    'wallet_balance'=>Wallet::balance($user->id)
                 ]
             ];
         }else{
