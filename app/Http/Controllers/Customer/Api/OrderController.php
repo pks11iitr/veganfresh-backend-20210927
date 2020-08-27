@@ -1340,14 +1340,14 @@ $refid=env('MACHINE_ID').time();
     }
 
     private function rescheduleClinicTherapyBooking(Request $request,$order, $booking_id, $user){
-        $slot=BookingSlot::find($request->slot_id);
+        $slot=TimeSlot::find($request->slot_id);
         if(!$slot)
             return [
                 'status'=>'failed',
                 'message'=>'Invalid Request'
             ];
 
-        $booking=TimeSlot::with('timeslot')->where('status', 'confirmed')
+        $booking=BookingSlot::with('timeslot')->where('status', 'confirmed')
             ->where('order_id', $order->id)
             ->find($booking_id);
 
