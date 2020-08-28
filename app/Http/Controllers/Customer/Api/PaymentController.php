@@ -353,7 +353,7 @@ class PaymentController extends Controller
 
     }
 
-    private function scheduleUsingWallet($amount, $order, $reschedule_request, $booking){
+    private function scheduleUsingWallet($order, $reschedule_request, $booking){
 
         $walletbalance=Wallet::balance($order->user_id);
         if($walletbalance<=0)
