@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Customer\Api;
 
 use App\Events\OrderConfirmed;
 use App\Events\OrderSuccessfull;
+use App\Events\RescheduleConfirmed;
 use App\Models\BookingSlot;
 use App\Models\Cart;
 use App\Models\HomeBookingSlots;
