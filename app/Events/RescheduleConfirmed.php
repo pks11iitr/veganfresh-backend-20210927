@@ -23,7 +23,7 @@ class RescheduleConfirmed
      *
      * @return void
      */
-    public function __construct(Order $order, User $user)
+    public function __construct(Order $order, $user)
     {
         $this->order=$order;
         $this->user=$user;
