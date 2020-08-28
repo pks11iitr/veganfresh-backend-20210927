@@ -218,12 +218,12 @@ class PaymentController extends Controller
 
     public function verifyPayment(Request $request){
 
-        $request->validate([
-           'razorpay_order_id'=>'required',
-            'razorpay_signature'=>'required',
-            'razorpay_payment_id'=>'required'
-
-        ]);
+//        $request->validate([
+//           'razorpay_order_id'=>'required',
+//            'razorpay_signature'=>'required',
+//            'razorpay_payment_id'=>'required'
+//
+//        ]);
 
         $order=Order::with('details')->where('order_id', $request->razorpay_order_id)->first();
 
@@ -427,11 +427,11 @@ class PaymentController extends Controller
 
         $user=$request->user;
 
-        $request->validate([
-            'razorpay_order_id'=>'required',
-            'razorpay_signature'=>'required',
-            'razorpay_payment_id'=>'required'
-        ]);
+//        $request->validate([
+//            'razorpay_order_id'=>'required',
+//            'razorpay_signature'=>'required',
+//            'razorpay_payment_id'=>'required'
+//        ]);
 
         $reschedule_request=RescheduleRequest::with('order.details')
             ->where('razorpay_order_id', $request->razorpay_order_id)->first();
