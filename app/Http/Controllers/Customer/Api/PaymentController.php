@@ -396,7 +396,7 @@ class PaymentController extends Controller
         if(isset($responsearr->id)){
             $reschedule_request->razorpay_order_id=$responsearr->id;
             $reschedule_request->razorpay_order_id_response=$response;
-            $order->save();
+            $reschedule_request->save();
             return [
                 'status'=>'success',
                 'message'=>'success',
