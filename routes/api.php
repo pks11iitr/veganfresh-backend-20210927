@@ -122,7 +122,7 @@ $api->group(['middleware' => ['customer-auth']], function ($api) {
 
     $api->post('initiate-reschedule-payment/{order_id}/{booking_id}', ['as'=>'reschedule.payment.initiate', 'uses'=>'Customer\Api\PaymentController@initiateReschedulePayment']);
 
-    $api->post('verify-reschedule-payment/{order_id}/{booking_id}', ['as'=>'reschedule.payment.verify', 'uses'=>'Customer\Api\PaymentController@verifyReschedulePayment']);
+    $api->post('verify-reschedule-payment', ['as'=>'reschedule.payment.verify', 'uses'=>'Customer\Api\PaymentController@verifyReschedulePayment']);
 
 
 });
