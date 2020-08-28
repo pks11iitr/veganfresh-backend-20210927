@@ -306,9 +306,11 @@ class PaymentController extends Controller
                 'message'=>'Unreognized Request'
             ];
         if($order->details[0]->clinic_id)
-            $booking=BookingSlot::where('order_id')->find($booking_id);
+            $booking=BookingSlot::where('order_id', $order_id)
+                ->where('status', 'confirmed')->find($booking_id);
         else
-            $booking=HomeBookingSlots::where('order_id')->find($booking_id);
+            $booking=HomeBookingSlots::where('order_id', $order_id)
+                ->where('status', 'confirmed')->find($booking_id);
 
         if(!$booking)
             return [
