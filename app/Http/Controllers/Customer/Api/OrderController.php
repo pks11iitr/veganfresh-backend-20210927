@@ -1247,7 +1247,7 @@ $refid=env('MACHINE_ID').time();
            if(!$booking)
                return [
                    'status'=>'failed',
-                   'message'=>'Booking Cannot Be Reschedules'
+                   'message'=>'Booking Cannot Be Rescheduled'
                ];
 
            if($booking->is_instant){
