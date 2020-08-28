@@ -1260,7 +1260,8 @@ $refid=env('MACHINE_ID').time();
                        'refid'=>env('MACHINE_ID').time(),
                        'order_id'=>$order->id,
                        'booking_id'=>$booking_id,
-                       'new_slot_id'=>$request->slot_id
+                       'new_slot_id'=>$request->slot_id,
+                       'total_cost'=>200
                    ]);
 
                    return [
@@ -1306,6 +1307,7 @@ $refid=env('MACHINE_ID').time();
                        'booking_id'=>$booking_id,
                        'old_slot_id'=>$booking->slot_id,
                        'new_slot_id'=>$request->slot_id,
+                       'total_cost'=>200
                    ]);
 
                    return [
@@ -1368,6 +1370,7 @@ $refid=env('MACHINE_ID').time();
                 'booking_id'=>$booking_id,
                 'old_slot_id'=>$booking->slot_id,
                 'new_slot_id'=>$request->slot_id,
+                'total_cost'=>200
             ]);
 
             return [
