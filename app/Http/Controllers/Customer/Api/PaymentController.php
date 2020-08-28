@@ -324,7 +324,7 @@ class PaymentController extends Controller
         $amount=200;
 
         $reschedule_request=RescheduleRequest::where('order_id', $order->id)
-            ->where('booking_id', $booking)
+            ->where('booking_id', $booking->id)
             ->where('is_paid', false)
             ->first();
 
