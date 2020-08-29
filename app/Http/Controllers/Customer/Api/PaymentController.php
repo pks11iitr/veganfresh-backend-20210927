@@ -41,12 +41,26 @@ class PaymentController extends Controller
                 'message'=>'Invalid Operation Performed'
             ];
 
-        if($order->bookingSlots()->where('status', 'pending')->count()==0){
-            if(!$order)
-                return [
-                    'status'=>'failed',
-                    'message'=>'Please Select Booking Schedule To Continue'
-                ];
+
+        if($order->details[0]->entity_type=='App\Models\Therapy'){
+
+            if($order->details[0]->clinic_id){
+                if($order->bookingSlots()->where('status', 'pending')->count()==0){
+                    if(!$order)
+                        return [
+                            'status'=>'failed',
+                            'message'=>'Please Select Booking Schedule To Continue'
+                        ];
+                }
+            }else{
+                if($order->homebookingslots()->where('status', 'pending')->count()==0){
+                    if(!$order)
+                        return [
+                            'status'=>'failed',
+                            'message'=>'Please Select Booking Schedule To Continue'
+                        ];
+                }
+            }
         }
 
         // set to initial state
@@ -160,6 +174,12 @@ class PaymentController extends Controller
                     'order_id'=>$order->id,
                     'current_status'=>$order->status
                 ]);
+
+                if($order->details[0]->clinic_id){
+                    $order->bookingSlots()->where('status', 'pending')->update(['booking_slots.status'=>'confirmed']);
+                }else{
+                    $order->bookingSlots()->where('status', 'pending')->update(['home_booking_slots.status'=>'confirmed']);
+                }
 
                 Wallet::updatewallet($order->user_id, 'Paid For Order ID: '.$order->refid, 'DEBIT',$order->balance_used, 'CASH', $order->id);
 
