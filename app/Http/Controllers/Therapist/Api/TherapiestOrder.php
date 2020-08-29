@@ -33,7 +33,8 @@ class TherapiestOrder extends Controller
                     'created_at'=>$item->therapieswork->created_at,
                     'refid'=>$item->therapieswork->therapiesorder->refid,
                     'therapy_name'=>$item->therapieswork->therapiesorder->details[0]->entity->name,
-		'image'=>$item->therapieswork->therapiesorder->details[0]->entity->image
+		'image'=>$item->therapieswork->therapiesorder->details[0]->entity->image,
+                    'id'=>$item->therapieswork->id
                 );
             }
             return [
