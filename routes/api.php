@@ -144,14 +144,15 @@ $api->group(['prefix' => 'therapist'], function ($api) {
         $api->get('my-profile', 'Therapist\Api\ProfileController@myProfile');
         $api->post('update-availability', 'Therapist\Api\ProfileController@updateavalibility');
         $api->get('my-availability', 'Therapist\Api\ProfileController@myapdateavalibility');
-        $api->get('open-booking', 'Therapist\Api\ProfileController@openbooking');
-        $api->get('open-booking-details/{id}', 'Therapist\Api\ProfileController@openbookingdetails');
-        $api->get('journey-started/{id}', 'Therapist\Api\ProfileController@journey_started');
-        $api->get('disease-point', 'Therapist\Api\ProfileController@diseasepoint');
-        $api->get('treatment-list', 'Therapist\Api\ProfileController@treatmentlist');
-        $api->post('send-disease-point/{id}', 'Therapist\Api\ProfileController@send_diesase_point');
-        $api->post('treatment-suggestation/{id}', 'Therapist\Api\ProfileController@treatmentsuggestation');
-        $api->get('painpoint-relif/{id}', 'Therapist\Api\ProfileController@pain_point_relif');
+        $api->get('open-booking', 'Therapist\Api\TherapiestOrder@openbooking');
+        $api->get('open-booking-details/{id}', 'Therapist\Api\TherapiestOrder@openbookingdetails');
+        $api->get('journey-started/{id}', 'Therapist\Api\TherapiestOrder@journey_started');
+        $api->get('disease-point', 'Therapist\Api\TherapiestOrder@diseasepoint');
+        $api->get('treatment-list', 'Therapist\Api\TherapiestOrder@treatmentlist');
+        $api->post('send-disease-point/{id}', 'Therapist\Api\TherapiestOrder@send_diesase_point');
+        $api->post('treatment-suggestation/{id}', 'Therapist\Api\TherapiestOrder@treatmentsuggestation');
+        $api->get('painpoint-relif/{id}', 'Therapist\Api\TherapiestOrder@pain_point_relif');
+        $api->post('pain-relief-rating/{id}', 'Therapist\Api\TherapiestOrder@pain_relief_update_rating');
 
 
     });
