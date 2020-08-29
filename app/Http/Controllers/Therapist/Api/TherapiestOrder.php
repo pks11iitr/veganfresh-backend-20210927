@@ -22,7 +22,7 @@ class TherapiestOrder extends Controller
 
     public function openbooking(Request $request){
         $user=$request->user;
-
+        $order=[];
         $openbooking=TherapiestWork::with('therapieswork.therapiesorder.details.entity')->where('therapist_id', $user->id)->where('status','Pending')->get();
         if($openbooking) {
             foreach ($openbooking as $item) {
@@ -38,7 +38,7 @@ class TherapiestOrder extends Controller
             }
             return [
                 'status' => 'success',
-                'data' =>$order,
+                'data' =>compact('order'),
             ];
 
         }
