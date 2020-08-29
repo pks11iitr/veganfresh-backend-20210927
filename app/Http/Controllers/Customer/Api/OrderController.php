@@ -436,9 +436,11 @@ $refid=env('MACHINE_ID').time();
                     case 4:$cost=$cost+($clinic->therapies[0]->pivot->grade4_price??0);
                         break;
                 }
+
+                $order->total_cost=$order->total_cost+$cost;
+
             }
 
-            $order->total_cost=$order->total_cost+$cost;
             $order->order_place_state='stage_2';
             $order->save();
 
