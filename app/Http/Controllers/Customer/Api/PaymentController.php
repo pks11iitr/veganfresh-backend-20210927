@@ -259,7 +259,7 @@ class PaymentController extends Controller
                 if ($order->details[0]->clinic_id != null) {
                     $order->schedule()->where('bookings_slots.status', 'pending')->update(['bookings_slots.status' => 'confirmed']);
                 }else if($order->is_instant==0){
-                    $order->homeschedule()->where('home_booking_slots.status', 'pending')->update(['home_booking_slots.status' => 'confirmed']);
+                    $order->homebookingslots()->where('home_booking_slots.status', 'pending')->update(['home_booking_slots.status' => 'confirmed']);
                 }
             }
 
