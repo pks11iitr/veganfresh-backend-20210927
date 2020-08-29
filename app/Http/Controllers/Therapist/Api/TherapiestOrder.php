@@ -100,6 +100,7 @@ class TherapiestOrder extends Controller
                 'timing'=>$timing,
                 'buttonshow'=>$buttonshow,
                 'therapy_name'=>$openbookingdetails->therapieswork->therapiesorder->details[0]->entity->name,
+                'image'=>$openbookingdetails->therapieswork->therapiesorder->details[0]->entity->image
                 /*'data' =>$openbookingdetails,*/
             ];
 
