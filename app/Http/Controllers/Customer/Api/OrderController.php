@@ -587,7 +587,7 @@ $refid=env('MACHINE_ID').time();
                 'message'=>'Invalid Operation'
             ];
 
-        if($order->details[0]->entity_type!='App\Models\Therapy' || $order->is_instant==1)
+        if($order->details[0]->entity_type!='App\Models\Therapy')
             return [
                 'status'=>'failed',
                 'message'=>'Invalid Operation'
