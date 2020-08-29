@@ -627,8 +627,8 @@ $refid=env('MACHINE_ID').time();
             //die('dd');
             $schedules[]=[
                 'show_delete'=>1,
-                'date'=>$schedule->timeslot->date,
-                'time'=>'1 Session at '.$schedule->timeslot->start_time,
+                'date'=>$schedule->timeslot->date??$schedule->date,
+                'time'=>'1 Session at '.($schedule->timeslot->start_time??'Instant Booking'),
                 'grade'=>$grade,
                 'id'=>$schedule->id,
                 'show_cancel'=>in_array($order->status,['confirmed'])?1:0,
