@@ -72,6 +72,13 @@ class TherapyController extends Controller
 
         ];
 
+        $prices=[
+            $therapy->grade1_price,
+            $therapy->grade2_price,
+            $therapy->grade3_price,
+            $therapy->grade4_price
+        ];
+
         return [
             'status'=>'success',
             'data'=>[
@@ -79,7 +86,8 @@ class TherapyController extends Controller
                 'dates'=>$dates,
                 'timings'=>$timings,
                 'therapist_locations'=>$therapistlocations,
-                'display_text'=>$display_text
+                'display_text'=>$display_text,
+                'prices'=>$prices
             ]
         ];
 
@@ -110,28 +118,14 @@ class TherapyController extends Controller
         $nearby=[];
 
         $activegrades=[
-            'no',
-            'no',
-            'no',
-            'no',
+            'grade1'=>'no',
+            'grade2'=>'no',
+            'grade3'=>'no',
+            'grade4'=>'no',
         ];
 
         foreach($therapist as $t){
-            switch($t->therapies[0]->pivot->therapist_grade){
-                case 1:
-                    $activegrades[0]='yes';
-                    break;
-                case 2:
-                    $activegrades[1]='yes';
-                    break;
-                case 3:
-                    $activegrades[2]='yes';
-                    break;
-                case 4:
-                    $activegrades[3]='yes';
-                    break;
-            }
-            //$activegrades['grade'.$t->therapies[0]->pivot->therapist_grade]='yes';
+            $activegrades['grade'.$t->therapies[0]->pivot->therapist_grade]='yes';
             $nearby[]=[
                 'lat'=>$t->last_lat,
                 'lang'=>$t->last_lang,
