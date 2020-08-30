@@ -110,14 +110,28 @@ class TherapyController extends Controller
         $nearby=[];
 
         $activegrades=[
-            'grade1'=>'no',
-            'grade2'=>'no',
-            'grade3'=>'no',
-            'grade4'=>'no',
+            'no',
+            'no',
+            'no',
+            'no',
         ];
 
         foreach($therapist as $t){
-            $activegrades['grade'.$t->therapies[0]->pivot->therapist_grade]='yes';
+            switch($t->therapies[0]->pivot->therapist_grade){
+                case 1:
+                    $activegrades[0]='yes';
+                    break;
+                case 2:
+                    $activegrades[1]='yes';
+                    break;
+                case 3:
+                    $activegrades[2]='yes';
+                    break;
+                case 4:
+                    $activegrades[3]='yes';
+                    break;
+            }
+            //$activegrades['grade'.$t->therapies[0]->pivot->therapist_grade]='yes';
             $nearby[]=[
                 'lat'=>$t->last_lat,
                 'lang'=>$t->last_lang,
