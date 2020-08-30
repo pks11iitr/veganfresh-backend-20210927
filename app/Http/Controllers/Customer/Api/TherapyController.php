@@ -73,10 +73,10 @@ class TherapyController extends Controller
         ];
 
         $prices=[
-            $therapy->grade1_price,
-            $therapy->grade2_price,
-            $therapy->grade3_price,
-            $therapy->grade4_price
+            ['grade1_price'=>$therapy->grade1_price],
+            ['grade2_price'=>$therapy->grade2_price],
+            ['grade3_price'=>$therapy->grade3_price],
+            ['grade4_price'=>$therapy->grade4_price]
         ];
 
         return [
