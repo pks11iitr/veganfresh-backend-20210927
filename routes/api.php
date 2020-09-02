@@ -23,7 +23,13 @@ $api->post('resend-otp', 'Customer\Auth\OtpController@resend');
 
 //home page api
 $api->get('home', 'Customer\Api\HomeController@home');
-
+//<*************************************** hallobasket************************************>
+$api->get('category', ['as'=>'category.list', 'uses'=>'Customer\Api\CategoryController@category']);
+$api->get('sub-category/{id}', ['as'=>'category-subcategory.list', 'uses'=>'Customer\Api\CategoryController@subcategory']);
+$api->get('products', ['as'=>'products.list', 'uses'=>'Customer\Api\ProductController@products']);
+$api->get('search-products', ['as'=>'products.search', 'uses'=>'Customer\Api\ProductController@search_products']);
+$api->post('add-favorite-product', ['as'=>'products.addfavorite', 'uses'=>'Customer\Api\FavoriteProductController@add_favorite_product']);
+$api->get('offer-products', ['as'=>'products.offer', 'uses'=>'Customer\Api\OfferProductController@offerproducts']);
 //clinic screen apis
 $api->get('clinics', ['as'=>'clinics.list', 'uses'=>'Customer\Api\ClinicController@index']);
 $api->get('therapies', ['as'=>'therapies.list', 'uses'=>'Customer\Api\TherapyController@index']);

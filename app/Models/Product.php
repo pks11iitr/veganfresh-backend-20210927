@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Storage;
 class Product extends Model
 {
 	protected $table='products';
-    protected $fillable=['name','description','company','price','cut_price','ratings','top_deal','best_seller','image','isactive'];
+    protected $fillable=['name','description','company','ratings','image','isactive'];
 
     protected $hidden = ['created_at','deleted_at','updated_at'];
 
@@ -19,9 +19,19 @@ class Product extends Model
             return Storage::url($value);
         return null;
     }
-
-    public function category(){
-        return $this->belongsToMany('App\Models\Category', 'product_categories', 'product_id', 'category_id');
+		public function subcategory(){
+        return $this->belongsToMany('App\Models\SubCategory', 'product_category', 'product_id', 'sub_cat_id');
     }
+		public function category(){
+        return $this->belongsToMany('App\Models\Category', 'product_category', 'product_id', 'category_id');
+    }
+		public function sizeprice(){
+        return $this->hasMany('App\Models\Size', 'product_id');
+    }
+
+		//
+    // public function category(){
+    //     return $this->belongsToMany('App\Models\Category', 'product_categories', 'product_id', 'category_id');
+    // }
 
 }
