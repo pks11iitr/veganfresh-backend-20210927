@@ -30,3 +30,16 @@ $api->get('products', ['as'=>'products.list', 'uses'=>'Customer\Api\ProductContr
 $api->get('search-products', ['as'=>'products.search', 'uses'=>'Customer\Api\ProductController@search_products']);
 $api->post('add-favorite-product', ['as'=>'products.addfavorite', 'uses'=>'Customer\Api\FavoriteProductController@add_favorite_product']);
 $api->get('offer-products', ['as'=>'products.offer', 'uses'=>'Customer\Api\OfferProductController@offerproducts']);
+//cart
+$api->post('add-cart', ['as'=>'add.cart', 'uses'=>'Customer\Api\CartController@store']);
+$api->get('cart-details', ['as'=>'cart.detail', 'uses'=>'Customer\Api\CartController@getCartDetails']);
+$api->get('customer-address', ['as'=>'delivery.address', 'uses'=>'Customer\Api\CustomerAddressController@getcustomeraddress']);
+$api->get('add-customer-address', ['as'=>'add.delivery.address', 'uses'=>'Customer\Api\CustomerAddressController@addcustomeraddress']);
+
+
+//wallet apis
+$api->get('wallet-balance', ['as'=>'wallet.balance', 'uses'=>'Customer\Api\WalletController@getWalletBalance']);
+$api->get('wallet-history', ['as'=>'wallet.history', 'uses'=>'Customer\Api\WalletController@history']);
+
+$api->post('recharge', ['as'=>'wallet.add.money', 'uses'=>'Customer\Api\WalletController@addMoney']);
+$api->post('verify-recharge', ['as'=>'wallet.add.money', 'uses'=>'Customer\Api\WalletController@verifyRecharge']);
