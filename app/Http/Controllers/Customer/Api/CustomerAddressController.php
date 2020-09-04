@@ -36,7 +36,6 @@ class CustomerAddressController extends Controller
     public function addcustomeraddress(Request $request){
 
         $request->validate([
-            'user_id'=>'required',
             'first_name'=>'required',
             'last_name'=>'required',
             'mobile_no'=>'required',
@@ -50,7 +49,7 @@ class CustomerAddressController extends Controller
         ]);
         $user=auth()->guard('customerapi')->user();
 
-        if($user)
+        if(!$user)
             return [
                 'status'=>'failed',
                 'message'=>'Please login to continue'

@@ -31,7 +31,9 @@ class Product extends Model
 		public function sizeprice(){
         return $this->hasMany('App\Models\Size', 'product_id');
     }
-
+    public function images(){
+        return $this->hasMany('App\Models\ProductImage', 'product_id');
+    }
 		//
     // public function category(){
     //     return $this->belongsToMany('App\Models\Category', 'product_categories', 'product_id', 'category_id');
