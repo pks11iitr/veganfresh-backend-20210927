@@ -4,7 +4,10 @@ namespace App\Http\Controllers\SuperAdmin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Product;
-use App\Models\Document;
+use App\Models\Category;
+use App\Models\SubCategory;
+use App\Models\CategoryProduct;
+use App\Models\Size;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Storage;
@@ -12,14 +15,14 @@ use Storage;
 class ProductController extends Controller
 {
      public function index(Request $request){
-		 
+
 		 $products=Product::where(function($products) use($request){
                 $products->where('name','LIKE','%'.$request->search.'%');
             });
-            
+
             if($request->ordertype)
                 $products=$products->orderBy('name', $request->ordertype);
-                
+
             $products=$products->paginate(10);
             return view('admin.product.view',['products'=>$products]);
               }
@@ -34,77 +37,80 @@ class ProductController extends Controller
                   			'name'=>'required',
                   			'description'=>'required',
                   			'company'=>'required',
-                  			'price'=>'required',
-                  			'cut_price'=>'required',
-                  			'ratings'=>'required',
-                  			'top_deal'=>'required',
-                  			'best_seller'=>'required',
+                  			'is_offer'=>'required',
+                  			'min_qty'=>'required',
+                  			'max_qty'=>'required',
+                  			'stock'=>'required',
                   			'image'=>'required|image'
                                ]);
           if($products=Product::create([
                       'name'=>$request->name,
                       'description'=>$request->description,
                       'company'=>$request->company,
-                      'price'=>$request->price,
-                      'cut_price'=>$request->cut_price,
+                      'is_offer'=>$request->is_offer,
+                      'min_qty'=>$request->min_qty,
+                      'max_qty'=>$request->max_qty,
                       'ratings'=>$request->ratings,
-                      'top_deal'=>$request->top_deal,
-                      'best_seller'=>$request->best_seller,
+                      'stock'=>$request->stock,
                       'isactive'=>$request->isactive,
                       'image'=>'a']))
             {
-				$products->saveImage($request->image, 'products');
-             return redirect()->route('product.edit', ['id'=>$products->id])->with('success', 'Product has been created');
+                if($request->image){
+                    $products->saveImage($request->image, 'products');
+                }
+
+             return redirect()->route('product.list', ['id'=>$products->id])->with('success', 'Product has been created');
             }
              return redirect()->back()->with('error', 'Product create failed');
           }
 
     public function edit(Request $request,$id){
              $products = Product::findOrFail($id);
-             $documents = $products->gallery;
-             return view('admin.product.edit',['products'=>$products,'documents'=>$documents]);
+             $sizeprice=Size::get();
+             $categories=Category::active()->get();
+
+            // $documents = $products->gallery;
+             return view('admin.product.edit',['products'=>$products,'sizeprice'=>$sizeprice,'categories'=>$categories]);
              }
+    public function Ajaxsubcat($id)
+    {
+        //var_dump($id);die;
+        $subcat = SubCategory::active()
+            ->where("category_id",$id)
+            ->pluck("name","id");
+
+        return json_encode($subcat);
+    }
 
     public function update(Request $request,$id){
              $request->validate([
-                             'isactive'=>'required',
-                  			'name'=>'required',
-                  			'description'=>'required',
-                  			'company'=>'required',
-                  			'price'=>'required',
-                  			'cut_price'=>'required',
-                  			'ratings'=>'required',
-                  			'top_deal'=>'required',
-                  			'best_seller'=>'required',
-                  			'image'=>'image'
+                 'isactive'=>'required',
+                 'name'=>'required',
+                 'description'=>'required',
+                 'company'=>'required',
+                 'is_offer'=>'required',
+                 'min_qty'=>'required',
+                 'max_qty'=>'required',
+                 'stock'=>'required',
+                 'image'=>'image'
                                ]);
 
              $product = Product::findOrFail($id);
-          if($request->image){
+
 			 $product->update([
-                      'name'=>$request->name,
-                      'description'=>$request->description,
-                      'company'=>$request->company,
-                      'price'=>$request->price,
-                      'cut_price'=>$request->cut_price,
-                      'ratings'=>$request->ratings,
-                      'top_deal'=>$request->top_deal,
-                      'best_seller'=>$request->best_seller,
-                      'isactive'=>$request->isactive,
-                      'image'=>'a']);
-             $product->saveImage($request->image, 'products');
-        }else{
-             $product->update([
-                      'name'=>$request->name,
-                      'description'=>$request->description,
-                      'company'=>$request->company,
-                      'price'=>$request->price,
-                      'cut_price'=>$request->cut_price,
-                      'ratings'=>$request->ratings,
-                      'top_deal'=>$request->top_deal,
-                      'best_seller'=>$request->best_seller,
-                      'isactive'=>$request->isactive
-                      ]);
+                 'name'=>$request->name,
+                 'description'=>$request->description,
+                 'company'=>$request->company,
+                 'is_offer'=>$request->is_offer,
+                 'min_qty'=>$request->min_qty,
+                 'max_qty'=>$request->max_qty,
+                 'ratings'=>$request->ratings,
+                 'stock'=>$request->stock,
+                 'isactive'=>$request->isactive,
+             ]);
+
+			 if($request->image){
+                 $product->saveImage($request->image, 'products');
              }
           if($product)
              {
@@ -129,8 +135,46 @@ class ProductController extends Controller
           }
 
      public function delete(Request $request, $id){
-           Document::where('id', $id)->delete();
+           Size::where('id', $id)->delete();
            return redirect()->back()->with('success', 'Document has been deleted');
         }
 
-  }
+    public function sizeprice(Request $request,$id){
+        $request->validate([
+            'isactive'=>'required',
+            'size'=>'required',
+            'price'=>'required',
+            'cut_price'=>'required',
+        ]);
+        if($products=Size::create([
+            'size'=>$request->size,
+            'price'=>$request->price,
+            'product_id'=>$id,
+            'cut_price'=>$request->cut_price,
+            'isactive'=>$request->isactive
+        ]))
+        {
+
+            return redirect()->back()->with('success', 'Product sizeprice has been created');
+        }
+        return redirect()->back()->with('error', 'Product sizeprice create failed');
+    }
+
+    public function productcategory(Request $request,$id){
+        $request->validate([
+            'category_id'=>'required',
+            'sub_cat_id'=>'required',
+        ]);
+        if($products_with_category=CategoryProduct::create([
+            'category_id'=>$request->category_id,
+            'sub_cat_id'=>$request->sub_cat_id,
+            'product_id'=>$id,
+        ]))
+        {
+
+            return redirect()->back()->with('success', 'Product category  has been created');
+        }
+        return redirect()->back()->with('error', 'Product category create failed');
+    }
+
+}

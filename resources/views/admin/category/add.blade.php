@@ -7,12 +7,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Product Add</h1>
+            <h1>Category Add</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Product Add</li>
+              <li class="breadcrumb-item active">Category Add</li>
             </ol>
           </div>
         </div>
@@ -28,11 +28,11 @@
             <!-- general form elements -->
             <div class="card card-primary">
               <div class="card-header">
-                <h3 class="card-title">Product Add</h3>
+                <h3 class="card-title">Category Add</h3>
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <form role="form" method="post" enctype="multipart/form-data" action="{{route('product.store')}}">
+              <form role="form" method="post" enctype="multipart/form-data" action="{{route('category.store')}}">
                  @csrf
                 <div class="card-body">
                     <div class="row">
@@ -42,51 +42,6 @@
                     <input type="text" name="name" class="form-control" id="exampleInputEmail1" placeholder="Enter Name">
                   </div>
                   </div>
-                        <div class="col-md-6">
-                  <div class="form-group">
-                    <label for="exampleInputEmail1">Description</label>
-                    <input type="text" name="description" class="form-control" id="exampleInputEmail1" placeholder="Enter Description">
-                  </div>
-                  </div>
-                        <div class="col-md-6">
-                  <div class="form-group">
-                    <label for="exampleInputEmail1">Company</label>
-                    <input type="text" name="company" class="form-control" id="exampleInputEmail2" placeholder="Enter Name">
-                  </div>
-                  </div>
-                        <div class="col-md-6">
-                  <div class="form-group">
-                    <label for="exampleInputEmail1">Rating</label>
-                    <input type="text" name="ratings" class="form-control" min="0" id="exampleInputEmail3" placeholder="Enter rating">
-                  </div>
-                  </div>
-                        <div class="col-md-6">
-                  <div class="form-group">
-                        <label>Is Offer</label>
-                        <select class="form-control" name="is_offer" required>
-                           <option value="1">Yes</option>
-                           <option value="0">No</option>
-                        </select>
-                    </div>
-                    </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="exampleInputEmail1">Min QTY</label>
-                                <input type="number" name="min_qty" class="form-control" min="0" id="exampleInputEmail3" placeholder="Enter Qty">
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="exampleInputEmail1">Max QTY</label>
-                                <input type="number" name="max_qty" class="form-control" min="0" id="exampleInputEmail3" placeholder="Enter qty">
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="exampleInputEmail1">Stock</label>
-                                <input type="number" name="stock" class="form-control" min="0" id="exampleInputEmail3" placeholder="Enter Stock">
-                            </div>
-                        </div>
                         <div class="col-md-6">
                    <div class="form-group">
                         <label>Is Active</label>
@@ -98,7 +53,7 @@
                     </div>
                         <div class="col-md-6">
                   <div class="form-group">
-                    <label for="exampleInputFile">Product Image</label>
+                    <label for="exampleInputFile">File input</label>
                     <div class="input-group">
                       <div class="custom-file">
                         <input type="file" name="image" class="custom-file-input" id="exampleInputFile" accept="image/*" required>
@@ -109,9 +64,8 @@
                       </div>
                     </div>
                   </div>
+                  </div>
                 </div>
-                </div>
-
                 </div>
                 <!-- /.card-body -->
                 <div class="card-footer">

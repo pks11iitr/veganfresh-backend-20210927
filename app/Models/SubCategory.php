@@ -12,5 +12,7 @@ class SubCategory extends Model
 
     protected $hidden = ['created_at','deleted_at','updated_at'];
 
-
+    public function category(){
+        return $this->belongsTo('App\Models\Category', 'category_id');
+    }
 }
