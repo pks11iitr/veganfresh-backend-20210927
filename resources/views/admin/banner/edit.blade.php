@@ -35,52 +35,68 @@
               <form role="form" method="post" enctype="multipart/form-data" action="{{route('banners.update',['id'=>$banner->id])}}">
                  @csrf
                 <div class="card-body">
-                <!--  <div class="form-group">
-                    <label for="exampleInputEmail1">Email address</label>
-                    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
-                  </div>
-                  <div class="form-group">
-                    <label for="exampleInputPassword1">Password</label>
-                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-                  </div>-->
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Entity Type</label>
+                                <select class="form-control select2" name="entity_type">
+                             @if($banner->entity_type=='App\Models\Category')
+                                    @foreach($categorys as $category)
+                                        <option value="cat_{{$category->id}}"
+                                                @if($banner->entity_id==$category->id){{'selected'}}@endif>{{$category->name}}</option>
+                                    @endforeach
 
-                   <div class="form-group">
-                        <label>Type</label>
-                        <select class="form-control" name="type" required>
-                           <option  selected="selected" value="all" {{$banner->type=='all'?'selected':''}}>All</option>
-                           <option value="product" {{$banner->type=='product'?'selected':''}}>Product</option>
-                            <option value="therapy" {{$banner->type=='therapy'?'selected':''}}>Therapy</option>
-                        </select>
-                      </div>
-                    <div class="form-group">
-                        <label>Is Active</label>
-                        <select class="form-control" name="isactive" required>
-                           <option  selected="selected" value="1" {{$banner->isactive==1?'selected':''}}>Yes</option>
-                            <option value="0" {{$banner->isactive==0?'selected':''}}>No</option>
-                        </select>
-                      </div>
-                  <div class="form-group">
-                    <label for="exampleInputFile">File input</label>
-                    <div class="input-group">
-                      <div class="custom-file">
-                        <input type="file" name="image" class="custom-file-input" id="exampleInputFile" accept="image/*">
-                        <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+                                    @elseif($banner->entity_type=='App\Models\SubCategory')
+                                    @foreach($subcategorys as $subcategory)
+                                        <option value="subcat_{{$subcategory->id}}"
+                                        @if($banner->entity_id==$subcategory->id){{'selected'}}@endif>{{$subcategory->name}}</option>
+                                    @endforeach
 
-                      </div>
-                      <div class="input-group-append">
-                        <span class="input-group-text" id="">Upload</span>
-
-                      </div>
-
+                                    @elseif($banner->entity_type=='App\Models\OfferCategory')
+                                    @foreach($offercategorys as $offercategory)
+                                        <option value="offer_{{$offercategory->id}}"
+                                        @if($banner->entity_id==$offercategory->id){{'selected'}}@endif>{{$offercategory->name}}</option>
+                                    @endforeach
+                                 @endif
+                                </select>
+                            </div>
+                            <!-- /.form-group -->
+                            <div class="form-group">
+                                <label>Image</label>
+                                <div class="input-group">
+                                    <div class="custom-file">
+                                        <input type="file" name="image" class="custom-file-input" id="exampleInputFile">
+                                        <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+                                    </div>
+                                    <div class="input-group-append">
+                                        <span class="input-group-text" id="">Upload</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <img src="{{$banner->image}}" height="100" width="200">
+                            <!-- /.form-group -->
+                        </div>
+                        <!-- /.col -->
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Isactive</label>
+                                <select class="form-control select2" name="isactive">
+                                    <option value="">Please Select Status</option>
+                                    <option value="1" {{$banner->isactive==1?'selected':''}}>Yes</option>
+                                    <option value="0" {{$banner->isactive==0?'selected':''}}>No</option>
+                                </select>
+                            </div>
+                            <!-- /.form-group -->
+                        </div>
+                        <!-- /.col -->
                     </div>
-                  </div>
-                  <image src="{{$banner->image}}" height="100" width="200">
-                </div>
                 <!-- /.card-body -->
                 <div class="card-footer">
                   <button type="submit" class="btn btn-primary">Submit</button>
                 </div>
+                </div>
               </form>
+
             </div>
             <!-- /.card -->
           </div>
