@@ -67,6 +67,7 @@
 {{--                    <label for="exampleInputEmail1">Lang</label>--}}
 {{--                    <input type="text"name="lang" class="form-control" id="exampleInputEmail1" placeholder="Enter Lang">--}}
 {{--                  </div>--}}
+
                    <div class="form-group">
                         <label>Is Active</label>
                         <select class="form-control" name="isactive" required>
