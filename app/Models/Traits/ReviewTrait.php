@@ -6,14 +6,20 @@ use DB;
 trait ReviewTrait {
 
     public function reviews(){
-        return $this->morphMany('App\Models\Review', 'entity');
+        return $this->hasMany('App\Models\Review', 'product_id');
     }
 
-    public function avgreviews(){
+    public function reviews_count(){
         return $this->reviews()
-            ->selectRaw('entity_id, Format(avg(rating), 1) as rating, count(*) as reviews')
-            ->where('isactive', true)
-            ->groupBy('entity_id');
+            ->selectRaw('rating, count(*) as count')
+            ->where('reviews.isactive', true)
+            ->groupBy('rating');
+    }
+
+    public function avg_reviews(){
+        return $this->reviews()
+            ->selectRaw('Format(avg(rating), 1) as rating')
+            ->where('reviews.isactive', true);
     }
 
     public function commentscount(){
@@ -25,6 +31,10 @@ trait ReviewTrait {
 
     public function comments(){
         return $this->reviews()->where('reviews.description', '!=', null);
+    }
+
+    public function customer(){
+        return $this->belongsTo('App\Models\Customer', 'user_id');
     }
 
 

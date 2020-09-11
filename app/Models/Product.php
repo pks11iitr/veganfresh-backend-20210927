@@ -3,10 +3,13 @@
 namespace App\Models;
 
 use App\Models\BaseModel as Model;
+use App\Models\Traits\ReviewTrait;
 use Illuminate\Support\Facades\Storage;
 
 class Product extends Model
 {
+    use ReviewTrait;
+
 	protected $table='products';
     protected $fillable=['name','description','company','ratings','image','isactive'];
 
@@ -34,9 +37,9 @@ class Product extends Model
     public function images(){
         return $this->hasMany('App\Models\ProductImage', 'product_id');
     }
-		//
-    // public function category(){
-    //     return $this->belongsToMany('App\Models\Category', 'product_categories', 'product_id', 'category_id');
-    // }
+//		//
+//     public function timeslot(){
+//         return $this->belongsTo('App\Models\Review', 'category_id');
+//     }
 
 }

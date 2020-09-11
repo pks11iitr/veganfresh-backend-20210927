@@ -16,4 +16,5 @@ class Size extends Model
     public function getDiscountAttribute($value){
         return intval((($this->cut_price-$this->price)/$this->cut_price)*100);
     }
+
 }

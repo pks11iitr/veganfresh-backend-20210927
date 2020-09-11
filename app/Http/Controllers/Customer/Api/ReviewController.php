@@ -2,26 +2,21 @@
 
 namespace App\Http\Controllers\Customer\Api;
 
-use App\Models\Clinic;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class ReviewController extends Controller
 {
-    public function index(Request $request, $type, $id){
+    public function index(Request $request,$id){
 
-        switch($type){
-            case 'product':$entity=Product::active()->with(['comments.customer'])->find($id);
-            break;
-            case 'clinic':$entity=Clinic::active()->with('comments')->find($id);
-            break;
-            case 'therapy':$entity=Product::active()->with('comments')->find($id);
-            break;
-            default: $entity=null;
-        }
+        $product=Product::active()
+            ->findOrFail($id);
+        $reviews=$product->reviews()->with(['customer'=>function($customer){
+            $customer->select('id','name','image');
+        }])->paginate(20);
 
-        if(!$entity || !$entity->comments)
+        if(!$reviews)
             return [
                 'status'=>'failed',
                 'message'=>'No reviews found'
@@ -29,9 +24,7 @@ class ReviewController extends Controller
 
         return [
             'status'=>'success',
-            'data'=>[
-                'reviews'=>$entity->comments
-            ]
+                'reviews'=>$reviews
         ];
 
     }

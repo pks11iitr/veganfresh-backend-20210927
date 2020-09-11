@@ -46,3 +46,4 @@ $api->post('recharge', ['as'=>'wallet.add.money', 'uses'=>'Customer\Api\WalletCo
 $api->post('verify-recharge', ['as'=>'wallet.add.money', 'uses'=>'Customer\Api\WalletController@verifyRecharge']);
 ///order
 $api->post('initiate-order', ['as'=>'initiate.order', 'uses'=>'Customer\Api\OrderController@initiateOrder']);
+$api->get('product-reviews/{id}', ['as'=>'product.reviews', 'uses'=>'Customer\Api\ReviewController@index']);
