@@ -47,3 +47,10 @@ $api->post('verify-recharge', ['as'=>'wallet.add.money', 'uses'=>'Customer\Api\W
 ///order
 $api->post('initiate-order', ['as'=>'initiate.order', 'uses'=>'Customer\Api\OrderController@initiateOrder']);
 $api->get('product-reviews/{id}', ['as'=>'product.reviews', 'uses'=>'Customer\Api\ReviewController@index']);
+
+$api->group(['middleware' => ['customer-auth']], function ($api) {
+
+
+
+
+});

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Customer\Api;
 
 use App\Http\Controllers\SuperAdmin\BannerController;
+use App\Models\Cart;
 use App\Models\OfferCategory;
 use App\Models\OfferProduct;
 use App\Models\Banner;
@@ -13,7 +14,13 @@ use App\Http\Controllers\Controller;
 class OfferProductController extends Controller
 {
     public function offerproducts(Request $request){
+        $user=auth()->guard('customerapi')->user();
 
+        if(!$user)
+            return [
+                'status'=>'failed',
+                'message'=>'Please login to continue'
+            ];
         $banner=Banner::active()->select('id','image')->get();
         $offercategory=OfferCategory::active()->select('id','name','image')->get();
           if(!empty($request->offer_cat_id)){
@@ -23,8 +30,13 @@ class OfferProductController extends Controller
         }else{
               $offerproduct=Product::active()->has('offercategory');
         }
-        //$product=$product->where()
+        $cart=Cart::getUserCart($user);
         $offerproducts=$offerproduct->with('sizeprice')->paginate(20);
+
+        foreach($offerproducts as $product){
+            foreach($product->sizeprice as $size)
+                $size->quantity=$cart[$size->id]??0;
+        }
 
         return [
             'status'=>'success',

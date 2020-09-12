@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Customer\Api;
 
+use App\Models\Cart;
 use App\Models\Product;
 use App\Models\TimeSlot;
 use App\Models\Review;
@@ -11,7 +12,13 @@ use App\Http\Controllers\Controller;
 class ProductController extends Controller
 {
     public function products(Request $request){
+        $user=auth()->guard('customerapi')->user();
 
+        if(!$user)
+            return [
+                'status'=>'failed',
+                'message'=>'Please login to continue'
+            ];
         if(!empty($request->sub_cat_id)){
 
           $product=Product::active()->whereHas('subcategory', function($category) use($request){
@@ -22,15 +29,20 @@ class ProductController extends Controller
               $category->where('categories.id', $request->category_id);
             });
         }
-        //$product=$product->where()
-        $products=$product->with('sizeprice')->paginate(20);
+
+        $cart=Cart::getUserCart($user);
+
+        $products=$product->with(['sizeprice'])->paginate(20);
+        foreach($products as $product){
+            foreach($product->sizeprice as $size)
+                $size->quantity=$cart[$size->id]??0;
+        }
 
         return [
             'status'=>'success',
             'data'=>$products
         ];
     }
-
 
     public function search_products(Request $request){
 
@@ -51,9 +63,15 @@ class ProductController extends Controller
         ];
     }
     public function product_detail(Request $request,$id){
+        $user=auth()->guard('customerapi')->user();
 
+        if(!$user)
+            return [
+                'status'=>'failed',
+                'message'=>'Please login to continue'
+            ];
         $product=Product::active()
-            ->with(['sizeprice','images'])
+            ->with(['sizeprice.images'])
             ->findOrFail($id);
             $timeslot=TimeSlot::active()->select('id','from_time','to_time')->get();
             $reviews=$product->reviews()->with(['customer'=>function($customer){
@@ -71,70 +89,25 @@ class ProductController extends Controller
                     case 5:$ratings['five']=$r->count;break;
                 }
             }
-
+        $cart=Cart::getUserCart($user);
+        foreach($product->sizeprice as $size)
+            $size->quantity=$cart[$size->id]??0;
             $productdetails=array(
                      'id'=>$product->id,
                      'name'=>$product->name,
                      'description'=>$product->description,
                      'company'=>$product->company,
-                     'image'=>$product->image,
                      'ratings'=>$product->ratings,
-                     'is_offer'=>$product->is_offer,
-                     'min_qty'=>$product->min_qty,
-                     'max_qty'=>$product->max_qty,
-                     'price'=>$product->sizeprice[0]->price??0,
-                     'size'=>$product->sizeprice[0]->size??0,
-                     'cut_price'=>$product->sizeprice[0]->cut_price??0,
-                'discount'=>($product->sizeprice[0]->cut_price??0)?round((($product->sizeprice[0]->cut_price??0)-($product->sizeprice[0]->price??0))/($product->sizeprice[0]->cut_price??0)*100):0,
                      'sizeprice'=>$product->sizeprice,
-                     'images'=>$product->images,
                      'reviews_count'=>$ratings,
                      'avg_reviews'=>$avg_reviews,
                      'reviews'=>$reviews,
-                     'timeslot'=>$timeslot,
-
-
+                     'timeslot'=>$timeslot
         );
-//        $totalonerating=0;
-//        $totaltworating=0;
-//        $totalthreerating=0;
-//        $totalfourrating=0;
-//        $totalfiverating=0;
-//
-//            foreach($review as $key=>$rv) {
-//                $reviews[] = array(
-//                    'comment' => $rv->comment??'',
-//                    'review' => $rv->rating,
-//                    'image1' => $rv->image1??'',
-//                    'image' => $rv->image??'',
-//                    'description' => $rv->description,
-//                    'name' => $rv->customer->name,
-//                );
-//
-//                if($rv->rating==5){
-//                    $totalfiverating=$totalfiverating+1;
-//                }elseif($rv->rating==4){
-//                    $totalfourrating=$totalfourrating+1;
-//                }elseif($rv->rating==3){
-//                    $totalthreerating=$totalthreerating+1;
-//                }elseif ($rv->rating==2){
-//                    $totaltworating=$totaltworating+1;
-//                }elseif ($rv->rating==1){
-//                    $totalonerating=$totalonerating+1;
-//                }
-//            }
 
         return [
             'status'=>'success',
             'data'=>$productdetails,
-//            'fiverating'=>$totalfiverating,
-//            'fourrating'=>$totalfourrating,
-//            'threerating'=>$totalthreerating,
-//            'tworating'=>$totaltworating,
-//            'onerating'=>$totalonerating,
-//            'timeslot'=>$timeslot,
-//            'reviews'=>$reviews,
-
         ];
     }
 
