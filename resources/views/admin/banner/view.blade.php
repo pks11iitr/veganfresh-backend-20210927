@@ -46,19 +46,18 @@
                   <tr>
                       <td><img src="{{$bann->image}}" height="80px" width="80px"/></td>
 
-                      @if($bann->entity_type=='App\Models\Category')
+
                           <td>
+                              @if($bann->entity_type=='App\Models\Category')
                               {{$bann->category->name??''}}
-                          </td>
-                      @elseif($bann->entity_type=='App\Models\SubCategory')
-                          <td>
+                       @elseif($bann->entity_type=='App\Models\SubCategory')
                               {{$bann->subcategory->name??''}}
-                          </td>
+
                       @elseif($bann->entity_type=='App\Models\OfferCategory')
-                          <td>
                               {{$bann->offercategory->name??''}}
+                              @endif
                           </td>
-                      @endif
+
                       {{--<td>{{$bann->parent_category}}</td>--}}
                        <td>
                         @if($bann->isactive==1){{'Yes'}}
