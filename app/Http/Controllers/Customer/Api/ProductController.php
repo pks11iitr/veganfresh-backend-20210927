@@ -33,14 +33,16 @@ class ProductController extends Controller
         $cart=Cart::getUserCart($user);
 
         $products=$product->with(['sizeprice'])->paginate(20);
+
         foreach($products as $product){
             foreach($product->sizeprice as $size)
                 $size->quantity=$cart[$size->id]??0;
+
         }
 
         return [
             'status'=>'success',
-            'data'=>$products
+            'data'=>$products,
         ];
     }
 
@@ -59,7 +61,8 @@ class ProductController extends Controller
                 }
         return [
             'status'=>'success',
-            'data'=>$products
+            'data'=>$products,
+
         ];
     }
     public function product_detail(Request $request,$id){
@@ -79,7 +82,9 @@ class ProductController extends Controller
             }])->limit(4)->get();
             $avg_reviews=$product->avg_reviews()->get()[0]['rating']??0.0;
             $ratings1=$product->reviews_count()->get();
+           // $totalcount=$product->reviews_count()->count();
             $ratings=['one'=>0, 'two'=>0, 'three'=>0, 'four'=>0, 'five'=>0];
+        $totalcount=0;
             foreach($ratings1 as $r){
                 switch($r->rating){
                     case 1:$ratings['one']=$r->count;break;
@@ -88,6 +93,7 @@ class ProductController extends Controller
                     case 4:$ratings['four']=$r->count;break;
                     case 5:$ratings['five']=$r->count;break;
                 }
+                $totalcount=$ratings['one']+$ratings['two']+$ratings['three']+$ratings['four']+$ratings['five'];
             }
         $cart=Cart::getUserCart($user);
         foreach($product->sizeprice as $size)
@@ -101,6 +107,7 @@ class ProductController extends Controller
                      'sizeprice'=>$product->sizeprice,
                      'reviews_count'=>$ratings,
                      'avg_reviews'=>$avg_reviews,
+                     'totalcount'=>$totalcount,
                      'reviews'=>$reviews,
                      'timeslot'=>$timeslot
         );
@@ -108,6 +115,7 @@ class ProductController extends Controller
         return [
             'status'=>'success',
             'data'=>$productdetails,
+
         ];
     }
 

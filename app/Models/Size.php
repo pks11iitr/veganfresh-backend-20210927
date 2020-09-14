@@ -2,11 +2,14 @@
 
 namespace App\Models;
 
+use App\Models\Traits\Active;
+use App\Models\Traits\ReviewTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 
 class Size extends Model
 {
+    use ReviewTrait;use Active;
     protected $table='product_prices';
 
     protected $fillable=['size', 'price','cut_price','product_id', 'isactive','id'];
