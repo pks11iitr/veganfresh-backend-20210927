@@ -3,16 +3,17 @@
 namespace App\Models;
 
 use App\Models\BaseModel as Model;
+use App\Models\Traits\ReviewTrait;
 use Illuminate\Support\Facades\Storage;
 
 class Product extends Model
 {
+    use ReviewTrait;
+
 	protected $table='products';
     protected $fillable=['name','description','company','ratings','image','isactive'];
 
-    protected $hidden = ['created_at','deleted_at','updated_at'];
-
-
+    protected $hidden = ['created_at','deleted_at','updated_at','description','isactive','image','is_offer','min_qty','max_qty','stock'];
 
     public function getImageAttribute($value){
         if($value)
@@ -31,12 +32,13 @@ class Product extends Model
 		public function sizeprice(){
         return $this->hasMany('App\Models\Size', 'product_id');
     }
-    public function images(){
-        return $this->hasMany('App\Models\ProductImage', 'product_id');
-    }
-		//
-    // public function category(){
-    //     return $this->belongsToMany('App\Models\Category', 'product_categories', 'product_id', 'category_id');
-    // }
+
+//    public function images(){
+//        return $this->hasMany('App\Models\ProductImage', 'product_id');
+//    }
+//		//
+//     public function timeslot(){
+//         return $this->belongsTo('App\Models\Review', 'category_id');
+//     }
 
 }

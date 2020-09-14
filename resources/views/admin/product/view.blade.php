@@ -29,12 +29,12 @@
 			 <div class="row">
 			  <div class="col-3">
                 <a href="{{route('product.create')}}" class="btn btn-primary">Add Product</a></div>
-                
+
             <div class="col-9">
 		 <form class="form-validate form-horizontal"  method="get" action="" enctype="multipart/form-data">
-                
+
                      <div class="row">
-					      <div class="col-4"> 
+					      <div class="col-4">
                            <input  id="fullname" onfocus="this.value=''" class="form-control" name="search" placeholder=" search name" value="{{request('search')}}"  type="text" />
                            </div>
 					  <div class="col-4">
@@ -43,12 +43,12 @@
                               <option value="ASC" {{ request('ordertype')=='ASC'?'selected':''}}>ASC</option>
                           </select>
                       </div>
-                    <div class="col-4"> 
+                    <div class="col-4">
                        <button type="submit" name="save" class="btn btn-primary">Submit</button>
-                     </div>                            
-                  </div>                            
+                     </div>
+                  </div>
               </form>
-         </div> 
+         </div>
 
      </div>
   </div>
@@ -58,13 +58,12 @@
                   <thead>
                   <tr>
                     <th>Name</th>
-{{--                    <th>Description</th>--}}
                     <th>Company</th>
-                    <th>Price</th>
-                    <th>Cut Price</th>
                     <th>Ratings</th>
-                    <th>Top Deal</th>
-                    <th>Best Seller</th>
+                    <th>Is Offer</th>
+                    <th>Min Qty</th>
+                    <th>Max Qty</th>
+                    <th>Stock</th>
                     <th>Image</th>
                     <th>Isactive</th>
                    <th>Action</th>
@@ -74,44 +73,37 @@
 				@foreach($products as $product)
                   <tr>
 					  <td>{{$product->name}}</td>
-{{--					  <td>{{$product->description}}</td>--}}
 					  <td>{{$product->company}}</td>
-					  <td>{{$product->price}}</td>
-					  <td>{{$product->cut_price}}</td>
 					  <td>{{$product->ratings}}</td>
-					   <td>
-                        @if($product->top_deal==1){{'Yes'}}
-                             @else{{'No'}}
-                             @endif
-                        </td>
-                         <td>
-                        @if($product->best_seller==1){{'Yes'}}
-                             @else{{'No'}}
-                             @endif
-                        </td>
+					  <td> @if($product->is_offer==1){{'Yes'}}
+                          @else{{'No'}}
+                          @endif
+                      </td>
+					  <td>{{$product->min_qty}}</td>
+					  <td>{{$product->max_qty}}</td>
+					  <td>{{$product->stock}}</td>
                       <td><img src="{{$product->image}}" height="80px" width="80px"/></td>
                        <td>
                         @if($product->isactive==1){{'Yes'}}
                              @else{{'No'}}
                              @endif
                         </td>
-                      <td><a href="{{route('product.edit',['id'=>$product->id])}}" class="btn btn-success">Edit</a></br></br>
+                      <td><a href="{{route('product.edit',['id'=>$product->id])}}" class="btn btn-success">Edit</a></td>
                  </tr>
                  @endforeach
                   </tbody>
                   <tfoot>
                   <tr>
-                    <th>Name</th>
-{{--                    <th>Description</th>--}}
-                    <th>Company</th>
-                    <th>Price</th>
-                    <th>Cut Price</th>
-                    <th>Ratings</th>
-                    <th>Top Deal</th>
-                    <th>Best Seller</th>
-                    <th>Image</th>
-                    <th>Isactive</th>
-                   <th>Action</th>
+                      <th>Name</th>
+                      <th>Company</th>
+                      <th>Ratings</th>
+                      <th>Is Offer</th>
+                      <th>Min Qty</th>
+                      <th>Max Qty</th>
+                      <th>Stock</th>
+                      <th>Image</th>
+                      <th>Isactive</th>
+                      <th>Action</th>
                   </tr>
                   </tfoot>
                 </table>

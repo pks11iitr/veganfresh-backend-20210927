@@ -50,13 +50,13 @@
                           <td>
                               @if($bann->entity_type=='App\Models\Category')
                               {{$bann->category->name??''}}
-                       @elseif($bann->entity_type=='App\Models\SubCategory')
-                              {{$bann->subcategory->name??''}}
-
-                      @elseif($bann->entity_type=='App\Models\OfferCategory')
-                              {{$bann->offercategory->name??''}}
+                              @elseif($bann->entity_type=='App\Models\SubCategory')
+                                  {{$bann->subcategory->name??''}}
+                              @elseif($bann->entity_type=='App\Models\OfferCategory')
+                                  {{$bann->offercategory->name??''}}
                               @endif
                           </td>
+
 
                       {{--<td>{{$bann->parent_category}}</td>--}}
                        <td>

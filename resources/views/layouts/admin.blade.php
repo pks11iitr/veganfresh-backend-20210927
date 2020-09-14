@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Suzo</title>
+    <title>Suzo Daily Needs</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Font Awesome -->
@@ -83,7 +83,7 @@
         <a href="index3.html" class="brand-link">
            <!-- <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
                  style="opacity: .8">-->
-            <span class="brand-text font-weight-light">Suzo CMS</span>
+            <span class="brand-text font-weight-light">Suzo Daily Needs CMS</span>
         </a>
 
         <!-- Sidebar -->
@@ -94,7 +94,7 @@
                     <img src="{{\Illuminate\Support\Facades\Storage::url('images/logo.jpeg')}}" class="img-circle elevation-2" alt="User Image">
                 </div>
                 <div class="info">
-                    <a href="#" class="d-block">Suzo</a>
+                    <a href="#" class="d-block">Suzo Daily Needs</a>
                 </div>
             </div>
 
@@ -142,26 +142,43 @@
                             </p>
                         </a>
                     </li>
-
-                     <li class="nav-item">
-                        <a href="{{route('therapy.list')}}" class="nav-link">
-                            <i class="nav-icon fas fa-th"></i>
-                            <p>
-                                Therapy
-
-                            </p>
-                        </a>
-                    </li>
-
                     <li class="nav-item">
-                        <a href="{{route('clinic.list')}}" class="nav-link">
+                        <a href="{{route('category.list')}}" class="nav-link">
                             <i class="nav-icon fas fa-th"></i>
                             <p>
-                                Clinic
+                                Category
 
                             </p>
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a href="{{route('subcategory.list')}}" class="nav-link">
+                            <i class="nav-icon fas fa-th"></i>
+                            <p>
+                                SubCategory
+
+                            </p>
+                        </a>
+                    </li>
+{{--                     <li class="nav-item">--}}
+{{--                        <a href="{{route('therapy.list')}}" class="nav-link">--}}
+{{--                            <i class="nav-icon fas fa-th"></i>--}}
+{{--                            <p>--}}
+{{--                                Therapy--}}
+
+{{--                            </p>--}}
+{{--                        </a>--}}
+{{--                    </li>--}}
+
+{{--                    <li class="nav-item">--}}
+{{--                        <a href="{{route('clinic.list')}}" class="nav-link">--}}
+{{--                            <i class="nav-icon fas fa-th"></i>--}}
+{{--                            <p>--}}
+{{--                                Clinic--}}
+
+{{--                            </p>--}}
+{{--                        </a>--}}
+{{--                    </li>--}}
                    <li class="nav-item">
                         <a href="{{route('customer.list')}}" class="nav-link">
                             <i class="nav-icon fas fa-th"></i>
@@ -213,15 +230,15 @@
                             </p>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a href="{{route('news.list')}}" class="nav-link">
-                            <i class="nav-icon fas fa-th"></i>
-                            <p>
-                                News Update
+{{--                    <li class="nav-item">--}}
+{{--                        <a href="{{route('news.list')}}" class="nav-link">--}}
+{{--                            <i class="nav-icon fas fa-th"></i>--}}
+{{--                            <p>--}}
+{{--                                News Update--}}
 
-                            </p>
-                        </a>
-                    </li>
+{{--                            </p>--}}
+{{--                        </a>--}}
+{{--                    </li>--}}
 
                     <li class="nav-item">
                         <a href="{{route('notification.create')}}" class="nav-link">
@@ -232,15 +249,15 @@
                             </p>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a href="{{route('video.list')}}" class="nav-link">
-                            <i class="nav-icon fas fa-th"></i>
-                            <p>
-                                Video
+{{--                    <li class="nav-item">--}}
+{{--                        <a href="{{route('video.list')}}" class="nav-link">--}}
+{{--                            <i class="nav-icon fas fa-th"></i>--}}
+{{--                            <p>--}}
+{{--                                Video--}}
 
-                            </p>
-                        </a>
-                    </li>
+{{--                            </p>--}}
+{{--                        </a>--}}
+{{--                    </li>--}}
 
                     <!--**********************************************************************************************************-->
 {{--                    <li class="nav-item">--}}

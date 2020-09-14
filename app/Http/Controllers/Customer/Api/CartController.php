@@ -10,7 +10,6 @@ use App\Models\Cart;
 
 class CartController extends Controller
 {
-
     public function store(Request $request){
 
         $user=auth()->guard('customerapi')->user();
@@ -28,7 +27,7 @@ class CartController extends Controller
         ]);
         $size=Size::where('product_id',$request->product_id)->findOrFail($request->size_id);
         $cart = Cart::where('product_id',$request->product_id)->where('size_id',$request->size_id)->where('user_id', $user->id)->first();
-        //die;
+
         if(!$cart){
             if($request->quantity>0){
                 Cart::create([
@@ -75,20 +74,21 @@ public function getCartDetails(Request $request){
             $price_total=$price_total+($c->sizeprice->price??0)*$c->quantity;
             $cartitem[]=array(
                 'id'=>$c->id,
+                'name'=>$c->product->name??'',
+                'company'=>$c->product->company??'',
+                'image'=>$c->sizeprice->image,
+                'product_id'=>$c->product->id??'',
+                'size_id'=>$c->sizeprice->id,
                 'quantity'=>$c->quantity,
-                'name'=>$c->product->name,
-                'company'=>$c->product->company,
-                'description'=>$c->product->description,
-                'image'=>$c->product->image,
-                'rating'=>$c->product->rating,
-                'is_offer'=>$c->product->is_offer,
-                'min_qty'=>$c->product->min_qty,
-                'max_qty'=>$c->product->max_qty,
-                'sizeprice'=>$c->sizeprice,
+                'discount'=>$c->sizeprice->discount,
+                'size'=>$c->sizeprice->size,
+                'price'=>$c->sizeprice->price,
+                'cut_price'=>$c->sizeprice->cut_price,
+                'stock'=>$c->sizeprice->stock,
             );
         }
         return [
-            'cartitems'=>$cartitem,
+            'cartitem'=>$cartitem,
             'total'=>$total,
             'price_total'=>$price_total,
             'quantity'=>$quantity
