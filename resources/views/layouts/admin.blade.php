@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>HalloBasket</title>
+    <title>Suzo</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Font Awesome -->
@@ -83,7 +83,7 @@
         <a href="index3.html" class="brand-link">
            <!-- <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
                  style="opacity: .8">-->
-            <span class="brand-text font-weight-light">HalloBasket CMS</span>
+            <span class="brand-text font-weight-light">Suzo CMS</span>
         </a>
 
         <!-- Sidebar -->
@@ -94,7 +94,7 @@
                     <img src="{{\Illuminate\Support\Facades\Storage::url('images/logo.jpeg')}}" class="img-circle elevation-2" alt="User Image">
                 </div>
                 <div class="info">
-                    <a href="#" class="d-block">HalloBasket</a>
+                    <a href="#" class="d-block">Suzo</a>
                 </div>
             </div>
 
@@ -111,7 +111,28 @@
                                 <i class="right fas fa-angle-left"></i>
                             </p>
                         </a>
-<!--**************************************************************************************************-->
+{{--                        <ul class="nav nav-treeview">--}}
+{{--                            <li class="nav-item">--}}
+{{--                                <a href="./index.html" class="nav-link active">--}}
+{{--                                    <i class="far fa-circle nav-icon"></i>--}}
+{{--                                    <p>Dashboard v1</p>--}}
+{{--                                </a>--}}
+{{--                            </li>--}}
+{{--                            <li class="nav-item">--}}
+{{--                                <a href="./index2.html" class="nav-link">--}}
+{{--                                    <i class="far fa-circle nav-icon"></i>--}}
+{{--                                    <p>Dashboard v2</p>--}}
+{{--                                </a>--}}
+{{--                            </li>--}}
+{{--                            <li class="nav-item">--}}
+{{--                                <a href="./index3.html" class="nav-link">--}}
+{{--                                    <i class="far fa-circle nav-icon"></i>--}}
+{{--                                    <p>Dashboard v3</p>--}}
+{{--                                </a>--}}
+{{--                            </li>--}}
+{{--                        </ul>--}}
+                    </li>
+                    <!--**************************************************************************************************-->
                     <li class="nav-item">
                         <a href="{{route('banners.list')}}" class="nav-link">
                             <i class="nav-icon fas fa-th"></i>
@@ -122,29 +143,21 @@
                         </a>
                     </li>
 
-                    <li class="nav-item">
-                        <a href="{{route('category.list')}}" class="nav-link">
+                     <li class="nav-item">
+                        <a href="{{route('therapy.list')}}" class="nav-link">
                             <i class="nav-icon fas fa-th"></i>
                             <p>
-                                Category
+                                Therapy
 
                             </p>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a href="{{route('subcategory.list')}}" class="nav-link">
-                            <i class="nav-icon fas fa-th"></i>
-                            <p>
-                               Sub Category
 
-                            </p>
-                        </a>
-                    </li>
                     <li class="nav-item">
-                        <a href="{{route('product.list')}}" class="nav-link">
+                        <a href="{{route('clinic.list')}}" class="nav-link">
                             <i class="nav-icon fas fa-th"></i>
                             <p>
-                                Product
+                                Clinic
 
                             </p>
                         </a>
@@ -158,7 +171,15 @@
                             </p>
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a href="{{route('product.list')}}" class="nav-link">
+                            <i class="nav-icon fas fa-th"></i>
+                            <p>
+                                Product
 
+                            </p>
+                        </a>
+                    </li>
                     <li class="nav-item">
                         <a href="{{route('orders.list')}}" class="nav-link">
                             <i class="nav-icon fas fa-th"></i>
@@ -207,6 +228,15 @@
                             <i class="nav-icon fas fa-th"></i>
                             <p>
                                 Send Notification
+
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{route('video.list')}}" class="nav-link">
+                            <i class="nav-icon fas fa-th"></i>
+                            <p>
+                                Video
 
                             </p>
                         </a>
