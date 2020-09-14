@@ -232,15 +232,15 @@
                             </p>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a href="{{route('video.list')}}" class="nav-link">
-                            <i class="nav-icon fas fa-th"></i>
-                            <p>
-                                Video
+{{--                    <li class="nav-item">--}}
+{{--                        <a href="{{route('video.list')}}" class="nav-link">--}}
+{{--                            <i class="nav-icon fas fa-th"></i>--}}
+{{--                            <p>--}}
+{{--                                Video--}}
 
-                            </p>
-                        </a>
-                    </li>
+{{--                            </p>--}}
+{{--                        </a>--}}
+{{--                    </li>--}}
 
                     <!--**********************************************************************************************************-->
 {{--                    <li class="nav-item">--}}
