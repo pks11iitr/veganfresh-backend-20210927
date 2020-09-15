@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Customer\Api;
 
 use App\Models\Product;
+use App\Models\SaveLaterProduct;
 use App\Models\Size;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -30,6 +31,10 @@ class CartController extends Controller
 
         if(!$cart){
             if($request->quantity>0){
+                $savelaterproduct=SaveLaterProduct::where('product_id',$request->product_id)
+                    ->where('size_id',$request->size_id)
+                    ->where('user_id',$user->id)->get();
+                $savelaterproduct[0]->delete();
                 Cart::create([
                     'product_id'=>$request->product_id,
                     'quantity'=>$request->quantity,
@@ -87,11 +92,32 @@ public function getCartDetails(Request $request){
                 'stock'=>$c->sizeprice->stock,
             );
         }
+    $savelaters=SaveLaterProduct::with(['product'=>function($products){
+        $products->where('isactive', true);
+    }])->where('user_id', $user->id)->get();
+    foreach($savelaters as $sl){
+
+        $savelater[]=array(
+            'id'=>$sl->id,
+            'name'=>$sl->product->name??'',
+            'company'=>$sl->product->company??'',
+            'ratings'=>$sl->product->ratings??'',
+            'image'=>$sl->sizeprice->image,
+            'product_id'=>$sl->product->id??'',
+            'size_id'=>$sl->sizeprice->id,
+            'discount'=>$sl->sizeprice->discount,
+            'size'=>$sl->sizeprice->size,
+            'price'=>$sl->sizeprice->price,
+            'cut_price'=>$sl->sizeprice->cut_price,
+            'stock'=>$sl->sizeprice->stock,
+        );
+    }
         return [
             'cartitem'=>$cartitem,
             'total'=>$total,
             'price_total'=>$price_total,
-            'quantity'=>$quantity
+            'quantity'=>$quantity,
+            'savelater'=>$savelater,
         ];
 
     }
