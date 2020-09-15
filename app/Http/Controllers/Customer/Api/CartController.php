@@ -34,7 +34,9 @@ class CartController extends Controller
                 $savelaterproduct=SaveLaterProduct::where('product_id',$request->product_id)
                     ->where('size_id',$request->size_id)
                     ->where('user_id',$user->id)->get();
-                $savelaterproduct[0]->delete();
+                if($savelaterproduct->count()>0) {
+                    $savelaterproduct[0]->delete();
+                }
                 Cart::create([
                     'product_id'=>$request->product_id,
                     'quantity'=>$request->quantity,
