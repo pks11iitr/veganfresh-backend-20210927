@@ -75,6 +75,8 @@ public function getCartDetails(Request $request){
         $total=0;
         $quantity=0;
         $price_total=0;
+    $cartitem=array();
+    $savelater=array();
         foreach($cartitems as $c){
             $total=$total+($c->sizeprice->price??0)*$c->quantity;
             $quantity=$quantity+$c->quantity;

@@ -48,6 +48,7 @@ class FavoriteProductController extends Controller
         }])->where('user_id', $user->id)->with('sizeprice')->get();
 
        // var_dump($favoriteproducts);die;
+        $favoriteproduct=array();
         foreach($favoriteproducts as $c){
 
             $favoriteproduct[]=array(
