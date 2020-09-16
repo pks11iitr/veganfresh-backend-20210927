@@ -91,7 +91,7 @@ class HomeController extends Controller
                     $new_sec['type']='banner';
                     $new_sec['name']='';
                     $new_sec['banner']=[
-                        'image'=>$section->entities[0]->image??'',
+                        'image'=>$section->entities[0]->entity->image??'',
                         'category_id'=>$section->entities[0]->entity->parent_category??'',
                         'subcategory_id'=>$section->entities[0]->entity->entity_id??'',
                     ];
