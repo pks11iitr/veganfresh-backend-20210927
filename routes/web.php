@@ -38,6 +38,7 @@ Route::group(['middle'=>['auth', 'acl'], 'is'=>'admin'], function(){
         Route::post('update/{id}','SuperAdmin\BannerController@update')->name('banners.update');
         Route::get('delete/{id}','SuperAdmin\BannerController@delete')->name('banners.delete');
     });
+
     Route::group(['prefix'=>'category'], function(){
         Route::get('/','SuperAdmin\CategoryController@index')->name('category.list');
         Route::get('create','SuperAdmin\CategoryController@create')->name('category.create');
@@ -55,6 +56,7 @@ Route::group(['middle'=>['auth', 'acl'], 'is'=>'admin'], function(){
         Route::post('update/{id}','SuperAdmin\SubCategoryController@update')->name('subcategory.update');
 
     });
+
     Route::group(['prefix'=>'product'], function(){
         Route::get('/','SuperAdmin\ProductController@index')->name('product.list');
         Route::get('create','SuperAdmin\ProductController@create')->name('product.create');
@@ -63,10 +65,19 @@ Route::group(['middle'=>['auth', 'acl'], 'is'=>'admin'], function(){
         Route::post('update/{id}','SuperAdmin\ProductController@update')->name('product.update');
         Route::post('product-sizeprice/{id}','SuperAdmin\ProductController@sizeprice')->name('product.sizeprice');
         Route::post('product-category-create/{id}','SuperAdmin\ProductController@productcategory')->name('product.category.create');
-
         Route::get('delete/{id}','SuperAdmin\ProductController@delete')->name('product.delete');
         Route::get('subcat/ajax/{id}','SuperAdmin\ProductController@Ajaxsubcat')->name('product.subcat');
         Route::post('document/{id}','SuperAdmin\ProductController@document')->name('product.document');
+        Route::get('delete/{id}','SuperAdmin\ProductController@delete')->name('product.delete');
+    });
+
+    Route::group(['prefix'=>'homesection'], function(){
+        Route::get('/','SuperAdmin\HomeSectionController@index')->name('homesection.list');
+        Route::get('bannercreate','SuperAdmin\HomeSectionController@bannercreate')->name('homesection.bannercreate');
+        Route::post('bannerstore','SuperAdmin\HomeSectionController@bannerstore')->name('homesection.bannerstore');
+        Route::get('productcreate','SuperAdmin\HomeSectionController@productcreate')->name('homesection.productcreate');
+        Route::get('subcategorycreate','SuperAdmin\HomeSectionController@subcategorycreate')->name('homesection.subcategorycreate');
+    });
 
    //****************************************end*************************************************
    Route::group(['prefix'=>'therapy'], function(){
@@ -92,14 +103,12 @@ Route::group(['middle'=>['auth', 'acl'], 'is'=>'admin'], function(){
         Route::get('therapyeedit/{id}','SuperAdmin\ClinicController@therapyedit')->name('clinic.therapyedit');
         Route::post('therapyeedit/{id}','SuperAdmin\ClinicController@therapyupdate');
     });
+
     Route::group(['prefix'=>'customer'], function(){
         Route::get('/','SuperAdmin\CustomerController@index')->name('customer.list');
         Route::get('edit/{id}','SuperAdmin\CustomerController@edit')->name('customer.edit');
         Route::post('update/{id}','SuperAdmin\CustomerController@update')->name('customer.update');
         Route::post('send_message','SuperAdmin\CustomerController@send_message')->name('customer.send_message');
-    });
-
-        Route::get('delete/{id}','SuperAdmin\ProductController@delete')->name('product.delete');
     });
 
     Route::group(['prefix'=>'orders'], function(){

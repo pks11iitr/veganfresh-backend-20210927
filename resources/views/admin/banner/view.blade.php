@@ -34,6 +34,7 @@
                 <table id="example2" class="table table-bordered table-hover">
                   <thead>
                   <tr>
+                      <th>Banner ID</th>
                       <th>Image</th>
                       <th>Entity Type</th>
                       {{--<th>Parent Category</th>--}}
@@ -44,8 +45,8 @@
                   <tbody>
 				@foreach($banners as $bann)
                   <tr>
+                      <td>{{$bann->id}}</td>
                       <td><img src="{{$bann->image}}" height="80px" width="80px"/></td>
-
 
                           <td>
                               @if($bann->entity_type=='App\Models\Category')
