@@ -10,6 +10,7 @@ use App\Models\Product;
 use App\Models\Video;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
@@ -66,18 +67,23 @@ class HomeController extends Controller
 
         }
         //return $productids;
-
+        //DB::enableQueryLog();
         $productsobj=Product::active()
-            ->with('sizeprice')
+            ->with(['sizeprice','reviews_count'])
             ->whereIn('id', $productids)
             ->get();
         //return $productsobj;
         $products=[];
         foreach($productsobj as $product)
-            $products[$product->id]=$product->sizeprice;
+            $products[$product->id]=[
+                'sizeprice'=>$product->sizeprice,
+                'reviews'=>$product->reviews_count[0]->review??0,
+                'ratings'=>number_format($product->reviews_count[0]->rating??0,1),
+            ];
 
         //return $products;
-
+        //var_dump(DB::getQueryLog());
+        //die;
         foreach($home_sections as $section){
             $new_sec=[];
             switch($section->type){
@@ -96,7 +102,9 @@ class HomeController extends Controller
                     $new_sec['products']=[];
                     foreach($section->entities as $entity){
                         $entity1=$entity->entity;
-                        $entity1->sizeprice=$products[$entity->entity_id]??[];
+                        $entity1->sizeprice=$products[$entity->entity_id]['sizeprice']??[];
+                        $entity1->ratings=number_format($products[$entity->entity_id]['ratings']??0, 1);
+                        $entity1->reviews=$products[$entity->entity_id]['reviews']??0;
                         $new_sec['products'][]=$entity1;
                     }
                 break;
