@@ -90,14 +90,18 @@ class HomeController extends Controller
                 case 'banner':
                     $new_sec['type']='banner';
                     $new_sec['name']='';
-                    $new_sec['banner']=$section->entities[0]??'';
+                    $new_sec['banner']=[
+                        'image'=>$section->entities[0]->image??'',
+                        'category_id'=>$section->entities[0]->parent_category??'',
+                        'subcategory_id'=>$section->entities[0]->entity_id??'',
+                    ];
                     $new_sec['products']=[];
                     $new_sec['subcategory']=[];
                 break;
                 case 'product':
                     $new_sec['type']='product';
                     $new_sec['name']=$section->name;
-                    $new_sec['banner']=[];
+                    $new_sec['banner']='';
                     $new_sec['subcategory']=[];
                     $new_sec['products']=[];
                     foreach($section->entities as $entity){
@@ -112,7 +116,7 @@ class HomeController extends Controller
                     $new_sec['type']='subcategory';
                     $new_sec['name']=$section->name;
                     $new_sec['products']=[];
-                    $new_sec['banner']=[];
+                    $new_sec['banner']='';
                     $new_sec['subcategory']=[];
                     foreach($section->entities as $entity){
                         $new_sec['subcategory'][]=[
