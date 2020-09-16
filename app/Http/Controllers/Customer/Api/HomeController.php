@@ -20,7 +20,7 @@ class HomeController extends Controller
         $bannersobj=Banner::active()->select('entity_type', 'entity_id', 'image')->get();
 
         $banners=[];
-        foreach($banners as $banner){
+        foreach($bannersobj as $banner){
             $new_ban=[];
             if($banner->entity_type=='App\Models\Category'){
                 $new_ban['image']=$banner->image;
