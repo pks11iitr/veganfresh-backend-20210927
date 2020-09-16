@@ -37,4 +37,5 @@ class Banner extends Model
     public function offercategory(){
         return $this->belongsTo('App\Models\OfferCategory', 'entity_id');
     }
+
 }

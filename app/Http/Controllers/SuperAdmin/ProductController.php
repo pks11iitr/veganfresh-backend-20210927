@@ -69,8 +69,8 @@ class ProductController extends Controller
              $sizeprice=Size::get();
              $categories=Category::active()->get();
 
-            // $documents = $products->gallery;
-             return view('admin.product.edit',['products'=>$products,'sizeprice'=>$sizeprice,'categories'=>$categories]);
+             $documents = $products->gallery;
+             return view('admin.product.edit',['products'=>$products,'sizeprice'=>$sizeprice,'categories'=>$categories,'documents'=>$documents]);
              }
     public function Ajaxsubcat($id)
     {

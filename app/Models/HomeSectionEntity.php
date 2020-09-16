@@ -17,6 +17,10 @@ class HomeSectionEntity extends Model
 
     protected $hidden = ['created_at','deleted_at','updated_at'];
 
+    public function entity(){
+        return $this->morphTo();
+    }
+
     public function getImageAttribute($value){
         if($value)
             return Storage::url($value);

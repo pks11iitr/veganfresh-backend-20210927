@@ -134,59 +134,59 @@
     </section>
     <!-- /.content -->
      <!--*******************************************************************************************************************-->
-{{--            <section class="content">--}}
-{{--            <div class="container-fluid">--}}
-{{--                <!-- SELECT2 EXAMPLE -->--}}
-{{--                <div class="card card-default">--}}
-{{--                    <div class="card-header">--}}
-{{--                        <h3 class="card-title">Add Document Images</h3>--}}
-{{--                    </div>--}}
-{{--                    <!-- /.card-header -->--}}
-{{--                    <form action="{{route('product.document',['id'=>$products->id])}}" method="post" enctype="multipart/form-data">--}}
-{{--                        @csrf--}}
-{{--                            <div class="card-body">--}}
-{{--                            <!-- /.row -->--}}
-{{--                            <div class="row">--}}
-{{--                                <!-- /.col -->--}}
-{{--                                <div class="col-md-6">--}}
-{{--                                    <div class="form-group">--}}
-{{--                                        <label for="exampleInputEmail1">Header Image</label>--}}
-{{--                                        <input type="file" class="form-control" name="file_path[]" id="exampleInputEmail1" placeholder="Select image" multiple>--}}
-{{--                                        <br>--}}
-{{--                                    </div>--}}
-{{--                                    <!-- /.form-group -->--}}
-{{--                                 </div>--}}
-{{--                                <!-- /.col -->--}}
-{{--                                <div class="col-md-6">--}}
-{{--                                    <div class="form-group">--}}
-{{--                                        <label for="exampleInputEmail1">.</label>--}}
-{{--                                        <button type="submit" class="btn btn-block btn-primary btn-sm">Add</button>--}}
-{{--                                    </div>--}}
-{{--                                    <!-- /.form-group -->--}}
-{{--                                </div>--}}
-{{--                                <!-- /.col -->--}}
-{{--                            </div>--}}
-{{--                            <div class="row">--}}
-{{--                                <!-- /.col -->--}}
-{{--                                @foreach($products as $products)--}}
-{{--                                 <div class="form-group">--}}
-{{--                                        <img src="{{$products->file_path}}" height="100" width="200"> &nbsp; &nbsp; <a href="{{route('product.delete',['id'=>$products->id])}}">X</a>--}}
-{{--                                        &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;          &nbsp; &nbsp; &nbsp; &nbsp;--}}
-{{--                                  </div>--}}
-{{--                               @endforeach--}}
-{{--                                 <!-- /.form-group -->--}}
-{{--                                    <!-- /.form-group -->--}}
-{{--                                <!-- /.col -->--}}
-{{--                            </div>--}}
-{{--                            </div>--}}
-{{--                            <!-- /.row -->--}}
-{{--                    </form>--}}
-{{--                </div>--}}
+            <section class="content">
+            <div class="container-fluid">
+                <!-- SELECT2 EXAMPLE -->
+                <div class="card card-default">
+                    <div class="card-header">
+                        <h3 class="card-title">Add Document Images</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <form action="{{route('product.document',['id'=>$products->id])}}" method="post" enctype="multipart/form-data">
+                        @csrf
+                            <div class="card-body">
+                            <!-- /.row -->
+                            <div class="row">
+                                <!-- /.col -->
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Header Image</label>
+                                        <input type="file" class="form-control" name="file_path[]" id="exampleInputEmail1" placeholder="Select image" multiple>
+                                        <br>
+                                    </div>
+                                    <!-- /.form-group -->
+                                 </div>
+                                <!-- /.col -->
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">.</label>
+                                        <button type="submit" class="btn btn-block btn-primary btn-sm">Add</button>
+                                    </div>
+                                    <!-- /.form-group -->
+                                </div>
+                                <!-- /.col -->
+                            </div>
+                            <div class="row">
+                                <!-- /.col -->
+                                @foreach($products as $products)
+                                 <div class="form-group">
+                                        <img src="{{$products->file_path}}" height="100" width="200"> &nbsp; &nbsp; <a href="{{route('product.delete',['id'=>$products->id])}}">X</a>
+                                        &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;          &nbsp; &nbsp; &nbsp; &nbsp;
+                                  </div>
+                               @endforeach
+                                 <!-- /.form-group -->
+                                    <!-- /.form-group -->
+                                <!-- /.col -->
+                            </div>
+                            </div>
+                            <!-- /.row -->
+                    </form>
+                </div>
 
 
 
-{{--            </div>--}}
-{{--        </section>--}}
+            </div>
+        </section>
 {{--      <***********************************************************************************--}}
 
       <section class="content">
