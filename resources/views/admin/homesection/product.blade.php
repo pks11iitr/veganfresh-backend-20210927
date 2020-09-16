@@ -32,11 +32,11 @@
                             </div>
                             <!-- /.card-header -->
                             <!-- form start -->
-                            <form role="form" method="post" enctype="multipart/form-data" action="{{route('homesection.productcreate')}}">
+                            <form role="form" method="post" enctype="multipart/form-data" action="{{route('homesection.productstore')}}">
                                 @csrf
                                 <div class="card-body">
                                     <div class="row">
-                                        <input type="hidden"  name="type" value="2">
+                                        <input type="hidden"  name="type" value="product">
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">Name</label>
@@ -65,7 +65,7 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Product Image</label>
-                                                <select class="form-control" name="entity_type" >
+                                                <select class="form-control" name="entity_type[]" >
                                                     <option value="">Please Select....</option>
                                                     @foreach($products as $product)
                                                     <option value="prod_{{$product->id}}">{{$product->id}}</option>
@@ -76,7 +76,7 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Product Image</label>
-                                                <select class="form-control" name="entity_type" >
+                                                <select class="form-control" name="entity_type[]" >
                                                     <option value="">Please Select....</option>
                                                     @foreach($products as $product)
                                                         <option value="prod_{{$product->id}}">{{$product->id}}</option>
@@ -87,7 +87,7 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Product Image</label>
-                                                <select class="form-control" name="entity_type" >
+                                                <select class="form-control" name="entity_type[]" >
                                                     <option value="">Please Select....</option>
                                                     @foreach($products as $product)
                                                         <option value="prod_{{$product->id}}">{{$product->id}}</option>
@@ -98,7 +98,7 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Product Image</label>
-                                                <select class="form-control" name="entity_type" >
+                                                <select class="form-control" name="entity_type[]" >
                                                     <option value="">Please Select....</option>
                                                     @foreach($products as $product)
                                                         <option value="prod_{{$product->id}}">{{$product->id}}</option>
@@ -109,7 +109,7 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Product Image</label>
-                                                <select class="form-control" name="entity_type" >
+                                                <select class="form-control" name="entity_type[]" >
                                                     <option value="">Please Select....</option>
                                                     @foreach($products as $product)
                                                         <option value="prod_{{$product->id}}">{{$product->id}}</option>
@@ -120,7 +120,7 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Product Image</label>
-                                                <select class="form-control" name="entity_type" >
+                                                <select class="form-control" name="entity_type[]" >
                                                     <option value="">Please Select....</option>
                                                     @foreach($products as $product)
                                                         <option value="prod_{{$product->id}}">{{$product->id}}</option>
@@ -131,7 +131,7 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Product Image</label>
-                                                <select class="form-control" name="entity_type" >
+                                                <select class="form-control" name="entity_type[]" >
                                                     <option value="">Please Select....</option>
                                                     @foreach($products as $product)
                                                         <option value="prod_{{$product->id}}">{{$product->id}}</option>
@@ -142,7 +142,7 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Product Image</label>
-                                                <select class="form-control" name="entity_type" >
+                                                <select class="form-control" name="entity_type[]" >
                                                     <option value="">Please Select....</option>
                                                     @foreach($products as $product)
                                                         <option value="prod_{{$product->id}}">{{$product->id}}</option>
@@ -153,7 +153,7 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Product Image</label>
-                                                <select class="form-control" name="entity_type" >
+                                                <select class="form-control" name="entity_type[]" >
                                                     <option value="">Please Select....</option>
                                                     @foreach($products as $product)
                                                         <option value="prod_{{$product->id}}">{{$product->id}}</option>
@@ -164,7 +164,7 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Product Image</label>
-                                                <select class="form-control" name="entity_type" >
+                                                <select class="form-control" name="entity_type[]" >
                                                     <option value="">Please Select....</option>
                                                     @foreach($products as $product)
                                                         <option value="prod_{{$product->id}}">{{$product->id}}</option>

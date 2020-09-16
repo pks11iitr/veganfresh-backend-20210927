@@ -36,7 +36,7 @@
                                 @csrf
                                 <div class="card-body">
                                     <div class="row">
-                                        <input type="hidden"  name="type" value="1">
+                                        <input type="hidden"  name="type" value="banner">
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">Sequence No</label>

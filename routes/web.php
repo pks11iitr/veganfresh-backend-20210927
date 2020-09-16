@@ -76,7 +76,9 @@ Route::group(['middle'=>['auth', 'acl'], 'is'=>'admin'], function(){
         Route::get('bannercreate','SuperAdmin\HomeSectionController@bannercreate')->name('homesection.bannercreate');
         Route::post('bannerstore','SuperAdmin\HomeSectionController@bannerstore')->name('homesection.bannerstore');
         Route::get('productcreate','SuperAdmin\HomeSectionController@productcreate')->name('homesection.productcreate');
+        Route::post('productstore','SuperAdmin\HomeSectionController@productstore')->name('homesection.productstore');
         Route::get('subcategorycreate','SuperAdmin\HomeSectionController@subcategorycreate')->name('homesection.subcategorycreate');
+        Route::post('subcategorystore','SuperAdmin\HomeSectionController@subcategorystore')->name('homesection.subcategorystore');
     });
 
    //****************************************end*************************************************
