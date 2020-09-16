@@ -11,9 +11,9 @@ trait ReviewTrait {
 
     public function reviews_count(){
         return $this->reviews()
-            ->selectRaw('rating, count(*) as count')
+            ->selectRaw('avg(rating) as rating, count(*) as review, product_id')
             ->where('reviews.isactive', true)
-            ->groupBy('rating');
+            ->groupBy('product_id');
     }
 
     public function avg_reviews(){
