@@ -16,7 +16,7 @@ class HomeSection extends Model
     protected $hidden = ['created_at','deleted_at','updated_at'];
 
     public function entities(){
-        return $this->morphMany();
+        return $this->hasMany('App\Models\HomeSectionEntity', 'home_section_id');
     }
 
     public function getImageAttribute($value){
