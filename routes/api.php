@@ -52,7 +52,7 @@ $api->get('product-reviews/{id}', ['as'=>'product.reviews', 'uses'=>'Customer\Ap
 
 $api->group(['middleware' => ['customer-auth']], function ($api) {
 
-
+    $api->post('add-delivery-address/{order_id}', ['as'=>'order.delivery.address', 'uses'=>'Customer\Api\OrderController@selectAddress']);
 
 
 });

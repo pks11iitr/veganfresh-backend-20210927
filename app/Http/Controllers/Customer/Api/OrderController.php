@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Customer\Api;
 use App\Models\BookingSlot;
 use App\Models\Cart;
 use App\Models\Clinic;
+use App\Models\CustomerAddress;
 use App\Models\DailyBookingsSlots;
 use App\Models\HomeBookingSlots;
 use App\Models\Order;
@@ -70,6 +71,50 @@ class OrderController extends Controller
                 'order_id'=>$order->id
             ]
         ];
+
+    }
+
+
+    public function selectAddress(Request $request, $id){
+
+        $request->validate([
+            'address_id'=>'required|integer'
+        ]);
+
+        $user= auth()->guard('customerapi')->user();
+        if(!$user)
+            return [
+                'status'=>'failed',
+                'message'=>'Please login to continue'
+            ];
+
+        $address=CustomerAddress::where('user_id', $user->id)
+            ->find($request->address_id);
+        if(!$address)
+            return [
+                'status'=>'failed',
+                'message'=>'No address Found'
+            ];
+
+        $order=Order::where('user_id', $user->id)
+            ->where('status', 'pending')
+            ->find($id);
+
+        if(!$order)
+            return [
+                'status'=>'failed',
+                'message'=>'No Order Found'
+            ];
+
+        $order->address_id=$address->id;
+
+        $order->save();
+
+        return [
+            'status'=>'success',
+            'message'=>'Address Has Been Updated'
+        ];
+
 
     }
 
