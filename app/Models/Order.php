@@ -44,6 +44,10 @@ class Order extends Model
         return $this->hasMany('App\Models\HomeBookingSlots', 'order_id');
     }
 
+    public function deliveryaddress(){
+        return $this->hasMany('App\Models\CustomerAddress', 'address_id');
+    }
+
 
     public static function getTotal(Order $order){
         $cost=0;

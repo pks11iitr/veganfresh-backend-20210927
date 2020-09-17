@@ -122,6 +122,26 @@ class OrderController extends Controller
 
     public function getPaymentInfo(Request $request, $order_id){
 
+        $user= auth()->guard('customerapi')->user();
+        if(!$user)
+            return [
+                'status'=>'failed',
+                'message'=>'Please login to continue'
+            ];
+
+        $order=Order::with(['deliveryaddress'])
+            ->where('user_id', $user->id)
+        ->find($order_id);
+        if(!$order)
+            return [
+                'status'=>'failed',
+                'message'=>'No Such Order Found'
+            ];
+
+
+
+
+
     }
 
     public function applyCoupon(Request $request, $order_id){
