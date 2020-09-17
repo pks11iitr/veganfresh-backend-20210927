@@ -1,5 +1,7 @@
 @extends('layouts.admin')
 @section('content')
+    <link rel="stylesheet" href="{{asset('../admin-theme/plugins/select2/css/select2.min.css')}}">
+    <link rel="stylesheet" href="{{asset('../admin-theme/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css')}}">
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -100,6 +102,32 @@
                       </div>
                       </div>
                         <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="exampleInputtitle">Category</label>
+                            <select name="category_id"  class="form-control select2" id="exampleInputistop" data-placeholder="Select a Category" multiple>
+                                <option value="">Please Select Category</option>
+                                @foreach($categories as $category)
+                                    <option value="{{$category->id}}">{{$category->name}}</option>
+
+                                @endforeach
+                            </select>
+                        </div>
+                        </div>
+                        <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="exampleInputtitle">Sub Category</label>
+{{--                            <select name="sub_cat_id" class="form-control" id="exampleInputistop" placeholder="">--}}
+                                <select class="form-control select2" multiple data-placeholder="Select a subcategory" style="width: 100%;" name="sub_cat_id">
+
+                                    <option value="">Please Select Category</option>
+                                    @foreach($subcategories as $subcategory)
+                                        <option value="{{$subcategory->id}}">{{$subcategory->name}}</option>
+
+                                    @endforeach
+                            </select>
+                        </div>
+                        </div>
+                        <div class="col-md-6">
                   <div class="form-group">
                     <label for="exampleInputFile">File input</label>
                     <div class="input-group">
@@ -134,59 +162,59 @@
     </section>
     <!-- /.content -->
      <!--*******************************************************************************************************************-->
-            <section class="content">
-            <div class="container-fluid">
-                <!-- SELECT2 EXAMPLE -->
-                <div class="card card-default">
-                    <div class="card-header">
-                        <h3 class="card-title">Add Document Images</h3>
-                    </div>
-                    <!-- /.card-header -->
-                    <form action="{{route('product.document',['id'=>$products->id])}}" method="post" enctype="multipart/form-data">
-                        @csrf
-                            <div class="card-body">
-                            <!-- /.row -->
-                            <div class="row">
-                                <!-- /.col -->
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="exampleInputEmail1">Header Image</label>
-                                        <input type="file" class="form-control" name="file_path[]" id="exampleInputEmail1" placeholder="Select image" multiple>
-                                        <br>
-                                    </div>
-                                    <!-- /.form-group -->
-                                 </div>
-                                <!-- /.col -->
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="exampleInputEmail1">.</label>
-                                        <button type="submit" class="btn btn-block btn-primary btn-sm">Add</button>
-                                    </div>
-                                    <!-- /.form-group -->
-                                </div>
-                                <!-- /.col -->
-                            </div>
-                            <div class="row">
-                                <!-- /.col -->
-                                @foreach($products as $products)
-                                 <div class="form-group">
-                                        <img src="{{$products->file_path}}" height="100" width="200"> &nbsp; &nbsp; <a href="{{route('product.delete',['id'=>$products->id])}}">X</a>
-                                        &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;          &nbsp; &nbsp; &nbsp; &nbsp;
-                                  </div>
-                               @endforeach
-                                 <!-- /.form-group -->
-                                    <!-- /.form-group -->
-                                <!-- /.col -->
-                            </div>
-                            </div>
-                            <!-- /.row -->
-                    </form>
-                </div>
+{{--            <section class="content">--}}
+{{--            <div class="container-fluid">--}}
+{{--                <!-- SELECT2 EXAMPLE -->--}}
+{{--                <div class="card card-default">--}}
+{{--                    <div class="card-header">--}}
+{{--                        <h3 class="card-title">Add Document Images</h3>--}}
+{{--                    </div>--}}
+{{--                    <!-- /.card-header -->--}}
+{{--                    <form action="{{route('product.document',['id'=>$products->id])}}" method="post" enctype="multipart/form-data">--}}
+{{--                        @csrf--}}
+{{--                            <div class="card-body">--}}
+{{--                            <!-- /.row -->--}}
+{{--                            <div class="row">--}}
+{{--                                <!-- /.col -->--}}
+{{--                                <div class="col-md-6">--}}
+{{--                                    <div class="form-group">--}}
+{{--                                        <label for="exampleInputEmail1">Header Image</label>--}}
+{{--                                        <input type="file" class="form-control" name="image[]" id="exampleInputEmail1" placeholder="Select image" multiple>--}}
+{{--                                        <br>--}}
+{{--                                    </div>--}}
+{{--                                    <!-- /.form-group -->--}}
+{{--                                 </div>--}}
+{{--                                <!-- /.col -->--}}
+{{--                                <div class="col-md-6">--}}
+{{--                                    <div class="form-group">--}}
+{{--                                        <label for="exampleInputEmail1">.</label>--}}
+{{--                                        <button type="submit" class="btn btn-block btn-primary btn-sm">Add</button>--}}
+{{--                                    </div>--}}
+{{--                                    <!-- /.form-group -->--}}
+{{--                                </div>--}}
+{{--                                <!-- /.col -->--}}
+{{--                            </div>--}}
+{{--                            <div class="row">--}}
+{{--                                <!-- /.col -->--}}
+{{--                                @foreach($products as $do)--}}
+{{--                                 <div class="form-group">--}}
+{{--                                        <img src="{{$do->image}}" height="100" width="200"> &nbsp; &nbsp; <a href="{{route('product.delete',['id'=>$do->id])}}">X</a>--}}
+{{--                                        &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;          &nbsp; &nbsp; &nbsp; &nbsp;--}}
+{{--                                  </div>--}}
+{{--                               @endforeach--}}
+{{--                                 <!-- /.form-group -->--}}
+{{--                                    <!-- /.form-group -->--}}
+{{--                                <!-- /.col -->--}}
+{{--                            </div>--}}
+{{--                            </div>--}}
+{{--                            <!-- /.row -->--}}
+{{--                    </form>--}}
+{{--                </div>--}}
 
 
 
-            </div>
-        </section>
+{{--            </div>--}}
+{{--        </section>--}}
 {{--      <***********************************************************************************--}}
 
       <section class="content">
@@ -234,6 +262,7 @@
                                           </div>
                                       </div>
 
+
                                   </div>
                               </div>
                               <!-- /.card-body -->
@@ -249,6 +278,7 @@
               <!-- /.row -->
           </div><!-- /.container-fluid -->
       </section>
+{{--      *************************************************************************************--}}
       <section class="content">
           <div class="container-fluid">
               <div class="row">
@@ -311,99 +341,58 @@
           </div>
           <!-- /.container-fluid -->
       </section>
-{{--      ***************************************************************************************--}}
 
-      <section class="content">
-          <div class="container-fluid">
-              <div class="row">
-                  <!-- left column -->
-                  <div class="col-md-12">
-                      <!-- jquery validation -->
-                      <div class="card card-primary">
-                          <div class="card-header">
-                              <h3 class="card-title">Product Create with Category</h3>
-                          </div>
-                          <!-- /.card-header -->
-                          <!-- form start -->
-                          <form role="form" method="post" enctype="multipart/form-data" action="{{route('product.category.create',['id'=>$products->id])}}">
-                              @csrf
-                              <div class="card-body">
-                                  <div class="form-group">
-                                      <label for="exampleInputtitle">Category</label>
-                                      <select name="category_id" class="form-control" id="exampleInputistop" placeholder="">
-                                          <option value="">Please Select Category</option>
-                                          @foreach($categories as $category)
-                                              <option value="{{$category->id}}">{{$category->name}}</option>
-
-                                          @endforeach
-                                      </select>
-                                  </div>
-                                  <div class="form-group">
-                                      <label for="exampleInputtitle">Sub Category</label>
-                                      <select name="sub_cat_id" class="form-control" id="exampleInputistop" placeholder="">
-
-
-                                      </select>
-                                  </div>
-
-                                  <!-- /.card-body -->
-                                  <div class="card-footer">
-                                      <button type="submit" class="btn btn-primary">Submit</button>
-                                  </div>
-                              </div>
-                          </form>
-                      </div>
-                      <!-- /.card -->
-                  </div>
-              </div>
-              <!--/.col (left) -->
-              <!-- right column -->
-              <div class="col-md-6">
-
-              </div>
-              <!--/.col (right) -->
-          </div>
-          <!-- /.row -->
-
-      </section>
       <!-- /.content -->
-      <script src="{{asset('../admin-theme/plugins/jquery/jquery.min.js')}}"></script>
-      <script>
-          $(function () {
-              // Summernote
-              $('.textarea').summernote()
-          })
-      </script>
-      <script type="text/javascript">
-          $(document).ready(function() {
-              $('select[name="category_id"]').on('change', function() {
-                  var catID = $(this).val();
-                  if(catID) {
-                      $.ajax({
-                          url: '../subcat/ajax/'+catID,
-                          type: "GET",
-                          dataType: "json",
-                          success:function(data) {
 
 
-                              $('select[name="sub_cat_id"]').empty();
-                              $.each(data, function(key, value) {
-                                  $('select[name="sub_cat_id"]').append('<option value="'+ key +'">'+ value +'</option>');
-                              });
+{{--      <script src="{{asset('../admin-theme/plugins/jquery/jquery.min.js')}}"></script>--}}
 
-
-                          }
-                      });
-                  }else{
-                      $('select[name="sub_cat_id"]').empty();
-                  }
-              });
-          });
-      </script>
 
       {{--      ****************************************************************************************--}}
 
 </div>
 <!-- ./wrapper -->
 @endsection
+@section('scripts')
+    <script src="{{asset('admin-theme/plugins/select2/js/select2.full.min.js')}}"></script>
+    <script src="{{asset('admin-theme/plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js')}}"></script>
+    <script>
+        $(function () {
+            // Summernote
+            $('.textarea').summernote()
+        })
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('select[name="category_id"]').on('change', function() {
+                var catID = $(this).val();
+                if(catID) {
+                    $.ajax({
+                        url: '../subcat/ajax/'+catID,
+                        type: "GET",
+                        dataType: "json",
+                        success:function(data) {
 
+
+                            $('select[name="sub_cat_id"]').empty();
+                            $.each(data, function(key, value) {
+                                $('select[name="sub_cat_id"]').append('<option value="'+ key +'">'+ value +'</option>');
+                            });
+
+
+                        }
+                    });
+                }else{
+                    $('select[name="sub_cat_id"]').empty();
+                }
+            });
+        });
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            $('.select2').select2();
+            $('#category_id_sel').select2();
+        });
+    </script>
+@endsection
