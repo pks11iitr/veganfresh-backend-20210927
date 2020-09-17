@@ -207,27 +207,13 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{route('orders.list')}}" class="nav-link">
+                        <a href="{{route('orders.product')}}" class="nav-link">
                             <i class="nav-icon fas fa-th"></i>
                             <p>
                                 Orders
 
                             </p>
                         </a>
-                        <ul class="nav nav-treeview">
-                           <li class="nav-item">
-                                <a href="{{route('orders.list')}}" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Therapy</p>
-                               </a>
-                           </li>
-                           <li class="nav-item">
-                                <a href="{{route('orders.product')}}" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Product</p>
-                               </a>
-                           </li>
-                           </ul>
 
                     </li>
                     <li class="nav-item">
