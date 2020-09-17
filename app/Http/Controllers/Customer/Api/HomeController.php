@@ -122,8 +122,8 @@ class HomeController extends Controller
                         $new_sec['subcategory'][]=[
                             'categoryname'=>$entity->name,
                             'categoryimage'=>$entity->image,
-                            'category_id'=>$entity->id,
-                            'subcategory_id'=>$entity->parent_category,
+                            'subcategory_id'=>$entity->id,
+                            'category_id'=>$entity->parent_category,
                         ];
                     }
                 break;
