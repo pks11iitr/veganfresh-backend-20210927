@@ -57,7 +57,10 @@ class OrderController extends Controller
                 'order_id'=>$order->id,
                 'product_id'=>$item->product_id,
                 'size_id'=>$item->size_id,
-                'quantity'=>$item->quantity
+                'quantity'=>$item->quantity,
+                'image'=>$item->zizeprice->image,
+                'price'=>$item->sizeprice->price,
+                'cut_price'=>$item->sizeprice->cut_price,
             ]);
         }
 
