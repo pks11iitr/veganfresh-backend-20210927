@@ -19,18 +19,20 @@ class CustomerAddressController extends Controller
                 'status'=>'failed',
                 'message'=>'Please login to continue'
             ];
-        $customeraddress=CustomerAddress::where('user_id',$user->id)->get();
+        $customeraddress=CustomerAddress::where('user_id',$user->id)
+            ->orderBy('id', 'desc')
+            ->get();
 
-   if($customeraddress->count()>0) {
-       return [
-           'message' => 'success',
-           'data'=>$customeraddress
-       ];
-   }else{
-       return [
-           'message' => 'error'
-       ];
-   }
+       if($customeraddress->count()>0) {
+           return [
+               'message' => 'success',
+               'data'=>$customeraddress
+           ];
+       }else{
+           return [
+               'message' => 'error'
+           ];
+       }
 
     }
     public function addcustomeraddress(Request $request){
