@@ -18,7 +18,7 @@ class HomeController extends Controller
 
         $user=auth()->guard('customerapi')->user();
 
-        $bannersobj=Banner::active()->select('entity_type', 'entity_id', 'image')->get();
+        $bannersobj=Banner::active()->select('entity_type', 'entity_id', 'image', 'parent_category')->get();
 
         $banners=[];
         foreach($bannersobj as $banner){
@@ -37,7 +37,7 @@ class HomeController extends Controller
             $banners[]=$new_ban;
         }
 
-
+        //return $banners;
 
         $user=[
             'name'=>$user->name??'',
