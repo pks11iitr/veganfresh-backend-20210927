@@ -129,7 +129,7 @@ class OrderController extends Controller
                 'message'=>'Please login to continue'
             ];
 
-        $order=Order::with(['deliveryaddress'])
+        $order=Order::with(['deliveryaddress', 'details'])
             ->where('user_id', $user->id)
         ->find($order_id);
         if(!$order)
@@ -137,9 +137,27 @@ class OrderController extends Controller
                 'status'=>'failed',
                 'message'=>'No Such Order Found'
             ];
+        $cost=0;
+        $savings=0;
+        foreach($order->details as $detail){
+            $cost=$cost+$detail->price*$detail->quantity;
+            $savings=$savings+($detail->cut_price-$detail->price)*$detail->quantity;
+        }
 
+        $prices=[
+            'basket_total'=>$cost,
+            'delivery_charge'=>$order->delivery_charge,
+            'coupon_discount'=>$order->coupon_discount,
+            'total_savings'=>$savings+$order->coupon_discount,
+            'total_payble'=>$cost+$order->delivery_charge-$order->coupon_discount,
+        ];
 
+        $delivery_address=$order->deliveryaddress;
 
+        return [
+            'status'=>'success',
+            'data'=>compact('prices', 'delivery_address')
+        ];
 
 
     }
@@ -170,17 +188,25 @@ class OrderController extends Controller
             ];
         }
 
-        $order=Order::find($order_id);
+        $order=Order::with('details')->find($order_id);
 
-        $discount=$coupon->calculateDiscount($order->total_cost+$order->coupon_discount);
+        $cost=0;
+        $savings=0;
+        foreach($order->details as $detail){
+            $cost=$cost+$detail->price*$detail->quantity;
+            $savings=$savings+($detail->cut_price-$detail->price)*$detail->quantity;
+        }
+
+        $discount=$coupon->calculateDiscount($cost);
 
         $prices=[
-            'total'=>$order->total_cost+$order->coupon_discount,
-            'coupon'=>$discount,
-            'delivery'=>(($order->total_cost+$order->coupon_discount-$discount)<200?30:0),
-            'payble'=>($order->total_cost+$order->coupon_discount-$discount)+(($order->total_cost+$order->coupon_discount-$discount)<200?30:0),
-            'payble_text'=>$order->payment_status=='payment-wait'?'Payable Amount':'Paid Amount'
+            'basket_total'=>$cost,
+            'delivery_charge'=>$order->delivery_charge,
+            'coupon_discount'=>$discount,
+            'total_savings'=>$savings+$order->coupon_discount,
+            'total_payble'=>$cost+$order->delivery_charge-$discount,
         ];
+
 
         if($discount > $order->total_cost)
         {

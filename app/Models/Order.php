@@ -45,7 +45,7 @@ class Order extends Model
     }
 
     public function deliveryaddress(){
-        return $this->hasMany('App\Models\CustomerAddress', 'address_id');
+        return $this->belongsTo('App\Models\CustomerAddress', 'address_id');
     }
 
 

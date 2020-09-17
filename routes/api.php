@@ -58,5 +58,7 @@ $api->group(['middleware' => ['customer-auth']], function ($api) {
 
     $api->post('apply-coupon/{order_id}', ['as'=>'order.apply.coupon', 'uses'=>'Customer\Api\OrderController@applyCoupon']);
 
+    $api->get('get-payment-info/{order_id}', ['as'=>'order.payment.info', 'uses'=>'Customer\Api\OrderController@getPaymentInfo']);
+
 
 });
