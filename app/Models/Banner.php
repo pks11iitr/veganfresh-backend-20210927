@@ -3,10 +3,14 @@
 namespace App\Models;
 
 use App\Models\BaseModel as Model;
+use App\Models\Traits\Active;
+use App\Models\Traits\DocumentUploadTrait;
 use Illuminate\Support\Facades\Storage;
 
 class Banner extends Model
 {
+    use Active, DocumentUploadTrait;
+
     protected $table='banners';
     protected $fillable=['image','isactive','entity_type','parent_category','entity_id'];
 
@@ -33,4 +37,5 @@ class Banner extends Model
     public function offercategory(){
         return $this->belongsTo('App\Models\OfferCategory', 'entity_id');
     }
+
 }
