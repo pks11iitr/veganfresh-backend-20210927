@@ -115,7 +115,8 @@ class HomeSectionController extends Controller
                     $id = str_replace('_subcat', '', $sub_cat_image);
                     $subcategory =SubCategory::find((int)$id);
                     $entitytype = 'App\Models\SubCategory';
-                    $entitytid = $subcategory->id ?? '';
+                    $entitytid = $subcategory->id ?? null;
+                    $parentcategory=$subcategory->category_id??null;
                 }
 
                 if ($homesectionentity = HomeSectionEntity::create([
@@ -123,6 +124,7 @@ class HomeSectionController extends Controller
                     'name' => $request->name[$key],
                     'entity_type' => $entitytype,
                     'entity_id' => $entitytid,
+                    'parent_category'=>$parentcategory,
                     'image'=>'a'
                 ]));
                 $homesectionentity->saveImage($request->image[$key], 'subcategory');
