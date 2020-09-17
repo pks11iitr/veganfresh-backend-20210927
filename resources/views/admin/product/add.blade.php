@@ -1,5 +1,7 @@
 @extends('layouts.admin')
 @section('content')
+    <link rel="stylesheet" href="{{asset('../admin-theme/plugins/select2/css/select2.min.css')}}">
+    <link rel="stylesheet" href="{{asset('../admin-theme/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css')}}">
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -45,7 +47,7 @@
                         <div class="col-md-6">
                   <div class="form-group">
                     <label for="exampleInputEmail1">Description</label>
-                    <input type="text" name="description" class="form-control" id="exampleInputEmail1" placeholder="Enter Description">
+                      <textarea id="description" class="form-control" name="description" placeholder="Description" rows="4" cols="50"></textarea>
                   </div>
                   </div>
                         <div class="col-md-6">
@@ -97,6 +99,32 @@
                     </div>
                     </div>
                         <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="exampleInputtitle">Sub Category</label>
+                        <select name="category_id[]"  class="form-control select2" id="exampleInputistop" data-placeholder="Select a Category" multiple>
+                            <option value="">Please Select Category</option>
+                            @foreach($categories as $category)
+                                <option value="{{$category->id}}">{{$category->name}}</option>
+
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+                  <div class="col-md-6">
+                      <div class="form-group">
+                          <label for="exampleInputtitle">Sub Category</label>
+                          {{--                            <select name="sub_cat_id" class="form-control" id="exampleInputistop" placeholder="">--}}
+                          <select class="form-control select2" multiple data-placeholder="Select a subcategory" style="width: 100%;" name="sub_cat_id[]">
+
+                              <option value="">Please Select Category</option>
+                              @foreach($subcategories as $subcategory)
+                                  <option value="{{$subcategory->id}}">{{$subcategory->name}}</option>
+
+                              @endforeach
+                          </select>
+                      </div>
+                  </div>
+                        <div class="col-md-6">
                   <div class="form-group">
                     <label for="exampleInputFile">Product Image</label>
                     <div class="input-group">
@@ -130,5 +158,48 @@
 
 </div>
 <!-- ./wrapper -->
+@endsection
+@section('scripts')
+    <script src="{{asset('admin-theme/plugins/select2/js/select2.full.min.js')}}"></script>
+    <script src="{{asset('admin-theme/plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js')}}"></script>
+    <script>
+        $(function () {
+            // Summernote
+            $('.textarea').summernote()
+        })
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('select[name="category_id"]').on('change', function() {
+                var catID = $(this).val();
+                if(catID) {
+                    $.ajax({
+                        url: '../subcat/ajax/'+catID,
+                        type: "GET",
+                        dataType: "json",
+                        success:function(data) {
+
+
+                            $('select[name="sub_cat_id"]').empty();
+                            $.each(data, function(key, value) {
+                                $('select[name="sub_cat_id"]').append('<option value="'+ key +'">'+ value +'</option>');
+                            });
+
+
+                        }
+                    });
+                }else{
+                    $('select[name="sub_cat_id"]').empty();
+                }
+            });
+        });
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            $('.select2').select2();
+            $('#category_id_sel').select2();
+        });
+    </script>
 @endsection
 

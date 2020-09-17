@@ -55,9 +55,16 @@ class CartController extends Controller
                 $cart->delete();
             }
         }
+        $products=Product::active()->with(['sizeprice'])->where('id',$request->product_id)->get();
+        $cart=Cart::getUserCart($user);
+        foreach($products as $product){
+            foreach($product->sizeprice as $size)
+                $size->quantity=$cart[$size->id]??0;
 
+        }
         return [
-            'message'=>'success'
+            'message'=>'success',
+            'product'=>$product
         ];
 
     }

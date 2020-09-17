@@ -28,7 +28,9 @@ class ProductController extends Controller
               }
 
     public function create(Request $request){
-            return view('admin.product.add');
+        $categories=Category::active()->get();
+        $subcategories=SubCategory::active()->get();
+            return view('admin.product.add',['categories'=>$categories,'subcategories'=>$subcategories]);
                }
 
    public function store(Request $request){
@@ -43,6 +45,7 @@ class ProductController extends Controller
                   			'stock'=>'required',
                   			'image'=>'required|image'
                                ]);
+           // var_dump($request->sub_cat_id); die;
           if($products=Product::create([
                       'name'=>$request->name,
                       'description'=>$request->description,
@@ -54,10 +57,38 @@ class ProductController extends Controller
                       'stock'=>$request->stock,
                       'isactive'=>$request->isactive,
                       'image'=>'a']))
+              $subcat=SubCategory::with('category')->get();
+
+              $catids=array();
+              foreach($request->sub_cat_id as $key=>$subcategory) {
+                  if($subcategory==$subcat[$key]->id){
+                      $productcategory = CategoryProduct::create([
+                           'category_id' => $subcat[$key]->category_id,
+                          'sub_cat_id' => $subcat[$key]->id,
+                          'product_id' => $products->id,
+
+                      ]);
+                  }
+                  $catids[] = $subcat[$key]->category_id;
+              }
+
+                $reqcat=$request->category_id;
+                $reqcat=$request->sub_cat_id;
+                $remaining_ids=array_diff($reqcat,$catids);
+              return $remaining_ids;
+                      $productcategory = CategoryProduct::create([
+                         // 'category_id' => $category,
+                          'sub_cat_id' => $request->sub_cat_id[$key],
+                          'product_id' => $products->id,
+
+                      ]);
+
+
             {
                 if($request->image){
                     $products->saveImage($request->image, 'products');
                 }
+
 
              return redirect()->route('product.list', ['id'=>$products->id])->with('success', 'Product has been created');
             }
@@ -68,9 +99,10 @@ class ProductController extends Controller
              $products = Product::findOrFail($id);
              $sizeprice=Size::get();
              $categories=Category::active()->get();
+             $subcategories=SubCategory::active()->get();
 
-             $documents = $products->gallery;
-             return view('admin.product.edit',['products'=>$products,'sizeprice'=>$sizeprice,'categories'=>$categories,'documents'=>$documents]);
+             //$documents = $products->gallery;
+             return view('admin.product.edit',['products'=>$products,'sizeprice'=>$sizeprice,'categories'=>$categories,'subcategories'=>$subcategories]);
              }
     public function Ajaxsubcat($id)
     {

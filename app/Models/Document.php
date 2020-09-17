@@ -7,11 +7,11 @@ use Illuminate\Support\Facades\Storage;
 
 class Document extends Model
 {
-    protected $table='documents';
+    protected $table='product_images';
 
-    protected $fillable=['entity_type','entity_id', 'file_path', 'file_type'];
+    protected $fillable=['product_id','size_id', 'image',];
 
-    protected $hidden = ['created_at','deleted_at','updated_at','entity_id', 'entity_type'];
+    protected $hidden = ['created_at','deleted_at','updated_at'];
 
     public function entity(){
         $this->morphTo();
