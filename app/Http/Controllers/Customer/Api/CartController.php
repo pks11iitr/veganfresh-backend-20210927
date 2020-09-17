@@ -26,7 +26,14 @@ class CartController extends Controller
             'product_id'=>'required|integer|min:1',
             'size_id'=>'required|integer|min:0'
         ]);
-        $size=Size::where('product_id',$request->product_id)->findOrFail($request->size_id);
+        $size=Size::where('product_id',$request->product_id)->find($request->size_id);
+        if(!$size){
+            return [
+                'status'=>'failed',
+                'message'=>'Invalid Size'
+            ];
+        }
+
         $cart = Cart::where('product_id',$request->product_id)->where('size_id',$request->size_id)->where('user_id', $user->id)->first();
 
         if(!$cart){

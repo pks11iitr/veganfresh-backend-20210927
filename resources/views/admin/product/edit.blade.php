@@ -104,28 +104,30 @@
                         <div class="col-md-6">
                         <div class="form-group">
                             <label for="exampleInputtitle">Category</label>
-                            <select name="category_id"  class="form-control select2" id="exampleInputistop" data-placeholder="Select a Category" multiple>
+                            <select name="category_id[]"  class="form-control select2" id="exampleInputistop" data-placeholder="Select a Category" multiple>
                                 <option value="">Please Select Category</option>
                                 @foreach($categories as $category)
-                                    <option value="{{$category->id}}">{{$category->name}}</option>
+                                    <option value="{{$category->id}}" @foreach($products->category as $s) @if($s->id==$category->id){{'selected'}}@endif @endforeach >{{$category->name}}</option>
 
                                 @endforeach
                             </select>
                         </div>
                         </div>
                         <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="exampleInputtitle">Sub Category</label>
-{{--                            <select name="sub_cat_id" class="form-control" id="exampleInputistop" placeholder="">--}}
-                                <select class="form-control select2" multiple data-placeholder="Select a subcategory" style="width: 100%;" name="sub_cat_id">
+                            <div class="form-group">
+                                <label for="exampleInputtitle">Sub Category</label>
+                                {{--                            <select name="sub_cat_id" class="form-control" id="exampleInputistop" placeholder="">--}}
+                                <select class="form-control select2" multiple data-placeholder="Select a subcategory" style="width: 100%;" name="sub_cat_id[]">
 
                                     <option value="">Please Select Category</option>
                                     @foreach($subcategories as $subcategory)
-                                        <option value="{{$subcategory->id}}">{{$subcategory->name}}</option>
+
+                                        <option value="{{$subcategory->id}}" @foreach($products->subcategory as $s) @if($s->id==$subcategory->id){{'selected'}}@endif @endforeach >{{$subcategory->name}}</option>
+
 
                                     @endforeach
-                            </select>
-                        </div>
+                                </select>
+                            </div>
                         </div>
                         <div class="col-md-6">
                   <div class="form-group">
@@ -162,59 +164,61 @@
     </section>
     <!-- /.content -->
      <!--*******************************************************************************************************************-->
-{{--            <section class="content">--}}
-{{--            <div class="container-fluid">--}}
-{{--                <!-- SELECT2 EXAMPLE -->--}}
-{{--                <div class="card card-default">--}}
-{{--                    <div class="card-header">--}}
-{{--                        <h3 class="card-title">Add Document Images</h3>--}}
-{{--                    </div>--}}
-{{--                    <!-- /.card-header -->--}}
-{{--                    <form action="{{route('product.document',['id'=>$products->id])}}" method="post" enctype="multipart/form-data">--}}
-{{--                        @csrf--}}
-{{--                            <div class="card-body">--}}
-{{--                            <!-- /.row -->--}}
-{{--                            <div class="row">--}}
-{{--                                <!-- /.col -->--}}
-{{--                                <div class="col-md-6">--}}
-{{--                                    <div class="form-group">--}}
-{{--                                        <label for="exampleInputEmail1">Header Image</label>--}}
-{{--                                        <input type="file" class="form-control" name="image[]" id="exampleInputEmail1" placeholder="Select image" multiple>--}}
-{{--                                        <br>--}}
-{{--                                    </div>--}}
-{{--                                    <!-- /.form-group -->--}}
-{{--                                 </div>--}}
-{{--                                <!-- /.col -->--}}
-{{--                                <div class="col-md-6">--}}
-{{--                                    <div class="form-group">--}}
-{{--                                        <label for="exampleInputEmail1">.</label>--}}
-{{--                                        <button type="submit" class="btn btn-block btn-primary btn-sm">Add</button>--}}
-{{--                                    </div>--}}
-{{--                                    <!-- /.form-group -->--}}
-{{--                                </div>--}}
-{{--                                <!-- /.col -->--}}
-{{--                            </div>--}}
-{{--                            <div class="row">--}}
-{{--                                <!-- /.col -->--}}
-{{--                                @foreach($products as $do)--}}
-{{--                                 <div class="form-group">--}}
-{{--                                        <img src="{{$do->image}}" height="100" width="200"> &nbsp; &nbsp; <a href="{{route('product.delete',['id'=>$do->id])}}">X</a>--}}
-{{--                                        &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;          &nbsp; &nbsp; &nbsp; &nbsp;--}}
-{{--                                  </div>--}}
-{{--                               @endforeach--}}
-{{--                                 <!-- /.form-group -->--}}
-{{--                                    <!-- /.form-group -->--}}
-{{--                                <!-- /.col -->--}}
-{{--                            </div>--}}
-{{--                            </div>--}}
-{{--                            <!-- /.row -->--}}
-{{--                    </form>--}}
-{{--                </div>--}}
+            <section class="content">
+            <div class="container-fluid">
+                <!-- SELECT2 EXAMPLE -->
+                <div class="card card-default">
+                    <div class="card-header">
+                        <h3 class="card-title">Add Document Images</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="col-md-12">
+                        <!-- jquery validation -->
+                        <div class="card card-primary">
+                            <div class="card-header">
+                                <h3 class="card-title">Add Images</h3>
+                            </div>
+                            <!-- /.card-header -->
+                            <!-- form start -->
+                            <form role="form" method="post" enctype="multipart/form-data" action="{{route('product.document',['id'=>$products->id])}}">
+                                @csrf
+                                <div class="card-body">
 
+                                    <div class="form-group">
+                                        <label for="exampleInputimage">Product Image</label>
+                                        <input type="file" name="file_path[]" class="form-control" id="exampleInputimage"
+                                               placeholder="" multiple>
 
+                                    </div>
 
-{{--            </div>--}}
-{{--        </section>--}}
+                                    <!-- /.card-body -->
+                                    <div class="card-footer">
+                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                    </div><br>
+
+                                    <div class="row">
+                                        <!-- /.col -->
+{{--                                        @foreach($products as $document)--}}
+{{--                                            <div class="form-group">--}}
+{{--                                                <img src="{{$document->file_path}}" height="100" width="200"> &nbsp; &nbsp; <a href="{{route('product.delete',['id'=>$document->id])}}">X</a>--}}
+{{--                                                &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;          &nbsp; &nbsp; &nbsp; &nbsp;--}}
+{{--                                            </div>--}}
+{{--                                    @endforeach--}}
+                                    <!-- /.form-group -->
+                                        <!-- /.form-group -->
+                                        <!-- /.col -->
+                                    </div>
+                                </div>
+
+                            </form>
+                        </div>
+                        <!-- /.card -->
+                    </div>
+                <!--/.col (right) -->
+            </div>
+
+            </div>
+        </section>
 {{--      <***********************************************************************************--}}
 
       <section class="content">
