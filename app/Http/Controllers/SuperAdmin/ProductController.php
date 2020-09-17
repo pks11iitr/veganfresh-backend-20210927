@@ -57,34 +57,39 @@ class ProductController extends Controller
                       'stock'=>$request->stock,
                       'isactive'=>$request->isactive,
                       'image'=>'a']))
-              $subcat=SubCategory::with('category')->get();
+              $added_categories=[];
+       if(!empty($request->sub_cat_id)){
+           $subcat=SubCategory::with('category')
+               ->whereIn('id', $request->sub_cat_id)
+               ->get();
 
-              $catids=array();
-              foreach($request->sub_cat_id as $key=>$subcategory) {
-                  if($subcategory==$subcat[$key]->id){
-                      $productcategory = CategoryProduct::create([
-                           'category_id' => $subcat[$key]->category_id,
-                          'sub_cat_id' => $subcat[$key]->id,
-                          'product_id' => $products->id,
+           foreach($subcat as $subcategory) {
+               CategoryProduct::create([
+                   'category_id' => $subcategory->category_id,
+                   'sub_cat_id' => $subcategory->id,
+                   'product_id' => $products->id,
 
-                      ]);
-                  }
-                  $catids[] = $subcat[$key]->category_id;
-              }
+               ]);
+               $added_categories[] = $subcategory->category_id;
+           }
+       }
 
-                $reqcat=$request->category_id;
-                $reqcat=$request->sub_cat_id;
-                $remaining_ids=array_diff($reqcat,$catids);
-              return $remaining_ids;
-                      $productcategory = CategoryProduct::create([
-                         // 'category_id' => $category,
-                          'sub_cat_id' => $request->sub_cat_id[$key],
-                          'product_id' => $products->id,
+       if(!empty($request->category_id)){
+           $reqcat=$request->category_id;
+           $remaining_ids=array_diff($reqcat,$added_categories);
+           //return $remaining_ids;
+           foreach($remaining_ids as $catid)
+               CategoryProduct::create([
+                   'category_id' => $catid,
+                   'sub_cat_id' =>null,
+                   'product_id' => $products->id,
 
-                      ]);
+               ]);
+       }
 
 
-            {
+
+       {
                 if($request->image){
                     $products->saveImage($request->image, 'products');
                 }
@@ -101,8 +106,8 @@ class ProductController extends Controller
              $categories=Category::active()->get();
              $subcategories=SubCategory::active()->get();
 
-             //$documents = $products->gallery;
-             return view('admin.product.edit',['products'=>$products,'sizeprice'=>$sizeprice,'categories'=>$categories,'subcategories'=>$subcategories]);
+            // $documents = $products->gallery;
+             return view('admin.product.edit',['products'=>$products,'sizeprice'=>$sizeprice,'categories'=>$categories,'subcategories'=>$subcategories,]);
              }
     public function Ajaxsubcat($id)
     {

@@ -98,32 +98,32 @@
                         </select>
                     </div>
                     </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="exampleInputtitle">Sub Category</label>
-                        <select name="category_id[]"  class="form-control select2" id="exampleInputistop" data-placeholder="Select a Category" multiple>
-                            <option value="">Please Select Category</option>
-                            @foreach($categories as $category)
-                                <option value="{{$category->id}}">{{$category->name}}</option>
+{{--                        <div class="col-md-6">--}}
+{{--                            <div class="form-group">--}}
+{{--                                <label for="exampleInputtitle">Sub Category</label>--}}
+{{--                        <select name="category_id[]"  class="form-control select2" id="exampleInputistop" data-placeholder="Select a Category" multiple>--}}
+{{--                            <option value="">Please Select Category</option>--}}
+{{--                            @foreach($categories as $category)--}}
+{{--                                <option value="{{$category->id}}">{{$category->name}}</option>--}}
 
-                            @endforeach
-                        </select>
-                    </div>
-                </div>
-                  <div class="col-md-6">
-                      <div class="form-group">
-                          <label for="exampleInputtitle">Sub Category</label>
-                          {{--                            <select name="sub_cat_id" class="form-control" id="exampleInputistop" placeholder="">--}}
-                          <select class="form-control select2" multiple data-placeholder="Select a subcategory" style="width: 100%;" name="sub_cat_id[]">
+{{--                            @endforeach--}}
+{{--                        </select>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--                  <div class="col-md-6">--}}
+{{--                      <div class="form-group">--}}
+{{--                          <label for="exampleInputtitle">Sub Category</label>--}}
+{{--                          --}}{{--                            <select name="sub_cat_id" class="form-control" id="exampleInputistop" placeholder="">--}}
+{{--                          <select class="form-control select2" multiple data-placeholder="Select a subcategory" style="width: 100%;" name="sub_cat_id[]">--}}
 
-                              <option value="">Please Select Category</option>
-                              @foreach($subcategories as $subcategory)
-                                  <option value="{{$subcategory->id}}">{{$subcategory->name}}</option>
+{{--                              <option value="">Please Select Category</option>--}}
+{{--                              @foreach($subcategories as $subcategory)--}}
+{{--                                  <option value="{{$subcategory->id}}">{{$subcategory->name}}</option>--}}
 
-                              @endforeach
-                          </select>
-                      </div>
-                  </div>
+{{--                              @endforeach--}}
+{{--                          </select>--}}
+{{--                      </div>--}}
+{{--                  </div>--}}
                         <div class="col-md-6">
                   <div class="form-group">
                     <label for="exampleInputFile">Product Image</label>
