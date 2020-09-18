@@ -73,12 +73,33 @@ Route::group(['middle'=>['auth', 'acl'], 'is'=>'admin'], function(){
 
     Route::group(['prefix'=>'homesection'], function(){
         Route::get('/','SuperAdmin\HomeSectionController@index')->name('homesection.list');
-        Route::get('bannercreate','SuperAdmin\HomeSectionController@bannercreate')->name('homesection.bannercreate');
-        Route::post('bannerstore','SuperAdmin\HomeSectionController@bannerstore')->name('homesection.bannerstore');
+        Route::get('banner-create','SuperAdmin\HomeSectionController@bannercreate')->name('homesection.bannercreate');
+        Route::post('banner-store','SuperAdmin\HomeSectionController@bannerstore')->name('homesection.bannerstore');
+        Route::get('banner-edit/{id}','SuperAdmin\HomeSectionController@banneredit')->name('homesection.banneredit');
+        Route::post('banner-update/{id}','SuperAdmin\HomeSectionController@bannerupdate')->name('homesection.bannerupdate');
         Route::get('productcreate','SuperAdmin\HomeSectionController@productcreate')->name('homesection.productcreate');
         Route::post('productstore','SuperAdmin\HomeSectionController@productstore')->name('homesection.productstore');
-        Route::get('subcategorycreate','SuperAdmin\HomeSectionController@subcategorycreate')->name('homesection.subcategorycreate');
-        Route::post('subcategorystore','SuperAdmin\HomeSectionController@subcategorystore')->name('homesection.subcategorystore');
+        Route::get('productedit/{id}','SuperAdmin\HomeSectionController@productedit')->name('homesection.productedit');
+        Route::post('productupdate/{id}','SuperAdmin\HomeSectionController@productupdate')->name('homesection.productupdate');
+        Route::post('productimage/{id}','SuperAdmin\HomeSectionController@productImage')->name('homesection.productimage');
+        Route::get('productdelete/{id}','SuperAdmin\HomeSectionController@productdelete')->name('homesection.productdelete');
+        Route::get('sub-category-create','SuperAdmin\HomeSectionController@subcategorycreate')->name('homesection.subcategorycreate');
+        Route::post('sub-category-store','SuperAdmin\HomeSectionController@subcategorystore')->name('homesection.subcategorystore');
+        Route::get('sub-category-edit/{id}','SuperAdmin\HomeSectionController@subcategoryedit')->name('homesection.subcategoryedit');
+        Route::post('sub-category-update/{id}','SuperAdmin\HomeSectionController@subcategoryupdate')->name('homesection.subcategoryupdate');
+        Route::post('subcategoryimage/{id}','SuperAdmin\HomeSectionController@subcategoryimage')->name('homesection.subcategoryimage');
+        Route::get('subdelete/{id}','SuperAdmin\HomeSectionController@subdelete')->name('homesection.subdelete');
+        Route::get('home-section-delete/{id}','SuperAdmin\HomeSectionController@homesectiondelete')->name('homesection.homesectiondelete');
+
+    });
+
+    Route::group(['prefix'=>'coupon'], function(){
+        Route::get('/','SuperAdmin\CouponController@index')->name('coupon.list');
+        Route::get('create','SuperAdmin\CouponController@create')->name('coupon.create');
+        Route::post('store','SuperAdmin\CouponController@store')->name('coupon.store');
+        Route::get('edit/{id}','SuperAdmin\CouponController@edit')->name('coupon.edit');
+        Route::post('update/{id}','SuperAdmin\CouponController@update')->name('coupon.update');
+
     });
 
    //****************************************end*************************************************

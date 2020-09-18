@@ -50,20 +50,7 @@
                                                 <input type="number" name="sequence_no" class="form-control" id="exampleInputEmail1" placeholder="Enter Sequence No" min="0">
                                             </div>
                                         </div>
-                                        {{--<div class="col-md-6">
-                                            <div class="form-group">
-                                                <label>Image</label>
-                                                <div class="input-group">
-                                                    <div class="custom-file">
-                                                        <input type="file" name="image" class="custom-file-input" id="exampleInputFile" >
-                                                        <label class="custom-file-label" for="exampleInputFile">Choose file</label>
-                                                    </div>
-                                                    <div class="input-group-append">
-                                                        <span class="input-group-text" id="">Upload</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>--}}
+
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Is Active</label>
@@ -76,133 +63,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label>SubCategory</label>
-                                                <select class="form-control" name="entity_type[]" >
-                                                    <option value="">Please Select....</option>
-                                                    @foreach($subcategorys as $subcategory)
-                                                    <option value="_subcat{{$subcategory->id}}">{{$subcategory->id}}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label>SubCategory</label>
-                                                <select class="form-control" name="entity_type[]" >
-                                                    <option value="">Please Select....</option>
-                                                    @foreach($subcategorys as $subcategory)
-                                                        <option value="_subcat{{$subcategory->id}}">{{$subcategory->id}}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="exampleInputEmail1">Name</label>
-                                                <input type="text" name="name[]" class="form-control" id="exampleInputEmail1" placeholder="Enter Name" >
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="exampleInputEmail1">Name</label>
-                                                <input type="text" name="name[]" class="form-control" id="exampleInputEmail1" placeholder="Enter Name" >
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label>Image</label>
-                                                <div class="input-group">
-                                                    <div class="custom-file">
-                                                        <input type="file" multiple name="image[]" class="custom-file-input" id="exampleInputFile" >
-                                                        <label class="custom-file-label" for="exampleInputFile">Choose file</label>
-                                                    </div>
-                                                    <div class="input-group-append">
-                                                        <span class="input-group-text" id="">Upload</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label>Image</label>
-                                                <div class="input-group">
-                                                    <div class="custom-file">
-                                                        <input type="file" name="image[]" class="custom-file-input" id="exampleInputFile" >
-                                                        <label class="custom-file-label" for="exampleInputFile">Choose file</label>
-                                                    </div>
-                                                    <div class="input-group-append">
-                                                        <span class="input-group-text" id="">Upload</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label>SubCategory</label>
-                                                <select class="form-control" name="entity_type[]" >
-                                                    <option value="">Please Select....</option>
-                                                    @foreach($subcategorys as $subcategory)
-                                                        <option value="_subcat{{$subcategory->id}}">{{$subcategory->id}}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label>SubCategory</label>
-                                                <select class="form-control" name="entity_type[]" >
-                                                    <option value="">Please Select....</option>
-                                                    @foreach($subcategorys as $subcategory)
-                                                        <option value="_subcat{{$subcategory->id}}">{{$subcategory->id}}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="exampleInputEmail1">Name</label>
-                                                <input type="text" name="name[]" class="form-control" id="exampleInputEmail1" placeholder="Enter Name" >
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="exampleInputEmail1">Name</label>
-                                                <input type="text" name="name[]" class="form-control" id="exampleInputEmail1" placeholder="Enter Name" >
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label>Image</label>
-                                                <div class="input-group">
-                                                    <div class="custom-file">
-                                                        <input type="file" name="image[]" class="custom-file-input" id="exampleInputFile" >
-                                                        <label class="custom-file-label" for="exampleInputFile">Choose file</label>
-                                                    </div>
-                                                    <div class="input-group-append">
-                                                        <span class="input-group-text" id="">Upload</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label>Image</label>
-                                                <div class="input-group">
-                                                    <div class="custom-file">
-                                                        <input type="file" name="image[]" class="custom-file-input" id="exampleInputFile" >
-                                                        <label class="custom-file-label" for="exampleInputFile">Choose file</label>
-                                                    </div>
-                                                    <div class="input-group-append">
-                                                        <span class="input-group-text" id="">Upload</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
 
-                                    </div>
                                 </div>
                                 <!-- /.card-body -->
                                 <div class="card-footer">

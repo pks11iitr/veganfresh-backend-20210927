@@ -54,6 +54,7 @@
                                         <th>Image</th>
                                         <th>Type</th>
                                         <th>Isactive</th>
+                                        <th>Action</th>
 
                                     </tr>
                                     </thead>
@@ -68,6 +69,18 @@
                                                 @if($homesection->isactive==1){{'Yes'}}
                                                 @else{{'No'}}
                                                 @endif
+                                            </td>
+                                            <td>
+                                                @if($homesection->type=='banner')
+                                                <a href="{{route('homesection.banneredit',['id'=>$homesection->id])}}" class="btn btn-success">Edit</a>
+
+                                                @elseif($homesection->type=='product')
+                                                <a href="{{route('homesection.productedit',['id'=>$homesection->id])}}" class="btn btn-success">Edit</a>
+
+                                                @elseif($homesection->type=='subcategory')
+                                                <a href="{{route('homesection.subcategoryedit',['id'=>$homesection->id])}}" class="btn btn-success">Edit</a>
+                                                @endif
+                                                    <a href="{{route('homesection.homesectiondelete',['id'=>$homesection->id])}}" class="btn btn-danger">Delete</a>
                                             </td>
 
                                     @endforeach

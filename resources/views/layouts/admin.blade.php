@@ -207,6 +207,15 @@
                         </a>
                     </li>
                     <li class="nav-item">
+                        <a href="{{route('coupon.list')}}" class="nav-link">
+                            <i class="nav-icon fas fa-th"></i>
+                            <p>
+                                Coupon
+
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a href="{{route('orders.list')}}" class="nav-link">
                             <i class="nav-icon fas fa-th"></i>
                             <p>

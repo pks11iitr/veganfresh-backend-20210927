@@ -40,7 +40,7 @@
                             <div class="form-group">
                                 <label>Entity Type</label>
                                 <select class="form-control select2" name="entity_type">
-                             @if($banner->entity_type=='App\Models\Category')
+                                    @if($banner->entity_type=='App\Models\Category')
                                     @foreach($categorys as $category)
                                         <option value="cat_{{$category->id}}"
                                                 @if($banner->entity_id==$category->id){{'selected'}}@endif>{{$category->name}}</option>

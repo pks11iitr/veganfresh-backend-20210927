@@ -2,6 +2,7 @@
 namespace App\Models\Traits;
 
 use App\Models\Document;
+use App\Models\HomeSectionEntity;
 
 trait DocumentUploadTrait {
 

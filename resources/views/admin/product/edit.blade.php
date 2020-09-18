@@ -364,7 +364,6 @@
               <!--/.col (right) -->
           </div>
           <!-- /.row -->
-
       </section>
       <!-- /.content -->
       <script src="{{asset('../admin-theme/plugins/jquery/jquery.min.js')}}"></script>
