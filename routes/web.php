@@ -120,6 +120,8 @@ Route::group(['middle'=>['auth', 'acl'], 'is'=>'admin'], function(){
         Route::get('/','SuperAdmin\OrderController@index')->name('orders.list');
         Route::get('view/{id}','SuperAdmin\OrderController@details')->name('order.view');
         Route::get('product','SuperAdmin\OrderController@product')->name('orders.product');
+        Route::get('change-status/{id}','Admin\OrderController@changeStatus')->name('order.status.change');
+        Route::get('change-payment-status/{id}','Admin\OrderController@changePaymentStatus')->name('payment.status.change');
     });
 
     Route::group(['prefix'=>'complain'], function(){
