@@ -61,9 +61,9 @@
                     <th>Company</th>
                     <th>Ratings</th>
                     <th>Is Offer</th>
-                    <th>Min Qty</th>
-                    <th>Max Qty</th>
-                    <th>Stock</th>
+{{--                    <th>Min Qty</th>--}}
+{{--                    <th>Max Qty</th>--}}
+{{--                    <th>Stock</th>--}}
                     <th>Image</th>
                     <th>Isactive</th>
                    <th>Action</th>
@@ -79,9 +79,9 @@
                           @else{{'No'}}
                           @endif
                       </td>
-					  <td>{{$product->min_qty}}</td>
-					  <td>{{$product->max_qty}}</td>
-					  <td>{{$product->stock}}</td>
+{{--					  <td>{{$product->min_qty}}</td>--}}
+{{--					  <td>{{$product->max_qty}}</td>--}}
+{{--					  <td>{{$product->stock}}</td>--}}
                       <td><img src="{{$product->image}}" height="80px" width="80px"/></td>
                        <td>
                         @if($product->isactive==1){{'Yes'}}
@@ -98,9 +98,9 @@
                       <th>Company</th>
                       <th>Ratings</th>
                       <th>Is Offer</th>
-                      <th>Min Qty</th>
-                      <th>Max Qty</th>
-                      <th>Stock</th>
+{{--                      <th>Min Qty</th>--}}
+{{--                      <th>Max Qty</th>--}}
+{{--                      <th>Stock</th>--}}
                       <th>Image</th>
                       <th>Isactive</th>
                       <th>Action</th>

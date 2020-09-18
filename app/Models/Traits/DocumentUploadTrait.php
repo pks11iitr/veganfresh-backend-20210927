@@ -2,6 +2,7 @@
 namespace App\Models\Traits;
 
 use App\Models\Document;
+use App\Models\ProductImage;
 
 trait DocumentUploadTrait {
 
@@ -33,5 +34,17 @@ trait DocumentUploadTrait {
         \Storage::put($path, $contents, 'public');
         $this->image1=$path;
         $this->save();
+    }
+
+    public function saveDocumentimage($file, $urlprefix, $data=[]){
+        $name = $file->getClientOriginalName();
+        $contents = file_get_contents($file);
+        $path = $urlprefix.'/' . $this->id . '/' . rand(111, 999) . '_' . str_replace(' ','_', $name);
+        \Storage::put($path, $contents, 'public');
+        $document=new ProductImage(['image'=>$path]);
+        $this->gallerysize()->save($document);
+    }
+    public function gallerysize(){
+        return $this->morphMany('App\Models\ProductImage', 'entity');
     }
 }
