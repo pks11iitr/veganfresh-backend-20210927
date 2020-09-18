@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Storage;
 class ProductImage extends Model
 {
     protected $table='product_images';
-    protected $fillable=['product_id','image'];
+    protected $fillable=['product_id','size_id','image'];
 
     protected $hidden = ['created_at','deleted_at','updated_at'];
 

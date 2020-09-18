@@ -64,13 +64,16 @@ Route::group(['middle'=>['auth', 'acl'], 'is'=>'admin'], function(){
         Route::get('edit/{id}','SuperAdmin\ProductController@edit')->name('product.edit');
         Route::post('update/{id}','SuperAdmin\ProductController@update')->name('product.update');
         Route::post('product-sizeprice/{id}','SuperAdmin\ProductController@sizeprice')->name('product.sizeprice');
+        Route::get('size-update','SuperAdmin\ProductController@updatesizeprice')->name('product.size.update');
+
         Route::post('product-category-create/{id}','SuperAdmin\ProductController@productcategory')->name('product.category.create');
         Route::get('delete/{id}','SuperAdmin\ProductController@delete')->name('product.delete');
-        Route::get('subcat/ajax/{id}','SuperAdmin\ProductController@Ajaxsubcat')->name('product.subcat');
-        Route::post('document/{id}','SuperAdmin\ProductController@document')->name('product.document');
-        Route::get('delete/{id}','SuperAdmin\ProductController@delete')->name('product.delete');
-    });
 
+        Route::post('document/{id}','SuperAdmin\ProductController@document')->name('product.document');
+
+
+
+    });
     Route::group(['prefix'=>'homesection'], function(){
         Route::get('/','SuperAdmin\HomeSectionController@index')->name('homesection.list');
         Route::get('banner-create','SuperAdmin\HomeSectionController@bannercreate')->name('homesection.bannercreate');
@@ -138,6 +141,8 @@ Route::group(['middle'=>['auth', 'acl'], 'is'=>'admin'], function(){
         Route::get('/','SuperAdmin\OrderController@index')->name('orders.list');
         Route::get('view/{id}','SuperAdmin\OrderController@details')->name('order.view');
         Route::get('product','SuperAdmin\OrderController@product')->name('orders.product');
+        Route::get('change-status/{id}','Admin\OrderController@changeStatus')->name('order.status.change');
+        Route::get('change-payment-status/{id}','Admin\OrderController@changePaymentStatus')->name('payment.status.change');
     });
 
     Route::group(['prefix'=>'complain'], function(){

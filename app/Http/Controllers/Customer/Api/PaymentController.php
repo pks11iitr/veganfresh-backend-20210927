@@ -7,6 +7,7 @@ use App\Events\OrderSuccessfull;
 use App\Events\RescheduleConfirmed;
 use App\Models\BookingSlot;
 use App\Models\Cart;
+use App\Models\Coupon;
 use App\Models\HomeBookingSlots;
 use App\Models\Order;
 use App\Models\OrderStatus;
@@ -41,36 +42,33 @@ class PaymentController extends Controller
                 'message'=>'Invalid Operation Performed'
             ];
 
-
-        if($order->details[0]->entity_type=='App\Models\Therapy'){
-
-            if($order->details[0]->clinic_id){
-                if($order->bookingSlots()->where('status', 'pending')->count()==0){
-                    if(!$order)
-                        return [
-                            'status'=>'failed',
-                            'message'=>'Please Select Booking Schedule To Continue'
-                        ];
-                }
-            }else{
-                if($order->homebookingslots()->where('status', 'pending')->count()==0){
-                    if(!$order)
-                        return [
-                            'status'=>'failed',
-                            'message'=>'Please Select Booking Schedule To Continue'
-                        ];
-                }
-            }
-        }
-
         // set to initial state
         $order->update([
             'use_balance'=>false,
             'use_points'=>false,
             'points_used'=>0,
             'balance_used'=>0,
+            'coupon_applied'=>null,
+            'coupon_discount'=>0
         ]);
 
+        if(!empty($request->coupon)){
+            $coupon=Coupon::active()->where('code', $request->coupon)->first();
+            if(!$coupon){
+                return [
+                    'status'=>'failed',
+                    'message'=>'Invalid Coupon'
+                ];
+            }
+
+            if(!$coupon->getUserEligibility($user)){
+                return [
+                    'status'=>'failed',
+                    'message'=>'Coupon Has Been Expired'
+                ];
+            }
+
+        }
 
 
         if($request->use_points==1) {
@@ -204,31 +202,29 @@ class PaymentController extends Controller
     private function payUsingPoints($order){
         //points can be used for therapy only
 
-        if($order->details[0]->entity instanceof Therapy){
-                $walletpoints=Wallet::points($order->user_id);
-                $amount=$walletpoints/env('POINTS_CONVERSION_RATE');
-                if($amount>=$order->total_cost){
-                    $order->payment_status='paid';
-                    $order->status='confirmed';
-                    $order->use_points=true;
-                    $order->points_used=$order->total_cost*env('POINTS_CONVERSION_RATE');
-                    $order->payment_mode='online';
-                    $order->save();
+        $walletpoints=Wallet::points($order->user_id);
+        $amount=$walletpoints;
+        if($amount >= $order->total_cost){
+            $order->payment_status='paid';
+            $order->status='confirmed';
+            $order->use_points=true;
+            $order->points_used=$order->total_cost*env('POINTS_CONVERSION_RATE');
+            $order->payment_mode='online';
+            $order->save();
 
-                    OrderStatus::create([
-                        'order_id'=>$order->id,
-                        'current_status'=>$order->status
-                    ]);
+            OrderStatus::create([
+                'order_id'=>$order->id,
+                'current_status'=>$order->status
+            ]);
 
-                    Wallet::updatewallet($order->user_id, 'Paid For Order ID: '.$order->refid, 'DEBIT',$order->points_used, 'POINT', $order->id);
+            Wallet::updatewallet($order->user_id, 'Paid For Order ID: '.$order->refid, 'DEBIT',$order->points_used, 'POINT', $order->id);
 
-                    Cart::where('user_id', $order->user_id)->delete();
+            Cart::where('user_id', $order->user_id)->delete();
 
-                    return [
-                            'status'=>'success',
-                        ];
-                }
-            }
+            return [
+                    'status'=>'success',
+                ];
+        }
 
         return [
             'status'=>'failed'

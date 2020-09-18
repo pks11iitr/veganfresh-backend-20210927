@@ -12,7 +12,7 @@ class Size extends Model
     use ReviewTrait;use Active;
     protected $table='product_prices';
 
-    protected $fillable=['size', 'price','cut_price','product_id', 'isactive','id'];
+    protected $fillable=['size', 'price','cut_price','product_id', 'isactive','min_qty','max_qty','stock'];
 
     protected $hidden =['created_at','updated_at','deleted_at','isactive'];
     protected $appends=['discount'];

@@ -36,7 +36,9 @@ $api->get('cart-details', ['as'=>'cart.detail', 'uses'=>'Customer\Api\CartContro
 $api->get('customer-address', ['as'=>'delivery.address', 'uses'=>'Customer\Api\CustomerAddressController@getcustomeraddress']);
 $api->post('add-customer-address', ['as'=>'add.delivery.address', 'uses'=>'Customer\Api\CustomerAddressController@addcustomeraddress']);
 $api->get('product-detail/{id}', ['as'=>'product.detail', 'uses'=>'Customer\Api\ProductController@product_detail']);
+$api->post('save-later-product', ['as'=>'savelater.product', 'uses'=>'Customer\Api\SavelaterProductController@savelater_product']);
 
+$api->get('favorite-product', ['as'=>'product.favorite', 'uses'=>'Customer\Api\FavoriteProductController@list_favorite_product']);
 
 //wallet apis
 $api->get('wallet-balance', ['as'=>'wallet.balance', 'uses'=>'Customer\Api\WalletController@getWalletBalance']);
@@ -50,7 +52,11 @@ $api->get('product-reviews/{id}', ['as'=>'product.reviews', 'uses'=>'Customer\Ap
 
 $api->group(['middleware' => ['customer-auth']], function ($api) {
 
+    $api->post('add-delivery-address/{order_id}', ['as'=>'order.delivery.address', 'uses'=>'Customer\Api\OrderController@selectAddress']);
 
+    $api->post('apply-coupon/{order_id}', ['as'=>'order.apply.coupon', 'uses'=>'Customer\Api\OrderController@applyCoupon']);
+
+    $api->get('get-payment-info/{order_id}', ['as'=>'order.payment.info', 'uses'=>'Customer\Api\OrderController@getPaymentInfo']);
 
 
 });
