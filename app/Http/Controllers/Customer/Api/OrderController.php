@@ -26,6 +26,7 @@ class OrderController extends Controller
     public function initiateOrder(Request $request){
 
         $user= auth()->guard('customerapi')->user();
+       // return $user->id;
         if(!$user)
             return [
                 'status'=>'failed',
@@ -36,6 +37,7 @@ class OrderController extends Controller
             ->whereHas('product', function($product){
                 $product->where('isactive', true);
             })->get();
+
         if(!$cartitems)
             return [
                 'status'=>'failed',
@@ -49,19 +51,21 @@ class OrderController extends Controller
         }
         $refid=env('MACHINE_ID').time();
         $order=Order::create([
-            'user_id'=>auth()->guard('customerapi')->user()->id??1,
+            'user_id'=>auth()->guard('customerapi')->user()->id,
             'refid'=>$refid,
             'status'=>'pending',
             'total_cost'=>$total_cost,
         ]);
 
         foreach($cartitems as $item){
+            // var_dump($item->product_id);die();
             OrderDetail::create([
                 'order_id'=>$order->id,
-                'product_id'=>$item->product_id,
+                'entity_id'=>$item->product_id,
+                'entity_type'=>'App\Models\Product',
                 'size_id'=>$item->size_id,
                 'quantity'=>$item->quantity,
-                'image'=>$item->zizeprice->image,
+                'image'=>$item->sizeprice->image,
                 'price'=>$item->sizeprice->price,
                 'cut_price'=>$item->sizeprice->cut_price,
             ]);

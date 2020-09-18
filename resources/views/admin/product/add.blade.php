@@ -71,24 +71,7 @@
                         </select>
                     </div>
                     </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="exampleInputEmail1">Min QTY</label>
-                                <input type="number" name="min_qty" class="form-control" min="0" id="exampleInputEmail3" placeholder="Enter Qty">
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="exampleInputEmail1">Max QTY</label>
-                                <input type="number" name="max_qty" class="form-control" min="0" id="exampleInputEmail3" placeholder="Enter qty">
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="exampleInputEmail1">Stock</label>
-                                <input type="number" name="stock" class="form-control" min="0" id="exampleInputEmail3" placeholder="Enter Stock">
-                            </div>
-                        </div>
+
                         <div class="col-md-6">
                    <div class="form-group">
                         <label>Is Active</label>

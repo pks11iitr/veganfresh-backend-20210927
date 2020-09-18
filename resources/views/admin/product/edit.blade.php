@@ -63,24 +63,24 @@
                                 <input type="text" name="ratings" class="form-control" id="exampleInputEmail1" placeholder="Enter Rating" value="{{$products->ratings}}">
                             </div>
                         </div>
-                            <div class="col-md-6">
-                  <div class="form-group">
-                    <label for="exampleInputEmail1">Min Qty</label>
-                    <input type="text" name="min_qty" class="form-control" id="exampleInputEmail1" placeholder="Enter Qty" value="{{$products->min_qty}}">
-                  </div>
-                  </div>
-                        <div class="col-md-6">
-                  <div class="form-group">
-                    <label for="exampleInputEmail1">Max Qty</label>
-                    <input type="text" name="max_qty" class="form-control" id="exampleInputEmail1" placeholder="Enter Qty" value="{{$products->max_qty}}">
-                  </div>
-                  </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="exampleInputEmail1">Stock</label>
-                                <input type="text" name="stock" class="form-control" id="exampleInputEmail1" placeholder="Enter Stock" value="{{$products->stock}}">
-                            </div>
-                        </div>
+{{--                            <div class="col-md-6">--}}
+{{--                  <div class="form-group">--}}
+{{--                    <label for="exampleInputEmail1">Min Qty</label>--}}
+{{--                    <input type="text" name="min_qty" class="form-control" id="exampleInputEmail1" placeholder="Enter Qty" value="{{$products->min_qty}}">--}}
+{{--                  </div>--}}
+{{--                  </div>--}}
+{{--                        <div class="col-md-6">--}}
+{{--                  <div class="form-group">--}}
+{{--                    <label for="exampleInputEmail1">Max Qty</label>--}}
+{{--                    <input type="text" name="max_qty" class="form-control" id="exampleInputEmail1" placeholder="Enter Qty" value="{{$products->max_qty}}">--}}
+{{--                  </div>--}}
+{{--                  </div>--}}
+{{--                        <div class="col-md-6">--}}
+{{--                            <div class="form-group">--}}
+{{--                                <label for="exampleInputEmail1">Stock</label>--}}
+{{--                                <input type="text" name="stock" class="form-control" id="exampleInputEmail1" placeholder="Enter Stock" value="{{$products->stock}}">--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
 
                         <div class="col-md-6">
                    <div class="form-group">
@@ -183,10 +183,17 @@
                             <form role="form" method="post" enctype="multipart/form-data" action="{{route('product.document',['id'=>$products->id])}}">
                                 @csrf
                                 <div class="card-body">
-
+                                    <div class="form-group">
+                                        <label for="exampleInputtitle">Select Size</label>
+                                        <select name="size_id" class="form-control" id="exampleInputistop" placeholder="">
+                                            @foreach($sizeprice as $size)
+                                                <option value="{{$size->id}}" {{$products->size_id==$size->id?'selected':''}}>{{$size->size}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
                                     <div class="form-group">
                                         <label for="exampleInputimage">Product Image</label>
-                                        <input type="file" name="file_path[]" class="form-control" id="exampleInputimage"
+                                        <input type="file" name="image[]" class="form-control" id="exampleInputimage"
                                                placeholder="" multiple>
 
                                     </div>
@@ -255,6 +262,24 @@
                                               <input type="number" min="0" name="cut_price" class="form-control" id="exampleInputEmail1" placeholder="Enter price" >
                                           </div>
                                       </div>
+                                      <div class="col-md-6">
+                                          <div class="form-group">
+                                              <label for="exampleInputEmail1">Min QTY</label>
+                                              <input type="number" name="min_qty" class="form-control" min="0" id="exampleInputEmail3" placeholder="Enter Qty">
+                                          </div>
+                                      </div>
+                                      <div class="col-md-6">
+                                          <div class="form-group">
+                                              <label for="exampleInputEmail1">Max QTY</label>
+                                              <input type="number" name="max_qty" class="form-control" min="0" id="exampleInputEmail3" placeholder="Enter qty">
+                                          </div>
+                                      </div>
+                                      <div class="col-md-6">
+                                          <div class="form-group">
+                                              <label for="exampleInputEmail1">Stock</label>
+                                              <input type="number" name="stock" class="form-control" min="0" id="exampleInputEmail3" placeholder="Enter Stock">
+                                          </div>
+                                      </div>
 
                                       <div class="col-md-6">
                                           <div class="form-group">
@@ -297,29 +322,39 @@
                           </div>
                           <!-- /.card-header -->
                           <div class="card-body">
-                              <table id="example2" class="table table-bordered table-hover">
+                              <table id="tbl" class="table table-bordered table-hover">
                                   <thead>
-                                  <tr>
+                                  <tr >
                                       <th>Size</th>
                                       <th>Price</th>
                                       <th>Cut Price</th>
+                                      <th>Min. QTY</th>
+                                      <th>Max QTY</th>
+                                      <th>Stock</th>
                                       <th>Isactive</th>
                                       <th>Action</th>
                                   </tr>
                                   </thead>
                                   <tbody>
                                   @foreach($sizeprice as $size)
-                                      <tr>
-                                          <td>{{$size->size}}</td>
-                                          <td>{{$size->price}}</td>
-                                          <td>{{$size->cut_price}}</td>
+                                      <tr id="row{{$size->id}}">
+                                          <td id="size{{$size->id}}">{{$size->size}}</td>
+                                          <td id="price{{$size->id}}">{{$size->price}}</td>
+                                          <td id="cut_price{{$size->id}}">{{$size->cut_price}}</td>
+                                          <td id="min_qty{{$size->id}}">{{$size->min_qty}}</td>
+                                          <td id="max_qty{{$size->id}}">{{$size->max_qty}}</td>
+                                          <td id="stock{{$size->id}}">{{$size->stock}}</td>
 
-                                          <td>
+                                          <td id="isactive{{$size->id}}">
                                               @if($size->isactive==1){{'Yes'}}
                                               @else{{'No'}}
                                               @endif
                                           </td>
-                                          <td><a href="{{route('product.delete',['id'=>$size->id])}}" class="btn btn-danger">Delete</a></td>
+                                          <td>
+{{--                                          <td><a href="{{route('product.delete',['id'=>$size->id])}}" class="btn btn-danger">Delete</a>--}}
+                                              <input type="button" id="edit_button{{$size->id}}" value="Edit" class="btn btn-success" onclick="edit_row({{$size->id}})">
+                                              <input type="button" id="save_button{{$size->id}}" value="Save" class="btn btn-success" onclick="save_row({{$size->id}})">
+                                          </td>
                                       </tr>
                                   @endforeach
                                   </tbody>
@@ -328,12 +363,15 @@
                                       <th>Size</th>
                                       <th>Price</th>
                                       <th>Cut Price</th>
+                                      <th>Min. QTY</th>
+                                      <th>Max QTY</th>
+                                      <th>Stock</th>
                                       <th>Isactive</th>
                                       <th>Action</th>
                                   </tr>
                                   </tfoot>
                               </table>
-                          </div>
+                                </div>
                       <!-- /.card-body -->
                       </div>
                       <!-- /.card -->
@@ -398,5 +436,67 @@
             $('.select2').select2();
             $('#category_id_sel').select2();
         });
+    </script>
+
+    <script>
+        function edit_row(no)
+        {
+            document.getElementById("edit_button"+no).style.display="none";
+            document.getElementById("save_button"+no).style.display="block";
+
+            var size=document.getElementById("size"+no);
+            var price=document.getElementById("price"+no);
+            var cut_price=document.getElementById("cut_price"+no);
+            var min=document.getElementById("min_qty"+no);
+            var max=document.getElementById("max_qty"+no);
+            var stock=document.getElementById("stock"+no);
+            var isactive=document.getElementById("isactive"+no);
+
+            var size_data=size.innerHTML;
+            var price_data=price.innerHTML;
+            var cut_price_data=cut_price.innerHTML;
+            var min_data=min.innerHTML;
+            var max_data=max.innerHTML;
+            var stock_data=stock.innerHTML;
+            var isactive_data1=isactive.innerHTML
+
+            if(isactive_data1.trim()==="Yes"){
+                var isactive_data='1';
+            }else{
+                var isactive_data='0';
+            }
+
+
+            size.innerHTML="<input type='text' style='width:80px;' id='size_text"+no+"' value='"+size_data+"' disabled>";
+            price.innerHTML="<input type='text' style='width:80px;' id='price_text"+no+"' value='"+price_data+"'>";
+            cut_price.innerHTML="<input type='text' style='width:80px;' id='cut_price_text"+no+"' value='"+cut_price_data+"'>";
+            min.innerHTML="<input type='text' style='width:80px;'  id='min_text"+no+"' value='"+min_data+"'>";
+            max.innerHTML="<input type='text' style='width:80px;' id='max_text"+no+"' value='"+max_data+"'>";
+            stock.innerHTML="<input type='text' style='width:80px;' id='stock_text"+no+"' value='"+stock_data+"'>";
+            isactive.innerHTML="<input type='text' style='width:80px;' id='isactive_text"+no+"' value='"+isactive_data+"'>";
+        }
+
+        function save_row(no)
+        {
+            var price_val=document.getElementById("price_text"+no).value;
+            var cut_price_val=document.getElementById("cut_price_text"+no).value;
+            var min_val=document.getElementById("min_text"+no).value;
+            var max_val=document.getElementById("max_text"+no).value;
+            var stock_val=document.getElementById("stock_text"+no).value;
+            var isactive_val=document.getElementById("isactive_text"+no).value;
+            var data = 'price=' + price_val + '&cut_price=' + cut_price_val + '&min_qty=' + min_val + '&max_qty=' + max_val + '&stock=' + stock_val + '&isactive=' + isactive_val + '&size_id=' + no;
+
+            $.ajax({
+                url: "../../size-update",
+                type: "GET",
+                data: data,
+                cache: false,
+                success: function() {
+                    location.reload();
+                    $('#message').html("<h2>Current balance has been updated!</h2>")
+                }
+
+            });
+        }
     </script>
 @endsection

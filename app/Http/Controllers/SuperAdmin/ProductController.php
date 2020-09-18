@@ -40,9 +40,9 @@ class ProductController extends Controller
                   			'description'=>'required',
                   			'company'=>'required',
                   			'is_offer'=>'required',
-                  			'min_qty'=>'required',
-                  			'max_qty'=>'required',
-                  			'stock'=>'required',
+//                  			'min_qty'=>'required',
+//                  			'max_qty'=>'required',
+//                  			'stock'=>'required',
                   			'image'=>'required|image'
                                ]);
            // var_dump($request->sub_cat_id); die;
@@ -51,10 +51,10 @@ class ProductController extends Controller
                       'description'=>$request->description,
                       'company'=>$request->company,
                       'is_offer'=>$request->is_offer,
-                      'min_qty'=>$request->min_qty,
-                      'max_qty'=>$request->max_qty,
+                     // 'min_qty'=>$request->min_qty,
+                     // 'max_qty'=>$request->max_qty,
                       'ratings'=>$request->ratings,
-                      'stock'=>$request->stock,
+                     // 'stock'=>$request->stock,
                       'isactive'=>$request->isactive,
                       'image'=>'a']))
               $added_categories=[];
@@ -126,9 +126,9 @@ class ProductController extends Controller
                  'description'=>'required',
                  'company'=>'required',
                  'is_offer'=>'required',
-                 'min_qty'=>'required',
-                 'max_qty'=>'required',
-                 'stock'=>'required',
+//                 'min_qty'=>'required',
+//                 'max_qty'=>'required',
+//                 'stock'=>'required',
                  'image'=>'image'
                                ]);
 
@@ -139,10 +139,10 @@ class ProductController extends Controller
                  'description'=>$request->description,
                  'company'=>$request->company,
                  'is_offer'=>$request->is_offer,
-                 'min_qty'=>$request->min_qty,
-                 'max_qty'=>$request->max_qty,
+//                 'min_qty'=>$request->min_qty,
+//                 'max_qty'=>$request->max_qty,
                  'ratings'=>$request->ratings,
-                 'stock'=>$request->stock,
+//                 'stock'=>$request->stock,
                  'isactive'=>$request->isactive,
              ]);
 
@@ -159,11 +159,11 @@ class ProductController extends Controller
 
       public function document(Request $request, $id){
                      $request->validate([
-                               'file_path.*'=>'image'
+                               'image.*'=>'image'
                                ]);
                 $product=Product::find($id);
-              foreach($request->file_path as $file){
-                $product->saveDocument($file, 'products');
+              foreach($request->image as $file){
+                $product->saveDocumentimage($file, 'sizeimage');
                   }
              if($product)  {
                    return redirect()->back()->with('success', 'Product has been created');
@@ -181,11 +181,17 @@ class ProductController extends Controller
             'isactive'=>'required',
             'size'=>'required',
             'price'=>'required',
+            'stock'=>'required',
+            'min_qty'=>'required',
+            'max_qty'=>'required',
             'cut_price'=>'required',
         ]);
         if($products=Size::create([
             'size'=>$request->size,
             'price'=>$request->price,
+            'min_qty'=>$request->min_qty,
+            'max_qty'=>$request->max_qty,
+            'stock'=>$request->stock,
             'product_id'=>$id,
             'cut_price'=>$request->cut_price,
             'isactive'=>$request->isactive
@@ -196,6 +202,34 @@ class ProductController extends Controller
         }
         return redirect()->back()->with('error', 'Product sizeprice create failed');
     }
+
+    public function updatesizeprice(Request $request){
+
+        $request->validate([
+            'isactive'=>'required',
+            'price'=>'required',
+            'stock'=>'required',
+            'min_qty'=>'required',
+            'max_qty'=>'required',
+            'cut_price'=>'required',
+        ]);
+
+        $product = Size::findOrFail($request->size_id);
+        $product->update([
+            'price'=>$request->price,
+            'cut_price'=>$request->cut_price,
+            'min_qty'=>$request->min_qty,
+            'max_qty'=>$request->max_qty,
+            'stock'=>$request->stock,
+            'isactive'=>$request->isactive,
+        ]);
+        {
+
+            return redirect()->back()->with('success', 'Product sizeprice has been created');
+        }
+        return redirect()->back()->with('error', 'Product sizeprice create failed');
+    }
+
 
     public function productcategory(Request $request,$id){
         $request->validate([
@@ -213,5 +247,7 @@ class ProductController extends Controller
         }
         return redirect()->back()->with('error', 'Product category create failed');
     }
+
+
 
 }
