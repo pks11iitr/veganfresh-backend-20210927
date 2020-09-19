@@ -326,7 +326,7 @@ class OrderController extends Controller
                 'orderdetails'=>$order->only('id', 'total_cost','refid', 'status','payment_mode', 'name', 'mobile', 'email', 'address','booking_date', 'booking_time','is_instant','status'),
                 'itemdetails'=>$itemdetails,
                 'show_cancel_product'=>$show_cancel_product??0,
-                'deliveryaddress'=>$deliveryaddress??'',
+                'deliveryaddress'=>$order->deliveryaddress??'',
             ]
         ];
     }
