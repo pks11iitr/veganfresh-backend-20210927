@@ -107,20 +107,20 @@
 {{--                          </select>--}}
 {{--                      </div>--}}
 {{--                  </div>--}}
-                        <div class="col-md-6">
-                  <div class="form-group">
-                    <label for="exampleInputFile">Product Image</label>
-                    <div class="input-group">
-                      <div class="custom-file">
-                        <input type="file" name="image" class="custom-file-input" id="exampleInputFile" accept="image/*" required>
-                        <label class="custom-file-label" for="exampleInputFile">Choose file</label>
-                      </div>
-                      <div class="input-group-append">
-                        <span class="input-group-text" id="">Upload</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+{{--                        <div class="col-md-6">--}}
+{{--                  <div class="form-group">--}}
+{{--                    <label for="exampleInputFile">Product Image</label>--}}
+{{--                    <div class="input-group">--}}
+{{--                      <div class="custom-file">--}}
+{{--                        <input type="file" name="image" class="custom-file-input" id="exampleInputFile" accept="image/*" required>--}}
+{{--                        <label class="custom-file-label" for="exampleInputFile">Choose file</label>--}}
+{{--                      </div>--}}
+{{--                      <div class="input-group-append">--}}
+{{--                        <span class="input-group-text" id="">Upload</span>--}}
+{{--                      </div>--}}
+{{--                    </div>--}}
+{{--                  </div>--}}
+{{--                </div>--}}
                 </div>
 
                 </div>

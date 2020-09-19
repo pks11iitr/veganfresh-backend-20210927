@@ -5,6 +5,7 @@ namespace App\Http\Controllers\SuperAdmin;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
 use App\Models\Category;
+use App\Models\ProductImage;
 use App\Models\SubCategory;
 use App\Models\CategoryProduct;
 use App\Models\Size;
@@ -43,9 +44,9 @@ class ProductController extends Controller
 //                  			'min_qty'=>'required',
 //                  			'max_qty'=>'required',
 //                  			'stock'=>'required',
-                  			'image'=>'required|image'
+//                  			'image'=>'required|image'
                                ]);
-           // var_dump($request->sub_cat_id); die;
+
           if($products=Product::create([
                       'name'=>$request->name,
                       'description'=>$request->description,
@@ -102,7 +103,7 @@ class ProductController extends Controller
 
     public function edit(Request $request,$id){
              $products = Product::findOrFail($id);
-             $sizeprice=Size::get();
+             $sizeprice=Size::where('product_id',$id)->get();
              $categories=Category::active()->get();
              $subcategories=SubCategory::active()->get();
 
@@ -132,9 +133,9 @@ class ProductController extends Controller
                  'image'=>'image'
                                ]);
 
-             $product = Product::findOrFail($id);
+             $products = Product::findOrFail($id);
 
-			 $product->update([
+			 $products->update([
                  'name'=>$request->name,
                  'description'=>$request->description,
                  'company'=>$request->company,
@@ -145,11 +146,40 @@ class ProductController extends Controller
 //                 'stock'=>$request->stock,
                  'isactive'=>$request->isactive,
              ]);
+        $added_categories=[];
+        if(!empty($request->sub_cat_id)){
+            $subcat=SubCategory::with('category')
+                ->whereIn('id', $request->sub_cat_id)
+                ->get();
 
-			 if($request->image){
-                 $product->saveImage($request->image, 'products');
+            foreach($subcat as $subcategory) {
+                CategoryProduct::create([
+                    'category_id' => $subcategory->category_id,
+                    'sub_cat_id' => $subcategory->id,
+                    'product_id' => $products->id,
+
+                ]);
+                $added_categories[] = $subcategory->category_id;
+            }
+        }
+
+        if(!empty($request->category_id)){
+            $reqcat=$request->category_id;
+            $remaining_ids=array_diff($reqcat,$added_categories);
+            //return $remaining_ids;
+            foreach($remaining_ids as $catid)
+                CategoryProduct::create([
+                    'category_id' => $catid,
+                    'sub_cat_id' =>null,
+                    'product_id' => $products->id,
+
+                ]);
+        }
+
+        if($request->image){
+                 $products->saveImage($request->image, 'products');
              }
-          if($product)
+          if($products)
              {
            return redirect()->back()->with('success', 'Product has been updated');
               }
@@ -157,15 +187,19 @@ class ProductController extends Controller
 
       }
 
+
       public function document(Request $request, $id){
                      $request->validate([
                                'image.*'=>'image'
                                ]);
-                $product=Product::find($id);
+          $size=Size::find($request->size_id);
+              //  var_dump($product);die();
+
               foreach($request->image as $file){
-                $product->saveDocumentimage($file, 'sizeimage');
+
+                  $size->saveDocumentImage($file, 'sizeimage');
                   }
-             if($product)  {
+             if($size)  {
                    return redirect()->back()->with('success', 'Product has been created');
                      }
                    return redirect()->back()->with('error', 'Product create failed');
@@ -185,6 +219,8 @@ class ProductController extends Controller
             'min_qty'=>'required',
             'max_qty'=>'required',
             'cut_price'=>'required',
+            'cut_price'=>'required',
+            'image'=>'required|image',
         ]);
         if($products=Size::create([
             'size'=>$request->size,
@@ -197,14 +233,16 @@ class ProductController extends Controller
             'isactive'=>$request->isactive
         ]))
         {
-
+            if($request->image){
+                $products->saveImage($request->image, 'products');
+            }
             return redirect()->back()->with('success', 'Product sizeprice has been created');
         }
         return redirect()->back()->with('error', 'Product sizeprice create failed');
     }
 
     public function updatesizeprice(Request $request){
-
+        //var_dump($request->file);die;
         $request->validate([
             'isactive'=>'required',
             'price'=>'required',
@@ -224,6 +262,9 @@ class ProductController extends Controller
             'isactive'=>$request->isactive,
         ]);
         {
+            if($request->file){
+                $product->saveImage($request->file, 'products');
+            }
 
             return redirect()->back()->with('success', 'Product sizeprice has been created');
         }
