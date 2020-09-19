@@ -194,9 +194,12 @@ class OrderController extends Controller
 
         $delivery_address=$order->deliveryaddress;
 
+        $cashback=Wallet::points($user->id);
+        $wallet_balance=Wallet::balance($user->id);
+
         return [
             'status'=>'success',
-            'data'=>compact('prices', 'delivery_address')
+            'data'=>compact('prices', 'delivery_address', 'cashback', 'wallet_balance')
         ];
 
 
