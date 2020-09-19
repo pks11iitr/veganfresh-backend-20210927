@@ -103,6 +103,7 @@ class OrderController extends Controller
                 'image'=>$item->sizeprice->image,
                 'price'=>$item->sizeprice->price,
                 'cut_price'=>$item->sizeprice->cut_price,
+                'name'=>$item->product->name,
             ]);
         }
 
