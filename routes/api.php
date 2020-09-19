@@ -64,5 +64,7 @@ $api->group(['middleware' => ['customer-auth']], function ($api) {
 
     $api->post('verify-payment', ['as'=>'payment.verify', 'uses'=>'Customer\Api\PaymentController@verifyPayment']);
 
+    $api->get('order-details/{order_id}', ['as'=>'order.details', 'uses'=>'Customer\Api\OrderController@orderdetails']);
+
 
 });

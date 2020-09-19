@@ -266,4 +266,68 @@ class OrderController extends Controller
 
     }
 
+    public function orderdetails(Request $request, $id){
+
+        $show_cancel_product=0;
+
+        $user=auth()->guard('customerapi')->user();
+        if(!$user)
+            return [
+                'status'=>'failed',
+                'message'=>'Please login to continue'
+            ];
+        $order=Order::with(['details.size', 'address'])
+            ->where('user_id', $user->id)
+            ->where('status', '!=', 'pending')
+            ->find($id);
+
+        if(!$order)
+            return [
+                'status'=>'failed',
+                'message'=>'Invalid Operation Performed'
+            ];
+
+//        //get reviews information
+//        $reviews=[];
+//        if($order->status=='completed'){
+//            $reviews=$order->reviews()->where('session_id', null)->get();
+//            foreach($reviews as $review){
+//                $reviews[$review->entity_id]=$review;
+//            }
+//        }
+
+
+        $itemdetails=[];
+        foreach($order->details as $detail){
+
+            $itemdetails[]=[
+                'name'=>$detail->name??'',
+                'image'=>$detail->image??'',
+                'company'=>$detail->entity->company??'',
+                'price'=>$detail->price,
+                'cut_price'=>$detail->cut_price,
+                'quantity'=>$detail->quantity,
+                'size'=>$detail->size->name??'',
+                'item_id'=>$detail->entity_id,
+                'show_return'=>($detail->status=='delivered'?1:0),
+                'show_cancel'=>in_array($detail->status, ['confirmed'])?1:0
+            ];
+
+        }
+
+        // options to be displayed
+        if($order->status=='confirmed'){
+            $show_cancel_product=1;
+        }
+
+        return [
+            'status'=>'success',
+            'data'=>[
+                'orderdetails'=>$order->only('id', 'total_cost','refid', 'status','payment_mode', 'name', 'mobile', 'email', 'address','booking_date', 'booking_time','is_instant','status'),
+                'itemdetails'=>$itemdetails,
+                'show_cancel_product'=>$show_cancel_product??0,
+            ]
+        ];
+    }
+
 }

@@ -126,6 +126,8 @@ class PaymentController extends Controller
             $order->payment_mode='online';
             $order->save();
 
+            $order->changeDetailsStatus('confirmed');
+
             OrderStatus::create([
                 'order_id'=>$order->id,
                 'current_status'=>$order->status
@@ -171,6 +173,8 @@ class PaymentController extends Controller
             $order->balance_used=$order->total_cost-$order->coupon_discount-$order->points_used;
             $order->payment_mode='online';
             $order->save();
+
+            $order->changeDetailsStatus('confirmed');
 
             OrderStatus::create([
                 'order_id'=>$order->id,
@@ -289,6 +293,7 @@ class PaymentController extends Controller
             $order->payment_mode = 'online';
             $order->save();
 
+            $order->changeDetailsStatus('confirmed');
 
             OrderStatus::create([
                 'order_id'=>$order->id,

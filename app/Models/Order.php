@@ -53,7 +53,7 @@ class Order extends Model
         $cost=0;
 
         foreach($order->details as $d){
-            $cost=$cost+$d->entity->price;
+            $cost = $cost+$d->sizeprice->price;
         }
 
         return $cost;
@@ -69,6 +69,20 @@ class Order extends Model
         $this->save();
 
     }
+
+    public function changeDetailsStatus($status, $id=null){
+        if($id==null){
+
+            $this->details()->update(['status', $status]);
+
+        }else{
+
+            $this->details()->where('details.id', $id)->update(['status', $status]);
+
+        }
+    }
+
+
 
 
 }
