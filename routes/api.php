@@ -30,6 +30,8 @@ $api->get('products', ['as'=>'products.list', 'uses'=>'Customer\Api\ProductContr
 $api->get('search-products', ['as'=>'products.search', 'uses'=>'Customer\Api\ProductController@search_products']);
 $api->post('add-favorite-product', ['as'=>'products.addfavorite', 'uses'=>'Customer\Api\FavoriteProductController@add_favorite_product']);
 $api->get('offer-products', ['as'=>'products.offer', 'uses'=>'Customer\Api\OfferProductController@offerproducts']);
+
+$api->get('offer-products-without-cat', ['as'=>'products.offer', 'uses'=>'Customer\Api\OfferProductController@offerproducts_withoutcategory']);
 //cart
 $api->post('add-cart', ['as'=>'add.cart', 'uses'=>'Customer\Api\CartController@store']);
 $api->get('cart-details', ['as'=>'cart.detail', 'uses'=>'Customer\Api\CartController@getCartDetails']);

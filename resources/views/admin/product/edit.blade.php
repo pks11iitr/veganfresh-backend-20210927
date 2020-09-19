@@ -212,13 +212,16 @@
                                     <br>
 
                                     <div class="row">
-                                        <!-- /.col -->
-                                    {{--                                        @foreach($products as $document)--}}
-                                    {{--                                            <div class="form-group">--}}
-                                    {{--                                                <img src="{{$document->file_path}}" height="100" width="200"> &nbsp; &nbsp; <a href="{{route('product.delete',['id'=>$document->id])}}">X</a>--}}
-                                    {{--                                                &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;          &nbsp; &nbsp; &nbsp; &nbsp;--}}
-                                    {{--                                            </div>--}}
-                                    {{--                                    @endforeach--}}
+
+                                        @foreach($documents as $documenta)
+                                            @foreach($documenta->images as $document)
+                                                                                <div class="form-group">
+                                                                                    <img src="{{$document->image}}" height="100" width="200"> <span>{{$documenta->size}} </span>&nbsp; &nbsp; <a href="{{route('product.delete',['id'=>$document->id])}}">X</a>
+                                                                                    &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;          &nbsp; &nbsp; &nbsp; &nbsp;
+                                                                                </div>
+                                                                        @endforeach
+                                    @endforeach
+
                                     <!-- /.form-group -->
                                         <!-- /.form-group -->
                                         <!-- /.col -->
@@ -376,7 +379,7 @@
                                             <td id="cut_price{{$size->id}}">{{$size->cut_price}}</td>
                                             <td id="min_qty{{$size->id}}">{{$size->min_qty}}</td>
                                             <td id="max_qty{{$size->id}}">{{$size->max_qty}}</td>
-                                            <td id="image{{$size->id}}"><img src="{{$size->image}}" height="80px" width="80px"/><input type="file" id="sel_image{{$size->id}}"></td>
+                                            <td id="image{{$size->id}}"><img src="{{$size->image}}" height="80px" width="80px"/><input type="file" style='width:80px; margin-left: 5px;' id="sel_image{{$size->id}}"></td>
                                             <td id="stock{{$size->id}}">{{$size->stock}}</td>
 
                                             <td id="isactive{{$size->id}}">
@@ -441,32 +444,28 @@
             $('.textarea').summernote()
         })
     </script>
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $('select[name="category_id"]').on('change', function () {
-                var catID = $(this).val();
-                if (catID) {
-                    $.ajax({
-                        url: '../subcat/ajax/' + catID,
-                        type: "GET",
-                        dataType: "json",
-                        success: function (data) {
+{{--    <script type="text/javascript">--}}
+{{--        $(document).ready(function () {--}}
+{{--            $('select[name="size_id"]').on('change', function () {--}}
+{{--                var catID = $(this).val();--}}
+{{--                var data = 'size_id=' + catID;--}}
+{{--                $.ajax({--}}
+{{--                    url: "{{route('product.size.images')}}",--}}
+{{--                    type: "GET",--}}
+{{--                    dataType: "json",--}}
+{{--                    data: data,--}}
+{{--                    success: function (data) {--}}
 
+{{--                        $.each(data, function(key, value) {--}}
+{{--                            $('select[name="image"]').append('<option value="'+ key +'">'+ value +'</option>');--}}
+{{--                        });--}}
+{{--                    }--}}
 
-                            $('select[name="sub_cat_id"]').empty();
-                            $.each(data, function (key, value) {
-                                $('select[name="sub_cat_id"]').append('<option value="' + key + '">' + value + '</option>');
-                            });
+{{--                });--}}
+{{--            });--}}
+{{--        });--}}
 
-
-                        }
-                    });
-                } else {
-                    $('select[name="sub_cat_id"]').empty();
-                }
-            });
-        });
-    </script>
+{{--    </script>--}}
 
     <script>
         $(document).ready(function () {
@@ -497,7 +496,6 @@
             var image_data = image.src;
             var stock_data = stock.innerHTML;
             var isactive_data1 = isactive.innerHTML
-alert(image_data);
             if (isactive_data1.trim() === "Yes") {
                 var isactive_data = '1';
             } else {
@@ -505,7 +503,7 @@ alert(image_data);
             }
 
 
-            size.innerHTML = "<input type='text' style='width:80px;' id='size_text" + no + "' value='" + size_data + "' disabled>";
+            size.innerHTML = "<input type='text' style='width:80px;' id='size_text" + no + "' value='" + size_data + "'>";
             price.innerHTML = "<input type='text' style='width:80px;' id='price_text" + no + "' value='" + price_data + "'>";
             cut_price.innerHTML = "<input type='text' style='width:80px;' id='cut_price_text" + no + "' value='" + cut_price_data + "'>";
             min.innerHTML = "<input type='text' style='width:80px;'  id='min_text" + no + "' value='" + min_data + "'>";
@@ -517,6 +515,7 @@ alert(image_data);
         function save_row(no) {
 
 
+            var size_val = document.getElementById("size_text" + no).value;
             var price_val = document.getElementById("price_text" + no).value;
             var cut_price_val = document.getElementById("cut_price_text" + no).value;
             var min_val = document.getElementById("min_text" + no).value;
@@ -525,6 +524,7 @@ alert(image_data);
             var isactive_val = document.getElementById("isactive_text" + no).value;
             // var data = 'price=' + price_val + '&cut_price=' + cut_price_val + '&min_qty=' + min_val + '&c=' + max_val + '&stock=' + stock_val + '&isactive=' + isactive_val + '&size_id=' + no;
             formdata = new FormData();
+            formdata.append('size', size_val)
             formdata.append('price', price_val)
             formdata.append('cut_price', cut_price_val)
             formdata.append('min_qty', min_val)
@@ -544,8 +544,8 @@ alert(image_data);
                 processData: false,
                 success: function (data) {
 
-                    alert(data)
-                    //location.reload();
+                   // alert(data)
+                    window.location.reload();
                     $('#message').html("<h2>Current balance has been updated!</h2>")
                 }
 

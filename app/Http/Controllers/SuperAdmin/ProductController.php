@@ -107,8 +107,9 @@ class ProductController extends Controller
              $categories=Category::active()->get();
              $subcategories=SubCategory::active()->get();
 
-            // $documents = $products->gallery;
-             return view('admin.product.edit',['products'=>$products,'sizeprice'=>$sizeprice,'categories'=>$categories,'subcategories'=>$subcategories,]);
+            $documents = $products->sizeprice;
+          //  return $documents;
+             return view('admin.product.edit',['products'=>$products,'sizeprice'=>$sizeprice,'categories'=>$categories,'subcategories'=>$subcategories,'documents'=>$documents]);
              }
     public function Ajaxsubcat($id)
     {
@@ -193,11 +194,21 @@ class ProductController extends Controller
                                'image.*'=>'image'
                                ]);
           $size=Size::find($request->size_id);
-              //  var_dump($product);die();
+              //  var_dump($size);die();
 
               foreach($request->image as $file){
 
-                  $size->saveDocumentImage($file, 'sizeimage');
+                 $img= ProductImage::create([
+                      'size_id' => $request->size_id,
+                      'product_id' => $id,
+                      'entity_id' => $request->size_id,
+                      'entity_type' => 'App\Models\ProductImage',
+                      'image' => '11',
+                      'product_id' => $id,
+
+                  ]);
+
+                  $img->saveImage($file, 'sizeimage');
                   }
              if($size)  {
                    return redirect()->back()->with('success', 'Product has been created');
@@ -206,7 +217,7 @@ class ProductController extends Controller
           }
 
      public function delete(Request $request, $id){
-           Size::where('id', $id)->delete();
+         ProductImage::where('id', $id)->delete();
            return redirect()->back()->with('success', 'Document has been deleted');
         }
 
@@ -254,6 +265,7 @@ class ProductController extends Controller
 
         $product = Size::findOrFail($request->size_id);
         $product->update([
+            'size'=>$request->size,
             'price'=>$request->price,
             'cut_price'=>$request->cut_price,
             'min_qty'=>$request->min_qty,
@@ -271,6 +283,15 @@ class ProductController extends Controller
         return redirect()->back()->with('error', 'Product sizeprice create failed');
     }
 
+    public function allimages(Request $request)
+    {
+       // var_dump($request->size_id);die;
+        $proimges = ProductImage::where("size_id",$request->size_id)->get();
+        //var_dump($proimges);die;
+            //->pluck("image","id");
+
+        return json_encode($proimges);
+    }
 
     public function productcategory(Request $request,$id){
         $request->validate([

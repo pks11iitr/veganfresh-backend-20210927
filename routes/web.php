@@ -65,6 +65,7 @@ Route::group(['middle'=>['auth', 'acl'], 'is'=>'admin'], function(){
         Route::post('update/{id}','SuperAdmin\ProductController@update')->name('product.update');
         Route::post('product-sizeprice/{id}','SuperAdmin\ProductController@sizeprice')->name('product.sizeprice');
         Route::post('size-update','SuperAdmin\ProductController@updatesizeprice')->name('product.size.update');
+        Route::get('size-images','SuperAdmin\ProductController@allimages')->name('product.size.images');
 
         Route::post('product-category-create/{id}','SuperAdmin\ProductController@productcategory')->name('product.category.create');
         Route::get('delete/{id}','SuperAdmin\ProductController@delete')->name('product.delete');

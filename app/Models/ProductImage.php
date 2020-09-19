@@ -24,5 +24,7 @@ class ProductImage extends Model
     public function entity(){
         $this->morphTo();
     }
-
+    public function images(){
+        return $this->hasMany('App\Models\ProductImage','size_id');
+    }
 }
