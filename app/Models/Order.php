@@ -54,11 +54,11 @@ class Order extends Model
     public function changeDetailsStatus($status, $id=null){
         if($id==null){
 
-            $this->details()->update(['status', $status]);
+            $this->details()->update(['status'=>$status]);
 
         }else{
 
-            $this->details()->where('details.id', $id)->update(['status', $status]);
+            $this->details()->where('details.id', $id)->update(['status'=>$status]);
 
         }
     }
