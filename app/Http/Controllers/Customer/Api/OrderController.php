@@ -221,7 +221,7 @@ class OrderController extends Controller
         }
 
 
-        if($coupon->isactive==false || $coupon->getUserEligibility($user)){
+        if($coupon->isactive==false || !$coupon->getUserEligibility($user)){
             return [
                 'status'=>'failed',
                 'message'=>'Coupon Has Been Expired',
@@ -237,7 +237,7 @@ class OrderController extends Controller
             $savings=$savings+($detail->cut_price-$detail->price)*$detail->quantity;
         }
 
-        $discount=$coupon->calculateDiscount($cost);
+        $discount=$coupon->getCouponDiscount($cost);
 
         $prices=[
             'basket_total'=>$cost,
