@@ -298,6 +298,7 @@ class OrderController extends Controller
 
 
         $itemdetails=[];
+        $savings=0;
         foreach($order->details as $detail){
 
             $itemdetails[]=[
@@ -312,6 +313,7 @@ class OrderController extends Controller
                 'show_return'=>($detail->status=='delivered'?1:0),
                 'show_cancel'=>in_array($detail->status, ['confirmed'])?1:0
             ];
+            $savings=$savings+($detail->cut_price-$detail->price);
 
         }
 
@@ -320,6 +322,15 @@ class OrderController extends Controller
             $show_cancel_product=1;
         }
 
+        $prices=[
+            'total'=>$order->total_cost,
+            'delivery_charge'=>$order->delivery_charge,
+            'coupon_discount'=>$order->coupon_discount,
+            'total_savings'=>$savings+$order->coupon_discount,
+            'total_paid'=>$order->total_cost+$order->delivery_charge-$order->coupon_discount,
+        ];
+
+
         return [
             'status'=>'success',
             'data'=>[
@@ -327,6 +338,7 @@ class OrderController extends Controller
                 'itemdetails'=>$itemdetails,
                 'show_cancel_product'=>$show_cancel_product??0,
                 'deliveryaddress'=>$order->deliveryaddress??'',
+                'prices'=>$prices,
             ]
         ];
     }
