@@ -11,15 +11,23 @@ use App\Http\Controllers\Controller;
 class OrderController extends Controller
 {
 
-     public function product(Request $request){
+     public function index(Request $request){
+         if(isset($request->search)){
+             $orders=Order::where(function($orders) use ($request){
 
-		$orders=Order::with(['details.entity', 'customer'])->where(function($orders) use($request){
-                $orders->where('name','LIKE','%'.$request->search.'%')
-                    ->orWhere('mobile','LIKE','%'.$request->search.'%')
-                    ->orWhere('email','LIKE','%'.$request->search.'%')
-                    ->orWhere('refid','LIKE','%'.$request->search.'%');
-            });
+                 $orders->where('name', 'like', "%".$request->search."%")
+                     ->orWhere('email', 'like', "%".$request->search."%")
+                     ->orWhere('mobile', 'like', "%".$request->search."%")
+                     ->orWhereHas('customer', function($customer)use( $request){
+                         $customer->where('name', 'like', "%".$request->search."%")
+                             ->orWhere('email', 'like', "%".$request->search."%")
+                             ->orWhere('mobile', 'like', "%".$request->search."%");
+                     });
+             });
 
+         }else{
+             $orders =Order::where('id', '>=', 0);
+         }
             if($request->fromdate)
                 $orders=$orders->where('created_at', '>=', $request->fromdate.'00:00:00');
 
@@ -35,8 +43,9 @@ class OrderController extends Controller
             if($request->ordertype)
                 $orders=$orders->orderBy('created_at', $request->ordertype);
 
-                $orders=$orders->paginate(10);
-        return view('admin.order.product', compact('orders'));
+                $orders=$orders->orderBy('id', 'desc')->paginate(10);
+
+        return view('admin.order.view',['orders'=>$orders]);
 
     }
 
