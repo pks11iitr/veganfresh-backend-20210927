@@ -58,5 +58,11 @@ $api->group(['middleware' => ['customer-auth']], function ($api) {
 
     $api->get('get-payment-info/{order_id}', ['as'=>'order.payment.info', 'uses'=>'Customer\Api\OrderController@getPaymentInfo']);
 
+    $api->get('orders-history', ['as'=>'order.history', 'uses'=>'Customer\Api\OrderController@index']);
+
+    $api->post('initiate-payment', ['as'=>'payment.initiate', 'uses'=>'Customer\Api\PaymentController@initiatePayment']);
+
+    $api->post('verify-payment', ['as'=>'payment.verify', 'uses'=>'Customer\Api\PaymentController@verifyPayment']);
+
 
 });

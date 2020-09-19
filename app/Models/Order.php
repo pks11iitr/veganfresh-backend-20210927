@@ -61,5 +61,14 @@ class Order extends Model
 
     }
 
+    public function applyCoupon($coupon){
+
+        $discount=$coupon->getCouponDiscount($this->total_cost);
+        $this->coupon_applied=$coupon->code;
+        $this->coupon_discount=$discount;
+        $this->save();
+
+    }
+
 
 }
