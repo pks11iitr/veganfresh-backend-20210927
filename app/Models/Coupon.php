@@ -2,10 +2,12 @@
 
 namespace App\Models;
 
+use App\Models\Traits\Active;
 use Illuminate\Database\Eloquent\Model;
 
 class Coupon extends Model
 {
+    use Active;
     protected $table='coupons';
 
     protected $fillable=['code', 'discount_type', 'discount', 'isactive', 'is_used', 'minimum_order', 'maximum_discount', 'expiry_date', 'usage_type'];
@@ -31,6 +33,10 @@ class Coupon extends Model
     }
 
     public function getUserEligibility($user){
+
+        if($this->expiry_date<date('Y-m-d')){
+            return false;
+        }
 
         switch($this->usage_type){
             case 'single-singleuser':

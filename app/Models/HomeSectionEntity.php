@@ -26,4 +26,18 @@ class HomeSectionEntity extends Model
             return Storage::url($value);
         return null;
     }
+
+    public function product(){
+        return $this->belongsTo('App\Models\Product', 'entity_id');
+    }
+
+    public function homesection(){
+        return $this->belongsTo('App\Models\HomeSection', 'home_section_id');
+    }
+
+    public function subcategory(){
+        return $this->belongsTo('App\Models\SubCategory', 'entity_id');
+    }
+
+
 }
