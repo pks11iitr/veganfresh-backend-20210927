@@ -29,12 +29,11 @@ class ProfileController extends Controller
 
         $request->validate([
             'name'=>'required|max:60',
-            'address'=>'required|max:200',
-            'dob'=>'required|date_format:Y-m-d',
-            'city'=>'required',
-            'state'=>'required',
+            'address'=>'max:200',
+            'dob'=>'date_format:Y-m-d',
             'image'=>'image',
             'email'=>'email',
+            'pincode'=>'integer',
 //            'image'=>'array',
 //            'image.*'=>'image'
         ]);
@@ -53,7 +52,7 @@ class ProfileController extends Controller
 
         }
 
-        if($user->update($request->only('name','email', 'dob', 'address', 'city', 'state'))){
+        if($user->update($request->only('name','email', 'dob', 'address', 'city', 'state','pincode'))){
             return [
                 'status'=>'success',
                 'message'=>'Profile has been updated'
