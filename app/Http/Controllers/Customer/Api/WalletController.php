@@ -100,7 +100,13 @@ class WalletController extends Controller
                 'status'=>'failed',
                 'message'=>'Please login to continue'
             ];
-        $wallet=Wallet::where('order_id', $request->razorpay_order_id)->firstOrFail();
+        $wallet=Wallet::where('order_id', $request->razorpay_order_id)->first();
+        if(!$wallet){
+            return [
+                'status'=>'failed',
+                'message'=>'No Record found'
+            ];
+        }
         $paymentresult=$this->pay->verifypayment($request->all());
         if($paymentresult){
             $wallet->payment_id=$request->razorpay_payment_id;

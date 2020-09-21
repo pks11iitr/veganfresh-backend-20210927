@@ -18,9 +18,8 @@ class ProfileController extends Controller
 
         return [
             'status'=>'success',
-            'data'=>[
                 'user'=>$user->only('name','email','mobile', 'image', 'dob', 'address', 'city', 'state')
-            ]
+
         ];
     }
 
