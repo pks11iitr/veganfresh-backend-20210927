@@ -379,9 +379,8 @@
                                             <td id="cut_price{{$size->id}}">{{$size->cut_price}}</td>
                                             <td id="min_qty{{$size->id}}">{{$size->min_qty}}</td>
                                             <td id="max_qty{{$size->id}}">{{$size->max_qty}}</td>
-                                            <td id="image{{$size->id}}"><img src="{{$size->image}}" height="80px" width="80px"/><input type="file" style='width:80px; margin-left: 5px;' id="sel_image{{$size->id}}"></td>
                                             <td id="stock{{$size->id}}">{{$size->stock}}</td>
-
+                                            <td id="image{{$size->id}}"><img src="{{$size->image}}" height="80px" width="80px"/><input type="file" style='width:80px; margin-left: 5px;' id="sel_image{{$size->id}}"></td>
                                             <td id="isactive{{$size->id}}">
                                                 @if($size->isactive==1){{'Yes'}}
                                                 @else{{'No'}}
@@ -404,8 +403,8 @@
                                         <th>Cut Price</th>
                                         <th>Min. QTY</th>
                                         <th>Max QTY</th>
-                                        <th>Image</th>
                                         <th>Stock</th>
+                                        <th>Image</th>
                                         <th>Isactive</th>
                                         <th>Action</th>
                                     </tr>

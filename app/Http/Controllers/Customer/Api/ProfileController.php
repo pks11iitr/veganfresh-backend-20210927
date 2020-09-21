@@ -33,8 +33,10 @@ class ProfileController extends Controller
             'dob'=>'required|date_format:Y-m-d',
             'city'=>'required',
             'state'=>'required',
-            'image'=>'array',
-            'image.*'=>'image'
+            'image'=>'image',
+            'email'=>'email',
+//            'image'=>'array',
+//            'image.*'=>'image'
         ]);
         //var_dump($request->all());
         //var_dump($request->image);die;
@@ -47,11 +49,11 @@ class ProfileController extends Controller
 
         if($request->image){
 
-            $user->saveImage($request->image[0], 'customers');
+            $user->saveImage($request->image, 'customers');
 
         }
 
-        if($user->update($request->only('name', 'dob', 'address', 'city', 'state'))){
+        if($user->update($request->only('name','email', 'dob', 'address', 'city', 'state'))){
             return [
                 'status'=>'success',
                 'message'=>'Profile has been updated'

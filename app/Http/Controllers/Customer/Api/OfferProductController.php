@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Customer\Api;
 use App\Http\Controllers\SuperAdmin\BannerController;
 use App\Models\Cart;
 use App\Models\OfferCategory;
-use App\Models\OfferProduct;
+use App\Models\Category;
 use App\Models\Banner;
 use App\Models\Product;
 use Illuminate\Http\Request;
@@ -76,7 +76,7 @@ class OfferProductController extends Controller
                 'message'=>'Please login to continue'
             ];
         $banner=Banner::active()->select('id','image')->get();
-       // $offercategory=OfferCategory::active()->select('id','name','image')->get();
+        $category=Category::active()->select('id','name','image')->get();
        // if(!empty($request->offer_cat_id)){
         //    $offerproduct=Product::active()->whereHas('offercategory', function($category) use($request){
              //   $category->where('offer_category.id', $request->offer_cat_id);
@@ -95,7 +95,7 @@ class OfferProductController extends Controller
         return [
             'status'=>'success',
             'banner'=>$banner,
-           // 'offercategory'=>$offercategory,
+            'category'=>$category,
             'data'=>$offerproducts
         ];
     }
