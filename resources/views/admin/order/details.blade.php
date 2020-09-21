@@ -102,9 +102,8 @@
                             <table id="example2" class="table table-bordered table-hover">
                                 <thead>
                                 <tr>
-                                    <th>@if(!empty($order->details[0]->entity) && $order->details[0]
-->entity instanceof \App\Models\Therapy) <th></th> @else Product Details @endif </th>
-                                    <th></th>
+                                    <th>Product Details</th>
+                                    {{--<th></th>--}}
                                     <th></th>
                                     <th></th>
                                     <th></th>
@@ -114,11 +113,10 @@
                                 @foreach($order->details as $detail)
                                     <tr>
                                         <td>{{$detail->entity->name??''}}</td>
-                                        <td>{{$detail->size->name??''}}</td>
+                                        {{--<td>{{$detail->size->name??''}}</td>--}}
                                         <td>Quantity: {{$detail->quantity}}</td>
                                         <td>Rs. {{$detail->cost}}/Item</td>
                                         <td>Rs. {{$detail->cost*$detail->quantity}} Total</td>
-
                                     </tr>
                                 @endforeach
                                 </tbody>

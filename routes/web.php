@@ -29,6 +29,7 @@ Route::group(['middle'=>['auth', 'acl'], 'is'=>'admin'], function(){
     Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
 
     Route::get('/dashboard', 'SuperAdmin\DashboardController@index')->name('home');
+
 //****************************************hallobasket********************************************
    Route::group(['prefix'=>'banners'], function(){
         Route::get('/','SuperAdmin\BannerController@index')->name('banners.list');
@@ -73,7 +74,6 @@ Route::group(['middle'=>['auth', 'acl'], 'is'=>'admin'], function(){
         Route::post('document/{id}','SuperAdmin\ProductController@document')->name('product.document');
 
 
-
     });
     Route::group(['prefix'=>'homesection'], function(){
         Route::get('/','SuperAdmin\HomeSectionController@index')->name('homesection.list');
@@ -106,6 +106,14 @@ Route::group(['middle'=>['auth', 'acl'], 'is'=>'admin'], function(){
 
     });
 
+    Route::group(['prefix'=>'orders'], function(){
+        Route::get('/','SuperAdmin\OrderController@index')->name('orders.list');
+        Route::get('details/{id}','SuperAdmin\OrderController@details')->name('order.details');
+        //Route::get('product','SuperAdmin\OrderController@product')->name('orders.product');
+        Route::get('change-status/{id}','Admin\OrderController@changeStatus')->name('order.status.change');
+        Route::get('change-payment-status/{id}','Admin\OrderController@changePaymentStatus')->name('payment.status.change');
+    });
+
    //****************************************end*************************************************
    Route::group(['prefix'=>'therapy'], function(){
         Route::get('/','SuperAdmin\TherapistController@index')->name('therapy.list');
@@ -136,14 +144,6 @@ Route::group(['middle'=>['auth', 'acl'], 'is'=>'admin'], function(){
         Route::get('edit/{id}','SuperAdmin\CustomerController@edit')->name('customer.edit');
         Route::post('update/{id}','SuperAdmin\CustomerController@update')->name('customer.update');
         Route::post('send_message','SuperAdmin\CustomerController@send_message')->name('customer.send_message');
-    });
-
-    Route::group(['prefix'=>'orders'], function(){
-        Route::get('/','SuperAdmin\OrderController@index')->name('orders.list');
-        Route::get('view/{id}','SuperAdmin\OrderController@details')->name('order.view');
-        Route::get('product','SuperAdmin\OrderController@product')->name('orders.product');
-        Route::get('change-status/{id}','Admin\OrderController@changeStatus')->name('order.status.change');
-        Route::get('change-payment-status/{id}','Admin\OrderController@changePaymentStatus')->name('payment.status.change');
     });
 
     Route::group(['prefix'=>'complain'], function(){
