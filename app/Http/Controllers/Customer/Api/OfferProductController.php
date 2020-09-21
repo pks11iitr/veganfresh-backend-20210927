@@ -77,13 +77,17 @@ class OfferProductController extends Controller
             ];
         $banner=Banner::active()->select('id','image')->get();
         $category=Category::active()->select('id','name','image')->get();
-       // if(!empty($request->offer_cat_id)){
-        //    $offerproduct=Product::active()->whereHas('offercategory', function($category) use($request){
-             //   $category->where('offer_category.id', $request->offer_cat_id);
-         //   });
-       // }else{
-            $offerproduct=Product::active()->where('is_offer',true);
-     //   }
+        if(!empty($request->category_id)){
+
+        $offerproduct=Product::active()->where('is_offer',true)->whereHas('category', function($category) use($request){
+            $category->where('categories.id', $request->category_id);
+
+        });
+        }else {
+
+            $offerproduct = Product::active()->where('is_offer', true);
+        }
+
         $cart=Cart::getUserCart($user);
         $offerproducts=$offerproduct->with('sizeprice')->paginate(20);
 
