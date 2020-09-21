@@ -24,25 +24,6 @@ class Order extends Model
         return $this->belongsTo('App\Models\Customer', 'user_id');
     }
 
-    public function getOrderDescription(){
-
-    }
-
-    public function schedule(){
-        return $this->hasMany('App\Models\BookingSlot', 'order_id');
-    }
-
-    public function payments(){
-        return $this->belongsTo('App\Models\Payments', 'order_id');
-    }
-
-    public function bookingSlots(){
-        return $this->hasMany('App\Models\BookingSlot', 'order_id');
-    }
-
-    public function homebookingslots(){
-        return $this->hasMany('App\Models\HomeBookingSlots', 'order_id');
-    }
 
     public function deliveryaddress(){
         return $this->belongsTo('App\Models\CustomerAddress', 'address_id');
@@ -53,13 +34,36 @@ class Order extends Model
         $cost=0;
 
         foreach($order->details as $d){
-            $cost=$cost+$d->entity->price;
+            $cost = $cost+$d->sizeprice->price;
         }
 
         return $cost;
 
 
     }
+
+    public function applyCoupon($coupon){
+
+        $discount=$coupon->getCouponDiscount($this->total_cost);
+        $this->coupon_applied=$coupon->code;
+        $this->coupon_discount=$discount;
+        $this->save();
+
+    }
+
+    public function changeDetailsStatus($status, $id=null){
+        if($id==null){
+
+            $this->details()->update(['status'=>$status]);
+
+        }else{
+
+            $this->details()->where('details.id', $id)->update(['status'=>$status]);
+
+        }
+    }
+
+
 
 
 }
