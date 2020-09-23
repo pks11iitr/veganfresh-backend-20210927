@@ -38,14 +38,14 @@ class FavoriteProductController extends Controller
 
     public function list_favorite_product(Request $request){
         $user=auth()->guard('customerapi')->user();
-        if(!$user)
-            return [
-                'status'=>'failed',
-                'message'=>'Please login to continue'
-            ];
+//        if(!$user)
+//            return [
+//                'status'=>'failed',
+//                'message'=>'Please login to continue'
+//            ];
         $favoriteproducts=FavoriteProduct::with(['product'=>function($products){
             $products->where('isactive', true);
-        }])->where('user_id', $user->id)->with('sizeprice')->get();
+        }])->where('user_id', $user->id??'')->with('sizeprice')->get();
 
        // var_dump($favoriteproducts);die;
         $favoriteproduct=array();

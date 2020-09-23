@@ -14,11 +14,11 @@ class ProductController extends Controller
     public function products(Request $request){
         $user=auth()->guard('customerapi')->user();
 
-        if(!$user)
-            return [
-                'status'=>'failed',
-                'message'=>'Please login to continue'
-            ];
+//        if(!$user)
+//            return [
+//                'status'=>'failed',
+//                'message'=>'Please login to continue'
+//            ];
         if(!empty($request->sub_cat_id)){
 
           $product=Product::active()->whereHas('subcategory', function($category) use($request){
@@ -68,11 +68,11 @@ class ProductController extends Controller
     public function product_detail(Request $request,$id){
         $user=auth()->guard('customerapi')->user();
 
-        if(!$user)
-            return [
-                'status'=>'failed',
-                'message'=>'Please login to continue'
-            ];
+//        if(!$user)
+//            return [
+//                'status'=>'failed',
+//                'message'=>'Please login to continue'
+//            ];
         $product=Product::active()
             ->with(['sizeprice.images'])
             ->findOrFail($id);
