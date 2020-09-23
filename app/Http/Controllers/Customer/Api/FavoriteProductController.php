@@ -6,6 +6,7 @@ use App\Models\Cart;
 use App\Models\FavoriteProduct;
 use App\Models\Product;
 use App\Models\SaveLaterProduct;
+use App\Models\Size;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -51,8 +52,12 @@ class FavoriteProductController extends Controller
         //return compact('favoriteproducts');
         $i=0;
         foreach($favoriteproducts as $c) {
-            foreach($c->sizeprice as $size)
+            foreach($c->sizeprice as $size){
                 $size->quantity=$cart[$size->id]??0;
+                $size->in_stocks=Size::getStockStatus($size, $c);
+            }
+
+
         }
 
         return [
