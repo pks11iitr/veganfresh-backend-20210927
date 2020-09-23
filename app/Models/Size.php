@@ -35,4 +35,24 @@ class Size extends Model
         return $this->belongsTo('App\Models\Product', 'product_id');
     }
 
+
+    public static function getStockStatus($size, $product){
+
+        if($product->stock_type=='packet'){
+
+            if($size->stock > 0)
+                return true;
+            else
+                return false;
+
+        }else if($product->stock_type=='quantity'){
+
+            if($product->stock > 0)
+                return true;
+            else
+                return false;
+        }
+
+    }
+
 }
