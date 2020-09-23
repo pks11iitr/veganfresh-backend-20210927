@@ -18,6 +18,7 @@ class FavoriteProductController extends Controller
                 'status'=>'failed',
                 'message'=>'Please login to continue'
             ];
+
       $favoriteproduct=FavoriteProduct::create([
                  'user_id'=>$user->id,
                   'product_id'=>$request->product_id,
@@ -44,6 +45,9 @@ class FavoriteProductController extends Controller
             ->join('favorite_products', 'products.id', '=', 'favorite_products.product_id')
             ->where('favorite_products.user_id', $user->id)
             ->get();
+        echo '<pre>';
+        print_r($favoriteproducts->toArray());die;
+
         $cart=Cart::getUserCart($user);
         foreach($favoriteproducts as $c) {
             foreach($c->sizeprice as $size)

@@ -2,7 +2,7 @@
 
 namespace App\Listeners;
 
-use App\Events\TherapistRegistered;
+use App\Events\RiderRegistered;
 use App\Models\OTPModel;
 use App\Services\SMS\Msg91;
 use Illuminate\Queue\InteractsWithQueue;
@@ -23,10 +23,10 @@ class TherapistRegisterListner
     /**
      * Handle the event.
      *
-     * @param  TherapistRegistered  $event
+     * @param  RiderRegistered  $event
      * @return void
      */
-    public function handle(TherapistRegistered $event)
+    public function handle(RiderRegistered $event)
     {
         $otp=OTPModel::createOTP('therapist', $event->user->id, 'register');
         $msg=str_replace('{{otp}}', $otp, config('sms-templates.register'));

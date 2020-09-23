@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Rider\Auth;
 
 use App\Events\CustomerRegistered;
-use App\Events\TherapistRegistered;
+use App\Events\RiderRegistered;
 use App\Models\Customer;
-use App\Models\Therapist;
+use App\Models\Rider;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
@@ -37,7 +37,7 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return Therapist::create([
+        return Rider::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
@@ -49,14 +49,14 @@ class RegisterController extends Controller
     {
         $this->validator($request->all())->validate();
 
-        if($customer=Therapist::where('mobile', $request->mobile)->orWhere('email', $request->email)->first()){
+        if($customer=Rider::where('mobile', $request->mobile)->orWhere('email', $request->email)->first()){
             return [
                 'status'=>'failed',
                 'message'=>'Email or mobile already registered'
             ];
         }
 
-        event(new TherapistRegistered($user = $this->create($request->all())));
+        event(new RiderRegistered($user = $this->create($request->all())));
 
         return [
             'status'=>'success',
