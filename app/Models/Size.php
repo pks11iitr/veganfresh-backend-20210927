@@ -41,16 +41,16 @@ class Size extends Model
         if($product->stock_type=='packet'){
 
             if($size->stock > 0)
-                return true;
+                return 1;
             else
-                return false;
+                return 0;
 
         }else if($product->stock_type=='quantity'){
 
             if($product->stock > 0)
-                return true;
+                return 1;
             else
-                return false;
+                return 0;
         }
 
     }
