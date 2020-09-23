@@ -16,11 +16,11 @@ class OfferProductController extends Controller
     public function offerproducts(Request $request){
         $user=auth()->guard('customerapi')->user();
 
-        if(!$user)
-            return [
-                'status'=>'failed',
-                'message'=>'Please login to continue'
-            ];
+//        if(!$user)
+//            return [
+//                'status'=>'failed',
+//                'message'=>'Please login to continue'
+//            ];
         $banner=Banner::active()->select('id','image')->get();
         $offercategory=OfferCategory::active()->select('id','name','image')->get();
           if(!empty($request->offer_cat_id)){
@@ -70,11 +70,11 @@ class OfferProductController extends Controller
     public function offerproducts_withoutcategory(Request $request){
         $user=auth()->guard('customerapi')->user();
 
-        if(!$user)
-            return [
-                'status'=>'failed',
-                'message'=>'Please login to continue'
-            ];
+//        if(!$user)
+//            return [
+//                'status'=>'failed',
+//                'message'=>'Please login to continue'
+//            ];
         $banner=Banner::active()->select('id','image')->get();
         $category=Category::active()->select('id','name','image')->get();
         if(!empty($request->category_id)){
