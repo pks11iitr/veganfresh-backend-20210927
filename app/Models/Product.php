@@ -3,15 +3,16 @@
 namespace App\Models;
 
 use App\Models\BaseModel as Model;
+use App\Models\Traits\Active;
 use App\Models\Traits\ReviewTrait;
 use Illuminate\Support\Facades\Storage;
 
 class Product extends Model
 {
-    use ReviewTrait;
+    use ReviewTrait, Active;
 
 	protected $table='products';
-    protected $fillable=['name','description','company','ratings','image','isactive'];
+    protected $fillable=['name','description','company','ratings','image','isactive','stock_type'];
 
     protected $hidden = ['created_at','deleted_at','updated_at','description','isactive','image','is_offer','min_qty','max_qty','stock'];
 

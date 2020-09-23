@@ -75,3 +75,21 @@ $api->group(['middleware' => ['customer-auth']], function ($api) {
 
 
 });
+
+//Rider api Start
+
+
+$api->group(['prefix' => 'rider'], function ($api) {
+    $api->post('login', 'Rider\Auth\LoginController@login');
+    $api->post('login-with-otp', 'Rider\Auth\LoginController@loginWithOtp');
+    $api->post('register', 'Rider\Auth\RegisterController@register');
+    $api->post('forgot', 'Rider\Auth\ForgotPasswordController@forgot');
+    $api->post('verify-otp', 'Rider\Auth\OtpController@verify');
+    $api->post('resend-otp', 'Rider\Auth\OtpController@resend');
+
+    $api->group(['middleware' => ['rider-auth']], function ($api) {
+
+
+    });
+
+});

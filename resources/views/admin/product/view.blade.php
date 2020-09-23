@@ -61,6 +61,7 @@
                     <th>Company</th>
                     <th>Ratings</th>
                     <th>Is Offer</th>
+                    <th>Stock Type</th>
 {{--                    <th>Min Qty</th>--}}
 {{--                    <th>Max Qty</th>--}}
 {{--                    <th>Stock</th>--}}
@@ -79,7 +80,7 @@
                           @else{{'No'}}
                           @endif
                       </td>
-{{--					  <td>{{$product->min_qty}}</td>--}}
+					  <td>{{$product->stock_type}}</td>
 {{--					  <td>{{$product->max_qty}}</td>--}}
 {{--					  <td>{{$product->stock}}</td>--}}
 {{--                      <td><img src="{{$product->image}}" height="80px" width="80px"/></td>--}}
@@ -98,6 +99,7 @@
                       <th>Company</th>
                       <th>Ratings</th>
                       <th>Is Offer</th>
+                      <th>Stock Type</th>
 {{--                      <th>Min Qty</th>--}}
 {{--                      <th>Max Qty</th>--}}
 {{--                      <th>Stock</th>--}}

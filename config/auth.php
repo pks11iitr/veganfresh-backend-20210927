@@ -41,9 +41,9 @@ return [
             'provider' => 'users',
         ],
 
-        'therapistapi' => [
+        'riderapi' => [
             'driver' => 'jwt',
-            'provider' => 'therapists',
+            'provider' => 'rider',
         ],
 
         'customerapi' => [
@@ -78,9 +78,9 @@ return [
             'driver' => 'eloquent',
             'model' => App\Models\Customer::class,
         ],
-        'therapists' => [
+        'rider' => [
             'driver' => 'eloquent',
-            'model' => App\Models\Therapist::class,
+            'model' => App\Models\Rider::class,
         ],
 
         // 'users' => [

@@ -63,6 +63,15 @@
                   </div>
                   </div>
                         <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Stock Type</label>
+                                <select class="form-control" name="stock_type" required>
+                                    <option value="packet">Packet</option>
+                                    <option value="quantity">Quantity</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
                   <div class="form-group">
                         <label>Is Offer</label>
                         <select class="form-control" name="is_offer" required>

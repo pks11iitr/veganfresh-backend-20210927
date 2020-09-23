@@ -41,6 +41,7 @@ class ProductController extends Controller
                   			'description'=>'required',
                   			'company'=>'required',
                   			'is_offer'=>'required',
+                  			'stock_type'=>'required',
 //                  			'min_qty'=>'required',
 //                  			'max_qty'=>'required',
 //                  			'stock'=>'required',
@@ -52,6 +53,7 @@ class ProductController extends Controller
                       'description'=>$request->description,
                       'company'=>$request->company,
                       'is_offer'=>$request->is_offer,
+                      'stock_type'=>$request->stock_type,
                      // 'min_qty'=>$request->min_qty,
                      // 'max_qty'=>$request->max_qty,
                       'ratings'=>$request->ratings,
@@ -128,6 +130,7 @@ class ProductController extends Controller
                  'description'=>'required',
                  'company'=>'required',
                  'is_offer'=>'required',
+                 'stock_type'=>'required',
 //                 'min_qty'=>'required',
 //                 'max_qty'=>'required',
 //                 'stock'=>'required',
@@ -141,6 +144,7 @@ class ProductController extends Controller
                  'description'=>$request->description,
                  'company'=>$request->company,
                  'is_offer'=>$request->is_offer,
+                 'stock_type'=>$request->stock_type,
 //                 'min_qty'=>$request->min_qty,
 //                 'max_qty'=>$request->max_qty,
                  'ratings'=>$request->ratings,
@@ -227,6 +231,7 @@ class ProductController extends Controller
             'size'=>'required',
             'price'=>'required',
             'stock'=>'required',
+            'consumed_units'=>'required',
             'min_qty'=>'required',
             'max_qty'=>'required',
             'cut_price'=>'required',
@@ -239,6 +244,7 @@ class ProductController extends Controller
             'min_qty'=>$request->min_qty,
             'max_qty'=>$request->max_qty,
             'stock'=>$request->stock,
+            'consumed_units'=>$request->consumed_units,
             'product_id'=>$id,
             'cut_price'=>$request->cut_price,
             'isactive'=>$request->isactive
@@ -260,6 +266,7 @@ class ProductController extends Controller
             'stock'=>'required',
             'min_qty'=>'required',
             'max_qty'=>'required',
+            'consumed_units'=>'required',
             'cut_price'=>'required',
         ]);
 
@@ -271,6 +278,7 @@ class ProductController extends Controller
             'min_qty'=>$request->min_qty,
             'max_qty'=>$request->max_qty,
             'stock'=>$request->stock,
+            'consumed_units'=>$request->consumed_units,
             'isactive'=>$request->isactive,
         ]);
         {

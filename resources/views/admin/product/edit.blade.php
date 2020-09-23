@@ -94,6 +94,19 @@
 
                                         <div class="col-md-6">
                                             <div class="form-group">
+                                                <label>Stock Type</label>
+                                                <select class="form-control" name="stock_type" required>
+                                                    <option selected="selected"
+                                                            value="packet" {{$products->stock_type=='packet'?'selected':''}}>Packet
+                                                    </option>
+                                                    <option value="quantity" {{$products->stock_type==''?'selected':'quantity'}}>Quantity
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="form-group">
                                                 <label>Is Offer</label>
                                                 <select class="form-control" name="is_offer" required>
                                                     <option selected="selected"
@@ -298,6 +311,14 @@
                                                        id="exampleInputEmail3" placeholder="Enter Stock">
                                             </div>
                                         </div>
+
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail1">Consumed Units</label>
+                                                <input type="number" name="consumed_units" class="form-control" min="0"
+                                                       id="exampleInputEmail3" placeholder="Enter consumed units">
+                                            </div>
+                                        </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="exampleInputFile">Product Image</label>
@@ -366,6 +387,7 @@
                                         <th>Min. QTY</th>
                                         <th>Max QTY</th>
                                         <th>Stock</th>
+                                        <th>Consumed Unit</th>
                                         <th>Image</th>
                                         <th>Isactive</th>
                                         <th>Action</th>
@@ -380,7 +402,8 @@
                                             <td id="min_qty{{$size->id}}">{{$size->min_qty}}</td>
                                             <td id="max_qty{{$size->id}}">{{$size->max_qty}}</td>
                                             <td id="stock{{$size->id}}">{{$size->stock}}</td>
-                                            <td id="image{{$size->id}}"><img src="{{$size->image}}" height="80px" width="80px"/><input type="file" style='width:80px; margin-left: 5px;' id="sel_image{{$size->id}}"></td>
+                                            <td id="consumed_units{{$size->id}}">{{$size->consumed_units}}</td>
+                                            <td id="image{{$size->id}}"><img src="{{$size->image}}" height="80px" width="80px"/><br><br><input type="file" style='width:80px; margin-left: 5px;' id="sel_image{{$size->id}}"></td>
                                             <td id="isactive{{$size->id}}">
                                                 @if($size->isactive==1){{'Yes'}}
                                                 @else{{'No'}}
@@ -389,7 +412,7 @@
                                             <td>
                                                 {{--                                          <td><a href="{{route('product.delete',['id'=>$size->id])}}" class="btn btn-danger">Delete</a>--}}
                                                 <input type="button" id="edit_button{{$size->id}}" value="Edit"
-                                                       class="btn btn-success" onclick="edit_row({{$size->id}})">
+                                                       class="btn btn-success" onclick="edit_row({{$size->id}})"><br><br>
                                                 <input type="button" id="save_button{{$size->id}}" value="Save"
                                                        class="btn btn-success" onclick="save_row({{$size->id}})">
                                             </td>
@@ -404,6 +427,7 @@
                                         <th>Min. QTY</th>
                                         <th>Max QTY</th>
                                         <th>Stock</th>
+                                        <th>Consumed Units</th>
                                         <th>Image</th>
                                         <th>Isactive</th>
                                         <th>Action</th>
@@ -485,6 +509,7 @@
             var max = document.getElementById("max_qty" + no);
             var image = document.getElementById("image" + no);
             var stock = document.getElementById("stock" + no);
+            var consumed_units = document.getElementById("consumed_units" + no);
             var isactive = document.getElementById("isactive" + no);
 
             var size_data = size.innerHTML;
@@ -494,6 +519,7 @@
             var max_data = max.innerHTML;
             var image_data = image.src;
             var stock_data = stock.innerHTML;
+            var consumed_units_data = consumed_units.innerHTML;
             var isactive_data1 = isactive.innerHTML
             if (isactive_data1.trim() === "Yes") {
                 var isactive_data = '1';
@@ -502,13 +528,14 @@
             }
 
 
-            size.innerHTML = "<input type='text' style='width:80px;' id='size_text" + no + "' value='" + size_data + "'>";
-            price.innerHTML = "<input type='text' style='width:80px;' id='price_text" + no + "' value='" + price_data + "'>";
-            cut_price.innerHTML = "<input type='text' style='width:80px;' id='cut_price_text" + no + "' value='" + cut_price_data + "'>";
-            min.innerHTML = "<input type='text' style='width:80px;'  id='min_text" + no + "' value='" + min_data + "'>";
-            max.innerHTML = "<input type='text' style='width:80px;' id='max_text" + no + "' value='" + max_data + "'>";
-            stock.innerHTML = "<input type='text' style='width:80px;' id='stock_text" + no + "' value='" + stock_data + "'>";
-            isactive.innerHTML = "<input type='text' style='width:80px;' id='isactive_text" + no + "' value='" + isactive_data + "'>";
+            size.innerHTML = "<input type='text' style='width:70px;' id='size_text" + no + "' value='" + size_data + "'>";
+            price.innerHTML = "<input type='text' style='width:70px;' id='price_text" + no + "' value='" + price_data + "'>";
+            cut_price.innerHTML = "<input type='text' style='width:70px;' id='cut_price_text" + no + "' value='" + cut_price_data + "'>";
+            min.innerHTML = "<input type='text' style='width:70px;'  id='min_text" + no + "' value='" + min_data + "'>";
+            max.innerHTML = "<input type='text' style='width:70px;' id='max_text" + no + "' value='" + max_data + "'>";
+            stock.innerHTML = "<input type='text' style='width:70px;' id='stock_text" + no + "' value='" + stock_data + "'>";
+            consumed_units.innerHTML = "<input type='text' style='width:70px;' id='consumed_units_text" + no + "' value='" + consumed_units_data + "'>";
+            isactive.innerHTML = "<input type='text' style='width:70px;' id='isactive_text" + no + "' value='" + isactive_data + "'>";
         }
 
         function save_row(no) {
@@ -520,6 +547,7 @@
             var min_val = document.getElementById("min_text" + no).value;
             var max_val = document.getElementById("max_text" + no).value;
             var stock_val = document.getElementById("stock_text" + no).value;
+            var consumed_units_val = document.getElementById("consumed_units_text" + no).value;
             var isactive_val = document.getElementById("isactive_text" + no).value;
             // var data = 'price=' + price_val + '&cut_price=' + cut_price_val + '&min_qty=' + min_val + '&c=' + max_val + '&stock=' + stock_val + '&isactive=' + isactive_val + '&size_id=' + no;
             formdata = new FormData();
@@ -529,6 +557,7 @@
             formdata.append('min_qty', min_val)
             formdata.append('max_qty', max_val)
             formdata.append('stock', stock_val)
+            formdata.append('consumed_units', consumed_units_val)
             formdata.append('isactive', isactive_val)
             formdata.append('size_id', no)
             var files = $('#sel_image'+no)[0].files[0];
