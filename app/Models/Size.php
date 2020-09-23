@@ -3,16 +3,17 @@
 namespace App\Models;
 
 use App\Models\Traits\Active;
+use App\Models\Traits\DocumentUploadTrait;
 use App\Models\Traits\ReviewTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 
 class Size extends Model
 {
-    use ReviewTrait;use Active;
+    use ReviewTrait, Active,DocumentUploadTrait;
     protected $table='product_prices';
 
-    protected $fillable=['size', 'price','cut_price','product_id', 'isactive','min_qty','max_qty','stock'];
+    protected $fillable=['size', 'price','cut_price','product_id', 'isactive','min_qty','max_qty','stock','image'];
 
     protected $hidden =['created_at','updated_at','deleted_at','isactive'];
     protected $appends=['discount'];
@@ -32,6 +33,26 @@ class Size extends Model
 
     public function product(){
         return $this->belongsTo('App\Models\Product', 'product_id');
+    }
+
+
+    public static function getStockStatus($size, $product){
+
+        if($product->stock_type=='packet'){
+
+            if($size->stock > 0)
+                return 1;
+            else
+                return 0;
+
+        }else if($product->stock_type=='quantity'){
+
+            if($product->stock > 0)
+                return 1;
+            else
+                return 0;
+        }
+
     }
 
 }

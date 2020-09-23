@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Customer\Api;
 
 use App\Models\Cart;
 use App\Models\Product;
+use App\Models\Size;
 use App\Models\TimeSlot;
 use App\Models\Review;
 use Illuminate\Http\Request;
@@ -14,11 +15,11 @@ class ProductController extends Controller
     public function products(Request $request){
         $user=auth()->guard('customerapi')->user();
 
-        if(!$user)
-            return [
-                'status'=>'failed',
-                'message'=>'Please login to continue'
-            ];
+//        if(!$user)
+//            return [
+//                'status'=>'failed',
+//                'message'=>'Please login to continue'
+//            ];
         if(!empty($request->sub_cat_id)){
 
           $product=Product::active()->whereHas('subcategory', function($category) use($request){
@@ -37,6 +38,7 @@ class ProductController extends Controller
         foreach($products as $product){
             foreach($product->sizeprice as $size)
                 $size->quantity=$cart[$size->id]??0;
+                $size->in_stocks=Size::getStockStatus($size, $product);
 
         }
 
@@ -48,17 +50,31 @@ class ProductController extends Controller
 
     public function search_products(Request $request){
 
+        $user=auth()->guard('customerapi')->user();
+
+        if(!$user)
+            return [
+                'status'=>'failed',
+                'message'=>'Please login to continue'
+            ];
+
         if(!empty($request->search))
             $product=Product::active()
-            ->with('category')
+            ->with(['category', 'sizeprice'])
             ->where('name', 'like', "%".$request->search."%");
-        $products=$product->get();
+        $products=$product->paginate(10);
+
+
+        $cart=Cart::getUserCart($user);
 
         foreach($products as $i=>$r)
-                  {
-
-                  $products[$i]['category_name']=$r->category[0]->name??0;
-                }
+        {
+            $products[$i]['category_name']=$r->category[0]->name??0;
+            foreach($product[$i]->sizeprice as $size){
+                $size->quantity=$cart[$size->id]??0;
+                $size->in_stocks=Size::getStockStatus($size, $product);
+            }
+        }
         return [
             'status'=>'success',
             'data'=>$products,
@@ -68,11 +84,11 @@ class ProductController extends Controller
     public function product_detail(Request $request,$id){
         $user=auth()->guard('customerapi')->user();
 
-        if(!$user)
-            return [
-                'status'=>'failed',
-                'message'=>'Please login to continue'
-            ];
+//        if(!$user)
+//            return [
+//                'status'=>'failed',
+//                'message'=>'Please login to continue'
+//            ];
         $product=Product::active()
             ->with(['sizeprice.images'])
             ->findOrFail($id);
@@ -109,7 +125,10 @@ class ProductController extends Controller
                      'avg_reviews'=>$avg_reviews,
                      'totalcount'=>$totalcount,
                      'reviews'=>$reviews,
-                     'timeslot'=>$timeslot
+                     'timeslot'=>$timeslot,
+                     'in_stocks'=>Size::getStockStatus($size, $product),
+                     'min_qty'=>$size->min_qty,
+                     'max_qty'=>$size->max_qty,
         );
 
         return [
@@ -118,6 +137,7 @@ class ProductController extends Controller
 
         ];
     }
+
 
 
 }
