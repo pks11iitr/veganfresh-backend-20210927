@@ -40,11 +40,16 @@ class FavoriteProductController extends Controller
                 'status'=>'failed',
                 'message'=>'Please login to continue'
             ];
-        $favoriteproducts=Product::active()->with('sizeprice')
-            ->join('favorite_products', 'products.id', '=', 'favorite_products.product_id')
-            ->where('favorite_products.user_id', $user->id)
-            ->get();
+        //$favoriteproducts=Product::active()->with('sizeprice')
+            //->join('favorite_products', 'products.id', '=', 'favorite_products.product_id')
+            //->where('favorite_products.user_id', $user->id)
+            //->get();
+
+        $favoriteproducts=$user->favouriteProducts()->with('sizeprice')->where('products.isactive', true)->get();
+
         $cart=Cart::getUserCart($user);
+        //return compact('favoriteproducts');
+        $i=0;
         foreach($favoriteproducts as $c) {
             foreach($c->sizeprice as $size)
                 $size->quantity=$cart[$size->id]??0;
@@ -52,7 +57,6 @@ class FavoriteProductController extends Controller
 
         return [
             'favoriteproduct'=>$favoriteproducts,
-
         ];
 
     }
