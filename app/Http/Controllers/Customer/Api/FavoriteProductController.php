@@ -6,6 +6,7 @@ use App\Models\Cart;
 use App\Models\FavoriteProduct;
 use App\Models\Product;
 use App\Models\SaveLaterProduct;
+use App\Models\Size;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -41,22 +42,27 @@ class FavoriteProductController extends Controller
                 'status'=>'failed',
                 'message'=>'Please login to continue'
             ];
-        $favoriteproducts=Product::active()->with('sizeprice')
-            ->join('favorite_products', 'products.id', '=', 'favorite_products.product_id')
-            ->where('favorite_products.user_id', $user->id)
-            ->get();
-        echo '<pre>';
-        print_r($favoriteproducts->toArray());die;
+        //$favoriteproducts=Product::active()->with('sizeprice')
+            //->join('favorite_products', 'products.id', '=', 'favorite_products.product_id')
+            //->where('favorite_products.user_id', $user->id)
+            //->get();
+
+        $favoriteproducts=$user->favouriteProducts()->with('sizeprice')->where('products.isactive', true)->get();
 
         $cart=Cart::getUserCart($user);
+        //return compact('favoriteproducts');
+        $i=0;
         foreach($favoriteproducts as $c) {
-            foreach($c->sizeprice as $size)
+            foreach($c->sizeprice as $size){
                 $size->quantity=$cart[$size->id]??0;
+                $size->in_stocks=Size::getStockStatus($size, $c);
+            }
+
+
         }
 
         return [
             'favoriteproduct'=>$favoriteproducts,
-
         ];
 
     }

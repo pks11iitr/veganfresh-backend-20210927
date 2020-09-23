@@ -46,4 +46,9 @@ class Customer extends Authenticatable implements JWTSubject
             return Storage::url($value);
         return null;
     }
+
+
+    public function favouriteProducts(){
+        return $this->belongsToMany('App\Models\Product', 'favorite_products', 'user_id', 'product_id');
+    }
 }
