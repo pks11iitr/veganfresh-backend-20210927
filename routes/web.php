@@ -17,14 +17,14 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::group(['middle'=>['auth', 'acl'], 'is'=>'admin|clinic-admin|clinic-therapist'], function(){
+Route::group(['middleware'=>['auth', 'acl'], 'is'=>'admin|rider-admin|clinic-therapist'], function(){
 
     Route::get('/role-check', 'SuperAdmin\HomeController@check_n_redirect')->name('user.role.check');
 
 });
 
 
-Route::group(['middle'=>['auth', 'acl'], 'is'=>'admin'], function(){
+Route::group(['middleware'=>['auth', 'acl'], 'is'=>'admin'], function(){
 
     Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
 
@@ -177,6 +177,12 @@ Route::group(['middle'=>['auth', 'acl'], 'is'=>'admin'], function(){
         Route::get('delete/{id}','SuperAdmin\VideoController@delete')->name('video.delete');
 
     });
+
+});
+
+
+Route::group(['prefix'=>'riders', 'middleware'=>['auth', 'acl'], 'is'=>'rider-admin'], function() {
+    Route::get('/dashboard', 'RiderAdmin\DashboardController@index')->name('rideradmin.home');
 
 });
 
