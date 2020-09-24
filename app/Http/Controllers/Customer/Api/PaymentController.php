@@ -17,6 +17,7 @@ use App\Models\Wallet;
 use App\Services\Payment\RazorPayService;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 
 class PaymentController extends Controller
 {
@@ -107,8 +108,12 @@ class PaymentController extends Controller
             }
 
         }
+        if($request->type=='cod'){
+            $result=$this->initiateGatewayPayment($order);
+        }else{
+            $result=$this->initiateCODPayment($order);
+        }
 
-        $result=$this->initiateGatewayPayment($order);
 
         return $result;
 
@@ -207,7 +212,7 @@ class PaymentController extends Controller
 
     private function initiateGatewayPayment($order){
         $response=$this->pay->generateorderid([
-            "amount"=>($order->total_cost-$order->coupon_discount-$order->points_used-$order->balance_used)*100,
+            "amount"=>($order->total_cost-$order->coupon_discount-$order->points_used-$order->balance_used+$order->delivery_charge)*100,
             "currency"=>"INR",
             "receipt"=>$order->refid,
         ]);
@@ -223,7 +228,7 @@ class PaymentController extends Controller
                 'data'=>[
                     'payment_done'=>'no',
                     'razorpay_order_id'=> $order->order_id,
-                    'total'=>($order->total_cost-$order->coupon_discount-$order->points_used-$order->balance_used)*100,
+                    'total'=>($order->total_cost-$order->coupon_discount-$order->points_used-$order->balance_used+$order->delivery_charge)*100,
                     'email'=>$order->email,
                     'mobile'=>$order->mobile,
                     'description'=>'Product Purchase at HalloBasket',
@@ -241,6 +246,33 @@ class PaymentController extends Controller
             ];
         }
     }
+
+    private function initiateCodPayment($order){
+        $user=auth()->guard('customerapi')->user();
+        if($user->status==2){
+            return [
+                'status'=>'failed',
+                'message'=>'Your Account Has Been Blocked'
+            ];
+        }
+        $order->payment_mode='COD';
+        $order->status='confirmed';
+        $order->save();
+
+        event(new OrderConfirmed($order));
+
+        Cart::where('user_id', $order->user_id)->delete();
+
+        return [
+            'status'=>'success',
+            'message'=>'success',
+            'data'=>[
+                'payment_done'=>'yes',
+                'refid'=>$order->refid
+            ],
+        ];
+    }
+
 
     public function verifyPayment(Request $request){
 

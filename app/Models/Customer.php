@@ -51,4 +51,12 @@ class Customer extends Authenticatable implements JWTSubject
     public function favouriteProducts(){
         return $this->belongsToMany('App\Models\Product', 'favorite_products', 'user_id', 'product_id');
     }
+
+
+    public function isMembershipActive(){
+        if($this->active_membership && $this->membership_expiry > date('Y-m-d')){
+            return true;
+        }
+        return false;
+    }
 }

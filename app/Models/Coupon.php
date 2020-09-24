@@ -40,13 +40,28 @@ class Coupon extends Model
 
         switch($this->usage_type){
             case 'single-singleuser':
-                $order=Order::where('coupon_applied', $this->code)->first();
+                $order=Order::where('coupon_applied', $this->code)
+                    ->where(function($order){
+                        $order->where('payment_mode', 'COD')
+                            ->orWhere(function($order){
+                                $order->where('payment_mode', 'online')
+                                    ->where('payment_status', 'paid');
+                            });
+                    })
+                    ->first();
                 if($order)
                     return false;
                 break;
             case 'single-multipleuser':break;
                 $order=Order::where('coupon_applied', $this->code)
                     ->where('user_id', $user->id)
+                    ->where(function($order){
+                        $order->where('payment_mode', 'COD')
+                            ->orWhere(function($order){
+                                $order->where('payment_mode', 'online')
+                                    ->where('payment_status', 'paid');
+                            });
+                    })
                     ->first();
                 if($order)
                     return false;

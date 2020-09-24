@@ -85,11 +85,16 @@ class OrderController extends Controller
 
         }
         $refid=env('MACHINE_ID').time();
+
+        $delivery_charge=$user->isMembershipAtive()?config('my-config')['delivery_charge']:0;
+
         $order=Order::create([
             'user_id'=>auth()->guard('customerapi')->user()->id,
             'refid'=>$refid,
             'status'=>'pending',
             'total_cost'=>$total_cost,
+            'delivery_charge'=>$delivery_charge,
+
         ]);
 
         foreach($cartitems as $item){
@@ -321,7 +326,7 @@ class OrderController extends Controller
         }
 
         // options to be displayed
-        if($order->status=='confirmed'){
+        if(in_array($order->status, ['confirmed','processing', 'dispatched'])){
             $show_cancel_product=1;
         }
 
@@ -344,6 +349,51 @@ class OrderController extends Controller
                 'prices'=>$prices,
             ]
         ];
+    }
+
+
+    public function cancelOrder(Request $request, $id){
+
+        $user=auth()->guard('customerapi')->user();
+        if(!$user)
+            return [
+                'status'=>'failed',
+                'message'=>'Please login to continue'
+            ];
+
+        $order=Order::where('user_id', $user->id)->find($id);
+        if(!$order)
+            return [
+                'status'=>'failed',
+                'message'=>'No Such Order Found',
+            ];
+
+        if(!in_array($order->status, ['confirmed', 'processing', 'dispatched'])){
+            return [
+                'status'=>'failed',
+                'message'=>'Order Cannot Be Cancelled',
+            ];
+        }
+
+        //Add Amount In Customer Wallet
+        if($order->payment_status=='paid'){
+
+            if($order->use_points && $order->points_used){
+                $amount=$order->total_cost-$order->points_used-$order->coupon_discount+$order->delivery_charge;
+                Wallet::updatewallet($user->user_id, 'Amount added in wallet for order cancellation. Order ID: '.$order->refid,'Credit',$amount,'CASH',$order->id);
+                Wallet::updatewallet($user->user_id, 'Points added in wallet for order cancellation. Order ID: '.$order->refid,'Credit',$order->points_used,'POINT',$order->id);
+            }else{
+                $amount=$order->total_cost-$order->coupon_discount+$order->delivery_charge;
+                Wallet::updatewallet($user->user_id, 'Amount added in wallet for order cancellation. Order ID: '.$order->refid,'Credit',$amount,'CASH',$order->id);
+            }
+
+        }
+
+        return [
+            'status'=>'success',
+            'message'=>'Your Order Has Been Cancelled'
+        ];
+
     }
 
 }
