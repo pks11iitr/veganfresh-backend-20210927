@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 5.7.31, for Linux (x86_64)
 --
--- Host: 127.0.0.1    Database: arogyapeeth
+-- Host: 127.0.0.1    Database: hallobasket
 -- ------------------------------------------------------
 -- Server version	5.7.31-0ubuntu0.18.04.1
 
@@ -24,14 +24,16 @@ DROP TABLE IF EXISTS `banners`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `banners` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `entity_type` varchar(500) NOT NULL,
+  `entity_id` int(10) NOT NULL,
   `image` varchar(500) NOT NULL,
-  `type` varchar(100) NOT NULL DEFAULT 'all',
+  `parent_category` int(10) DEFAULT NULL,
   `isactive` tinyint(1) NOT NULL DEFAULT '1',
   `created_at` datetime DEFAULT NULL,
   `deleted_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -40,40 +42,8 @@ CREATE TABLE `banners` (
 
 LOCK TABLES `banners` WRITE;
 /*!40000 ALTER TABLE `banners` DISABLE KEYS */;
-INSERT INTO `banners` VALUES (1,'banners/homebanner1.jpeg','all',1,NULL,NULL,NULL),(2,'banners/homebanner2.jpeg','all',1,NULL,NULL,NULL),(3,'banners/homebanner3.jpeg','all',1,NULL,NULL,NULL),(4,'banners/homebanner4.jpeg','all',1,NULL,NULL,NULL),(5,'banners/5/477_product3banner.jpeg','all',1,'2020-06-29 13:37:10',NULL,'2020-06-29 13:37:11');
+INSERT INTO `banners` VALUES (8,'App\\Models\\Category',1,'banners/8/464_therapiesbanner5.jpeg',NULL,1,'2020-09-16 12:27:55',NULL,'2020-09-16 12:27:56'),(9,'App\\Models\\SubCategory',1,'banners/9/842_product4banner.jpeg',4,1,'2020-09-16 12:28:28',NULL,'2020-09-16 12:28:29'),(11,'App\\Models\\SubCategory',1,'banners/11/603_homebanner2.jpeg',4,1,'2020-09-18 10:50:23',NULL,'2020-09-18 10:50:24'),(12,'App\\Models\\Category',6,'banners/12/338_product2banner.jpeg',NULL,1,'2020-09-18 10:50:58',NULL,'2020-09-18 10:50:59');
 /*!40000 ALTER TABLE `banners` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `bookings_slots`
---
-
-DROP TABLE IF EXISTS `bookings_slots`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `bookings_slots` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `order_id` int(11) NOT NULL,
-  `clinic_id` int(11) NOT NULL,
-  `therapy_id` int(11) NOT NULL,
-  `slot_id` int(11) NOT NULL,
-  `grade` int(11) NOT NULL,
-  `status` varchar(50) NOT NULL DEFAULT 'pending',
-  `created_at` datetime DEFAULT NULL,
-  `updated_at` datetime DEFAULT NULL,
-  `deleted_at` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=55 DEFAULT CHARSET=utf8mb4;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `bookings_slots`
---
-
-LOCK TABLES `bookings_slots` WRITE;
-/*!40000 ALTER TABLE `bookings_slots` DISABLE KEYS */;
-INSERT INTO `bookings_slots` VALUES (51,16,1,1,3,1,'pending','2020-08-14 13:00:23','2020-08-14 13:00:23',NULL),(52,16,1,1,5,1,'pending','2020-08-14 13:00:23','2020-08-14 13:00:23',NULL),(53,17,1,1,5,1,'pending','2020-08-14 13:43:54','2020-08-14 13:43:54',NULL),(54,17,1,1,6,1,'pending','2020-08-14 13:43:54','2020-08-14 13:43:54',NULL);
-/*!40000 ALTER TABLE `bookings_slots` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -87,12 +57,13 @@ CREATE TABLE `cart` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
   `product_id` int(11) NOT NULL,
+  `size_id` int(11) NOT NULL,
   `quantity` int(11) NOT NULL,
   `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
   `updated_at` datetime DEFAULT NULL,
   `deleted_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=137 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -101,6 +72,7 @@ CREATE TABLE `cart` (
 
 LOCK TABLES `cart` WRITE;
 /*!40000 ALTER TABLE `cart` DISABLE KEYS */;
+INSERT INTO `cart` VALUES (97,3,1,4,4,'2020-09-17 14:53:39','2020-09-19 17:56:54',NULL),(98,3,2,3,2,'2020-09-17 14:54:08','2020-09-21 17:27:43',NULL),(99,3,1,2,5,'2020-09-17 14:54:13','2020-09-21 17:28:19',NULL),(116,3,1,1,3,'2020-09-18 15:29:27','2020-09-21 17:28:04',NULL),(119,3,3,5,1,'2020-09-19 15:24:11','2020-09-19 15:24:11',NULL),(133,1,22,23,1,'2020-09-22 13:03:36','2020-09-22 13:03:36',NULL),(135,1,1,1,1,'2020-09-22 15:19:08','2020-09-22 15:19:08',NULL),(136,1,17,18,1,'2020-09-23 11:02:31','2020-09-23 11:02:31',NULL);
 /*!40000 ALTER TABLE `cart` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -120,7 +92,7 @@ CREATE TABLE `categories` (
   `deleted_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -129,81 +101,8 @@ CREATE TABLE `categories` (
 
 LOCK TABLES `categories` WRITE;
 /*!40000 ALTER TABLE `categories` DISABLE KEYS */;
-INSERT INTO `categories` VALUES (1,'Heathcare Devices','categories/healthcare.png',1,'2020-06-19 13:22:06',NULL,NULL),(2,'Herbal Products','categories/herbal.jpeg',1,'2020-06-19 13:22:06',NULL,NULL),(3,'Fitness Suplements','categories/fitness.jpeg',1,'2020-06-19 13:22:56',NULL,NULL),(4,'Personal Care','categories/personal.png',1,'2020-06-19 13:22:56',NULL,NULL);
+INSERT INTO `categories` VALUES (1,'Fruit & Vegitables','categories/healthcare.png',1,'2020-06-19 13:22:06',NULL,'2020-09-16 10:58:28'),(2,'Beverages','categories/herbal.jpeg',1,'2020-06-19 13:22:06',NULL,'2020-09-16 10:58:42'),(3,'Beauty & Hygiene','categories/fitness.jpeg',1,'2020-06-19 13:22:56',NULL,'2020-09-16 10:59:08'),(4,'Personal Care','categories/personal.png',1,'2020-06-19 13:22:56',NULL,NULL),(5,'Snacks & Branded Food','category/5/717_CM-AMRIN-1024x948.jpg',0,'2020-09-09 17:31:07',NULL,'2020-09-16 10:59:38'),(6,'Cleaning & Household','category/6/849_download_(1).jpeg',1,'2020-09-09 17:32:30',NULL,'2020-09-16 11:00:02'),(7,'Eggs Meat & Fish','category/7/692_download_(1).jpeg',1,'2020-09-09 17:34:43',NULL,'2020-09-16 11:00:17'),(8,'Gourmet & World Food','category/8/850_Mackenzie_scottjuly29.jpg',0,'2020-09-10 15:22:22',NULL,'2020-09-16 11:00:41'),(9,'Baby Care','category/9/131_1kg.jpg',0,'2020-09-14 13:57:30',NULL,'2020-09-16 11:00:52');
 /*!40000 ALTER TABLE `categories` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `clinic_therapies`
---
-
-DROP TABLE IF EXISTS `clinic_therapies`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `clinic_therapies` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `clinic_id` int(11) NOT NULL,
-  `therapy_id` int(11) NOT NULL,
-  `isactive` tinyint(1) NOT NULL DEFAULT '1',
-  `created_at` datetime DEFAULT NULL,
-  `deleted_at` datetime DEFAULT NULL,
-  `updated_at` datetime DEFAULT NULL,
-  `grade1_price` int(11) NOT NULL,
-  `grade2_price` int(11) NOT NULL,
-  `grade3_price` int(11) NOT NULL,
-  `grade4_price` int(11) NOT NULL,
-  `grade1_original_price` int(11) DEFAULT NULL,
-  `grade2_original_price` int(11) DEFAULT NULL,
-  `grade3_original_price` int(11) DEFAULT NULL,
-  `grade4_original_price` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `clinic_therapies`
---
-
-LOCK TABLES `clinic_therapies` WRITE;
-/*!40000 ALTER TABLE `clinic_therapies` DISABLE KEYS */;
-INSERT INTO `clinic_therapies` VALUES (1,1,1,0,NULL,NULL,NULL,700,800,900,1000,NULL,NULL,NULL,NULL),(2,1,3,1,NULL,NULL,NULL,0,0,0,0,NULL,NULL,NULL,NULL),(3,1,2,1,NULL,NULL,NULL,0,0,0,0,NULL,NULL,NULL,NULL),(4,4,4,1,'2020-06-29 11:45:16',NULL,'2020-06-29 13:29:48',1100,1200,1400,1600,1200,1400,1600,1900),(5,1,4,0,'2020-06-29 13:32:29',NULL,'2020-06-29 13:32:51',1000,1200,1400,1600,1200,1400,1600,1800);
-/*!40000 ALTER TABLE `clinic_therapies` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `clinics`
---
-
-DROP TABLE IF EXISTS `clinics`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `clinics` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(250) NOT NULL,
-  `description` text NOT NULL,
-  `image` varchar(500) NOT NULL,
-  `address` varchar(250) NOT NULL,
-  `city` varchar(50) DEFAULT NULL,
-  `state` varchar(50) DEFAULT NULL,
-  `contact` varchar(20) NOT NULL,
-  `lat` int(11) DEFAULT NULL,
-  `lang` int(11) DEFAULT NULL,
-  `created_at` datetime DEFAULT NULL,
-  `isactive` tinyint(1) NOT NULL DEFAULT '1' COMMENT 'for applicaton display',
-  `deleted_at` datetime DEFAULT NULL,
-  `updated_at` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `clinics`
---
-
-LOCK TABLES `clinics` WRITE;
-/*!40000 ALTER TABLE `clinics` DISABLE KEYS */;
-INSERT INTO `clinics` VALUES (1,'Fortis Noida','A clinic (or outpatient clinic or ambulatory care clinic) is a healthcare facility that is primarily focused on the care of outpatients. ... Most commonly, the English word clinic refers to a general medical practice, run by one or more general practitioners, but it can also mean a specialist clinic.','clinics/fortis.jpeg','G-10, Sector 63 Rd, E Block, Sector 63, Noida, Uttar Pradesh 201301','Noida','Uttar Pradesh','8802035788',12,13,'2020-03-11 00:00:00',1,NULL,'2020-03-11 00:00:00'),(2,'Jaypee Noida','A clinic (or outpatient clinic or ambulatory care clinic) is a healthcare facility that is primarily focused on the care of outpatients. ... Most commonly, the English word clinic refers to a general medical practice, run by one or more general practitioners, but it can also mean a specialist clinic.','clinics/jaypee.jpeg','G-10, Sector 63 Rd, E Block, Sector 63, Noida, Uttar Pradesh 201301','Noida','Uttar Pradesh','8802035788',12,13,'2020-03-11 00:00:00',1,NULL,'2020-03-11 00:00:00'),(3,'Medanta','A clinic (or outpatient clinic or ambulatory care clinic) is a healthcare facility that is primarily focused on the care of outpatients. ... Most commonly, the English word clinic refers to a general medical practice, run by one or more general practitioners, but it can also mean a specialist clinic.','clinics/medanta.jpeg','G-10, Sector 63 Rd, E Block, Sector 63, Noida, Uttar Pradesh 201301','Noida','Uttar Pradesh','8802035788',12,13,'2020-03-11 00:00:00',1,NULL,'2020-03-11 00:00:00'),(4,'Arrogra','ddc','clinics/4/951_neet.jpeg','ccd','cdc','dcd','8802035788',NULL,NULL,'2020-06-29 13:07:43',1,NULL,'2020-06-29 13:07:43');
-/*!40000 ALTER TABLE `clinics` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -214,7 +113,7 @@ DROP TABLE IF EXISTS `complaint_messages`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `complaint_messages` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `description` text NOT NULL,
   `type` varchar(25) NOT NULL,
   `complaint_id` int(11) NOT NULL,
@@ -222,7 +121,7 @@ CREATE TABLE `complaint_messages` (
   `deleted_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -243,7 +142,7 @@ DROP TABLE IF EXISTS `complaints`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `complaints` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `refid` varchar(50) NOT NULL,
   `user_id` int(11) NOT NULL,
   `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
@@ -251,7 +150,7 @@ CREATE TABLE `complaints` (
   `deleted_at` datetime DEFAULT NULL,
   `subject` varchar(150) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -272,14 +171,14 @@ DROP TABLE IF EXISTS `configurations`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `configurations` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `param` varchar(100) NOT NULL,
   `value` varchar(500) NOT NULL,
   `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
   `updated_at` datetime DEFAULT NULL,
   `deleted_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -293,6 +192,80 @@ INSERT INTO `configurations` VALUES (1,'channel_url','https://www.youtube.com/us
 UNLOCK TABLES;
 
 --
+-- Table structure for table `coupons`
+--
+
+DROP TABLE IF EXISTS `coupons`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `coupons` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `code` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `discount_type` enum('Fixed','Percent') COLLATE utf8mb4_unicode_ci NOT NULL,
+  `discount` int(11) NOT NULL DEFAULT '0',
+  `isactive` tinyint(1) NOT NULL DEFAULT '0',
+  `minimum_order` int(11) NOT NULL DEFAULT '0',
+  `maximum_discount` int(11) NOT NULL,
+  `expiry_date` date DEFAULT NULL,
+  `usage_type` enum('single-singleuser','single-multipleuser','multiple-multipleuser') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'single-singleuser',
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  `deleted_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `coupons`
+--
+
+LOCK TABLES `coupons` WRITE;
+/*!40000 ALTER TABLE `coupons` DISABLE KEYS */;
+INSERT INTO `coupons` VALUES (1,'INSTANT10','Fixed',10,1,500,50,'2020-09-19','multiple-multipleuser','2020-09-18 18:59:56','2020-09-19 15:30:34',NULL);
+/*!40000 ALTER TABLE `coupons` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `customer_address`
+--
+
+DROP TABLE IF EXISTS `customer_address`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `customer_address` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `first_name` varchar(255) NOT NULL,
+  `last_name` varchar(255) NOT NULL,
+  `mobile_no` varchar(10) NOT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  `house_no` varchar(255) NOT NULL,
+  `appertment_name` varchar(255) NOT NULL,
+  `street` varchar(255) DEFAULT NULL,
+  `landmark` varchar(255) DEFAULT NULL,
+  `area` text,
+  `city` varchar(255) NOT NULL,
+  `pincode` varchar(255) NOT NULL,
+  `address_type` varchar(255) NOT NULL,
+  `other_text` text NOT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  `deleted_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `customer_address`
+--
+
+LOCK TABLES `customer_address` WRITE;
+/*!40000 ALTER TABLE `customer_address` DISABLE KEYS */;
+INSERT INTO `customer_address` VALUES (1,1,'alam','k','9873801962','','2323','gn','bnbnn','gg','nbn','nbn','110025','office','gg','2020-09-17 13:07:57','2020-09-17 13:07:57',NULL),(2,1,'jjdjdj','ndndnd','8998998989','','27','7373','7373','7383','hdhchc','hdjdjd','8383','home','','2020-09-17 13:24:43','2020-09-17 13:24:43',NULL),(3,1,'jjdjdj','ndndnd','8998998989','','27','7373','7373','7383','hdhchc','hdjdjd','8383','home','','2020-09-17 13:24:43','2020-09-17 13:24:43',NULL);
+/*!40000 ALTER TABLE `customer_address` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `customers`
 --
 
@@ -300,7 +273,7 @@ DROP TABLE IF EXISTS `customers`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `customers` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `mobile` varchar(10) DEFAULT NULL,
   `email` varchar(100) DEFAULT NULL,
   `password` varchar(100) DEFAULT NULL,
@@ -311,12 +284,15 @@ CREATE TABLE `customers` (
   `address` varchar(500) DEFAULT NULL,
   `city` varchar(50) DEFAULT NULL,
   `state` varchar(50) DEFAULT NULL,
+  `pincode` int(11) DEFAULT NULL,
   `notification_token` varchar(1000) DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   `deleted_at` datetime DEFAULT NULL,
+  `active_membership` int(11) DEFAULT '0',
+  `membership_expiry` date DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -325,7 +301,7 @@ CREATE TABLE `customers` (
 
 LOCK TABLES `customers` WRITE;
 /*!40000 ALTER TABLE `customers` DISABLE KEYS */;
-INSERT INTO `customers` VALUES (1,'8802035788','pks11iitr@gmail.com','$2y$10$uAvo6n1jyhvqoUATwwH/BuGVd4pT5vMsyqCff8fyu7uvC/KQ2llAu',1,'Pankaj S','customers/1/187_down.png','1983-11-11','D36 Lal kuan','Ghaziabad','Uttar Pradesh',NULL,'2020-03-13 12:08:59','2020-06-20 12:37:05',NULL),(2,'8802035789','pks12iitr@gmail.com','$2y$10$4XM81pr/f4EUuNU8F9LtUOPAeOSBvyn8Fm.B8sY8x134E/AoX8ofW',2,'pankaj kumar sengar','customers/default.png',NULL,NULL,NULL,NULL,NULL,'2020-03-13 12:34:49','2020-03-13 12:34:49',NULL),(3,'8802035778','pks777iitr@gmail.com','$2y$10$f1VwoKdmrMcCPpKzzsPW2uKVyOh4Tbe.upu9ZeuAVpgIVUdgn9cda',0,'pankaj','customers/default.png',NULL,NULL,NULL,NULL,NULL,'2020-06-17 10:22:57','2020-06-17 10:22:57',NULL);
+INSERT INTO `customers` VALUES (1,'8802035788','aa@gmail.com','$2y$10$uAvo6n1jyhvqoUATwwH/BuGVd4pT5vMsyqCff8fyu7uvC/KQ2llAu',1,'Pankah Sanger','customers/1/551_CM-AMRIN-1024x948.jpg','2020-05-14','xyz','delhi','new Delhi',110025,NULL,'2020-03-13 12:08:59','2020-09-21 16:42:28',NULL,0,NULL),(2,'8802035789','pks12iitr@gmail.com','$2y$10$4XM81pr/f4EUuNU8F9LtUOPAeOSBvyn8Fm.B8sY8x134E/AoX8ofW',2,'pankaj kumar sengar','customers/default.png',NULL,NULL,NULL,NULL,NULL,NULL,'2020-03-13 12:34:49','2020-03-13 12:34:49',NULL,0,NULL),(3,'9999999999','aa@gmail.com','$2y$10$f1VwoKdmrMcCPpKzzsPW2uKVyOh4Tbe.upu9ZeuAVpgIVUdgn9cda',1,'Khan Ali','customers/3/264_1600686920908.png','2020-05-14','xyz','delhi','new Delhi',286659,NULL,'2020-06-17 10:22:57','2020-09-21 18:39:46',NULL,0,NULL);
 /*!40000 ALTER TABLE `customers` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -344,13 +320,19 @@ CREATE TABLE `details` (
   `clinic_id` int(11) DEFAULT NULL,
   `description` text,
   `cost` int(11) NOT NULL DEFAULT '0',
+  `size_id` int(11) NOT NULL,
+  `image` varchar(250) DEFAULT NULL,
+  `name` varchar(250) DEFAULT NULL,
+  `price` int(11) NOT NULL DEFAULT '0',
+  `cut_price` int(11) NOT NULL DEFAULT '0',
   `grade` int(11) DEFAULT NULL,
   `quantity` int(11) NOT NULL DEFAULT '1',
   `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
   `updated_at` datetime DEFAULT NULL,
   `deleted_at` datetime DEFAULT NULL,
+  `status` varchar(25) NOT NULL DEFAULT 'pending',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=82 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -359,7 +341,7 @@ CREATE TABLE `details` (
 
 LOCK TABLES `details` WRITE;
 /*!40000 ALTER TABLE `details` DISABLE KEYS */;
-INSERT INTO `details` VALUES (3,3,1,'App\\Models\\Therapy',1,NULL,800,1,10,'2020-06-22 12:09:58','2020-06-22 12:09:58',NULL),(4,4,1,'App\\Models\\Therapy',1,NULL,800,1,10,'2020-06-22 12:22:45','2020-06-22 12:22:45',NULL),(5,5,1,'App\\Models\\Therapy',1,NULL,800,1,10,'2020-06-22 12:25:28','2020-06-22 12:25:28',NULL),(6,6,1,'App\\Models\\Therapy',NULL,NULL,1200,NULL,1,'2020-06-22 16:10:16','2020-06-22 16:10:16',NULL),(7,7,1,'App\\Models\\Therapy',NULL,NULL,1200,NULL,1,'2020-06-22 16:12:45','2020-06-22 16:12:45',NULL),(8,8,1,'App\\Models\\Therapy',NULL,NULL,1200,NULL,4,'2020-06-22 16:15:04','2020-06-22 16:15:04',NULL),(9,9,1,'App\\Models\\Therapy',NULL,NULL,1200,4,4,'2020-06-22 16:18:09','2020-06-22 16:18:09',NULL),(10,11,1,'App\\Models\\Therapy',NULL,NULL,1500,NULL,10,'2020-06-22 18:11:19','2020-06-22 18:11:19',NULL),(12,12,1,'App\\Models\\Product',NULL,NULL,1500,NULL,10,'2020-06-22 18:12:10','2020-06-22 18:12:10',NULL),(13,12,2,'App\\Models\\Product',NULL,NULL,1000,NULL,5,'2020-06-22 18:12:10','2020-06-22 18:12:10',NULL),(14,13,1,'App\\Models\\Therapy',1,NULL,800,2,10,'2020-06-30 16:59:49','2020-06-30 16:59:49',NULL),(15,16,1,'App\\Models\\Therapy',1,NULL,0,1,0,'2020-08-11 18:01:04','2020-08-11 18:20:58',NULL),(16,17,1,'App\\Models\\Therapy',1,NULL,0,NULL,0,'2020-08-11 18:26:56','2020-08-11 18:26:56',NULL);
+INSERT INTO `details` VALUES (1,26,1,'App\\Models\\Product',NULL,NULL,0,2,'https://arogyapeeth-bucket.s3.ap-south-1.amazonaws.com/products/product1.jpeg',NULL,420,450,NULL,5,'2020-09-18 18:09:38','2020-09-18 18:09:38',NULL,'pending'),(2,26,4,'App\\Models\\Product',NULL,NULL,0,6,'https://arogyapeeth-bucket.s3.ap-south-1.amazonaws.com/products/product4.jpeg',NULL,400,450,NULL,2,'2020-09-18 18:09:38','2020-09-18 18:09:38',NULL,'pending'),(3,27,1,'App\\Models\\Product',NULL,NULL,0,2,'https://arogyapeeth-bucket.s3.ap-south-1.amazonaws.com/products/product1.jpeg',NULL,420,450,NULL,5,'2020-09-18 18:09:40','2020-09-18 18:09:40',NULL,'pending'),(4,27,4,'App\\Models\\Product',NULL,NULL,0,6,'https://arogyapeeth-bucket.s3.ap-south-1.amazonaws.com/products/product4.jpeg',NULL,400,450,NULL,2,'2020-09-18 18:09:40','2020-09-18 18:09:40',NULL,'pending'),(5,28,1,'App\\Models\\Product',NULL,NULL,0,2,'https://arogyapeeth-bucket.s3.ap-south-1.amazonaws.com/products/product1.jpeg',NULL,420,450,NULL,5,'2020-09-18 18:17:28','2020-09-18 18:17:28',NULL,'pending'),(6,28,4,'App\\Models\\Product',NULL,NULL,0,6,'https://arogyapeeth-bucket.s3.ap-south-1.amazonaws.com/products/product4.jpeg',NULL,400,450,NULL,2,'2020-09-18 18:17:28','2020-09-18 18:17:28',NULL,'pending'),(7,29,1,'App\\Models\\Product',NULL,NULL,0,2,'https://arogyapeeth-bucket.s3.ap-south-1.amazonaws.com/products/product1.jpeg',NULL,420,450,NULL,5,'2020-09-18 18:58:37','2020-09-18 18:58:37',NULL,'pending'),(8,29,4,'App\\Models\\Product',NULL,NULL,0,6,'https://arogyapeeth-bucket.s3.ap-south-1.amazonaws.com/products/product4.jpeg',NULL,400,450,NULL,2,'2020-09-18 18:58:37','2020-09-18 18:58:37',NULL,'pending'),(9,30,1,'App\\Models\\Product',NULL,NULL,0,2,'https://arogyapeeth-bucket.s3.ap-south-1.amazonaws.com/products/product1.jpeg',NULL,420,450,NULL,5,'2020-09-18 20:26:26','2020-09-18 20:26:26',NULL,'pending'),(10,30,4,'App\\Models\\Product',NULL,NULL,0,6,'https://arogyapeeth-bucket.s3.ap-south-1.amazonaws.com/products/product4.jpeg',NULL,400,450,NULL,2,'2020-09-18 20:26:26','2020-09-18 20:26:26',NULL,'pending'),(11,31,1,'App\\Models\\Product',NULL,NULL,0,2,'https://arogyapeeth-bucket.s3.ap-south-1.amazonaws.com/products/product1.jpeg',NULL,420,450,NULL,5,'2020-09-18 20:27:03','2020-09-18 20:27:03',NULL,'pending'),(12,31,4,'App\\Models\\Product',NULL,NULL,0,6,'https://arogyapeeth-bucket.s3.ap-south-1.amazonaws.com/products/product4.jpeg',NULL,400,450,NULL,2,'2020-09-18 20:27:03','2020-09-18 20:27:03',NULL,'pending'),(13,32,1,'App\\Models\\Product',NULL,NULL,0,2,'https://arogyapeeth-bucket.s3.ap-south-1.amazonaws.com/products/product1.jpeg',NULL,420,450,NULL,5,'2020-09-18 21:28:13','2020-09-18 21:28:13',NULL,'pending'),(14,32,4,'App\\Models\\Product',NULL,NULL,0,6,'https://arogyapeeth-bucket.s3.ap-south-1.amazonaws.com/products/product4.jpeg',NULL,400,450,NULL,2,'2020-09-18 21:28:13','2020-09-18 21:28:13',NULL,'pending'),(15,33,1,'App\\Models\\Product',NULL,NULL,0,2,'https://arogyapeeth-bucket.s3.ap-south-1.amazonaws.com/products/product1.jpeg',NULL,420,450,NULL,5,'2020-09-19 12:23:09','2020-09-19 12:23:09',NULL,'pending'),(16,33,4,'App\\Models\\Product',NULL,NULL,0,6,'https://arogyapeeth-bucket.s3.ap-south-1.amazonaws.com/products/product4.jpeg',NULL,400,450,NULL,2,'2020-09-19 12:23:09','2020-09-19 12:23:09',NULL,'pending'),(17,33,1,'App\\Models\\Product',NULL,NULL,0,1,'https://arogyapeeth-bucket.s3.ap-south-1.amazonaws.com/products/product3.jpeg',NULL,400,450,NULL,2,'2020-09-19 12:23:09','2020-09-19 12:23:09',NULL,'pending'),(18,34,1,'App\\Models\\Product',NULL,NULL,0,2,'https://arogyapeeth-bucket.s3.ap-south-1.amazonaws.com/products/product1.jpeg',NULL,420,450,NULL,5,'2020-09-19 12:29:26','2020-09-19 12:29:26',NULL,'pending'),(19,34,4,'App\\Models\\Product',NULL,NULL,0,6,'https://arogyapeeth-bucket.s3.ap-south-1.amazonaws.com/products/product4.jpeg',NULL,400,450,NULL,2,'2020-09-19 12:29:26','2020-09-19 12:29:26',NULL,'pending'),(20,34,1,'App\\Models\\Product',NULL,NULL,0,1,'https://arogyapeeth-bucket.s3.ap-south-1.amazonaws.com/products/product3.jpeg',NULL,400,450,NULL,2,'2020-09-19 12:29:26','2020-09-19 12:29:26',NULL,'pending'),(21,35,1,'App\\Models\\Product',NULL,NULL,0,2,'https://arogyapeeth-bucket.s3.ap-south-1.amazonaws.com/products/product1.jpeg',NULL,420,450,NULL,5,'2020-09-19 12:49:57','2020-09-19 12:49:57',NULL,'pending'),(22,35,4,'App\\Models\\Product',NULL,NULL,0,6,'https://arogyapeeth-bucket.s3.ap-south-1.amazonaws.com/products/product4.jpeg',NULL,400,450,NULL,2,'2020-09-19 12:49:57','2020-09-19 12:49:57',NULL,'pending'),(23,35,1,'App\\Models\\Product',NULL,NULL,0,1,'https://arogyapeeth-bucket.s3.ap-south-1.amazonaws.com/products/product3.jpeg',NULL,400,450,NULL,2,'2020-09-19 12:49:57','2020-09-19 12:49:57',NULL,'pending'),(24,36,1,'App\\Models\\Product',NULL,NULL,0,2,'https://arogyapeeth-bucket.s3.ap-south-1.amazonaws.com/products/product1.jpeg',NULL,420,450,NULL,5,'2020-09-19 12:49:59','2020-09-19 12:49:59',NULL,'pending'),(25,36,4,'App\\Models\\Product',NULL,NULL,0,6,'https://arogyapeeth-bucket.s3.ap-south-1.amazonaws.com/products/product4.jpeg',NULL,400,450,NULL,2,'2020-09-19 12:49:59','2020-09-19 12:49:59',NULL,'pending'),(26,36,1,'App\\Models\\Product',NULL,NULL,0,1,'https://arogyapeeth-bucket.s3.ap-south-1.amazonaws.com/products/product3.jpeg',NULL,400,450,NULL,2,'2020-09-19 12:49:59','2020-09-19 12:49:59',NULL,'pending'),(27,37,1,'App\\Models\\Product',NULL,NULL,0,2,'https://arogyapeeth-bucket.s3.ap-south-1.amazonaws.com/products/product1.jpeg',NULL,420,450,NULL,5,'2020-09-19 12:50:02','2020-09-19 12:50:02',NULL,'pending'),(28,37,4,'App\\Models\\Product',NULL,NULL,0,6,'https://arogyapeeth-bucket.s3.ap-south-1.amazonaws.com/products/product4.jpeg',NULL,400,450,NULL,2,'2020-09-19 12:50:02','2020-09-19 12:50:02',NULL,'pending'),(29,37,1,'App\\Models\\Product',NULL,NULL,0,1,'https://arogyapeeth-bucket.s3.ap-south-1.amazonaws.com/products/product3.jpeg',NULL,400,450,NULL,2,'2020-09-19 12:50:02','2020-09-19 12:50:02',NULL,'pending'),(30,38,1,'App\\Models\\Product',NULL,NULL,0,2,'https://arogyapeeth-bucket.s3.ap-south-1.amazonaws.com/products/product1.jpeg',NULL,420,450,NULL,5,'2020-09-19 12:50:05','2020-09-19 12:50:05',NULL,'pending'),(31,38,4,'App\\Models\\Product',NULL,NULL,0,6,'https://arogyapeeth-bucket.s3.ap-south-1.amazonaws.com/products/product4.jpeg',NULL,400,450,NULL,2,'2020-09-19 12:50:05','2020-09-19 12:50:05',NULL,'pending'),(32,38,1,'App\\Models\\Product',NULL,NULL,0,1,'https://arogyapeeth-bucket.s3.ap-south-1.amazonaws.com/products/product3.jpeg',NULL,400,450,NULL,2,'2020-09-19 12:50:05','2020-09-19 12:50:05',NULL,'pending'),(33,39,1,'App\\Models\\Product',NULL,NULL,0,2,'https://arogyapeeth-bucket.s3.ap-south-1.amazonaws.com/products/product1.jpeg',NULL,420,450,NULL,5,'2020-09-19 12:50:08','2020-09-19 12:50:08',NULL,'pending'),(34,39,4,'App\\Models\\Product',NULL,NULL,0,6,'https://arogyapeeth-bucket.s3.ap-south-1.amazonaws.com/products/product4.jpeg',NULL,400,450,NULL,2,'2020-09-19 12:50:08','2020-09-19 12:50:08',NULL,'pending'),(35,39,1,'App\\Models\\Product',NULL,NULL,0,1,'https://arogyapeeth-bucket.s3.ap-south-1.amazonaws.com/products/product3.jpeg',NULL,400,450,NULL,2,'2020-09-19 12:50:08','2020-09-19 12:50:08',NULL,'pending'),(36,40,1,'App\\Models\\Product',NULL,NULL,0,2,'https://arogyapeeth-bucket.s3.ap-south-1.amazonaws.com/products/product1.jpeg',NULL,420,450,NULL,5,'2020-09-19 12:50:11','2020-09-19 12:50:11',NULL,'pending'),(37,40,4,'App\\Models\\Product',NULL,NULL,0,6,'https://arogyapeeth-bucket.s3.ap-south-1.amazonaws.com/products/product4.jpeg',NULL,400,450,NULL,2,'2020-09-19 12:50:11','2020-09-19 12:50:11',NULL,'pending'),(38,40,1,'App\\Models\\Product',NULL,NULL,0,1,'https://arogyapeeth-bucket.s3.ap-south-1.amazonaws.com/products/product3.jpeg',NULL,400,450,NULL,2,'2020-09-19 12:50:11','2020-09-19 12:50:11',NULL,'pending'),(39,41,1,'App\\Models\\Product',NULL,NULL,0,2,'https://arogyapeeth-bucket.s3.ap-south-1.amazonaws.com/products/product1.jpeg',NULL,420,450,NULL,5,'2020-09-19 13:28:26','2020-09-19 13:28:26',NULL,'pending'),(40,41,4,'App\\Models\\Product',NULL,NULL,0,6,'https://arogyapeeth-bucket.s3.ap-south-1.amazonaws.com/products/product4.jpeg',NULL,400,450,NULL,2,'2020-09-19 13:28:26','2020-09-19 13:28:26',NULL,'pending'),(41,41,1,'App\\Models\\Product',NULL,NULL,0,1,'https://arogyapeeth-bucket.s3.ap-south-1.amazonaws.com/products/product3.jpeg',NULL,400,450,NULL,2,'2020-09-19 13:28:26','2020-09-19 13:28:26',NULL,'pending'),(42,42,1,'App\\Models\\Product',NULL,NULL,0,2,'https://arogyapeeth-bucket.s3.ap-south-1.amazonaws.com/products/product1.jpeg',NULL,420,450,NULL,5,'2020-09-19 13:31:20','2020-09-19 13:31:20',NULL,'pending'),(43,42,4,'App\\Models\\Product',NULL,NULL,0,6,'https://arogyapeeth-bucket.s3.ap-south-1.amazonaws.com/products/product4.jpeg',NULL,400,450,NULL,2,'2020-09-19 13:31:20','2020-09-19 13:31:20',NULL,'pending'),(44,42,1,'App\\Models\\Product',NULL,NULL,0,1,'https://arogyapeeth-bucket.s3.ap-south-1.amazonaws.com/products/product3.jpeg',NULL,400,450,NULL,2,'2020-09-19 13:31:20','2020-09-19 13:31:20',NULL,'pending'),(45,43,1,'App\\Models\\Product',NULL,NULL,0,2,'https://arogyapeeth-bucket.s3.ap-south-1.amazonaws.com/products/product1.jpeg',NULL,420,450,NULL,5,'2020-09-19 13:33:43','2020-09-19 13:33:43',NULL,'pending'),(46,43,4,'App\\Models\\Product',NULL,NULL,0,6,'https://arogyapeeth-bucket.s3.ap-south-1.amazonaws.com/products/product4.jpeg',NULL,400,450,NULL,2,'2020-09-19 13:33:43','2020-09-19 13:33:43',NULL,'pending'),(47,43,1,'App\\Models\\Product',NULL,NULL,0,1,'https://arogyapeeth-bucket.s3.ap-south-1.amazonaws.com/products/product3.jpeg',NULL,400,450,NULL,2,'2020-09-19 13:33:43','2020-09-19 13:33:43',NULL,'pending'),(48,44,1,'App\\Models\\Product',NULL,NULL,0,2,'https://arogyapeeth-bucket.s3.ap-south-1.amazonaws.com/products/product1.jpeg','Heat Bags',420,450,NULL,5,'2020-09-19 13:41:33','2020-09-19 15:29:59',NULL,'confirmed'),(49,44,4,'App\\Models\\Product',NULL,NULL,0,6,'https://arogyapeeth-bucket.s3.ap-south-1.amazonaws.com/products/product4.jpeg','Full Body Massager',400,450,NULL,2,'2020-09-19 13:41:33','2020-09-19 15:29:59',NULL,'confirmed'),(50,44,1,'App\\Models\\Product',NULL,NULL,0,1,'https://arogyapeeth-bucket.s3.ap-south-1.amazonaws.com/products/product3.jpeg','Heat Bags',400,450,NULL,2,'2020-09-19 13:41:33','2020-09-19 15:29:59',NULL,'confirmed'),(51,45,1,'App\\Models\\Product',NULL,NULL,0,2,'https://arogyapeeth-bucket.s3.ap-south-1.amazonaws.com/products/product1.jpeg','Heat Bags',420,450,NULL,5,'2020-09-19 13:56:48','2020-09-19 13:56:48',NULL,'pending'),(52,45,4,'App\\Models\\Product',NULL,NULL,0,6,'https://arogyapeeth-bucket.s3.ap-south-1.amazonaws.com/products/product4.jpeg','Full Body Massager',400,450,NULL,2,'2020-09-19 13:56:48','2020-09-19 13:56:48',NULL,'pending'),(53,47,1,'App\\Models\\Product',NULL,NULL,0,4,'https://arogyapeeth-bucket.s3.ap-south-1.amazonaws.com/products/product4.jpeg','Heat Bags',400,450,NULL,1,'2020-09-19 16:07:40','2020-09-19 16:07:40',NULL,'pending'),(54,48,1,'App\\Models\\Product',NULL,NULL,0,4,'https://arogyapeeth-bucket.s3.ap-south-1.amazonaws.com/products/product4.jpeg','Heat Bags',400,450,NULL,1,'2020-09-19 16:13:34','2020-09-19 16:13:34',NULL,'pending'),(55,49,1,'App\\Models\\Product',NULL,NULL,0,4,'https://arogyapeeth-bucket.s3.ap-south-1.amazonaws.com/products/product4.jpeg','Heat Bags',400,450,NULL,1,'2020-09-19 16:15:11','2020-09-19 16:15:11',NULL,'pending'),(56,50,1,'App\\Models\\Product',NULL,NULL,0,4,'https://arogyapeeth-bucket.s3.ap-south-1.amazonaws.com/products/product4.jpeg','Heat Bags',400,450,NULL,1,'2020-09-19 16:51:42','2020-09-19 16:51:42',NULL,'pending'),(57,51,1,'App\\Models\\Product',NULL,NULL,0,4,'https://arogyapeeth-bucket.s3.ap-south-1.amazonaws.com/products/product4.jpeg','Heat Bags',400,450,NULL,1,'2020-09-19 18:22:43','2020-09-19 18:22:43',NULL,'pending'),(58,52,1,'App\\Models\\Product',NULL,NULL,0,4,'https://arogyapeeth-bucket.s3.ap-south-1.amazonaws.com/products/product4.jpeg','Heat Bags',400,450,NULL,1,'2020-09-19 18:29:35','2020-09-19 18:29:35',NULL,'pending'),(59,53,1,'App\\Models\\Product',NULL,NULL,0,4,'https://arogyapeeth-bucket.s3.ap-south-1.amazonaws.com/products/product4.jpeg','Heat Bags',400,450,NULL,1,'2020-09-19 18:52:49','2020-09-19 18:52:49',NULL,'pending'),(60,54,1,'App\\Models\\Product',NULL,NULL,0,4,'https://arogyapeeth-bucket.s3.ap-south-1.amazonaws.com/products/product4.jpeg','Heat Bags',400,450,NULL,1,'2020-09-19 18:54:16','2020-09-19 18:54:16',NULL,'pending'),(61,55,1,'App\\Models\\Product',NULL,NULL,0,4,'https://arogyapeeth-bucket.s3.ap-south-1.amazonaws.com/products/product4.jpeg','Heat Bags',400,450,NULL,1,'2020-09-19 18:58:17','2020-09-19 18:58:17',NULL,'pending'),(62,56,1,'App\\Models\\Product',NULL,NULL,0,4,'https://arogyapeeth-bucket.s3.ap-south-1.amazonaws.com/products/product4.jpeg','Heat Bags',400,450,NULL,1,'2020-09-19 18:58:42','2020-09-19 18:58:42',NULL,'pending'),(63,57,1,'App\\Models\\Product',NULL,NULL,0,4,'https://arogyapeeth-bucket.s3.ap-south-1.amazonaws.com/products/product4.jpeg','Heat Bags',400,450,NULL,1,'2020-09-21 10:36:30','2020-09-21 10:37:27',NULL,'confirmed'),(64,58,1,'App\\Models\\Product',NULL,NULL,0,1,'https://arogyapeeth-bucket.s3.ap-south-1.amazonaws.com/products/product3.jpeg','Heat Bags',400,450,NULL,2,'2020-09-21 11:54:28','2020-09-21 11:55:16',NULL,'confirmed'),(65,59,3,'App\\Models\\Product',NULL,NULL,0,5,'https://arogyapeeth-bucket.s3.ap-south-1.amazonaws.com/products/product4.jpeg','Pain Relief Gel',400,450,NULL,5,'2020-09-22 09:48:56','2020-09-22 09:49:56',NULL,'confirmed'),(66,59,1,'App\\Models\\Product',NULL,NULL,0,1,'https://arogyapeeth-bucket.s3.ap-south-1.amazonaws.com/products/product3.jpeg','Heat Bags',400,450,NULL,7,'2020-09-22 09:48:56','2020-09-22 09:49:56',NULL,'confirmed'),(67,59,1,'App\\Models\\Product',NULL,NULL,0,4,'https://arogyapeeth-bucket.s3.ap-south-1.amazonaws.com/products/product4.jpeg','Heat Bags',400,450,NULL,3,'2020-09-22 09:48:56','2020-09-22 09:49:56',NULL,'confirmed'),(68,59,1,'App\\Models\\Product',NULL,NULL,0,2,'https://arogyapeeth-bucket.s3.ap-south-1.amazonaws.com/products/product1.jpeg','Heat Bags',420,450,NULL,2,'2020-09-22 09:48:56','2020-09-22 09:49:56',NULL,'confirmed'),(69,59,4,'App\\Models\\Product',NULL,NULL,0,6,'https://arogyapeeth-bucket.s3.ap-south-1.amazonaws.com/products/product4.jpeg','Full Body Massager',400,450,NULL,1,'2020-09-22 09:48:56','2020-09-22 09:49:56',NULL,'confirmed'),(70,59,7,'App\\Models\\Product',NULL,NULL,0,9,'https://arogyapeeth-bucket.s3.ap-south-1.amazonaws.com/products/product4.jpeg','New Delhi',400,450,NULL,3,'2020-09-22 09:48:56','2020-09-22 09:49:56',NULL,'confirmed'),(71,59,6,'App\\Models\\Product',NULL,NULL,0,8,'https://arogyapeeth-bucket.s3.ap-south-1.amazonaws.com/products/8/292_1535437087.jpg','alam',400,450,NULL,1,'2020-09-22 09:48:56','2020-09-22 09:49:56',NULL,'confirmed'),(72,60,2,'App\\Models\\Product',NULL,NULL,0,3,'https://arogyapeeth-bucket.s3.ap-south-1.amazonaws.com/products/product4.jpeg','Red Fish Massager',1000,1450,NULL,4,'2020-09-22 12:03:20','2020-09-22 12:03:20',NULL,'pending'),(73,61,2,'App\\Models\\Product',NULL,NULL,0,3,'https://arogyapeeth-bucket.s3.ap-south-1.amazonaws.com/products/product4.jpeg','Red Fish Massager',1000,1450,NULL,4,'2020-09-22 12:05:28','2020-09-22 12:08:18',NULL,'confirmed'),(74,62,22,'App\\Models\\Product',NULL,NULL,0,23,'https://arogyapeeth-bucket.s3.ap-south-1.amazonaws.com/products/23/506_1531768044.jpg','Full Body Massager',500,550,NULL,1,'2020-09-22 13:22:39','2020-09-22 13:22:39',NULL,'pending'),(75,62,1,'App\\Models\\Product',NULL,NULL,0,1,'https://arogyapeeth-bucket.s3.ap-south-1.amazonaws.com/products/product3.jpeg','Heat Bags',400,450,NULL,2,'2020-09-22 13:22:39','2020-09-22 13:22:39',NULL,'pending'),(76,63,22,'App\\Models\\Product',NULL,NULL,0,23,'https://arogyapeeth-bucket.s3.ap-south-1.amazonaws.com/products/23/506_1531768044.jpg','Full Body Massager',500,550,NULL,1,'2020-09-22 23:13:11','2020-09-22 23:13:11',NULL,'pending'),(77,63,1,'App\\Models\\Product',NULL,NULL,0,1,'https://arogyapeeth-bucket.s3.ap-south-1.amazonaws.com/products/product3.jpeg','Heat Bags',400,450,NULL,1,'2020-09-22 23:13:11','2020-09-22 23:13:11',NULL,'pending'),(78,64,22,'App\\Models\\Product',NULL,NULL,0,23,'https://arogyapeeth-bucket.s3.ap-south-1.amazonaws.com/products/23/506_1531768044.jpg','Full Body Massager',500,550,NULL,1,'2020-09-22 23:19:14','2020-09-22 23:19:14',NULL,'pending'),(79,64,1,'App\\Models\\Product',NULL,NULL,0,1,'https://arogyapeeth-bucket.s3.ap-south-1.amazonaws.com/products/product3.jpeg','Heat Bags',400,450,NULL,1,'2020-09-22 23:19:14','2020-09-22 23:19:14',NULL,'pending'),(80,65,22,'App\\Models\\Product',NULL,NULL,0,23,'https://arogyapeeth-bucket.s3.ap-south-1.amazonaws.com/products/23/506_1531768044.jpg','Full Body Massager',500,550,NULL,1,'2020-09-23 09:53:45','2020-09-23 09:53:45',NULL,'pending'),(81,65,1,'App\\Models\\Product',NULL,NULL,0,1,'https://arogyapeeth-bucket.s3.ap-south-1.amazonaws.com/products/product3.jpeg','Heat Bags',400,450,NULL,1,'2020-09-23 09:53:45','2020-09-23 09:53:45',NULL,'pending');
 /*!40000 ALTER TABLE `details` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -371,7 +353,7 @@ DROP TABLE IF EXISTS `documents`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `documents` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `entity_type` varchar(100) NOT NULL,
   `entity_id` int(11) NOT NULL,
   `file_path` varchar(500) NOT NULL,
@@ -380,7 +362,7 @@ CREATE TABLE `documents` (
   `deleted_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -394,34 +376,94 @@ INSERT INTO `documents` VALUES (1,'App\\Models\\Clinic',1,'clinics/clinicbanner1
 UNLOCK TABLES;
 
 --
--- Table structure for table `home_booking_slots`
+-- Table structure for table `favorite_products`
 --
 
-DROP TABLE IF EXISTS `home_booking_slots`;
+DROP TABLE IF EXISTS `favorite_products`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `home_booking_slots` (
+CREATE TABLE `favorite_products` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `order_id` int(11) NOT NULL,
-  `grade` int(11) NOT NULL,
-  `date` date NOT NULL,
-  `time` time NOT NULL,
-  `display_time` varchar(50) NOT NULL,
+  `product_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
   `created_at` datetime DEFAULT NULL,
-  `deleted_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
-  `status` varchar(50) NOT NULL,
+  `deleted_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `home_booking_slots`
+-- Dumping data for table `favorite_products`
 --
 
-LOCK TABLES `home_booking_slots` WRITE;
-/*!40000 ALTER TABLE `home_booking_slots` DISABLE KEYS */;
-/*!40000 ALTER TABLE `home_booking_slots` ENABLE KEYS */;
+LOCK TABLES `favorite_products` WRITE;
+/*!40000 ALTER TABLE `favorite_products` DISABLE KEYS */;
+INSERT INTO `favorite_products` VALUES (1,1,1,'2020-09-02 16:55:28','2020-09-02 16:55:28',NULL),(2,1,1,'2020-09-11 11:12:58','2020-09-11 11:12:58',NULL),(3,1,1,'2020-09-16 12:08:14','2020-09-16 12:08:14',NULL),(4,1,1,'2020-09-18 10:13:27','2020-09-18 10:13:27',NULL),(5,1,3,'2020-09-19 11:27:04','2020-09-19 11:27:04',NULL),(6,1,3,'2020-09-19 11:38:20','2020-09-19 11:38:20',NULL),(7,1,3,'2020-09-19 11:38:23','2020-09-19 11:38:23',NULL),(8,3,3,'2020-09-19 18:05:28','2020-09-19 18:05:28',NULL),(9,1,1,'2020-09-21 16:47:37','2020-09-21 16:47:37',NULL),(10,2,3,'2020-09-22 12:58:16','2020-09-22 12:58:16',NULL),(11,1,3,'2020-09-22 12:58:50','2020-09-22 12:58:50',NULL),(12,18,1,'2020-09-22 19:49:42','2020-09-22 19:49:42',NULL);
+/*!40000 ALTER TABLE `favorite_products` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `home_section_entities`
+--
+
+DROP TABLE IF EXISTS `home_section_entities`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `home_section_entities` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `entity_type` varchar(100) NOT NULL,
+  `entity_id` int(11) NOT NULL,
+  `parent_category` int(11) DEFAULT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `deleted_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  `home_section_id` int(11) NOT NULL,
+  `name` varchar(150) DEFAULT NULL,
+  `image` varchar(200) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `home_section_entities`
+--
+
+LOCK TABLES `home_section_entities` WRITE;
+/*!40000 ALTER TABLE `home_section_entities` DISABLE KEYS */;
+INSERT INTO `home_section_entities` VALUES (2,'App\\Models\\Product',1,NULL,'2020-09-16 19:18:11',NULL,'2020-09-16 19:18:11',3,NULL,NULL),(3,'App\\Models\\Product',2,NULL,'2020-09-16 19:18:11',NULL,'2020-09-16 19:18:11',3,NULL,NULL),(4,'App\\Models\\Product',3,NULL,'2020-09-16 19:18:11',NULL,'2020-09-16 19:18:11',3,NULL,NULL),(5,'App\\Models\\Product',4,NULL,'2020-09-16 19:18:11',NULL,'2020-09-16 19:18:11',3,NULL,NULL),(6,'App\\Models\\Product',5,NULL,'2020-09-16 19:18:11',NULL,'2020-09-16 19:18:11',3,NULL,NULL),(7,'App\\Models\\Product',6,NULL,'2020-09-16 19:18:11',NULL,'2020-09-16 19:18:11',3,NULL,NULL),(8,'App\\Models\\Product',7,NULL,'2020-09-16 19:18:11',NULL,'2020-09-16 19:18:11',3,NULL,NULL),(9,'App\\Models\\Product',7,NULL,'2020-09-16 19:18:11',NULL,'2020-09-16 19:18:11',3,NULL,NULL),(10,'App\\Models\\Product',7,NULL,'2020-09-16 19:18:11',NULL,'2020-09-16 19:18:11',3,NULL,NULL),(11,'App\\Models\\Product',7,NULL,'2020-09-16 19:18:11',NULL,'2020-09-16 19:18:11',3,NULL,NULL),(15,'App\\Models\\SubCategory',1,4,'2020-09-16 19:21:50',NULL,'2020-09-16 19:21:52',5,'Lowest Price','subcategory/15/828_nitve4.jpg'),(16,'App\\Models\\SubCategory',2,1,'2020-09-16 19:21:52',NULL,'2020-09-16 19:21:53',5,'Exculsive Deals','subcategory/16/772_nitve3.jpg'),(17,'App\\Models\\SubCategory',3,2,'2020-09-16 19:21:53',NULL,'2020-09-16 19:21:53',5,'Start at Rs 100','subcategory/16/772_nitve3.jpg'),(18,'App\\Models\\SubCategory',4,6,'2020-09-16 19:21:53',NULL,'2020-09-16 19:21:53',5,'Newly Added','subcategory/16/772_nitve3.jpg'),(22,'App\\Models\\Banner',11,NULL,'2020-09-18 10:52:28',NULL,'2020-09-18 10:52:28',7,NULL,NULL),(23,'App\\Models\\Banner',9,NULL,'2020-09-18 10:53:01',NULL,'2020-09-18 10:53:01',8,NULL,NULL);
+/*!40000 ALTER TABLE `home_section_entities` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `home_sections`
+--
+
+DROP TABLE IF EXISTS `home_sections`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `home_sections` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `sequence_no` int(11) NOT NULL,
+  `name` varchar(50) DEFAULT NULL,
+  `image` varchar(250) DEFAULT NULL,
+  `type` varchar(15) NOT NULL,
+  `isactive` tinyint(1) NOT NULL DEFAULT '0',
+  `created_at` datetime DEFAULT NULL,
+  `deleted_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `home_sections`
+--
+
+LOCK TABLES `home_sections` WRITE;
+/*!40000 ALTER TABLE `home_sections` DISABLE KEYS */;
+INSERT INTO `home_sections` VALUES (3,2,'Fresh Recommendations',NULL,'product',1,'2020-09-16 19:18:11',NULL,'2020-09-16 19:18:11'),(5,3,'Fresh Products Added',NULL,'subcategory',1,'2020-09-16 19:21:50',NULL,'2020-09-16 19:21:50'),(7,3,NULL,NULL,'banner',1,'2020-09-18 10:52:28',NULL,'2020-09-18 10:52:28'),(8,4,NULL,NULL,'banner',1,'2020-09-18 10:53:01',NULL,'2020-09-18 10:53:01');
+/*!40000 ALTER TABLE `home_sections` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -432,11 +474,11 @@ DROP TABLE IF EXISTS `migrations`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `migrations` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int(10) unsigned NOT NULL,
   `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -447,36 +489,6 @@ LOCK TABLES `migrations` WRITE;
 /*!40000 ALTER TABLE `migrations` DISABLE KEYS */;
 INSERT INTO `migrations` VALUES (1,'2014_10_12_000000_create_users_table',1),(2,'2014_10_12_100000_create_password_resets_table',1),(3,'2015_02_07_172606_create_roles_table',2),(4,'2015_02_07_172633_create_role_user_table',2),(5,'2015_02_07_172649_create_permissions_table',2),(6,'2015_02_07_172657_create_permission_role_table',2),(7,'2015_02_17_152439_create_permission_user_table',2),(8,'2015_11_30_232041_bigint_user_keys',3),(9,'2016_02_06_172606_create_users_table',3);
 /*!40000 ALTER TABLE `migrations` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `news_update`
---
-
-DROP TABLE IF EXISTS `news_update`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `news_update` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `image` varchar(500) DEFAULT NULL,
-  `title` varchar(200) NOT NULL,
-  `short_description` text NOT NULL,
-  `description` text NOT NULL,
-  `created_at` datetime DEFAULT NULL,
-  `deleted_at` datetime DEFAULT NULL,
-  `updated_at` datetime DEFAULT NULL,
-  `isactive` tinyint(1) NOT NULL DEFAULT '1',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `news_update`
---
-
-LOCK TABLES `news_update` WRITE;
-/*!40000 ALTER TABLE `news_update` DISABLE KEYS */;
-/*!40000 ALTER TABLE `news_update` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -497,7 +509,7 @@ CREATE TABLE `notifications` (
   `deleted_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -506,7 +518,65 @@ CREATE TABLE `notifications` (
 
 LOCK TABLES `notifications` WRITE;
 /*!40000 ALTER TABLE `notifications` DISABLE KEYS */;
+INSERT INTO `notifications` VALUES (1,'Order Confirmed','Congratulations! Your wallet recharge of Rs. 500 at Arogyapeeth.com is successfull. Order Reference ID: 20200626134910',NULL,1,'individual','2020-09-14 19:01:19',NULL,'2020-09-14 19:01:19'),(2,'Order Confirmed','Congratulations! Your wallet recharge of Rs. 2000 at Arogyapeeth.com is successfull. Order Reference ID: ARA1600429331',NULL,1,'individual','2020-09-18 17:12:40',NULL,'2020-09-18 17:12:40'),(3,'Order Confirmed','Congratulations! Your purchase of Rs. 3700 at Arogyapeeth.com is successfull. Order Reference ID: ARA1600503093',NULL,1,'individual','2020-09-19 15:29:59',NULL,'2020-09-19 15:29:59'),(4,'Order Confirmed','Congratulations! Your purchase of Rs. 400 at Arogyapeeth.com is successfull. Order Reference ID: ARA1600664790',NULL,1,'individual','2020-09-21 10:37:27',NULL,'2020-09-21 10:37:27'),(5,'Order Confirmed','Congratulations! Your purchase of Rs. 800 at Arogyapeeth.com is successfull. Order Reference ID: ARA1600669468',NULL,1,'individual','2020-09-21 11:55:16',NULL,'2020-09-21 11:55:16'),(6,'Order Confirmed','Congratulations! Your wallet recharge of Rs. 1000 at Arogyapeeth.com is successfull. Order Reference ID: ARA1600683565',NULL,1,'individual','2020-09-21 15:51:09',NULL,'2020-09-21 15:51:09'),(7,'Order Confirmed','Congratulations! Your wallet recharge of Rs. 3000 at Arogyapeeth.com is successfull. Order Reference ID: ARA1600684433',NULL,1,'individual','2020-09-21 16:04:24',NULL,'2020-09-21 16:04:24'),(8,'Order Confirmed','Congratulations! Your wallet recharge of Rs. 1000 at Arogyapeeth.com is successfull. Order Reference ID: ARA1600688569',NULL,1,'individual','2020-09-21 17:13:16',NULL,'2020-09-21 17:13:16'),(9,'Order Confirmed','Congratulations! Your purchase of Rs. 8840 at Arogyapeeth.com is successfull. Order Reference ID: ARA1600748336',NULL,1,'individual','2020-09-22 09:49:56',NULL,'2020-09-22 09:49:56'),(10,'Order Confirmed','Congratulations! Your purchase of Rs. 4000 at Arogyapeeth.com is successfull. Order Reference ID: ARA1600756528',NULL,1,'individual','2020-09-22 12:08:18',NULL,'2020-09-22 12:08:18'),(11,'Order Confirmed','Congratulations! Your wallet recharge of Rs. 1000 at Arogyapeeth.com is successfull. Order Reference ID: ARA1600756730',NULL,1,'individual','2020-09-22 12:09:18',NULL,'2020-09-22 12:09:18');
 /*!40000 ALTER TABLE `notifications` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `offer_category`
+--
+
+DROP TABLE IF EXISTS `offer_category`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `offer_category` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `image` varchar(255) DEFAULT NULL,
+  `isactive` tinyint(4) NOT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  `deleted_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `offer_category`
+--
+
+LOCK TABLES `offer_category` WRITE;
+/*!40000 ALTER TABLE `offer_category` DISABLE KEYS */;
+INSERT INTO `offer_category` VALUES (1,'10% off','01.png',1,NULL,NULL,NULL),(2,'10% off','01.png',1,NULL,NULL,NULL);
+/*!40000 ALTER TABLE `offer_category` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `offer_product`
+--
+
+DROP TABLE IF EXISTS `offer_product`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `offer_product` (
+  `id` int(11) NOT NULL,
+  `offer_cat_id` int(11) NOT NULL,
+  `product_id` int(11) NOT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  `deleted_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `offer_product`
+--
+
+LOCK TABLES `offer_product` WRITE;
+/*!40000 ALTER TABLE `offer_product` DISABLE KEYS */;
+INSERT INTO `offer_product` VALUES (1,1,1,NULL,NULL,NULL),(2,1,2,NULL,NULL,NULL),(3,2,3,NULL,NULL,NULL);
+/*!40000 ALTER TABLE `offer_product` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -524,7 +594,7 @@ CREATE TABLE `order_statuses` (
   `deleted_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -533,7 +603,7 @@ CREATE TABLE `order_statuses` (
 
 LOCK TABLES `order_statuses` WRITE;
 /*!40000 ALTER TABLE `order_statuses` DISABLE KEYS */;
-INSERT INTO `order_statuses` VALUES (3,3,'pending','2020-06-22 12:09:58',NULL,'2020-06-22 12:09:58'),(4,4,'pending','2020-06-22 12:22:45',NULL,'2020-06-22 12:22:45'),(5,5,'pending','2020-06-22 12:25:28',NULL,'2020-06-22 12:25:28'),(6,6,'pending','2020-06-22 16:10:16',NULL,'2020-06-22 16:10:16'),(7,7,'pending','2020-06-22 16:12:45',NULL,'2020-06-22 16:12:45'),(8,8,'pending','2020-06-22 16:15:04',NULL,'2020-06-22 16:15:04'),(9,9,'pending','2020-06-22 16:18:09',NULL,'2020-06-22 16:18:09'),(10,10,'pending','2020-06-22 18:10:00',NULL,'2020-06-22 18:10:00'),(11,11,'pending','2020-06-22 18:11:19',NULL,'2020-06-22 18:11:19'),(12,12,'pending','2020-06-22 18:12:10',NULL,'2020-06-22 18:12:10'),(13,11,'confirmed','2020-06-28 21:05:34',NULL,'2020-06-28 21:05:34'),(14,11,'confirmed','2020-06-28 21:07:11',NULL,'2020-06-28 21:07:11'),(15,11,'confirmed','2020-06-28 21:08:31',NULL,'2020-06-28 21:08:31'),(16,11,'confirmed','2020-06-28 21:08:34',NULL,'2020-06-28 21:08:34'),(17,13,'pending','2020-06-30 16:59:49',NULL,'2020-06-30 16:59:49'),(18,14,'pending','2020-08-11 12:26:19',NULL,'2020-08-11 12:26:19'),(19,15,'pending','2020-08-11 12:28:32',NULL,'2020-08-11 12:28:32'),(20,16,'pending','2020-08-11 18:01:03',NULL,'2020-08-11 18:01:03'),(21,17,'pending','2020-08-11 18:26:56',NULL,'2020-08-11 18:26:56');
+INSERT INTO `order_statuses` VALUES (3,3,'pending','2020-06-22 12:09:58',NULL,'2020-06-22 12:09:58'),(4,4,'pending','2020-06-22 12:22:45',NULL,'2020-06-22 12:22:45'),(5,5,'pending','2020-06-22 12:25:28',NULL,'2020-06-22 12:25:28'),(6,6,'pending','2020-06-22 16:10:16',NULL,'2020-06-22 16:10:16'),(7,7,'pending','2020-06-22 16:12:45',NULL,'2020-06-22 16:12:45'),(8,8,'pending','2020-06-22 16:15:04',NULL,'2020-06-22 16:15:04'),(9,9,'pending','2020-06-22 16:18:09',NULL,'2020-06-22 16:18:09'),(10,10,'pending','2020-06-22 18:10:00',NULL,'2020-06-22 18:10:00'),(11,11,'pending','2020-06-22 18:11:19',NULL,'2020-06-22 18:11:19'),(12,12,'pending','2020-06-22 18:12:10',NULL,'2020-06-22 18:12:10'),(13,11,'confirmed','2020-06-28 21:05:34',NULL,'2020-06-28 21:05:34'),(14,11,'confirmed','2020-06-28 21:07:11',NULL,'2020-06-28 21:07:11'),(15,11,'confirmed','2020-06-28 21:08:31',NULL,'2020-06-28 21:08:31'),(16,11,'confirmed','2020-06-28 21:08:34',NULL,'2020-06-28 21:08:34'),(17,13,'pending','2020-06-30 16:59:49',NULL,'2020-06-30 16:59:49'),(18,14,'pending','2020-08-11 12:26:19',NULL,'2020-08-11 12:26:19'),(19,15,'pending','2020-08-11 12:28:32',NULL,'2020-08-11 12:28:32'),(20,16,'pending','2020-08-11 18:01:03',NULL,'2020-08-11 18:01:03'),(21,17,'pending','2020-08-11 18:26:56',NULL,'2020-08-11 18:26:56'),(22,44,'pending','2020-09-19 14:19:39',NULL,'2020-09-19 14:19:39'),(23,44,'pending','2020-09-19 14:19:49',NULL,'2020-09-19 14:19:49'),(24,44,'pending','2020-09-19 14:19:55',NULL,'2020-09-19 14:19:55'),(25,44,'confirmed','2020-09-19 15:29:59',NULL,'2020-09-19 15:29:59'),(26,41,'pending','2020-09-19 17:14:24',NULL,'2020-09-19 17:14:24'),(27,51,'pending','2020-09-19 18:23:19',NULL,'2020-09-19 18:23:19'),(28,52,'pending','2020-09-19 18:29:52',NULL,'2020-09-19 18:29:52'),(29,54,'pending','2020-09-19 18:54:51',NULL,'2020-09-19 18:54:51'),(30,56,'pending','2020-09-19 18:58:51',NULL,'2020-09-19 18:58:51'),(31,57,'confirmed','2020-09-21 10:37:27',NULL,'2020-09-21 10:37:27'),(32,58,'confirmed','2020-09-21 11:55:16',NULL,'2020-09-21 11:55:16'),(33,59,'pending','2020-09-22 09:49:23',NULL,'2020-09-22 09:49:23'),(34,59,'confirmed','2020-09-22 09:49:56',NULL,'2020-09-22 09:49:56'),(35,61,'confirmed','2020-09-22 12:08:18',NULL,'2020-09-22 12:08:18');
 /*!40000 ALTER TABLE `order_statuses` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -558,6 +628,7 @@ CREATE TABLE `orders` (
   `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
   `updated_at` datetime DEFAULT NULL,
   `deleted_at` datetime DEFAULT NULL,
+  `address_id` int(11) DEFAULT NULL,
   `name` varchar(100) DEFAULT NULL,
   `mobile` varchar(100) DEFAULT NULL,
   `email` varchar(100) DEFAULT NULL,
@@ -575,8 +646,11 @@ CREATE TABLE `orders` (
   `order_id_response` text,
   `payment_id_response` varchar(500) DEFAULT NULL,
   `payment_id` varchar(500) DEFAULT NULL,
+  `coupon_applied` varchar(15) DEFAULT NULL,
+  `coupon_discount` int(11) NOT NULL DEFAULT '0',
+  `delivery_charge` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=66 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -585,7 +659,7 @@ CREATE TABLE `orders` (
 
 LOCK TABLES `orders` WRITE;
 /*!40000 ALTER TABLE `orders` DISABLE KEYS */;
-INSERT INTO `orders` VALUES (3,'920-06-22 12:09:58',NULL,NULL,1,8000,'pending','payment-wait',NULL,0,'2020-06-22 12:09:58','2020-06-22 12:12:46',NULL,'pankaj sengar','8802035788','pks11iitr@gmail.com','new bus adda ghaziabad',-11.232323000000,-10.277344000000,'2020-11-11','10:00',0,0,0,0,0,NULL,NULL,NULL,NULL),(4,'220-06-22 12:22:45',NULL,NULL,1,8000,'pending','payment-wait',NULL,0,'2020-06-22 12:22:45','2020-06-22 12:22:45',NULL,NULL,NULL,NULL,NULL,NULL,NULL,'2020-11-11','10:00',0,0,0,0,0,NULL,NULL,NULL,NULL),(5,'AR11592808928',NULL,NULL,1,8000,'confirmed','payment-wait',NULL,0,'2020-06-22 12:25:28','2020-06-22 12:25:28',NULL,NULL,NULL,NULL,NULL,NULL,NULL,'2020-11-11','10:00',0,0,0,0,0,NULL,NULL,NULL,NULL),(6,'ARA1592822416',NULL,NULL,1,1200,'pending','payment-wait',NULL,0,'2020-06-22 16:10:16','2020-06-22 16:10:16',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,NULL,NULL,NULL),(7,'ARA1592822565',NULL,NULL,1,1200,'confirmed','payment-wait',NULL,0,'2020-06-22 16:12:45','2020-06-22 16:12:45',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,0,0,0,0,NULL,NULL,NULL,NULL),(8,'ARA1592822704',NULL,NULL,1,4800,'confirmed','payment-wait',NULL,0,'2020-06-22 16:15:04','2020-06-22 16:15:04',NULL,NULL,NULL,NULL,NULL,NULL,NULL,'2020-12-12','10:00',0,0,0,0,0,NULL,NULL,NULL,NULL),(9,'ARA1592822888',NULL,NULL,1,4800,'confirmed','payment-wait',NULL,0,'2020-06-22 16:18:09','2020-06-22 16:18:09',NULL,NULL,NULL,NULL,NULL,NULL,NULL,'2020-12-12','10:00',0,0,0,0,0,NULL,NULL,NULL,NULL),(10,'ARA1592829600',NULL,NULL,1,2500,'confirmed','payment-wait',NULL,0,'2020-06-22 18:10:00','2020-06-22 18:10:00',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,NULL,NULL,NULL),(11,'ARA1592829679',NULL,NULL,1,2500,'confirmed','paid','online',0,'2020-06-22 18:11:19','2020-06-28 21:53:47',NULL,NULL,NULL,NULL,NULL,NULL,NULL,'2020-06-30','13:00',0,0,0,0,0,'order_F85l201PP5tynY','{\"id\":\"order_F85l201PP5tynY\",\"entity\":\"order\",\"amount\":250000,\"amount_paid\":0,\"amount_due\":250000,\"currency\":\"INR\",\"receipt\":\"ARA1592829679\",\"offer_id\":null,\"status\":\"created\",\"attempts\":0,\"notes\":[],\"created_at\":1593357698}','8343jh34hj3434','3894jkfdkfjdkfj89454985489'),(12,'ARA1592829730',NULL,NULL,1,2500,'confirmed','payment-wait',NULL,0,'2020-06-22 18:12:10','2020-06-22 18:12:10',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,NULL,NULL,NULL),(13,'ARA1593516589',NULL,NULL,1,8000,'pending','payment-wait',NULL,0,'2020-06-30 16:59:49','2020-06-30 17:00:33',NULL,'pankaj','8802035788','pks11iitr@gmail.com',NULL,NULL,NULL,'2020-11-11','10:00',0,0,0,0,0,NULL,NULL,NULL,NULL),(14,'ARA1597128979',NULL,NULL,1,0,'pending','payment-wait',NULL,0,'2020-08-11 12:26:19','2020-08-11 12:26:19',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,NULL,NULL,NULL),(15,'ARA1597129111','automatic','stage_1',1,0,'pending','payment-wait',NULL,0,'2020-08-11 12:28:31','2020-08-11 12:28:31',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,NULL,NULL,NULL),(16,'ARA1597149063','automatic','stage_2',1,1400,'pending','payment-wait',NULL,0,'2020-08-11 18:01:03','2020-08-14 12:57:34',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,NULL,NULL,NULL),(17,'ARA1597150615','custom','stage_2',1,1400,'pending','payment-wait',NULL,0,'2020-08-11 18:26:55','2020-08-14 13:43:54',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO `orders` VALUES (5,'AR11592808928',NULL,NULL,1,8000,'confirmed','payment-wait',NULL,0,'2020-06-22 12:25:28','2020-06-22 12:25:28',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'2020-11-11','10:00',0,0,0,0,0,NULL,NULL,NULL,NULL,NULL,0,0),(6,'ARA1592822416',NULL,NULL,1,1200,'pending','payment-wait',NULL,0,'2020-06-22 16:10:16','2020-06-22 16:10:16',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,NULL,NULL,NULL,NULL,0,0),(7,'ARA1592822565',NULL,NULL,1,1200,'confirmed','payment-wait',NULL,0,'2020-06-22 16:12:45','2020-06-22 16:12:45',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,0,0,0,0,NULL,NULL,NULL,NULL,NULL,0,0),(8,'ARA1592822704',NULL,NULL,1,4800,'confirmed','payment-wait',NULL,0,'2020-06-22 16:15:04','2020-06-22 16:15:04',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'2020-12-12','10:00',0,0,0,0,0,NULL,NULL,NULL,NULL,NULL,0,0),(9,'ARA1592822888',NULL,NULL,1,4800,'confirmed','payment-wait',NULL,0,'2020-06-22 16:18:09','2020-06-22 16:18:09',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'2020-12-12','10:00',0,0,0,0,0,NULL,NULL,NULL,NULL,NULL,0,0),(10,'ARA1592829600',NULL,NULL,1,2500,'confirmed','payment-wait',NULL,0,'2020-06-22 18:10:00','2020-06-22 18:10:00',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,NULL,NULL,NULL,NULL,0,0),(11,'ARA1592829679',NULL,NULL,1,2500,'confirmed','paid','online',0,'2020-06-22 18:11:19','2020-06-28 21:53:47',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'2020-06-30','13:00',0,0,0,0,0,'order_F85l201PP5tynY','{\"id\":\"order_F85l201PP5tynY\",\"entity\":\"order\",\"amount\":250000,\"amount_paid\":0,\"amount_due\":250000,\"currency\":\"INR\",\"receipt\":\"ARA1592829679\",\"offer_id\":null,\"status\":\"created\",\"attempts\":0,\"notes\":[],\"created_at\":1593357698}','8343jh34hj3434','3894jkfdkfjdkfj89454985489',NULL,0,0),(12,'ARA1592829730',NULL,NULL,1,2500,'confirmed','payment-wait',NULL,0,'2020-06-22 18:12:10','2020-06-22 18:12:10',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,NULL,NULL,NULL,NULL,0,0),(13,'ARA1593516589',NULL,NULL,1,8000,'pending','payment-wait',NULL,0,'2020-06-30 16:59:49','2020-06-30 17:00:33',NULL,NULL,'pankaj','8802035788','pks11iitr@gmail.com',NULL,NULL,NULL,'2020-11-11','10:00',0,0,0,0,0,NULL,NULL,NULL,NULL,NULL,0,0),(14,'ARA1597128979',NULL,NULL,1,0,'pending','payment-wait',NULL,0,'2020-08-11 12:26:19','2020-08-11 12:26:19',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,NULL,NULL,NULL,NULL,0,0),(15,'ARA1597129111','automatic','stage_1',1,0,'pending','payment-wait',NULL,0,'2020-08-11 12:28:31','2020-08-11 12:28:31',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,NULL,NULL,NULL,NULL,0,0),(16,'ARA1597149063','automatic','stage_2',1,1400,'pending','payment-wait',NULL,0,'2020-08-11 18:01:03','2020-08-14 12:57:34',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,NULL,NULL,NULL,NULL,0,0),(17,'ARA1597150615','custom','stage_2',1,1400,'pending','payment-wait',NULL,0,'2020-08-11 18:26:55','2020-09-19 15:27:36',NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,NULL,NULL,NULL,NULL,0,0),(18,'ARA1600429430',NULL,NULL,1,2900,'pending','payment-wait',NULL,0,'2020-09-18 17:13:50','2020-09-18 17:13:50',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,NULL,NULL,NULL,NULL,0,0),(19,'ARA1600429621',NULL,NULL,1,2900,'pending','payment-wait',NULL,0,'2020-09-18 17:17:01','2020-09-18 17:17:01',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,NULL,NULL,NULL,NULL,0,0),(20,'ARA1600429728',NULL,NULL,1,2900,'pending','payment-wait',NULL,0,'2020-09-18 17:18:48','2020-09-18 17:18:48',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,NULL,NULL,NULL,NULL,0,0),(21,'ARA1600429781',NULL,NULL,1,2900,'pending','payment-wait',NULL,0,'2020-09-18 17:19:41','2020-09-18 17:19:41',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,NULL,NULL,NULL,NULL,0,0),(22,'ARA1600429897',NULL,NULL,1,2900,'pending','payment-wait',NULL,0,'2020-09-18 17:21:37','2020-09-18 17:21:37',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,NULL,NULL,NULL,NULL,0,0),(23,'ARA1600429915',NULL,NULL,1,2900,'pending','payment-wait',NULL,0,'2020-09-18 17:21:55','2020-09-18 17:21:55',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,NULL,NULL,NULL,NULL,0,0),(24,'ARA1600430978',NULL,NULL,1,2900,'pending','payment-wait',NULL,0,'2020-09-18 17:39:38','2020-09-18 17:39:38',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,NULL,NULL,NULL,NULL,0,0),(25,'ARA1600431253',NULL,NULL,1,2900,'pending','payment-wait',NULL,0,'2020-09-18 17:44:13','2020-09-18 17:44:13',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,NULL,NULL,NULL,NULL,0,0),(26,'ARA1600432778',NULL,NULL,1,2900,'pending','payment-wait',NULL,0,'2020-09-18 18:09:38','2020-09-18 18:09:38',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,NULL,NULL,NULL,NULL,0,0),(27,'ARA1600432780',NULL,NULL,1,2900,'pending','payment-wait',NULL,0,'2020-09-18 18:09:40','2020-09-18 18:09:40',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,NULL,NULL,NULL,NULL,0,0),(28,'ARA1600433248',NULL,NULL,1,2900,'pending','payment-wait',NULL,0,'2020-09-18 18:17:28','2020-09-18 18:21:25',NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,NULL,NULL,NULL,NULL,0,0),(29,'ARA1600435717',NULL,NULL,1,2900,'pending','payment-wait',NULL,0,'2020-09-18 18:58:37','2020-09-18 18:58:37',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,NULL,NULL,NULL,NULL,0,0),(30,'ARA1600440986',NULL,NULL,1,2900,'pending','payment-wait',NULL,0,'2020-09-18 20:26:26','2020-09-18 20:26:52',NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,NULL,NULL,NULL,NULL,0,0),(31,'ARA1600441023',NULL,NULL,1,2900,'pending','payment-wait',NULL,0,'2020-09-18 20:27:03','2020-09-18 20:27:03',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,NULL,NULL,NULL,NULL,0,0),(32,'ARA1600444693',NULL,NULL,1,2900,'pending','payment-wait',NULL,0,'2020-09-18 21:28:13','2020-09-18 21:28:22',NULL,2,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,NULL,NULL,NULL,NULL,0,0),(33,'ARA1600498389',NULL,NULL,1,3700,'pending','payment-wait',NULL,0,'2020-09-19 12:23:09','2020-09-19 12:23:14',NULL,2,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,NULL,NULL,NULL,NULL,0,0),(34,'ARA1600498766',NULL,NULL,1,3700,'pending','payment-wait',NULL,0,'2020-09-19 12:29:26','2020-09-19 12:29:30',NULL,2,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,NULL,NULL,NULL,NULL,0,0),(35,'ARA1600499997',NULL,NULL,1,3700,'pending','payment-wait',NULL,0,'2020-09-19 12:49:57','2020-09-19 12:49:57',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,NULL,NULL,NULL,NULL,0,0),(36,'ARA1600499999',NULL,NULL,1,3700,'pending','payment-wait',NULL,0,'2020-09-19 12:49:59','2020-09-19 12:49:59',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,NULL,NULL,NULL,NULL,0,0),(37,'ARA1600500002',NULL,NULL,1,3700,'pending','payment-wait',NULL,0,'2020-09-19 12:50:02','2020-09-19 12:50:02',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,NULL,NULL,NULL,NULL,0,0),(38,'ARA1600500005',NULL,NULL,1,3700,'pending','payment-wait',NULL,0,'2020-09-19 12:50:05','2020-09-19 12:50:05',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,NULL,NULL,NULL,NULL,0,0),(39,'ARA1600500008',NULL,NULL,1,3700,'pending','payment-wait',NULL,0,'2020-09-19 12:50:08','2020-09-19 12:50:08',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,NULL,NULL,NULL,NULL,0,0),(40,'ARA1600500011',NULL,NULL,1,3700,'pending','payment-wait',NULL,0,'2020-09-19 12:50:11','2020-09-19 12:50:11',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,NULL,NULL,NULL,NULL,0,0),(41,'ARA1600502306',NULL,NULL,1,3700,'pending','payment-wait','online',0,'2020-09-19 13:28:26','2020-09-19 17:42:00',NULL,2,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,'order_Fesri8MFRVmJlC','{\"id\":\"order_Fesri8MFRVmJlC\",\"entity\":\"order\",\"amount\":370000,\"amount_paid\":0,\"amount_due\":370000,\"currency\":\"INR\",\"receipt\":\"ARA1600502306\",\"offer_id\":null,\"status\":\"created\",\"attempts\":0,\"notes\":[],\"created_at\":1600517520}',NULL,NULL,NULL,0,0),(42,'ARA1600502480',NULL,NULL,1,3700,'pending','payment-wait',NULL,0,'2020-09-19 13:31:20','2020-09-19 13:31:25',NULL,3,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,NULL,NULL,NULL,NULL,0,0),(43,'ARA1600502623',NULL,NULL,1,3700,'pending','payment-wait',NULL,0,'2020-09-19 13:33:43','2020-09-19 13:33:46',NULL,2,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,NULL,NULL,NULL,NULL,0,0),(44,'ARA1600503093',NULL,NULL,1,3700,'confirmed','paid','online',0,'2020-09-19 13:41:33','2020-09-19 15:29:59',NULL,3,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,1,1,2500,0,'order_FepQG1OdvfxQpI','{\"id\":\"order_FepQG1OdvfxQpI\",\"entity\":\"order\",\"amount\":115000,\"amount_paid\":0,\"amount_due\":115000,\"currency\":\"INR\",\"receipt\":\"ARA1600503093\",\"offer_id\":null,\"status\":\"created\",\"attempts\":0,\"notes\":[],\"created_at\":1600505396}','order_FepQG1OdvfxQpI','order_FepQG1OdvfxQpI','INSTANT10',50,0),(45,'ARA1600504008',NULL,NULL,1,2900,'pending','payment-wait',NULL,0,'2020-09-19 13:56:48','2020-09-19 13:56:53',NULL,3,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,NULL,NULL,NULL,NULL,0,0),(46,'ARA1600509725',NULL,NULL,1,0,'pending','payment-wait',NULL,0,'2020-09-19 15:32:05','2020-09-19 15:32:09',NULL,2,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,NULL,NULL,NULL,NULL,0,0),(47,'ARA1600511860',NULL,NULL,1,400,'pending','payment-wait',NULL,0,'2020-09-19 16:07:40','2020-09-19 16:07:48',NULL,3,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,NULL,NULL,NULL,NULL,0,0),(48,'ARA1600512214',NULL,NULL,1,400,'pending','payment-wait',NULL,0,'2020-09-19 16:13:34','2020-09-19 16:14:53',NULL,2,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,NULL,NULL,NULL,NULL,0,0),(49,'ARA1600512311',NULL,NULL,1,400,'pending','payment-wait',NULL,0,'2020-09-19 16:15:11','2020-09-19 16:15:25',NULL,2,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,NULL,NULL,NULL,NULL,0,0),(50,'ARA1600514502',NULL,NULL,1,400,'pending','payment-wait',NULL,0,'2020-09-19 16:51:42','2020-09-19 16:51:45',NULL,2,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,NULL,NULL,NULL,NULL,0,0),(51,'ARA1600519963',NULL,NULL,1,400,'pending','payment-wait','online',0,'2020-09-19 18:22:43','2020-09-19 18:23:20',NULL,3,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,1,0,0,0,'order_FetZNJWtCcqFhG','{\"id\":\"order_FetZNJWtCcqFhG\",\"entity\":\"order\",\"amount\":40000,\"amount_paid\":0,\"amount_due\":40000,\"currency\":\"INR\",\"receipt\":\"ARA1600519963\",\"offer_id\":null,\"status\":\"created\",\"attempts\":0,\"notes\":[],\"created_at\":1600520000}',NULL,NULL,NULL,0,0),(52,'ARA1600520375',NULL,NULL,1,400,'pending','payment-wait','online',0,'2020-09-19 18:29:35','2020-09-19 18:29:53',NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,1,0,0,0,'order_FetgIBDyztKqqj','{\"id\":\"order_FetgIBDyztKqqj\",\"entity\":\"order\",\"amount\":40000,\"amount_paid\":0,\"amount_due\":40000,\"currency\":\"INR\",\"receipt\":\"ARA1600520375\",\"offer_id\":null,\"status\":\"created\",\"attempts\":0,\"notes\":[],\"created_at\":1600520393}',NULL,NULL,NULL,0,0),(53,'ARA1600521769',NULL,NULL,1,400,'pending','payment-wait',NULL,0,'2020-09-19 18:52:49','2020-09-19 18:52:53',NULL,3,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,NULL,NULL,NULL,NULL,0,0),(54,'ARA1600521856',NULL,NULL,1,400,'pending','payment-wait','online',0,'2020-09-19 18:54:16','2020-09-19 18:54:52',NULL,3,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,1,0,0,0,'order_Feu6gakdP5Qjyi','{\"id\":\"order_Feu6gakdP5Qjyi\",\"entity\":\"order\",\"amount\":40000,\"amount_paid\":0,\"amount_due\":40000,\"currency\":\"INR\",\"receipt\":\"ARA1600521856\",\"offer_id\":null,\"status\":\"created\",\"attempts\":0,\"notes\":[],\"created_at\":1600521892}',NULL,NULL,NULL,0,0),(55,'ARA1600522097',NULL,NULL,1,400,'pending','payment-wait',NULL,0,'2020-09-19 18:58:17','2020-09-19 18:58:26',NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,'order_FeuAS4B1NxSu7S','{\"id\":\"order_FeuAS4B1NxSu7S\",\"entity\":\"order\",\"amount\":40000,\"amount_paid\":0,\"amount_due\":40000,\"currency\":\"INR\",\"receipt\":\"ARA1600522097\",\"offer_id\":null,\"status\":\"created\",\"attempts\":0,\"notes\":[],\"created_at\":1600522106}',NULL,NULL,NULL,0,0),(56,'ARA1600522122',NULL,NULL,1,400,'pending','payment-wait','online',0,'2020-09-19 18:58:42','2020-09-19 18:58:52',NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,1,0,0,0,'order_FeuAugPwgZdMgL','{\"id\":\"order_FeuAugPwgZdMgL\",\"entity\":\"order\",\"amount\":40000,\"amount_paid\":0,\"amount_due\":40000,\"currency\":\"INR\",\"receipt\":\"ARA1600522122\",\"offer_id\":null,\"status\":\"created\",\"attempts\":0,\"notes\":[],\"created_at\":1600522132}',NULL,NULL,NULL,0,0),(57,'ARA1600664790',NULL,NULL,1,400,'confirmed','paid','online',0,'2020-09-21 10:36:30','2020-09-21 10:37:27',NULL,2,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,'order_FfYgpPjb9ZsDZS','{\"id\":\"order_FfYgpPjb9ZsDZS\",\"entity\":\"order\",\"amount\":40000,\"amount_paid\":0,\"amount_due\":40000,\"currency\":\"INR\",\"receipt\":\"ARA1600664790\",\"offer_id\":null,\"status\":\"created\",\"attempts\":0,\"notes\":[],\"created_at\":1600664810}','xz_lkj875624','pay_FfYhQfuHxmtzEu',NULL,0,0),(58,'ARA1600669468',NULL,NULL,1,800,'confirmed','paid','online',0,'2020-09-21 11:54:28','2020-09-21 11:55:16',NULL,3,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,'order_Ffa12uaLno3AM1','{\"id\":\"order_Ffa12uaLno3AM1\",\"entity\":\"order\",\"amount\":80000,\"amount_paid\":0,\"amount_due\":80000,\"currency\":\"INR\",\"receipt\":\"ARA1600669468\",\"offer_id\":null,\"status\":\"created\",\"attempts\":0,\"notes\":[],\"created_at\":1600669480}','xz_lkj875624','pay_Ffa1b4mntvfHQw',NULL,0,0),(59,'ARA1600748336',NULL,NULL,1,8840,'confirmed','paid','online',0,'2020-09-22 09:48:56','2020-09-22 09:49:56',NULL,3,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,1,1,5500,0,'order_FfwPqXCqoWxPA6','{\"id\":\"order_FfwPqXCqoWxPA6\",\"entity\":\"order\",\"amount\":334000,\"amount_paid\":0,\"amount_due\":334000,\"currency\":\"INR\",\"receipt\":\"ARA1600748336\",\"offer_id\":null,\"status\":\"created\",\"attempts\":0,\"notes\":[],\"created_at\":1600748364}','xz_lkj875624','pay_FfwQKNK3gTY5wE',NULL,0,0),(60,'ARA1600756400',NULL,NULL,1,4000,'pending','payment-wait',NULL,0,'2020-09-22 12:03:20','2020-09-22 12:03:20',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,NULL,NULL,NULL,NULL,0,0),(61,'ARA1600756528',NULL,NULL,1,4000,'confirmed','paid','online',0,'2020-09-22 12:05:28','2020-09-22 12:08:18',NULL,3,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,'order_Ffym0u1xfkXQ8E','{\"id\":\"order_Ffym0u1xfkXQ8E\",\"entity\":\"order\",\"amount\":400000,\"amount_paid\":0,\"amount_due\":400000,\"currency\":\"INR\",\"receipt\":\"ARA1600756528\",\"offer_id\":null,\"status\":\"created\",\"attempts\":0,\"notes\":[],\"created_at\":1600756666}','xz_lkj875624','pay_FfymVifyeAYeeo',NULL,0,0),(62,'ARA1600761159',NULL,NULL,1,1300,'pending','payment-wait',NULL,0,'2020-09-22 13:22:39','2020-09-22 13:22:43',NULL,2,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,NULL,NULL,NULL,NULL,0,0),(63,'ARA1600796591',NULL,NULL,1,900,'pending','payment-wait',NULL,0,'2020-09-22 23:13:11','2020-09-22 23:13:11',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,NULL,NULL,NULL,NULL,0,0),(64,'ARA1600796954',NULL,NULL,1,900,'pending','payment-wait',NULL,0,'2020-09-22 23:19:14','2020-09-22 23:19:26',NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,NULL,NULL,NULL,NULL,0,0),(65,'ARA1600835025',NULL,NULL,1,900,'pending','payment-wait',NULL,0,'2020-09-23 09:53:45','2020-09-23 09:54:01',NULL,3,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,NULL,NULL,NULL,NULL,0,0);
 /*!40000 ALTER TABLE `orders` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -597,7 +671,7 @@ DROP TABLE IF EXISTS `otps`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `otps` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `entity` varchar(20) NOT NULL,
   `user_id` int(11) NOT NULL,
   `otp` varchar(6) NOT NULL,
@@ -608,7 +682,7 @@ CREATE TABLE `otps` (
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -617,7 +691,7 @@ CREATE TABLE `otps` (
 
 LOCK TABLES `otps` WRITE;
 /*!40000 ALTER TABLE `otps` DISABLE KEYS */;
-INSERT INTO `otps` VALUES (1,'customer',1,'111111','register','2020-06-17 10:11:01',0,'2020-06-17 04:41:01','2020-06-17 04:41:01',NULL),(2,'customer',1,'111111','login','2020-06-17 10:13:20',1,'2020-06-17 04:43:20','2020-06-17 04:43:24',NULL),(3,'customer',1,'111111','login','2020-06-17 10:15:06',1,'2020-06-17 04:45:06','2020-06-17 04:45:21',NULL),(4,'customer',3,'111111','register','2020-06-17 10:22:57',0,'2020-06-17 04:52:57','2020-06-17 04:52:57',NULL),(5,'customer',1,'111111','login','2020-06-20 12:05:04',1,'2020-06-20 06:35:04','2020-06-20 06:35:20',NULL),(6,'therapist',3,'111111','register','2020-08-17 13:24:45',1,'2020-08-17 07:54:45','2020-08-17 08:11:14',NULL),(7,'therapist',1,'111111','login','2020-08-17 13:43:52',0,'2020-08-17 08:13:52','2020-08-17 08:13:52',NULL),(8,'therapist',3,'111111','login','2020-08-17 13:47:04',1,'2020-08-17 08:17:04','2020-08-17 08:17:13',NULL);
+INSERT INTO `otps` VALUES (1,'customer',1,'111111','register','2020-06-17 10:11:01',0,'2020-06-17 04:41:01','2020-06-17 04:41:01',NULL),(2,'customer',1,'111111','login','2020-06-17 10:13:20',1,'2020-06-17 04:43:20','2020-06-17 04:43:24',NULL),(3,'customer',1,'111111','login','2020-06-17 10:15:06',1,'2020-06-17 04:45:06','2020-06-17 04:45:21',NULL),(4,'customer',3,'111111','register','2020-06-17 10:22:57',1,'2020-06-17 04:52:57','2020-06-17 04:52:57',NULL),(5,'customer',1,'111111','login','2020-06-20 12:05:04',1,'2020-06-20 06:35:04','2020-06-20 06:35:20',NULL),(6,'therapist',3,'111111','register','2020-08-17 13:24:45',1,'2020-08-17 07:54:45','2020-08-17 08:11:14',NULL),(7,'therapist',1,'111111','login','2020-08-17 13:43:52',0,'2020-08-17 08:13:52','2020-08-17 08:13:52',NULL),(8,'therapist',3,'111111','login','2020-08-17 13:47:04',1,'2020-08-17 08:17:04','2020-08-17 08:17:13',NULL),(9,'therapist',5,'111111','register','2020-08-20 15:07:47',1,'2020-08-20 09:37:47','2020-08-20 09:37:47',NULL),(10,'therapist',5,'111111','login','2020-08-20 15:15:59',0,'2020-08-20 09:45:59','2020-08-20 09:45:59',NULL);
 /*!40000 ALTER TABLE `otps` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -632,7 +706,7 @@ CREATE TABLE `password_resets` (
   `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `token` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  KEY `password_resets_email_index` (`email`)
+  KEY `password_resets_email_index` (`email`(191))
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -653,7 +727,7 @@ DROP TABLE IF EXISTS `payments`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `payments` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `order_id` int(11) NOT NULL,
   `razorpay_order_id` varchar(100) NOT NULL,
   `razorpay_order_id_response` text NOT NULL,
@@ -685,16 +759,14 @@ DROP TABLE IF EXISTS `permission_role`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `permission_role` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int(10) unsigned NOT NULL,
   `permission_id` int(10) unsigned NOT NULL,
   `role_id` int(10) unsigned NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `permission_role_permission_id_index` (`permission_id`),
-  KEY `permission_role_role_id_index` (`role_id`),
-  CONSTRAINT `permission_role_permission_id_foreign` FOREIGN KEY (`permission_id`) REFERENCES `permissions` (`id`) ON DELETE CASCADE,
-  CONSTRAINT `permission_role_role_id_foreign` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE
+  KEY `permission_role_role_id_index` (`role_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -715,7 +787,7 @@ DROP TABLE IF EXISTS `permission_user`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `permission_user` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int(10) unsigned NOT NULL,
   `permission_id` int(10) unsigned NOT NULL,
   `user_id` int(10) unsigned NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -743,7 +815,7 @@ DROP TABLE IF EXISTS `permissions`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `permissions` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int(10) unsigned NOT NULL,
   `inherit_id` int(10) unsigned DEFAULT NULL,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `slug` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -752,9 +824,8 @@ CREATE TABLE `permissions` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `permissions_inherit_id_index` (`inherit_id`),
-  KEY `permissions_name_index` (`name`),
-  KEY `permissions_slug_index` (`slug`),
-  CONSTRAINT `permissions_inherit_id_foreign` FOREIGN KEY (`inherit_id`) REFERENCES `permissions` (`id`)
+  KEY `permissions_name_index` (`name`(191)),
+  KEY `permissions_slug_index` (`slug`(191))
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -768,31 +839,97 @@ LOCK TABLES `permissions` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `product_categories`
+-- Table structure for table `product_category`
 --
 
-DROP TABLE IF EXISTS `product_categories`;
+DROP TABLE IF EXISTS `product_category`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `product_categories` (
+CREATE TABLE `product_category` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `product_id` int(11) NOT NULL,
   `category_id` int(11) NOT NULL,
+  `sub_cat_id` int(11) DEFAULT NULL,
+  `product_id` int(11) NOT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   `deleted_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `product_categories`
+-- Dumping data for table `product_category`
 --
 
-LOCK TABLES `product_categories` WRITE;
-/*!40000 ALTER TABLE `product_categories` DISABLE KEYS */;
-INSERT INTO `product_categories` VALUES (1,1,1,NULL,NULL,NULL),(2,1,2,NULL,NULL,NULL),(3,1,3,NULL,NULL,NULL),(4,1,4,NULL,NULL,NULL),(5,2,3,NULL,NULL,NULL),(6,2,2,NULL,NULL,NULL),(7,3,1,NULL,NULL,NULL),(8,3,4,NULL,NULL,NULL),(9,4,1,NULL,NULL,NULL),(10,4,2,NULL,NULL,NULL);
-/*!40000 ALTER TABLE `product_categories` ENABLE KEYS */;
+LOCK TABLES `product_category` WRITE;
+/*!40000 ALTER TABLE `product_category` DISABLE KEYS */;
+INSERT INTO `product_category` VALUES (1,1,7,1,NULL,NULL,NULL),(2,1,8,2,NULL,NULL,NULL),(3,1,7,2,NULL,NULL,NULL),(4,2,7,5,NULL,NULL,NULL),(5,1,2,1,'2020-09-10 18:56:42','2020-09-10 18:56:42',NULL),(6,1,2,3,'2020-09-10 18:56:42','2020-09-10 18:56:42',NULL),(7,1,2,4,'2020-09-10 18:56:42','2020-09-10 18:56:42',NULL),(8,1,2,5,'2020-09-10 18:56:42','2020-09-10 18:56:42',NULL),(9,1,2,6,'2020-09-10 18:56:42','2020-09-10 18:56:42',NULL),(10,1,2,7,'2020-09-10 18:56:42','2020-09-10 18:56:42',NULL),(11,1,2,8,'2020-09-10 18:56:42','2020-09-10 18:56:42',NULL),(12,1,2,9,'2020-09-10 18:56:42','2020-09-10 18:56:42',NULL),(13,1,2,10,'2020-09-10 18:56:42','2020-09-10 18:56:42',NULL),(14,1,2,11,'2020-09-10 18:56:42','2020-09-10 18:56:42',NULL),(15,1,2,12,'2020-09-10 18:56:42','2020-09-10 18:56:42',NULL),(16,1,2,13,'2020-09-10 18:56:42','2020-09-10 18:56:42',NULL),(17,1,2,14,'2020-09-10 18:56:42','2020-09-10 18:56:42',NULL),(18,1,2,15,'2020-09-10 18:56:42','2020-09-10 18:56:42',NULL),(19,1,2,16,'2020-09-10 18:56:42','2020-09-10 18:56:42',NULL),(20,1,2,17,'2020-09-10 18:56:42','2020-09-10 18:56:42',NULL),(21,1,2,18,'2020-09-10 18:56:42','2020-09-10 18:56:42',NULL),(22,1,2,19,'2020-09-10 18:56:42','2020-09-10 18:56:42',NULL),(23,1,2,20,'2020-09-10 18:56:42','2020-09-10 18:56:42',NULL),(24,1,2,21,'2020-09-10 18:56:42','2020-09-10 18:56:42',NULL),(25,1,2,22,'2020-09-10 18:56:42','2020-09-10 18:56:42',NULL);
+/*!40000 ALTER TABLE `product_category` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `product_images`
+--
+
+DROP TABLE IF EXISTS `product_images`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `product_images` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `product_id` int(11) NOT NULL,
+  `size_id` int(11) NOT NULL,
+  `image` varchar(255) NOT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  `deleted_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `product_images`
+--
+
+LOCK TABLES `product_images` WRITE;
+/*!40000 ALTER TABLE `product_images` DISABLE KEYS */;
+INSERT INTO `product_images` VALUES (1,1,1,'products/product3.jpeg',NULL,NULL,NULL),(2,1,1,'products/product4.jpeg',NULL,NULL,NULL),(3,1,2,'products/product4.jpeg',NULL,NULL,NULL),(4,1,2,'products/product3.jpeg',NULL,NULL,NULL);
+/*!40000 ALTER TABLE `product_images` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `product_prices`
+--
+
+DROP TABLE IF EXISTS `product_prices`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `product_prices` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `product_id` int(11) NOT NULL,
+  `size` varchar(255) NOT NULL,
+  `price` double NOT NULL,
+  `cut_price` double NOT NULL,
+  `stock` int(11) DEFAULT '0',
+  `min_qty` int(11) DEFAULT '0',
+  `max_qty` int(11) DEFAULT '0',
+  `consumed_units` int(11) NOT NULL DEFAULT '1' COMMENT 'units consumed when 1quantity is purchase',
+  `image` varchar(255) DEFAULT NULL,
+  `isactive` tinyint(4) NOT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  `deleted_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `product_prices`
+--
+
+LOCK TABLES `product_prices` WRITE;
+/*!40000 ALTER TABLE `product_prices` DISABLE KEYS */;
+INSERT INTO `product_prices` VALUES (1,1,'1 Kg',400,450,0,0,0,1,'products/product3.jpeg',1,NULL,NULL,NULL),(2,1,'2*1 Kg',420,450,0,0,0,1,'products/product1.jpeg',1,NULL,NULL,NULL),(3,2,'500 Gm',1000,1450,0,0,0,1,'products/product4.jpeg',1,NULL,NULL,NULL),(4,1,'2*1 Kg',400,450,0,0,0,1,'products/product4.jpeg',1,NULL,NULL,NULL),(5,3,'2*1 Kg',400,450,0,0,0,1,'products/product4.jpeg',1,NULL,NULL,NULL),(6,4,'2*1 Kg',400,450,0,0,0,1,'products/product4.jpeg',1,NULL,NULL,NULL),(7,5,'2*1 Kg',400,450,0,0,0,1,'products/product4.jpeg',1,NULL,NULL,NULL),(8,6,'2*1 Kg',400,450,0,0,0,1,'products/8/292_1535437087.jpg',1,NULL,'2020-09-21 17:15:52',NULL),(9,7,'2*1 Kg',400,450,0,0,0,1,'products/product4.jpeg',1,NULL,NULL,NULL),(10,10,'3 Kg',120,2000,1,1,1,1,'products/10/765_1535437057.jpg',1,'2020-09-21 17:13:42','2020-09-21 17:13:43',NULL),(11,9,'2 packs',40,60,10,2,4,1,'products/11/188_1535385234.jpg',1,'2020-09-21 17:14:29','2020-09-21 17:14:30',NULL),(12,8,'1.5 kg',200,250,2,1,1,1,'products/12/295_1535379483.jpg',1,'2020-09-21 17:15:18','2020-09-21 17:15:19',NULL),(13,11,'500g',120,180,1,1,1,1,'products/13/240_1535026764.jpg',1,'2020-09-21 17:16:49','2020-09-21 17:16:50',NULL),(14,12,'3 packs',300,450,4,2,2,1,'products/14/750_1531768044.jpg',1,'2020-09-21 17:17:37','2020-09-21 17:17:38',NULL),(15,13,'1 kg',140,160,11,1,1,1,'products/15/399_1531765062.png',1,'2020-09-21 17:18:23','2020-09-21 17:18:25',NULL),(16,14,'5 kg',350,380,15,2,5,1,'products/16/868_1531091222.jpg',1,'2020-09-21 17:19:10','2020-09-21 17:19:11',NULL),(17,15,'1o kg',480,510,1,1,1,1,'products/17/481_1531077158.jpg',1,'2020-09-21 17:20:16','2020-09-21 17:20:17',NULL),(18,17,'1 pair',180,200,1,1,1,1,'products/18/990_1531768790.jpg',1,'2020-09-21 17:21:17','2020-09-21 17:21:18',NULL),(19,18,'2 pcs',240,260,111,11,1,1,'products/19/486_1449832576.jpg',1,'2020-09-21 17:22:28','2020-09-21 17:22:29',NULL),(20,19,'1 pcs',110,125,1,1,1,1,'products/20/798_1449832599.jpg',1,'2020-09-21 17:23:13','2020-09-21 17:23:14',NULL),(21,20,'2 pair',80,120,1,1,1,1,'products/21/970_1531249304.jpg',1,'2020-09-21 17:24:11','2020-09-21 17:24:12',NULL),(22,21,'2 kg',220,240,5,2,1,1,'products/22/822_1534924212.jpg',1,'2020-09-21 17:24:54','2020-09-21 17:24:55',NULL),(23,22,'5 unit',500,550,6,2,4,1,'products/23/506_1531768044.jpg',1,'2020-09-21 17:25:33','2020-09-21 17:25:34',NULL),(24,16,'3 pcs',340,350,1,1,1,1,'products/24/730_1535383672.jpg',1,'2020-09-21 17:27:13','2020-09-21 17:27:14',NULL);
+/*!40000 ALTER TABLE `product_prices` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -804,21 +941,22 @@ DROP TABLE IF EXISTS `products`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `products` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `company` varchar(150) NOT NULL,
   `name` varchar(100) NOT NULL,
   `description` text NOT NULL,
-  `company` varchar(150) NOT NULL,
-  `price` int(11) NOT NULL,
   `image` varchar(500) NOT NULL,
-  `cut_price` int(11) DEFAULT NULL,
   `ratings` decimal(2,1) NOT NULL,
   `isactive` tinyint(1) NOT NULL DEFAULT '1',
+  `is_offer` int(11) DEFAULT '0',
+  `min_qty` int(11) DEFAULT '0',
+  `max_qty` int(11) DEFAULT '0',
+  `stock_type` enum('quantity','packet') NOT NULL DEFAULT 'packet',
+  `stock` int(11) DEFAULT '0',
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   `deleted_at` datetime DEFAULT NULL,
-  `top_deal` tinyint(1) NOT NULL DEFAULT '0',
-  `best_seller` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -827,7 +965,7 @@ CREATE TABLE `products` (
 
 LOCK TABLES `products` WRITE;
 /*!40000 ALTER TABLE `products` DISABLE KEYS */;
-INSERT INTO `products` VALUES (1,'Heat Bag','Muscle pain can really bring you down and the body ache almost makes you immobile. Muscle pain can be caused due to stress or overworking. At times even injury can cause your muscles to ache. Therefore, a good pain relief product is good to have at hand. The Shenao Hot Water Bag is easy to use and relieves pain in the most natural way possible. Analgesic ointments might cause allergies for those with sensitive skin, but this hot water bag is skin-friendly and can work effectively, to get you moving again. It is air tight, making sure that the hot water does not leak out and cause a mess or any accidents. This product is now available at Snapdeal at an affordable price. CLOUR AS PER STOCK.','Den Pharma',1000,'products/product3.jpeg',1200,5.0,1,NULL,NULL,NULL,1,1),(2,'Red Fish Massager','Muscle pain can really bring you down and the body ache almost makes you immobile. Muscle pain can be caused due to stress or overworking. At times even injury can cause your muscles to ache. Therefore, a good pain relief product is good to have at hand. The Shenao Hot Water Bag is easy to use and relieves pain in the most natural way possible. Analgesic ointments might cause allergies for those with sensitive skin, but this hot water bag is skin-friendly and can work effectively, to get you moving again. It is air tight, making sure that the hot water does not leak out and cause a mess or any accidents. This product is now available at Snapdeal at an affordable price. CLOUR AS PER STOCK.','Arogya Pharma',1500,'products/product1.jpeg',2000,4.2,1,NULL,NULL,NULL,1,1),(3,'Pain Relief Gel','Muscle pain can really bring you down and the body ache almost makes you immobile. Muscle pain can be caused due to stress or overworking. At times even injury can cause your muscles to ache. Therefore, a good pain relief product is good to have at hand. The Shenao Hot Water Bag is easy to use and relieves pain in the most natural way possible. Analgesic ointments might cause allergies for those with sensitive skin, but this hot water bag is skin-friendly and can work effectively, to get you moving again. It is air tight, making sure that the hot water does not leak out and cause a mess or any accidents. This product is now available at Snapdeal at an affordable price. CLOUR AS PER STOCK.','Den Pharma',1000,'products/product4.jpeg',1200,5.0,1,NULL,NULL,NULL,1,1),(4,'Full Body Massager','Muscle pain can really bring you down and the body ache almost makes you immobile. Muscle pain can be caused due to stress or overworking. At times even injury can cause your muscles to ache. Therefore, a good pain relief product is good to have at hand. The Shenao Hot Water Bag is easy to use and relieves pain in the most natural way possible. Analgesic ointments might cause allergies for those with sensitive skin, but this hot water bag is skin-friendly and can work effectively, to get you moving again. It is air tight, making sure that the hot water does not leak out and cause a mess or any accidents. This product is now available at Snapdeal at an affordable price. CLOUR AS PER STOCK.','Arogya Pharma',1500,'products/product2.jpeg',2000,4.2,1,NULL,NULL,NULL,1,1);
+INSERT INTO `products` VALUES (1,'Ariel','Heat Bags','Muscle pain can really bring you down and the body ache almost makes you immobile. Muscle pain can be caused due to stress or overworking. At times even injury can cause your muscles to ache. Therefore, a good pain relief product is good to have at hand. The Shenao Hot Water Bag is easy to use and relieves pain in the most natural way possible. Analgesic ointments might cause allergies for those with sensitive skin, but this hot water bag is skin-friendly and can work effectively, to get you moving again. It is air tight, making sure that the hot water does not leak out and cause a mess or any accidents. This product is now available at Snapdeal at an affordable price. CLOUR AS PER STOCK.','products/product3.jpeg',5.0,1,0,0,0,'packet',0,NULL,'2020-09-10 17:37:04',NULL),(2,'Surf Excel','Red Fish Massager','Muscle pain can really bring you down and the body ache almost makes you immobile. Muscle pain can be caused due to stress or overworking. At times even injury can cause your muscles to ache. Therefore, a good pain relief product is good to have at hand. The Shenao Hot Water Bag is easy to use and relieves pain in the most natural way possible. Analgesic ointments might cause allergies for those with sensitive skin, but this hot water bag is skin-friendly and can work effectively, to get you moving again. It is air tight, making sure that the hot water does not leak out and cause a mess or any accidents. This product is now available at Snapdeal at an affordable price. CLOUR AS PER STOCK.','products/product1.jpeg',4.2,1,1,0,0,'packet',0,NULL,NULL,NULL),(3,'Genteel','Pain Relief Gel','Muscle pain can really bring you down and the body ache almost makes you immobile. Muscle pain can be caused due to stress or overworking. At times even injury can cause your muscles to ache. Therefore, a good pain relief product is good to have at hand. The Shenao Hot Water Bag is easy to use and relieves pain in the most natural way possible. Analgesic ointments might cause allergies for those with sensitive skin, but this hot water bag is skin-friendly and can work effectively, to get you moving again. It is air tight, making sure that the hot water does not leak out and cause a mess or any accidents. This product is now available at Snapdeal at an affordable price. CLOUR AS PER STOCK.','products/product4.jpeg',5.0,1,0,0,0,'packet',0,NULL,NULL,NULL),(4,'Wipro','Full Body Massager','Muscle pain can really bring you down and the body ache almost makes you immobile. Muscle pain can be caused due to stress or overworking. At times even injury can cause your muscles to ache. Therefore, a good pain relief product is good to have at hand. The Shenao Hot Water Bag is easy to use and relieves pain in the most natural way possible. Analgesic ointments might cause allergies for those with sensitive skin, but this hot water bag is skin-friendly and can work effectively, to get you moving again. It is air tight, making sure that the hot water does not leak out and cause a mess or any accidents. This product is now available at Snapdeal at an affordable price. CLOUR AS PER STOCK.','products/product2.jpeg',4.2,1,0,0,0,'packet',0,NULL,NULL,NULL),(5,'HenKo','Heat Bag','Muscle pain can really bring you down and the body ache almost makes you immobile. Muscle pain can be caused due to stress or overworking. At times even injury can cause your muscles to ache. Therefore, a good pain relief product is good to have at hand. The Shenao Hot Water Bag is easy to use and relieves pain in the most natural way possible. Analgesic ointments might cause allergies for those with sensitive skin, but this hot water bag is skin-friendly and can work effectively, to get you moving again. It is air tight, making sure that the hot water does not leak out and cause a mess or any accidents. This product is now available at Snapdeal at an affordable price. CLOUR AS PER STOCK.','products/product3.jpeg',5.0,1,0,0,0,'packet',0,NULL,NULL,NULL),(6,'Ezee','alam','From the corn to the wheat, and the sweet potatoes to the pumpkin pie','products/6/445_Mackenzie_scottjuly29.jpg',5.0,1,0,0,0,'packet',0,'2020-09-10 16:56:25','2020-09-10 16:56:26',NULL),(7,'Ri','New Delhi','From the corn to the wheat, and the sweet potatoes to the pumpkin pie.','products/7/737_download_(1).jpeg',5.0,1,0,0,0,'packet',0,'2020-09-10 16:57:41','2020-09-10 16:57:42',NULL),(8,'Ri','New Delhi','From the corn to the wheat, and the sweet potatoes to the pumpkin pie.','products/7/737_download_(1).jpeg',5.0,1,1,0,0,'packet',0,'2020-09-10 16:57:41','2020-09-10 16:57:42',NULL),(9,'Ri0','New Delhi','From the corn to the wheat, and the sweet potatoes to the pumpkin pie.','products/7/737_download_(1).jpeg',5.0,1,0,0,0,'packet',0,'2020-09-10 16:57:41','2020-09-10 16:57:42',NULL),(10,'Ezee fresh','alam','From the corn to the wheat, and the sweet potatoes to the pumpkin pie','products/6/445_Mackenzie_scottjuly29.jpg',5.0,1,0,0,0,'packet',0,'2020-09-10 16:56:25','2020-09-10 16:56:26',NULL),(11,'hcl','Full Body Massager','Muscle pain can really bring you down and the body ache almost makes you immobile. Muscle pain can be caused due to stress or overworking. At times even injury can cause your muscles to ache. Therefore, a good pain relief product is good to have at hand. The Shenao Hot Water Bag is easy to use and relieves pain in the most natural way possible. Analgesic ointments might cause allergies for those with sensitive skin, but this hot water bag is skin-friendly and can work effectively, to get you moving again. It is air tight, making sure that the hot water does not leak out and cause a mess or any accidents. This product is now available at Snapdeal at an affordable price. CLOUR AS PER STOCK.','products/product2.jpeg',4.2,1,1,0,0,'packet',0,NULL,NULL,NULL),(12,'Ezee','alam','From the corn to the wheat, and the sweet potatoes to the pumpkin pie','products/6/445_Mackenzie_scottjuly29.jpg',5.0,1,0,0,0,'packet',0,'2020-09-10 16:56:25','2020-09-10 16:56:26',NULL),(13,'Ri','New Delhi','From the corn to the wheat, and the sweet potatoes to the pumpkin pie.','products/7/737_download_(1).jpeg',5.0,1,0,0,0,'packet',0,'2020-09-10 16:57:41','2020-09-10 16:57:42',NULL),(14,'Ri','New Delhi','From the corn to the wheat, and the sweet potatoes to the pumpkin pie.','products/7/737_download_(1).jpeg',5.0,1,0,0,0,'packet',0,'2020-09-10 16:57:41','2020-09-10 16:57:42',NULL),(15,'Ri0','New Delhi','From the corn to the wheat, and the sweet potatoes to the pumpkin pie.','products/7/737_download_(1).jpeg',5.0,1,0,0,0,'packet',0,'2020-09-10 16:57:41','2020-09-10 16:57:42',NULL),(16,'Ezee fresh','alam','From the corn to the wheat, and the sweet potatoes to the pumpkin pie','products/6/445_Mackenzie_scottjuly29.jpg',5.0,1,0,0,0,'packet',0,'2020-09-10 16:56:25','2020-09-10 16:56:26',NULL),(17,'hcl','Full Body Massager','Muscle pain can really bring you down and the body ache almost makes you immobile. Muscle pain can be caused due to stress or overworking. At times even injury can cause your muscles to ache. Therefore, a good pain relief product is good to have at hand. The Shenao Hot Water Bag is easy to use and relieves pain in the most natural way possible. Analgesic ointments might cause allergies for those with sensitive skin, but this hot water bag is skin-friendly and can work effectively, to get you moving again. It is air tight, making sure that the hot water does not leak out and cause a mess or any accidents. This product is now available at Snapdeal at an affordable price. CLOUR AS PER STOCK.','products/product2.jpeg',4.2,1,1,0,0,'packet',0,NULL,NULL,NULL),(18,'Ri','New Delhi','From the corn to the wheat, and the sweet potatoes to the pumpkin pie.','products/7/737_download_(1).jpeg',5.0,1,0,0,0,'packet',0,'2020-09-10 16:57:41','2020-09-10 16:57:42',NULL),(19,'Ri','New Delhi','From the corn to the wheat, and the sweet potatoes to the pumpkin pie.','products/7/737_download_(1).jpeg',5.0,1,1,0,0,'packet',0,'2020-09-10 16:57:41','2020-09-10 16:57:42',NULL),(20,'Ri0','New Delhi','From the corn to the wheat, and the sweet potatoes to the pumpkin pie.','products/7/737_download_(1).jpeg',5.0,1,0,0,0,'packet',0,'2020-09-10 16:57:41','2020-09-10 16:57:42',NULL),(21,'Ezee fresh','alam','From the corn to the wheat, and the sweet potatoes to the pumpkin pie','products/6/445_Mackenzie_scottjuly29.jpg',5.0,1,0,0,0,'packet',0,'2020-09-10 16:56:25','2020-09-10 16:56:26',NULL),(22,'hcl','Full Body Massager','Muscle pain can really bring you down and the body ache almost makes you immobile. Muscle pain can be caused due to stress or overworking. At times even injury can cause your muscles to ache. Therefore, a good pain relief product is good to have at hand. The Shenao Hot Water Bag is easy to use and relieves pain in the most natural way possible. Analgesic ointments might cause allergies for those with sensitive skin, but this hot water bag is skin-friendly and can work effectively, to get you moving again. It is air tight, making sure that the hot water does not leak out and cause a mess or any accidents. This product is now available at Snapdeal at an affordable price. CLOUR AS PER STOCK.','products/product2.jpeg',4.2,1,1,0,0,'packet',0,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `products` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -841,15 +979,16 @@ DROP TABLE IF EXISTS `reviews`;
 CREATE TABLE `reviews` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
-  `order_id` int(11) NOT NULL,
+  `product_id` int(11) NOT NULL,
+  `comment` varchar(255) DEFAULT NULL,
   `rating` int(11) NOT NULL,
   `description` text,
-  `entity_id` int(11) NOT NULL,
-  `entity_type` varchar(250) NOT NULL,
   `created_at` datetime DEFAULT NULL,
   `deleted_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   `isactive` tinyint(1) NOT NULL DEFAULT '1',
+  `image` varchar(255) DEFAULT NULL,
+  `image1` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -860,7 +999,7 @@ CREATE TABLE `reviews` (
 
 LOCK TABLES `reviews` WRITE;
 /*!40000 ALTER TABLE `reviews` DISABLE KEYS */;
-INSERT INTO `reviews` VALUES (8,1,4,5,'awesome',2,'App\\Models\\Clinic','2019-12-17 08:25:46',NULL,'2019-12-17 08:25:46',1),(9,2,4,5,'awesome',1,'App\\Models\\Clinic','2019-12-17 08:25:46',NULL,'2019-12-17 08:25:46',1),(10,3,53,3,NULL,2,'App\\Models\\Clinic','2020-03-09 17:11:42',NULL,'2020-03-09 17:11:42',1),(11,1,4,5,'awesome',2,'App\\Models\\Therapy','2019-12-17 08:25:46',NULL,'2019-12-17 08:25:46',1),(12,2,4,5,'awesome',1,'App\\Models\\Therapy','2019-12-17 08:25:46',NULL,'2019-12-17 08:25:46',1),(13,3,53,3,NULL,2,'App\\Models\\Therapy','2020-03-09 17:11:42',NULL,'2020-03-09 17:11:42',1),(14,1,4,5,'awesome',1,'App\\Models\\Product','2019-12-17 08:25:46',NULL,'2019-12-17 08:25:46',1),(15,2,4,5,'awesome',1,'App\\Models\\Product','2019-12-17 08:25:46',NULL,'2019-12-17 08:25:46',1),(16,3,53,3,NULL,2,'App\\Models\\Product','2020-03-09 17:11:42',NULL,'2020-03-09 17:11:42',1),(17,1,4,5,'awesome',2,'App\\Models\\Product','2019-12-17 08:25:46',NULL,'2019-12-17 08:25:46',1),(18,2,4,5,'awesome',3,'App\\Models\\Product','2019-12-17 08:25:46',NULL,'2019-12-17 08:25:46',1),(19,3,53,3,NULL,3,'App\\Models\\Product','2020-03-09 17:11:42',NULL,'2020-03-09 17:11:42',1);
+INSERT INTO `reviews` VALUES (8,1,1,NULL,1,'awesome','2019-12-17 08:25:46',NULL,'2019-12-17 08:25:46',1,NULL,NULL),(9,2,1,NULL,5,'awesome','2019-12-17 08:25:46',NULL,'2019-12-17 08:25:46',1,NULL,NULL),(10,3,53,NULL,3,NULL,'2020-03-09 17:11:42',NULL,'2020-03-09 17:11:42',1,NULL,NULL),(11,1,1,NULL,2,'awesome','2019-12-17 08:25:46',NULL,'2019-12-17 08:25:46',1,NULL,NULL),(12,2,1,NULL,5,'awesome','2019-12-17 08:25:46',NULL,'2019-12-17 08:25:46',1,NULL,NULL),(13,3,53,NULL,3,NULL,'2020-03-09 17:11:42',NULL,'2020-03-09 17:11:42',1,NULL,NULL),(14,1,1,NULL,3,'awesome','2019-12-17 08:25:46',NULL,'2019-12-17 08:25:46',1,NULL,NULL),(15,2,1,NULL,5,'awesome','2019-12-17 08:25:46',NULL,'2019-12-17 08:25:46',1,NULL,NULL),(16,3,53,NULL,3,NULL,'2020-03-09 17:11:42',NULL,'2020-03-09 17:11:42',1,NULL,NULL),(17,1,1,NULL,5,'awesome','2019-12-17 08:25:46',NULL,'2019-12-17 08:25:46',1,NULL,NULL),(18,2,1,NULL,5,'awesome','2019-12-17 08:25:46',NULL,'2019-12-17 08:25:46',1,NULL,NULL),(19,3,53,NULL,3,NULL,'2020-03-09 17:11:42',NULL,'2020-03-09 17:11:42',1,NULL,NULL);
 /*!40000 ALTER TABLE `reviews` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -872,7 +1011,7 @@ DROP TABLE IF EXISTS `role_user`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `role_user` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int(10) unsigned NOT NULL,
   `role_id` int(10) unsigned NOT NULL,
   `user_id` bigint(20) unsigned NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -880,7 +1019,7 @@ CREATE TABLE `role_user` (
   PRIMARY KEY (`id`),
   KEY `role_user_role_id_index` (`role_id`),
   KEY `role_user_user_id_index` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -889,7 +1028,7 @@ CREATE TABLE `role_user` (
 
 LOCK TABLES `role_user` WRITE;
 /*!40000 ALTER TABLE `role_user` DISABLE KEYS */;
-INSERT INTO `role_user` VALUES (1,1,1,NULL,NULL);
+INSERT INTO `role_user` VALUES (1,1,1,NULL,NULL),(3,3,5,NULL,NULL);
 /*!40000 ALTER TABLE `role_user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -901,16 +1040,13 @@ DROP TABLE IF EXISTS `roles`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `roles` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int(10) unsigned NOT NULL,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `slug` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `description` text COLLATE utf8mb4_unicode_ci,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `roles_name_unique` (`name`),
-  UNIQUE KEY `roles_slug_unique` (`slug`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -924,176 +1060,90 @@ INSERT INTO `roles` VALUES (1,'admin','admin','Super Admin',NULL,NULL),(2,'clini
 UNLOCK TABLES;
 
 --
--- Table structure for table `therapies`
+-- Table structure for table `save_later_product`
 --
 
-DROP TABLE IF EXISTS `therapies`;
+DROP TABLE IF EXISTS `save_later_product`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `therapies` (
+CREATE TABLE `save_later_product` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(500) NOT NULL,
-  `description` text NOT NULL,
-  `image` varchar(500) NOT NULL,
-  `grade1_price` int(11) NOT NULL,
-  `grade2_price` int(11) NOT NULL,
-  `grade3_price` int(11) NOT NULL,
-  `grade4_price` int(11) NOT NULL,
-  `grade1_original_price` int(11) DEFAULT NULL,
-  `grade2_original_price` int(11) DEFAULT NULL,
-  `grade3_original_price` int(11) DEFAULT NULL,
-  `grade4_original_price` int(11) DEFAULT NULL,
-  `isactive` tinyint(1) NOT NULL DEFAULT '1',
-  `created_at` datetime DEFAULT NULL,
-  `deleted_at` datetime DEFAULT NULL,
-  `updated_at` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `therapies`
---
-
-LOCK TABLES `therapies` WRITE;
-/*!40000 ALTER TABLE `therapies` DISABLE KEYS */;
-INSERT INTO `therapies` VALUES (1,'Knee Pain','Do use \"RICE.\" Rest, ice, compression, and elevation (RICE) is good for knee pain caused by a minor injury or an arthritis flare. Give your knee some rest, apply ice to reduce swelling, wear a compressive bandage, and keep your knee elevated.','therapies/kneepain.jpeg',500,800,1000,1200,NULL,NULL,NULL,NULL,1,NULL,NULL,NULL),(2,'Shoulder Pain','Do use \"RICE.\" Rest, ice, compression, and elevation (RICE) is good for knee pain caused by a minor injury or an arthritis flare. Give your knee some rest, apply ice to reduce swelling, wear a compressive bandage, and keep your knee elevated.','therapies/shoulderpain.jpeg',500,800,1000,1200,NULL,NULL,NULL,NULL,1,NULL,NULL,NULL),(3,'Back Pain','Do use \"RICE.\" Rest, ice, compression, and elevation (RICE) is good for knee pain caused by a minor injury or an arthritis flare. Give your knee some rest, apply ice to reduce swelling, wear a compressive bandage, and keep your knee elevated.','therapies/backpain.jpeg',500,800,1000,1200,NULL,NULL,NULL,NULL,1,NULL,NULL,NULL),(4,'Full MUscle Relax','jsu a description test','therapies/4/572_homebanner4.jpeg',100,200,300,400,NULL,NULL,NULL,NULL,1,'2020-06-29 11:38:58',NULL,'2020-06-29 11:38:59');
-/*!40000 ALTER TABLE `therapies` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `therapist_locations`
---
-
-DROP TABLE IF EXISTS `therapist_locations`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `therapist_locations` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `lat` decimal(20,12) NOT NULL,
-  `lang` decimal(20,12) NOT NULL,
-  `therapist_id` int(11) NOT NULL,
-  `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` date DEFAULT NULL,
-  `deleted_at` date DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `therapist_locations`
---
-
-LOCK TABLES `therapist_locations` WRITE;
-/*!40000 ALTER TABLE `therapist_locations` DISABLE KEYS */;
-INSERT INTO `therapist_locations` VALUES (1,12.220000000000,12.230000000000,1,'2020-06-18 16:48:30',NULL,NULL),(2,11.220000000000,10.210000000000,1,'2020-06-18 16:48:30',NULL,NULL),(3,10.200000000000,-11.300000000000,3,'2020-08-19 10:40:14','2020-08-19',NULL);
-/*!40000 ALTER TABLE `therapist_locations` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `therapist_therapies`
---
-
-DROP TABLE IF EXISTS `therapist_therapies`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `therapist_therapies` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `therapist_id` int(11) NOT NULL,
-  `therapy_id` int(11) NOT NULL,
-  `therapist_grade` int(11) NOT NULL DEFAULT '1',
-  `isactive` varchar(30) NOT NULL DEFAULT 'Applied' COMMENT 'Applied, Approved, Rejected, Revoked',
-  `created_at` datetime DEFAULT NULL,
-  `deleted_at` datetime DEFAULT NULL,
-  `updated_at` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `therapist_therapies`
---
-
-LOCK TABLES `therapist_therapies` WRITE;
-/*!40000 ALTER TABLE `therapist_therapies` DISABLE KEYS */;
-INSERT INTO `therapist_therapies` VALUES (1,3,1,1,'Approved',NULL,NULL,NULL),(2,3,2,1,'Applied',NULL,NULL,NULL),(3,3,3,1,'Rejected',NULL,NULL,NULL),(4,4,1,1,'Approved',NULL,NULL,NULL),(5,4,2,1,'Applied',NULL,NULL,NULL),(6,4,3,1,'Rejected',NULL,NULL,NULL),(10,3,4,1,'Approved',NULL,NULL,NULL);
-/*!40000 ALTER TABLE `therapist_therapies` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `therapists`
---
-
-DROP TABLE IF EXISTS `therapists`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `therapists` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `clinic_id` int(11) DEFAULT NULL,
-  `name` varchar(100) NOT NULL,
-  `image` varchar(500) DEFAULT NULL,
-  `email` varchar(100) NOT NULL,
-  `mobile` varchar(10) NOT NULL,
-  `address` varchar(250) DEFAULT NULL,
-  `city` varchar(50) DEFAULT NULL,
-  `state` varchar(50) DEFAULT NULL,
-  `isactive` tinyint(1) NOT NULL DEFAULT '1',
-  `last_lat` decimal(20,12) DEFAULT NULL,
-  `last_lang` decimal(20,12) DEFAULT NULL,
-  `created_at` datetime DEFAULT NULL,
-  `deleted_at` datetime DEFAULT NULL,
-  `updated_at` datetime DEFAULT NULL,
-  `password` varchar(500) DEFAULT NULL,
-  `status` int(11) DEFAULT '0',
-  `notification_token` varchar(1000) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `therapists`
---
-
-LOCK TABLES `therapists` WRITE;
-/*!40000 ALTER TABLE `therapists` DISABLE KEYS */;
-INSERT INTO `therapists` VALUES (1,NULL,'Pankaj Sengar',NULL,'pks11iitr@gmail.com','8802035788','ffd d dfd','Noida','Uttar Pradesh',1,NULL,NULL,'2020-06-18 00:00:00',NULL,NULL,NULL,0,NULL),(2,NULL,'Pankaj Sengar',NULL,'pks11iitr@gmail.com','8802035788','ffd d dfd','Noida','Uttar Pradesh',1,NULL,NULL,'2020-06-18 00:00:00',NULL,NULL,NULL,0,NULL),(3,NULL,'Therapist Pankaj','therapist-images/3/747_svs3.jpeg','pks12iitr@gmail.com','8802035791',NULL,NULL,NULL,1,NULL,NULL,'2020-08-17 13:24:44',NULL,'2020-08-19 14:33:50','$2y$10$ZwTtxsSHECWR6jLmozFvzOKZQKCKdcOUoJtqqehwVm.FM0CZl0TCi',1,NULL);
-/*!40000 ALTER TABLE `therapists` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `time_slots`
---
-
-DROP TABLE IF EXISTS `time_slots`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `time_slots` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `clinic_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `product_id` int(11) NOT NULL,
+  `size_id` int(11) NOT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   `deleted_at` datetime DEFAULT NULL,
-  `date` date NOT NULL,
-  `start_time` varchar(15) NOT NULL,
-  `internal_start_time` time NOT NULL,
-  `duration` int(11) NOT NULL,
-  `grade_1` int(11) NOT NULL DEFAULT '0',
-  `grade_2` int(11) NOT NULL DEFAULT '0',
-  `grade_3` int(11) NOT NULL DEFAULT '0',
-  `grade_4` int(11) NOT NULL DEFAULT '0',
-  `isactive` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `time_slots`
+-- Dumping data for table `save_later_product`
 --
 
-LOCK TABLES `time_slots` WRITE;
-/*!40000 ALTER TABLE `time_slots` DISABLE KEYS */;
-INSERT INTO `time_slots` VALUES (1,1,NULL,NULL,NULL,'2020-08-14','11:00 AM','11:00:00',60,2,1,3,5,1),(2,1,NULL,NULL,NULL,'2020-08-14','12:00 PM','12:00:00',60,2,1,3,5,1),(3,1,NULL,NULL,NULL,'2020-08-15','11:00 AM','11:00:00',60,2,1,3,5,1),(4,1,NULL,NULL,NULL,'2020-08-15','12:00 PM','12:00:00',60,2,1,3,5,1),(5,1,NULL,NULL,NULL,'2020-08-16','11:00 AM','11:00:00',60,2,1,3,5,1),(6,1,NULL,NULL,NULL,'2020-08-16','12:00 PM','12:00:00',60,2,1,3,5,1),(7,1,NULL,NULL,NULL,'2020-08-17','11:00 AM','11:00:00',60,2,1,3,5,1),(8,1,NULL,NULL,NULL,'2020-08-17','12:00 PM','12:00:00',60,2,1,3,5,1),(9,1,NULL,NULL,NULL,'2020-08-18','11:00 AM','11:00:00',60,2,1,3,5,1),(10,1,NULL,NULL,NULL,'2020-08-18','12:00 PM','12:00:00',60,2,1,3,5,1),(11,1,NULL,NULL,NULL,'2020-08-19','11:00 AM','11:00:00',60,2,1,3,5,1),(12,1,NULL,NULL,NULL,'2020-08-19','12:00 PM','12:00:00',60,2,1,3,5,1),(13,1,NULL,NULL,NULL,'2020-08-20','11:00 AM','11:00:00',60,2,1,3,5,1),(14,1,NULL,NULL,NULL,'2020-08-20','12:00 PM','12:00:00',60,2,1,3,5,1),(15,1,NULL,NULL,NULL,'2020-08-21','11:00 AM','11:00:00',60,2,1,3,5,1),(16,1,NULL,NULL,NULL,'2020-08-21','12:00 PM','12:00:00',60,2,1,3,5,1);
-/*!40000 ALTER TABLE `time_slots` ENABLE KEYS */;
+LOCK TABLES `save_later_product` WRITE;
+/*!40000 ALTER TABLE `save_later_product` DISABLE KEYS */;
+INSERT INTO `save_later_product` VALUES (33,1,3,5,'2020-09-22 12:02:47','2020-09-22 12:02:47',NULL);
+/*!40000 ALTER TABLE `save_later_product` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `sub_category`
+--
+
+DROP TABLE IF EXISTS `sub_category`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `sub_category` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `category_id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `isactive` tinyint(4) NOT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  `deleted_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `sub_category`
+--
+
+LOCK TABLES `sub_category` WRITE;
+/*!40000 ALTER TABLE `sub_category` DISABLE KEYS */;
+INSERT INTO `sub_category` VALUES (1,1,'Body Lotions',1,NULL,'2020-09-19 11:50:32',NULL),(2,1,'Shimla Apples',1,NULL,'2020-09-16 11:01:30',NULL),(3,1,'Cold Drinks',1,NULL,'2020-09-19 11:50:44',NULL),(4,1,'Floor Cleaner',1,'2020-09-10 15:49:50','2020-09-19 11:50:51',NULL),(5,2,'bev',1,'2020-09-19 17:36:26','2020-09-19 17:36:26',NULL);
+/*!40000 ALTER TABLE `sub_category` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `time_slot`
+--
+
+DROP TABLE IF EXISTS `time_slot`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `time_slot` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `to_time` varchar(255) NOT NULL,
+  `isactive` tinyint(4) NOT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  `deleted_at` datetime DEFAULT NULL,
+  `from_time` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `time_slot`
+--
+
+LOCK TABLES `time_slot` WRITE;
+/*!40000 ALTER TABLE `time_slot` DISABLE KEYS */;
+INSERT INTO `time_slot` VALUES (1,'10:00PM',1,NULL,NULL,NULL,'10:00AM');
+/*!40000 ALTER TABLE `time_slot` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -1129,35 +1179,6 @@ INSERT INTO `users` VALUES (1,'Pankaj Sengar','pks11iitr@gmail.com',NULL,NULL,'$
 UNLOCK TABLES;
 
 --
--- Table structure for table `videos`
---
-
-DROP TABLE IF EXISTS `videos`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `videos` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `url` varchar(500) NOT NULL,
-  `image` varchar(500) NOT NULL,
-  `isactive` tinyint(1) NOT NULL DEFAULT '1',
-  `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
-  `deleted_at` datetime DEFAULT NULL,
-  `updated_at` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `videos`
---
-
-LOCK TABLES `videos` WRITE;
-/*!40000 ALTER TABLE `videos` DISABLE KEYS */;
-INSERT INTO `videos` VALUES (1,'https://www.youtube.com/watch?v=KSO98LaO1NU','youtube/youtube1.jpeg',1,'2020-07-07 10:32:22',NULL,NULL),(2,'https://www.youtube.com/watch?v=0etGyHzRUGY','youtube/youtube2.jpeg',1,'2020-07-07 10:32:22',NULL,NULL),(3,'https://www.youtube.com/watch?v=VSSWpYyoNIk','youtube/youtube3.jpeg',1,'2020-07-07 10:32:38',NULL,NULL);
-/*!40000 ALTER TABLE `videos` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `wallet`
 --
 
@@ -1181,7 +1202,7 @@ CREATE TABLE `wallet` (
   `updated_at` datetime DEFAULT NULL,
   `deleted_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1190,7 +1211,7 @@ CREATE TABLE `wallet` (
 
 LOCK TABLES `wallet` WRITE;
 /*!40000 ALTER TABLE `wallet` DISABLE KEYS */;
-INSERT INTO `wallet` VALUES (2,1,'20200626134910','Credit',500,'CASH','Wallet Recharge',1,'order_F7BUWn9Fq2DFP2','{\"id\":\"order_F7BUWn9Fq2DFP2\",\"entity\":\"order\",\"amount\":50000,\"amount_paid\":0,\"amount_due\":50000,\"currency\":\"INR\",\"receipt\":\"20200626134910\",\"offer_id\":null,\"status\":\"created\",\"attempts\":0,\"notes\":[],\"created_at\":1593159550}',NULL,NULL,'2020-06-26 13:49:10','2020-06-26 13:57:45',NULL),(3,1,'ARA1593160552','Credit',500,'CASH','Wallet Recharge',0,'order_F7BmAOK0sWpvpZ','{\"id\":\"order_F7BmAOK0sWpvpZ\",\"entity\":\"order\",\"amount\":50000,\"amount_paid\":0,\"amount_due\":50000,\"currency\":\"INR\",\"receipt\":\"ARA1593160552\",\"offer_id\":null,\"status\":\"created\",\"attempts\":0,\"notes\":[],\"created_at\":1593160552}',NULL,NULL,'2020-06-26 14:05:52','2020-06-26 14:05:52',NULL);
+INSERT INTO `wallet` VALUES (2,1,'20200626134910','Credit',500,'CASH','Wallet Recharge',1,'order_F7BUWn9Fq2DFP2','{\"id\":\"order_F7BUWn9Fq2DFP2\",\"entity\":\"order\",\"amount\":50000,\"amount_paid\":0,\"amount_due\":50000,\"currency\":\"INR\",\"receipt\":\"20200626134910\",\"offer_id\":null,\"status\":\"created\",\"attempts\":0,\"notes\":[],\"created_at\":1593159550}','1','aaa','2020-06-26 13:49:10','2020-09-14 19:01:18',NULL),(11,1,'ARA1600429331','Credit',2000,'CASH','Wallet Recharge',1,'order_FeTp6jpxRWP5DW','{\"id\":\"order_FeTp6jpxRWP5DW\",\"entity\":\"order\",\"amount\":200000,\"amount_paid\":0,\"amount_due\":200000,\"currency\":\"INR\",\"receipt\":\"ARA1600429331\",\"offer_id\":null,\"status\":\"created\",\"attempts\":0,\"notes\":[],\"created_at\":1600429332}','df','fsf','2020-09-18 17:12:11','2020-09-18 17:12:40',NULL),(12,1,'20200919152959','Debit',2500,'CASH','Paid For Order ID: ARA1600503093',1,'44',NULL,NULL,NULL,'2020-09-19 15:29:59','2020-09-19 15:29:59',NULL),(13,1,'ARA1600673084','Credit',500,'CASH','Wallet Recharge',1,'order_Ffb2WJGfFtBH1F','{\"id\":\"order_Ffb2WJGfFtBH1F\",\"entity\":\"order\",\"amount\":50000,\"amount_paid\":0,\"amount_due\":50000,\"currency\":\"INR\",\"receipt\":\"ARA1600673084\",\"offer_id\":null,\"status\":\"created\",\"attempts\":0,\"notes\":[],\"created_at\":1600673085}',NULL,NULL,'2020-09-21 12:54:44','2020-09-21 12:54:45',NULL),(15,1,'ARA1600683565','Credit',1000,'CASH','Wallet Recharge',1,'order_Ffe12u15K5S3wr','{\"id\":\"order_Ffe12u15K5S3wr\",\"entity\":\"order\",\"amount\":100000,\"amount_paid\":0,\"amount_due\":100000,\"currency\":\"INR\",\"receipt\":\"ARA1600683565\",\"offer_id\":null,\"status\":\"created\",\"attempts\":0,\"notes\":[],\"created_at\":1600683566}','pay_Ffe2g8pnDMoS8V','xz_lkj875624','2020-09-21 15:49:25','2020-09-21 15:51:09',NULL),(16,1,'ARA1600684433','Credit',3000,'CASH','Wallet Recharge',1,'order_FfeGJgcKDYvbdY','{\"id\":\"order_FfeGJgcKDYvbdY\",\"entity\":\"order\",\"amount\":300000,\"amount_paid\":0,\"amount_due\":300000,\"currency\":\"INR\",\"receipt\":\"ARA1600684433\",\"offer_id\":null,\"status\":\"created\",\"attempts\":0,\"notes\":[],\"created_at\":1600684433}','pay_FfeGmO5TLfovv5','xz_lkj875624','2020-09-21 16:03:53','2020-09-21 16:04:24',NULL),(17,1,'ARA1600688569','Credit',1000,'CASH','Wallet Recharge',1,'order_FffR8tUndnwkfF','{\"id\":\"order_FffR8tUndnwkfF\",\"entity\":\"order\",\"amount\":100000,\"amount_paid\":0,\"amount_due\":100000,\"currency\":\"INR\",\"receipt\":\"ARA1600688569\",\"offer_id\":null,\"status\":\"created\",\"attempts\":0,\"notes\":[],\"created_at\":1600688570}','pay_FffRX9m7WHunlD','xz_lkj875624','2020-09-21 17:12:49','2020-09-21 17:13:16',NULL),(18,1,'20200922094956','Debit',5500,'CASH','Paid For Order ID: ARA1600748336',1,'59',NULL,NULL,NULL,'2020-09-22 09:49:56','2020-09-22 09:49:56',NULL),(19,1,'ARA1600756730','Credit',1000,'CASH','Wallet Recharge',1,'order_Ffyn9pHJCWEfim','{\"id\":\"order_Ffyn9pHJCWEfim\",\"entity\":\"order\",\"amount\":100000,\"amount_paid\":0,\"amount_due\":100000,\"currency\":\"INR\",\"receipt\":\"ARA1600756730\",\"offer_id\":null,\"status\":\"created\",\"attempts\":0,\"notes\":[],\"created_at\":1600756731}','pay_FfynYVE1lLKYLf','xz_lkj875624','2020-09-22 12:08:50','2020-09-22 12:09:18',NULL);
 /*!40000 ALTER TABLE `wallet` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -1203,4 +1224,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-08-20 13:01:54
+-- Dump completed on 2020-09-24 19:31:49
