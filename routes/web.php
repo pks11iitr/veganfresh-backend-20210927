@@ -114,6 +114,10 @@ Route::group(['middleware'=>['auth', 'acl'], 'is'=>'admin'], function(){
         Route::get('change-payment-status/{id}','Admin\OrderController@changePaymentStatus')->name('payment.status.change');
     });
 
+    Route::group(['prefix'=>'returnproduct'], function(){
+        Route::get('/','SuperAdmin\ReturnProductController@index')->name('return.product.list');
+
+    });
    //****************************************end*************************************************
    Route::group(['prefix'=>'therapy'], function(){
         Route::get('/','SuperAdmin\TherapistController@index')->name('therapy.list');
@@ -183,6 +187,13 @@ Route::group(['middleware'=>['auth', 'acl'], 'is'=>'admin'], function(){
 
 Route::group(['prefix'=>'riders', 'middleware'=>['auth', 'acl'], 'is'=>'rider-admin'], function() {
     Route::get('/dashboard', 'RiderAdmin\DashboardController@index')->name('rideradmin.home');
+
+    Route::group(['prefix'=>'orders'], function(){
+        Route::get('/','RiderAdmin\OrderController@index')->name('rider.orders.list');
+        Route::get('details/{id}','SuperAdmin\OrderController@details')->name('rider.order.details');
+        //Route::get('change-status/{id}','Admin\OrderController@changeStatus')->name('order.status.change');
+        //Route::get('change-payment-status/{id}','Admin\OrderController@changePaymentStatus')->name('payment.status.change');
+    });
 
 });
 

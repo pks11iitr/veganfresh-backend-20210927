@@ -253,6 +253,15 @@
                             </p>
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a href="{{route('return.product.list')}}" class="nav-link">
+                            <i class="nav-icon fas fa-th"></i>
+                            <p>
+                                Return Product
+
+                            </p>
+                        </a>
+                    </li>
 {{--                    <li class="nav-item">--}}
 {{--                        <a href="{{route('video.list')}}" class="nav-link">--}}
 {{--                            <i class="nav-icon fas fa-th"></i>--}}
