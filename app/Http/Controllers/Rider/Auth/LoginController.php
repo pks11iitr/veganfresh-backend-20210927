@@ -38,7 +38,7 @@ class LoginController extends Controller
     protected function validateLogin(Request $request)
     {
         $request->validate([
-            'user_id' => $this->userId($request)=='email'?'required|email|string|exists:rider,email':'required|digits:10|string|exists:rider,mobile',
+            'user_id' => $this->userId($request)=='email'?'required|email|string|exists:riders,email':'required|digits:10|string|exists:riders,mobile',
             'password' => 'required|string',
         ], ['user_id.exists'=>'This account is not registered with us. Please signup to continue']);
     }
@@ -80,7 +80,7 @@ class LoginController extends Controller
 
     protected function sendLoginResponse($user, $token){
         if($user->status==0){
-            $otp=OTPModel::createOTP('rider', $user->id, 'login');
+            $otp=OTPModel::createOTP('riders', $user->id, 'login');
             $msg=str_replace('{{otp}}', $otp, config('sms-templates.login'));
             Msg91::send($user->mobile,$msg);
             return ['status'=>'success', 'message'=>'otp verify', 'token'=>''];
@@ -111,7 +111,7 @@ class LoginController extends Controller
         if(!in_array($user->status, [0,1]))
             return ['status'=>'failed', 'message'=>'This account has been blocked'];
 
-        $otp=OTPModel::createOTP('rider', $user->id, 'login');
+        $otp=OTPModel::createOTP('riders', $user->id, 'login');
         $msg=str_replace('{{otp}}', $otp, config('sms-templates.login'));
         event(new SendOtp($user->mobile, $msg));
 
@@ -122,7 +122,7 @@ class LoginController extends Controller
     protected function validateOTPLogin(Request $request)
     {
         $request->validate([
-            'mobile' => 'required|digits:10|string|exists:rider',
+            'mobile' => 'required|digits:10|string|exists:riders',
         ]);
     }
 

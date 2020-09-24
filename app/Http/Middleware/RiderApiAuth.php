@@ -4,7 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 
-class TherapistApiAuth
+class RiderApiAuth
 {
     /**
      * Handle an incoming request.
@@ -15,7 +15,7 @@ class TherapistApiAuth
      */
     public function handle($request, Closure $next)
     {
-        $user=auth()->guard('therapistapi')->user();
+        $user=auth()->guard('riderapi')->user();
         if(!$user)
             return response()->json([
                 'status'=>'failed',

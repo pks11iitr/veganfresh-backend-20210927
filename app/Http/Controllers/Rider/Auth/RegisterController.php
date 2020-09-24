@@ -47,20 +47,20 @@ class RegisterController extends Controller
 
     public function register(Request $request)
     {
-        $this->validator($request->all())->validate();
-
-        if($customer=Rider::where('mobile', $request->mobile)->orWhere('email', $request->email)->first()){
-            return [
-                'status'=>'failed',
-                'message'=>'Email or mobile already registered'
-            ];
-        }
-
-        event(new RiderRegistered($user = $this->create($request->all())));
-
-        return [
-            'status'=>'success',
-            'message'=>'Please verify otp to continue'
-        ];
+//        $this->validator($request->all())->validate();
+//
+//        if($customer=Rider::where('mobile', $request->mobile)->orWhere('email', $request->email)->first()){
+//            return [
+//                'status'=>'failed',
+//                'message'=>'Email or mobile already registered'
+//            ];
+//        }
+//
+//        //event(new RiderRegistered($user = $this->create($request->all())));
+//
+//        return [
+//            'status'=>'success',
+//            'message'=>'Please verify otp to continue'
+//        ];
     }
 }

@@ -18,6 +18,7 @@ $api->post('login', 'Customer\Auth\LoginController@login');
 $api->post('login-with-otp', 'Customer\Auth\LoginController@loginWithOtp');
 $api->post('register', 'Customer\Auth\RegisterController@register');
 $api->post('forgot', 'Customer\Auth\ForgotPasswordController@sendResetOTP');
+$api->post('update-password', 'Customer\Auth\ForgotPasswordController@updatePassword');
 $api->post('verify-otp', 'Customer\Auth\OtpController@verify');
 $api->post('resend-otp', 'Customer\Auth\OtpController@resend');
 
@@ -82,13 +83,16 @@ $api->group(['middleware' => ['customer-auth']], function ($api) {
 $api->group(['prefix' => 'rider'], function ($api) {
     $api->post('login', 'Rider\Auth\LoginController@login');
     $api->post('login-with-otp', 'Rider\Auth\LoginController@loginWithOtp');
-    $api->post('register', 'Rider\Auth\RegisterController@register');
-    $api->post('forgot', 'Rider\Auth\ForgotPasswordController@forgot');
+    $api->post('forgot', 'Rider\Auth\ForgotPasswordController@sendResetOTP');
+    $api->post('rider-update-password', 'Rider\Auth\ForgotPasswordController@updatePassword');
+
     $api->post('verify-otp', 'Rider\Auth\OtpController@verify');
     $api->post('resend-otp', 'Rider\Auth\OtpController@resend');
 
     $api->group(['middleware' => ['rider-auth']], function ($api) {
 
+        $api->get('rider-orders-history', ['as'=>'rider.order.history', 'uses'=>'Rider\Api\RiderOrderController@index']);
+        $api->get('rider-order-details/{order_id}', ['as'=>'rider.order.details', 'uses'=>'Rider\Api\RiderOrderController@orderdetails']);
 
     });
 
