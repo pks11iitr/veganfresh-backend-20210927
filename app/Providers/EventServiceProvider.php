@@ -36,9 +36,9 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\RechargeConfirmed'=>[
             'App\Listeners\RechargeConfirmListner'
         ],
-        'App\Events\TherapistRegistered' => [
-            'App\Listeners\TherapistRegisterListner',
-        ],
+//        'App\Events\RiderRegistered' => [
+//            'App\Listeners\TherapistRegisterListner',
+//        ],
 
 
     ];

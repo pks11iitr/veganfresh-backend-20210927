@@ -19,6 +19,7 @@ class FavoriteProductController extends Controller
                 'status'=>'failed',
                 'message'=>'Please login to continue'
             ];
+
       $favoriteproduct=FavoriteProduct::create([
                  'user_id'=>$user->id,
                   'product_id'=>$request->product_id,
