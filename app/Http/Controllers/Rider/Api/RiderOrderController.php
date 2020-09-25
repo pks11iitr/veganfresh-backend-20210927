@@ -51,6 +51,7 @@ class RiderOrderController extends Controller
     public function orderdetails(Request $request, $id){
 
         $show_delivered=0;
+        $show_return=0;
 
         $user=auth()->guard('riderapi')->user();
         if(!$user)
@@ -83,7 +84,7 @@ class RiderOrderController extends Controller
                 'quantity'=>$detail->quantity,
                 'size'=>$detail->size->name??'',
                 'item_id'=>$detail->entity_id,
-                'show_return'=>($detail->status=='dispatched'?1:0),
+                //'show_return'=>($detail->status=='dispatched'?1:0),
                 //'show_cancel'=>in_array($detail->status, ['confirmed'])?1:0
             ];
             $savings=$savings+($detail->cut_price-$detail->price);
@@ -93,6 +94,7 @@ class RiderOrderController extends Controller
         // options to be displayed
         if($order->status=='dispatched'){
             $show_delivered=1;
+            $show_return=1;
         }
 
         $prices=[
@@ -112,6 +114,8 @@ class RiderOrderController extends Controller
                 'show_cancel_product'=>$show_cancel_product??0,
                 'deliveryaddress'=>$order->deliveryaddress??'',
                 'prices'=>$prices,
+                'show_delivered'=>$show_delivered,
+                'show_return'=>$show_return
             ]
         ];
     }
@@ -225,8 +229,9 @@ class RiderOrderController extends Controller
 
     }
 
+
     public function checkTotalAfterReturn(Request $request){
-        
+
     }
 
 
