@@ -24,6 +24,10 @@ class Order extends Model
         return $this->belongsTo('App\Models\Customer', 'user_id');
     }
 
+    public function rider(){
+        return $this->belongsTo('App\Models\Rider', 'rider_id');
+    }
+
 
     public function deliveryaddress(){
         return $this->belongsTo('App\Models\CustomerAddress', 'address_id');
