@@ -4,6 +4,7 @@ namespace App\Http\Controllers\SuperAdmin;
 
 use App\Models\Notification;
 use App\Models\Order;
+use App\Models\Rider;
 use App\Services\Notification\FCMNotification;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -51,7 +52,8 @@ class OrderController extends Controller
 
     public function details(Request $request,$id){
         $order =Order::with(['details.entity'])->findOrFail($id);
-        return view('admin.order.details',['order'=>$order]);
+        $riders =Rider::get();
+        return view('admin.order.details',['order'=>$order,'riders'=>$riders]);
     }
 
     public function changeStatus(Request $request, $id){
@@ -114,6 +116,13 @@ class OrderController extends Controller
 
         return redirect()->back()->with('success', 'Payment Status Has Been Updated');
 
+    }
+
+    public function changeRider(Request $request,$id){
+        $rider =Order::findOrFail($id);
+        $rider->rider_id=$request->riderid;
+        $rider->save();
+        return redirect()->back()->with('success', 'Rider Has Been change');
     }
 
 }
