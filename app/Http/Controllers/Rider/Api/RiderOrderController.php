@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Rider\Api;
 
+use App\Models\Coupon;
 use App\Models\Order;
 use App\Models\OrderDetail;
 use App\Models\OrderStatus;
@@ -84,6 +85,7 @@ class RiderOrderController extends Controller
                 'quantity'=>$detail->quantity,
                 'size'=>$detail->size->name??'',
                 'item_id'=>$detail->entity_id,
+                'id'=>$detail->id
                 //'show_return'=>($detail->status=='dispatched'?1:0),
                 //'show_cancel'=>in_array($detail->status, ['confirmed'])?1:0
             ];
@@ -120,12 +122,12 @@ class RiderOrderController extends Controller
         ];
     }
 
-    public function returnProduct(Request $request){
+    public function checkTotalAfterReturn(Request $request, $order_id){
 
         $request->validate([
 
-            'item_id'=>'required|integer',
-            'quantity'=>'required|integer'
+            'items'=>'required|array',
+            'items.*'=>'required|integer'
 
         ]);
 
@@ -136,33 +138,180 @@ class RiderOrderController extends Controller
                 'message'=>'Please login to continue'
             ];
 
-        $item = OrderDetail::with(['order', 'entity', 'size'])->find($request->item_id);
 
-        if(!$item || $item->order->rider_id!=$user->id){
+        $itemids=[];
+        foreach($request->items as $key=>$value){
+            if(!empty($value))
+                $itemids[]=$key;
+        }
+
+        $order=Order::with(['details'=>function($details)use($itemids){
+            $details->whereIn('details.id', $itemids);
+        }])
+            ->where('rider_id', $user->id)
+            ->find($order_id);
+
+        if(!$order || empty($order->details->toArray()))
             return [
-
                 'status'=>'failed',
                 'message'=>'No Such Order Found'
-
             ];
+
+
+//        $items=OrderDetail::with('order', 'size', 'entity')
+//            ->whereHas('order', function($order)use($order_id){
+//                $order->where('orders.id', $order_id);
+//            })
+//            ->whereIn('details.id', $itemids)
+//            ->get();
+//
+//        if(!count($items))
+//            return [
+//                'status'=>'failed',
+//                'message'=>'No Valid Item Found'
+//            ];
+
+        $total=0;
+        $itemids=[];
+        foreach($order->details as $item){
+            //if($item->order->rider_id==$user->id){
+                if($request[$key]>$item->quantity){
+                    return [
+                        'status'=>'failed',
+                        'message'=>'Invalid Request'
+                    ];
+                }
+                $total=$total+$item->price*$request[$key];
+                $itemids[]=$key;
+//            }else
+//                return [
+//                    'status'=>'failed',
+//                    'message'=>'Invalid Request'
+//                ];
         }
 
-        if($request->quantity > $item->quantity){
-            return [
+        //$order=$items[0]->order;
 
-                'status'=>'failed',
-                'message'=>'You Cannot Return More Than Added Quantity'
+        if($order->coupon_applied && $order->coupon_discount){
 
-            ];
-        }
-
-        //adjust total
-
-        if($item->order->payment_status=='paid'){
+            $total_cost=$order->total_cost+$order->coupon_discount;
 
         }else{
-
+            $total_cost=$order->total_cost;
         }
+
+        $coupon=Coupon::where('code', $order->coupon_applied)->first();
+
+        $coupon_discount=$coupon->getCouponDiscount($total_cost);
+
+        $prices=[
+            'total'=>$total_cost,
+            'delivery_charge'=>$order->delivery_charge,
+            'coupon_discount'=>$coupon_discount,
+            'total_paid'=>$order->total_cost+$order->delivery_charge-$coupon_discount,
+        ];
+
+        return [
+            'status'=>'success',
+            'prices'=>$prices
+        ];
+
+    }
+
+    public function returnProduct(Request $request, $order_id){
+
+        $request->validate([
+
+            'items'=>'required|array',
+            'items.*'=>'required|integer'
+
+        ]);
+
+        $user=auth()->guard('riderapi')->user();
+        if(!$user)
+            return [
+                'status'=>'failed',
+                'message'=>'Please login to continue'
+            ];
+
+
+        $itemids=[];
+        foreach($request->items as $key=>$value){
+            if(!empty($value))
+                $itemids[]=$key;
+        }
+
+        $order=Order::with(['details'=>function($details)use($itemids){
+            $details->whereIn('details.id', $itemids);
+        }])
+            ->where('rider_id', $user->id)
+            ->find($order_id);
+
+        if(!$order || empty($order->details->toArray()))
+            return [
+                'status'=>'failed',
+                'message'=>'No Such Order Found'
+            ];
+
+
+//        $items=OrderDetail::with('order', 'size', 'entity')
+//            ->whereHas('order', function($order)use($order_id){
+//                $order->where('orders.id', $order_id);
+//            })
+//            ->whereIn('details.id', $itemids)
+//            ->get();
+//
+//        if(!count($items))
+//            return [
+//                'status'=>'failed',
+//                'message'=>'No Valid Item Found'
+//            ];
+
+        $total=0;
+        $itemids=[];
+        foreach($order->details as $item){
+            //if($item->order->rider_id==$user->id){
+            if($request[$key]>$item->quantity){
+                return [
+                    'status'=>'failed',
+                    'message'=>'Invalid Request'
+                ];
+            }
+            $total=$total+$item->price*$request[$key];
+            $itemids[]=$key;
+//            }else
+//                return [
+//                    'status'=>'failed',
+//                    'message'=>'Invalid Request'
+//                ];
+        }
+
+        //$order=$items[0]->order;
+
+        if($order->coupon_applied && $order->coupon_discount){
+
+            $total_cost=$order->total_cost+$order->coupon_discount;
+
+        }else{
+            $total_cost=$order->total_cost;
+        }
+
+        $coupon=Coupon::where('code', $order->coupon_applied)->first();
+        $coupon_discount=$coupon->getCouponDiscount($total_cost);
+
+        //if()
+
+
+
+        $order->total_cost=$total_cost;
+        $order->coupon_discount=$coupon_discount;
+
+        return [
+
+            'status'=>'success',
+            'message'=>'Items Has Been returned'
+
+        ];
 
     }
 
@@ -228,15 +377,5 @@ class RiderOrderController extends Controller
         ];
 
     }
-
-
-    public function checkTotalAfterReturn(Request $request){
-
-    }
-
-
-
-
-
 
 }

@@ -100,6 +100,8 @@ $api->group(['prefix' => 'rider'], function ($api) {
 
         $api->get('return-order/{order_id}', ['as'=>'rider.item.return', 'uses'=>'Rider\Api\RiderOrderController@returnProduct']);
 
+        $api->post('check-return-total/{order_id}', ['as'=>'rider.check.return', 'uses'=>'Rider\Api\RiderOrderController@checkTotalAfterReturn']);
+
     });
 
 });
