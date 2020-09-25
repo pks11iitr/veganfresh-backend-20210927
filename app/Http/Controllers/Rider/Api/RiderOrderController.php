@@ -296,13 +296,14 @@ class RiderOrderController extends Controller
         if($order->coupon_applied && $order->coupon_discount){
 
             $total_cost=$order->total_cost+$order->coupon_discount;
+            $coupon=Coupon::where('code', $order->coupon_applied)->first();
+            $coupon_discount=$coupon->getCouponDiscount($total_cost);
 
         }else{
             $total_cost=$order->total_cost;
+            $coupon_discount=0;
         }
 
-        $coupon=Coupon::where('code', $order->coupon_applied)->first();
-        $coupon_discount=$coupon->getCouponDiscount($total_cost);
 
         //if()
 
