@@ -329,7 +329,7 @@ class RiderOrderController extends Controller
         $order=Order::find($order_id);
 
 
-        if(!$order || $order->rider_id!=$user)
+        if(!$order || $order->rider_id!=$user->id)
             return [
 
                 'status'=>'failed',
