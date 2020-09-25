@@ -336,7 +336,7 @@ class PaymentController extends Controller
                 Wallet::updatewallet($order->user_id, 'Paid For Order ID: '.$order->refid, 'DEBIT',$order->points_used, 'POINT', $order->id);
 
             if($order->balance_used > 0)
-                Wallet::updatewallet($order->user_id, 'Paid For Order ID: '.$order->refid, 'DEBIT',$balance, 'CASH', $order->id);
+                Wallet::updatewallet($order->user_id, 'Paid For Order ID: '.$order->refid, 'DEBIT',$order->balance_used, 'CASH', $order->id);
 
             Cart::where('user_id', $order->user_id)->delete();
 

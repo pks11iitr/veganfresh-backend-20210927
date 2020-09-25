@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\Rider\Api;
 
 use App\Models\Order;
+use App\Models\OrderDetail;
+use App\Models\OrderStatus;
+use App\Models\Wallet;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -47,7 +50,7 @@ class RiderOrderController extends Controller
 
     public function orderdetails(Request $request, $id){
 
-        $show_cancel_product=0;
+        $show_delivered=0;
 
         $user=auth()->guard('riderapi')->user();
         if(!$user)
@@ -80,16 +83,16 @@ class RiderOrderController extends Controller
                 'quantity'=>$detail->quantity,
                 'size'=>$detail->size->name??'',
                 'item_id'=>$detail->entity_id,
-                'show_return'=>($detail->status=='delivered'?1:0),
-                'show_cancel'=>in_array($detail->status, ['confirmed'])?1:0
+                'show_return'=>($detail->status=='dispatched'?1:0),
+                //'show_cancel'=>in_array($detail->status, ['confirmed'])?1:0
             ];
             $savings=$savings+($detail->cut_price-$detail->price);
 
         }
 
         // options to be displayed
-        if($order->status=='confirmed'){
-            $show_cancel_product=1;
+        if($order->status=='dispatched'){
+            $show_delivered=1;
         }
 
         $prices=[
@@ -112,5 +115,123 @@ class RiderOrderController extends Controller
             ]
         ];
     }
+
+    public function returnProduct(Request $request){
+
+        $request->validate([
+
+            'item_id'=>'required|integer',
+            'quantity'=>'required|integer'
+
+        ]);
+
+        $user=auth()->guard('riderapi')->user();
+        if(!$user)
+            return [
+                'status'=>'failed',
+                'message'=>'Please login to continue'
+            ];
+
+        $item = OrderDetail::with(['order', 'entity', 'size'])->find($request->item_id);
+
+        if(!$item || $item->order->rider_id!=$user->id){
+            return [
+
+                'status'=>'failed',
+                'message'=>'No Such Order Found'
+
+            ];
+        }
+
+        if($request->quantity > $item->quantity){
+            return [
+
+                'status'=>'failed',
+                'message'=>'You Cannot Return More Than Added Quantity'
+
+            ];
+        }
+
+        //adjust total
+
+        if($item->order->payment_status=='paid'){
+
+        }else{
+
+        }
+
+    }
+
+
+
+    public function markDelivered(Request $request, $order_id){
+
+        $user=auth()->guard('riderapi')->user();
+        if(!$user)
+            return [
+                'status'=>'failed',
+                'message'=>'Please login to continue'
+            ];
+
+        $order=Order::find($order_id);
+
+
+        if(!$order || $order->rider_id!=$user)
+            return [
+
+                'status'=>'failed',
+                'message'=>'No Such Order Found'
+
+            ];
+
+        if($order->status!='dispatched'){
+            return [
+
+                'status'=>'failed',
+                'message'=>'This Product Cannot Be Delivered'
+
+            ];
+        }
+
+        if($order->payment_mode=='COD'){
+
+            $order->payment_status='paid';
+
+            if($order->use_points){
+
+                if($order->points_used > 0)
+                    Wallet::updatewallet($order->user_id, 'Paid For Order ID: '.$order->refid, 'DEBIT',$order->points_used, 'POINT', $order->id);
+
+                if($order->balance_used > 0)
+                    Wallet::updatewallet($order->user_id, 'Paid For Order ID: '.$order->refid, 'DEBIT',$order->balance_used, 'CASH', $order->id);
+
+            }
+
+        }
+
+        $order->status='completed';
+        $order->save();
+
+        OrderStatus::create([
+            'order_id'=>$order->id,
+            'current_status'=>$order->status
+        ]);
+
+
+        return [
+            'status'=>'success',
+            'message'=>'Order Has Been Delivered'
+        ];
+
+    }
+
+    public function checkTotalAfterReturn(Request $request){
+        
+    }
+
+
+
+
+
 
 }
