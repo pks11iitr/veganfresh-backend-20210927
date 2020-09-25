@@ -96,7 +96,7 @@ $api->group(['prefix' => 'rider'], function ($api) {
         $api->get('rider-orders-history', ['as'=>'rider.order.history', 'uses'=>'Rider\Api\RiderOrderController@index']);
         $api->get('rider-order-details/{order_id}', ['as'=>'rider.order.details', 'uses'=>'Rider\Api\RiderOrderController@orderdetails']);
 
-        $api->get('delivery-order/{order_id}', ['as'=>'rider.order.delivered', 'uses'=>'Rider\Api\RiderOrderController@markDelivered']);
+        $api->get('deliver-order/{order_id}', ['as'=>'rider.order.delivered', 'uses'=>'Rider\Api\RiderOrderController@markDelivered']);
 
         $api->get('return-order/{order_id}', ['as'=>'rider.item.return', 'uses'=>'Rider\Api\RiderOrderController@returnProduct']);
 
