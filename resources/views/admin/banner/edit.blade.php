@@ -40,24 +40,52 @@
                             <div class="form-group">
                                 <label>Entity Type</label>
                                 <select class="form-control select2" name="entity_type">
-                                    @if($banner->entity_type=='App\Models\Category')
-                                    @foreach($categorys as $category)
-                                        <option value="cat_{{$category->id}}"
-                                                @if($banner->entity_id==$category->id){{'selected'}}@endif>{{$category->name}}</option>
-                                    @endforeach
 
-                                    @elseif($banner->entity_type=='App\Models\SubCategory')
+                                    @if($banner->entity_type=='App\Models\Category')
+                                        @foreach($offercategorys as $offercategory)
+                                            <option value="offer_{{$offercategory->id}}"
+                                            @if($banner->entity_id==$offercategory->id){{'selected'}}@endif>{{$offercategory->name}}</option>
+                                        @endforeach
+                                        @foreach($subcategorys as $subcategory)
+                                            <option value="subcat_{{$subcategory->id}}"
+                                            @if($banner->entity_id==$subcategory->id){{'selected'}}@endif>{{$subcategory->name}}</option>
+                                        @endforeach
+                                            @foreach($categorys as $category)
+                                                <option value="cat_{{$category->id}}"
+                                                @if($banner->entity_id==$category->id){{'selected'}}@endif>{{$category->name}}</option>
+                                            @endforeach
+                                    @endif
+
+                                    @if($banner->entity_type=='App\Models\SubCategory')
+                                            @foreach($offercategorys as $offercategory)
+                                                <option value="offer_{{$offercategory->id}}"
+                                                @if($banner->entity_id==$offercategory->id){{'selected'}}@endif>{{$offercategory->name}}</option>
+                                            @endforeach
+                                                @foreach($categorys as $category)
+                                                    <option value="cat_{{$category->id}}"
+                                                    @if($banner->entity_id==$category->id){{'selected'}}@endif>{{$category->name}}</option>
+                                                @endforeach
+
                                     @foreach($subcategorys as $subcategory)
                                         <option value="subcat_{{$subcategory->id}}"
                                         @if($banner->entity_id==$subcategory->id){{'selected'}}@endif>{{$subcategory->name}}</option>
                                     @endforeach
+                                        @endif
 
-                                    @elseif($banner->entity_type=='App\Models\OfferCategory')
+                                    @if($banner->entity_type=='App\Models\OfferCategory')
+                                            @foreach($categorys as $category)
+                                                <option value="cat_{{$category->id}}"
+                                                @if($banner->entity_id==$category->id){{'selected'}}@endif>{{$category->name}}</option>
+                                            @endforeach
+                                                @foreach($subcategorys as $subcategory)
+                                                    <option value="subcat_{{$subcategory->id}}"
+                                                    @if($banner->entity_id==$subcategory->id){{'selected'}}@endif>{{$subcategory->name}}</option>
+                                                @endforeach
                                     @foreach($offercategorys as $offercategory)
                                         <option value="offer_{{$offercategory->id}}"
                                         @if($banner->entity_id==$offercategory->id){{'selected'}}@endif>{{$offercategory->name}}</option>
                                     @endforeach
-                                 @endif
+                                    @endif
                                 </select>
                             </div>
                             <!-- /.form-group -->

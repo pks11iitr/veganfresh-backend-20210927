@@ -17,14 +17,14 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::group(['middle'=>['auth', 'acl'], 'is'=>'admin|clinic-admin|clinic-therapist'], function(){
+Route::group(['middleware'=>['auth', 'acl'], 'is'=>'admin|rider-admin|clinic-therapist'], function(){
 
     Route::get('/role-check', 'SuperAdmin\HomeController@check_n_redirect')->name('user.role.check');
 
 });
 
 
-Route::group(['middle'=>['auth', 'acl'], 'is'=>'admin'], function(){
+Route::group(['middleware'=>['auth', 'acl'], 'is'=>'admin'], function(){
 
     Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
 
@@ -114,6 +114,10 @@ Route::group(['middle'=>['auth', 'acl'], 'is'=>'admin'], function(){
         Route::get('change-payment-status/{id}','Admin\OrderController@changePaymentStatus')->name('payment.status.change');
     });
 
+    Route::group(['prefix'=>'returnproduct'], function(){
+        Route::get('/','SuperAdmin\ReturnProductController@index')->name('return.product.list');
+
+    });
    //****************************************end*************************************************
    Route::group(['prefix'=>'therapy'], function(){
         Route::get('/','SuperAdmin\TherapistController@index')->name('therapy.list');
@@ -176,6 +180,19 @@ Route::group(['middle'=>['auth', 'acl'], 'is'=>'admin'], function(){
         Route::post('update/{id}','SuperAdmin\VideoController@update')->name('video.update');
         Route::get('delete/{id}','SuperAdmin\VideoController@delete')->name('video.delete');
 
+    });
+
+});
+
+
+Route::group(['prefix'=>'riders', 'middleware'=>['auth', 'acl'], 'is'=>'rider-admin'], function() {
+    Route::get('/dashboard', 'RiderAdmin\DashboardController@index')->name('rideradmin.home');
+
+    Route::group(['prefix'=>'orders'], function(){
+        Route::get('/','RiderAdmin\OrderController@index')->name('rider.orders.list');
+        Route::get('details/{id}','SuperAdmin\OrderController@details')->name('rider.order.details');
+        //Route::get('change-status/{id}','Admin\OrderController@changeStatus')->name('order.status.change');
+        //Route::get('change-payment-status/{id}','Admin\OrderController@changePaymentStatus')->name('payment.status.change');
     });
 
 });
