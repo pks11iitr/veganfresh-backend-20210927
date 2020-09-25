@@ -320,7 +320,6 @@ class RiderOrderController extends Controller
     public function markDelivered(Request $request, $order_id){
 
         $user=auth()->guard('riderapi')->user();
-
         if(!$user)
             return [
                 'status'=>'failed',
@@ -329,7 +328,8 @@ class RiderOrderController extends Controller
 
         $order=Order::find($order_id);
 
-        if(!$order || $order->rider_id!=$user)
+
+        if(!$order || $order->rider_id!=$user->id)
             return [
 
                 'status'=>'failed',
