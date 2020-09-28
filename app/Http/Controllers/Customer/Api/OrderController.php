@@ -6,9 +6,11 @@ use App\Models\BookingSlot;
 use App\Models\Cart;
 use App\Models\Clinic;
 use App\Models\Coupon;
+use App\Models\Customer;
 use App\Models\CustomerAddress;
 use App\Models\DailyBookingsSlots;
 use App\Models\HomeBookingSlots;
+use App\Models\Membership;
 use App\Models\Order;
 use App\Models\OrderDetail;
 use App\Models\OrderStatus;
@@ -174,6 +176,8 @@ class OrderController extends Controller
                 'message'=>'Please login to continue'
             ];
 
+        //$membership=Membership::find($user->active_membership);
+
         $order=Order::with(['deliveryaddress', 'details'])
             ->where('user_id', $user->id)
         ->find($order_id);
@@ -182,12 +186,24 @@ class OrderController extends Controller
                 'status'=>'failed',
                 'message'=>'No Such Order Found'
             ];
+
+
+
         $cost=0;
         $savings=0;
         foreach($order->details as $detail){
             $cost=$cost+$detail->price*$detail->quantity;
             $savings=$savings+($detail->cut_price-$detail->price)*$detail->quantity;
         }
+
+
+        if(!$user->isMembershipActive()){
+            $order->delivery_charge=config('my-config.delivery_charge');
+        }else{
+            $order->delivery_charge=0;
+        }
+
+        $order->save();
 
         $prices=[
             'basket_total'=>$cost,
@@ -228,14 +244,6 @@ class OrderController extends Controller
             ];
         }
 
-
-        if($coupon->isactive==false || !$coupon->getUserEligibility($user)){
-            return [
-                'status'=>'failed',
-                'message'=>'Coupon Has Been Expired',
-            ];
-        }
-
         $order=Order::with('details')->find($order_id);
 
         $cost=0;
@@ -245,13 +253,19 @@ class OrderController extends Controller
             $savings=$savings+($detail->cut_price-$detail->price)*$detail->quantity;
         }
 
-        $discount=$coupon->getCouponDiscount($cost);
+        if($coupon->isactive==false || !$coupon->getUserEligibility($user)){
+            return [
+                'status'=>'failed',
+                'message'=>'Coupon Has Been Expired',
+            ];
+        }
+        $discount=$coupon->getCouponDiscount($cost)??0;
 
         $prices=[
             'basket_total'=>$cost,
             'delivery_charge'=>$order->delivery_charge,
             'coupon_discount'=>$discount,
-            'total_savings'=>$savings+$order->coupon_discount,
+            'total_savings'=>$savings+$discount,
             'total_payble'=>$cost+$order->delivery_charge-$discount,
         ];
 
