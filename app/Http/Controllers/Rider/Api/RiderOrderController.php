@@ -23,7 +23,7 @@ class RiderOrderController extends Controller
                 'message'=>'Please login to continue'
             ];
         $orders=Order::with(['details'])
-            ->where('status', '=','dispatch')
+            ->where('status', '=','dispatched')
             ->where('rider_id', $user->id)
             ->orderBy('created_at', 'desc')
             ->get();
