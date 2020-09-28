@@ -31,11 +31,40 @@ class OtpController extends Controller
         switch($request->type){
             case 'register': return $this->verifyRegister($request);
             case 'login': return $this->verifyLogin($request);
+            case 'reset': return $this->verifyResetPassword($request);
         }
 
         return [
             'status'=>'failed',
             'message'=>'Request is not valid'
+        ];
+    }
+    protected function verifyResetPassword(Request $request){
+        $user=Customer::where('mobile', $request->mobile)->first();
+        if(in_array($user->status, [0,1])){
+            if(OTPModel::verifyOTP('customer',$user->id,$request->type,$request->otp)){
+
+                $user->status=1;
+                $user->save();
+
+                return [
+                    'status'=>'success',
+                    'message'=>'OTP Has Been Verified',
+                    'token'=>Auth::guard('customerapi')->fromUser($user)
+                ];
+            }
+
+            return [
+                'status'=>'failed',
+                'message'=>'OTP is not correct',
+                'token'=>''
+            ];
+
+        }
+        return [
+            'status'=>'failed',
+            'message'=>'Account has been blocked',
+            'token'=>''
         ];
     }
 

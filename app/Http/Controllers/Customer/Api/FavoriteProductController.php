@@ -19,11 +19,15 @@ class FavoriteProductController extends Controller
                 'status'=>'failed',
                 'message'=>'Please login to continue'
             ];
-
-      $favoriteproduct=FavoriteProduct::create([
-                 'user_id'=>$user->id,
-                  'product_id'=>$request->product_id,
-                ]);
+        $favoriteproduct=FavoriteProduct::where('user_id',$user->id)
+                                          ->where('product_id',$request->product_id)
+                                          ->get();
+        if($favoriteproduct->count()<=0) {
+            $favoriteproduct = FavoriteProduct::create([
+                'user_id' => $user->id,
+                'product_id' => $request->product_id,
+            ]);
+        }
       if($favoriteproduct){
         return [
             'status'=>'success',
@@ -34,6 +38,30 @@ class FavoriteProductController extends Controller
         ];
       }
     }
+    public function delete_favorite_product(Request $request){
+        $user=auth()->guard('customerapi')->user();
+        if(!$user)
+            return [
+                'status'=>'failed',
+                'message'=>'Please login to continue'
+            ];
+        $favoriteproduct=FavoriteProduct::where('user_id',$user->id)
+            ->where('product_id',$request->product_id)
+            ->get();
+        if($favoriteproduct->count()>0) {
+            $favoriteproduct[0]->delete();
+        }
+        if($favoriteproduct){
+            return [
+                'status'=>'success',
+            ];
+        }else{
+            return [
+                'status'=>'error',
+            ];
+        }
+    }
+
 
     public function list_favorite_product(Request $request){
         $user=auth()->guard('customerapi')->user();

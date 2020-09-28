@@ -45,6 +45,10 @@
                                     <td>Date & Time</td><td>{{$order->created_at}}</td>
                                 </tr>
                                 <tr>
+                                    <td>Rider Name</td><td>{{$order->rider->name??''}}
+                                        <a href="{{route('order.details',['id'=>$order->id])}}" class="open-RiderChange btn btn-success" data-toggle="modal" data-target="#exampleModal" data-id="{{$order->id}}">Change Rider</a></td>
+                                </tr>
+                                <tr>
                                     <td>Total</td>
                                     <td>{{$order->total_cost+$order->coupon_discount+$order->delivery_charge}}</td>
                                 </tr>
@@ -156,8 +160,56 @@
                 <!-- /.col -->
             </div>
             <!-- /.row -->
+
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Change Rider</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form role="form" method="post" enctype="multipart/form-data"  action="{{route('rider.change',['id'=>$order->id])}}">
+                                @csrf
+                                <input type="hidden" name="orderid" class="form-control" id="orderid">
+                                <div class="form-group">
+                                    <label for="exampleInputtitle">Rider Name</label>
+                                    <select name="riderid" class="form-control" id="riderid" placeholder="" >
+                                        @foreach($riders as $rider)
+                                            <option value="{{$rider->id}}"
+                                                {{$order->rider_id==$rider->id?'selected':''}}>{{$rider->name}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button class="btn btn-primary" type="submit">Change</button>
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
         </section>
         <!-- /.content -->
+
     </div>
+
+@endsection
+
+@section('scripts')
+    <script>
+
+        $(document).on("click", ".open-RiderChange", function () {
+            var myBookId = $(this).data('id');
+            $(".modal-body #orderid").val( myBookId );
+
+        });
+
+    </script>
 
 @endsection
