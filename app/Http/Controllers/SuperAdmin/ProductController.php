@@ -359,43 +359,6 @@ class ProductController extends Controller
              $product=Product::create($request->only('name', 'company', 'description', 'isactive', 'stock_type', 'stock', 'is_offer'));
          }
 
-         if($product){
-             $size=Size::where('product_id', $product->id)
-                 ->where(DB::raw('BINARY size'), $request->size)
-                 ->first();
-             if($size){
-                 $size->update(array_merge($request->only('price', 'cut_price', 'consumed_units', 'min_qty', 'max_qty', 'is_offer'), ['stock'=>$request->size_stock, 'isactive'=>$request->is_size_active]));
-             }else{
-                 $size=Size::create(array_merge($request->only('size', 'price', 'cut_price', 'consumed_units', 'min_qty', 'max_qty', 'is_offer'), ['product_id'=>$product->id, 'stock'=>$request->size_stock, 'isactive'=>$request->is_size_active]));
-             }
-         }
-
-
-         if($size){
-            if($request->images){
-
-                foreach($request->images as $image){
-
-                        $img= ProductImage::create([
-                            'size_id' => $size->id,
-                            'product_id' => $product->id,
-                            'image' => '11',
-
-                        ]);
-                        $img->saveImage($image, 'sizeimage');
-
-                        $img->refresh();
-                        if(empty($size->image)){
-                            $size->image=$img->getOriginal('image');
-                            $size->save();
-                        }
-
-                }
-
-            }
-         }
-
-
         CategoryProduct::where('product_id', $product->id)->delete();
 
         $added_categories=[];
@@ -446,6 +409,41 @@ class ProductController extends Controller
             }
 
         }
+
+        if($product){
+            $size=Size::where('product_id', $product->id)
+                ->where(DB::raw('BINARY size'), $request->size)
+                ->first();
+            if($size){
+                $size->update(array_merge($request->only('price', 'cut_price', 'consumed_units', 'min_qty', 'max_qty', 'is_offer'), ['stock'=>$request->size_stock, 'isactive'=>$request->is_size_active]));
+            }else{
+                $size=Size::create(array_merge($request->only('size', 'price', 'cut_price', 'consumed_units', 'min_qty', 'max_qty', 'is_offer'), ['product_id'=>$product->id, 'stock'=>$request->size_stock, 'isactive'=>$request->is_size_active]));
+            }
+        }
+
+         if($size){
+            if($request->images){
+
+                foreach($request->images as $image){
+
+                        $img= ProductImage::create([
+                            'size_id' => $size->id,
+                            'product_id' => $product->id,
+                            'image' => '11',
+
+                        ]);
+                        $img->saveImage($image, 'sizeimage');
+
+                        $img->refresh();
+                        if(empty($size->image)){
+                            $size->image=$img->getOriginal('image');
+                            $size->save();
+                        }
+
+                }
+
+            }
+         }
 
 
     }
