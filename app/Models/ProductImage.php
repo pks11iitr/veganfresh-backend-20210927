@@ -12,7 +12,7 @@ class ProductImage extends Model
 {
     use ReviewTrait, Active, DocumentUploadTrait;
     protected $table='product_images';
-    protected $fillable=['product_id','size_id','image','entity_id','entity_type'];
+    protected $fillable=['product_id','size_id','image'];
 
     protected $hidden = ['created_at','deleted_at','updated_at'];
 

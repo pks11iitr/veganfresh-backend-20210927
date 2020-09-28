@@ -28,7 +28,7 @@ class Size extends Model
     }
 //product details multiple image with size
     public function images(){
-        return $this->hasMany('App\Models\ProductImage','size_id');
+        return $this->morphMany('App\Models\ProductImage','size_id');
     }
 
     public function product(){

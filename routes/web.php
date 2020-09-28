@@ -73,6 +73,9 @@ Route::group(['middleware'=>['auth', 'acl'], 'is'=>'admin'], function(){
 
         Route::post('document/{id}','SuperAdmin\ProductController@document')->name('product.document');
 
+        Route::get('bulk-upload','SuperAdmin\ProductController@bulk_upload_form')->name('product.bulk.form');
+        Route::post('bulk-upload','SuperAdmin\ProductController@bulk_upload')->name('product.bulk.upload');
+
 
     });
     Route::group(['prefix'=>'homesection'], function(){

@@ -205,8 +205,8 @@ class ProductController extends Controller
                  $img= ProductImage::create([
                       'size_id' => $request->size_id,
                       'product_id' => $id,
-                      'entity_id' => $request->size_id,
-                      'entity_type' => 'App\Models\ProductImage',
+//                      'entity_id' => $request->size_id,
+//                      'entity_type' => 'App\Models\ProductImage',
                       'image' => '11',
                       'product_id' => $id,
 
@@ -316,6 +316,81 @@ class ProductController extends Controller
             return redirect()->back()->with('success', 'Product category  has been created');
         }
         return redirect()->back()->with('error', 'Product category create failed');
+    }
+
+
+    public function bulk_upload_form(Request $request){
+
+         return view('admin.product.bulk-upload');
+
+    }
+
+
+    public function bulk_upload(Request $request){
+
+         $request->validate([
+             'name'=>'required',
+             'company'=>'required',
+             'description'=>'required',
+             'isactive'=>'required|in:0,1',
+             'stock_type'=>'required|in:packet,quantity',
+             'stock'=>'required|integer|min:0',
+             'is_offer'=>'required|integer|min:0',
+              'size'=>'required',
+             'price'=>'required|integer',
+             'cut_price'=>'required|integer',
+             'size_stock'=>'required|integer',
+             'min_qty'=>'required|integer|min:1',
+             'max_qty'=>'required|integer|min:1',
+             'consumed_units'=>'required|integer|min:1',
+             'is_size_active'=>'required|in:0,1',
+         ]);
+
+         $product=Product::where(DB::raw('BINARY name'), $request->name)
+             ->first();
+         if($product){
+             $product->update($request->only('company', 'description', 'isactive', 'stock_type', 'stock', 'is_offer'));
+         }else{
+             $product=Product::create($request->only('name', 'company', 'description', 'isactive', 'stock_type', 'stock', 'is_offer'));
+         }
+
+         if($product){
+             $size=Size::where('product_id', $product->id)
+                 ->where(DB::raw('BINARY size'), $request->size)
+                 ->first();
+             if($size){
+                 $size->update(array_merge($request->only('price', 'cut_price', 'consumed_units', 'min_qty', 'max_qty', 'is_offer'), ['stock'=>$request->size_stock, 'isactive'=>$request->is_size_active]));
+             }else{
+                 $size=Size::create(array_merge($request->only('size', 'price', 'cut_price', 'consumed_units', 'min_qty', 'max_qty', 'is_offer'), ['product_id'=>$product->id, 'stock'=>$request->size_stock, 'isactive'=>$request->is_size_active]));
+             }
+         }
+
+
+         if($size){
+            if($request->images){
+
+                foreach($request->images as $image){
+
+                    foreach($request->image as $file){
+
+                        $img= ProductImage::create([
+                            'size_id' => $request->size_id,
+                            'product_id' => $product->id,
+                            'entity_id' => $request->size_id,
+                            'entity_type' => 'App\Models\ProductImage',
+                            'image' => '11',
+                            'product_id' => $id,
+
+                        ]);
+
+                        $img->saveImage($file, 'sizeimage');
+                    }
+
+                }
+
+            }
+         }
+
     }
 
 
