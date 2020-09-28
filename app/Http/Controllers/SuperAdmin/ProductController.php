@@ -344,7 +344,7 @@ class ProductController extends Controller
               'size'=>'required',
              'price'=>'required|integer',
              'cut_price'=>'required|integer',
-             'size_stock'=>'required|integer',
+             //'size_stock'=>'required|integer',
              'min_qty'=>'required|integer|min:1',
              'max_qty'=>'required|integer|min:1',
              'consumed_units'=>'required|integer|min:1',

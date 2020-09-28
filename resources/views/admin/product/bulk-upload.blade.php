@@ -136,13 +136,13 @@
                                 formdata.append('cut_price',row[11])
                                 formdata.append('min_qty',row[12])
                                 formdata.append('max_qty',row[13])
-                                formdata.append('size_stock',row[14])
-                                formdata.append('consumed_units',row[15])
-                                formdata.append('is_size_active',row[16])
+                                //formdata.append('size_stock',row[14])
+                                formdata.append('consumed_units',row[14])
+                                formdata.append('is_size_active',row[15])
 
 
                                 file_count=0;
-                                image_identifier=row[17]
+                                image_identifier=row[16]
                                 //alert(image_identifier)
                                 for (var i = 0; i < files.length; i++) {
                                     if(files[i].name.search(image_identifier)==0){
