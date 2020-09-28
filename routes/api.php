@@ -95,6 +95,8 @@ $api->group(['prefix' => 'rider'], function ($api) {
     $api->group(['middleware' => ['rider-auth']], function ($api) {
 
         $api->get('rider-orders-history', ['as'=>'rider.order.history', 'uses'=>'Rider\Api\RiderOrderController@index']);
+        $api->get('rider-passed-order', ['as'=>'rider.order.passed', 'uses'=>'Rider\Api\RiderOrderController@passedorder']);
+
         $api->get('rider-order-details/{order_id}', ['as'=>'rider.order.details', 'uses'=>'Rider\Api\RiderOrderController@orderdetails']);
 
         $api->get('deliver-order/{order_id}', ['as'=>'rider.order.delivered', 'uses'=>'Rider\Api\RiderOrderController@markDelivered']);
