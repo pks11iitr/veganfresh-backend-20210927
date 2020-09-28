@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\Configuration;
 use App\Models\HomeSection;
 use App\Models\Product;
+use App\Models\TimeSlot;
 use App\Models\Video;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -17,6 +18,19 @@ class HomeController extends Controller
     public function home(Request $request){
 
         $user=auth()->guard('customerapi')->user();
+
+
+        $time=dat('H:i:s');
+
+        $timeslot=TimeSlot::where('from_time', '>=', $time)->orderBy('from_time', 'asc')->first();
+
+        if(!$timeslot){
+            $next_slot='Tomorrow '.'06:00AM - 07:30AM';
+        }else{
+            $next_slot='Tomorrow '.$timeslot->from_time.' - '.$timeslot->to_time;
+        }
+
+
 
         $bannersobj=Banner::active()->select('entity_type', 'entity_id', 'image', 'parent_category')->get();
 
@@ -141,7 +155,7 @@ class HomeController extends Controller
 
         }
 
-        return compact('banners', 'categories', 'user', 'sections');
+        return compact('banners', 'categories', 'user', 'sections', 'next_slot');
 
     }
 }
