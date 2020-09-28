@@ -112,6 +112,7 @@ Route::group(['middleware'=>['auth', 'acl'], 'is'=>'admin'], function(){
         //Route::get('product','SuperAdmin\OrderController@product')->name('orders.product');
         Route::get('change-status/{id}','Admin\OrderController@changeStatus')->name('order.status.change');
         Route::get('change-payment-status/{id}','Admin\OrderController@changePaymentStatus')->name('payment.status.change');
+        Route::post('changeRider/{id}','SuperAdmin\OrderController@changeRider')->name('rider.change');
     });
 
     Route::group(['prefix'=>'returnproduct'], function(){
