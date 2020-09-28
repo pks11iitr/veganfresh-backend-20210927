@@ -23,7 +23,43 @@ class RiderOrderController extends Controller
                 'message'=>'Please login to continue'
             ];
         $orders=Order::with(['details'])
-            ->where('status', '!=','pending')
+            ->where('status', '=','dispatched')
+            ->where('rider_id', $user->id)
+            ->orderBy('created_at', 'desc')
+            ->get();
+//return $orders;
+        $lists=[];
+
+        foreach($orders as $order) {
+            //echo $order->id.' ';
+            $total = count($order->details);
+            $lists[] = [
+                'id' => $order->id,
+                'title' => ($order->details[0]->name ?? '') . ' ' . ($total > 1 ? 'and ' . ($total - 1) . ' more' : ''),
+                'booking_id' => $order->refid,
+                'datetime' => date('D d M,Y', strtotime($order->created_at)),
+                'total_price' => $order->total_cost,
+                'image' => $order->details[0]->image ?? ''
+            ];
+        }
+        return [
+            'status'=>'success',
+            'data'=>$lists
+        ];
+
+    }
+
+    public function passedorder(Request $request){
+        //  $user=auth()->guard('riderapi')->user();
+        $user=$request->user;
+        //  var_dump($user->id);die;
+        if(!$user)
+            return [
+                'status'=>'failed',
+                'message'=>'Please login to continue'
+            ];
+        $orders=Order::with(['details'])
+            ->where('status', '=','completed')
             ->where('rider_id', $user->id)
             ->orderBy('created_at', 'desc')
             ->get();
