@@ -143,7 +143,7 @@
 
                                 file_count=0;
                                 image_identifier=row[17]
-                                alert(image_identifier)
+                                //alert(image_identifier)
                                 for (var i = 0; i < files.length; i++) {
                                     if(files[i].name.search(image_identifier)==0){
                                         formdata.append('images['+file_count+']', files[i])
@@ -163,7 +163,7 @@
                                     processData: false,
                                     success:function(data1){
                                         $('#progress-text').html("Last Uploaded Item: ")
-                                        $('#progress-text').append(data['name']+'-->'+data['company']+'-->'+data['size'])
+                                        $('#progress-text').append(row[0]+'-->'+row[1]+'-->'+row[9])
                                     },
                                     error:function(){
                                         ajaxerror=true

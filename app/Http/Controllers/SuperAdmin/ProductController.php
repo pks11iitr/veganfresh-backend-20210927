@@ -152,6 +152,9 @@ class ProductController extends Controller
                  'isactive'=>$request->isactive,
              ]);
         $added_categories=[];
+
+        CategoryProduct::where('product_id', $products->id)->delete();
+
         if(!empty($request->sub_cat_id)){
             $subcat=SubCategory::with('category')
                 ->whereIn('id', $request->sub_cat_id)
@@ -328,6 +331,8 @@ class ProductController extends Controller
 
     public function bulk_upload(Request $request){
 
+         //var_dump($request->images);die;
+
          $request->validate([
              'name'=>'required',
              'company'=>'required',
@@ -371,25 +376,77 @@ class ProductController extends Controller
 
                 foreach($request->images as $image){
 
-                    foreach($request->image as $file){
-
                         $img= ProductImage::create([
-                            'size_id' => $request->size_id,
+                            'size_id' => $size->id,
                             'product_id' => $product->id,
-                            'entity_id' => $request->size_id,
-                            'entity_type' => 'App\Models\ProductImage',
                             'image' => '11',
-                            'product_id' => $id,
 
                         ]);
+                        $img->saveImage($image, 'sizeimage');
 
-                        $img->saveImage($file, 'sizeimage');
-                    }
+                        $img->refresh();
+                        if(empty($size->image)){
+                            $size->image=$img->getOriginal('image');
+                            $size->save();
+                        }
 
                 }
 
             }
          }
+
+
+        CategoryProduct::where('product_id', $product->id)->delete();
+
+        $added_categories=[];
+        if($request->sub_category){
+            $subcategories=explode(',', $request->sub_category);
+            $filtered_sub=[];
+            foreach($subcategories as $s){
+                $filtered_sub[]=trim($s);
+            }
+            if(!empty($filtered_sub)){
+                $subcategories=SubCategory::active()->whereIn('name', $filtered_sub)->get();
+                foreach($subcategories as $sub) {
+                    CategoryProduct::create([
+                        'category_id' => $sub->category_id,
+                        'sub_cat_id' => $sub->id,
+                        'product_id' => $product->id,
+
+                    ]);
+                    $added_categories[] = $sub->category_id;
+                }
+            }
+        }
+
+        if($request->category){
+            $categories=explode(',', $request->category);
+            $filtered_cat=[];
+            foreach($categories as $s){
+                $filtered_cat[]=trim($s);
+            }
+            if($filtered_cat){
+                $categories=Category::active()
+                    ->whereIn('name', $filtered_cat)
+                    ->get();
+                $req_cats=[];
+                foreach($categories as $cat) {
+                    $req_cats[]=$cat->id;
+                }
+                if($req_cats){
+                    $remaining_ids=array_diff($req_cats,$added_categories);
+                    foreach($remaining_ids as $r){
+                        CategoryProduct::create([
+                            'category_id' => $r,
+                            'sub_cat_id' => null,
+                            'product_id' => $product->id,
+                        ]);
+                    }
+                }
+            }
+
+        }
+
 
     }
 
