@@ -12,7 +12,7 @@ class Review extends Model
 
     protected $table='reviews';
 
-    protected $fillable=['user_id','comment','description', 'rating', 'product_id', 'image','image1'];
+    protected $fillable=['user_id','comment','description', 'rating', 'product_id', 'image','image1', 'order_id'];
 
     protected $hidden=['id', 'updated_at','deleted_at', 'user_id', 'isactive'];
 

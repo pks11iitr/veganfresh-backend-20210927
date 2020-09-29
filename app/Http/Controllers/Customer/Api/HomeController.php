@@ -20,7 +20,7 @@ class HomeController extends Controller
         $user=auth()->guard('customerapi')->user();
 
 
-        $time=dat('H:i:s');
+        $time=date('H:i:s');
 
         $timeslot=TimeSlot::where('from_time', '>=', $time)->orderBy('from_time', 'asc')->first();
 

@@ -318,6 +318,15 @@ class OrderController extends Controller
 //            }
 //        }
 
+        //get reviews information
+        $reviews=[];
+        if($order->status=='completed'){
+            $reviews=$order->reviews()->get();
+            foreach($reviews as $review){
+                $reviews[$review->entity_id]=$review;
+            }
+        }
+
 
         $itemdetails=[];
         $savings=0;
@@ -332,8 +341,9 @@ class OrderController extends Controller
                 'quantity'=>$detail->quantity,
                 'size'=>$detail->size->name??'',
                 'item_id'=>$detail->entity_id,
-                'show_return'=>($detail->status=='delivered'?1:0),
-                'show_cancel'=>in_array($detail->status, ['confirmed'])?1:0
+                //'show_return'=>($detail->status=='delivered'?1:0),
+                //'show_cancel'=>in_array($detail->status, ['confirmed'])?1:0,
+                'show_review'=>isset($reviews[$detail->entity_id])?0:1
             ];
             $savings=$savings+($detail->cut_price-$detail->price);
 

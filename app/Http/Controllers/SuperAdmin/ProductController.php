@@ -152,6 +152,9 @@ class ProductController extends Controller
                  'isactive'=>$request->isactive,
              ]);
         $added_categories=[];
+
+        CategoryProduct::where('product_id', $products->id)->delete();
+
         if(!empty($request->sub_cat_id)){
             $subcat=SubCategory::with('category')
                 ->whereIn('id', $request->sub_cat_id)
@@ -205,8 +208,8 @@ class ProductController extends Controller
                  $img= ProductImage::create([
                       'size_id' => $request->size_id,
                       'product_id' => $id,
-                      'entity_id' => $request->size_id,
-                      'entity_type' => 'App\Models\ProductImage',
+//                      'entity_id' => $request->size_id,
+//                      'entity_type' => 'App\Models\ProductImage',
                       'image' => '11',
                       'product_id' => $id,
 
@@ -316,6 +319,133 @@ class ProductController extends Controller
             return redirect()->back()->with('success', 'Product category  has been created');
         }
         return redirect()->back()->with('error', 'Product category create failed');
+    }
+
+
+    public function bulk_upload_form(Request $request){
+
+         return view('admin.product.bulk-upload');
+
+    }
+
+
+    public function bulk_upload(Request $request){
+
+         //var_dump($request->images);die;
+
+         $request->validate([
+             'name'=>'required',
+             'company'=>'required',
+             'description'=>'required',
+             'isactive'=>'required|in:0,1',
+             'stock_type'=>'required|in:packet,quantity',
+             'stock'=>'required|integer|min:0',
+             'is_offer'=>'required|integer|min:0',
+              'size'=>'required',
+             'price'=>'required|integer',
+             'cut_price'=>'required|integer',
+             //'size_stock'=>'required|integer',
+             'min_qty'=>'required|integer|min:1',
+             'max_qty'=>'required|integer|min:1',
+             'consumed_units'=>'required|integer|min:1',
+             'is_size_active'=>'required|in:0,1',
+         ]);
+
+         $product=Product::where(DB::raw('BINARY name'), $request->name)
+             ->first();
+         if($product){
+             $product->update($request->only('company', 'description', 'isactive', 'stock_type', 'stock', 'is_offer'));
+         }else{
+             $product=Product::create($request->only('name', 'company', 'description', 'isactive', 'stock_type', 'stock', 'is_offer'));
+         }
+
+        CategoryProduct::where('product_id', $product->id)->delete();
+
+        $added_categories=[];
+        if($request->sub_category){
+            $subcategories=explode(',', $request->sub_category);
+            $filtered_sub=[];
+            foreach($subcategories as $s){
+                $filtered_sub[]=trim($s);
+            }
+            if(!empty($filtered_sub)){
+                $subcategories=SubCategory::active()->whereIn('name', $filtered_sub)->get();
+                foreach($subcategories as $sub) {
+                    CategoryProduct::create([
+                        'category_id' => $sub->category_id,
+                        'sub_cat_id' => $sub->id,
+                        'product_id' => $product->id,
+
+                    ]);
+                    $added_categories[] = $sub->category_id;
+                }
+            }
+        }
+
+        if($request->category){
+            $categories=explode(',', $request->category);
+            $filtered_cat=[];
+            foreach($categories as $s){
+                $filtered_cat[]=trim($s);
+            }
+            if($filtered_cat){
+                $categories=Category::active()
+                    ->whereIn('name', $filtered_cat)
+                    ->get();
+                $req_cats=[];
+                foreach($categories as $cat) {
+                    $req_cats[]=$cat->id;
+                }
+                if($req_cats){
+                    $remaining_ids=array_diff($req_cats,$added_categories);
+                    foreach($remaining_ids as $r){
+                        CategoryProduct::create([
+                            'category_id' => $r,
+                            'sub_cat_id' => null,
+                            'product_id' => $product->id,
+                        ]);
+                    }
+                }
+            }
+
+        }
+
+        if($product){
+            $size=Size::where('product_id', $product->id)
+                ->where(DB::raw('BINARY size'), $request->size)
+                ->first();
+            if($size){
+                $size->update(array_merge($request->only('price', 'cut_price', 'consumed_units', 'min_qty', 'max_qty', 'is_offer'), ['stock'=>$request->stock, 'isactive'=>$request->is_size_active]));
+            }else{
+                $size=Size::create(array_merge($request->only('size', 'price', 'cut_price', 'consumed_units', 'min_qty', 'max_qty', 'is_offer'), ['product_id'=>$product->id, 'stock'=>$request->stock, 'isactive'=>$request->is_size_active]));
+            }
+        }
+
+         if($size){
+            if($request->images){
+
+                foreach($request->images as $image){
+
+                        $img= ProductImage::create([
+                            'size_id' => $size->id,
+                            'product_id' => $product->id,
+                            'image' => '11',
+
+                        ]);
+                        $img->saveImage($image, 'sizeimage');
+
+                        $img->refresh();
+                        if(empty($size->image)){
+                            $size->image=$img->getOriginal('image');
+                            $size->save();
+                        }
+
+                }
+
+            }
+         }
+
+
     }
 
 

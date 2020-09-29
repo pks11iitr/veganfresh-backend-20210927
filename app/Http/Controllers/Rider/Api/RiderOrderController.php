@@ -405,6 +405,7 @@ class RiderOrderController extends Controller
         }
 
         $order->status='completed';
+        $order->delivered_at=date('Y-m-d H:i:s');
         $order->save();
 
         OrderStatus::create([

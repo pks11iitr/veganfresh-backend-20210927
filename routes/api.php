@@ -77,6 +77,10 @@ $api->group(['middleware' => ['customer-auth']], function ($api) {
 
     $api->get('cancel-order/{order_id}', ['as'=>'order.cancel', 'uses'=>'Customer\Api\OrderController@cancelOrder']);
 
+    $api->post('post-review/{order_id}', ['as'=>'order.review', 'uses'=>'Customer\Api\ReviewController@postReview']);
+
+
+
 
 });
 

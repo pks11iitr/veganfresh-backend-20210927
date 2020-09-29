@@ -33,7 +33,7 @@
 
                                             <div class="row">
                                                 <div class="col-4">
-                                                    <input  id="fullname"  class="form-control" name="search" placeholder=" search name/email/mobile" value="{{request('search')}}"  type="text" />
+                                                    <input  id="fullname"  class="form-control" name="search" placeholder=" search name/email/mobile/order id" value="{{request('search')}}"  type="text" />
                                                 </div>
                                                 <div class="col-4">
 

@@ -12,9 +12,9 @@ class Product extends Model
     use ReviewTrait, Active;
 
 	protected $table='products';
-    protected $fillable=['name','description','company','ratings','image','isactive','stock_type'];
+    protected $fillable=['name','description','company','ratings','image','isactive','stock_type','image','is_offer','min_qty','max_qty','stock','description'];
 
-    protected $hidden = ['created_at','deleted_at','updated_at','description','isactive','image','is_offer','min_qty','max_qty','stock'];
+    protected $hidden = ['created_at','deleted_at','updated_at'];
 
     public function getImageAttribute($value){
         if($value)
