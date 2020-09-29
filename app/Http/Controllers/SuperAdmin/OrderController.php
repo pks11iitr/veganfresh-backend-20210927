@@ -5,6 +5,7 @@ namespace App\Http\Controllers\SuperAdmin;
 use App\Models\Notification;
 use App\Models\Order;
 use App\Models\Rider;
+use App\Models\Wallet;
 use App\Services\Notification\FCMNotification;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -19,6 +20,7 @@ class OrderController extends Controller
                  $orders->where('name', 'like', "%".$request->search."%")
                      ->orWhere('email', 'like', "%".$request->search."%")
                      ->orWhere('mobile', 'like', "%".$request->search."%")
+                     ->orWhere('refid', 'like', "%".$request->search."%")
                      ->orWhereHas('customer', function($customer)use( $request){
                          $customer->where('name', 'like', "%".$request->search."%")
                              ->orWhere('email', 'like', "%".$request->search."%")
@@ -123,6 +125,42 @@ class OrderController extends Controller
         $rider->rider_id=$request->riderid;
         $rider->save();
         return redirect()->back()->with('success', 'Rider Has Been change');
+    }
+
+    public function addCashback(Request $request, $id, $type){
+
+        $order =Order::findOrFail($id);
+
+        if($type=='credit'){
+            if(!$order->cashback_given){
+
+                if(!($order->status=='completed' && $order->payment_status=='paid')){
+                    return redirect()->back()->with('error', 'Cashback cannot be credited for incomplete order');
+                }
+                $order->cashback_given=true;
+                $order->save();
+
+                Wallet::updatewallet($order->user_id,'Cashback Given For Order ID: '.$order->refid,'CREDIT', intval($order->total_cost*5/100), 'POINT',$order->id);
+
+                return redirect()->back()->with('success', 'Cashback has been credited');
+            }
+        }else if($type=='debit'){
+            if($order->cashback_given){
+                if(!($order->status=='completed' && $order->payment_status=='paid')){
+                    return redirect()->back()->with('error', 'Cashback cannot be revoked for incomplete order');
+                }
+                $order->cashback_given=false;
+                $order->save();
+
+                Wallet::updatewallet($order->user_id,'Cashback Revoked For Order ID: '.$order->refid,'DEBIT', intval($order->total_cost*5/100), 'POINT',$order->id);
+
+                return redirect()->back()->with('success', 'Cashback has been revoked');
+            }
+
+        }
+
+        return redirect()->back()->with('error', 'Invalid Request');
+
     }
 
 }

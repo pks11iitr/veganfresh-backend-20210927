@@ -113,9 +113,11 @@ Route::group(['middleware'=>['auth', 'acl'], 'is'=>'admin'], function(){
         Route::get('/','SuperAdmin\OrderController@index')->name('orders.list');
         Route::get('details/{id}','SuperAdmin\OrderController@details')->name('order.details');
         //Route::get('product','SuperAdmin\OrderController@product')->name('orders.product');
-        Route::get('change-status/{id}','Admin\OrderController@changeStatus')->name('order.status.change');
-        Route::get('change-payment-status/{id}','Admin\OrderController@changePaymentStatus')->name('payment.status.change');
+        Route::get('change-status/{id}','SuperAdmin\OrderController@changeStatus')->name('order.status.change');
+        Route::get('change-payment-status/{id}','SuperAdmin\OrderController@changePaymentStatus')->name('payment.status.change');
         Route::post('changeRider/{id}','SuperAdmin\OrderController@changeRider')->name('rider.change');
+        Route::get('add-cashback/{id}/{type}','SuperAdmin\OrderController@addCashback')->name('add.cashback');
+
     });
 
     Route::group(['prefix'=>'returnproduct'], function(){

@@ -71,6 +71,9 @@
                                     <td>Payment Mode</td><td>{{$order->payment_mode}}</td>
                                 </tr>
                                 <tr>
+                                    <td>Delivery Time Mode</td><td>{{$order->delivered_at?date('d/m/Y h:i a', strtotime($order->delivered_at)):'Not Yet Delivered'}}</td>
+                                </tr>
+                                <tr>
                                     <td>Status</td>
                                     <td>{{$order->status}}<br><br>
                                         @if(in_array($order->status, ['confirmed']))
@@ -96,7 +99,14 @@
                                         @endif
                                     </td>
                                 </tr>
-
+                                <tr>
+                                    <td>Add Cashback<br>( Please check case befor giving cashback)</td>
+                                    <td>@if(!$order->cashback_given)
+                                            <a href="{{route('add.cashback', ['id'=>$order->id, 'type'=>'credit'])}}" class="btn btn-primary">Add Cashback</a>
+                                        @else
+                                            <a href="{{route('add.cashback', ['id'=>$order->id, 'type'=>'debit'])}}" class="btn btn-primary">Revoke Cashback</a>
+                                        @endif</td>
+                                </tr>
                                 </tbody>
                             </table>
                         </div>
