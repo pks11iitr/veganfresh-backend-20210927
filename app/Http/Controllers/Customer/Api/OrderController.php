@@ -88,7 +88,7 @@ class OrderController extends Controller
         }
         $refid=env('MACHINE_ID').time();
 
-        $delivery_charge=$user->isMembershipAtive()?config('my-config')['delivery_charge']:0;
+        $delivery_charge=$user->isMembershipActive()?config('my-config')['delivery_charge']:0;
 
         $order=Order::create([
             'user_id'=>auth()->guard('customerapi')->user()->id,
