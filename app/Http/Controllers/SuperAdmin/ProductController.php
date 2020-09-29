@@ -415,9 +415,9 @@ class ProductController extends Controller
                 ->where(DB::raw('BINARY size'), $request->size)
                 ->first();
             if($size){
-                $size->update(array_merge($request->only('price', 'cut_price', 'consumed_units', 'min_qty', 'max_qty', 'is_offer'), ['stock'=>$request->size_stock, 'isactive'=>$request->is_size_active]));
+                $size->update(array_merge($request->only('price', 'cut_price', 'consumed_units', 'min_qty', 'max_qty', 'is_offer'), ['stock'=>$request->stock, 'isactive'=>$request->is_size_active]));
             }else{
-                $size=Size::create(array_merge($request->only('size', 'price', 'cut_price', 'consumed_units', 'min_qty', 'max_qty', 'is_offer'), ['product_id'=>$product->id, 'stock'=>$request->size_stock, 'isactive'=>$request->is_size_active]));
+                $size=Size::create(array_merge($request->only('size', 'price', 'cut_price', 'consumed_units', 'min_qty', 'max_qty', 'is_offer'), ['product_id'=>$product->id, 'stock'=>$request->stock, 'isactive'=>$request->is_size_active]));
             }
         }
 
