@@ -62,7 +62,11 @@ class CartController extends Controller
                 $cart->delete();
             }
         }
-        $products=Product::active()->with(['sizeprice'])->where('id',$request->product_id)->get();
+        $products=Product::active()
+            ->with(['sizeprice'])
+            ->where('id',$request->product_id)
+            ->get();
+
         $cart=Cart::getUserCart($user);
         foreach($products as $product){
             foreach($product->sizeprice as $size)
@@ -85,30 +89,36 @@ public function getCartDetails(Request $request){
         ];
     $cartitems=Cart::with(['product'=>function($products){
         $products->where('isactive', true);
-    }])->where('user_id', $user->id)->get();
+    }, 'sizeprice'])
+        ->where('user_id', $user->id)
+        ->get();
         $total=0;
         $quantity=0;
         $price_total=0;
     $cartitem=array();
     $savelater=array();
         foreach($cartitems as $c){
-            $total=$total+($c->sizeprice->price??0)*$c->quantity;
-            $quantity=$quantity+$c->quantity;
-            $price_total=$price_total+($c->sizeprice->price??0)*$c->quantity;
-            $cartitem[]=array(
-                'id'=>$c->id,
-                'name'=>$c->product->name??'',
-                'company'=>$c->product->company??'',
-                'image'=>$c->sizeprice->image,
-                'product_id'=>$c->product->id??'',
-                'size_id'=>$c->sizeprice->id,
-                'quantity'=>$c->quantity,
-                'discount'=>$c->sizeprice->discount,
-                'size'=>$c->sizeprice->size,
-                'price'=>$c->sizeprice->price,
-                'cut_price'=>$c->sizeprice->cut_price,
-                'stock'=>$c->sizeprice->stock,
-            );
+            if($c->quantity < $c->sizeprice->min_qty){
+                $c->delete();
+            }else{
+                $total=$total+($c->sizeprice->price??0)*$c->quantity;
+                $quantity=$quantity+$c->quantity;
+                $price_total=$price_total+($c->sizeprice->price??0)*$c->quantity;
+                $cartitem[]=array(
+                    'id'=>$c->id,
+                    'name'=>$c->product->name??'',
+                    'company'=>$c->product->company??'',
+                    'image'=>$c->sizeprice->image,
+                    'product_id'=>$c->product->id??'',
+                    'size_id'=>$c->sizeprice->id,
+                    'quantity'=>$c->quantity,
+                    'discount'=>$c->sizeprice->discount,
+                    'size'=>$c->sizeprice->size,
+                    'price'=>$c->sizeprice->price,
+                    'cut_price'=>$c->sizeprice->cut_price,
+                    'stock'=>$c->sizeprice->stock,
+                );
+            }
         }
     $savelaters=SaveLaterProduct::with(['product'=>function($products){
         $products->where('isactive', true);
