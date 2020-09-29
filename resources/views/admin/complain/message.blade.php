@@ -71,7 +71,7 @@
                   @if($compalin->type=='admin')
                   <div class="direct-chat-msg right">
                     <div class="direct-chat-infos clearfix">
-                     <span class="direct-chat-name float-right">aarogya</span> 
+                     <span class="direct-chat-name float-right">Suzo Admin</span>
                       <span class="direct-chat-timestamp float-left">{{$compalin->created_at}}</span>
                     </div>
                     <!-- /.direct-chat-infos -->
@@ -118,15 +118,15 @@
       <!-- /.container-fluid -->
     </section>
     <!-- /.content -->
-    <script> 
-        // Here the value is stored in new variable x  
-  
+    <script>
+        // Here the value is stored in new variable x
+
 function verifySubmit(){
-	
+
 	var compid = $("#compid").val();
 
 	var des = $("#message").val();
-	
+
 	$.post('{{route('complain.message')}}', {compid:compid, _token:'{{csrf_token()}}', des:des}, function(data){
 					alert('Message has been sent successfully')
 			})
@@ -135,7 +135,7 @@ function verifySubmit(){
            // console.log(data);
 
 	}
-    </script> 
+    </script>
 
   <!-- /.control-sidebar -->
 </div>
