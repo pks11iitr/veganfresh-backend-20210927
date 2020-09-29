@@ -25,10 +25,18 @@ class Cart extends Model
         if(!$user)
             return [];
         $cart=[];
-        $items=Cart::where('user_id', $user->id)->get();
-        foreach ($items as $item)
-            $cart[$item->size_id]=$item->quantity;
+        $items=Cart::with(['product', 'sizeprice'])
+            ->where('user_id', $user->id)
+            ->get();
+        foreach ($items as $item){
+            if($item->quantity < $item->sizeprice->min_qty){
+                $item->delete();
+            }else{
+                $cart[$item->size_id]=$item->quantity;
+            }
+        }
         return $cart;
     }
+
 
 }
