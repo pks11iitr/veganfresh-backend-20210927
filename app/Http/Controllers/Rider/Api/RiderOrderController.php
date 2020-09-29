@@ -23,7 +23,7 @@ class RiderOrderController extends Controller
                 'message'=>'Please login to continue'
             ];
         $orders=Order::with(['details'])
-            ->where('status', '=','dispatched')
+            ->where('status','dispatched')
             ->where('rider_id', $user->id)
             ->orderBy('created_at', 'desc')
             ->get();
@@ -59,7 +59,7 @@ class RiderOrderController extends Controller
                 'message'=>'Please login to continue'
             ];
         $orders=Order::with(['details'])
-            ->where('status', '=','completed')
+            ->where('status', 'completed')
             ->where('rider_id', $user->id)
             ->orderBy('created_at', 'desc')
             ->get();
@@ -261,6 +261,8 @@ class RiderOrderController extends Controller
 
     public function returnProduct(Request $request, $order_id){
 
+        //change
+
         $request->validate([
 
             'items'=>'required|array',
@@ -388,6 +390,7 @@ class RiderOrderController extends Controller
             ];
         }
 
+        // if payment is COD deduct amount from wallet if any used
         if($order->payment_mode=='COD'){
 
             $order->payment_status='paid';
