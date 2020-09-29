@@ -66,24 +66,36 @@ class OrderController extends Controller
 
         $old_status=$order->status;
 
-        $order->status=$status;
+        if($status=='reopen'){
+            $order->status='confirmed';
+            $order->payment_status='payment-wait';
+            $order->paymnet_mode=='COD';
+            //$order->save();
+        }else{
+            $order->status=$status;
+
+        }
         $order->save();
 
         switch($order->status){
             case 'dispatched':
-
                 $message='Your order at Nitve Ecommerce with  ID:'.$order->refid.' has been dispatched. You will receive your order shortly';
                 $title='Order Dispatched';
-
                 break;
             case 'delivered':
                 $message='Your order at Nitve Ecommerce with  ID:'.$order->refid.' has been delivered.';
                 $title='Order Delivered';
                 break;
             case 'cancelled':
-                $message='Your order at Nitve Ecommerce with  ID:'.$order->refid.' has been cancelled.';
+                $message='Your order at SuzoDailyNeeds with  ID:'.$order->refid.' has been reopened.';
                 $title='Order Cancelled';
                 break;
+
+        }
+
+        if($status=='reopen'){
+            $message='Your order at Nitve Ecommerce with  ID:'.$order->refid.' has been cancelled.';
+            $title='Order Cancelled';
         }
 
 
@@ -100,8 +112,6 @@ class OrderController extends Controller
 
             FCMNotification::sendNotification($order->customer->notification_token, $title, $message);
         }
-
-
 
         return redirect()->back()->with('success', 'Order has been updated');
 

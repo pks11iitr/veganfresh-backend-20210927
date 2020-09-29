@@ -33,6 +33,9 @@ class Order extends Model
         return $this->belongsTo('App\Models\CustomerAddress', 'address_id');
     }
 
+    public function reviews(){
+        return $this->hasMany('App\Models\Review', 'order_id');
+    }
 
     public static function getTotal(Order $order){
         $cost=0;
