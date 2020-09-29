@@ -36,10 +36,10 @@ class ProductController extends Controller
         $products=$product->with(['sizeprice'])->paginate(20);
 
         foreach($products as $product){
-            foreach($product->sizeprice as $size)
+            foreach($product->sizeprice as $size){
                 $size->quantity=$cart[$size->id]??0;
                 $size->in_stocks=Size::getStockStatus($size, $product);
-
+            }
         }
 
         return [
