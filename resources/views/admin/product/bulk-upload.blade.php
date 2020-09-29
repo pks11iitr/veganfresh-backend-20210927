@@ -167,6 +167,7 @@
                                     },
                                     error:function(){
                                         ajaxerror=true
+                                        $('#progress-text').append('Error Occurred in uploading: '+row[0]+'-->'+row[1]+'-->'+row[9])
                                     }
 
                                 })
