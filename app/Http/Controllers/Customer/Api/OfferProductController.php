@@ -37,7 +37,7 @@ class OfferProductController extends Controller
         foreach($offerproducts as $product){
             foreach($product->sizeprice as $size){
                 $size->quantity=$cart[$size->id]??0;
-                $size->in_stock=Size::getStockStatus($product, $size);
+                $size->in_stocks=Size::getStockStatus($product, $size);
             }
 
         }
