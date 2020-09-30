@@ -48,7 +48,7 @@ class TimeSlot extends Model
 
             $date=date('Y-m-d', strtotime('+1 days', strtotime($date)));
             $time='05:00:00';
-            sleep(1);
+            //sleep(1);
             if($text=='Today')
                 $text='Tomorrow';
             else if($text=='Tomorrow')
