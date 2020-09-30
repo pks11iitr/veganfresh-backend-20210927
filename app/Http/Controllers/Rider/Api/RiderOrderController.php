@@ -143,6 +143,8 @@ class RiderOrderController extends Controller
             'total_paid'=>$order->total_cost+$order->delivery_charge-$order->coupon_discount,
         ];
 
+        $delivery_time=$order->delivery_date.' '.$order->timeslot->name??'';
+        $delivered_at=$order->delivered_at??'Not Yet Delivered';
 
         return [
             'status'=>'success',
@@ -153,7 +155,9 @@ class RiderOrderController extends Controller
                 'deliveryaddress'=>$order->deliveryaddress??'',
                 'prices'=>$prices,
                 'show_delivered'=>$show_delivered,
-                'show_return'=>$show_return
+                'show_return'=>$show_return,
+                'delivery_time'=>$delivery_time,
+                'delivered_at'=>$delivered_at,
             ]
         ];
     }
