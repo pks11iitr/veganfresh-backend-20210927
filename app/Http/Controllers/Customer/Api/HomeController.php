@@ -22,12 +22,14 @@ class HomeController extends Controller
 
         $time=date('H:i:s');
 
-        $timeslot=TimeSlot::where('from_time', '>=', $time)->orderBy('from_time', 'asc')->first();
+        $timeslot=TimeSlot::getNextDeliverySlot();
+
+//        $timeslot=TimeSlot::where('from_time', '>=', $time)->orderBy('from_time', 'asc')->first();
 
         if(!$timeslot){
-            $next_slot='Tomorrow '.'06:00AM - 07:30AM';
+            $next_slot='No Delivery Slot Available';
         }else{
-            $next_slot='Tomorrow '.$timeslot->from_time.' - '.$timeslot->to_time;
+            $next_slot=$timeslot['next_slot'];
         }
 
 

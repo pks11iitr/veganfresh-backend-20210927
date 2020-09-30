@@ -8,6 +8,7 @@ use App\Models\OfferCategory;
 use App\Models\Category;
 use App\Models\Banner;
 use App\Models\Product;
+use App\Models\Size;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -34,8 +35,11 @@ class OfferProductController extends Controller
         $offerproducts=$offerproduct->with('sizeprice')->paginate(20);
 
         foreach($offerproducts as $product){
-            foreach($product->sizeprice as $size)
+            foreach($product->sizeprice as $size){
                 $size->quantity=$cart[$size->id]??0;
+                $size->in_stocks=Size::getStockStatus($product, $size);
+            }
+
         }
 
         return [

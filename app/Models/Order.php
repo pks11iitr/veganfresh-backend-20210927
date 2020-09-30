@@ -70,6 +70,10 @@ class Order extends Model
         }
     }
 
+    public function timeslot(){
+        return $this->belongsTo('App\Models\TimeSlot', 'delivery_slot');
+    }
+
 
 
 
