@@ -16,6 +16,34 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `area_list`
+--
+
+DROP TABLE IF EXISTS `area_list`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `area_list` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `isactive` tinyint(1) NOT NULL DEFAULT '1',
+  `created_at` datetime DEFAULT NULL,
+  `deleted_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `area_list`
+--
+
+LOCK TABLES `area_list` WRITE;
+/*!40000 ALTER TABLE `area_list` DISABLE KEYS */;
+INSERT INTO `area_list` VALUES (1,'Sector 22',1,NULL,NULL,NULL),(2,'Sector 62',1,NULL,NULL,NULL);
+/*!40000 ALTER TABLE `area_list` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `banners`
 --
 
@@ -251,6 +279,9 @@ CREATE TABLE `customer_address` (
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   `deleted_at` datetime DEFAULT NULL,
+  `lat` decimal(20,12) NOT NULL,
+  `lang` decimal(20,12) NOT NULL,
+  `map_address` varchar(500) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -261,7 +292,7 @@ CREATE TABLE `customer_address` (
 
 LOCK TABLES `customer_address` WRITE;
 /*!40000 ALTER TABLE `customer_address` DISABLE KEYS */;
-INSERT INTO `customer_address` VALUES (1,1,'alam','k','9873801962','','2323','gn','bnbnn','gg','nbn','nbn','110025','office','gg','2020-09-17 13:07:57','2020-09-17 13:07:57',NULL),(2,1,'jjdjdj','ndndnd','8998998989','','27','7373','7373','7383','hdhchc','hdjdjd','8383','home','','2020-09-17 13:24:43','2020-09-17 13:24:43',NULL),(3,1,'jjdjdj','ndndnd','8998998989','','27','7373','7373','7383','hdhchc','hdjdjd','8383','home','','2020-09-17 13:24:43','2020-09-17 13:24:43',NULL);
+INSERT INTO `customer_address` VALUES (1,1,'alam','k','9873801962','','2323','gn','bnbnn','gg','nbn','nbn','110025','office','gg','2020-09-17 13:07:57','2020-09-17 13:07:57',NULL,0.000000000000,0.000000000000,''),(2,1,'jjdjdj','ndndnd','8998998989','','27','7373','7373','7383','hdhchc','hdjdjd','8383','home','','2020-09-17 13:24:43','2020-09-17 13:24:43',NULL,0.000000000000,0.000000000000,''),(3,1,'jjdjdj','ndndnd','8998998989','','27','7373','7373','7383','hdhchc','hdjdjd','8383','home','','2020-09-17 13:24:43','2020-09-17 13:24:43',NULL,0.000000000000,0.000000000000,'');
 /*!40000 ALTER TABLE `customer_address` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -943,8 +974,8 @@ CREATE TABLE `product_prices` (
   `price` double NOT NULL,
   `cut_price` double NOT NULL,
   `stock` int(11) DEFAULT '0',
-  `min_qty` int(11) DEFAULT '0',
-  `max_qty` int(11) DEFAULT '0',
+  `min_qty` int(11) DEFAULT '1',
+  `max_qty` int(11) DEFAULT '10',
   `consumed_units` int(11) NOT NULL DEFAULT '1' COMMENT 'units consumed when 1quantity is purchase',
   `image` varchar(255) DEFAULT NULL,
   `isactive` tinyint(4) NOT NULL,
@@ -1299,4 +1330,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-09-30 11:05:07
+-- Dump completed on 2020-09-30 15:43:31
