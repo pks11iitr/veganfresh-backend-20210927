@@ -80,6 +80,33 @@
                         </select>
                     </div>
                     </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Is HotDeals</label>
+                                <select class="form-control" name="is_hotdeal" required>
+                                    <option value="1">Yes</option>
+                                    <option value="0">No</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Is New Arrival</label>
+                                <select class="form-control" name="is_newarrival" required>
+                                    <option value="1">Yes</option>
+                                    <option value="0">No</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Is Discounted</label>
+                                <select class="form-control" name="is_discounted" required>
+                                    <option value="1">Yes</option>
+                                    <option value="0">No</option>
+                                </select>
+                            </div>
+                        </div>
 
                         <div class="col-md-6">
                    <div class="form-group">

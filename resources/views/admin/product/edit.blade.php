@@ -117,6 +117,43 @@
                                                 </select>
                                             </div>
                                         </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Is Hot Deals</label>
+                                                <select class="form-control" name="is_hotdeal" required>
+                                                    <option selected="selected"
+                                                            value="1" {{$products->is_hotdeal==1?'selected':''}}>Yes
+                                                    </option>
+                                                    <option value="0" {{$products->is_hotdeal==0?'selected':''}}>No
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Is New Arrival</label>
+                                                <select class="form-control" name="is_newarrival" required>
+                                                    <option selected="selected"
+                                                            value="1" {{$products->is_newarrival==1?'selected':''}}>Yes
+                                                    </option>
+                                                    <option value="0" {{$products->is_newarrival==0?'selected':''}}>No
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Is Discounted</label>
+                                                <select class="form-control" name="is_discounted" required>
+                                                    <option selected="selected"
+                                                            value="1" {{$products->is_discounted==1?'selected':''}}>Yes
+                                                    </option>
+                                                    <option value="0" {{$products->is_discounted==0?'selected':''}}>No
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        </div>
 
                                         <div class="col-md-6">
                                             <div class="form-group">
