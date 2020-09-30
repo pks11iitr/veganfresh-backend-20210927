@@ -80,7 +80,7 @@ class CustomerAddressController extends Controller
                     'other_text'=>$request->other_text?$request->other_text:'',
                     'lat'=>$request->lat?$request->lat:'',
                     'lang'=>$request->lang?$request->lang:'',
-                    'mapp_address'=>$request->map_address?$request->map_address:'',
+                    'map_address'=>$request->map_address?$request->map_address:'',
                 ]);
 
         if($customeraddress) {
