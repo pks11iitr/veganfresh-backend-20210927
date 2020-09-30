@@ -31,6 +31,29 @@ class ProductController extends Controller
             });
         }
 
+        if($request->prices || $request->sizes){
+
+            $product=$product->whereHas('sizeprice', function($size) use($request){
+
+                if($request->price){
+                    $prices=explode('-', $request->price??'');
+                    $size->where('product_prices.price', '>=', intval($prices[0]??0))
+                        ->where('product_prices.price', '<=', intval($prices[1]??0));
+                }
+                if($request->sizes){
+                    $sizes=explode('#', $request->sizes);
+                    $size->whereIn('product_prices.size', $sizes);
+                }
+            });
+        }
+        if($request->brand){
+            $brands=explode('#', $request->brand);
+            foreach($brands as $brand){
+                $product=$product->whereIn('company_name', $brands);
+            }
+        }
+
+
         $cart=Cart::getUserCart($user);
 
         $products=$product->with(['sizeprice'])->paginate(20);
