@@ -49,7 +49,7 @@ class ProductController extends Controller
         if($request->brand){
             $brands=explode('#', $request->brand);
             foreach($brands as $brand){
-                $product=$product->whereIn('company_name', $brands);
+                $product=$product->whereIn('company', $brands);
             }
         }
 
