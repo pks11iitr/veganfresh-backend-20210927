@@ -124,6 +124,15 @@ Route::group(['middleware'=>['auth', 'acl'], 'is'=>'admin'], function(){
         Route::get('/','SuperAdmin\ReturnProductController@index')->name('return.product.list');
 
     });
+
+    Route::group(['prefix'=>'timeslot'], function(){
+        Route::get('/','SuperAdmin\TimeSlotController@index')->name('timeslot.list');
+        Route::get('create','SuperAdmin\TimeSlotController@create')->name('timeslot.create');
+        Route::post('store','SuperAdmin\TimeSlotController@store')->name('timeslot.store');
+        Route::get('edit/{id}','SuperAdmin\TimeSlotController@edit')->name('timeslot.edit');
+        Route::post('update/{id}','SuperAdmin\TimeSlotController@update')->name('timeslot.update');
+
+    });
    //****************************************end*************************************************
    Route::group(['prefix'=>'therapy'], function(){
         Route::get('/','SuperAdmin\TherapistController@index')->name('therapy.list');
