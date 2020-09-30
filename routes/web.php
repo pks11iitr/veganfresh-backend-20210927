@@ -133,6 +133,16 @@ Route::group(['middleware'=>['auth', 'acl'], 'is'=>'admin'], function(){
         Route::post('update/{id}','SuperAdmin\TimeSlotController@update')->name('timeslot.update');
 
     });
+
+    Route::group(['prefix'=>'area'], function(){
+        Route::get('/','SuperAdmin\AreaController@index')->name('area.list');
+        Route::get('create','SuperAdmin\AreaController@create')->name('area.create');
+        Route::post('store','SuperAdmin\AreaController@store')->name('area.store');
+        Route::get('edit/{id}','SuperAdmin\AreaController@edit')->name('area.edit');
+        Route::post('update/{id}','SuperAdmin\AreaController@update')->name('area.update');
+        Route::post('import','SuperAdmin\AreaController@import')->name('area.import');
+
+    });
    //****************************************end*************************************************
    Route::group(['prefix'=>'therapy'], function(){
         Route::get('/','SuperAdmin\TherapistController@index')->name('therapy.list');
