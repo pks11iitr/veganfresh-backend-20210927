@@ -25,7 +25,7 @@ class TimeSlot extends Model
                 ->orderBy('from_time', 'asc')
                 ->get();
 
-            echo "Checking For $date, $time";
+            //echo "Checking For $date, $time";
 
             $orders=Order::where('status', 'confirmed')
                 ->groupBy('delivery_slot', DB::raw('DATE(updated_at)'))
