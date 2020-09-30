@@ -66,6 +66,9 @@ $api->post('complaints', ['as'=>'complaints.list', 'uses'=>'Customer\Api\Complai
 $api->get('complaint/{id}', ['as'=>'complaints.list', 'uses'=>'Customer\Api\ComplaintController@messages']);
 $api->post('complaint/{id}', ['as'=>'complaints.list', 'uses'=>'Customer\Api\ComplaintController@postMessage']);
 
+$api->get('area-list', ['as'=>'area.list', 'uses'=>'Customer\Api\CustomerAddressController@getAreaList']);
+
+
 
 $api->group(['middleware' => ['customer-auth']], function ($api) {
 

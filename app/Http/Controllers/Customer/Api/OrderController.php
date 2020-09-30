@@ -187,7 +187,7 @@ class OrderController extends Controller
                 'message'=>'No Such Order Found'
             ];
 
-
+        $timeslot=TimeSlot::getNextDeliverySlot();
 
         $cost=0;
         $savings=0;
@@ -220,7 +220,7 @@ class OrderController extends Controller
 
         return [
             'status'=>'success',
-            'data'=>compact('prices', 'delivery_address', 'cashback', 'wallet_balance')
+            'data'=>compact('prices', 'delivery_address', 'cashback', 'wallet_balance', 'timeslot')
         ];
 
 

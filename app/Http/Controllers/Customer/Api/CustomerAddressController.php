@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Customer\Api;
 
+use App\Models\Area;
 use App\Models\CustomerAddress;
+use App\Models\TimeSlot;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -48,6 +50,9 @@ class CustomerAddressController extends Controller
             'city'=>'required',
             'pincode'=>'required',
             'address_type'=>'required',
+            'lat'=>'required',
+            'lang'=>'required',
+            'map_address'=>'required'
         ]);
         $user=auth()->guard('customerapi')->user();
 
@@ -72,7 +77,10 @@ class CustomerAddressController extends Controller
                     'city'=>$request->city,
                     'pincode'=>$request->pincode,
                     'address_type'=>$request->address_type,
-                    'other_text'=>$request->other_text?:'',
+                    'other_text'=>$request->other_text?$request->other_text:'',
+                    'lat'=>$request->lat?$request->lat:'',
+                    'lang'=>$request->lang?$request->lang:'',
+                    'mapp_address'=>$request->map_address?$request->map_address:'',
                 ]);
 
         if($customeraddress) {
@@ -85,5 +93,14 @@ class CustomerAddressController extends Controller
             ];
         }
 
+    }
+
+    public function getAreaList(Request $request){
+        $area=Area::active()->get();
+
+        return [
+            'status'=>'success',
+            'data'=>compact('area')
+        ];
     }
 }
