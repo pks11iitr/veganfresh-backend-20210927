@@ -55,6 +55,9 @@ class LoginController extends Controller
         $this->validateLogin($request);
 
         if ($token=$this->attemptLogin($request)) {
+            $user=$this->getCustomer($request);
+            $user->notification_token=$request->notification_token;
+            $user->save();
             return $this->sendLoginResponse($this->getCustomer($request), $token);
         }
         return [

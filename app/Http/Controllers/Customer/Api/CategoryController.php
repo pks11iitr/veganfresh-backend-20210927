@@ -57,20 +57,87 @@ class CategoryController extends Controller
                 ->select(DB::raw('distinct(size) as size'))
                 ->get();
         }
-//return $pack_size;
+
+      if(!empty($request->subcategory_id)){
+          $brand=Product::active()
+              ->whereHas('subcategory', function($subcategory) use($request){
+                      $subcategory->where('sub_category.id', $request->subcategory_id);
+                  })
+              ->select(DB::raw('distinct(products.company) as brand'))
+              ->get();
+      }else{
+          $brand=Product::active()
+              ->whereHas('category', function($category) use($id){
+                      $category->where('categories.id', $id);
+                  })
+              ->select(DB::raw('distinct(products.company) as brand'))
+              ->get();
+      }
+
+      $brand=$brand->map(function($b){
+          return $b->brand;
+      });
+
+      if(!empty($request->subcategory_id)){
+          $prices=Size::active()
+              ->whereHas('product', function($product) use($request){
+
+                  $product->whereHas('subcategory', function($subcategory) use($request){
+                      $subcategory->where('sub_category.id', $request->subcategory_id);
+                  });
+
+              })
+              ->select(DB::raw('max(price) as max_price'), DB::raw('max(price) as min_price'))
+              ->get();
+      }else{
+          $prices=Size::active()
+              ->whereHas('product', function($product) use($id){
+
+                  $product->whereHas('category', function($category) use($id){
+                      $category->where('categories.id', $id);
+                  });
+              })
+              ->select(DB::raw('max(price) as max_price'), DB::raw('max(price) as min_price'))
+              ->get();
+      }
+
+        $min_price=$prices[0]->min_price??0;
+        $max_price=$prices[0]->max_price??0;
+
+        $prices=[];
+        if($min_price>0){
+
+            $prices[]='0-50';
+
+            if($max_price >50){
+                $prices[]='50-100';
+            }
+            if($max_price >100){
+                $prices[]='100-500';
+            }
+            if($max_price >500){
+                $prices[]='500-1000';
+            }
+            if($max_price>1000)
+            {
+                $prices[]='1000-'.$max_price;
+            }
+        }
+
+
 
         $sizes=[];
         foreach($pack_size as $ps){
             $sizes[]=$ps->size;
         }
         // $subcat->prepend($datas);
-        if(count($subcat)>0){
+        if(true){
          return [
              'status'=>'success',
              'code'=>'200',
              'data'=>$subcat,
              'pack_size'=>$pack_size,
-             'filters'=>compact('sizes')
+             'filters'=>compact('sizes','brand', 'prices', 'min_price', 'max_price')
          ];
  }else{
      return [

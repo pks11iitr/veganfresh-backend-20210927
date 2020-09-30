@@ -62,6 +62,9 @@
                     <th>Company</th>
                     <th>Ratings</th>
                     <th>Is Offer</th>
+                    <th>Is Hotdeals</th>
+                    <th>Is NewArrival</th>
+                    <th>Is Discounted</th>
                     <th>Stock Type</th>
 {{--                    <th>Min Qty</th>--}}
 {{--                    <th>Max Qty</th>--}}
@@ -78,6 +81,18 @@
 					  <td>{{$product->company}}</td>
 					  <td>{{$product->ratings}}</td>
 					  <td> @if($product->is_offer==1){{'Yes'}}
+                          @else{{'No'}}
+                          @endif
+                      </td>
+                      <td> @if($product->is_hotdeal==1){{'Yes'}}
+                          @else{{'No'}}
+                          @endif
+                      </td>
+                      <td> @if($product->is_newarrival==1){{'Yes'}}
+                          @else{{'No'}}
+                          @endif
+                      </td>
+                      <td> @if($product->is_discounted==1){{'Yes'}}
                           @else{{'No'}}
                           @endif
                       </td>
@@ -100,6 +115,9 @@
                       <th>Company</th>
                       <th>Ratings</th>
                       <th>Is Offer</th>
+                      <th>Is Hotdeals</th>
+                      <th>Is NewArrival</th>
+                      <th>Is Discounted</th>
                       <th>Stock Type</th>
 {{--                      <th>Min Qty</th>--}}
 {{--                      <th>Max Qty</th>--}}

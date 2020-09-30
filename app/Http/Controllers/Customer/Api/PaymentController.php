@@ -13,6 +13,7 @@ use App\Models\Order;
 use App\Models\OrderStatus;
 use App\Models\RescheduleRequest;
 use App\Models\Therapy;
+use App\Models\TimeSlot;
 use App\Models\Wallet;
 use App\Services\Payment\RazorPayService;
 use Illuminate\Http\Request;
@@ -35,6 +36,8 @@ class PaymentController extends Controller
             ];
 
 
+        $timeslot=TimeSlot::getNextDeliverySlot();
+
         $order=Order::with('details.entity')->where('user_id', $user->id)->where('status', 'pending')->find($id);
 
         if(!$order)
@@ -50,7 +53,9 @@ class PaymentController extends Controller
             'points_used'=>0,
             'balance_used'=>0,
             'coupon_applied'=>null,
-            'coupon_discount'=>0
+            'coupon_discount'=>0,
+            'delivery_slot'=>$timeslot['slot_id'],
+            'delivery_date'=>$timeslot['date'],
         ]);
 
         if(!empty($request->coupon)){
