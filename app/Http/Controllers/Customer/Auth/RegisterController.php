@@ -53,8 +53,10 @@ class RegisterController extends Controller
                 'message'=>'Email or mobile already registered'
             ];
         }
-
-        event(new CustomerRegistered($user = $this->create($request->all())));
+        $user = $this->create($request->all());
+        $user->notification_token=$request->notification_token;
+        $user->save();
+        event(new CustomerRegistered($user));
 
         return [
             'status'=>'success',
