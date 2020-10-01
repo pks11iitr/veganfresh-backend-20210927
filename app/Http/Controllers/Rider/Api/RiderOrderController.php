@@ -246,9 +246,9 @@ class RiderOrderController extends Controller
 
         $prices=[
             'total'=>$total_cost,
-            'delivery_charge'=>$order->delivery_charge,
-            'coupon_discount'=>$coupon_discount,
-            'total_paid'=>$order->total_cost+$order->delivery_charge-$coupon_discount,
+            'delivery_charge'=>($total_cost>0)?$order->delivery_charge:0,
+            'coupon_discount'=>($total_cost>0)?$coupon_discount:0,
+            'total_paid'=>($total_cost>0)?($total_cost+$order->delivery_charge-$coupon_discount):0,
         ];
 
         return [
