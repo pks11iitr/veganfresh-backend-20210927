@@ -380,7 +380,7 @@ class RiderOrderController extends Controller
             $order->delivery_charge=0;
             $order->balance_used=0;
             $order->points_used=0;
-            $order->status='completed';
+            //$order->status='completed';
             $order->save();
 
             if($order->payment_mode!='COD') {
