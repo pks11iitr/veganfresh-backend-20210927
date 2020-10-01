@@ -71,19 +71,48 @@ class OrderController extends Controller
             $order->payment_status='payment-wait';
             $order->paymnet_mode=='COD';
             //$order->save();
-        }else{
+        }else if($status=='cancelled') {
+
+            $order->points_used=0;
+            $order->balance_used=0;
+            $order->coupon_applied=null;
+            $order->coupon_discount=0;
             $order->status=$status;
 
+            if($order->payment_status=='paid'){
+
+                if($order->use_points && $order->points_used){
+                    Wallet::updatewallet($order->user_id, 'Points added in wallet for order cancellation. Order ID: '.$order->refid,'Credit',$order->points_used,'POINT',$order->id);
+                }
+
+                if($order->use_balance && $order->balance_used){
+                    $amount=$order->total_cost-$order->coupon_discount+$order->delivery_charge-$order->points_used;
+                    Wallet::updatewallet($order->user_id, 'Amount added in wallet for order cancellation. Order ID: '.$order->refid,'Credit',$amount,'CASH',$order->id);
+                }
+
+            }else{
+                if($order->use_points && $order->points_used){
+                    Wallet::updatewallet($order->user_id, 'Points added in wallet for order cancellation. Order ID: '.$order->refid,'Credit',$order->points_used,'POINT',$order->id);
+                }
+
+                if($order->use_balance && $order->balance_used){
+                    Wallet::updatewallet($order->user_id, 'Amount added in wallet for order cancellation. Order ID: '.$order->refid,'Credit',$order->balance_used,'CASH',$order->id);
+                }
+            }
+
+        }else {
+            $order->status=$status;
         }
+
         $order->save();
 
         switch($order->status){
             case 'dispatched':
-                $message='Your order at Nitve Ecommerce with  ID:'.$order->refid.' has been dispatched. You will receive your order shortly';
+                $message='Your order at SuzoDailyNeeds with  ID:'.$order->refid.' has been dispatched. You will receive your order shortly';
                 $title='Order Dispatched';
                 break;
             case 'delivered':
-                $message='Your order at Nitve Ecommerce with  ID:'.$order->refid.' has been delivered.';
+                $message='Your order at SuzoDailyNeeds with  ID:'.$order->refid.' has been delivered.';
                 $title='Order Delivered';
                 break;
             case 'cancelled':

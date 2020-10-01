@@ -394,23 +394,26 @@ class OrderController extends Controller
         if($order->payment_status=='paid'){
 
             if($order->use_points && $order->points_used){
-                Wallet::updatewallet($user->user_id, 'Points added in wallet for order cancellation. Order ID: '.$order->refid,'Credit',$order->points_used,'POINT',$order->id);
+                Wallet::updatewallet($user->id, 'Points added in wallet for order cancellation. Order ID: '.$order->refid,'Credit',$order->points_used,'POINT',$order->id);
             }
 
             if($order->use_balance && $order->balance_used){
                 $amount=$order->total_cost-$order->coupon_discount+$order->delivery_charge-$order->points_used;
-                Wallet::updatewallet($user->user_id, 'Amount added in wallet for order cancellation. Order ID: '.$order->refid,'Credit',$amount,'CASH',$order->id);
+                Wallet::updatewallet($user->id, 'Amount added in wallet for order cancellation. Order ID: '.$order->refid,'Credit',$amount,'CASH',$order->id);
             }
 
         }else{
             if($order->use_points && $order->points_used){
-                Wallet::updatewallet($user->user_id, 'Points added in wallet for order cancellation. Order ID: '.$order->refid,'Credit',$order->points_used,'POINT',$order->id);
+                Wallet::updatewallet($user->id, 'Points added in wallet for order cancellation. Order ID: '.$order->refid,'Credit',$order->points_used,'POINT',$order->id);
             }
 
             if($order->use_balance && $order->balance_used){
-                Wallet::updatewallet($user->user_id, 'Amount added in wallet for order cancellation. Order ID: '.$order->refid,'Credit',$order->balance_used,'CASH',$order->id);
+                Wallet::updatewallet($user->id, 'Amount added in wallet for order cancellation. Order ID: '.$order->refid,'Credit',$order->balance_used,'CASH',$order->id);
             }
         }
+
+        $order->status='cancelled';
+        $order->save();
 
         return [
             'status'=>'success',
