@@ -15,6 +15,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/home', function () {
+    return redirect()->route('home');
+});
+
 Auth::routes();
 
 Route::group(['middleware'=>['auth', 'acl'], 'is'=>'admin|rider-admin|clinic-therapist'], function(){
