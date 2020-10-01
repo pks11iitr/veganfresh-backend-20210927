@@ -75,11 +75,11 @@ class ProductController extends Controller
 
         $user=auth()->guard('customerapi')->user();
 
-        if(!$user)
-            return [
-                'status'=>'failed',
-                'message'=>'Please login to continue'
-            ];
+//        if(!$user)
+//            return [
+//                'status'=>'failed',
+//                'message'=>'Please login to continue'
+//            ];
 
         if(!empty($request->search))
             $product=Product::active()
@@ -87,15 +87,14 @@ class ProductController extends Controller
             ->where('name', 'like', "%".$request->search."%");
         $products=$product->paginate(10);
 
-
         $cart=Cart::getUserCart($user);
 
         foreach($products as $i=>$r)
         {
             $products[$i]['category_name']=$r->category[0]->name??0;
-            foreach($product[$i]->sizeprice as $size){
+            foreach($products[$i]->sizeprice as $size){
                 $size->quantity=$cart[$size->id]??0;
-                $size->in_stocks=Size::getStockStatus($size, $product);
+                $size->in_stocks=Size::getStockStatus($size, $r);
             }
         }
         return [

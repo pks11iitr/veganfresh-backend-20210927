@@ -6,6 +6,7 @@ use App\Models\Cart;
 use App\Models\Category;
 use App\Models\Banner;
 use App\Models\Product;
+use App\Models\Size;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -30,9 +31,11 @@ class SpecialProductController extends Controller
         $cart=Cart::getUserCart($user);
         $specialproducts=$products->with('sizeprice')->paginate(20);
 
-        foreach($specialproducts as $product){
-            foreach($product->sizeprice as $size)
-                $size->quantity=$cart[$size->id]??0;
+        foreach($specialproducts as $product) {
+            foreach ($product->sizeprice as $size) {
+                $size->quantity = $cart[$size->id] ?? 0;
+                $size->in_stocks = Size::getStockStatus($size, $product);
+            }
         }
 
         return [
@@ -63,9 +66,10 @@ class SpecialProductController extends Controller
         $specialproducts=$products->with('sizeprice')->paginate(20);
 
         foreach($specialproducts as $product){
-            foreach($product->sizeprice as $size)
+            foreach($product->sizeprice as $size){
                 $size->quantity=$cart[$size->id]??0;
-        }
+            $size->in_stocks=Size::getStockStatus($size, $product);
+        }}
 
         return [
             'status'=>'success',
@@ -95,8 +99,10 @@ class SpecialProductController extends Controller
         $specialproducts=$products->with('sizeprice')->paginate(20);
 
         foreach($specialproducts as $product){
-            foreach($product->sizeprice as $size)
+            foreach($product->sizeprice as $size){
                 $size->quantity=$cart[$size->id]??0;
+            $size->in_stocks=Size::getStockStatus($size, $product);
+        }
         }
 
         return [
