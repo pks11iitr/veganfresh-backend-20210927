@@ -78,9 +78,9 @@ class CustomerAddressController extends Controller
                     'pincode'=>$request->pincode,
                     'address_type'=>$request->address_type,
                     'other_text'=>$request->other_text?$request->other_text:'',
-                    'lat'=>$request->lat?$request->lat:'',
-                    'lang'=>$request->lang?$request->lang:'',
-                    'map_address'=>$request->map_address?$request->map_address:'',
+                    //'lat'=>$request->lat?$request->lat:'',
+                    //'lang'=>$request->lang?$request->lang:'',
+                    //'map_address'=>$request->map_address?$request->map_address:'',
                 ]);
 
         if($customeraddress) {
