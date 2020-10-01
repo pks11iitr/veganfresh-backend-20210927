@@ -75,15 +75,15 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">Password</label>
-                                                <input type="text" name="password" class="form-control" id="exampleInputEmail1" placeholder="Enter Password" value="{{$rider->password}}">
+                                                <input type="text" name="password" class="form-control" id="exampleInputEmail1" placeholder="Enter New Password">
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Status</label>
                                                 <select class="form-control" name="status" required>
-                                                    <option value="0" {{$rider->status==0?'selected':''}}>Active</option>
-                                                    <option value="1" {{$rider->status==1?'selected':''}}>Inactive</option>
+                                                    <option value="1" {{$rider->status==1?'selected':''}}>Active</option>
+                                                    <option value="0" {{$rider->status==0?'selected':''}}>Inactive</option>
                                                     <option value="2" {{$rider->status==2?'selected':''}}>Blocked</option>
                                                 </select>
                                             </div>
