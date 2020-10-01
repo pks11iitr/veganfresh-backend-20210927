@@ -140,8 +140,10 @@ class RiderOrderController extends Controller
             'total'=>$order->total_cost,
             'delivery_charge'=>$order->delivery_charge,
             'coupon_discount'=>$order->coupon_discount,
+            'cashback_used'=>$order->points_used,
+            'balance_used'=>$order->balance_used,
             'total_savings'=>$savings+$order->coupon_discount,
-            'total_paid'=>$order->total_cost+$order->delivery_charge-$order->coupon_discount,
+            'total_paid'=>$order->total_cost+$order->delivery_charge-$order->coupon_discount-$order->points_used-$order->balance_used,
         ];
 
         $delivery_time=$order->delivery_date.' '.($order->timeslot->name??'');
@@ -248,6 +250,8 @@ class RiderOrderController extends Controller
             'total'=>$total_cost,
             'delivery_charge'=>($total_cost>0)?$order->delivery_charge:0,
             'coupon_discount'=>($total_cost>0)?$coupon_discount:0,
+            'cashback_used'=>$order->points_used,
+            'balance_used'=>$order->balance_used,
             'total_paid'=>($total_cost>0)?($total_cost+$order->delivery_charge-$coupon_discount):0,
         ];
 
@@ -392,17 +396,23 @@ class RiderOrderController extends Controller
 
             $order->total_cost=($total_cost>0)?$total_cost:0;
             $order->coupon_discount=($total_cost>0)?$coupon_discount:0;
-            $order->delivery_charge=($total_cost>0)?$coupon_discount:0;
-            $order->balance_used=($total_cost>0)?$coupon_discount:0;
-            $order->points_used=($total_cost>0)?$coupon_discount:0;
-            $order->save();
+            $order->delivery_charge=($total_cost>0)?$prev_delivery:0;
 
             if($order->payment_mode!='COD') {
-                if($total_cost-$prev_discount > $prev_cashback+$prev_balance){
-                    Wallet::updatewallet($order->user_id, 'Refund for Order ID: '.$order->refid, 'CREDIT',$prev_total-$prev_discount-$total_cost, 'CASH', $order->id);
-                }else if($total_cost-$prev_discount > $prev_cashback){
+                if($total_cost > $prev_cashback+$prev_balance){
                     Wallet::updatewallet($order->user_id, 'Refund for Order ID: '.$order->refid, 'CREDIT',$prev_total-$total_cost, 'CASH', $order->id);
-                }else{
+
+                    $order->balance_used=($total_cost>0)?$prev_balance:0;
+                    $order->points_used=($total_cost>0)?$prev_cashback:0;
+                    $order->save();
+
+                }else if($total_cost > $prev_cashback){
+                    Wallet::updatewallet($order->user_id, 'Refund for Order ID: '.$order->refid, 'CREDIT',$prev_total-$total_cost, 'CASH', $order->id);
+                    $order->points_used=($total_cost>0)?$prev_cashback:0;
+                    //$order->balance_used=$total_cost-;
+                    $order->save();
+
+                }else if($total_cost-$prev_discount < $prev_cashback){
                     Wallet::updatewallet($order->user_id, 'Refund for Order ID: '.$order->refid, 'CREDIT',$prev_total-$prev_cashback, 'CASH', $order->id);
                     Wallet::updatewallet($order->user_id, 'Refund for Order ID: '.$order->refid, 'CREDIT',$prev_total-$prev_cashback, 'CASH', $order->id);
                 }
