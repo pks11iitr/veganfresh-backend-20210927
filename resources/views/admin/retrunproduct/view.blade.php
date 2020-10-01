@@ -93,21 +93,10 @@
                                             <td>{{$returnproduct->size->size??''}}</td>
                                             <td>{{$returnproduct->price}}</td>
                                             <td>{{$returnproduct->quantity}}</td>
-                                            <td>Rs. {{$returnproduct->cost*$returnproduct->quantity}} </td>
                                             <td>{{$returnproduct->created_at}}</td>
                                         </tr
                                     @endforeach
                                     </tbody>
-                                    <tfoot>
-                                    <tr>
-                                        <th>OrderID</th>
-                                        <th>Description</th>
-                                        <th>Cost</th>
-                                        <th>Quantity</th>
-                                        <th>Total Cost</th>
-                                        <th>Date & Time</th>
-                                    </tr>
-                                    </tfoot>
                                 </table>
 
                             </div>
