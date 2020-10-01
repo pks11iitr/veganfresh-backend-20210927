@@ -114,11 +114,10 @@ class PaymentController extends Controller
 
         }
         if($request->type=='cod'){
-            $result=$this->initiateGatewayPayment($order);
-        }else{
             $result=$this->initiateCODPayment($order);
+        }else{
+            $result=$this->initiateGatewayPayment($order);
         }
-
 
         return $result;
 

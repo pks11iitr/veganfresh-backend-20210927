@@ -37,7 +37,7 @@ class OfferProductController extends Controller
         foreach($offerproducts as $product){
             foreach($product->sizeprice as $size){
                 $size->quantity=$cart[$size->id]??0;
-                $size->in_stocks=Size::getStockStatus($product, $size);
+                $size->in_stocks=Size::getStockStatus($size, $product);
             }
 
         }
@@ -50,26 +50,26 @@ class OfferProductController extends Controller
         ];
     }
 
-    public function products(Request $request){
-
-        if(!empty($request->sub_cat_id)){
-
-            $product=Product::active()->whereHas('subcategory', function($category) use($request){
-                $category->where('sub_category.id', $request->sub_cat_id);
-            });
-        }else{
-            $product=Product::active()->whereHas('category', function($category) use($request){
-                $category->where('categories.id', $request->category_id);
-            });
-        }
-        //$product=$product->where()
-        $products=$product->with('sizeprice')->paginate(20);
-
-        return [
-            'status'=>'success',
-            'data'=>$products
-        ];
-    }
+//    public function products(Request $request){
+//
+//        if(!empty($request->sub_cat_id)){
+//
+//            $product=Product::active()->whereHas('subcategory', function($category) use($request){
+//                $category->where('sub_category.id', $request->sub_cat_id);
+//            });
+//        }else{
+//            $product=Product::active()->whereHas('category', function($category) use($request){
+//                $category->where('categories.id', $request->category_id);
+//            });
+//        }
+//        //$product=$product->where()
+//        $products=$product->with('sizeprice')->paginate(20);
+//
+//        return [
+//            'status'=>'success',
+//            'data'=>$products
+//        ];
+//    }
 ////////////////////////////////////////////////////
     public function offerproducts_withoutcategory(Request $request){
         $user=auth()->guard('customerapi')->user();
@@ -91,8 +91,11 @@ class OfferProductController extends Controller
         $offerproducts=$offerproduct->with('sizeprice')->paginate(20);
 
         foreach($offerproducts as $product){
-            foreach($product->sizeprice as $size)
+            foreach($product->sizeprice as $size){
                 $size->quantity=$cart[$size->id]??0;
+                $size->in_stocks=Size::getStockStatus($size, $product);
+            }
+
         }
 
         return [
