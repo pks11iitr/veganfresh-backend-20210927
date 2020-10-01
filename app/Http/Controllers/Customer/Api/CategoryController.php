@@ -75,7 +75,7 @@ class CategoryController extends Controller
       }
 
       $brand=$brand->map(function($b){
-          return $b->brand;
+          return ['name'=>$b->brand];
       });
 
       if(!empty($request->subcategory_id)){
@@ -107,20 +107,20 @@ class CategoryController extends Controller
         $prices=[];
         if($min_price>0){
 
-            $prices[]='0-50';
+            $prices[]=['name'=>'0-50'];
 
             if($max_price >50){
-                $prices[]='50-100';
+                $prices[]=['name'=>'50-100'];
             }
             if($max_price >100){
-                $prices[]='100-500';
+                $prices[]=['name'=>'100-500'];
             }
             if($max_price >500){
-                $prices[]='500-1000';
+                $prices[]=['name'=>'500-1000'];
             }
             if($max_price>1000)
             {
-                $prices[]='1000-'.$max_price;
+                $prices[]=['name'=>'1000-'.$max_price];
             }
         }
 
@@ -128,7 +128,7 @@ class CategoryController extends Controller
 
         $sizes=[];
         foreach($pack_size as $ps){
-            $sizes[]=$ps->size;
+            $sizes[]=['name'=>$ps->size];
         }
         // $subcat->prepend($datas);
         if(true){
