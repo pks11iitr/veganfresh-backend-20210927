@@ -119,6 +119,7 @@ class PaymentController extends Controller
             $result=$this->initiateGatewayPayment($order);
         }
 
+
         return $result;
 
     }
@@ -190,7 +191,7 @@ class PaymentController extends Controller
                 'current_status'=>$order->status
             ]);
 
-            if($order->points_user)
+            if($order->points_used)
                 Wallet::updatewallet($order->user_id, 'Paid For Order ID: '.$order->refid, 'DEBIT',$order->points_used, 'POINT', $order->id);
 
             Wallet::updatewallet($order->user_id, 'Paid For Order ID: '.$order->refid, 'DEBIT',$order->balance_used, 'CASH', $order->id);
@@ -259,9 +260,42 @@ class PaymentController extends Controller
                 'message'=>'Your Account Has Been Blocked'
             ];
         }
+
+        if ($order->use_points == true) {
+            $walletpoints = Wallet::points($order->user_id);
+            if ($walletpoints < $order->points_used) {
+                return response()->json([
+                    'status' => 'failed',
+                    'message' => 'We apologize, Your order is not successful due to low cashback',
+                    'errors' => [
+
+                    ],
+                ], 200);
+            }
+        }
+
+        if ($order->use_balance == true) {
+            $balance = Wallet::balance($order->user_id);
+            if ($balance < $order->balance_used) {
+                return response()->json([
+                    'status' => 'failed',
+                    'message' => 'We apologize, Your order is not successful due to low wallet balance',
+                    'errors' => [
+
+                    ],
+                ], 200);
+            }
+        }
+
         $order->payment_mode='COD';
         $order->status='confirmed';
         $order->save();
+
+        if($order->points_used > 0)
+            Wallet::updatewallet($order->user_id, 'Paid For Order ID: '.$order->refid, 'DEBIT',$order->points_used, 'POINT', $order->id);
+
+        if($order->balance_used > 0)
+            Wallet::updatewallet($order->user_id, 'Paid For Order ID: '.$order->refid, 'DEBIT',$order->balance_used, 'CASH', $order->id);
 
         event(new OrderConfirmed($order));
 

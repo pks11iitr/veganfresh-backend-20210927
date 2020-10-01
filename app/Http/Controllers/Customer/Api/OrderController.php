@@ -309,15 +309,6 @@ class OrderController extends Controller
                 'message'=>'Invalid Operation Performed'
             ];
 
-//        //get reviews information
-//        $reviews=[];
-//        if($order->status=='completed'){
-//            $reviews=$order->reviews()->where('session_id', null)->get();
-//            foreach($reviews as $review){
-//                $reviews[$review->entity_id]=$review;
-//            }
-//        }
-
         //get reviews information
         $reviews=[];
         if($order->status=='completed'){
@@ -403,14 +394,22 @@ class OrderController extends Controller
         if($order->payment_status=='paid'){
 
             if($order->use_points && $order->points_used){
-                $amount=$order->total_cost-$order->points_used-$order->coupon_discount+$order->delivery_charge;
-                Wallet::updatewallet($user->user_id, 'Amount added in wallet for order cancellation. Order ID: '.$order->refid,'Credit',$amount,'CASH',$order->id);
                 Wallet::updatewallet($user->user_id, 'Points added in wallet for order cancellation. Order ID: '.$order->refid,'Credit',$order->points_used,'POINT',$order->id);
-            }else{
-                $amount=$order->total_cost-$order->coupon_discount+$order->delivery_charge;
+            }
+
+            if($order->use_balance && $order->balance_used){
+                $amount=$order->total_cost-$order->coupon_discount+$order->delivery_charge-$order->points_used;
                 Wallet::updatewallet($user->user_id, 'Amount added in wallet for order cancellation. Order ID: '.$order->refid,'Credit',$amount,'CASH',$order->id);
             }
 
+        }else{
+            if($order->use_points && $order->points_used){
+                Wallet::updatewallet($user->user_id, 'Points added in wallet for order cancellation. Order ID: '.$order->refid,'Credit',$order->points_used,'POINT',$order->id);
+            }
+
+            if($order->use_balance && $order->balance_used){
+                Wallet::updatewallet($user->user_id, 'Amount added in wallet for order cancellation. Order ID: '.$order->refid,'Credit',$order->balance_used,'CASH',$order->id);
+            }
         }
 
         return [
