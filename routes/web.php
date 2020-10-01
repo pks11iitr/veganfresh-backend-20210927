@@ -218,7 +218,7 @@ Route::group(['middleware'=>['auth', 'acl'], 'is'=>'admin'], function(){
 
 });
 
-Route::group(['prefix'=>'api', 'middleware'=>['auth', 'acl'], 'is'=>'rider-admin'], function() {
+Route::group(['prefix'=>'api'], function() {
     Route::get('privacy-policy', 'SuperAdmin\PolicyController@index')->name('policy.view');
     Route::get('terms-condition', 'SuperAdmin\PolicyController@terms')->name('terms.view');
     Route::get('about-us', 'SuperAdmin\PolicyController@about')->name('about.view');
