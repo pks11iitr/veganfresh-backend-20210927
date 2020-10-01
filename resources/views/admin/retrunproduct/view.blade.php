@@ -83,6 +83,7 @@
                                         <th>Size</th>
                                         <th>Cost</th>
                                         <th>Returned Quantity</th>
+                                        <th>Time</th>
                                     </tr>
                                     </thead>
                                     <tbody>
