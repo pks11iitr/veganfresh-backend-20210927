@@ -6,6 +6,7 @@ use App\Models\Coupon;
 use App\Models\Order;
 use App\Models\OrderDetail;
 use App\Models\OrderStatus;
+use App\Models\ReturnProduct;
 use App\Models\Wallet;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -143,7 +144,7 @@ class RiderOrderController extends Controller
             'total_paid'=>$order->total_cost+$order->delivery_charge-$order->coupon_discount,
         ];
 
-        $delivery_time=$order->delivery_date.' '.$order->timeslot->name??'';
+        $delivery_time=$order->delivery_date.' '.($order->timeslot->name??'');
         $delivered_at=$order->delivered_at??'Not Yet Delivered';
 
         return [
@@ -211,18 +212,18 @@ class RiderOrderController extends Controller
 //                'message'=>'No Valid Item Found'
 //            ];
 
-        $total=0;
-        $itemids=[];
+        $total_return=0;
+        //$itemids=[];
         foreach($order->details as $item){
             //if($item->order->rider_id==$user->id){
-                if($request[$key]>$item->quantity){
+                if($request->items[$item->id]>$item->quantity){
                     return [
                         'status'=>'failed',
                         'message'=>'Invalid Request'
                     ];
                 }
-                $total=$total+$item->price*$request[$key];
-                $itemids[]=$key;
+                $total_return=$total_return+$item->price*$request->items[$item->id];
+                //$itemids[]=$item->id;
 //            }else
 //                return [
 //                    'status'=>'failed',
@@ -234,20 +235,14 @@ class RiderOrderController extends Controller
 
         if($order->coupon_applied && $order->coupon_discount){
 
-            $total_cost=$order->total_cost+$order->coupon_discount;
-
-        }else{
-            $total_cost=$order->total_cost;
-        }
-
-        if($order->coupon_applied){
+            //$total_cost=$order->total_cost+$order->coupon_discount;
+            $total_cost=$order->total_cost-$total_return;
             $coupon=Coupon::where('code', $order->coupon_applied)->first();
-
             $coupon_discount=$coupon->getCouponDiscount($total_cost);
         }else{
+            $total_cost=$order->total_cost-$total_return;
             $coupon_discount=0;
         }
-
 
         $prices=[
             'total'=>$total_cost,
@@ -314,41 +309,56 @@ class RiderOrderController extends Controller
 //                'message'=>'No Valid Item Found'
 //            ];
 
-        $total=0;
-        $itemids=[];
+        $total_return=0;
+        //$itemids=[];
+        $details=[];
         foreach($order->details as $item){
             //if($item->order->rider_id==$user->id){
-            if($request[$key]>$item->quantity){
+            if($request->itemids[$item->id]>$item->quantity){
                 return [
                     'status'=>'failed',
                     'message'=>'Invalid Request'
                 ];
             }
-            $total=$total+$item->price*$request[$key];
-            $itemids[]=$key;
-//            }else
-//                return [
-//                    'status'=>'failed',
-//                    'message'=>'Invalid Request'
-//                ];
+            $total_return=$total_return+$item->price*$request->itemids[$item->id];
+            $details[]=$item;
         }
 
         //$order=$items[0]->order;
-
         if($order->coupon_applied && $order->coupon_discount){
 
-            $total_cost=$order->total_cost+$order->coupon_discount;
+            //$total_cost=$order->total_cost+$order->coupon_discount;
+            $total_cost=$order->total_cost-$total_return;
             $coupon=Coupon::where('code', $order->coupon_applied)->first();
             $coupon_discount=$coupon->getCouponDiscount($total_cost);
 
         }else{
-            $total_cost=$order->total_cost;
+            $total_cost=$order->total_cost-$total_return;
             $coupon_discount=0;
         }
 
 
-        //if()
+        foreach($details as $d){
 
+            ReturnProduct::create([
+
+                'order_id'=>$d->order_id,
+                'entity_id'=>$d->entity_id,
+                'entity_type'=>$d->entity_type,
+                'size_id'=>$d->size_id,
+                'name'=>$d->name,
+                'image'=>$d->image,
+                'price'=>$d->price,
+                'cut_price'=>$d->cut_price,
+                'quantity'=>$request->itemids[$d->id],
+
+            ]);
+
+
+
+        }
+
+        //if()
 
 
         $order->total_cost=$total_cost;
