@@ -152,6 +152,15 @@ Route::group(['middleware'=>['auth', 'acl'], 'is'=>'admin'], function(){
         Route::post('update/{id}','SuperAdmin\RiderController@update')->name('rider.update');
 
     });
+
+    Route::group(['prefix'=>'stores'], function(){
+        Route::get('/','SuperAdmin\StoreController@index')->name('stores.list');
+        Route::get('create','SuperAdmin\StoreController@create')->name('stores.create');
+        Route::post('store','SuperAdmin\StoreController@store')->name('stores.store');
+        Route::get('edit/{id}','SuperAdmin\StoreController@edit')->name('stores.edit');
+        Route::post('update/{id}','SuperAdmin\StoreController@update')->name('stores.update');
+
+    });
    //****************************************end*************************************************
    Route::group(['prefix'=>'therapy'], function(){
         Route::get('/','SuperAdmin\TherapistController@index')->name('therapy.list');
