@@ -309,15 +309,6 @@ class OrderController extends Controller
                 'message'=>'Invalid Operation Performed'
             ];
 
-//        //get reviews information
-//        $reviews=[];
-//        if($order->status=='completed'){
-//            $reviews=$order->reviews()->where('session_id', null)->get();
-//            foreach($reviews as $review){
-//                $reviews[$review->entity_id]=$review;
-//            }
-//        }
-
         //get reviews information
         $reviews=[];
         if($order->status=='completed'){
