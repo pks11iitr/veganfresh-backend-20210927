@@ -10,7 +10,7 @@ use App\Http\Controllers\Controller;
 class RiderController extends Controller
 {
     public function index(Request $request){
-        $riders =Rider::paginate(10);
+        $riders =Rider::orderBy('id', 'DESC')->paginate(10);
         return view('admin.rider.view',['riders'=>$riders]);
     }
 
@@ -62,25 +62,45 @@ class RiderController extends Controller
             'address'=>'required',
             'state'=>'required',
             'city'=>'required',
-            'password'=>'required',
             'image'=>'image'
         ]);
 
         $rider = Rider::findOrFail($id);
 
-        $rider->update([
-            'name'=>$request->name,
-            'email'=>$request->email,
-            'mobile'=>$request->mobile,
-            'address'=>$request->address,
-            'state'=>$request->state,
-            'city'=>$request->city,
-            'password'=> Hash::make($request->password),
-            'status'=>$request->status,
-            ]);
+        if($request->image ) {
+            $rider->update([
+                'name' => $request->name,
+                'email' => $request->email,
+                'mobile' => $request->mobile,
+                'address' => $request->address,
+                'state' => $request->state,
+                'city' => $request->city,
+                'status' => $request->status,
+                'image'=>'a']);
 
-        if($request->image){
             $rider->saveImage($request->image, 'rider');
+
+        }elseif($request->password){
+            $rider->update([
+                'name' => $request->name,
+                'email' => $request->email,
+                'mobile' => $request->mobile,
+                'address' => $request->address,
+                'password' => Hash::make($request->password),
+                'state' => $request->state,
+                'city' => $request->city,
+                'status' => $request->status,
+                ]);
+        }else{
+            $rider->update([
+                'name' => $request->name,
+                'email' => $request->email,
+                'mobile' => $request->mobile,
+                'address' => $request->address,
+                'state' => $request->state,
+                'city' => $request->city,
+                'status' => $request->status,
+            ]);
         }
         if($rider)
         {

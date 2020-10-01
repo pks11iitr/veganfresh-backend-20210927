@@ -7,12 +7,12 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>Rider</h1>
+                        <h1>Store</h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item active">Rider</li>
+                            <li class="breadcrumb-item active">Store</li>
                         </ol>
                     </div>
                 </div>
@@ -28,81 +28,55 @@
                         <!-- general form elements -->
                         <div class="card card-primary">
                             <div class="card-header">
-                                <h3 class="card-title">Rider Edit</h3>
+                                <h3 class="card-title">Store Add</h3>
                             </div>
                             <!-- /.card-header -->
                             <!-- form start -->
-                            <form role="form" method="post" enctype="multipart/form-data" action="{{route('rider.update',['id'=>$rider->id])}}">
+                            <form role="form" method="post" enctype="multipart/form-data" action="{{route('stores.store')}}">
                                 @csrf
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">Name</label>
-                                                <input type="text" name="name" class="form-control" id="exampleInputEmail1" placeholder="Enter Name" value="{{$rider->name}}">
+                                                <input type="text" name="name" class="form-control" id="exampleInputEmail1" placeholder="Enter Name">
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">Email</label>
-                                                <input type="text" name="email" class="form-control" id="exampleInputEmail1" placeholder="Enter Email" value="{{$rider->email}}">
+                                                <input type="text" name="email" class="form-control" id="exampleInputEmail1" placeholder="Enter Email">
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">Mobile</label>
-                                                <input type="text" name="mobile" class="form-control" id="exampleInputEmail1" placeholder="Enter Mobile" value="{{$rider->mobile}}">
+                                                <input type="text" name="mobile" class="form-control" id="exampleInputEmail1" placeholder="Enter Mobile">
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">Address</label>
-                                                <input type="text" name="address" class="form-control" id="exampleInputEmail1" placeholder="Enter Address" value="{{$rider->address}}">
+                                                <input type="text" name="address" class="form-control" id="exampleInputEmail1" placeholder="Enter Address">
                                             </div>
                                         </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="exampleInputEmail1">City</label>
-                                                <input type="text" name="city" class="form-control" id="exampleInputEmail1" placeholder="Enter City" value="{{$rider->city}}">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="exampleInputEmail1">State</label>
-                                                <input type="text" name="state" class="form-control" id="exampleInputEmail1" placeholder="Enter State" value="{{$rider->state}}">
-                                            </div>
-                                        </div>
+
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">Password</label>
-                                                <input type="text" name="password" class="form-control" id="exampleInputEmail1" placeholder="Enter New Password">
+                                                <input type="text" name="password" class="form-control" id="exampleInputEmail1" placeholder="Enter Password">
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Status</label>
                                                 <select class="form-control" name="status" required>
-                                                    <option value="1" {{$rider->status==1?'selected':''}}>Active</option>
-                                                    <option value="0" {{$rider->status==0?'selected':''}}>Inactive</option>
-                                                    <option value="2" {{$rider->status==2?'selected':''}}>Blocked</option>
+                                                    <option value="1">Active</option>
+                                                    <option value="0">Inactive</option>
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="exampleInputFile">File input</label>
-                                                <div class="input-group">
-                                                    <div class="custom-file">
-                                                        <input type="file" name="image" class="custom-file-input" id="exampleInputFile" accept="image/*">
-                                                        <label class="custom-file-label" for="exampleInputFile">Choose file</label>
-                                                    </div>
-                                                    <div class="input-group-append">
-                                                        <span class="input-group-text" id="">Upload</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <img src="{{$rider->image}}" height="100" width="200">
-                                        </div>
+
                                     </div>
                                 </div>
                                 <!-- /.card-body -->
