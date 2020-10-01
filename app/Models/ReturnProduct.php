@@ -13,4 +13,11 @@ class ReturnProduct extends Model
     public function order(){
         return $this->belongsTo('App\Models\Order', 'order_id');
     }
+
+
+    public function size(){
+
+        return $this->belongsTo('App\Models\Size', 'size_id');
+
+    }
 }

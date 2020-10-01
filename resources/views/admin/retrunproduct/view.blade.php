@@ -79,19 +79,19 @@
                                     <thead>
                                     <tr>
                                         <th>OrderID</th>
-                                        <th>Description</th>
+                                        <th>Item</th>
+                                        <th>Size</th>
                                         <th>Cost</th>
-                                        <th>Quantity</th>
-                                        <th>Total Cost</th>
-                                        <th>Date & Time</th>
+                                        <th>Returned Quantity</th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     @foreach($returnproducts as $returnproduct)
                                         <tr>
-                                            <td>{{$returnproduct->order->refid}}</td>
-                                            <td>{{$returnproduct->description}}</td>
-                                            <td>{{$returnproduct->cost}}</td>
+                                            <td>{{$returnproduct->order->refid??''}}</td>
+                                            <td>{{$returnproduct->name}}</td>
+                                            <td>{{$returnproduct->size->size??''}}</td>
+                                            <td>{{$returnproduct->price}}</td>
                                             <td>{{$returnproduct->quantity}}</td>
                                             <td>Rs. {{$returnproduct->cost*$returnproduct->quantity}} </td>
                                             <td>{{$returnproduct->created_at}}</td>
