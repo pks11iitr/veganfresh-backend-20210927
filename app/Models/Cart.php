@@ -29,7 +29,7 @@ class Cart extends Model
             ->where('user_id', $user->id)
             ->get();
         foreach ($items as $item){
-            if($item->quantity < $item->sizeprice->min_qty){
+            if($item->quantity < $item->sizeprice->min_qty || $item->quantity > $item->sizeprice->max_qty){
                 $item->delete();
             }else{
                 $cart[$item->size_id]=$item->quantity;
