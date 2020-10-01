@@ -252,7 +252,7 @@ class RiderOrderController extends Controller
             'coupon_discount'=>($total_cost>0)?$coupon_discount:0,
             'cashback_used'=>$order->points_used,
             'balance_used'=>$order->balance_used,
-            'total_paid'=>($total_cost>0)?($total_cost+$order->delivery_charge-$coupon_discount):0,
+            'total_paid'=>($total_cost>0)?($total_cost+$order->delivery_charge-$coupon_discount-$order->balance_used-$order->points_used):0,
         ];
 
         return [
@@ -400,19 +400,25 @@ class RiderOrderController extends Controller
 
             if($order->payment_mode!='COD') {
                 if($total_cost > $prev_cashback+$prev_balance){
-                    Wallet::updatewallet($order->user_id, 'Refund for Order ID: '.$order->refid, 'CREDIT',$prev_total-$total_cost, 'CASH', $order->id);
 
                     $order->balance_used=($total_cost>0)?$prev_balance:0;
                     $order->points_used=($total_cost>0)?$prev_cashback:0;
                     $order->save();
 
-                }else if($total_cost > $prev_cashback){
                     Wallet::updatewallet($order->user_id, 'Refund for Order ID: '.$order->refid, 'CREDIT',$prev_total-$total_cost, 'CASH', $order->id);
+
+                }else if($total_cost > $prev_cashback){
+
                     $order->points_used=($total_cost>0)?$prev_cashback:0;
                     //$order->balance_used=$total_cost-;
                     $order->save();
 
+                    Wallet::updatewallet($order->user_id, 'Refund for Order ID: '.$order->refid, 'CREDIT',$prev_total-$total_cost, 'CASH', $order->id);
+
+
                 }else if($total_cost-$prev_discount < $prev_cashback){
+
+                    $order->save();
                     Wallet::updatewallet($order->user_id, 'Refund for Order ID: '.$order->refid, 'CREDIT',$prev_total-$prev_cashback, 'CASH', $order->id);
                     Wallet::updatewallet($order->user_id, 'Refund for Order ID: '.$order->refid, 'CREDIT',$prev_total-$prev_cashback, 'CASH', $order->id);
                 }
