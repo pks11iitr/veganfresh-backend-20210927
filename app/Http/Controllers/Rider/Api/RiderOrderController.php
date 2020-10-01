@@ -361,13 +361,13 @@ class RiderOrderController extends Controller
                 'image'=>$d->image,
                 'price'=>$d->price,
                 'cut_price'=>$d->cut_price,
-                'quantity'=>$request->itemids[$d->id],
+                'quantity'=>$request->items[$d->id],
 
             ]);
             if($d->quantity==$request->items[$d->id])
                 $d->delete();
             else{
-                $d->quantity=$d->quantity->$request->items[$d->id];
+                $d->quantity=$d->quantity - $request->items[$d->id];
                 $d->save();
             }
         }
