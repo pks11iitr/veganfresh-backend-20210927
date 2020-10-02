@@ -379,6 +379,9 @@ class OrderController extends Controller
         if(in_array($order->status, ['confirmed','processing', 'dispatched'])){
             $show_cancel_product=1;
         }
+        if($order->status=='completed'){
+            $show_download_invoice=1;
+        }
 
         $prices=[
             'total'=>$order->total_cost,
@@ -397,6 +400,7 @@ class OrderController extends Controller
                 'show_cancel_product'=>$show_cancel_product??0,
                 'deliveryaddress'=>$order->deliveryaddress??'',
                 'prices'=>$prices,
+                'show_download_invoice'=>$show_download_invoice??0
             ]
         ];
     }
