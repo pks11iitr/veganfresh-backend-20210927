@@ -92,7 +92,7 @@ class TimeSlot extends Model
 
                     //return ['slot_id'=>$ts->id,  'next_slot'=>$text.' '.$ts->from_time.' - '.$ts->to_time, 'date'=>$date];
                     $time_slots[]=[
-                        'slot_id'=>$ts->id,
+                        'slot_id'=>$ts->id.'**'.$date,
                         'name'=>$text.' '.$ts->name
                     ];
 
