@@ -23,6 +23,7 @@ use App\Models\Wallet;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
+use Barryvdh\DomPDF\PDF;
 
 class OrderController extends Controller
 {
@@ -458,6 +459,13 @@ class OrderController extends Controller
             'status'=>'success',
             'message'=>'Your Order Has Been Cancelled'
         ];
+
+    }
+    public function downloadPDF($id){
+        $orders = Order::with('details')->find($id);
+
+        $pdf = PDF::loadView('admin.contenturl.invoice', compact('orders'));
+        return $pdf->download('invoice.pdf');
 
     }
 

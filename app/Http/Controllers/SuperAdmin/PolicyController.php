@@ -5,6 +5,8 @@ namespace App\Http\Controllers\SuperAdmin;
 use App\Http\Controllers\Controller;
 use App\Models\Complaint;
 use App\Models\ComplaintMessage;
+use App\Models\Order;
+use PDF;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Storage;
@@ -24,6 +26,17 @@ class PolicyController extends Controller
         return view('admin.contenturl.aboutus');
     }
 
+//    public function invoice(Request $request){
+//
+//        return view('admin.contenturl.invoice');
+//    }
 
+    public function invoice($id){
+        $orders = Order::with(['details'])->find($id);
+       // var_dump($orders);die();
+     $pdf = PDF::loadView('admin.contenturl.invoice', compact('orders'))->setPaper('a4', 'portrait');
+      return $pdf->download('invoice.pdf');
+        return view('admin.contenturl.invoice');
+    }
 
 }

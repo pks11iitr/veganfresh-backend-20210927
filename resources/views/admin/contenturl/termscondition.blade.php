@@ -1,3 +1,4 @@
+
 <p align="center"><span style="font-size: xx-large;">Term And Condition.</span></p>
 <p><span style="font-size: large;">Personal Information.</span></p>
 <p><span style="color: #403e3e;"><span style="font-family: Helvetica, serif;"><span style="font-size: large;">1.Suzo daily needs.&rdquo; is a trademark of Suzo daily needs Private Limited, a company incorporated under the Companies Act, 2013 with its registered office at&nbsp;</span></span></span><span style="color: #222222;"><span style="font-family: Arial, serif;"><span style="font-size: medium;">PL NO. B-11/10 FL NO. SF-404 DLF ANKUR VIHAR, Loni, Ghaziabad, Delhi 201102.</span></span></span><span style="color: #403e3e;"><span style="font-family: Helvetica, serif;">The domain name&nbsp;www.suzodailyneeds.in&nbsp;is owned by the Company. The Company holds a FSSAI license, bearing no. : 22720105000246.</span></span></p>

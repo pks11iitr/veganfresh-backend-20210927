@@ -108,8 +108,10 @@ $api->group(['middleware' => ['customer-auth']], function ($api) {
     $api->get('complaint/{id}', ['as'=>'complaints.list', 'uses'=>'Customer\Api\ComplaintController@messages']);
     $api->post('complaint/{id}', ['as'=>'complaints.list', 'uses'=>'Customer\Api\ComplaintController@postMessage']);
 
-});
 
+
+});
+$api->get('invoices/{id}', ['as'=>'order.invoice', 'uses'=>'Customer\Api\OrderController@downloadPDF']);
 //Rider api Start
 
 
