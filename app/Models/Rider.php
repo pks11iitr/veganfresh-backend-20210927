@@ -15,7 +15,7 @@ class Rider extends Authenticatable implements JWTSubject
 
 	protected $table='riders';
 
-	protected $fillable=['name','email','mobile','password', 'image','address','city','status','state'];
+	protected $fillable=['name','email','mobile','password', 'image','address','city','status','state', 'store_id'];
 
 //    public function locations(){
 //        return $this->hasMany('App\Models\TherapistLocations', 'therapist_id')->orderBy('id', 'desc');

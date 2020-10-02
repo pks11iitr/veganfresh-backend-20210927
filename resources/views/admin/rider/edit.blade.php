@@ -103,6 +103,16 @@
                                             </div>
                                             <img src="{{$rider->image}}" height="100" width="200">
                                         </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Assign Store</label>
+                                                <select class="form-control" name="store_id" required>
+                                                    @foreach($stores as $store)
+                                                        <option value="{{$store->id}}" @if($store->id==$rider->store_id){{'selected'}}@endif>{{$store->name}}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <!-- /.card-body -->

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\SuperAdmin;
 
 use App\Models\Rider;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Controllers\Controller;
@@ -15,7 +16,8 @@ class RiderController extends Controller
     }
 
     public function create(Request $request){
-        return view('admin.rider.add');
+        $stores=User::where('id', '>', 1)->get();
+        return view('admin.rider.add', compact('stores'));
     }
 
     public function store(Request $request){
@@ -28,7 +30,8 @@ class RiderController extends Controller
             'state'=>'required',
             'city'=>'required',
             'password'=>'required',
-            'image'=>'required|image'
+            'image'=>'required|image',
+            'store_id'=>'required|integer'
         ]);
 
         if($rider=Rider::create([
@@ -40,7 +43,8 @@ class RiderController extends Controller
             'city'=>$request->city,
             'password'=> Hash::make($request->password),
             'status'=>$request->status,
-            'image'=>'a']))
+            'image'=>'a',
+            'store_id'=>$request->store_id]))
         {
             $rider->saveImage($request->image, 'rider');
             return redirect()->route('rider.list')->with('success', 'rider has been created');
@@ -50,7 +54,8 @@ class RiderController extends Controller
 
     public function edit(Request $request,$id){
         $rider = Rider::findOrFail($id);
-        return view('admin.rider.edit',['rider'=>$rider]);
+        $stores=User::where('id', '>', 1)->get();
+        return view('admin.rider.edit',['rider'=>$rider, 'stores'=>$stores]);
     }
 
     public function update(Request $request,$id){
@@ -62,7 +67,8 @@ class RiderController extends Controller
             'address'=>'required',
             'state'=>'required',
             'city'=>'required',
-            'image'=>'image'
+            'image'=>'image',
+            'store_id'=>'required|integer'
         ]);
 
         $rider = Rider::findOrFail($id);
@@ -76,7 +82,8 @@ class RiderController extends Controller
                 'state' => $request->state,
                 'city' => $request->city,
                 'status' => $request->status,
-                'image'=>'a']);
+                'image'=>'a',
+                'store_id'=>$request->store_id]);
 
             $rider->saveImage($request->image, 'rider');
 
