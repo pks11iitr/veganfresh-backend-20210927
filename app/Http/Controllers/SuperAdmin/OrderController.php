@@ -6,6 +6,7 @@ use App\Models\Notification;
 use App\Models\Order;
 use App\Models\Rider;
 use App\Models\Wallet;
+use App\Models\User;
 use App\Services\Notification\FCMNotification;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -42,13 +43,15 @@ class OrderController extends Controller
 
              if($request->payment_status)
                 $orders=$orders->where('payment_status', $request->payment_status);
+         if($request->store_id)
+              $orders=$orders->where('store_id', $request->store_id);
 
             if($request->ordertype)
                 $orders=$orders->orderBy('created_at', $request->ordertype);
-
                 $orders=$orders->orderBy('id', 'desc')->paginate(10);
-
-        return view('admin.order.view',['orders'=>$orders]);
+                $stores=User::where('status',1)->get();
+//var_dump($stores);die();
+        return view('admin.order.view',['orders'=>$orders,'stores'=>$stores]);
 
     }
 

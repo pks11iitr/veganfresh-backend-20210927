@@ -37,6 +37,17 @@
                                                 </div>
                                                 <div class="col-4">
 
+                                                    <select id="store_id" name="store_id" class="form-control" >
+                                                        <option value="" {{ request('store_id')==''?'selected':''}}>Please select</option>
+                                                        @foreach($stores as $store)
+                                                            <option value="{{$store->id}}" {{request('store_id')==$store->id?'selected':''}}>{{ $store->name }}</option>                                    @endforeach
+
+                                                    </select>
+
+                                                </div>
+
+                                                <div class="col-4">
+
                                                     <select id="status" name="status" class="form-control" >
 
                                                         <option value="" {{ request('status')==''?'selected':''}}>Please select</option>
@@ -45,7 +56,7 @@
                                                         <option value="cancelled" {{ request('status')=='cancelled'?'selected':''}}>cancelled</option>
                                                     </select>
 
-                                                </div>
+                                                </div><br><br>
                                                 <div class="col-4">
                                                     <select id="payment_status" name="payment_status" class="form-control" >
 
@@ -77,6 +88,7 @@
                                     <thead>
                                     <tr>
                                         <th>OrderID</th>
+                                        <th>Store Name</th>
                                         <th>User</th>
                                         <th>Date & Time</th>
                                         <th>Schedule Type</th>
@@ -91,6 +103,7 @@
                                     @foreach($orders as $order)
                                             <tr>
                                                 <td>{{$order->refid}}</td>
+                                                <td>{{$order->storename->name??''}}</td>
                                                 <td>{{$order->customer->name??''}} <br>Mob: {{$order->customer->mobile??''}}</td>
                                                 <td>{{$order->created_at}}</td>
                                                 <td>{{$order->schedule_type}}</td>
@@ -107,6 +120,7 @@
                                     <tfoot>
                                     <tr>
                                         <th>OrderID</th>
+                                        <th>Store Name</th>
                                         <th>User</th>
                                         <th>Date & Time</th>
                                         <th>Schedule Type</th>
