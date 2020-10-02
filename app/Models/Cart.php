@@ -25,7 +25,7 @@ class Cart extends Model
         if(!$user)
             return [
                 'cart'=>[],
-                'cart_total'=>0
+                'total'=>0
             ];
         $cart=[];
         $total=0;

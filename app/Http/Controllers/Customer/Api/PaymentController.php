@@ -50,8 +50,6 @@ class PaymentController extends Controller
 
         if($request->time_slot){
             $timeslot=explode('**', $request->time_slot);
-        }else{
-
         }
 
         $order->update([
