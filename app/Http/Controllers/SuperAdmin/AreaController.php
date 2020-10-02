@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\SuperAdmin;
 
 use App\Models\Area;
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Excel;
@@ -15,7 +16,8 @@ class AreaController extends Controller
     }
 
     public function create(Request $request){
-        return view('admin.area.add');
+        $stores=User::where('id', '>', 1)->get();
+        return view('admin.area.add', compact('stores'));
     }
 
     public function store(Request $request){
@@ -27,6 +29,7 @@ class AreaController extends Controller
         if($area=Area::create([
             'name'=>$request->name,
             'isactive'=>$request->isactive,
+            'store_id'=>$request->store_id,
         ]))
 
         {
@@ -37,7 +40,8 @@ class AreaController extends Controller
 
     public function edit(Request $request,$id){
         $arealist=Area::findOrFail($id);
-        return view('admin.area.edit',['arealist'=>$arealist]);
+        $stores=User::where('id', '>', 1)->get();
+        return view('admin.area.edit',['arealist'=>$arealist, 'stores'=>$stores]);
     }
 
     public function update(Request $request,$id){
@@ -49,6 +53,7 @@ class AreaController extends Controller
         if($arealist->update([
             'name'=>$request->name,
             'isactive'=>$request->isactive,
+            'store_id'=>$request->store_id,
         ]))
 
         {

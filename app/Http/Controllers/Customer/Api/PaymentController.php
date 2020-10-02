@@ -36,7 +36,7 @@ class PaymentController extends Controller
             ];
 
 
-        $timeslot=TimeSlot::getNextDeliverySlot();
+        //$timeslot=TimeSlot::getNextDeliverySlot();
 
         $order=Order::with('details.entity')->where('user_id', $user->id)->where('status', 'pending')->find($id);
 
@@ -47,6 +47,13 @@ class PaymentController extends Controller
             ];
 
         // set to initial state
+
+        if($request->time_slot){
+            $timeslot=explode('**', $request->time_slot);
+        }else{
+
+        }
+
         $order->update([
             'use_balance'=>false,
             'use_points'=>false,
@@ -54,8 +61,8 @@ class PaymentController extends Controller
             'balance_used'=>0,
             'coupon_applied'=>null,
             'coupon_discount'=>0,
-            'delivery_slot'=>$timeslot['slot_id'],
-            'delivery_date'=>$timeslot['date'],
+            'delivery_slot'=>$timeslot[0]??null,
+            'delivery_date'=>$timeslot[1]??null,
         ]);
 
         if(!empty($request->coupon)){

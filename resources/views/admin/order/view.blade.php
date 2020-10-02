@@ -38,9 +38,19 @@
                                                 <div class="col-4">
 
                                                     <select id="store_id" name="store_id" class="form-control" >
-                                                        <option value="" {{ request('store_id')==''?'selected':''}}>Please select</option>
+                                                        <option value="" {{ request('store_id')==''?'selected':''}}>Select Store</option>
                                                         @foreach($stores as $store)
                                                             <option value="{{$store->id}}" {{request('store_id')==$store->id?'selected':''}}>{{ $store->name }}</option>                                    @endforeach
+
+                                                    </select>
+
+                                                </div>
+                                                <div class="col-4">
+
+                                                    <select id="rider_id" name="rider_id" class="form-control" >
+                                                        <option value="" {{ request('store_id')==''?'selected':''}}>Select Rider</option>
+                                                        @foreach($riders as $rider)
+                                                            <option value="{{$rider->id}}" {{request('rider_id')==$rider->id?'selected':''}}>{{ $rider->name }}</option>                                    @endforeach
 
                                                     </select>
 
@@ -50,7 +60,7 @@
 
                                                     <select id="status" name="status" class="form-control" >
 
-                                                        <option value="" {{ request('status')==''?'selected':''}}>Please select</option>
+                                                        <option value="" {{ request('status')==''?'selected':''}}>Select Order Status</option>
                                                         <option value="pending" {{ request('status')=='pending'?'selected':''}}>pending</option>
                                                         <option value="confirmed" {{ request('status')==='confirmed'?'selected':''}}>confirmed</option>
                                                         <option value="cancelled" {{ request('status')=='cancelled'?'selected':''}}>cancelled</option>
@@ -60,9 +70,9 @@
                                                 <div class="col-4">
                                                     <select id="payment_status" name="payment_status" class="form-control" >
 
-                                                        <option value="" {{ request('payment_status')==''?'selected':''}}>Please Select</option>
-                                                        <option value="paid" {{ request('payment_status')=='paid'?'selected':''}}>paid</option>
-                                                        <option value="payment-wait" {{ request('payment_status')==='payment-wait'?'selected':''}}>payment-wait</option>
+                                                        <option value="" {{ request('payment_status')==''?'selected':''}}>Select Payment Status</option>
+                                                        <option value="paid" {{ request('payment_status')=='paid'?'selected':''}}>Paid</option>
+                                                        <option value="payment-wait" {{ request('payment_status')==='payment-wait'?'selected':''}}>Pending</option>
 
                                                     </select>
 
@@ -88,10 +98,10 @@
                                     <thead>
                                     <tr>
                                         <th>OrderID</th>
-                                        <th>Store Name</th>
                                         <th>User</th>
-                                        <th>Date & Time</th>
-                                        <th>Schedule Type</th>
+                                        <th>Store Name</th>
+                                        <th>Rider Name</th>
+                                        <th>Delivery Slot</th>
                                         <th>Cost</th>
                                         <th>Status</th>
                                         <th>Payment Status</th>
@@ -104,10 +114,10 @@
                                             <tr>
                                                 <td>{{$order->refid}}</td>
                                                 <td>{{$order->storename->name??''}}</td>
+                                                <td>{{$order->rider->name??''}}</td>
                                                 <td>{{$order->customer->name??''}} <br>Mob: {{$order->customer->mobile??''}}</td>
-                                                <td>{{$order->created_at}}</td>
-                                                <td>{{$order->schedule_type}}</td>
-                                                <td>{{$order->total_cost}}</td>
+                                                <td>{{$order->delivery_date}} {{$order->timeslot->name??''}}</td>
+                                                <td>{{$order->total_cost+$order->delivery_charge}}</td>
                                                 <td>{{$order->status}}</td>
                                                 <td>{{$order->payment_status}}</td>
                                                 <td>{{$order->payment_mode}}</td>
@@ -117,20 +127,6 @@
                                             </tr
                                     @endforeach
                                     </tbody>
-                                    <tfoot>
-                                    <tr>
-                                        <th>OrderID</th>
-                                        <th>Store Name</th>
-                                        <th>User</th>
-                                        <th>Date & Time</th>
-                                        <th>Schedule Type</th>
-                                        <th>Cost</th>
-                                        <th>Status</th>
-                                        <th>Payment Status</th>
-                                        <th>Payment Mode</th>
-                                        <th>Action</th>
-                                    </tr>
-                                    </tfoot>
                                 </table>
 
                             </div>

@@ -44,10 +44,18 @@ class SendBulkNotifications implements ShouldQueue
             return $id->user_id;
         });
 
-        $tokens=Customer::whereIn('id', $user_ids)
-            ->where('notification_token', '!=', null)
-            ->select('notification_token')
-            ->get();
+        if(!empty($user_ids)){
+            $tokens=Customer::whereIn('id', $user_ids)
+                ->where('notification_token', '!=', null)
+                ->select('notification_token')
+                ->get();
+        }else{
+            $tokens=Customer::
+                where('notification_token', '!=', null)
+                ->select('notification_token')
+                ->get();
+        }
+
 
         Notification::create([
             'user_id'=>0,

@@ -32,11 +32,11 @@ class OrderController extends Controller
          }else{
              $orders =Order::where('id', '>=', 0);
          }
-            if($request->fromdate)
-                $orders=$orders->where('created_at', '>=', $request->fromdate.'00:00:00');
+         if($request->fromdate)
+            $orders=$orders->where('delivery_date', '>=', $request->fromdate.'00:00:00');
 
-            if($request->todate)
-                $orders=$orders->where('created_at', '<=', $request->todate.'23:59:50');
+         if($request->todate)
+                $orders=$orders->where('delivery_date', '<=', $request->todate.'23:59:50');
 
             if($request->status)
                 $orders=$orders->where('status', $request->status);
@@ -45,13 +45,17 @@ class OrderController extends Controller
                 $orders=$orders->where('payment_status', $request->payment_status);
          if($request->store_id)
               $orders=$orders->where('store_id', $request->store_id);
+         if($request->rider_id)
+             $orders=$orders->where('rider_id', $request->rider_id);
 
-            if($request->ordertype)
-                $orders=$orders->orderBy('created_at', $request->ordertype);
-                $orders=$orders->orderBy('id', 'desc')->paginate(10);
-                $stores=User::where('status',1)->get();
+        if($request->ordertype)
+            $orders=$orders->orderBy('created_at', $request->ordertype);
+            $orders=$orders->orderBy('id', 'desc')->paginate(10);
+
+        $stores=User::where('id','>', 1)->get();
+        $riders=Rider::get();
 //var_dump($stores);die();
-        return view('admin.order.view',['orders'=>$orders,'stores'=>$stores]);
+        return view('admin.order.view',['orders'=>$orders,'stores'=>$stores,'riders'=>$riders]);
 
     }
 

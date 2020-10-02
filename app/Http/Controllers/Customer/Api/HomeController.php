@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Customer\Api;
 
 use App\Models\Banner;
+use App\Models\Cart;
 use App\Models\Category;
 use App\Models\Configuration;
 use App\Models\HomeSection;
@@ -19,6 +20,9 @@ class HomeController extends Controller
 
         $user=auth()->guard('customerapi')->user();
 
+        $cart=Cart::getUserCart($user);
+        $cart_total=$cart['total'];
+        $cart=$cart['cart'];
 
         $time=date('H:i:s');
 
@@ -157,7 +161,7 @@ class HomeController extends Controller
 
         }
 
-        return compact('banners', 'categories', 'user', 'sections', 'next_slot');
+        return compact('banners', 'categories', 'user', 'sections', 'next_slot', 'cart_total');
 
     }
 }

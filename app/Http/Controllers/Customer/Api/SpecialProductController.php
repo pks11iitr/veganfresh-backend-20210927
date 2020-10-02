@@ -29,6 +29,8 @@ class SpecialProductController extends Controller
         }
 
         $cart=Cart::getUserCart($user);
+        $cart_total=$cart['total'];
+        $cart=$cart['cart'];
         $specialproducts=$products->with('sizeprice')->paginate(20);
 
         foreach($specialproducts as $product) {
@@ -42,7 +44,8 @@ class SpecialProductController extends Controller
             'status'=>'success',
             'banner'=>$banner,
             'category'=>$category,
-            'data'=>$specialproducts
+            'data'=>$specialproducts,
+            'cart_total'=>$cart_total
         ];
     }
 //  new arrival
@@ -63,6 +66,8 @@ class SpecialProductController extends Controller
         }
 
         $cart=Cart::getUserCart($user);
+        $cart_total=$cart['total'];
+        $cart=$cart['cart'];
         $specialproducts=$products->with('sizeprice')->paginate(20);
 
         foreach($specialproducts as $product){
@@ -75,7 +80,8 @@ class SpecialProductController extends Controller
             'status'=>'success',
             'banner'=>$banner,
             'category'=>$category,
-            'data'=>$specialproducts
+            'data'=>$specialproducts,
+            'cart_total'=>$cart_total
         ];
     }
 //discounted Product
@@ -96,6 +102,8 @@ class SpecialProductController extends Controller
         }
 
         $cart=Cart::getUserCart($user);
+        $cart_total=$cart['total'];
+        $cart=$cart['cart'];
         $specialproducts=$products->with('sizeprice')->paginate(20);
 
         foreach($specialproducts as $product){
@@ -109,7 +117,8 @@ class SpecialProductController extends Controller
             'status'=>'success',
             'banner'=>$banner,
             'category'=>$category,
-            'data'=>$specialproducts
+            'data'=>$specialproducts,
+            'cart_total'=>$cart_total
         ];
     }
 

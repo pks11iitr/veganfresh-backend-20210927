@@ -78,6 +78,9 @@ class FavoriteProductController extends Controller
         $favoriteproducts=$user->favouriteProducts()->with('sizeprice')->where('products.isactive', true)->get();
 
         $cart=Cart::getUserCart($user);
+        $cart_total=$cart['total'];
+        $cart=$cart['cart'];
+
         //return compact('favoriteproducts');
         $i=0;
         foreach($favoriteproducts as $c) {
@@ -91,6 +94,7 @@ class FavoriteProductController extends Controller
 
         return [
             'favoriteproduct'=>$favoriteproducts,
+            'cart_total'=>$cart_total
         ];
 
     }

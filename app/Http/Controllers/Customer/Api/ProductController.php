@@ -55,6 +55,8 @@ class ProductController extends Controller
 
 
         $cart=Cart::getUserCart($user);
+        $cart_total=$cart['total'];
+        $cart=$cart['cart'];
 
         $products=$product->with(['sizeprice'])->paginate(20);
 
@@ -68,6 +70,7 @@ class ProductController extends Controller
         return [
             'status'=>'success',
             'data'=>$products,
+            'cart_total'=>$cart_total
         ];
     }
 
@@ -88,7 +91,8 @@ class ProductController extends Controller
         $products=$product->paginate(10);
 
         $cart=Cart::getUserCart($user);
-
+        $cart_total=$cart['total'];
+        $cart=$cart['cart'];
         foreach($products as $i=>$r)
         {
             $products[$i]['category_name']=$r->category[0]->name??0;
@@ -100,6 +104,7 @@ class ProductController extends Controller
         return [
             'status'=>'success',
             'data'=>$products,
+            'cart_total'=>$cart_total
 
         ];
     }
@@ -134,6 +139,8 @@ class ProductController extends Controller
                 $totalcount=$ratings['one']+$ratings['two']+$ratings['three']+$ratings['four']+$ratings['five'];
             }
         $cart=Cart::getUserCart($user);
+        $cart_total=$cart['total'];
+        $cart=$cart['cart'];
         foreach($product->sizeprice as $size)
             $size->quantity=$cart[$size->id]??0;
             $productdetails=array(
@@ -156,6 +163,7 @@ class ProductController extends Controller
         return [
             'status'=>'success',
             'data'=>$productdetails,
+            'cart_total'=>$cart_total
 
         ];
     }

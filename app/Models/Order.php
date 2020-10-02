@@ -79,6 +79,10 @@ class Order extends Model
     }
 
 
+    public function returned(){
+        return $this->hasMany('App\Models\ReturnProduct', 'order_id');
+    }
+
 
 
 }
