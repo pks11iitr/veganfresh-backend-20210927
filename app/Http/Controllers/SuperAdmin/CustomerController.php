@@ -5,6 +5,7 @@ namespace App\Http\Controllers\SuperAdmin;
 use App\Http\Controllers\Controller;
 use App\Models\Customer;
 use App\Models\Notification;
+use App\Services\Notification\FCMNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Storage;
@@ -83,6 +84,7 @@ class CustomerController extends Controller
       function send_message(Request $request)
         {
 
+            $customer=Customer::findOrFail($request->custid);
         $cusid=$request->cusid;
         $title=$request->title;
         $des=$request->des;
@@ -93,6 +95,8 @@ class CustomerController extends Controller
                       'type'=>'individual'
                       ]);
          if($Notification){
+             FCMNotification::sendNotification($customer->notification_token, $title, $des);
+
            return response()->json(['users' => $Notification], 200);
        }else{
               return response()->json(['msg' => 'No result found!'], 404);
