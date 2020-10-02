@@ -51,6 +51,7 @@
                                     <thead>
                                     <tr>
                                         <th>Name</th>
+                                        <th>Store</th>
                                         <th>Isactive</th>
                                         <th>Action</th>
                                     </tr>
@@ -59,6 +60,7 @@
                                     @foreach($arealists as $arealist)
                                         <tr>
                                             <td>{{$arealist->name}}</td>
+                                            <td>{{$arealist->store->name??''}}</td>
                                             <td>
                                                 @if($arealist->isactive==1){{'Yes'}}
                                                 @else{{'No'}}

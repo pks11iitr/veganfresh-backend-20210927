@@ -52,6 +52,18 @@
                                             </div>
                                         </div>
 
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Mapp Store</label>
+                                                <select class="form-control" name="store_id" required>
+                                                    <option value="" >Select</option>
+                                                    @foreach($stores as $store)
+                                                        <option value="{{$store->id}}" @if($arealist->store_id==$store->id){{'selected'}}@endif>{{$store->name}}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+
                                     </div>
                                 </div>
                                 <!-- /.card-body -->
