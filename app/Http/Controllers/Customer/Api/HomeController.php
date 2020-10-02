@@ -20,6 +20,9 @@ class HomeController extends Controller
 
         $user=auth()->guard('customerapi')->user();
 
+        $cart=Cart::getUserCart($user);
+        $cart_total=$cart['total'];
+        $cart=$cart['cart'];
 
         $time=date('H:i:s');
 
@@ -157,10 +160,6 @@ class HomeController extends Controller
             $sections[]=$new_sec;
 
         }
-
-        $cart=Cart::getUserCart($user);
-        $cart_total=$cart['total'];
-        $cart=$cart['cart'];
 
         return compact('banners', 'categories', 'user', 'sections', 'next_slot', 'cart_total');
 

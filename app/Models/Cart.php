@@ -23,7 +23,10 @@ class Cart extends Model
 
     public static function getUserCart($user){
         if(!$user)
-            return [];
+            return [
+                'cart'=>[],
+                'cart_total'=>0
+            ];
         $cart=[];
         $total=0;
         $items=Cart::with(['product', 'sizeprice'])
