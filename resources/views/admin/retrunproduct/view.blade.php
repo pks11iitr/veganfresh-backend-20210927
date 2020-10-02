@@ -24,7 +24,7 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-12">
-                        <div class="card card-primary">
+                        <div class="card">
                             <div class="card-header">
                                     <h3 class="card-title">Retrun Product</h3>
 
@@ -45,15 +45,16 @@
                                                             <option value="{{$store->id}}" {{request('store_id')==$store->id?'selected':''}}>{{ $store->name }}</option>                                    @endforeach
 
                                                     </select>
-                                                    <select id="rider_id" name="rider_id" class="form-control" >
-                                                        <option value="" {{ request('store_id')==''?'selected':''}}>Select Rider</option>
-                                                        @foreach($riders as $rider)
-                                                            <option value="{{$rider->id}}" {{request('rider_id')==$rider->id?'selected':''}}>{{ $rider->name }}</option>                                    @endforeach
-
-                                                    </select>
 
                                                 </div>
+                                                <div class="col-4">
+                                                <select id="rider_id" name="rider_id" class="form-control" >
+                                                    <option value="" {{ request('store_id')==''?'selected':''}}>Select Rider</option>
+                                                    @foreach($riders as $rider)
+                                                        <option value="{{$rider->id}}" {{request('rider_id')==$rider->id?'selected':''}}>{{ $rider->name }}</option>                                    @endforeach
 
+                                                </select>
+                                                </div>
                                                 <div class="col-4">
                                                     <input  id="fullname"  class="form-control" name="fromdate" placeholder=" search name" value="{{request('fromdate')}}"  type="date" />
                                                 </div><br><br>

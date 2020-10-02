@@ -28,7 +28,12 @@ class ReturnProductController extends Controller
 
             if($request->store_id)
                 $returnproducts=$returnproducts->where('store_id', $request->store_id);
-            $returnproducts=$returnproducts->orderBy('id', 'desc')->paginate(10);
+
+        if($request->rider_id)
+            $returnproducts=$returnproducts->where('rider_id', $request->rider_id);
+
+
+        $returnproducts=$returnproducts->orderBy('id', 'desc')->paginate(10);
             $stores=User::where('id','>', 1)->get();
             $riders=Rider::get();
 
