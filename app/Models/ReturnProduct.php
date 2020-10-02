@@ -14,7 +14,9 @@ class ReturnProduct extends Model
         return $this->belongsTo('App\Models\Order', 'order_id');
     }
 
-
+    public function storename(){
+        return $this->belongsTo('App\Models\User', 'store_id');
+    }
     public function size(){
 
         return $this->belongsTo('App\Models\Size', 'size_id');

@@ -14,7 +14,7 @@ class Order extends Model
      */
     protected $table='orders';
 
-    protected $fillable=[ 'refid', 'total_cost', 'status', 'payment_status', 'payment_mode', 'order_details_completed', 'booking_date', 'booking_time', 'user_id', 'name', 'email', 'mobile', 'address', 'lat', 'lang', 'is_instant', 'use_wallet', 'use_points', 'balance_used', 'points_used','schedule_type','order_place_state','coupon_applied', 'coupon_discount', 'delivery_charge', 'delivery_date', 'delivery_slot', 'delivered_at', 'cashback_given'];
+    protected $fillable=[ 'refid', 'total_cost', 'status', 'payment_status', 'payment_mode', 'order_details_completed', 'booking_date', 'booking_time', 'user_id', 'name', 'email', 'mobile', 'address', 'lat', 'lang', 'is_instant', 'use_wallet', 'use_points', 'balance_used', 'points_used','schedule_type','order_place_state','coupon_applied', 'coupon_discount', 'delivery_charge', 'delivery_date', 'delivery_slot', 'delivered_at', 'cashback_given','store_id'];
 
     public function details(){
         return $this->hasMany('App\Models\OrderDetail', 'order_id');
@@ -22,6 +22,9 @@ class Order extends Model
 
     public function customer(){
         return $this->belongsTo('App\Models\Customer', 'user_id');
+    }
+    public function storename(){
+        return $this->belongsTo('App\Models\User', 'store_id');
     }
 
     public function rider(){
