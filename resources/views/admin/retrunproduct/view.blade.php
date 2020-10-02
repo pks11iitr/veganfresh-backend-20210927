@@ -40,9 +40,15 @@
                                                 <div class="col-4">
 
                                                     <select id="store_id" name="store_id" class="form-control" >
-                                                        <option value="" {{ request('store_id')==''?'selected':''}}>Please select</option>
+                                                        <option value="" {{ request('store_id')==''?'selected':''}}>Select Store</option>
                                                         @foreach($stores as $store)
                                                             <option value="{{$store->id}}" {{request('store_id')==$store->id?'selected':''}}>{{ $store->name }}</option>                                    @endforeach
+
+                                                    </select>
+                                                    <select id="rider_id" name="rider_id" class="form-control" >
+                                                        <option value="" {{ request('store_id')==''?'selected':''}}>Select Rider</option>
+                                                        @foreach($riders as $rider)
+                                                            <option value="{{$rider->id}}" {{request('rider_id')==$rider->id?'selected':''}}>{{ $rider->name }}</option>                                    @endforeach
 
                                                     </select>
 
@@ -69,7 +75,8 @@
                                     <thead>
                                     <tr>
                                         <th>OrderID</th>
-                                        <th>Store Name</th>
+                                        <th>Store</th>
+                                        <th>Rider</th>
                                         <th>Item</th>
                                         <th>Size</th>
                                         <th>Cost</th>
