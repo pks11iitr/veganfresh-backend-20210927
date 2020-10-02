@@ -35,6 +35,12 @@ Route::group(['middleware'=>['auth', 'acl'], 'is'=>'admin'], function(){
     Route::get('/dashboard', 'SuperAdmin\DashboardController@index')->name('home');
 
 //****************************************hallobasket********************************************
+    Route::group(['prefix'=>'configurations'], function(){
+        Route::get('/','SuperAdmin\ConfigurationController@index')->name('configurations.list');
+        Route::post('/','SuperAdmin\ConfigurationController@update');
+    });
+
+
    Route::group(['prefix'=>'banners'], function(){
         Route::get('/','SuperAdmin\BannerController@index')->name('banners.list');
         Route::get('create','SuperAdmin\BannerController@create')->name('banners.create');

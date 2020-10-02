@@ -50,6 +50,8 @@ $api->get('product-reviews/{id}', ['as'=>'product.reviews', 'uses'=>'Customer\Ap
 
 $api->get('area-list', ['as'=>'area.list', 'uses'=>'Customer\Api\CustomerAddressController@getAreaList']);
 
+$api->get('contacts', ['as'=>'contact.info', 'uses'=>'Customer\Api\ConfigurationController@contact']);
+
 
 
 $api->group(['middleware' => ['customer-auth']], function ($api) {
