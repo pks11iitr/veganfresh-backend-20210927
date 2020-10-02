@@ -35,6 +35,7 @@ class ComplaintController extends Controller
             ];
 
         $request->validate([
+            'category'=>'required|max:150',
             'subject'=>'required|max:200',
             'description'=>'required|max:1500'
         ]);
@@ -43,6 +44,7 @@ class ComplaintController extends Controller
         if($complaint=Complaint::create([
             'user_id'=>$user->id,
             'subject'=>$request->subject,
+            'category'=>$request->category,
             'refid'=>'C'.env('MACHINE_ID').time()
         ])){
 

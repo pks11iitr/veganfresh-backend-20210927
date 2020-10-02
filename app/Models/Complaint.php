@@ -8,7 +8,7 @@ class Complaint extends Model
 {
     protected $table='complaints';
 
-	protected $fillable=['user_id', 'subject', 'refid'];
+	protected $fillable=['user_id', 'subject', 'refid', 'category'];
 
  public function customer(){
         return $this->belongsTo('App\Models\Customer', 'user_id');
