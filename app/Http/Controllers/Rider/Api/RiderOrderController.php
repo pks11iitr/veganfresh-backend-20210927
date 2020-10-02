@@ -290,6 +290,7 @@ class RiderOrderController extends Controller
         $order=Order::with(['details'=>function($details)use($itemids){
             $details->whereIn('details.id', $itemids);
         }])
+            ->where('status', 'dispatched')
             ->where('rider_id', $user->id)
             ->find($order_id);
 
