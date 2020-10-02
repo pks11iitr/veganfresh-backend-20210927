@@ -17,4 +17,25 @@ class ConfigurationController extends Controller
         ];
 
     }
+
+    public function complaintcategory(Request $request){
+
+        $categories=Configuration::whereIn('param', ['complaints_categories'])
+            ->select('param', 'value')->first();
+
+        $list=[];
+        if($categories->value??null){
+            $categories=explode('**', $categories->value);
+            foreach($categories as $cat)
+                $list[]=['name'=>$cat];
+        }
+
+
+
+        return [
+            'status'=>'success',
+            'data'=>compact('list')
+        ];
+
+    }
 }
