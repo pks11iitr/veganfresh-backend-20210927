@@ -42,7 +42,7 @@ class TimeSlot extends Model
             foreach($timeslot as $ts){
                 if($ts->slot_capacity > ($availability[$ts->id]??0)){
 
-                       return ['slot_id'=>$ts->id,  'next_slot'=>$text.' '.$ts->from_time.' - '.$ts->to_time, 'date'=>$date];
+                       return ['slot_id'=>$ts->id,  'next_slot'=>$text.' '.$ts->name, 'date'=>$date];
 
                 }
             }
@@ -93,7 +93,7 @@ class TimeSlot extends Model
                     //return ['slot_id'=>$ts->id,  'next_slot'=>$text.' '.$ts->from_time.' - '.$ts->to_time, 'date'=>$date];
                     $time_slots[]=[
                         'slot_id'=>$ts->id,
-                        'name'=>$text.' '.$ts->from_time.' - '.$ts->to_time
+                        'name'=>$text.' '.$ts->name
                     ];
 
 
