@@ -54,6 +54,8 @@ $api->get('contacts', ['as'=>'contact.info', 'uses'=>'Customer\Api\Configuration
 
 $api->get('complaint-category', ['as'=>'complaint.info', 'uses'=>'Customer\Api\ConfigurationController@complaintcategory']);
 
+$api->get('notifications', ['as'=>'notifications.list', 'uses'=>'Customer\Api\NotificationController@index']);
+
 
 
 $api->group(['middleware' => ['customer-auth']], function ($api) {
