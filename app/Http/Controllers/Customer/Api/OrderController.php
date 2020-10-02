@@ -192,9 +192,25 @@ class OrderController extends Controller
 
         $timeslot=TimeSlot::getNextDeliverySlot();
 
+        $timeslot_list=TimeSlot::getAvailableTimeSlotsList();
+
         $cost=0;
         $savings=0;
+        $itemdetails=[];
         foreach($order->details as $detail){
+            $itemdetails[]=[
+                'name'=>$detail->name??'',
+                'image'=>$detail->image??'',
+                'company'=>$detail->entity->company??'',
+                'price'=>$detail->price,
+                'cut_price'=>$detail->cut_price,
+                'quantity'=>$detail->quantity,
+                'size'=>$detail->size->name??'',
+                'item_id'=>$detail->entity_id,
+                //'show_return'=>($detail->status=='delivered'?1:0),
+                //'show_cancel'=>in_array($detail->status, ['confirmed'])?1:0,
+                'show_review'=>isset($reviews[$detail->entity_id])?0:1
+            ];
             $cost=$cost+$detail->price*$detail->quantity;
             $savings=$savings+($detail->cut_price-$detail->price)*$detail->quantity;
         }
@@ -225,7 +241,7 @@ class OrderController extends Controller
 
         return [
             'status'=>'success',
-            'data'=>compact('prices', 'delivery_address', 'cashback', 'wallet_balance', 'timeslot')
+            'data'=>compact('prices', 'delivery_address', 'cashback', 'wallet_balance', 'timeslot', 'itemdetails', 'timeslot_list')
         ];
 
 
@@ -253,7 +269,21 @@ class OrderController extends Controller
 
         $cost=0;
         $savings=0;
+        $itemdetails=[];
         foreach($order->details as $detail){
+            $itemdetails[]=[
+                'name'=>$detail->name??'',
+                'image'=>$detail->image??'',
+                'company'=>$detail->entity->company??'',
+                'price'=>$detail->price,
+                'cut_price'=>$detail->cut_price,
+                'quantity'=>$detail->quantity,
+                'size'=>$detail->size->name??'',
+                'item_id'=>$detail->entity_id,
+                //'show_return'=>($detail->status=='delivered'?1:0),
+                //'show_cancel'=>in_array($detail->status, ['confirmed'])?1:0,
+                'show_review'=>isset($reviews[$detail->entity_id])?0:1
+            ];
             $cost=$cost+$detail->price*$detail->quantity;
             $savings=$savings+($detail->cut_price-$detail->price)*$detail->quantity;
         }
@@ -287,7 +317,7 @@ class OrderController extends Controller
 
             'status'=>'success',
             'message'=>'Discount of Rs. '.$discount.' Applied Successfully',
-            'prices'=>$prices
+            'prices'=>$prices,
         ];
 
 
