@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Customer\Api;
 
 use App\Models\Banner;
+use App\Models\Cart;
 use App\Models\Category;
 use App\Models\Configuration;
 use App\Models\HomeSection;
@@ -157,7 +158,11 @@ class HomeController extends Controller
 
         }
 
-        return compact('banners', 'categories', 'user', 'sections', 'next_slot');
+        $cart=Cart::getUserCart($user);
+        $cart_total=$cart['total'];
+        $cart=$cart['cart'];
+
+        return compact('banners', 'categories', 'user', 'sections', 'next_slot', 'cart_total');
 
     }
 }
