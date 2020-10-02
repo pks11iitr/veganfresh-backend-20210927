@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Customer\Api;
 use App\Models\BookingSlot;
 use App\Models\Cart;
 use App\Models\Clinic;
+use App\Models\Configuration;
 use App\Models\Coupon;
 use App\Models\Customer;
 use App\Models\CustomerAddress;
@@ -88,7 +89,9 @@ class OrderController extends Controller
         }
         $refid=env('MACHINE_ID').time();
 
-        $delivery_charge=$user->isMembershipActive()?config('my-config')['delivery_charge']:0;
+        $delivery_charge=Configuration::where('param', 'delivery_charge')->first();
+
+        $delivery_charge=$user->isMembershipActive()?0:($delivery_charge->value??0);
 
         $order=Order::create([
             'user_id'=>auth()->guard('customerapi')->user()->id,
@@ -197,8 +200,10 @@ class OrderController extends Controller
         }
 
 
+
+        $delivery_charge=Configuration::where('param', 'delivery_charge')->first();
         if(!$user->isMembershipActive()){
-            $order->delivery_charge=config('my-config.delivery_charge');
+            $order->delivery_charge=$delivery_charge->value??0;
         }else{
             $order->delivery_charge=0;
         }

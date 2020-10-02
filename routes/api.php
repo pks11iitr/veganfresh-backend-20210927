@@ -50,6 +50,10 @@ $api->get('product-reviews/{id}', ['as'=>'product.reviews', 'uses'=>'Customer\Ap
 
 $api->get('area-list', ['as'=>'area.list', 'uses'=>'Customer\Api\CustomerAddressController@getAreaList']);
 
+$api->get('contacts', ['as'=>'contact.info', 'uses'=>'Customer\Api\ConfigurationController@contact']);
+
+$api->get('complaint-category', ['as'=>'complaint.info', 'uses'=>'Customer\Api\ConfigurationController@complaintcategory']);
+
 
 
 $api->group(['middleware' => ['customer-auth']], function ($api) {
