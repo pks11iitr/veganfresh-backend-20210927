@@ -32,6 +32,9 @@ class OfferProductController extends Controller
               $offerproduct=Product::active()->has('offercategory');
         }
         $cart=Cart::getUserCart($user);
+        $cart_total=$cart['total'];
+        $cart=$cart['cart'];
+
         $offerproducts=$offerproduct->with('sizeprice')->paginate(20);
 
         foreach($offerproducts as $product){
@@ -46,7 +49,8 @@ class OfferProductController extends Controller
             'status'=>'success',
             'banner'=>$banner,
             'offercategory'=>$offercategory,
-            'data'=>$offerproducts
+            'data'=>$offerproducts,
+            'cart_total'=>$cart_total
         ];
     }
 
@@ -88,6 +92,9 @@ class OfferProductController extends Controller
         }
 
         $cart=Cart::getUserCart($user);
+        $cart_total=$cart['total'];
+        $cart=$cart['cart'];
+
         $offerproducts=$offerproduct->with('sizeprice')->paginate(20);
 
         foreach($offerproducts as $product){
@@ -102,7 +109,9 @@ class OfferProductController extends Controller
             'status'=>'success',
             'banner'=>$banner,
             'category'=>$category,
-            'data'=>$offerproducts
+            'data'=>$offerproducts,
+            'cart_total'=>$cart_total
+
         ];
     }
 

@@ -25,6 +25,7 @@ class Cart extends Model
         if(!$user)
             return [];
         $cart=[];
+        $total=0;
         $items=Cart::with(['product', 'sizeprice'])
             ->where('user_id', $user->id)
             ->get();
@@ -33,9 +34,10 @@ class Cart extends Model
                 $item->delete();
             }else{
                 $cart[$item->size_id]=$item->quantity;
+                $total=$total+$item->quantity;
             }
         }
-        return $cart;
+        return compact('cart', 'total');
     }
 
 

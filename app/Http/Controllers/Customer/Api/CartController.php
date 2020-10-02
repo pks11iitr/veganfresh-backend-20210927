@@ -68,6 +68,8 @@ class CartController extends Controller
             ->get();
 
         $cart=Cart::getUserCart($user);
+        $cart_total=$cart['total'];
+        $cart=$cart['cart'];
         foreach($products as $product){
             foreach($product->sizeprice as $size)
                 $size->quantity=$cart[$size->id]??0;
@@ -75,7 +77,8 @@ class CartController extends Controller
         }
         return [
             'message'=>'success',
-            'product'=>$product
+            'product'=>$product,
+            'cart_total'=>$cart_total
         ];
 
     }
