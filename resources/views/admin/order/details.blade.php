@@ -71,7 +71,10 @@
                                     <td>Payment Mode</td><td>{{$order->payment_mode}}</td>
                                 </tr>
                                 <tr>
-                                    <td>Delivery Time Mode</td><td>{{$order->delivered_at?date('d/m/Y h:i a', strtotime($order->delivered_at)):'Not Yet Delivered'}}</td>
+                                    <td>Delivery Schedule</td><td>{{date('d/m/Y', strtotime($order->delivery_date)).' '. ($order->timeslot->name??'')}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Delivery Time</td><td>{{$order->delivered_at?date('d/m/Y h:i a', strtotime($order->delivered_at)):'Not Yet Delivered'}}</td>
                                 </tr>
                                 <tr>
                                     <td>Status</td>
@@ -136,6 +139,30 @@
                                         <td>Quantity: {{$detail->quantity}}</td>
                                         <td>Rs. {{$detail->cost}}/Item</td>
                                         <td>Rs. {{$detail->cost*$detail->quantity}} Total</td>
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                                <tfoot>
+                                </tfoot>
+                            </table>
+                        </div>
+                        <div class="card-body">
+                            <table id="example2" class="table table-bordered table-hover">
+                                <thead>
+                                <tr>
+                                    <th>Returned Products</th>
+                                    {{--<th></th>--}}
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @foreach($order->returned as $detail)
+                                    <tr>
+                                        <td>{{$detail->name??''}}</td>
+                                        {{--<td>{{$detail->size->name??''}}</td>--}}
+                                        <td>Quantity: {{$detail->quantity}}</td>
+                                        <td>Rs. {{$detail->cost}}/Item</td>
                                     </tr>
                                 @endforeach
                                 </tbody>

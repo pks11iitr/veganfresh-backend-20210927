@@ -90,6 +90,7 @@
                                         <tr>
                                             <td>{{$returnproduct->order->refid??''}}</td>
                                             <td>{{$returnproduct->storename->name??''}}</td>
+                                            <td>{{$returnproduct->rider->name??''}}</td>
                                             <td>{{$returnproduct->name}}</td>
                                             <td>{{$returnproduct->size->size??''}}</td>
                                             <td>{{$returnproduct->price}}</td>
