@@ -82,6 +82,7 @@
                                         <th>Size</th>
                                         <th>Cost</th>
                                         <th>Returned Quantity</th>
+                                        <th>Reason</th>
                                         <th>Time</th>
                                     </tr>
                                     </thead>
@@ -95,6 +96,7 @@
                                             <td>{{$returnproduct->size->size??''}}</td>
                                             <td>{{$returnproduct->price}}</td>
                                             <td>{{$returnproduct->quantity}}</td>
+                                            <td>{{$returnproduct->reason}}</td>
                                             <td>{{$returnproduct->created_at}}</td>
                                         </tr
                                     @endforeach

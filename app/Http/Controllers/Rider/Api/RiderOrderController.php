@@ -353,6 +353,7 @@ class RiderOrderController extends Controller
                 'price'=>$d->price,
                 'cut_price'=>$d->cut_price,
                 'quantity'=>$request->items[$d->id],
+                'reason'=>$request->reason
 
             ]);
             if($d->quantity==$request->items[$d->id])
