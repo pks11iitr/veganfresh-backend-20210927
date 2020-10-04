@@ -10,6 +10,7 @@ use App\Models\Cart;
 use App\Models\Coupon;
 use App\Models\HomeBookingSlots;
 use App\Models\Order;
+use App\Models\OrderDetail;
 use App\Models\OrderStatus;
 use App\Models\RescheduleRequest;
 use App\Models\Therapy;
@@ -38,7 +39,18 @@ class PaymentController extends Controller
 
         //$timeslot=TimeSlot::getNextDeliverySlot();
 
-        $order=Order::with('details.entity')->where('user_id', $user->id)->where('status', 'pending')->find($id);
+        $order=Order::with(['details.entity', 'details.size'])
+            ->where('user_id', $user->id)
+            ->where('status', 'pending')
+            ->find($id);
+
+        foreach($order->details as $detail){
+            if(OrderDetail::removeOutOfStockItems($detail))
+                return [
+                    'status'=>'failed',
+                    'message'=>'Some items from your cart is not available'
+                ];
+        }
 
         if(!$order)
             return [
@@ -141,7 +153,7 @@ class PaymentController extends Controller
             $order->payment_mode='online';
             $order->save();
 
-            $order->changeDetailsStatus('confirmed');
+            //$order->changeDetailsStatus('confirmed');
 
             OrderStatus::create([
                 'order_id'=>$order->id,
@@ -149,6 +161,8 @@ class PaymentController extends Controller
             ]);
 
             Wallet::updatewallet($order->user_id, 'Paid For Order ID: '.$order->refid, 'DEBIT',$order->points_used, 'POINT', $order->id);
+
+            Order::deductInventory($order);
 
             Cart::where('user_id', $order->user_id)->delete();
 
@@ -200,6 +214,8 @@ class PaymentController extends Controller
                 Wallet::updatewallet($order->user_id, 'Paid For Order ID: '.$order->refid, 'DEBIT',$order->points_used, 'POINT', $order->id);
 
             Wallet::updatewallet($order->user_id, 'Paid For Order ID: '.$order->refid, 'DEBIT',$order->balance_used, 'CASH', $order->id);
+
+            Order::deductInventory($order);
 
             Cart::where('user_id', $order->user_id)->delete();
 
@@ -302,9 +318,12 @@ class PaymentController extends Controller
         if($order->balance_used > 0)
             Wallet::updatewallet($order->user_id, 'Paid For Order ID: '.$order->refid, 'DEBIT',$order->balance_used, 'CASH', $order->id);
 
+        Order::deductInventory($order);
+
         event(new OrderConfirmed($order));
 
         Cart::where('user_id', $order->user_id)->delete();
+
 
         return [
             'status'=>'success',
@@ -380,6 +399,8 @@ class PaymentController extends Controller
 
             if($order->balance_used > 0)
                 Wallet::updatewallet($order->user_id, 'Paid For Order ID: '.$order->refid, 'DEBIT',$order->balance_used, 'CASH', $order->id);
+
+            Order::deductInventory($order);
 
             Cart::where('user_id', $order->user_id)->delete();
 

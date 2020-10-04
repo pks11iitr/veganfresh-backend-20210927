@@ -77,17 +77,22 @@ class OrderController extends Controller
                 $product->where('isactive', true);
             })->get();
 
-        if(!$cartitems)
-            return [
-                'status'=>'failed',
-                'message'=>'Cart is empty'
-            ];
 
         $total_cost=0;
+        $remaining=[];
         foreach($cartitems as $item) {
+            if(Cart::removeOutOfStockItems($item))
+                continue;
+            $remaining[]=$item;
             $total_cost=$total_cost+($item->sizeprice->price??0)*$item->quantity;
-
         }
+
+        if(!$remaining)
+            return [
+                'status'=>'failed',
+                'message'=>'There is no item available in your cart'
+            ];
+
         $refid=env('MACHINE_ID').time();
 
         $delivery_charge=Configuration::where('param', 'delivery_charge')->first();
@@ -100,10 +105,9 @@ class OrderController extends Controller
             'status'=>'pending',
             'total_cost'=>$total_cost,
             'delivery_charge'=>$delivery_charge,
-
         ]);
 
-        foreach($cartitems as $item){
+        foreach($remaining as $item){
             // var_dump($item->product_id);die();
             OrderDetail::create([
                 'order_id'=>$order->id,
@@ -197,8 +201,11 @@ class OrderController extends Controller
 
         $cost=0;
         $savings=0;
+        //$remaining=[];
         $itemdetails=[];
         foreach($order->details as $detail){
+            if(OrderDetail::removeOutOfStockItems($detail))
+                continue;
             $itemdetails[]=[
                 'name'=>$detail->name??'',
                 'image'=>$detail->image??'',
@@ -216,7 +223,12 @@ class OrderController extends Controller
             $savings=$savings+($detail->cut_price-$detail->price)*$detail->quantity;
         }
 
-
+        if(empty($itemdetails)){
+            return [
+                'status'=>'failed',
+                'message'=>'There is no selected item available in stock'
+            ];
+        }
 
         $delivery_charge=Configuration::where('param', 'delivery_charge')->first();
         if(!$user->isMembershipActive()){
@@ -416,7 +428,9 @@ class OrderController extends Controller
                 'message'=>'Please login to continue'
             ];
 
-        $order=Order::where('user_id', $user->id)->find($id);
+        $order=Order::with(['details.entity', 'details.size'])
+        ->where('user_id', $user->id)
+            ->find($id);
         if(!$order)
             return [
                 'status'=>'failed',
@@ -454,6 +468,8 @@ class OrderController extends Controller
 
         $order->status='cancelled';
         $order->save();
+
+        Order::increaseInventory($order);
 
         return [
             'status'=>'success',
