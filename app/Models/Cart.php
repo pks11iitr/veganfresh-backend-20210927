@@ -33,12 +33,25 @@ class Cart extends Model
             ->where('user_id', $user->id)
             ->get();
         foreach ($items as $item){
+            if($item->product->stock_type=='quantity'){
+                if($item->product->stock < $item->quantity){
+                    $item->delete();
+                    continue;
+                }
+            }else{
+                if($item->sizeprice->stock < $item->quantity){
+                    $item->delete();
+                    continue;
+                }
+            }
             if($item->quantity < $item->sizeprice->min_qty || $item->quantity > $item->sizeprice->max_qty){
                 $item->delete();
-            }else{
-                $cart[$item->size_id]=$item->quantity;
-                $total=$total+$item->quantity;
+                continue;
             }
+
+            $cart[$item->size_id]=$item->quantity;
+            $total=$total+$item->quantity;
+
         }
         return compact('cart', 'total');
     }
