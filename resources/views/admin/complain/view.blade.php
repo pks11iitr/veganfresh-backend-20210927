@@ -25,7 +25,7 @@
         <div class="row">
           <div class="col-12">
             <div class="card">
-              <div class="card-header"> 
+              <div class="card-header">
                </div>
               <!-- /.card-header -->
               <div class="card-body">
@@ -35,6 +35,7 @@
                     <th>Name</th>
                     <th>Mobile</th>
                     <th>Complain No.</th>
+                    <th>Category</th>
                     <th>Subject</th>
                     <th>Date</th>
                    <th>Action</th>
@@ -46,6 +47,7 @@
 					  <td>{{$compalin->customer->name??''}}</td>
 					  <td>{{$compalin->customer->mobile??''}}</td>
 					  <td>{{$compalin->refid}}</td>
+					  <td>{{$compalin->category}}</td>
 					  <td>{{$compalin->subject}}</td>
 					  <td>{{$compalin->created_at}}</td>
                       <td><a href="{{route('complain.view',['id'=>$compalin->id])}}" class="btn btn-success">View</a></td>
