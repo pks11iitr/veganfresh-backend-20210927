@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Customer\Api;
 
+use App\Models\Banner;
 use App\Models\Cart;
+use App\Models\Category;
 use App\Models\Product;
 use App\Models\Size;
 use App\Models\TimeSlot;
@@ -85,29 +87,35 @@ class ProductController extends Controller
 //            ];
 
         if(!empty($request->search))
-            $product=Product::active()
-            ->with(['category', 'sizeprice'])
-            ->where('name', 'like', "%".$request->search."%");
-        $products=$product->paginate(10);
+            $banner=Banner::active()->select('id','image')->get();
+        $category=Category::active()->select('id','name','image')->get();
+            $products = Product::active()->where('name', 'like', "%".$request->search."%");
+//
+//            $product=Product::active()
+//            ->with(['category', 'sizeprice'])
+//            ->where('name', 'like', "%".$request->search."%");
 
         $cart=Cart::getUserCart($user);
         $cart_total=$cart['total'];
         $cart=$cart['cart'];
-        foreach($products as $i=>$r)
-        {
-            $products[$i]['category_name']=$r->category[0]->name??0;
-            foreach($products[$i]->sizeprice as $size){
+        $searchproducts=$products->with('sizeprice')->paginate(20);
+
+        foreach($searchproducts as $product){
+            foreach($product->sizeprice as $size){
                 $size->quantity=$cart[$size->id]??0;
-                $size->in_stocks=Size::getStockStatus($size, $r);
+                $size->in_stocks=Size::getStockStatus($size, $product);
             }
         }
+
         return [
             'status'=>'success',
-            'data'=>$products,
+            'banner'=>$banner,
+            'category'=>$category,
+            'data'=>$searchproducts,
             'cart_total'=>$cart_total
-
         ];
     }
+
     public function product_detail(Request $request,$id){
         $user=auth()->guard('customerapi')->user();
 
