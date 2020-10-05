@@ -103,24 +103,33 @@ class CartController extends Controller
             }
         }else{
             if($request->quantity>0){
-                if($cart->product->stock_type=='quantity'){
-                    if($cart->product->stock < $request->quantity){
-                        return [
-                            'status'=>'failed',
-                            'message'=>'Product is out of stock',
-                        ];
+                if($cart->product && $cart->size){
+                    if($cart->product->stock_type=='quantity'){
+                        if($cart->product->stock < $request->quantity){
+                            return [
+                                'status'=>'failed',
+                                'message'=>'Product is out of stock',
+                            ];
+                        }
+                    }else{
+                        if($cart->sizeprice->stock < $request->quantity){
+                            return [
+                                'status'=>'failed',
+                                'message'=>'Product is out of stock',
+                            ];
+                        }
                     }
+                    $cart->quantity=$request->quantity;
+                    $cart->size_id=$request->size_id;
+                    $cart->save();
                 }else{
-                    if($cart->sizeprice->stock < $request->quantity){
-                        return [
-                            'status'=>'failed',
-                            'message'=>'Product is out of stock',
-                        ];
-                    }
+                    $cart->delete();
+                    return [
+                        'status'=>'failed',
+                        'message'=>'Product is not available'
+                    ];
+
                 }
-                $cart->quantity=$request->quantity;
-                $cart->size_id=$request->size_id;
-                $cart->save();
             }else{
                 $cart->delete();
             }
