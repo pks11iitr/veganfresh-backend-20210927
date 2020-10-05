@@ -478,11 +478,11 @@ class OrderController extends Controller
 
     }
     public function downloadPDF($id){
-        $orders = Order::with('details')->find($id);
 
-        $pdf = PDF::loadView('admin.contenturl.invoice', compact('orders'));
+        $orders = Order::with(['details'])->find($id);
+        $pdf = PDF::loadView('admin.contenturl.invoice', compact('orders'))->setPaper('a4', 'portrait');
         return $pdf->download('invoice.pdf');
-
+       // return view('admin.contenturl.invoice',['orders'=>$orders]);
     }
 
 }
