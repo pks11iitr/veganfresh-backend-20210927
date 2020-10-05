@@ -288,7 +288,8 @@ class RiderOrderController extends Controller
         }
 
         $order=Order::with(['details'=>function($details)use($itemids){
-            $details->whereIn('details.id', $itemids);
+            $details->with(['entity', 'size'])
+                ->whereIn('details.id', $itemids);
         }])
             ->where('status', 'dispatched')
             ->where('rider_id', $user->id)
@@ -313,7 +314,7 @@ class RiderOrderController extends Controller
         $details=[];
         foreach($order->details as $item){
             //if($item->order->rider_id==$user->id){
-            if($request->itemids[$item->id]>$item->quantity){
+            if($request->itemids[$item->id] > $item->quantity){
                 return [
                     'status'=>'failed',
                     'message'=>'Invalid Request'
@@ -353,6 +354,7 @@ class RiderOrderController extends Controller
                 'price'=>$d->price,
                 'cut_price'=>$d->cut_price,
                 'quantity'=>$request->items[$d->id],
+                'reason'=>$request->reason
 
             ]);
             if($d->quantity==$request->items[$d->id])
@@ -361,6 +363,8 @@ class RiderOrderController extends Controller
                 $d->quantity=$d->quantity - $request->items[$d->id];
                 $d->save();
             }
+
+            Order::increaseItemCount($d, $request->items[$d->id]);
         }
 
         //refund when total goes to 0
@@ -437,6 +441,8 @@ class RiderOrderController extends Controller
                     Wallet::updatewallet($order->user_id, 'Refund for Order ID: '.$order->refid, 'CREDIT',$prev_cashback-$points_used, 'CASH', $order->id);
             }
         }
+
+        Order::deductInventory($order);
 
         return [
 

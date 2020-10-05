@@ -69,7 +69,8 @@ class OrderController extends Controller
 
         $status=$request->status;
 
-        $order=Order::with('customer')->find($id);
+        $order=Order::with(['customer', 'details.entity', 'details.size'])
+            ->find($id);
 
         $old_status=$order->status;
 
@@ -85,6 +86,7 @@ class OrderController extends Controller
             $order->coupon_applied=null;
             $order->coupon_discount=0;
             $order->status=$status;
+
 
             if($order->payment_status=='paid'){
 
@@ -106,6 +108,9 @@ class OrderController extends Controller
                     Wallet::updatewallet($order->user_id, 'Amount added in wallet for order cancellation. Order ID: '.$order->refid,'Credit',$order->balance_used,'CASH',$order->id);
                 }
             }
+
+            Order::increaseInventory($order);
+
 
         }else {
             $order->status=$status;

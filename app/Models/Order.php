@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Order extends Model
 {
@@ -81,6 +82,47 @@ class Order extends Model
 
     public function returned(){
         return $this->hasMany('App\Models\ReturnProduct', 'order_id');
+    }
+
+
+    public static function deductInventory($order){
+
+        foreach($order->details as $detail){
+
+            if($detail->entity->stock_type=='quantity'){
+
+                Product::where('id', $detail->entity_id)
+                    ->update(['stock'=>DB::raw('stock-'.$detail->quantity)]);
+
+            }else{
+                Size::where('id', $detail->size_id)
+                    ->update(['stock'=>DB::raw('stock-'.$detail->quantity)]);
+            }
+        }
+    }
+
+
+    public static function increaseInventory($order){
+
+        foreach($order->details as $detail){
+
+                self::increaseItemCount($detail, $detail->quantity);
+
+        }
+    }
+
+    public static function increaseItemCount($detail, $i){
+
+        if($detail->entity->stock_type=='quantity'){
+
+            Product::where('id', $detail->entity_id)
+                ->update(['stock'=>DB::raw('stock+'.$i)]);
+
+        }else{
+            Size::where('id', $detail->size_id)
+                ->update(['stock'=>DB::raw('stock+'.$i)]);
+        }
+
     }
 
 
