@@ -11,7 +11,7 @@ class Msg91
 
     public static function send($mobile, $message){
 
-        return true;
+        //return true;
 
         $curl = curl_init();
 
