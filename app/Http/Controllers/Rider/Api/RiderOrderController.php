@@ -517,4 +517,43 @@ class RiderOrderController extends Controller
 
     }
 
+    public function returnorder(Request $request){
+        //  $user=auth()->guard('riderapi')->user();
+        $user=$request->user;
+        //  var_dump($user->id);die;
+        if(!$user)
+            return [
+                'status'=>'failed',
+                'message'=>'Please login to continue'
+            ];
+        $returnproducts = ReturnProduct::where(function ($returnproducts) use ($user) {
+
+            $returnproducts->where('rider_id',$user->id);
+        });
+        $returnproducts=$returnproducts->orderBy('id', 'desc')->get();
+      //  $returnproducts=ReturnProduct::where('rider_id',$user->id)
+                                   //   ->orderBy('id', 'desc')
+                                    //  ->get();
+        foreach ($returnproducts as $return)
+        {
+            $returnd[]=array(
+                "storename"=>$return->storename->name??'',
+                "ref_id"=>$return->ref_id,
+                "name"=>$return->name,
+                "price"=>$return->price,
+                "cut_price"=>$return->cut_price,
+                "size"=>$return->size->size,
+                "quantity"=>$return->quantity,
+                "image"=>$return->image,
+                "created_at"=>$return->created_at,
+            );
+
+        }
+        return [
+            'status'=>'success',
+            'data'=>$returnd
+        ];
+
+    }
+
 }
