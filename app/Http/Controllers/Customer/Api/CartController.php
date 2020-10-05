@@ -37,45 +37,69 @@ class CartController extends Controller
             ];
         }
 
-        $cart = Cart::with(['product'=>function($products){
-                $products->where('isactive', true);
-            }, 'sizeprice'=>function($size){
-                $size->where('isactive', true);
-            }])
+        $cart = Cart::with([
+                        'product'=>function($products){
+                            $products->where('isactive', true);
+                        },
+                        'sizeprice'=>function($size){
+                            $size->where('isactive', true);
+                        }])
             ->where('product_id',$request->product_id)
             ->where('size_id',$request->size_id)
             ->where('user_id', $user->id)
             ->first();
 
+
         if(!$cart){
             if($request->quantity>0){
-                if($cart->product->stock_type=='quantity'){
-                    if($cart->product->stock < $request->quantity){
-                        return [
-                            'status'=>'failed',
-                            'message'=>'Product is out of stock',
-                        ];
-                    }
+
+                $product=Product::active()
+                    ->with(['sizeprice'=>function($size) use($request){
+
+                        $size->where('product_prices.isactive', true)
+                            ->where('product_prices.id', $request->size_id);
+
+                    }])
+                    ->find($request->product_id);
+
+                if($product && $product->sizeprice[0]){
+                        if($product->stock_type=='quantity'){
+                            if($product->stock < $request->quantity){
+                                return [
+                                    'status'=>'failed',
+                                    'message'=>'Product is out of stock',
+                                ];
+                            }
+                        }else{
+                            if($product->sizeprice[0]->stock < $request->quantity){
+                                return [
+                                    'status'=>'failed',
+                                    'message'=>'Product is out of stock',
+                                ];
+                            }
+                        }
+                        $savelaterproduct=SaveLaterProduct::where('product_id',$request->product_id)
+                            ->where('size_id',$request->size_id)
+                            ->where('user_id',$user->id)->first();
+                        if($savelaterproduct) {
+                            $savelaterproduct->delete();
+                        }
+                        Cart::create([
+                            'product_id'=>$request->product_id,
+                            'quantity'=>$request->quantity,
+                            'user_id'=>$user->id,
+                            'size_id'=>$request->size_id,
+                        ]);
                 }else{
-                    if($cart->sizeprice->stock < $request->quantity){
-                        return [
-                            'status'=>'failed',
-                            'message'=>'Product is out of stock',
-                        ];
-                    }
+
+                    return [
+                        'status'=>'failed',
+                        'message'=>'Product is not available'
+                    ];
+
                 }
-                $savelaterproduct=SaveLaterProduct::where('product_id',$request->product_id)
-                    ->where('size_id',$request->size_id)
-                    ->where('user_id',$user->id)->first();
-                if($savelaterproduct) {
-                    $savelaterproduct->delete();
-                }
-                Cart::create([
-                    'product_id'=>$request->product_id,
-                    'quantity'=>$request->quantity,
-                    'user_id'=>$user->id,
-                    'size_id'=>$request->size_id,
-                ]);
+
+
             }
         }else{
             if($request->quantity>0){
@@ -115,6 +139,7 @@ class CartController extends Controller
 
         }
         return [
+            'status'=>'success',
             'message'=>'success',
             'product'=>$product,
             'cart_total'=>$cart_total
