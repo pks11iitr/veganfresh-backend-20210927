@@ -103,7 +103,7 @@ class CartController extends Controller
             }
         }else{
             if($request->quantity>0){
-                if($cart->product && $cart->size){
+                if($cart->product && $cart->sizeprice){
                     if($cart->product->stock_type=='quantity'){
                         if($cart->product->stock < $request->quantity){
                             return [
