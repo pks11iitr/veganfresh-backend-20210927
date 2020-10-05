@@ -44,6 +44,12 @@ class PaymentController extends Controller
             ->where('status', 'pending')
             ->find($id);
 
+        if(!$order)
+            return [
+                'status'=>'failed',
+                'message'=>'No record found'
+            ];
+
         foreach($order->details as $detail){
             if(OrderDetail::removeOutOfStockItems($detail))
                 return [
