@@ -89,7 +89,13 @@ class HomeController extends Controller
         //return $productids;
         //DB::enableQueryLog();
         $productsobj=Product::active()
-            ->with(['sizeprice','reviews_count'])
+            ->with(['sizeprice'=>function($size){
+                    $size->where('product_prices.isactive', true);
+                },'reviews_count'
+            ])
+            ->whereHas('sizeprice', function($size){
+                $size->where('product_prices.isactive', true);
+            })
             ->whereIn('id', $productids)
             ->get();
         //return $productsobj;
@@ -129,11 +135,13 @@ class HomeController extends Controller
                     $new_sec['subcategory']=[];
                     $new_sec['products']=[];
                     foreach($section->entities as $entity){
-                        $entity1=$entity->entity;
-                        $entity1->sizeprice=$products[$entity->entity_id]['sizeprice']??[];
-                        $entity1->ratings=number_format($products[$entity->entity_id]['ratings']??0, 1);
-                        $entity1->reviews=$products[$entity->entity_id]['reviews']??0;
-                        $new_sec['products'][]=$entity1;
+                        if(isset($products[$entity->entity_id])){
+                            $entity1=$entity->entity;
+                            $entity1->sizeprice=$products[$entity->entity_id]['sizeprice']??[];
+                            $entity1->ratings=number_format($products[$entity->entity_id]['ratings']??0, 1);
+                            $entity1->reviews=$products[$entity->entity_id]['reviews']??0;
+                            $new_sec['products'][]=$entity1;
+                        }
                     }
                 break;
                 case 'subcategory':

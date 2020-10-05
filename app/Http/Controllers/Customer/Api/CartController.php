@@ -103,24 +103,33 @@ class CartController extends Controller
             }
         }else{
             if($request->quantity>0){
-                if($cart->product->stock_type=='quantity'){
-                    if($cart->product->stock < $request->quantity){
-                        return [
-                            'status'=>'failed',
-                            'message'=>'Product is out of stock',
-                        ];
+                if($cart->product && $cart->sizeprice){
+                    if($cart->product->stock_type=='quantity'){
+                        if($cart->product->stock < $request->quantity){
+                            return [
+                                'status'=>'failed',
+                                'message'=>'Product is out of stock',
+                            ];
+                        }
+                    }else{
+                        if($cart->sizeprice->stock < $request->quantity){
+                            return [
+                                'status'=>'failed',
+                                'message'=>'Product is out of stock',
+                            ];
+                        }
                     }
+                    $cart->quantity=$request->quantity;
+                    $cart->size_id=$request->size_id;
+                    $cart->save();
                 }else{
-                    if($cart->sizeprice->stock < $request->quantity){
-                        return [
-                            'status'=>'failed',
-                            'message'=>'Product is out of stock',
-                        ];
-                    }
+                    $cart->delete();
+                    return [
+                        'status'=>'failed',
+                        'message'=>'Product is not available'
+                    ];
+
                 }
-                $cart->quantity=$request->quantity;
-                $cart->size_id=$request->size_id;
-                $cart->save();
             }else{
                 $cart->delete();
             }
@@ -155,18 +164,24 @@ public function getCartDetails(Request $request){
             'message'=>'Please login to continue'
         ];
     $cartitems=Cart::with(['product'=>function($products){
-        $products->where('isactive', true);
-    }, 'sizeprice'])
-        ->where('user_id', $user->id)
-        ->get();
-        $total=0;
-        $quantity=0;
-        $price_total=0;
-        $cartitem=array();
-        $savelater=array();
+        $products->where('products.isactive', true);
+    }, 'sizeprice'=>function($size){
+        $size->where('product_prices.isactive', true);
+    }])
+    ->where('user_id', $user->id)
+    ->get();
+
+    $total=0;
+    $quantity=0;
+    $price_total=0;
+    $cartitem=array();
+    $savelater=array();
 
         foreach($cartitems as $c){
-
+            if(!$c->product || !$c->sizeprice){
+                $c->delete();
+                continue;
+            }
             if($c->product->stock_type=='quantity'){
                 if($c->product->stock < $c->quantity){
                     $c->delete();
