@@ -90,10 +90,11 @@ class HomeController extends Controller
         //DB::enableQueryLog();
         $productsobj=Product::active()
             ->with(['sizeprice'=>function($size){
-                $size->where('product_prices.isactive');
-            },'reviews_count'])
+                    $size->where('product_prices.isactive', true);
+                },'reviews_count'
+            ])
             ->whereHas('sizeprice', function($size){
-                $size->where('product_prices.isactive');
+                $size->where('product_prices.isactive', true);
             })
             ->whereIn('id', $productids)
             ->get();
