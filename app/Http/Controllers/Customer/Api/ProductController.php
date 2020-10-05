@@ -35,8 +35,8 @@ class ProductController extends Controller
 
             $product=$product->whereHas('sizeprice', function($size) use($request){
 
-                if($request->price){
-                    $prices=explode('-', $request->price??'');
+                if($request->prices){
+                    $prices=explode('-', $request->prices??'');
                     $size->where('product_prices.price', '>=', intval($prices[0]??0))
                         ->where('product_prices.price', '<=', intval($prices[1]??0));
                 }
@@ -48,9 +48,9 @@ class ProductController extends Controller
         }
         if($request->brand){
             $brands=explode('#', $request->brand);
-            foreach($brands as $brand){
+            //foreach($brands as $brand){
                 $product=$product->whereIn('company', $brands);
-            }
+            //}
         }
 
 
