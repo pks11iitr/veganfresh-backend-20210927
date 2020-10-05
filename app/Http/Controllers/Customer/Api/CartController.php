@@ -168,16 +168,17 @@ public function getCartDetails(Request $request){
     }, 'sizeprice'=>function($size){
         $size->where('product_prices.isactive', true);
     }])
-        ->where('user_id', $user->id)
-        ->get();
-        $total=0;
-        $quantity=0;
-        $price_total=0;
-        $cartitem=array();
-        $savelater=array();
+    ->where('user_id', $user->id)
+    ->get();
+
+    $total=0;
+    $quantity=0;
+    $price_total=0;
+    $cartitem=array();
+    $savelater=array();
 
         foreach($cartitems as $c){
-            if($c->product && $c->sizeprice){
+            if(!$c->product || !$c->sizeprice){
                 $c->delete();
                 continue;
             }
