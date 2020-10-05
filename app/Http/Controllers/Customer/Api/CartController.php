@@ -164,8 +164,10 @@ public function getCartDetails(Request $request){
             'message'=>'Please login to continue'
         ];
     $cartitems=Cart::with(['product'=>function($products){
-        $products->where('isactive', true);
-    }, 'sizeprice'])
+        $products->where('products.isactive', true);
+    }, 'sizeprice'=>function($size){
+        $size->where('product_prices.isactive', true);
+    }])
         ->where('user_id', $user->id)
         ->get();
         $total=0;
@@ -175,7 +177,10 @@ public function getCartDetails(Request $request){
         $savelater=array();
 
         foreach($cartitems as $c){
-
+            if($c->product && $c->sizeprice){
+                $c->delete();
+                continue;
+            }
             if($c->product->stock_type=='quantity'){
                 if($c->product->stock < $c->quantity){
                     $c->delete();
