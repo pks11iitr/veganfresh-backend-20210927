@@ -45,6 +45,11 @@ class Cart extends Model
 
     public static function removeOutOfStockItems($item){
         //foreach ($items as $item){
+            if((!$item->product->isactive) || (!$item->sizeprice->isactive)){
+                $item->delete();
+                return true;
+            }
+
             if($item->product->stock_type=='quantity'){
                 if($item->product->stock < $item->quantity){
                     $item->delete();
