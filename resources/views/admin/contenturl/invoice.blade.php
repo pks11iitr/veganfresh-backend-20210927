@@ -10,7 +10,7 @@
 
                 #page_1 {position:relative; overflow: hidden;margin: 56px 0px 12px 33px;padding: 0px;border: none;width: 760px;}
                  .id1_1 {border:none;margin: 7px 0px 0px 0px;padding: 0px;border:none;width: 760px;overflow: hidden;}
-                .id1_11 {border:none;margin: 7px 0px 0px 0px;padding: 0px;border:none;width: 730px;overflow: hidden;}
+                .id1_11 {border:none;margin: 7px 0px 0px 0px;padding: 0px;border:none;width: 740px;overflow: hidden;}
                 #page_1 #id1_2 {border:none;margin: 431px 0px 0px 227px;padding: 0px;border:none;width: 533px;overflow: hidden;}
 
                 p1dimg1 {position:absolute;left:0px;z-index:-1;width:728px;height:74px;}
@@ -103,7 +103,7 @@
                 .tr11{height: 30px;}
                 .tr12{height: 53px;}
 
-                .t0{width: 727px;margin-top: 3px;font: 13px 'Arial';}
+                .t0{width: 740px;margin-top: 3px;font: 13px 'Arial';}
                 .t1{width: 727px;margin-top: 1px;font: 13px 'Arial';}
 
             </STYLE>
@@ -116,7 +116,7 @@
 
     <DIV class="id1_11" style="background-color: #3f4245">
         <P class="p1 ft0">Order # {{$orders->refid}}</P>
-        <P class="p1 ft0">Order Date: {{date('D d ,Y', strtotime($orders->delivery_date))}}</P>
+        <P class="p1 ft0" style="margin-bottom: 5px;">Order Date: {{date('D d ,Y', strtotime($orders->delivery_date))}}</P>
     </DIV>
     <DIV class="id1_1" >
 
