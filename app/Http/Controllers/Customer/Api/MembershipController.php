@@ -32,8 +32,8 @@ class MembershipController extends Controller
 
         $user=auth()->guard('customerapi')->user();
 
-        $memberships=Membership::active()->find($id);
-        if(!$memberships)
+        $membership=Membership::active()->find($id);
+        if(!$membership)
             return [
                 'status'=>'success',
                 'message'=>'This Plan does not exist'
@@ -42,13 +42,13 @@ class MembershipController extends Controller
         $subscription=Subscription::create([
 
             'user_id'=>$user,
-            'plan_id'=>$memberships->id,
+            'plan_id'=>$membership->id,
             'refid'=>env('MACHINE_ID').time()
 
         ]);
 
         $response=$this->pay->generateorderid([
-            "amount"=>($memberships->price)*100,
+            "amount"=>($membership->price)*100,
             "currency"=>"INR",
             "receipt"=>$subscription->refid,
         ]);
@@ -64,7 +64,7 @@ class MembershipController extends Controller
                 'data'=>[
                     'payment_done'=>'no',
                     'razorpay_order_id'=> $subscription->razorpay_order_id,
-                    'total'=>($memberships->price)*100,
+                    'total'=>($membership->price)*100,
 //                    'email'=>$order->email,
 //                    'mobile'=>$order->mobile,
                     'description'=>'Membership Subscription at SuzoDaily',
