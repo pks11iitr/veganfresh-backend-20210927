@@ -37,10 +37,10 @@
                 .p3{text-align: left;padding-left: 12px;margin-top: 0px;margin-bottom: 0px;white-space: nowrap;}
                 .p4{text-align: left;margin-top: 0px;margin-bottom: 0px;white-space: nowrap;}
                 .p5{text-align: right;padding-right: 65px;margin-top: 0px;margin-bottom: 0px;white-space: nowrap;}
-                .p6{text-align: right;padding-right: 1px;margin-top: 0px;margin-bottom: 0px;white-space: nowrap;}
+                .p6{text-align: center;padding-right: 1px;margin-top: 0px;margin-bottom: 0px;white-space: nowrap;}
                 .p7{text-align: right;padding-right: 50px;margin-top: 0px;margin-bottom: 0px;white-space: nowrap;}
                 .p8{text-align: right;padding-right: 7px;margin-top: 0px;margin-bottom: 0px;white-space: nowrap;}
-                .p9{text-align: left;padding-left: 36px;margin-top: 0px;margin-bottom: 0px;white-space: nowrap;}
+                .p9{text-align: left;padding-left: 0px;margin-top: 0px;margin-bottom: 0px;white-space: nowrap;}
                 .p10{text-align: right;padding-right: 8px;margin-top: 0px;margin-bottom: 0px;white-space: nowrap;}
                 .p11{text-align: left;padding-left: 20px;margin-top: 0px;margin-bottom: 0px;white-space: nowrap;}
                 .p12{text-align: right;padding-right: 77px;margin-top: 0px;margin-bottom: 0px;white-space: nowrap;}
@@ -104,7 +104,7 @@
                 .tr12{height: 53px;}
 
                 .t0{width: 740px;margin-top: 3px;font: 13px 'Arial';}
-                .t1{width: 727px;margin-top: 1px;font: 13px 'Arial';}
+                .t1{width: 550px;margin-top: 1px;font: 13px 'Arial';}
 
             </STYLE>
 </HEAD>
@@ -218,7 +218,8 @@
             <TR>
                 <TD class="tr8 td14"><P class="p2 ft3">Products</P></TD>
                 <TD colspan=2 class="tr8 td34"><P class="p5 ft3">SKU</P></TD>
-                <TD class="tr8 td35"><P class="p4 ft3">&nbsp; &nbsp;Price</P></TD>
+                <TD class="tr8 td35"><P class="p4 ft3">Price</P></TD>
+                <TD class="tr8 td35"><P class="p4 ft3">Saving</P></TD>
                 <TD class="tr8 td17"><P class="p6 ft3">Qty</P></TD>
                 <TD class="tr8 td18"><P class="p7 ft3">Tax</P></TD>
                 <TD class="tr8 td19"><P class="p8 ft6">Subtotal</P></TD>
@@ -227,6 +228,8 @@
             <TR>
                 <TD class="tr9 td36"><P class="p2 ft3">{{$product->name}}</P></TD>
                 <TD colspan=2 class="tr9 td37"><P class="p5 ft7">{{$product->size->size}}</P></TD>
+                <TD class="tr9 td38"><P class="p9 ft8">
+                        Rs. {{$product->price}}</P></TD>
                 <TD class="tr9 td38"><P class="p9 ft8">
                         Rs. {{$product->price}}</P></TD>
                 <TD class="tr9 td23"><P class="p6 ft3">{{$product->quantity}}</P></TD>
