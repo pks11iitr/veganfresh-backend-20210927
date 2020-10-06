@@ -56,6 +56,8 @@ $api->get('complaint-category', ['as'=>'complaint.info', 'uses'=>'Customer\Api\C
 
 $api->get('notifications', ['as'=>'notifications.list', 'uses'=>'Customer\Api\NotificationController@index']);
 
+$api->get('memberships', ['as'=>'membership.list', 'uses'=>'Customer\Api\MembershipController@index']);
+
 
 
 $api->group(['middleware' => ['customer-auth']], function ($api) {
@@ -107,6 +109,11 @@ $api->group(['middleware' => ['customer-auth']], function ($api) {
     $api->post('complaints', ['as'=>'complaints.list', 'uses'=>'Customer\Api\ComplaintController@create']);
     $api->get('complaint/{id}', ['as'=>'complaints.list', 'uses'=>'Customer\Api\ComplaintController@messages']);
     $api->post('complaint/{id}', ['as'=>'complaints.list', 'uses'=>'Customer\Api\ComplaintController@postMessage']);
+
+    //membership subscription
+    $api->post('subscribe/{id}', ['as'=>'membership.subscribe', 'uses'=>'Customer\Api\MembershipController@subscribe']);
+    $api->post('verify-subscription', ['as'=>'membership.verify', 'uses'=>'Customer\Api\MembershipController@verify']);
+
 
 
 
