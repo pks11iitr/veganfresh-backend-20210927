@@ -427,7 +427,7 @@ class RiderOrderController extends Controller
                 if($prev_paid-$payble_amount+$prev_balance-$balance_used)
                     Wallet::updatewallet($order->user_id, 'Refund for Order ID: '.$order->refid, 'CREDIT',($prev_paid-$payble_amount+$prev_balance-$balance_used), 'CASH', $order->id);
 
-            }else if($total_cost-$prev_discount < $prev_cashback){
+            }else if($total_cost-$coupon_discount < $prev_cashback){
                 $prev_paid=($prev_total-$prev_discount - $prev_cashback-$prev_balance);
                 $payble_amount=0;
                 $balance_used=0;
