@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Customer\Api;
 
 use App\Events\OrderConfirmed;
 use App\Models\Cart;
+use App\Models\Customer;
 use App\Models\Membership;
 use App\Models\Order;
 use App\Models\OrderStatus;
@@ -104,10 +105,18 @@ class MembershipController extends Controller
         $paymentresult=$this->pay->verifypayment($request->all());
         if($paymentresult) {
 
+            $user=Customer::find($subscription->user_id);
+            $memberships=Membership::active()->find($subscription->plan_id);
+
             $subscription->is_confirmed = true;
             $subscription->razorpay_payment_id = $request->razorpay_payment_id;
             $subscription->razorpay_payment_id_response = $request->razorpay_signature;
             $subscription->save();
+
+            $user->active_membership=$subscription->plan_id;
+            $user->membership_expiry=daye('Y-m-d', strtotime('+'.$memberships->validity.' days'));
+            $user->save();
+
 
             return [
                 'status'=>'success',
