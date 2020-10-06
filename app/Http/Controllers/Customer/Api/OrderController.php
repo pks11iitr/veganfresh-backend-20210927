@@ -23,7 +23,7 @@ use App\Models\Wallet;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
-use Barryvdh\DomPDF\PDF;
+use PDF;
 
 class OrderController extends Controller
 {
