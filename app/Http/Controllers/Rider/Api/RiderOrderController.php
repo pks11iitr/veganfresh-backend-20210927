@@ -364,7 +364,7 @@ class RiderOrderController extends Controller
                 $d->save();
             }
 
-            Order::increaseItemCount($d, $request->items[$d->id]);
+            Order::increaseItemCount($d, $request->items[$d->id]*$d->size->consumed_units);
         }
 
         //refund when total goes to 0
@@ -440,9 +440,18 @@ class RiderOrderController extends Controller
                 if($prev_cashback-$points_used)
                     Wallet::updatewallet($order->user_id, 'Refund for Order ID: '.$order->refid, 'CREDIT',$prev_cashback-$points_used, 'CASH', $order->id);
             }
+        }else{
+            //Return cashback used
+            if ($prev_cashback) {
+                Wallet::updatewallet($order->user_id, 'Refund for Order ID: '.$order->refid, 'CREDIT',$prev_cashback, 'POINT', $order->id);
+            }
+            //Return balance used
+            if ($prev_balance) {
+                Wallet::updatewallet($order->user_id, 'Refund for Order ID: '.$order->refid, 'CREDIT',$prev_balance+$prev_delivery, 'CASH', $order->id);
+            }
         }
 
-        Order::deductInventory($order);
+        //Order::deductInventory($order);
 
         return [
 

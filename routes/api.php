@@ -117,7 +117,7 @@ $api->group(['middleware' => ['customer-auth']], function ($api) {
 
 $api->group(['prefix' => 'rider'], function ($api) {
     $api->post('login', 'Rider\Auth\LoginController@login');
-    $api->post('login-with-otp', 'Rider\Auth\LoginController@loginWithOtp');
+    //$api->post('login-with-otp', 'Rider\Auth\LoginController@loginWithOtp');
     $api->post('forgot', 'Rider\Auth\ForgotPasswordController@sendResetOTP');
     $api->post('rider-update-password', 'Rider\Auth\ForgotPasswordController@updatePassword');
 
