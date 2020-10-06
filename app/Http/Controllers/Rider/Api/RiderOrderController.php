@@ -45,7 +45,8 @@ class RiderOrderController extends Controller
         }
         return [
             'status'=>'success',
-            'data'=>$lists
+            'data'=>$lists,
+            'user'=>$user->only(['name', 'mobile', 'image'])
         ];
 
     }
@@ -81,7 +82,8 @@ class RiderOrderController extends Controller
         }
         return [
             'status'=>'success',
-            'data'=>$lists
+            'data'=>$lists,
+            'user'=>$user->only(['name', 'mobile', 'image'])
         ];
 
     }
