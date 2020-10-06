@@ -77,7 +77,7 @@ class OrderController extends Controller
         if($status=='reopen'){
             $order->status='confirmed';
             $order->payment_status='payment-wait';
-            $order->paymnet_mode=='COD';
+            $order->paymnet_mode='COD';
             //$order->save();
         }else if($status=='cancelled') {
 
@@ -135,7 +135,7 @@ class OrderController extends Controller
         }
 
         if($status=='reopen'){
-            $message='Your order at Nitve Ecommerce with  ID:'.$order->refid.' has been cancelled.';
+            $message='Your order at SuzoDailyNeeds with  ID:'.$order->refid.' has been cancelled.';
             $title='Order Cancelled';
         }
 

@@ -56,6 +56,8 @@ $api->get('complaint-category', ['as'=>'complaint.info', 'uses'=>'Customer\Api\C
 
 $api->get('notifications', ['as'=>'notifications.list', 'uses'=>'Customer\Api\NotificationController@index']);
 
+$api->get('memberships', ['as'=>'membership.list', 'uses'=>'Customer\Api\MembershipController@index']);
+
 
 
 $api->group(['middleware' => ['customer-auth']], function ($api) {
@@ -108,6 +110,11 @@ $api->group(['middleware' => ['customer-auth']], function ($api) {
     $api->get('complaint/{id}', ['as'=>'complaints.list', 'uses'=>'Customer\Api\ComplaintController@messages']);
     $api->post('complaint/{id}', ['as'=>'complaints.list', 'uses'=>'Customer\Api\ComplaintController@postMessage']);
 
+    //membership subscription
+    $api->get('subscribe/{id}', ['as'=>'membership.subscribe', 'uses'=>'Customer\Api\MembershipController@subscribe']);
+    $api->post('verify-subscription', ['as'=>'membership.verify', 'uses'=>'Customer\Api\MembershipController@verify']);
+
+
 
 
 });
@@ -117,7 +124,7 @@ $api->group(['middleware' => ['customer-auth']], function ($api) {
 
 $api->group(['prefix' => 'rider'], function ($api) {
     $api->post('login', 'Rider\Auth\LoginController@login');
-    $api->post('login-with-otp', 'Rider\Auth\LoginController@loginWithOtp');
+    //$api->post('login-with-otp', 'Rider\Auth\LoginController@loginWithOtp');
     $api->post('forgot', 'Rider\Auth\ForgotPasswordController@sendResetOTP');
     $api->post('rider-update-password', 'Rider\Auth\ForgotPasswordController@updatePassword');
 

@@ -92,11 +92,11 @@ class Order extends Model
             if($detail->entity->stock_type=='quantity'){
 
                 Product::where('id', $detail->entity_id)
-                    ->update(['stock'=>DB::raw('stock-'.$detail->quantity)]);
+                    ->update(['stock'=>DB::raw('stock-'.($detail->quantity*$detail->size->consumed_units))]);
 
             }else{
                 Size::where('id', $detail->size_id)
-                    ->update(['stock'=>DB::raw('stock-'.$detail->quantity)]);
+                    ->update(['stock'=>DB::raw('stock-'.($detail->quantity*$detail->size->consumed_units))]);
             }
         }
     }
@@ -106,7 +106,7 @@ class Order extends Model
 
         foreach($order->details as $detail){
 
-                self::increaseItemCount($detail, $detail->quantity);
+                self::increaseItemCount($detail, ($detail->quantity*$detail->size->consumed_units));
 
         }
     }

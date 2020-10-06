@@ -53,7 +53,7 @@ class ForgotPasswordController extends Controller
         $user=auth()->guard('riderapi')->user();
         if(!$user){
             return [
-                'status'=>'success',
+                'status'=>'failed',
                 'message'=>'Invalid Request'
             ];
         }
