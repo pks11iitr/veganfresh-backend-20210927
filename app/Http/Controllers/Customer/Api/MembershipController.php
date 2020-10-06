@@ -28,7 +28,7 @@ class MembershipController extends Controller
 
     }
 
-    public function subscribe(Request $id){
+    public function subscribe(Request $request, $id){
 
         $user=auth()->guard('customerapi')->user();
 
