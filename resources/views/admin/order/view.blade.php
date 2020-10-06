@@ -122,7 +122,8 @@
                                                 <td>{{$order->payment_status}}</td>
                                                 <td>{{$order->payment_mode}}</td>
                                                 <td>
-                                                    <a href="{{route('order.details',['id'=>$order->id])}}" class="btn btn-primary">Details</a>
+                                                    <a href="{{route('order.details',['id'=>$order->id])}}" class="btn btn-primary">Details</a><br><br>
+                                                    <a href="{{route('invoice.view',['id'=>$order->id])}}" class="btn btn-primary">Invoice</a>
                                                 </td>
                                             </tr
                                     @endforeach
