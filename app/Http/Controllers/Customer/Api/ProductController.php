@@ -98,7 +98,17 @@ class ProductController extends Controller
         $cart=Cart::getUserCart($user);
         $cart_total=$cart['total'];
         $cart=$cart['cart'];
-        $searchproducts=$products->with('sizeprice')->paginate(20);
+        $searchproducts=$products->with(['sizeprice'=>function($size){
+
+            $size->where('product_prices.isactive', true);
+
+        }])
+            ->whereHas('sizeprice',function($size){
+
+            $size->where('product_prices.isactive', true);
+
+        })
+            ->paginate(20);
 
         foreach($searchproducts as $product){
             foreach($product->sizeprice as $size){
