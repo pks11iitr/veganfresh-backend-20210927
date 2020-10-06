@@ -10,11 +10,18 @@ use App\Models\Order;
 use App\Models\OrderStatus;
 use App\Models\Subscription;
 use App\Models\Wallet;
+use App\Services\Payment\RazorPayService;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class MembershipController extends Controller
 {
+
+    public function __construct(RazorPayService $pay)
+    {
+        $this->pay=$pay;
+    }
+
     public function index(Request $request){
 
         $memberships=Membership::active()->get();
