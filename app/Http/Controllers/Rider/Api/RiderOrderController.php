@@ -314,13 +314,13 @@ class RiderOrderController extends Controller
         $details=[];
         foreach($order->details as $item){
             //if($item->order->rider_id==$user->id){
-            if($request->itemids[$item->id] > $item->quantity){
+            if($request->items[$item->id] > $item->quantity){
                 return [
                     'status'=>'failed',
                     'message'=>'Invalid Request'
                 ];
             }
-            $total_return=$total_return+$item->price*$request->itemids[$item->id];
+            $total_return=$total_return+$item->price*$request->items[$item->id];
             $details[]=$item;
         }
 
