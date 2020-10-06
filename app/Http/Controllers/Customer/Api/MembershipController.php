@@ -121,7 +121,7 @@ class MembershipController extends Controller
             $subscription->save();
 
             $user->active_membership=$subscription->plan_id;
-            $user->membership_expiry=daye('Y-m-d', strtotime('+'.$memberships->validity.' days'));
+            $user->membership_expiry=date('Y-m-d', strtotime('+'.$memberships->validity.' days'));
             $user->save();
 
 
