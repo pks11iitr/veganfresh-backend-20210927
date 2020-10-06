@@ -58,6 +58,7 @@ $api->get('notifications', ['as'=>'notifications.list', 'uses'=>'Customer\Api\No
 
 $api->get('memberships', ['as'=>'membership.list', 'uses'=>'Customer\Api\MembershipController@index']);
 
+$api->get('download-invoice/{id}', ['as'=>'download.invoice', 'uses'=>'Customer\Api\OrderController@downloadPDF']);
 
 
 $api->group(['middleware' => ['customer-auth']], function ($api) {
@@ -96,7 +97,7 @@ $api->group(['middleware' => ['customer-auth']], function ($api) {
     $api->get('cancel-order/{order_id}', ['as'=>'order.cancel', 'uses'=>'Customer\Api\OrderController@cancelOrder']);
 
     $api->post('post-review/{order_id}', ['as'=>'order.review', 'uses'=>'Customer\Api\ReviewController@postReview']);
-    $api->get('download-invoice/{id}', ['as'=>'order.invoice', 'uses'=>'Customer\Api\OrderController@downloadPDF']);
+
     //wallet apis
     $api->get('wallet-balance', ['as'=>'wallet.balance', 'uses'=>'Customer\Api\WalletController@getWalletBalance']);
     $api->get('wallet-history', ['as'=>'wallet.history', 'uses'=>'Customer\Api\WalletController@history']);
