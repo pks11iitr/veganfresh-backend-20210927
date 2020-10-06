@@ -41,7 +41,7 @@ class MembershipController extends Controller
 
         $subscription=Subscription::create([
 
-            'user_id'=>$user,
+            'user_id'=>$user->id,
             'plan_id'=>$membership->id,
             'refid'=>env('MACHINE_ID').time()
 
