@@ -73,45 +73,26 @@ class RiderController extends Controller
 
         $rider = Rider::findOrFail($id);
 
+        $rider->update([
+            'name' => $request->name,
+            'email' => $request->email,
+            'mobile' => $request->mobile,
+            'address' => $request->address,
+            'state' => $request->state,
+            'city' => $request->city,
+            'status' => $request->status,
+            'image'=>'a',
+            'store_id'=>$request->store_id,
+            'password'=>!empty($request->password)?Hash::make($request->password):$rider->password
+        ]);
+
         if($request->image ) {
-            $rider->update([
-                'name' => $request->name,
-                'email' => $request->email,
-                'mobile' => $request->mobile,
-                'address' => $request->address,
-                'state' => $request->state,
-                'city' => $request->city,
-                'status' => $request->status,
-                'image'=>'a',
-                'store_id'=>$request->store_id]);
-
             $rider->saveImage($request->image, 'rider');
-
-        }elseif($request->password){
-            $rider->update([
-                'name' => $request->name,
-                'email' => $request->email,
-                'mobile' => $request->mobile,
-                'address' => $request->address,
-                'password' => Hash::make($request->password),
-                'state' => $request->state,
-                'city' => $request->city,
-                'status' => $request->status,
-                ]);
-        }else{
-            $rider->update([
-                'name' => $request->name,
-                'email' => $request->email,
-                'mobile' => $request->mobile,
-                'address' => $request->address,
-                'state' => $request->state,
-                'city' => $request->city,
-                'status' => $request->status,
-            ]);
         }
+
         if($rider)
         {
-            return redirect()->route('rider.list')->with('success', 'rider has been created');
+            return redirect()->back()->with('success', 'rider has been updated');
         }
         return redirect()->back()->with('error', 'rider create failed');
     }

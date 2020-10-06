@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Hash;
 class StoreController extends Controller
 {
     public function index(Request $request){
-        $stores =User::paginate(10);
+        $stores =User::where('id', '>', 1)->paginate(10);
         return view('admin.store.view',['stores'=>$stores]);
     }
 
