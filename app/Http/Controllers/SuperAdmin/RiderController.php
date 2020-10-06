@@ -34,6 +34,10 @@ class RiderController extends Controller
             'store_id'=>'required|integer'
         ]);
 
+        if(Rider::where('mobile', $request->mobile)->first()){
+            return redirect()->back()->with('error', 'Mobile Number Already Exists Registers');
+        }
+
         if($rider=Rider::create([
             'name'=>$request->name,
             'email'=>$request->email,
@@ -70,6 +74,10 @@ class RiderController extends Controller
             'image'=>'image',
             'store_id'=>'required|integer'
         ]);
+
+        if(Rider::where('mobile', $request->mobile)->first()){
+            return redirect()->back()->with('error', 'Mobile Number Already Exists Registers');
+        }
 
         $rider = Rider::findOrFail($id);
 
