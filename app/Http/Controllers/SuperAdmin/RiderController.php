@@ -75,12 +75,14 @@ class RiderController extends Controller
             'store_id'=>'required|integer'
         ]);
 
-        if(Rider::where('mobile', $request->mobile)->first()){
-            return redirect()->back()->with('error', 'Mobile Number Already Exists Registers');
-        }
+
 
         $rider = Rider::findOrFail($id);
-
+        if($request->mobile!=$rider->mobile){
+            if($rider1=Rider::where('mobile', $request->mobile)->first()){
+                return redirect()->back()->with('error', 'Mobile Number Already Exists Registers');
+            }
+        }
         $rider->update([
             'name' => $request->name,
             'email' => $request->email,
