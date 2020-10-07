@@ -23,7 +23,7 @@ use App\Models\Wallet;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
-use Barryvdh\DomPDF\PDF;
+use PDF;
 
 class OrderController extends Controller
 {
@@ -413,7 +413,8 @@ class OrderController extends Controller
                 'show_cancel_product'=>$show_cancel_product??0,
                 'deliveryaddress'=>$order->deliveryaddress??'',
                 'prices'=>$prices,
-                'show_download_invoice'=>$show_download_invoice??0
+                'show_download_invoice'=>$show_download_invoice??0,
+                'invoice_link'=>$show_download_invoice?route('download.invoice', ['id'=>$order->id]):''
             ]
         ];
     }
@@ -477,12 +478,20 @@ class OrderController extends Controller
         ];
 
     }
-    public function downloadPDF($id){
+//    public function downloadPDF($id){
+//
+//        $orders = Order::with(['details'])->find($id);
+//        $pdf = PDF::loadView('admin.contenturl.invoice', compact('orders'))->setPaper('a4', 'portrait');
+//        return $pdf->download('invoice.pdf');
+//       // return view('admin.contenturl.invoice',['orders'=>$orders]);
+//    }
 
+    public function downloadPDF($id){
         $orders = Order::with(['details'])->find($id);
-        $pdf = PDF::loadView('admin.contenturl.invoice', compact('orders'))->setPaper('a4', 'portrait');
+        // var_dump($orders);die();
+        $pdf = PDF::loadView('admin.contenturl.newinvoice', compact('orders'))->setPaper('a4', 'portrait');
         return $pdf->download('invoice.pdf');
-       // return view('admin.contenturl.invoice',['orders'=>$orders]);
+        return view('admin.contenturl.newinvoice',['orders'=>$orders]);
     }
 
 }
