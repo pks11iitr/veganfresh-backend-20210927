@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\SuperAdmin;
 
+use App\Imports\AreaImport;
 use App\Models\Area;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Excel;
+use Maatwebsite\Excel\Facades\Excel;
 
 class AreaController extends Controller
 {
@@ -58,8 +59,9 @@ class AreaController extends Controller
     }
 
     public function import(Request $request){
+        Excel::import(new AreaImport, request()->file('select_file'));
 
-        Excel::load($request->file('select_file'), function($reader) {
+       /* Excel::load($request->file('select_file'), function($reader) {
             $results = $reader->all();
             foreach ($results as $row) {
                 $strtoupper =$row->name;
@@ -70,7 +72,7 @@ class AreaController extends Controller
                     $findermap->save();
                 }
             }
-        });
+        });*/
         return redirect()->route('area.list')->with('success', 'Your Data imported successfully.');
 
         return redirect()->back()->with('error', 'Your Data import failed');
