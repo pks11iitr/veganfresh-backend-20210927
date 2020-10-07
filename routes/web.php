@@ -15,6 +15,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/home', function () {
+    return redirect()->route('home');
+});
+
 Auth::routes();
 
 Route::group(['middleware'=>['auth', 'acl'], 'is'=>'admin|rider-admin|clinic-therapist'], function(){
@@ -31,6 +35,12 @@ Route::group(['middleware'=>['auth', 'acl'], 'is'=>'admin'], function(){
     Route::get('/dashboard', 'SuperAdmin\DashboardController@index')->name('home');
 
 //****************************************hallobasket********************************************
+    Route::group(['prefix'=>'configurations'], function(){
+        Route::get('/','SuperAdmin\ConfigurationController@index')->name('configurations.list');
+        Route::post('/','SuperAdmin\ConfigurationController@update');
+    });
+
+
    Route::group(['prefix'=>'banners'], function(){
         Route::get('/','SuperAdmin\BannerController@index')->name('banners.list');
         Route::get('create','SuperAdmin\BannerController@create')->name('banners.create');
@@ -231,6 +241,7 @@ Route::group(['prefix'=>'api'], function() {
     Route::get('privacy-policy', 'SuperAdmin\PolicyController@index')->name('policy.view');
     Route::get('terms-condition', 'SuperAdmin\PolicyController@terms')->name('terms.view');
     Route::get('about-us', 'SuperAdmin\PolicyController@about')->name('about.view');
+    Route::get('invoice/{id}', 'SuperAdmin\PolicyController@invoice')->name('invoice.view');
 });
 //Route::group(['prefix'=>'riders', 'middleware'=>['auth', 'acl'], 'is'=>'rider-admin'], function() {
     //Route::get('/dashboard', 'RiderAdmin\DashboardController@index')->name('rideradmin.home');

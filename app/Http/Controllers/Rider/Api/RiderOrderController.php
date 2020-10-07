@@ -45,7 +45,8 @@ class RiderOrderController extends Controller
         }
         return [
             'status'=>'success',
-            'data'=>$lists
+            'data'=>$lists,
+            'user'=>$user->only(['name', 'mobile', 'image'])
         ];
 
     }
@@ -81,7 +82,8 @@ class RiderOrderController extends Controller
         }
         return [
             'status'=>'success',
-            'data'=>$lists
+            'data'=>$lists,
+            'user'=>$user->only(['name', 'mobile', 'image'])
         ];
 
     }
@@ -288,8 +290,10 @@ class RiderOrderController extends Controller
         }
 
         $order=Order::with(['details'=>function($details)use($itemids){
-            $details->whereIn('details.id', $itemids);
+            $details->with(['entity', 'size'])
+                ->whereIn('details.id', $itemids);
         }])
+            ->where('status', 'dispatched')
             ->where('rider_id', $user->id)
             ->find($order_id);
 
@@ -312,13 +316,13 @@ class RiderOrderController extends Controller
         $details=[];
         foreach($order->details as $item){
             //if($item->order->rider_id==$user->id){
-            if($request->itemids[$item->id]>$item->quantity){
+            if($request->items[$item->id] > $item->quantity){
                 return [
                     'status'=>'failed',
                     'message'=>'Invalid Request'
                 ];
             }
-            $total_return=$total_return+$item->price*$request->itemids[$item->id];
+            $total_return=$total_return+$item->price*$request->items[$item->id];
             $details[]=$item;
         }
 
@@ -341,6 +345,9 @@ class RiderOrderController extends Controller
             ReturnProduct::create([
 
                 'order_id'=>$d->order_id,
+                'store_id'=>$order->store_id,
+                'rider_id'=>$order->rider_id,
+                'ref_id'=>$order->ref_id,
                 'entity_id'=>$d->entity_id,
                 'entity_type'=>$d->entity_type,
                 'size_id'=>$d->size_id,
@@ -349,6 +356,7 @@ class RiderOrderController extends Controller
                 'price'=>$d->price,
                 'cut_price'=>$d->cut_price,
                 'quantity'=>$request->items[$d->id],
+                'reason'=>$request->reason
 
             ]);
             if($d->quantity==$request->items[$d->id])
@@ -357,6 +365,8 @@ class RiderOrderController extends Controller
                 $d->quantity=$d->quantity - $request->items[$d->id];
                 $d->save();
             }
+
+            Order::increaseItemCount($d, $request->items[$d->id]*$d->size->consumed_units);
         }
 
         //refund when total goes to 0
@@ -395,38 +405,55 @@ class RiderOrderController extends Controller
             ];
         }
 
-        $order->total_cost=($total_cost>0)?$total_cost:0;
-        $order->coupon_discount=($total_cost>0)?$coupon_discount:0;
-        $order->delivery_charge=($total_cost>0)?$prev_delivery:0;
+        $order->total_cost=$total_cost;
+        $order->coupon_discount=$coupon_discount;
+        $order->delivery_charge=$prev_delivery;
 
         if($order->payment_mode!='COD') {
-            if($total_cost > $prev_cashback+$prev_balance){
-
-                $order->balance_used=($total_cost>0)?$prev_balance:0;
-                $order->points_used=($total_cost>0)?$prev_cashback:0;
+            if($total_cost-$coupon_discount > $prev_cashback+$prev_balance){
+                $prev_paid=($prev_total-$prev_discount - $prev_cashback-$prev_balance);
+                $payble_amount=($total_cost-$coupon_discount - $prev_cashback-$prev_balance);
+                $order->balance_used=$prev_balance;
+                $order->points_used=$prev_cashback;
                 $order->save();
+                if($prev_paid-$payble_amount)
+                    Wallet::updatewallet($order->user_id, 'Refund for Order ID: '.$order->refid, 'CREDIT',($prev_paid-$payble_amount), 'CASH', $order->id);
 
-                Wallet::updatewallet($order->user_id, 'Refund for Order ID: '.$order->refid, 'CREDIT',($prev_total-$prev_discount)-($total_cost-$coupon_discount), 'CASH', $order->id);
-
-            }else if($total_cost > $prev_cashback){
-
-                $order->points_used=($total_cost>0)?$prev_cashback:0;
-                $order->balance_used=$total_cost-$total_cost-0;
+            }else if($total_cost-$coupon_discount > $prev_cashback){
+                $prev_paid=($prev_total-$prev_discount - $prev_cashback-$prev_balance);
+                $payble_amount=0;
+                $balance_used=$total_cost-$coupon_discount-$prev_cashback;
+                $order->points_used=$prev_cashback;
+                $order->balance_used=$balance_used;
                 $order->save();
+                if($prev_paid-$payble_amount+$prev_balance-$balance_used)
+                    Wallet::updatewallet($order->user_id, 'Refund for Order ID: '.$order->refid, 'CREDIT',($prev_paid-$payble_amount+$prev_balance-$balance_used), 'CASH', $order->id);
 
-                Wallet::updatewallet($order->user_id, 'Refund for Order ID: '.$order->refid, 'CREDIT',($prev_total-$prev_discount)-($total_cost-$coupon_discount), 'CASH', $order->id);
-
-
-            }else if($total_cost-$prev_discount < $prev_cashback){
-
-                $order->points_used=($total_cost>0)?$prev_cashback:0;
-                $order->balance_used=$total_cost-$total_cost;
+            }else if($total_cost-$coupon_discount < $prev_cashback){
+                $prev_paid=($prev_total-$prev_discount - $prev_cashback-$prev_balance);
+                $payble_amount=0;
+                $balance_used=0;
+                $points_used=$total_cost-$prev_discount;
+                $order->points_used=$points_used;
+                $order->balance_used=0;
                 $order->save();
-
-                Wallet::updatewallet($order->user_id, 'Refund for Order ID: '.$order->refid, 'CREDIT',$prev_total-$prev_cashback, 'CASH', $order->id);
-                Wallet::updatewallet($order->user_id, 'Refund for Order ID: '.$order->refid, 'CREDIT',$prev_total-$prev_cashback, 'CASH', $order->id);
+                if($prev_paid-$payble_amount+$prev_balance-$balance_used)
+                    Wallet::updatewallet($order->user_id, 'Refund for Order ID: '.$order->refid, 'CREDIT',($prev_paid-$payble_amount+$prev_balance-$balance_used), 'CASH', $order->id);
+                if($prev_cashback-$points_used)
+                    Wallet::updatewallet($order->user_id, 'Refund for Order ID: '.$order->refid, 'CREDIT',$prev_cashback-$points_used, 'CASH', $order->id);
+            }
+        }else{
+            //Return cashback used
+            if ($prev_cashback) {
+                Wallet::updatewallet($order->user_id, 'Refund for Order ID: '.$order->refid, 'CREDIT',$prev_cashback, 'POINT', $order->id);
+            }
+            //Return balance used
+            if ($prev_balance) {
+                Wallet::updatewallet($order->user_id, 'Refund for Order ID: '.$order->refid, 'CREDIT',$prev_balance+$prev_delivery, 'CASH', $order->id);
             }
         }
+
+        //Order::deductInventory($order);
 
         return [
 
@@ -436,8 +463,6 @@ class RiderOrderController extends Controller
         ];
 
     }
-
-
 
     public function markDelivered(Request $request, $order_id){
 
@@ -499,6 +524,45 @@ class RiderOrderController extends Controller
         return [
             'status'=>'success',
             'message'=>'Order Has Been Delivered'
+        ];
+
+    }
+
+    public function returnorder(Request $request){
+        //  $user=auth()->guard('riderapi')->user();
+        $user=$request->user;
+        //  var_dump($user->id);die;
+        if(!$user)
+            return [
+                'status'=>'failed',
+                'message'=>'Please login to continue'
+            ];
+        $returnproducts = ReturnProduct::where(function ($returnproducts) use ($user) {
+
+            $returnproducts->where('rider_id',$user->id);
+        });
+        $returnproducts=$returnproducts->orderBy('id', 'desc')->get();
+      //  $returnproducts=ReturnProduct::where('rider_id',$user->id)
+                                   //   ->orderBy('id', 'desc')
+                                    //  ->get();
+        foreach ($returnproducts as $return)
+        {
+            $returnd[]=array(
+                "storename"=>$return->storename->name??'',
+                "ref_id"=>$return->ref_id,
+                "name"=>$return->name,
+                "price"=>$return->price,
+                "cut_price"=>$return->cut_price,
+                "size"=>$return->size->size,
+                "quantity"=>$return->quantity,
+                "image"=>$return->image,
+                "created_at"=>$return->created_at,
+            );
+
+        }
+        return [
+            'status'=>'success',
+            'data'=>$returnd
         ];
 
     }

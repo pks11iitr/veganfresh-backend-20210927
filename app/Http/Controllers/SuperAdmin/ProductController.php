@@ -360,9 +360,9 @@ class ProductController extends Controller
          $product=Product::where(DB::raw('BINARY name'), $request->name)
              ->first();
          if($product){
-             $product->update($request->only('company', 'description', 'isactive', 'stock_type', 'stock', 'is_offer'));
+             $product->update(array_merge($request->only('company', 'description', 'isactive', 'stock_type', 'stock', 'is_offer'), ['is_hotdeal'=>$request->hot_deal, 'is_newarrival'=>$request->new_arrival, 'is_discounted'=>$request->discounted]));
          }else{
-             $product=Product::create($request->only('name', 'company', 'description', 'isactive', 'stock_type', 'stock', 'is_offer'));
+             $product=Product::create(array_merge($request->only('name', 'company', 'description', 'isactive', 'stock_type', 'stock', 'is_offer'), ['is_hotdeal'=>$request->hot_deal, 'is_newarrival'=>$request->new_arrival, 'is_discounted'=>$request->discounted]));
          }
 
         CategoryProduct::where('product_id', $product->id)->delete();

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Order extends Model
 {
@@ -14,7 +15,7 @@ class Order extends Model
      */
     protected $table='orders';
 
-    protected $fillable=[ 'refid', 'total_cost', 'status', 'payment_status', 'payment_mode', 'order_details_completed', 'booking_date', 'booking_time', 'user_id', 'name', 'email', 'mobile', 'address', 'lat', 'lang', 'is_instant', 'use_wallet', 'use_points', 'balance_used', 'points_used','schedule_type','order_place_state','coupon_applied', 'coupon_discount', 'delivery_charge', 'delivery_date', 'delivery_slot', 'delivered_at', 'cashback_given'];
+    protected $fillable=[ 'refid', 'total_cost', 'status', 'payment_status', 'payment_mode', 'order_details_completed', 'booking_date', 'booking_time', 'user_id', 'name', 'email', 'mobile', 'address', 'lat', 'lang', 'is_instant', 'use_wallet', 'use_points', 'balance_used', 'points_used','schedule_type','order_place_state','coupon_applied', 'coupon_discount', 'delivery_charge', 'delivery_date', 'delivery_slot', 'delivered_at', 'cashback_given','store_id'];
 
     public function details(){
         return $this->hasMany('App\Models\OrderDetail', 'order_id');
@@ -22,6 +23,10 @@ class Order extends Model
 
     public function customer(){
         return $this->belongsTo('App\Models\Customer', 'user_id');
+    }
+
+    public function storename(){
+        return $this->belongsTo('App\Models\User', 'store_id');
     }
 
     public function rider(){
@@ -74,6 +79,51 @@ class Order extends Model
         return $this->belongsTo('App\Models\TimeSlot', 'delivery_slot');
     }
 
+
+    public function returned(){
+        return $this->hasMany('App\Models\ReturnProduct', 'order_id');
+    }
+
+
+    public static function deductInventory($order){
+
+        foreach($order->details as $detail){
+
+            if($detail->entity->stock_type=='quantity'){
+
+                Product::where('id', $detail->entity_id)
+                    ->update(['stock'=>DB::raw('stock-'.($detail->quantity*$detail->size->consumed_units))]);
+
+            }else{
+                Size::where('id', $detail->size_id)
+                    ->update(['stock'=>DB::raw('stock-'.($detail->quantity*$detail->size->consumed_units))]);
+            }
+        }
+    }
+
+
+    public static function increaseInventory($order){
+
+        foreach($order->details as $detail){
+
+                self::increaseItemCount($detail, ($detail->quantity*$detail->size->consumed_units));
+
+        }
+    }
+
+    public static function increaseItemCount($detail, $i){
+
+        if($detail->entity->stock_type=='quantity'){
+
+            Product::where('id', $detail->entity_id)
+                ->update(['stock'=>DB::raw('stock+'.$i)]);
+
+        }else{
+            Size::where('id', $detail->size_id)
+                ->update(['stock'=>DB::raw('stock+'.$i)]);
+        }
+
+    }
 
 
 

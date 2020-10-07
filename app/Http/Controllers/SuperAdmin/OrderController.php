@@ -6,6 +6,7 @@ use App\Models\Notification;
 use App\Models\Order;
 use App\Models\Rider;
 use App\Models\Wallet;
+use App\Models\User;
 use App\Services\Notification\FCMNotification;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -31,24 +32,30 @@ class OrderController extends Controller
          }else{
              $orders =Order::where('id', '>=', 0);
          }
-            if($request->fromdate)
-                $orders=$orders->where('created_at', '>=', $request->fromdate.'00:00:00');
+         if($request->fromdate)
+            $orders=$orders->where('delivery_date', '>=', $request->fromdate.'00:00:00');
 
-            if($request->todate)
-                $orders=$orders->where('created_at', '<=', $request->todate.'23:59:50');
+         if($request->todate)
+                $orders=$orders->where('delivery_date', '<=', $request->todate.'23:59:50');
 
             if($request->status)
                 $orders=$orders->where('status', $request->status);
 
              if($request->payment_status)
                 $orders=$orders->where('payment_status', $request->payment_status);
+         if($request->store_id)
+              $orders=$orders->where('store_id', $request->store_id);
+         if($request->rider_id)
+             $orders=$orders->where('rider_id', $request->rider_id);
 
-            if($request->ordertype)
-                $orders=$orders->orderBy('created_at', $request->ordertype);
+        if($request->ordertype)
+            $orders=$orders->orderBy('created_at', $request->ordertype);
+            $orders=$orders->orderBy('id', 'desc')->paginate(10);
 
-                $orders=$orders->orderBy('id', 'desc')->paginate(10);
-
-        return view('admin.order.view',['orders'=>$orders]);
+        $stores=User::where('id','>', 1)->get();
+        $riders=Rider::get();
+//var_dump($stores);die();
+        return view('admin.order.view',['orders'=>$orders,'stores'=>$stores,'riders'=>$riders]);
 
     }
 
@@ -62,28 +69,62 @@ class OrderController extends Controller
 
         $status=$request->status;
 
-        $order=Order::with('customer')->find($id);
+        $order=Order::with(['customer', 'details.entity', 'details.size'])
+            ->find($id);
 
         $old_status=$order->status;
 
         if($status=='reopen'){
             $order->status='confirmed';
             $order->payment_status='payment-wait';
-            $order->paymnet_mode=='COD';
+            $order->paymnet_mode='COD';
             //$order->save();
-        }else{
+        }else if($status=='cancelled') {
+
+            $order->points_used=0;
+            $order->balance_used=0;
+            $order->coupon_applied=null;
+            $order->coupon_discount=0;
             $order->status=$status;
 
+
+            if($order->payment_status=='paid'){
+
+                if($order->use_points && $order->points_used){
+                    Wallet::updatewallet($order->user_id, 'Points added in wallet for order cancellation. Order ID: '.$order->refid,'Credit',$order->points_used,'POINT',$order->id);
+                }
+
+                if($order->use_balance && $order->balance_used){
+                    $amount=$order->total_cost-$order->coupon_discount+$order->delivery_charge-$order->points_used;
+                    Wallet::updatewallet($order->user_id, 'Amount added in wallet for order cancellation. Order ID: '.$order->refid,'Credit',$amount,'CASH',$order->id);
+                }
+
+            }else{
+                if($order->use_points && $order->points_used){
+                    Wallet::updatewallet($order->user_id, 'Points added in wallet for order cancellation. Order ID: '.$order->refid,'Credit',$order->points_used,'POINT',$order->id);
+                }
+
+                if($order->use_balance && $order->balance_used){
+                    Wallet::updatewallet($order->user_id, 'Amount added in wallet for order cancellation. Order ID: '.$order->refid,'Credit',$order->balance_used,'CASH',$order->id);
+                }
+            }
+
+            Order::increaseInventory($order);
+
+
+        }else {
+            $order->status=$status;
         }
+
         $order->save();
 
         switch($order->status){
             case 'dispatched':
-                $message='Your order at Nitve Ecommerce with  ID:'.$order->refid.' has been dispatched. You will receive your order shortly';
+                $message='Your order at SuzoDailyNeeds with  ID:'.$order->refid.' has been dispatched. You will receive your order shortly';
                 $title='Order Dispatched';
                 break;
             case 'delivered':
-                $message='Your order at Nitve Ecommerce with  ID:'.$order->refid.' has been delivered.';
+                $message='Your order at SuzoDailyNeeds with  ID:'.$order->refid.' has been delivered.';
                 $title='Order Delivered';
                 break;
             case 'cancelled':
@@ -94,7 +135,7 @@ class OrderController extends Controller
         }
 
         if($status=='reopen'){
-            $message='Your order at Nitve Ecommerce with  ID:'.$order->refid.' has been cancelled.';
+            $message='Your order at SuzoDailyNeeds with  ID:'.$order->refid.' has been cancelled.';
             $title='Order Cancelled';
         }
 

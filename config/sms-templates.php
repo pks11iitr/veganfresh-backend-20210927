@@ -1,5 +1,6 @@
 <?php
 return [
-    'register'=>'Your OTP is {{otp}} For Aarogyapeeth.com',
-    'login'=>'Your OTP is {{otp}} For Aarogyapeeth.com',
+    'register'=>'Your OTP is {{otp}} For SuzoDailyNeeds',
+    'login'=>'Your OTP is {{otp}} For SuzoDailyNeeds',
+    'reset'=>'Your OTP is {{otp}} For SuzoDailyNeeds',
 ];

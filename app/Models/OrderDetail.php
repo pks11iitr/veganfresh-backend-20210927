@@ -17,4 +17,26 @@ class OrderDetail extends Model
     public function size(){
         return $this->belongsTo('App\Models\Size', 'size_id');
     }
+
+    public static function removeOutOfStockItems($item){
+        //foreach ($items as $item){
+        if($item->entity->stock_type=='quantity'){
+            if($item->entity->stock < $item->quantity){
+                $item->delete();
+                return true;
+            }
+        }else{
+            if($item->size->stock < $item->quantity){
+                $item->delete();
+                return true;
+            }
+        }
+        if($item->quantity < $item->size->min_qty || $item->quantity > $item->size->max_qty){
+            $item->delete();
+            return true;
+        }
+
+        return false;
+        //}
+    }
 }

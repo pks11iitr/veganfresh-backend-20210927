@@ -23,19 +23,51 @@ class Cart extends Model
 
     public static function getUserCart($user){
         if(!$user)
-            return [];
+            return [
+                'cart'=>[],
+                'total'=>0
+            ];
         $cart=[];
+        $total=0;
         $items=Cart::with(['product', 'sizeprice'])
             ->where('user_id', $user->id)
             ->get();
+
         foreach ($items as $item){
+            if(self::removeOutOfStockItems($item)){
+               continue;
+            }
+            $cart[$item->size_id]=$item->quantity;
+            $total=$total+$item->quantity;
+        }
+        return compact('cart', 'total');
+    }
+
+    public static function removeOutOfStockItems($item){
+        //foreach ($items as $item){
+            if((!$item->product->isactive) || (!$item->sizeprice->isactive)){
+                $item->delete();
+                return true;
+            }
+
+            if($item->product->stock_type=='quantity'){
+                if($item->product->stock < $item->quantity){
+                    $item->delete();
+                    return true;
+                }
+            }else{
+                if($item->sizeprice->stock < $item->quantity){
+                    $item->delete();
+                    return true;
+                }
+            }
             if($item->quantity < $item->sizeprice->min_qty || $item->quantity > $item->sizeprice->max_qty){
                 $item->delete();
-            }else{
-                $cart[$item->size_id]=$item->quantity;
+                return true;
             }
-        }
-        return $cart;
+
+            return false;
+        //}
     }
 
 

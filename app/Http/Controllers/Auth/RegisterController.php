@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Auth;
 
 use App\Models\User;
 use App\Http\Controllers\Controller;
+use Illuminate\Auth\Events\Registered;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -73,5 +75,26 @@ class RegisterController extends Controller
     public function redirectPath()
     {
         return route('user.role.check');
+    }
+
+
+    public function showRegistrationForm()
+    {
+        abort(404);
+        return view('auth.register');
+    }
+
+
+    public function register(Request $request)
+    {
+        abort(404);
+        $this->validator($request->all())->validate();
+
+        event(new Registered($user = $this->create($request->all())));
+
+        $this->guard()->login($user);
+
+        return $this->registered($request, $user)
+            ?: redirect($this->redirectPath());
     }
 }

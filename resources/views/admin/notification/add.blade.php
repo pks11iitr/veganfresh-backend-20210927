@@ -1,5 +1,8 @@
 @extends('layouts.admin')
 @section('content')
+    <link rel="stylesheet" href="{{asset('../admin-theme/plugins/select2/css/select2.min.css')}}">
+    <link rel="stylesheet"
+          href="{{asset('../admin-theme/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css')}}">
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -35,6 +38,22 @@
               <form role="form" method="post" enctype="multipart/form-data" action="{{route('notification.store')}}">
                  @csrf
                 <div class="card-body">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Stores</label>
+                        <select class="form-control select2" multiple
+                                data-placeholder="Select a subcategory" style="width: 100%;"
+                                name="store_ids[]" id="category_id_sel">
+
+                            <option value="">Select Stores</option>
+                            @foreach($stores as $store)
+
+                                <option
+                                    value="{{$store->id}}"> {{$store->name}}</option>
+
+
+                            @endforeach
+                        </select>
+                    </div>
                   <div class="form-group">
                     <label for="exampleInputEmail1">Name</label>
                     <input type="text" name="title" class="form-control" id="exampleInputEmail1" placeholder="Enter title" required>
@@ -43,7 +62,7 @@
                    <label for="exampleInputEmail1">Description</label><br>
                     <textarea id="w3review" name="description" rows="4" cols="120"> </textarea>
                   </div>
-                  
+
                 </div>
                 <!-- /.card-body -->
                 <div class="card-footer">
@@ -63,4 +82,13 @@
 </div>
 <!-- ./wrapper -->
 @endsection
-
+@section('scripts')
+    <script src="{{asset('admin-theme/plugins/select2/js/select2.full.min.js')}}"></script>
+    <script src="{{asset('admin-theme/plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js')}}"></script>
+    <script>
+        $(document).ready(function () {
+            $('.select2').select2();
+            $('#category_id_sel').select2();
+        });
+    </script>
+@endsection

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Customer\Api;
 use App\Models\BookingSlot;
 use App\Models\Cart;
 use App\Models\Clinic;
+use App\Models\Configuration;
 use App\Models\Coupon;
 use App\Models\Customer;
 use App\Models\CustomerAddress;
@@ -22,6 +23,7 @@ use App\Models\Wallet;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
+use PDF;
 
 class OrderController extends Controller
 {
@@ -75,20 +77,27 @@ class OrderController extends Controller
                 $product->where('isactive', true);
             })->get();
 
-        if(!$cartitems)
-            return [
-                'status'=>'failed',
-                'message'=>'Cart is empty'
-            ];
 
         $total_cost=0;
+        $remaining=[];
         foreach($cartitems as $item) {
+            if(Cart::removeOutOfStockItems($item))
+                continue;
+            $remaining[]=$item;
             $total_cost=$total_cost+($item->sizeprice->price??0)*$item->quantity;
-
         }
+
+        if(!$remaining)
+            return [
+                'status'=>'failed',
+                'message'=>'There is no item available in your cart'
+            ];
+
         $refid=env('MACHINE_ID').time();
 
-        $delivery_charge=$user->isMembershipActive()?config('my-config')['delivery_charge']:0;
+        $delivery_charge=Configuration::where('param', 'delivery_charge')->first();
+
+        $delivery_charge=$user->isMembershipActive()?0:($delivery_charge->value??0);
 
         $order=Order::create([
             'user_id'=>auth()->guard('customerapi')->user()->id,
@@ -96,10 +105,9 @@ class OrderController extends Controller
             'status'=>'pending',
             'total_cost'=>$total_cost,
             'delivery_charge'=>$delivery_charge,
-
         ]);
 
-        foreach($cartitems as $item){
+        foreach($remaining as $item){
             // var_dump($item->product_id);die();
             OrderDetail::create([
                 'order_id'=>$order->id,
@@ -189,16 +197,42 @@ class OrderController extends Controller
 
         $timeslot=TimeSlot::getNextDeliverySlot();
 
+        $timeslot_list=TimeSlot::getAvailableTimeSlotsList();
+
         $cost=0;
         $savings=0;
+        //$remaining=[];
+        $itemdetails=[];
         foreach($order->details as $detail){
+            if(OrderDetail::removeOutOfStockItems($detail))
+                continue;
+            $itemdetails[]=[
+                'name'=>$detail->name??'',
+                'image'=>$detail->image??'',
+                'company'=>$detail->entity->company??'',
+                'price'=>$detail->price,
+                'cut_price'=>$detail->cut_price,
+                'quantity'=>$detail->quantity,
+                'size'=>$detail->size->name??'',
+                'item_id'=>$detail->entity_id,
+                //'show_return'=>($detail->status=='delivered'?1:0),
+                //'show_cancel'=>in_array($detail->status, ['confirmed'])?1:0,
+                'show_review'=>isset($reviews[$detail->entity_id])?0:1
+            ];
             $cost=$cost+$detail->price*$detail->quantity;
             $savings=$savings+($detail->cut_price-$detail->price)*$detail->quantity;
         }
 
+        if(empty($itemdetails)){
+            return [
+                'status'=>'failed',
+                'message'=>'There is no selected item available in stock'
+            ];
+        }
 
+        $delivery_charge=Configuration::where('param', 'delivery_charge')->first();
         if(!$user->isMembershipActive()){
-            $order->delivery_charge=config('my-config.delivery_charge');
+            $order->delivery_charge=$delivery_charge->value??0;
         }else{
             $order->delivery_charge=0;
         }
@@ -220,7 +254,7 @@ class OrderController extends Controller
 
         return [
             'status'=>'success',
-            'data'=>compact('prices', 'delivery_address', 'cashback', 'wallet_balance', 'timeslot')
+            'data'=>compact('prices', 'delivery_address', 'cashback', 'wallet_balance', 'timeslot', 'itemdetails', 'timeslot_list')
         ];
 
 
@@ -248,7 +282,21 @@ class OrderController extends Controller
 
         $cost=0;
         $savings=0;
+        $itemdetails=[];
         foreach($order->details as $detail){
+            $itemdetails[]=[
+                'name'=>$detail->name??'',
+                'image'=>$detail->image??'',
+                'company'=>$detail->entity->company??'',
+                'price'=>$detail->price,
+                'cut_price'=>$detail->cut_price,
+                'quantity'=>$detail->quantity,
+                'size'=>$detail->size->name??'',
+                'item_id'=>$detail->entity_id,
+                //'show_return'=>($detail->status=='delivered'?1:0),
+                //'show_cancel'=>in_array($detail->status, ['confirmed'])?1:0,
+                'show_review'=>isset($reviews[$detail->entity_id])?0:1
+            ];
             $cost=$cost+$detail->price*$detail->quantity;
             $savings=$savings+($detail->cut_price-$detail->price)*$detail->quantity;
         }
@@ -282,7 +330,7 @@ class OrderController extends Controller
 
             'status'=>'success',
             'message'=>'Discount of Rs. '.$discount.' Applied Successfully',
-            'prices'=>$prices
+            'prices'=>$prices,
         ];
 
 
@@ -298,7 +346,7 @@ class OrderController extends Controller
                 'status'=>'failed',
                 'message'=>'Please login to continue'
             ];
-        $order=Order::with(['details.size', 'deliveryaddress'])
+        $order=Order::with(['details.size', 'deliveryaddress', 'timeslot'])
             ->where('user_id', $user->id)
             ->where('status', '!=', 'pending')
             ->find($id);
@@ -344,6 +392,9 @@ class OrderController extends Controller
         if(in_array($order->status, ['confirmed','processing', 'dispatched'])){
             $show_cancel_product=1;
         }
+        if($order->status=='completed'){
+            $show_download_invoice=1;
+        }
 
         $prices=[
             'total'=>$order->total_cost,
@@ -353,6 +404,11 @@ class OrderController extends Controller
             'total_paid'=>$order->total_cost+$order->delivery_charge-$order->coupon_discount,
         ];
 
+        $time_slot=[
+
+            'delivery_time'=>$order->delivery_date.' -'. ($order->timeslot->name??''),
+            'delivered_at'=>$order->delivered_at?date('m/d/Y h:iA', strtotime($order->delivered_at)):'No Yet Delivered',
+        ];
 
         return [
             'status'=>'success',
@@ -362,6 +418,9 @@ class OrderController extends Controller
                 'show_cancel_product'=>$show_cancel_product??0,
                 'deliveryaddress'=>$order->deliveryaddress??'',
                 'prices'=>$prices,
+                'show_download_invoice'=>$show_download_invoice??0,
+                'invoice_link'=>$show_download_invoice?route('download.invoice', ['id'=>$order->id]):'',
+                'time_slot'=>$time_slot
             ]
         ];
     }
@@ -376,7 +435,9 @@ class OrderController extends Controller
                 'message'=>'Please login to continue'
             ];
 
-        $order=Order::where('user_id', $user->id)->find($id);
+        $order=Order::with(['details.entity', 'details.size'])
+        ->where('user_id', $user->id)
+            ->find($id);
         if(!$order)
             return [
                 'status'=>'failed',
@@ -394,29 +455,49 @@ class OrderController extends Controller
         if($order->payment_status=='paid'){
 
             if($order->use_points && $order->points_used){
-                Wallet::updatewallet($user->user_id, 'Points added in wallet for order cancellation. Order ID: '.$order->refid,'Credit',$order->points_used,'POINT',$order->id);
+                Wallet::updatewallet($user->id, 'Points added in wallet for order cancellation. Order ID: '.$order->refid,'Credit',$order->points_used,'POINT',$order->id);
             }
 
             if($order->use_balance && $order->balance_used){
                 $amount=$order->total_cost-$order->coupon_discount+$order->delivery_charge-$order->points_used;
-                Wallet::updatewallet($user->user_id, 'Amount added in wallet for order cancellation. Order ID: '.$order->refid,'Credit',$amount,'CASH',$order->id);
+                Wallet::updatewallet($user->id, 'Amount added in wallet for order cancellation. Order ID: '.$order->refid,'Credit',$amount,'CASH',$order->id);
             }
 
         }else{
             if($order->use_points && $order->points_used){
-                Wallet::updatewallet($user->user_id, 'Points added in wallet for order cancellation. Order ID: '.$order->refid,'Credit',$order->points_used,'POINT',$order->id);
+                Wallet::updatewallet($user->id, 'Points added in wallet for order cancellation. Order ID: '.$order->refid,'Credit',$order->points_used,'POINT',$order->id);
             }
 
             if($order->use_balance && $order->balance_used){
-                Wallet::updatewallet($user->user_id, 'Amount added in wallet for order cancellation. Order ID: '.$order->refid,'Credit',$order->balance_used,'CASH',$order->id);
+                Wallet::updatewallet($user->id, 'Amount added in wallet for order cancellation. Order ID: '.$order->refid,'Credit',$order->balance_used,'CASH',$order->id);
             }
         }
+
+        $order->status='cancelled';
+        $order->save();
+
+        Order::increaseInventory($order);
 
         return [
             'status'=>'success',
             'message'=>'Your Order Has Been Cancelled'
         ];
 
+    }
+//    public function downloadPDF($id){
+//
+//        $orders = Order::with(['details'])->find($id);
+//        $pdf = PDF::loadView('admin.contenturl.invoice', compact('orders'))->setPaper('a4', 'portrait');
+//        return $pdf->download('invoice.pdf');
+//       // return view('admin.contenturl.invoice',['orders'=>$orders]);
+//    }
+
+    public function downloadPDF($id){
+        $orders = Order::with(['details'])->find($id);
+        // var_dump($orders);die();
+        $pdf = PDF::loadView('admin.contenturl.newinvoice', compact('orders'))->setPaper('a4', 'portrait');
+        return $pdf->download('invoice.pdf');
+        return view('admin.contenturl.newinvoice',['orders'=>$orders]);
     }
 
 }

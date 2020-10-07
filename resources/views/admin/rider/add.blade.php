@@ -102,6 +102,16 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Assign Store</label>
+                                                <select class="form-control" name="store_id" required>
+                                                    @foreach($stores as $store)
+                                                    <option value="{{$store->id}}">{{$store->name}}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <!-- /.card-body -->

@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Customer\Api;
 
+use App\Models\Banner;
 use App\Models\Cart;
+use App\Models\Category;
 use App\Models\Product;
 use App\Models\Size;
 use App\Models\TimeSlot;
@@ -35,8 +37,8 @@ class ProductController extends Controller
 
             $product=$product->whereHas('sizeprice', function($size) use($request){
 
-                if($request->price){
-                    $prices=explode('-', $request->price??'');
+                if($request->prices){
+                    $prices=explode('-', $request->prices??'');
                     $size->where('product_prices.price', '>=', intval($prices[0]??0))
                         ->where('product_prices.price', '<=', intval($prices[1]??0));
                 }
@@ -48,13 +50,15 @@ class ProductController extends Controller
         }
         if($request->brand){
             $brands=explode('#', $request->brand);
-            foreach($brands as $brand){
+            //foreach($brands as $brand){
                 $product=$product->whereIn('company', $brands);
-            }
+            //}
         }
 
 
         $cart=Cart::getUserCart($user);
+        $cart_total=$cart['total'];
+        $cart=$cart['cart'];
 
         $products=$product->with(['sizeprice'])->paginate(20);
 
@@ -68,6 +72,7 @@ class ProductController extends Controller
         return [
             'status'=>'success',
             'data'=>$products,
+            'cart_total'=>$cart_total
         ];
     }
 
@@ -82,27 +87,45 @@ class ProductController extends Controller
 //            ];
 
         if(!empty($request->search))
-            $product=Product::active()
-            ->with(['category', 'sizeprice'])
-            ->where('name', 'like', "%".$request->search."%");
-        $products=$product->paginate(10);
+            $banner=Banner::active()->select('id','image')->get();
+        $category=Category::active()->select('id','name','image')->get();
+            $products = Product::active()->where('name', 'like', "%".$request->search."%");
+//
+//            $product=Product::active()
+//            ->with(['category', 'sizeprice'])
+//            ->where('name', 'like', "%".$request->search."%");
 
         $cart=Cart::getUserCart($user);
+        $cart_total=$cart['total'];
+        $cart=$cart['cart'];
+        $searchproducts=$products->with(['sizeprice'=>function($size){
 
-        foreach($products as $i=>$r)
-        {
-            $products[$i]['category_name']=$r->category[0]->name??0;
-            foreach($products[$i]->sizeprice as $size){
+            $size->where('product_prices.isactive', true);
+
+        }])
+            ->whereHas('sizeprice',function($size){
+
+            $size->where('product_prices.isactive', true);
+
+        })
+            ->paginate(20);
+
+        foreach($searchproducts as $product){
+            foreach($product->sizeprice as $size){
                 $size->quantity=$cart[$size->id]??0;
-                $size->in_stocks=Size::getStockStatus($size, $r);
+                $size->in_stocks=Size::getStockStatus($size, $product);
             }
         }
+
         return [
             'status'=>'success',
-            'data'=>$products,
-
+            'banner'=>$banner,
+            'category'=>$category,
+            'data'=>$searchproducts,
+            'cart_total'=>$cart_total
         ];
     }
+
     public function product_detail(Request $request,$id){
         $user=auth()->guard('customerapi')->user();
 
@@ -134,6 +157,8 @@ class ProductController extends Controller
                 $totalcount=$ratings['one']+$ratings['two']+$ratings['three']+$ratings['four']+$ratings['five'];
             }
         $cart=Cart::getUserCart($user);
+        $cart_total=$cart['total'];
+        $cart=$cart['cart'];
         foreach($product->sizeprice as $size)
             $size->quantity=$cart[$size->id]??0;
             $productdetails=array(
@@ -156,6 +181,7 @@ class ProductController extends Controller
         return [
             'status'=>'success',
             'data'=>$productdetails,
+            'cart_total'=>$cart_total
 
         ];
     }
