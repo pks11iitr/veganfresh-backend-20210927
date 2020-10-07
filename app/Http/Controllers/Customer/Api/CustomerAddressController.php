@@ -32,7 +32,7 @@ class CustomerAddressController extends Controller
            ];
        }else{
            return [
-               'message' => 'No Saved Address Found'
+               'message' => 'Please add an address'
            ];
        }
 
@@ -65,8 +65,8 @@ class CustomerAddressController extends Controller
 
         $customeraddress =  CustomerAddress::create([
                     'user_id'=>$user->id,
-                    'first_name'=>$request->first_name,
-                    'last_name'=>$request->last_name,
+                    'first_name'=>ucfirst($request->first_name),
+                    'last_name'=>ucfirst($request->last_name),
                     'mobile_no'=>$request->mobile_no,
                     'email'=>$request->email?:'',
                     'house_no'=>$request->house_no,
