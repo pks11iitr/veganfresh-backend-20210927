@@ -383,7 +383,7 @@ class OrderController extends Controller
                 'item_id'=>$detail->entity_id,
                 //'show_return'=>($detail->status=='delivered'?1:0),
                 //'show_cancel'=>in_array($detail->status, ['confirmed'])?1:0,
-                'show_review'=>isset($reviews[$detail->entity_id])?0:1
+                'show_review'=>($order->status=='completed')?(isset($reviews[$detail->entity_id])?0:1):0
             ];
             $savings=$savings+($detail->cut_price-$detail->price);
 
