@@ -544,7 +544,7 @@ class RiderOrderController extends Controller
         $returnproducts=$returnproducts->orderBy('id', 'desc')->get();
       //  $returnproducts=ReturnProduct::where('rider_id',$user->id)
                                    //   ->orderBy('id', 'desc')
-                                    //  ->get();
+        $returnd=[];                            //  ->get();
         foreach ($returnproducts as $return)
         {
             $returnd[]=array(
