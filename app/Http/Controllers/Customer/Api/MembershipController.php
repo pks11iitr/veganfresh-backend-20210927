@@ -24,12 +24,22 @@ class MembershipController extends Controller
 
     public function index(Request $request){
 
+
+        $user=auth()->guard('customerapi')->user();
+
+
         $memberships=Membership::active()->get();
+
+
+        $active=[
+            'plan_id'=>(($user->membership_expiry??null)>=date('Y-m-d'))?$user->active_membership:0,
+            'is_active'=>(($user->membership_expiry??null)>=date('Y-m-d'))?1:0
+        ];
 
         return [
 
             'status'=>'success',
-            'data'=>compact('memberships')
+            'data'=>compact('memberships', 'active')
 
         ];
 
@@ -38,6 +48,18 @@ class MembershipController extends Controller
     public function subscribe(Request $request, $id){
 
         $user=auth()->guard('customerapi')->user();
+        if(!$user)
+            return [
+                'status'=>'failed',
+                'message'=>'Please login to continue'
+            ];
+        if($user->membership_expiry && $user->membership_expiry>=date('Y-m-d')){
+            return [
+                'status'=>'failed',
+                'message'=>'You already have a active subscription'
+            ];
+        }
+
 
         $membership=Membership::active()->find($id);
         if(!$membership)
