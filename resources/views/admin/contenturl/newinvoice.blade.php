@@ -67,7 +67,7 @@
             <td colspan="6" style="color: white"><strong>Order # {{$orders->refid}}</strong></td>
         </tr>
         <tr class="black">
-            <td colspan="6" style="color: white"><strong>Order Date: {{date('D d ,Y', strtotime($orders->delivery_date))}}</strong></td>
+            <td colspan="6" style="color: white"><strong>Order Date: {{date('D d ,Y', strtotime($orders->delivery_date))}} ({{$orders->booking_time}})</strong></td>
         </tr>
         </tbody>
     </table>
