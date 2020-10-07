@@ -339,6 +339,7 @@ class OrderController extends Controller
     public function orderdetails(Request $request, $id){
 
         $show_cancel_product=0;
+        $show_download_invoice=0;
 
         $user=auth()->guard('customerapi')->user();
         if(!$user)
@@ -419,7 +420,7 @@ class OrderController extends Controller
                 'deliveryaddress'=>$order->deliveryaddress??'',
                 'prices'=>$prices,
                 'show_download_invoice'=>$show_download_invoice??0,
-                'invoice_link'=>isset($show_download_invoice)?route('download.invoice', ['id'=>$order->id]):'',
+                'invoice_link'=>$show_download_invoice?route('download.invoice', ['id'=>$order->id]):'',
                 'time_slot'=>$time_slot
             ]
         ];
