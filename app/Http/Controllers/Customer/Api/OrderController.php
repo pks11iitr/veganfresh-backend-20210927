@@ -490,8 +490,8 @@ class OrderController extends Controller
             'data'=>null,
             'type'=>'individual'
         ]);
-
-        FCMNotification::sendNotification($order->customer->notification_token, 'Order Cancelled', 'Y');
+        if($order->customer->notification_token??null)
+            FCMNotification::sendNotification($order->customer->notification_token, 'Order Cancelled', 'Y');
 
         return [
             'status'=>'success',

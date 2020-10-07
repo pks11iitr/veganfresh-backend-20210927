@@ -52,7 +52,7 @@ class OrderConfirmListner
             'data'=>null,
             'type'=>'individual'
         ]);
-
-        FCMNotification::sendNotification($order->customer->notification_token, $title, $message);
+        if($order->customer->notification_token??null)
+            FCMNotification::sendNotification($order->customer->notification_token, $title, $message);
     }
 }
