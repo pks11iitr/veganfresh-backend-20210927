@@ -207,6 +207,7 @@ Route::group(['middleware'=>['auth', 'acl'], 'is'=>'admin'], function(){
         Route::get('/','SuperAdmin\ComplainController@index')->name('complain.list');
         Route::get('view/{id}','SuperAdmin\ComplainController@details')->name('complain.view');
         Route::post('message','SuperAdmin\ComplainController@send_message')->name('complain.message');
+        Route::get('mark-closed/{id}','SuperAdmin\ComplainController@markAsClosed')->name('complain.close');
 
     });
 
