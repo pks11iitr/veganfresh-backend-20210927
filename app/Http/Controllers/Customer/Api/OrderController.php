@@ -346,7 +346,7 @@ class OrderController extends Controller
                 'status'=>'failed',
                 'message'=>'Please login to continue'
             ];
-        $order=Order::with(['details.size', 'deliveryaddress'])
+        $order=Order::with(['details.size', 'deliveryaddress', 'timeslot'])
             ->where('user_id', $user->id)
             ->where('status', '!=', 'pending')
             ->find($id);
@@ -404,6 +404,11 @@ class OrderController extends Controller
             'total_paid'=>$order->total_cost+$order->delivery_charge-$order->coupon_discount,
         ];
 
+        $time_slot=[
+
+            'delivery_time'=>$order->delivery_date.' -'. ($order->timeslot->name??''),
+            'delivered_at'=>$order->delivered_at?date('m/d/Y h:iA', strtotime($order->delivered_at)):'No Yet Delivered',
+        ];
 
         return [
             'status'=>'success',
@@ -414,7 +419,8 @@ class OrderController extends Controller
                 'deliveryaddress'=>$order->deliveryaddress??'',
                 'prices'=>$prices,
                 'show_download_invoice'=>$show_download_invoice??0,
-                'invoice_link'=>$show_download_invoice?route('download.invoice', ['id'=>$order->id]):''
+                'invoice_link'=>$show_download_invoice?route('download.invoice', ['id'=>$order->id]):'',
+                'time_slot'=>$time_slot
             ]
         ];
     }
