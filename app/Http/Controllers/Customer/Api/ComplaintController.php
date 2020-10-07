@@ -112,6 +112,7 @@ class ComplaintController extends Controller
 
         $complaint=Complaint::where('user_id', $user->id)->find($complaint_id);
         $complaint->updated_at=date('Y-m-d H:i:s');
+        $complaint->is_closed=false;
         $complaint->save();
         if(!$complaint)
             return [
