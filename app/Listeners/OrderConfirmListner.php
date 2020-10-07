@@ -4,6 +4,7 @@ namespace App\Listeners;
 
 use App\Events\OrderConfirmed;
 use App\Models\Notification;
+use App\Services\Notification\FCMNotification;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
@@ -36,7 +37,7 @@ class OrderConfirmListner
 
     public function sendNotifications($order){
 
-        $message='';
+        $title='Order Confirmed';
         if($order->details[0]->entity_type == 'App\Models\Product'){
             $message='Congratulations! Your purchase of Rs. '.$order->total_cost.' at SuzoDailyNeeds is successfull. Order Reference ID: '.$order->refid;
         }else{
@@ -51,5 +52,7 @@ class OrderConfirmListner
             'data'=>null,
             'type'=>'individual'
         ]);
+
+        FCMNotification::sendNotification($order->customer->notification_token, $title, $message);
     }
 }

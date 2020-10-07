@@ -12,6 +12,7 @@ use App\Models\CustomerAddress;
 use App\Models\DailyBookingsSlots;
 use App\Models\HomeBookingSlots;
 use App\Models\Membership;
+use App\Models\Notification;
 use App\Models\Order;
 use App\Models\OrderDetail;
 use App\Models\OrderStatus;
@@ -20,6 +21,7 @@ use App\Models\RescheduleRequest;
 use App\Models\Therapy;
 use App\Models\TimeSlot;
 use App\Models\Wallet;
+use App\Services\Notification\FCMNotification;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
@@ -478,6 +480,18 @@ class OrderController extends Controller
         $order->save();
 
         Order::increaseInventory($order);
+
+        $message='Congratulations! Your order of Rs. '.$order->total_cost.' at SuzoDailyNeeds is cancelled. Order Reference ID: '.$order->refid;
+
+        Notification::create([
+            'user_id'=>$order->user_id,
+            'title'=>'Order Cancelled',
+            'description'=>$message,
+            'data'=>null,
+            'type'=>'individual'
+        ]);
+
+        FCMNotification::sendNotification($order->customer->notification_token, 'Order Cancelled', 'Y');
 
         return [
             'status'=>'success',
