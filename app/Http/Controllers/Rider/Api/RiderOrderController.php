@@ -347,7 +347,7 @@ class RiderOrderController extends Controller
                 'order_id'=>$d->order_id,
                 'store_id'=>$order->store_id,
                 'rider_id'=>$order->rider_id,
-                'ref_id'=>$order->ref_id,
+                'ref_id'=>$order->refid,
                 'entity_id'=>$d->entity_id,
                 'entity_type'=>$d->entity_type,
                 'size_id'=>$d->size_id,
@@ -556,7 +556,7 @@ class RiderOrderController extends Controller
                 "size"=>$return->size->size??'',
                 "quantity"=>$return->quantity,
                 "image"=>$return->image,
-                "created_at"=>$return->created_at,
+                "created_at"=>date('Y-m-d h:iA', strtotime($return->created_at)),
             );
 
         }
