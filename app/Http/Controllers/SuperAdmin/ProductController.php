@@ -60,7 +60,7 @@ class ProductController extends Controller
                      // 'min_qty'=>$request->min_qty,
                      // 'max_qty'=>$request->max_qty,
                       'ratings'=>$request->ratings,
-                     // 'stock'=>$request->stock,
+                        'stock'=>$request->stock,
                       'isactive'=>$request->isactive,
                       'image'=>'a']))
               $added_categories=[];
@@ -136,7 +136,7 @@ class ProductController extends Controller
                  'stock_type'=>'required',
 //                 'min_qty'=>'required',
 //                 'max_qty'=>'required',
-//                 'stock'=>'required',
+                 'stock'=>'required',
                  'image'=>'image'
                                ]);
 
@@ -154,7 +154,7 @@ class ProductController extends Controller
 //                 'min_qty'=>$request->min_qty,
 //                 'max_qty'=>$request->max_qty,
                  'ratings'=>$request->ratings,
-//                 'stock'=>$request->stock,
+                    'stock'=>$request->stock,
                  'isactive'=>$request->isactive,
              ]);
         $added_categories=[];

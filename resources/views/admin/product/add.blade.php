@@ -72,6 +72,12 @@
                             </div>
                         </div>
                         <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Stock</label>
+                                <input type="number" name="stock" class="form-control" min="0" id="exampleInputEmail3" placeholder="Enter rating">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
                   <div class="form-group">
                         <label>Is Offer</label>
                         <select class="form-control" name="is_offer" required>
