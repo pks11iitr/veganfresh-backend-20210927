@@ -104,7 +104,14 @@
                                                 </select>
                                             </div>
                                         </div>
-
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail1">Stock</label>
+                                                <input type="text" name="stock" class="form-control"
+                                                       id="exampleInputEmail1" placeholder="Enter Rating"
+                                                       value="{{$products->stock}}">
+                                            </div>
+                                        </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Is Offer</label>
