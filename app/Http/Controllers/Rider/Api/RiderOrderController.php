@@ -537,7 +537,7 @@ class RiderOrderController extends Controller
                 'status'=>'failed',
                 'message'=>'Please login to continue'
             ];
-        $returnproducts = ReturnProduct::where(function ($returnproducts) use ($user) {
+        $returnproducts = ReturnProduct::with(['storename', 'size'])->where(function ($returnproducts) use ($user) {
 
             $returnproducts->where('rider_id',$user->id);
         });
