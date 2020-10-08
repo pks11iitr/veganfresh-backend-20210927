@@ -99,7 +99,7 @@ class RiderOrderController extends Controller
                 'status'=>'failed',
                 'message'=>'Please login to continue'
             ];
-        $order=Order::with(['details.size', 'deliveryaddress'])
+        $order=Order::with(['details.size', 'deliveryaddress', ])
             ->where('rider_id', $user->id)
             ->where('status', '!=', 'pending')
             ->find($id);
@@ -122,7 +122,7 @@ class RiderOrderController extends Controller
                 'price'=>$detail->price,
                 'cut_price'=>$detail->cut_price,
                 'quantity'=>$detail->quantity,
-                'size'=>$detail->size->name??'',
+                'size'=>$detail->size->size??'',
                 'item_id'=>$detail->entity_id,
                 'id'=>$detail->id
                 //'show_return'=>($detail->status=='dispatched'?1:0),
