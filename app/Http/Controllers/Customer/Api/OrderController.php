@@ -461,8 +461,8 @@ class OrderController extends Controller
                 Wallet::updatewallet($user->id, 'Points added in wallet for order cancellation. Order ID: '.$order->refid,'Credit',$order->points_used,'POINT',$order->id);
             }
 
-            if($order->use_balance && $order->balance_used){
-                $amount=$order->total_cost-$order->coupon_discount+$order->delivery_charge-$order->points_used;
+            $amount=$order->total_cost-$order->coupon_discount+$order->delivery_charge-$order->points_used;
+            if($amount>0){
                 Wallet::updatewallet($user->id, 'Amount added in wallet for order cancellation. Order ID: '.$order->refid,'Credit',$amount,'CASH',$order->id);
             }
 
