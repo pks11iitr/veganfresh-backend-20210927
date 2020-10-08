@@ -512,7 +512,7 @@ class OrderController extends Controller
         // var_dump($orders);die();
         $pdf = PDF::loadView('admin.contenturl.newinvoice', compact('orders'))->setPaper('a4', 'portrait');
         return $pdf->download('invoice.pdf');
-        return view('admin.contenturl.newinvoice',['orders'=>$orders]);
+        //return view('admin.contenturl.newinvoice',['orders'=>$orders]);
     }
 
 }
