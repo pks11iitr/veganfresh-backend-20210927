@@ -81,10 +81,10 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Status</label>
-                                                <select class="form-control" name="status" required>
-                                                    <option value="1" {{$rider->status==1?'selected':''}}>Active</option>
-                                                    <option value="0" {{$rider->status==0?'selected':''}}>Inactive</option>
-                                                    <option value="2" {{$rider->status==2?'selected':''}}>Blocked</option>
+                                                <select class="form-control" name="isactive" required>
+                                                    <option value="0" {{$rider->isactive==0?'selected':''}}>Inactive</option>
+                                                    <option value="1" {{$rider->isactive==1?'selected':''}}>Active</option>
+
                                                 </select>
                                             </div>
                                         </div>
