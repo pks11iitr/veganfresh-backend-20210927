@@ -553,7 +553,7 @@ class RiderOrderController extends Controller
                 "name"=>$return->name,
                 "price"=>$return->price,
                 "cut_price"=>$return->cut_price,
-                "size"=>$return->size->size,
+                "size"=>$return->size->size??'',
                 "quantity"=>$return->quantity,
                 "image"=>$return->image,
                 "created_at"=>$return->created_at,

@@ -61,7 +61,7 @@ class OrderController extends Controller
 
     public function details(Request $request,$id){
         $order =Order::with(['details.entity'])->findOrFail($id);
-        $riders =Rider::get();
+        $riders =Rider::active()->get();
         return view('admin.order.details',['order'=>$order,'riders'=>$riders]);
     }
 
