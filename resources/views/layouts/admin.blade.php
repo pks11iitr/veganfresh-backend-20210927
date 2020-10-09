@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Suzo Daily Needs</title>
+    <title>HalloBasket</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Font Awesome -->
@@ -83,7 +83,7 @@
         <a href="index3.html" class="brand-link">
            <!-- <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
                  style="opacity: .8">-->
-            <span class="brand-text font-weight-light">Suzo Daily Needs CMS</span>
+            <span class="brand-text font-weight-light">HalloBasket CMS</span>
         </a>
 
         <!-- Sidebar -->
@@ -94,7 +94,7 @@
                     <img src="{{\Illuminate\Support\Facades\Storage::url('images/logo.jpeg')}}" class="img-circle elevation-2" alt="User Image">
                 </div>
                 <div class="info">
-                    <a href="#" class="d-block">Suzo Daily Needs</a>
+                    <a href="#" class="d-block">HalloBasket</a>
                 </div>
             </div>
 
