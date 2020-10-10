@@ -135,6 +135,11 @@ Route::group(['middleware'=>['auth', 'acl'], 'is'=>'admin'], function(){
 
     });
 
+    Route::group(['prefix'=>'sales'], function(){
+        Route::get('/','SuperAdmin\SalesController@index')->name('sales.list');
+
+    });
+
     Route::group(['prefix'=>'timeslot'], function(){
         Route::get('/','SuperAdmin\TimeSlotController@index')->name('timeslot.list');
         Route::get('create','SuperAdmin\TimeSlotController@create')->name('timeslot.create');

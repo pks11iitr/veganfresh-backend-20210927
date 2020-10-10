@@ -226,6 +226,16 @@
 
                     </li>
                     <li class="nav-item">
+                        <a href="{{route('sales.list')}}" class="nav-link">
+                            <i class="nav-icon fas fa-th"></i>
+                            <p>
+                                Sales
+
+                            </p>
+                        </a>
+
+                    </li>
+                    <li class="nav-item">
                         <a href="{{route('complain.list')}}" class="nav-link">
                             <i class="nav-icon fas fa-th"></i>
                             <p>
