@@ -36,7 +36,7 @@ class SalesController extends Controller
             });
         }
 
-        $sales=$sales->select(DB::raw('sum(quantity) as quantity'), DB::raw('sum(price) as cost'), 'entity_type', 'entity_id', 'size_id')
+        $sales=$sales->select(DB::raw('sum(quantity) as quantity'), DB::raw('sum(price*quantity) as cost'), 'entity_type', 'entity_id', 'size_id')
             ->groupBy('entity_type', 'entity_id', 'size_id');
 
         if($request->order_by){
@@ -53,7 +53,32 @@ class SalesController extends Controller
 
         $sales=$sales->paginate(20);
 
-        return view('admin.sales.sales', compact('sales', 'stores'));
+
+        $sales_aggregate=OrderDetail::with(['size', 'entity', 'order']);
+
+        $sales_aggregate=$sales_aggregate->whereHas('order', function($order) use($request){
+
+            $order->where('orders.status', 'completed');
+
+            if($request->store_id)
+                $order->where('store_id', $request->store_id);
+            if($request->fromdate)
+                $order->where('delivery_date', '>=', $request->fromdate);
+            if($request->todate)
+                $order->where('delivery_date', '<=', $request->todate);
+        });
+
+
+        if($request->search){
+            $sales_aggregate=$sales_aggregate->whereHasMorph('entity', [Product::class], function($entity) use($request){
+                $entity->where('name', 'LIKE', '%'.$request->search.'%');
+            });
+        }
+
+        $sales_aggregate=$sales_aggregate->selectRaw('sum(quantity) as count, sum(price*quantity) as total')
+            ->first();
+
+        return view('admin.sales.sales', compact('sales', 'stores', 'sales_aggregate'));
 
     }
 }

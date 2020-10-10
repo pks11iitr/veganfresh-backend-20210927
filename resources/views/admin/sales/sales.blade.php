@@ -77,6 +77,7 @@
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
+                                <h3><b>Total Sales Amount: {{$sales_aggregate['total']??0}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Total Items Sold: {{$sales_aggregate['count']??0}}</b></h3>
                                 <table id="example2" class="table table-bordered table-hover">
                                     <thead>
                                     <tr>

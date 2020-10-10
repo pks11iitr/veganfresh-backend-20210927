@@ -60,10 +60,11 @@
 
                                                     <select id="status" name="status" class="form-control" >
 
-                                                        <option value="" {{ request('status')==''?'selected':''}}>Select Order Status</option>
-                                                        <option value="pending" {{ request('status')=='pending'?'selected':''}}>pending</option>
-                                                        <option value="confirmed" {{ request('status')==='confirmed'?'selected':''}}>confirmed</option>
-                                                        <option value="cancelled" {{ request('status')=='cancelled'?'selected':''}}>cancelled</option>
+                                                        <option value="" {{ request('status')==''?'selected':''}}>Please select</option>
+                                                        <option value="pending" {{ request('status')=='confirmed'?'selected':''}}>New Order</option>
+                                                        <option value="confirmed" {{ request('status')==='dispatched'?'selected':''}}>Dispatched</option>
+                                                        <option value="cancelled" {{ request('status')=='cancelled'?'selected':''}}>Cancelled</option>
+                                                        <option value="cancelled" {{ request('status')=='completed'?'selected':''}}>Completed</option>
                                                     </select>
 
                                                 </div><br><br>

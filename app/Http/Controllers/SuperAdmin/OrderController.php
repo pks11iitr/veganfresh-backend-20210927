@@ -15,8 +15,11 @@ class OrderController extends Controller
 {
 
      public function index(Request $request){
+
+         $orders=Order::where('status', '!=', 'pending');
+
          if(isset($request->search)){
-             $orders=Order::where(function($orders) use ($request){
+             $orders=$orders->where(function($orders) use ($request){
 
                  $orders->where('name', 'like', "%".$request->search."%")
                      ->orWhere('email', 'like', "%".$request->search."%")
@@ -29,28 +32,31 @@ class OrderController extends Controller
                      });
              });
 
-         }else{
-             $orders =Order::where('id', '>=', 0);
          }
+
          if($request->fromdate)
-            $orders=$orders->where('delivery_date', '>=', $request->fromdate.'00:00:00');
+            $orders=$orders->where('delivery_date', '>=', $request->fromdate);
 
-         if($request->todate)
-                $orders=$orders->where('delivery_date', '<=', $request->todate.'23:59:50');
 
-            if($request->status)
-                $orders=$orders->where('status', $request->status);
+        if($request->todate)
+                $orders=$orders->where('delivery_date', '<=', $request->todate);
 
-             if($request->payment_status)
+        if($request->status)
+            $orders=$orders->where('status', $request->status);
+
+        if($request->payment_status)
                 $orders=$orders->where('payment_status', $request->payment_status);
-         if($request->store_id)
+
+        if($request->store_id)
               $orders=$orders->where('store_id', $request->store_id);
-         if($request->rider_id)
+
+        if($request->rider_id)
              $orders=$orders->where('rider_id', $request->rider_id);
 
         if($request->ordertype)
             $orders=$orders->orderBy('created_at', $request->ordertype);
-            $orders=$orders->orderBy('id', 'desc')->paginate(10);
+
+        $orders=$orders->paginate(10);
 
         $stores=User::where('id','>', 1)->get();
         $riders=Rider::get();
