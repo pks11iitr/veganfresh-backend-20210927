@@ -18,16 +18,17 @@ class SalesController extends Controller
 
         $sales=OrderDetail::with(['size', 'entity', 'order']);
 
-        if($request->store_id || $request->search || $request->fromdate || $request->todate){
-            $sales=$sales->whereHas('order', function($order) use($request){
-                if($request->store_id)
-                    $order->where('store_id', $request->store_id);
-                if($request->fromdate)
-                    $order->where('delivery_date', '>=', $request->fromdate);
-                if($request->todate)
-                    $order->where('delivery_date', '<=', $request->todate);
-            });
-        }
+        $sales=$sales->whereHas('order', function($order) use($request){
+
+            $order->where('orders.status', 'completed');
+
+            if($request->store_id)
+                $order->where('store_id', $request->store_id);
+            if($request->fromdate)
+                $order->where('delivery_date', '>=', $request->fromdate);
+            if($request->todate)
+                $order->where('delivery_date', '<=', $request->todate);
+        });
 
         if($request->search){
             $sales=$sales->whereHasMorph('entity', [Product::class], function($entity) use($request){
