@@ -236,6 +236,29 @@
 
                     </li>
                     <li class="nav-item">
+                        <a href="" class="nav-link">
+                            <i class="nav-icon fas fa-th"></i>
+                            <p>
+                                Inventory
+
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="{{route('packets.list')}}" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Packets Inventory</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{route('quantity.list')}}" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Quantity Inventory</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
                         <a href="{{route('complain.list')}}" class="nav-link">
                             <i class="nav-icon fas fa-th"></i>
                             <p>

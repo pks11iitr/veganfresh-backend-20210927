@@ -140,6 +140,14 @@ Route::group(['middleware'=>['auth', 'acl'], 'is'=>'admin'], function(){
 
     });
 
+
+    Route::group(['prefix'=>'inventory'], function(){
+        Route::get('packets','SuperAdmin\InventoryController@packet')->name('packets.list');
+        Route::get('quantity','SuperAdmin\InventoryController@quantity')->name('quantity.list');
+
+    });
+
+
     Route::group(['prefix'=>'timeslot'], function(){
         Route::get('/','SuperAdmin\TimeSlotController@index')->name('timeslot.list');
         Route::get('create','SuperAdmin\TimeSlotController@create')->name('timeslot.create');
