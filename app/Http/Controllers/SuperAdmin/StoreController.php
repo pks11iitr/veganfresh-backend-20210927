@@ -39,6 +39,8 @@ class StoreController extends Controller
         ]))
 
         {
+
+            $area->assignRole('store');
             return redirect()->route('stores.list')->with('success', 'store has been created');
         }
         return redirect()->back()->with('error', 'store create failed');
