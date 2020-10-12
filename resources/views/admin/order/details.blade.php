@@ -50,7 +50,7 @@
                                 </tr>
                                 <tr>
                                     <td>Total</td>
-                                    <td>{{$order->total_cost+$order->coupon_discount+$order->delivery_charge}}</td>
+                                    <td>{{$order->total_cost}}</td>
                                 </tr>
                                 <tr>
                                     <td>Delivery Charge</td>
@@ -59,6 +59,15 @@
                                 <tr>
                                     <td>Coupon Discount</td><td>{{$order->coupon_discount }}</td>
                                 </tr>
+                                <tr>
+                                    <td>Cashback Redeemed Discount</td><td>{{$order->points_used }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Wallet Balance Used Discount</td><td>{{$order->balance_used }}</td>
+                                </tr>
+{{--                                <tr>--}}
+{{--                                    <td>Total Paid</td><td>{{$order->total_cost+$order->delivery_charge-$order->coupon_discount-$order->points_used-$order->balance_used}}</td>--}}
+{{--                                </tr>--}}
                                 <tr>
                                     <td>Coupon Applied</td><td>{{$order->coupon_applied}}</td>
                                 </tr>
