@@ -239,16 +239,6 @@ Route::group(['middleware'=>['auth', 'acl'], 'is'=>'admin'], function(){
 
     });
 
-    Route::group(['prefix'=>'video'], function(){
-        Route::get('/','SuperAdmin\VideoController@index')->name('video.list');
-        Route::get('create','SuperAdmin\VideoController@create')->name('video.create');
-        Route::post('store','SuperAdmin\VideoController@store')->name('video.store');
-        Route::get('edit/{id}','SuperAdmin\VideoController@edit')->name('video.edit');
-        Route::post('update/{id}','SuperAdmin\VideoController@update')->name('video.update');
-        Route::get('delete/{id}','SuperAdmin\VideoController@delete')->name('video.delete');
-
-    });
-
     Route::group(['prefix'=>'wallet'], function(){
 
         Route::post('add-remove-wallet-balance', 'SuperAdmin\WalletController@addremove')->name('wallet.add.remove');
