@@ -119,7 +119,7 @@
                                 <tr>
                                     <td>Add/Revoke Cashback/Wallet Balance<br></td>
                                     <td>
-                                        <a href="javascript:void(0)" onclick="openWalletPanel({{$order->id}})">Open Panel</a>
+                                        <a href="javascript:void(0)" onclick="openWalletPanel('{{$order->id}}', '{{route('user.wallet.balance', ['id'=>$order->user_id])}}')">Open Panel</a>
                                     </td>
                                 </tr>
                                 </tbody>
@@ -252,7 +252,7 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Add/Remove Cashback/Wallet Balance</h4>
+                    <h4 class="modal-title">Add/Remove Cashback/Wallet Balance&nbsp;&nbsp;&nbsp;&nbsp;Balance:<span id="user-wallet-balance"></span>&nbsp;&nbsp;Cashback:<span id="user-wallet-cashback"></span></h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
@@ -276,7 +276,7 @@
                                         <label for="exampleInputEmail1">Calculation Type</label>
                                         <select class="form-control" name="calculation_type" required="">
                                             <option value="">Select Any</option>
-                                            <option value="fixed">Fixed</option>
+                                            <option value="fixed">Fixed Amount</option>
                                             <option value="percentage">Percentage</option>
                                         </select>
                                     </div>
@@ -302,7 +302,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Description</label>
-                                <input type="text" name="wallet_text" class="form-control" required="">
+                                <input type="text" name="wallet_text" class="form-control" required="" placeholder="Max 150 characters">
                             </div>
                         </div>
                         <!-- /.card-body -->
@@ -333,8 +333,13 @@
                         method:'get',
                         datatype:'json',
                         success:function(data){
+//alert(data)
+                            if(data.status=='success'){
+//alert()
+                                $("#user-wallet-balance").html(data.data.balance)
+                                $("#user-wallet-cashback").html(data.data.cashback)
 
-                            if(data.status=='')
+                            }
 
                         }
                     })
