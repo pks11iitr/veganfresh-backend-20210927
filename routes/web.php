@@ -249,6 +249,15 @@ Route::group(['middleware'=>['auth', 'acl'], 'is'=>'admin'], function(){
 
     });
 
+    Route::group(['prefix'=>'wallet'], function(){
+
+        Route::post('add-remove-wallet-balance', 'SuperAdmin\WalletController@addremove')->name('wallet.add.remove');
+
+        Route::post('get-wallet-balance/{id}', 'SuperAdmin\WalletController@getbalance')->name('user.wallet.balance');
+
+    });
+
+
 });
 
 Route::group(['prefix'=>'api'], function() {

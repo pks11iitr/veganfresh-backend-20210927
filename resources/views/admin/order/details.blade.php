@@ -117,12 +117,10 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>Add Cashback<br>( Please check case befor giving cashback)</td>
-                                    <td>@if(!$order->cashback_given)
-                                            <a href="{{route('add.cashback', ['id'=>$order->id, 'type'=>'credit'])}}" class="btn btn-primary">Add Cashback</a>
-                                        @else
-                                            <a href="{{route('add.cashback', ['id'=>$order->id, 'type'=>'debit'])}}" class="btn btn-primary">Revoke Cashback</a>
-                                        @endif</td>
+                                    <td>Add/Revoke Cashback/Wallet Balance<br></td>
+                                    <td>
+                                        <a href="javascript:void(0)" onclick="openWalletPanel({{$order->id}})">Open Panel</a>
+                                    </td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -250,10 +248,100 @@
 
     </div>
 
+    <div class="modal fade show" id="modal-lg" style="display: none; padding-right: 15px;" aria-modal="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Add/Remove Cashback/Wallet Balance</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="booking-form-section">
+                    <form role="form" method="post" enctype="multipart/form-data" action="{{route('wallet.add.remove')}}">
+                        @csrf
+                        <input type="hidden" name="order_id" id="wallet-order-id" value="1">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Select Add/Revoke</label>
+                                        <select class="form-control" name="action_type" required="">
+                                            <option value="">Select Any</option>
+                                            <option value="add">Add</option>
+                                            <option value="revoke">Revoke</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Calculation Type</label>
+                                        <select class="form-control" name="calculation_type" required="">
+                                            <option value="">Select Any</option>
+                                            <option value="fixed">Fixed</option>
+                                            <option value="percentage">Percentage</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Type(Cashback/Wallet Balance)</label>
+                                        <select class="form-control" name="amount_type" required="">
+                                            <option value="">Select Any</option>
+                                            <option value="cashback">Cashback</option>
+                                            <option value="balance">Wallet Balance</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Amount</label>
+                                        <input type="number" name="amount" class="form-control" required="" min="1">
+                                    </div>
+
+                                </div>
+
+
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Description</label>
+                                <input type="text" name="wallet_text" class="form-control" required="">
+                            </div>
+                        </div>
+                        <!-- /.card-body -->
+                        <div class="card-footer">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                    </form>
+                </div>
+                {{--                <div class="modal-footer justify-content-between">--}}
+                {{--                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>--}}
+                {{--                    <button type="button" class="btn btn-primary">Save changes</button>--}}
+                {{--                </div>--}}
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+
 @endsection
 
 @section('scripts')
     <script>
+
+        function openWalletPanel(id, url){
+                    $("#wallet-order-id").val(id)
+                    $.ajax({
+                        url:url,
+                        method:'get',
+                        datatype:'json',
+                        success:function(data){
+
+                            if(data.status=='')
+
+                        }
+                    })
+                    $("#modal-lg").modal('show')
+
+        }
+
 
         $(document).on("click", ".open-RiderChange", function () {
             var myBookId = $(this).data('id');
