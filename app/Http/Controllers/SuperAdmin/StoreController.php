@@ -39,7 +39,7 @@ class StoreController extends Controller
         ]))
 
         {
-
+            //var_dump($area->toArray());die;
             $area->assignRole('store');
             return redirect()->route('stores.list')->with('success', 'store has been created');
         }

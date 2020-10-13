@@ -21,7 +21,7 @@ Route::get('/home', function () {
 
 Auth::routes();
 
-Route::group(['middleware'=>['auth', 'acl'], 'is'=>'admin|rider-admin|clinic-therapist'], function(){
+Route::group(['middleware'=>['auth', 'acl'], 'is'=>'admin|store'], function(){
 
     Route::get('/role-check', 'SuperAdmin\HomeController@check_n_redirect')->name('user.role.check');
 
@@ -256,6 +256,26 @@ Route::group(['prefix'=>'api'], function() {
     Route::get('about-us', 'SuperAdmin\PolicyController@about')->name('about.view');
     Route::get('invoice/{id}', 'SuperAdmin\PolicyController@invoice')->name('invoice.view');
 });
+
+
+Route::group(['prefix'=>'store-admin', 'middleware'=>['auth', 'acl'], 'is'=>'store'], function() {
+
+    Route::get('/dashboard', 'StoreAdmin\DashboardController@index')->name('storeadmin.home');
+
+
+    Route::group(['prefix'=>'orders'], function(){
+        Route::get('/','StoreAdmin\OrderController@index')->name('storeadmin.orders.list');
+        Route::get('details/{id}','StoreAdmin\OrderController@details')->name('storeadmin.order.details');
+
+        Route::get('change-status/{id}','SuperAdmin\OrderController@changeStatus')->name('storeadmin.order.status.change');
+
+        Route::post('changeRider/{id}','SuperAdmin\OrderController@changeRider')->name('storeadmin.rider.change');
+
+    });
+
+
+});
+
 //Route::group(['prefix'=>'riders', 'middleware'=>['auth', 'acl'], 'is'=>'rider-admin'], function() {
     //Route::get('/dashboard', 'RiderAdmin\DashboardController@index')->name('rideradmin.home');
 

@@ -16,10 +16,8 @@ class HomeController extends BaseController
            if(auth()->user()->hasRole('admin'))
            { //die;
                return redirect()->route('home')->with('success', 'Login Successfull');}
-           else if(auth()->user()->hasRole('rider-admin')){
-               return redirect()->route('rideradmin.home')->with('success', 'Login Successfull');
-           }else if(auth()->user()->hasRole('clinic-therapist')){
-               return redirect()->route('clinic.therapist.home')->with('success', 'Login Successfull');
+           else if(auth()->user()->hasRole('store')){
+               return redirect()->route('storeadmin.home')->with('success', 'Login Successfull');
            }
 
        }
