@@ -281,6 +281,11 @@ Route::group(['prefix'=>'store-admin', 'middleware'=>['auth', 'acl'], 'is'=>'sto
         Route::post('update/{id}', 'StoreAdmin\RiderController@update')->name('storeadmin.rider.update');
     });
 
+    Route::group(['prefix'=>'returnproduct'], function(){
+        Route::get('/','StoreAdmin\ReturnProductController@index')->name('storeadmin.return.product.list');
+
+    });
+
 
 });
 
