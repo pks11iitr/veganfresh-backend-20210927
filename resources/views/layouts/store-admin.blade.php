@@ -160,13 +160,13 @@
                         <a href="{{route('return.product.list')}}" class="nav-link">
                             <i class="nav-icon fas fa-th"></i>
                             <p>
-                                Return Product
+                                Return Products
 
                             </p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{route('rider.list')}}" class="nav-link">
+                        <a href="{{route('storeadmin.rider.list')}}" class="nav-link">
                             <i class="nav-icon fas fa-th"></i>
                             <p>
                                 Rider

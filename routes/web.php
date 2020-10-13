@@ -273,6 +273,14 @@ Route::group(['prefix'=>'store-admin', 'middleware'=>['auth', 'acl'], 'is'=>'sto
 
     });
 
+    Route::group(['prefix'=>'rider'], function() {
+        Route::get('/', 'StoreAdmin\RiderController@index')->name('storeadmin.rider.list');
+        Route::get('create', 'StoreAdmin\RiderController@create')->name('storeadmin.rider.create');
+        Route::post('store', 'StoreAdmin\RiderController@store')->name('storeadmin.rider.store');
+        Route::get('edit/{id}', 'StoreAdmin\RiderController@edit')->name('storeadmin.rider.edit');
+        Route::post('update/{id}', 'StoreAdmin\RiderController@update')->name('storeadmin.rider.update');
+    });
+
 
 });
 
