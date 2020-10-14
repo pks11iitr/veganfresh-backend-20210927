@@ -247,6 +247,14 @@ Route::group(['middleware'=>['auth', 'acl'], 'is'=>'admin'], function(){
 
     });
 
+    Route::group(['prefix'=>'reports'], function(){
+
+        Route::get('sales-report', 'SuperAdmin\ReportDownloader@downloadSalesReport')->name('sales.report');
+
+        Route::get('order-report', 'SuperAdmin\ReportDownloader@downloadOrderReport')->name('order.report');
+
+    });
+
 
 });
 

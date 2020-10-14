@@ -84,8 +84,14 @@
                                                 <div class="col-4">
                                                     <input  id="fullname"  class="form-control" name="todate" placeholder=" search name" value="{{request('todate')}}"  type="date" />
                                                 </div>
-                                                <div class="col-4">
+                                                <div class="col-8">
                                                     <button type="submit" name="save" class="btn btn-primary">Submit</button>
+                                                </div>
+                                                <div class="col-4">
+                                                    <a class="btn btn-primary" href="{{route('sales.report')}}?{{Request::getQueryString()}}">Download Sales Report</a>
+                                                </div>
+                                                <div class="col-4">
+                                                    <a class="btn btn-primary" href="{{route('order.report')}}?{{Request::getQueryString()}}">Download Order Report</a>
                                                 </div>
                                             </div>
                                         </form>
