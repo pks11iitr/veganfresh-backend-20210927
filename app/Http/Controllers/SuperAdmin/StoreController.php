@@ -55,7 +55,7 @@ class StoreController extends Controller
         $request->validate([
             'name'=>'required',
             'email'=>'required|unique:users,email,'.$id,
-            'mobile'=>'required|unique:users,mobile'.$id,
+            'mobile'=>'required|unique:users,mobile,'.$id,
             'address'=>'required',
             //'password'=>'required',
             'status'=>'required'
