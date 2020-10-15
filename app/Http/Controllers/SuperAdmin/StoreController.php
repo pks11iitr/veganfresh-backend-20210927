@@ -22,8 +22,8 @@ class StoreController extends Controller
     public function store(Request $request){
         $request->validate([
             'name'=>'required',
-            'email'=>'required',
-            'mobile'=>'required',
+            'email'=>'required|unique:users',
+            'mobile'=>'required|unique:users',
             'address'=>'required',
             'password'=>'required',
             'status'=>'required'
@@ -54,8 +54,8 @@ class StoreController extends Controller
     public function update(Request $request ,$id){
         $request->validate([
             'name'=>'required',
-            'email'=>'required',
-            'mobile'=>'required',
+            'email'=>'required|unique:users',
+            'mobile'=>'required|unique:users',
             'address'=>'required',
             //'password'=>'required',
             'status'=>'required'
