@@ -21,7 +21,7 @@ Route::get('/home', function () {
 
 Auth::routes();
 
-Route::group(['middleware'=>['auth', 'acl'], 'is'=>'admin|store'], function(){
+Route::group(['middleware'=>['auth', 'acl'], 'is'=>'admin|store|subadmin'], function(){
 
     Route::get('/role-check', 'SuperAdmin\HomeController@check_n_redirect')->name('user.role.check');
 
@@ -297,13 +297,294 @@ Route::group(['prefix'=>'store-admin', 'middleware'=>['auth', 'acl'], 'is'=>'sto
 
 });
 
-//Route::group(['prefix'=>'riders', 'middleware'=>['auth', 'acl'], 'is'=>'rider-admin'], function() {
-    //Route::get('/dashboard', 'RiderAdmin\DashboardController@index')->name('rideradmin.home');
+Route::group(['middleware'=>['auth', 'acl'], 'is'=>'subadmin'], function(){
 
-    //Route::group(['prefix'=>'orders'], function(){
-       // Route::get('/','RiderAdmin\OrderController@index')->name('rider.orders.list');
-        //Route::get('details/{id}','SuperAdmin\OrderController@details')->name('rider.order.details');
+    Route::get('/dashboard', 'SuperAdmin\SubAdminDashboardController@index')->name('subadmin.home');
+
+//****************************************hallobasket********************************************
+
+    Route::group(['prefix' => 'configurations'], function () {
+        Route::group(['can'=>'view.configuration'], function() {
+            Route::get('/', 'SuperAdmin\ConfigurationController@index')->name('configurations.list');
+        });
+        Route::group(['can'=>'update.configuration'], function() {
+            Route::post('/', 'SuperAdmin\ConfigurationController@update');
+        });
+    });
 
 
-//});
+    Route::group(['prefix'=>'banners'], function(){
+
+        Route::group(['can'=>'view.banner'], function(){
+            Route::get('/','SuperAdmin\BannerController@index')->name('banners.list');
+            Route::get('create','SuperAdmin\BannerController@create')->name('banners.create');
+            Route::get('edit/{id}','SuperAdmin\BannerController@edit')->name('banners.edit');
+        });
+        Route::group(['can'=>'update.banner'], function() {
+            Route::post('store', 'SuperAdmin\BannerController@store')->name('banners.store');
+
+            Route::post('update/{id}', 'SuperAdmin\BannerController@update')->name('banners.update');
+            Route::get('delete/{id}', 'SuperAdmin\BannerController@delete')->name('banners.delete');
+        });
+    });
+
+    Route::group(['prefix'=>'category'], function(){
+        Route::group(['can'=>'view.category'], function(){
+            Route::get('/','SuperAdmin\CategoryController@index')->name('category.list');
+            Route::get('create','SuperAdmin\CategoryController@create')->name('category.create');
+            Route::get('edit/{id}','SuperAdmin\CategoryController@edit')->name('category.edit');
+        });
+        Route::group(['can'=>'update.category'], function(){
+            Route::post('store','SuperAdmin\CategoryController@store')->name('category.store');
+
+            Route::post('update/{id}','SuperAdmin\CategoryController@update')->name('category.update');
+        });
+    });
+
+    Route::group(['prefix'=>'subcategory'], function(){
+        Route::group(['can'=>'view.subcategory'], function(){
+            Route::get('/','SuperAdmin\SubCategoryController@index')->name('subcategory.list');
+            Route::get('create','SuperAdmin\SubCategoryController@create')->name('subcategory.create');
+            Route::get('edit/{id}','SuperAdmin\SubCategoryController@edit')->name('subcategory.edit');
+        });
+        Route::group(['can'=>'update.subcategory'], function(){
+            Route::post('store','SuperAdmin\SubCategoryController@store')->name('subcategory.store');
+
+            Route::post('update/{id}','SuperAdmin\SubCategoryController@update')->name('subcategory.update');
+        });
+
+    });
+
+    Route::group(['prefix'=>'product'], function(){
+        Route::group(['can'=>'view.product'], function(){
+            Route::get('/','SuperAdmin\ProductController@index')->name('product.list');
+            Route::get('create','SuperAdmin\ProductController@create')->name('product.create');
+            Route::get('edit/{id}','SuperAdmin\ProductController@edit')->name('product.edit');
+            Route::get('size-images','SuperAdmin\ProductController@allimages')->name('product.size.images');
+            Route::get('bulk-upload','SuperAdmin\ProductController@bulk_upload_form')->name('product.bulk.form');
+        });
+        Route::group(['can'=>'update.product'], function(){
+            Route::post('store','SuperAdmin\ProductController@store')->name('product.store');
+
+            Route::post('update/{id}','SuperAdmin\ProductController@update')->name('product.update');
+            Route::post('product-sizeprice/{id}','SuperAdmin\ProductController@sizeprice')->name('product.sizeprice');
+            Route::post('size-update','SuperAdmin\ProductController@updatesizeprice')->name('product.size.update');
+            Route::get('delete/{id}','SuperAdmin\ProductController@delete')->name('product.delete');
+            Route::post('product-category-create/{id}','SuperAdmin\ProductController@productcategory')->name('product.category.create');
+
+
+            Route::post('document/{id}','SuperAdmin\ProductController@document')->name('product.document');
+            Route::post('bulk-upload','SuperAdmin\ProductController@bulk_upload')->name('product.bulk.upload');
+        });
+
+
+
+
+
+
+    });
+    Route::group(['prefix'=>'homesection'], function(){
+        Route::group(['can'=>'view.homesection'], function(){
+            Route::get('/','SuperAdmin\HomeSectionController@index')->name('homesection.list');
+            Route::get('banner-create','SuperAdmin\HomeSectionController@bannercreate')->name('homesection.bannercreate');
+            Route::get('banner-edit/{id}','SuperAdmin\HomeSectionController@banneredit')->name('homesection.banneredit');
+            Route::get('productcreate','SuperAdmin\HomeSectionController@productcreate')->name('homesection.productcreate');
+            Route::get('productedit/{id}','SuperAdmin\HomeSectionController@productedit')->name('homesection.productedit');
+            Route::get('productdelete/{id}','SuperAdmin\HomeSectionController@productdelete')->name('homesection.productdelete');
+            Route::get('sub-category-create','SuperAdmin\HomeSectionController@subcategorycreate')->name('homesection.subcategorycreate');
+            Route::get('sub-category-edit/{id}','SuperAdmin\HomeSectionController@subcategoryedit')->name('homesection.subcategoryedit');
+        });
+        Route::group(['can'=>'update.homesection'], function(){
+            Route::post('banner-store','SuperAdmin\HomeSectionController@bannerstore')->name('homesection.bannerstore');
+
+            Route::post('banner-update/{id}','SuperAdmin\HomeSectionController@bannerupdate')->name('homesection.bannerupdate');
+            Route::post('productstore','SuperAdmin\HomeSectionController@productstore')->name('homesection.productstore');
+            Route::post('productupdate/{id}','SuperAdmin\HomeSectionController@productupdate')->name('homesection.productupdate');
+            Route::post('productimage/{id}','SuperAdmin\HomeSectionController@productImage')->name('homesection.productimage');
+            Route::post('sub-category-store','SuperAdmin\HomeSectionController@subcategorystore')->name('homesection.subcategorystore');
+            Route::post('sub-category-update/{id}','SuperAdmin\HomeSectionController@subcategoryupdate')->name('homesection.subcategoryupdate');
+            Route::post('subcategoryimage/{id}','SuperAdmin\HomeSectionController@subcategoryimage')->name('homesection.subcategoryimage');
+            Route::get('subdelete/{id}','SuperAdmin\HomeSectionController@subdelete')->name('homesection.subdelete');
+            Route::get('home-section-delete/{id}','SuperAdmin\HomeSectionController@homesectiondelete')->name('homesection.homesectiondelete');
+        });
+
+
+
+
+
+    });
+
+    Route::group(['prefix'=>'coupon'], function(){
+        Route::group(['can'=>'view.coupon'], function(){
+            Route::get('/','SuperAdmin\CouponController@index')->name('coupon.list');
+            Route::get('create','SuperAdmin\CouponController@create')->name('coupon.create');
+            Route::get('edit/{id}','SuperAdmin\CouponController@edit')->name('coupon.edit');
+        });
+        Route::group(['can'=>'update.coupon'], function(){
+            Route::post('store','SuperAdmin\CouponController@store')->name('coupon.store');
+            Route::post('update/{id}','SuperAdmin\CouponController@update')->name('coupon.update');
+        });
+
+    });
+
+    Route::group(['prefix'=>'orders'], function(){
+        Route::group(['can'=>'view.order'], function(){
+            Route::get('/','SuperAdmin\OrderController@index')->name('orders.list');
+            Route::get('details/{id}','SuperAdmin\OrderController@details')->name('order.details');
+        });
+        Route::group(['can'=>'update.order'], function(){
+            Route::get('change-status/{id}','SuperAdmin\OrderController@changeStatus')->name('order.status.change');
+            Route::get('change-payment-status/{id}','SuperAdmin\OrderController@changePaymentStatus')->name('payment.status.change');
+            Route::post('changeRider/{id}','SuperAdmin\OrderController@changeRider')->name('rider.change');
+            Route::get('add-cashback/{id}/{type}','SuperAdmin\OrderController@addCashback')->name('add.cashback');
+        });
+
+        //Route::get('product','SuperAdmin\OrderController@product')->name('orders.product');
+
+    });
+
+    Route::group(['prefix'=>'returnproduct'], function(){
+        Route::group(['can'=>'view.return'], function(){
+            Route::get('/','SuperAdmin\ReturnProductController@index')->name('return.product.list');
+        });
+    });
+
+    Route::group(['prefix'=>'sales'], function(){
+        Route::group(['can'=>'view.sale'], function(){
+            Route::get('/','SuperAdmin\SalesController@index')->name('sales.list');
+        });
+    });
+
+
+    Route::group(['prefix'=>'inventory'], function(){
+        Route::group(['can'=>'view.inventory'], function(){
+            Route::get('packets','SuperAdmin\InventoryController@packet')->name('packets.list');
+            Route::get('quantity','SuperAdmin\InventoryController@quantity')->name('quantity.list');
+        });
+    });
+
+
+    Route::group(['prefix'=>'timeslot'], function(){
+        Route::get('/','SuperAdmin\TimeSlotController@index')->name('timeslot.list');
+        Route::get('create','SuperAdmin\TimeSlotController@create')->name('timeslot.create');
+        Route::post('store','SuperAdmin\TimeSlotController@store')->name('timeslot.store');
+        Route::get('edit/{id}','SuperAdmin\TimeSlotController@edit')->name('timeslot.edit');
+        Route::post('update/{id}','SuperAdmin\TimeSlotController@update')->name('timeslot.update');
+
+    });
+
+    Route::group(['prefix'=>'area'], function(){
+        Route::group(['can'=>'view.arealist'], function(){
+            Route::get('/','SuperAdmin\AreaController@index')->name('area.list');
+            Route::get('create','SuperAdmin\AreaController@create')->name('area.create');
+            Route::get('edit/{id}','SuperAdmin\AreaController@edit')->name('area.edit');
+
+        });
+        Route::group(['can'=>'update.arealist'], function(){
+            Route::post('store','SuperAdmin\AreaController@store')->name('area.store');
+            Route::post('update/{id}','SuperAdmin\AreaController@update')->name('area.update');
+            Route::post('import','SuperAdmin\AreaController@import')->name('area.import');
+
+        });
+
+    });
+
+    Route::group(['prefix'=>'rider'], function(){
+        Route::group(['can'=>'view.rider'], function(){
+            Route::get('/','SuperAdmin\RiderController@index')->name('rider.list');
+            Route::get('create','SuperAdmin\RiderController@create')->name('rider.create');
+            Route::get('edit/{id}','SuperAdmin\RiderController@edit')->name('rider.edit');
+
+        });
+        Route::group(['can'=>'update.rider'], function(){
+            Route::post('store','SuperAdmin\RiderController@store')->name('rider.store');
+            Route::post('update/{id}','SuperAdmin\RiderController@update')->name('rider.update');
+
+        });
+
+    });
+
+    Route::group(['prefix'=>'stores'], function(){
+        Route::group(['can'=>'view.store'], function(){
+            Route::get('/','SuperAdmin\StoreController@index')->name('stores.list');
+            Route::get('create','SuperAdmin\StoreController@create')->name('stores.create');
+            Route::get('edit/{id}','SuperAdmin\StoreController@edit')->name('stores.edit');
+
+        });
+        Route::group(['can'=>'update.store'], function(){
+            Route::post('store','SuperAdmin\StoreController@store')->name('stores.store');
+            Route::post('update/{id}','SuperAdmin\StoreController@update')->name('stores.update');
+
+        });
+    });
+    //****************************************end**
+
+
+    Route::group(['prefix'=>'customer'], function(){
+        Route::group(['can'=>'view.customer'], function(){
+            Route::get('/','SuperAdmin\CustomerController@index')->name('customer.list');
+            Route::get('edit/{id}','SuperAdmin\CustomerController@edit')->name('customer.edit');
+        });
+        Route::group(['can'=>'update.customer'], function(){
+
+            Route::post('update/{id}','SuperAdmin\CustomerController@update')->name('customer.update');
+            Route::post('send_message','SuperAdmin\CustomerController@send_message')->name('customer.send_message');
+        });
+
+    });
+
+    Route::group(['prefix'=>'complain'], function(){
+        Route::group(['can'=>'view.complaint'], function(){
+            Route::get('/','SuperAdmin\ComplainController@index')->name('complain.list');
+            Route::get('view/{id}','SuperAdmin\ComplainController@details')->name('complain.view');
+            Route::post('message','SuperAdmin\ComplainController@send_message')->name('complain.message');
+
+        });
+        Route::group(['can'=>'update.complaint'], function(){
+            Route::get('mark-closed/{id}','SuperAdmin\ComplainController@markAsClosed')->name('complain.close');
+
+        });
+
+    });
+
+    Route::group(['prefix'=>'news'], function(){
+
+        Route::get('/','SuperAdmin\NewsUpdateController@index')->name('news.list');
+        Route::get('create','SuperAdmin\NewsUpdateController@create')->name('news.create');
+        Route::post('store','SuperAdmin\NewsUpdateController@store')->name('news.store');
+        Route::get('edit/{id}','SuperAdmin\NewsUpdateController@edit')->name('news.edit');
+        Route::post('update/{id}','SuperAdmin\NewsUpdateController@update')->name('news.update');
+
+    });
+
+    Route::group(['prefix'=>'notification'], function(){
+        Route::group(['can'=>'view.notification'], function(){
+            Route::get('create','SuperAdmin\NotificationController@create')->name('notification.create');
+
+        });
+        Route::group(['can'=>'update.notification'], function(){
+            Route::post('store','SuperAdmin\NotificationController@store')->name('notification.store');
+
+        });
+
+    });
+
+    Route::group(['prefix'=>'wallet'], function(){
+
+        Route::post('add-remove-wallet-balance', 'SuperAdmin\WalletController@addremove')->name('wallet.add.remove');
+
+        Route::get('get-wallet-balance/{id}', 'SuperAdmin\WalletController@getbalance')->name('user.wallet.balance');
+
+    });
+
+    Route::group(['prefix'=>'reports'], function(){
+
+        Route::get('sales-report', 'SuperAdmin\ReportDownloader@downloadSalesReport')->name('sales.report');
+
+        Route::get('order-report', 'SuperAdmin\ReportDownloader@downloadOrderReport')->name('order.report');
+
+    });
+
+
+});
 
