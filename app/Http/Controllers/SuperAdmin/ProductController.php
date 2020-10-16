@@ -101,7 +101,7 @@ class ProductController extends Controller
                 }
 
 
-             return redirect()->route('product.list', ['id'=>$products->id])->with('success', 'Product has been created');
+             return redirect()->route('product.edit', ['id'=>$products->id])->with('success', 'Product has been created');
             }
              return redirect()->back()->with('error', 'Product create failed');
           }
