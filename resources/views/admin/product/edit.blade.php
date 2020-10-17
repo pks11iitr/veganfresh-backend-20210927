@@ -99,7 +99,7 @@
                                                     <option selected="selected"
                                                             value="packet" {{$products->stock_type=='packet'?'selected':''}}>Packet
                                                     </option>
-                                                    <option value="quantity" {{$products->stock_type==''?'selected':'quantity'}}>Quantity
+                                                    <option value="quantity" {{$products->stock_type=='quantity'?'selected':'quantity'}}>Quantity
                                                     </option>
                                                 </select>
                                             </div>
