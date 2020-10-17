@@ -27,23 +27,42 @@ class CartController extends Controller
             'size_id'=>'required|integer|min:0'
         ]);
 
-        $size=Size::where('product_id',$request->product_id)
-            ->find($request->size_id);
+//        $size=Size::active()
+//            ->where('product_id',$request->product_id)
+//            ->find($request->size_id);
 
-        if(!$size){
+        $product=Product::active()
+            ->with(['sizeprice'=>function($size) use($request){
+                $size->where('product_prices.isactive', true)
+                    ->where('product_prices.id', $request->size_id);
+            }])->whereHas('sizeprice', function($size) use($request){
+                $size->where('product_prices.isactive', true)
+                    ->where('product_prices.id', $request->size_id);
+            })->find($request->product_id);
+
+        if(!$product){
             return [
                 'status'=>'failed',
-                'message'=>'Invalid Size'
+                'message'=>'Product is no longer available'
             ];
         }
 
+        if($request->quantity>0 && $request->quantity < $product->sizeprice[0]->min_qty)
+            return [
+                'status'=>'failed',
+                'message'=>'You can add minimum '.$product->sizeprice[0]->min_qty.' quantity',
+            ];
+
+        if($request->quantity > $product->sizeprice[0]->max_qty)
+            return [
+                'status'=>'failed',
+                'message'=>'You can add maximum '.$product->sizeprice[0]->max_qty.' quantity',
+            ];
+
+
         $cart = Cart::with([
-                        'product'=>function($products){
-                            $products->where('isactive', true);
-                        },
-                        'sizeprice'=>function($size){
-                            $size->where('isactive', true);
-                        }])
+            'product',
+            'sizeprice'])
             ->where('product_id',$request->product_id)
             ->where('size_id',$request->size_id)
             ->where('user_id', $user->id)
@@ -53,48 +72,50 @@ class CartController extends Controller
         if(!$cart){
             if($request->quantity>0){
 
-                $product=Product::active()
-                    ->with(['sizeprice'=>function($size) use($request){
+//                $product=Product::active()
+//                    ->with(['sizeprice'=>function($size) use($request){
+//
+//                        $size->where('product_prices.isactive', true)
+//                            ->where('product_prices.id', $request->size_id);
+//
+//                    }])
+//                    ->find($request->product_id);
 
-                        $size->where('product_prices.isactive', true)
-                            ->where('product_prices.id', $request->size_id);
-
-                    }])
-                    ->find($request->product_id);
-
-                if($product && $product->sizeprice[0]){
-                        if($product->stock_type=='quantity'){
-                            if($product->stock < $request->quantity){
-                                return [
-                                    'status'=>'failed',
-                                    'message'=>'Product is out of stock',
-                                ];
-                            }
-                        }else{
-                            if($product->sizeprice[0]->stock < $request->quantity){
-                                return [
-                                    'status'=>'failed',
-                                    'message'=>'Product is out of stock',
-                                ];
-                            }
+                if($product){
+                    if($product->stock_type=='quantity'){
+                        if($product->stock < $request->quantity*$product->sizeprice[0]->consumed_units){
+                            return [
+                                'status'=>'failed',
+                                'message'=>'No more quantity available',
+                            ];
                         }
-                        $savelaterproduct=SaveLaterProduct::where('product_id',$request->product_id)
-                            ->where('size_id',$request->size_id)
-                            ->where('user_id',$user->id)->first();
-                        if($savelaterproduct) {
-                            $savelaterproduct->delete();
+                    }else{
+                        if($product->sizeprice[0]->stock < $request->quantity*$product->sizeprice[0]->consumed_units){
+                            return [
+                                'status'=>'failed',
+                                'message'=>'No more quantity available',
+                            ];
                         }
-                        Cart::create([
-                            'product_id'=>$request->product_id,
-                            'quantity'=>$request->quantity,
-                            'user_id'=>$user->id,
-                            'size_id'=>$request->size_id,
-                        ]);
+                    }
+
+
+                    $savelaterproduct=SaveLaterProduct::where('product_id',$request->product_id)
+                        ->where('size_id',$request->size_id)
+                        ->where('user_id',$user->id)->first();
+                    if($savelaterproduct) {
+                        $savelaterproduct->delete();
+                    }
+                    Cart::create([
+                        'product_id'=>$request->product_id,
+                        'quantity'=>$request->quantity,
+                        'user_id'=>$user->id,
+                        'size_id'=>$request->size_id,
+                    ]);
                 }else{
 
                     return [
                         'status'=>'failed',
-                        'message'=>'Product is not available'
+                        'message'=>'No more quantity available'
                     ];
 
                 }
@@ -103,19 +124,20 @@ class CartController extends Controller
             }
         }else{
             if($request->quantity>0){
+
                 if($cart->product && $cart->sizeprice){
                     if($cart->product->stock_type=='quantity'){
-                        if($cart->product->stock < $request->quantity){
+                        if($cart->product->stock < $request->quantity*$cart->sizeprice->consumed_units){
                             return [
                                 'status'=>'failed',
-                                'message'=>'Product is out of stock',
+                                'message'=>'No more quantity available',
                             ];
                         }
                     }else{
-                        if($cart->sizeprice->stock < $request->quantity){
+                        if($cart->sizeprice->stock < $request->quantity*$cart->sizeprice->consumed_units){
                             return [
                                 'status'=>'failed',
-                                'message'=>'Product is out of stock',
+                                'message'=>'No more quantity available',
                             ];
                         }
                     }
@@ -156,39 +178,35 @@ class CartController extends Controller
 
     }
 
-public function getCartDetails(Request $request){
-    $user=auth()->guard('customerapi')->user();
-    if(!$user)
-        return [
-            'status'=>'failed',
-            'message'=>'Please login to continue'
-        ];
-    $cartitems=Cart::with(['product'=>function($products){
-        $products->where('products.isactive', true);
-    }, 'sizeprice'=>function($size){
-        $size->where('product_prices.isactive', true);
-    }])
-    ->where('user_id', $user->id)
-    ->get();
+    public function getCartDetails(Request $request){
+        $user=auth()->guard('customerapi')->user();
+        if(!$user)
+            return [
+                'status'=>'failed',
+                'message'=>'Please login to continue'
+            ];
+        $cartitems=Cart::with(['product', 'sizeprice'])
+            ->where('user_id', $user->id)
+            ->get();
 
-    $total=0;
-    $quantity=0;
-    $price_total=0;
-    $cartitem=array();
-    $savelater=array();
+        $total=0;
+        $quantity=0;
+        $price_total=0;
+        $cartitem=array();
+        $savelater=array();
 
         foreach($cartitems as $c){
-            if(!$c->product || !$c->sizeprice){
+            if(!$c->sizeprice->isactive || !$c->product->isactive){
                 $c->delete();
                 continue;
             }
             if($c->product->stock_type=='quantity'){
-                if($c->product->stock < $c->quantity){
+                if($c->product->stock < $c->quantity*$c->sizeprice->consumed_units){
                     $c->delete();
                     continue;
                 }
             }else{
-                if($c->sizeprice->stock < $c->quantity){
+                if($c->sizeprice->stock < $c->quantity*$c->sizeprice->consumed_units){
                     $c->delete();
                     continue;
                 }
@@ -219,26 +237,26 @@ public function getCartDetails(Request $request){
             );
 
         }
-    $savelaters=SaveLaterProduct::with(['product'=>function($products){
-        $products->where('isactive', true);
-    }])->where('user_id', $user->id)->get();
-    foreach($savelaters as $sl){
+        $savelaters=SaveLaterProduct::with(['product'=>function($products){
+            $products->where('isactive', true);
+        }])->where('user_id', $user->id)->get();
+        foreach($savelaters as $sl){
 
-        $savelater[]=array(
-            'id'=>$sl->id,
-            'name'=>$sl->product->name??'',
-            'company'=>$sl->product->company??'',
-            'ratings'=>$sl->product->ratings??'',
-            'image'=>$sl->sizeprice->image,
-            'product_id'=>$sl->product->id??'',
-            'size_id'=>$sl->sizeprice->id,
-            'discount'=>$sl->sizeprice->discount,
-            'size'=>$sl->sizeprice->size,
-            'price'=>$sl->sizeprice->price,
-            'cut_price'=>$sl->sizeprice->cut_price,
-            'stock'=>$sl->sizeprice->stock,
-        );
-    }
+            $savelater[]=array(
+                'id'=>$sl->id,
+                'name'=>$sl->product->name??'',
+                'company'=>$sl->product->company??'',
+                'ratings'=>$sl->product->ratings??'',
+                'image'=>$sl->sizeprice->image,
+                'product_id'=>$sl->product->id??'',
+                'size_id'=>$sl->sizeprice->id,
+                'discount'=>$sl->sizeprice->discount,
+                'size'=>$sl->sizeprice->size,
+                'price'=>$sl->sizeprice->price,
+                'cut_price'=>$sl->sizeprice->cut_price,
+                'stock'=>$sl->sizeprice->stock,
+            );
+        }
         return [
             'cartitem'=>$cartitem,
             'total'=>$total,
