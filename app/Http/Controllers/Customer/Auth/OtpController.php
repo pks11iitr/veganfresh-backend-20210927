@@ -109,7 +109,8 @@ class OtpController extends Controller
                 return [
                     'status'=>'success',
                     'message'=>'OTP has been verified successfully',
-                    'token'=>Auth::guard('customerapi')->fromUser($user)
+                    'token'=>Auth::guard('customerapi')->fromUser($user),
+                    'is_profile_complete'=>!empty($user->name)?1:0
                 ];
             }
 

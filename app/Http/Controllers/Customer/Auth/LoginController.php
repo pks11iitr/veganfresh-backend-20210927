@@ -107,11 +107,15 @@ class LoginController extends Controller
         $this->validateOTPLogin($request);
 
         $user=Customer::where('mobile', $request->mobile)->first();
-        if(!$user)
-            return ['status'=>'failed', 'message'=>'This account is not registered with us. Please signup to continue'];
 
-        if(!in_array($user->status, [0,1]))
-            return ['status'=>'failed', 'message'=>'This account has been blocked'];
+        if(!$user){
+            $user=Customer::create([
+                'mobile'=>$request->mobile,
+            ]);
+        }else{
+            if(!in_array($user->status, [0,1]))
+                return ['status'=>'failed', 'message'=>'This account has been blocked'];
+        }
 
         $otp=OTPModel::createOTP('customer', $user->id, 'login');
         $msg=str_replace('{{otp}}', $otp, config('sms-templates.login'));

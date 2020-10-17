@@ -154,7 +154,7 @@ class OrderController extends Controller
 
         switch($order->status){
             case 'dispatched':
-                $message='Your order at SuzoDailyNeeds with  ID:'.$order->refid.' has been dispatched. You will receive your order shortly';
+                $message='Your order at Hallobasket with  ID:'.$order->refid.' has been dispatched. You will receive your order shortly';
                 $title='Order Dispatched';
                 break;
 //            case 'delivered':

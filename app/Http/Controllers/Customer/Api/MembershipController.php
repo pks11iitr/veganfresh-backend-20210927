@@ -149,7 +149,7 @@ class MembershipController extends Controller
 
             return [
                 'status'=>'success',
-                'message'=> 'Congratulations! Your subscription at SuzoDailyNeeds is successful',
+                'message'=> 'Congratulations! Your subscription at Hallobasket is successful',
                 'data'=>[
                     'ref_id'=>$subscription->refid,
                     'order_id'=>$subscription->id

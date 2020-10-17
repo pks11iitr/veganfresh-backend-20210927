@@ -481,7 +481,7 @@ class OrderController extends Controller
 
         Order::increaseInventory($order);
 
-        $message='Congratulations! Your order of Rs. '.$order->total_cost.' at SuzoDailyNeeds is cancelled. Order Reference ID: '.$order->refid;
+        $message='Congratulations! Your order of Rs. '.$order->total_cost.' at Hallobasket is cancelled. Order Reference ID: '.$order->refid;
 
         Notification::create([
             'user_id'=>$order->user_id,
