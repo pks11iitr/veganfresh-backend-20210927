@@ -26,7 +26,7 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <a href="{{route('stores.create')}}" class="btn btn-primary">Add Store</a>
+                                <a href="{{route('subadmin.create')}}" class="btn btn-primary">Add Sub-Admin</a>
 
                             </div>
                             <!-- /.card-header -->

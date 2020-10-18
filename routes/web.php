@@ -21,7 +21,7 @@ Route::get('/home', function () {
 
 Auth::routes();
 
-Route::group(['middleware'=>['auth', 'acl'], 'is'=>'admin|store|subadmin'], function(){
+Route::group(['middleware'=>['auth', 'acl']], function(){
 
     Route::get('/role-check', 'SuperAdmin\HomeController@check_n_redirect')->name('user.role.check');
 
@@ -292,19 +292,24 @@ Route::group(['prefix'=>'store-admin', 'middleware'=>['auth', 'acl'], 'is'=>'sto
 
 });
 
-Route::group(['middleware'=>['auth', 'acl'], 'is'=>'admin|subadmin'], function(){
+Route::group(['middleware'=>['auth', 'acl']], function(){
 
     Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
-    Route::get('/dashboard', 'SuperAdmin\DashboardController@index')->name('home');
-    Route::get('/subadmin-dashboard', 'SuperAdmin\SubAdminDashboardController@index')->name('subadmin.home');
+    Route::group(['is'=>'admin'], function(){
+        Route::get('/dashboard', 'SuperAdmin\DashboardController@index')->name('home');
+    });
+
+    Route::group(['is'=>'dashboard-viewer'], function() {
+        Route::get('/subadmin-dashboard', 'SuperAdmin\SubAdminDashboardController@index')->name('subadmin.home');
+    });
 
 //****************************************hallobasket********************************************
 
     Route::group(['prefix' => 'configurations'], function () {
-        Route::group(['can'=>'view.configuration'], function() {
+        Route::group(['is'=>'admin|configuration-viewer'], function() {
             Route::get('/', 'SuperAdmin\ConfigurationController@index')->name('configurations.list');
         });
-        Route::group(['can'=>'update.configuration'], function() {
+        Route::group(['is'=>'admin|configuration-editor'], function() {
             Route::post('/', 'SuperAdmin\ConfigurationController@update');
         });
     });
@@ -312,12 +317,12 @@ Route::group(['middleware'=>['auth', 'acl'], 'is'=>'admin|subadmin'], function()
 
     Route::group(['prefix'=>'banners'], function(){
 
-        Route::group(['can'=>'view.banner'], function(){
+        Route::group(['is'=>'admin|banner-viewer'], function(){
             Route::get('/','SuperAdmin\BannerController@index')->name('banners.list');
             Route::get('create','SuperAdmin\BannerController@create')->name('banners.create');
             Route::get('edit/{id}','SuperAdmin\BannerController@edit')->name('banners.edit');
         });
-        Route::group(['can'=>'update.banner'], function() {
+        Route::group(['is'=>'admin|banner-editor'], function() {
             Route::post('store', 'SuperAdmin\BannerController@store')->name('banners.store');
 
             Route::post('update/{id}', 'SuperAdmin\BannerController@update')->name('banners.update');
@@ -555,7 +560,7 @@ Route::group(['middleware'=>['auth', 'acl'], 'is'=>'admin|subadmin'], function()
     });
 
     Route::group(['prefix'=>'notification'], function(){
-        Route::group(['can'=>'view.notification'], function(){
+        Route::group(['can'=>'update.notification'], function(){
             Route::get('create','SuperAdmin\NotificationController@create')->name('notification.create');
 
         });
@@ -584,14 +589,14 @@ Route::group(['middleware'=>['auth', 'acl'], 'is'=>'admin|subadmin'], function()
 
     Route::group(['prefix'=>'subadmin'], function(){
 
-        Route::group(['can'=>'view.subadmin'], function() {
+        Route::group(['is'=>'admin|subadmin-viewer'], function() {
             Route::get('subadmins', 'SuperAdmin\SubAdminController@index')->name('subadmin.list');
 
             Route::get('create', 'SuperAdmin\SubAdminController@create')->name('subadmin.create');
 
             Route::get('edit/{id}', 'SuperAdmin\SubAdminController@edit')->name('subadmin.edit');
         });
-        Route::group(['can'=>'update.subadmin'], function(){
+        Route::group(['is'=>'admin|subadmin-editor'], function(){
             Route::post('create', 'SuperAdmin\SubAdminController@store');
 
             Route::post('edit/{id}', 'SuperAdmin\SubAdminController@update');

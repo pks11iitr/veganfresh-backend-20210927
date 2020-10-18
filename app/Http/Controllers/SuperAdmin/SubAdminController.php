@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
+use Kodeine\Acl\Models\Eloquent\Permission;
 
 class SubAdminController extends Controller
 {
@@ -27,7 +28,8 @@ class SubAdminController extends Controller
             'mobile'=>'required|unique:users',
             'address'=>'required',
             'password'=>'required',
-            'status'=>'required'
+            'status'=>'required',
+            'permissions'=>'array'
         ]);
 
         if($area=User::create([
@@ -41,8 +43,19 @@ class SubAdminController extends Controller
 
         {
             //var_dump($area->toArray());die;
-            $area->assignRole('subadmin');
-            return redirect()->route('stores.list')->with('success', 'store has been created');
+            //$area->assignRole('subadmin');
+            $roles=[];
+            $roles[]='subadmin';
+            if($request->permissions){
+                foreach($request->permissions as $key=>$permission){
+                    $roles[]=$key;
+                }
+            }
+            $area->syncRoles('subadmin');
+//            echo '<pre>';
+//            print_r($roles);
+//            die;
+            return redirect()->route('subadmin.edit', ['id'=>$area->id])->with('success', 'store has been created');
         }
         return redirect()->back()->with('error', 'store create failed');
     }
@@ -59,8 +72,10 @@ class SubAdminController extends Controller
             'mobile'=>'required|unique:users,mobile,'.$id,
             'address'=>'required',
             //'password'=>'required',
-            'status'=>'required'
+            'status'=>'required',
+            'permissions'=>'array'
         ]);
+
 
         $subadmin =User::findOrFail($id);
 
@@ -73,6 +88,14 @@ class SubAdminController extends Controller
                 'address' => $request->address,
                 'status' => $request->status,
             ]);
+            $roles=[];
+            $roles[]='subadmin';
+            if($request->permissions){
+                foreach($request->permissions as $key=>$permission){
+                    $roles[]=$key;
+                }
+            }
+            $subadmin->syncRoles($roles);
         }else{
             $subadmin->update([
                 'name' => $request->name,
@@ -81,7 +104,23 @@ class SubAdminController extends Controller
                 'address' => $request->address,
                 'status' => $request->status,
             ]);
+
+            $roles=[];
+            $roles[]='subadmin';
+            if($request->permissions){
+                foreach($request->permissions as $key=>$permission){
+                    $roles[]=$key;
+                }
+            }
+            //echo '<pre>';
+            //var_dump($roles);die;
+            $subadmin->syncRoles($roles);
         }
+
+//        echo '<pre>';
+//        print_r($request->all());
+//        die;
+
         if($subadmin)
         {
             return redirect()->back()->with('success', 'store has been updated');

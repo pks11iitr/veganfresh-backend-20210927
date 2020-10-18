@@ -144,7 +144,7 @@
 {{--                        </ul>--}}
                     </li>
                     <!--**************************************************************************************************-->
-                    @if(auth()->user()->hasRole('admin') || auth()->user()->can('banner.view'))
+                    @if(auth()->user()->hasRole('admin') || auth()->user()->hasRole('banner-viewer') || auth()->user()->hasRole('banner-editor'))
                     <li class="nav-item">
                         <a href="{{route('banners.list')}}" class="nav-link">
                             <i class="nav-icon fas fa-th"></i>
@@ -155,7 +155,7 @@
                         </a>
                     </li>
                     @endif
-                    @if(auth()->user()->hasRole('admin') || auth()->user()->can('homesection.view'))
+                    @if(auth()->user()->hasRole('admin') || auth()->user()->hasRole('homesection-viewer') || auth()->user()->hasRole('homesection-editor'))
                     <li class="nav-item">
                         <a href="{{route('homesection.list')}}" class="nav-link">
                             <i class="nav-icon fas fa-th"></i>
@@ -166,7 +166,7 @@
                         </a>
                     </li>
                     @endif
-                    @if(auth()->user()->hasRole('admin') || auth()->user()->can('category.view'))
+                    @if(auth()->user()->hasRole('admin') || auth()->user()->hasRole('category-viewer') || auth()->user()->hasRole('category-editor'))
 
                     <li class="nav-item">
                         <a href="{{route('category.list')}}" class="nav-link">
@@ -178,7 +178,7 @@
                         </a>
                     </li>
                     @endif
-                    @if(auth()->user()->hasRole('admin') || auth()->user()->can('subcategory.view'))
+                    @if(auth()->user()->hasRole('admin') || auth()->user()->hasRole('subcategory-viewer') || auth()->user()->hasRole('subcategory-editor'))
 
                     <li class="nav-item">
                         <a href="{{route('subcategory.list')}}" class="nav-link">
@@ -209,7 +209,7 @@
 {{--                            </p>--}}
 {{--                        </a>--}}
 {{--                    </li>--}}
-                    @if(auth()->user()->hasRole('admin') || auth()->user()->can('customer.view'))
+                    @if(auth()->user()->hasRole('admin') || auth()->user()->hasRole('customer-viewer') || auth()->user()->hasRole('customer-editor'))
 
                     <li class="nav-item">
                         <a href="{{route('customer.list')}}" class="nav-link">
@@ -221,7 +221,7 @@
                         </a>
                     </li>
                     @endif
-                    @if(auth()->user()->hasRole('admin') || auth()->user()->can('product.view'))
+                    @if(auth()->user()->hasRole('admin') || auth()->user()->hasRole('product-viewer') || auth()->user()->hasRole('product-editor'))
 
                     <li class="nav-item">
                         <a href="{{route('product.list')}}" class="nav-link">
@@ -233,7 +233,7 @@
                         </a>
                     </li>
                     @endif
-                    @if(auth()->user()->hasRole('admin') || auth()->user()->can('coupon.view'))
+                    @if(auth()->user()->hasRole('admin') || auth()->user()->hasRole('coupon-viewer') || auth()->user()->hasRole('coupon-editor'))
 
                     <li class="nav-item">
                         <a href="{{route('coupon.list')}}" class="nav-link">
@@ -245,7 +245,7 @@
                         </a>
                     </li>
                     @endif
-                    @if(auth()->user()->hasRole('admin') || auth()->user()->can('order.view'))
+                    @if(auth()->user()->hasRole('admin') || auth()->user()->hasRole('order-viewer') || auth()->user()->hasRole('order-editor'))
 
                     <li class="nav-item">
                         <a href="{{route('orders.list')}}" class="nav-link">
@@ -258,7 +258,7 @@
 
                     </li>
                     @endif
-                    @if(auth()->user()->hasRole('admin') || auth()->user()->can('sale.view'))
+                    @if(auth()->user()->hasRole('admin') || auth()->user()->hasRole('sale-viewer') || auth()->user()->hasRole('sale-editor'))
 
                     <li class="nav-item">
                         <a href="{{route('sales.list')}}" class="nav-link">
@@ -271,7 +271,7 @@
 
                     </li>
                     @endif
-                    @if(auth()->user()->hasRole('admin') || auth()->user()->can('inventory.view'))
+                    @if(auth()->user()->hasRole('admin') || auth()->user()->hasRole('inventory-viewer') || auth()->user()->hasRole('inventory-editor'))
 
                     <li class="nav-item">
                         <a href="" class="nav-link">
@@ -297,7 +297,7 @@
                         </ul>
                     </li>
                     @endif
-                    @if(auth()->user()->hasRole('admin') || auth()->user()->can('complaint.view'))
+                    @if(auth()->user()->hasRole('admin') || auth()->user()->hasRole('complaint-viewer') || auth()->user()->hasRole('complaint-editor'))
 
                     <li class="nav-item">
                         <a href="{{route('complain.list')}}" class="nav-link">
@@ -319,7 +319,7 @@
 {{--                            </p>--}}
 {{--                        </a>--}}
 {{--                    </li>--}}
-                    @if(auth()->user()->hasRole('admin') || auth()->user()->can('notification.view'))
+                    @if(auth()->user()->hasRole('admin') || auth()->user()->hasRole('notification-viewer') || auth()->user()->hasRole('notification-editor'))
 
                     <li class="nav-item">
                         <a href="{{route('notification.create')}}" class="nav-link">
@@ -331,7 +331,7 @@
                         </a>
                     </li>
                     @endif
-                    @if(auth()->user()->hasRole('admin') || auth()->user()->can('return.view'))
+                    @if(auth()->user()->hasRole('admin') || auth()->user()->hasRole('return-viewer') || auth()->user()->hasRole('return-editor'))
 
                     <li class="nav-item">
                         <a href="{{route('return.product.list')}}" class="nav-link">
@@ -353,7 +353,7 @@
 {{--                            </p>--}}
 {{--                        </a>--}}
 {{--                    </li>--}}
-                    @if(auth()->user()->hasRole('admin') || auth()->user()->can('arealist.view'))
+                    @if(auth()->user()->hasRole('admin') || auth()->user()->hasRole('arealist-viewer') || auth()->user()->hasRole('arealist-editor'))
 
                     <li class="nav-item">
                         <a href="{{route('area.list')}}" class="nav-link">
@@ -365,7 +365,7 @@
                         </a>
                     </li>
                     @endif
-                    @if(auth()->user()->hasRole('admin') || auth()->user()->can('rider.view'))
+                    @if(auth()->user()->hasRole('admin') || auth()->user()->hasRole('rider-viewer') || auth()->user()->hasRole('rider-editor'))
 
                     <li class="nav-item">
                         <a href="{{route('rider.list')}}" class="nav-link">
@@ -377,7 +377,7 @@
                         </a>
                     </li>
                     @endif
-                    @if(auth()->user()->hasRole('admin') || auth()->user()->can('store.view'))
+                    @if(auth()->user()->hasRole('admin') || auth()->user()->hasRole('store-viewer') || auth()->user()->hasRole('store-editor'))
 
                     <li class="nav-item">
                         <a href="{{route('stores.list')}}" class="nav-link">
@@ -388,7 +388,7 @@
                         </a>
                     </li>
                     @endif
-                    @if(auth()->user()->hasRole('admin') || auth()->user()->can('configuration.view'))
+                    @if(auth()->user()->hasRole('admin') || auth()->user()->hasRole('configuration-viewer') || auth()->user()->hasRole('configuration-editor'))
                     <li class="nav-item">
                         <a href="{{route('configurations.list')}}" class="nav-link">
                             <i class="nav-icon fas fa-th"></i>
@@ -398,7 +398,7 @@
                         </a>
                     </li>
                     @endif
-                    @if(auth()->user()->hasRole('admin') || auth()->user()->can('subadmin.view'))
+                    @if(auth()->user()->hasRole('admin') || auth()->user()->hasRole('subadmin-viewer') || auth()->user()->hasRole('subadmin-editor'))
                         <li class="nav-item">
                             <a href="{{route('subadmin.list')}}" class="nav-link">
                                 <i class="nav-icon fas fa-th"></i>
