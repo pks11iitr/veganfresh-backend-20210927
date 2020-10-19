@@ -8,6 +8,7 @@ use App\Models\Category;
 use App\Models\Configuration;
 use App\Models\HomeSection;
 use App\Models\Product;
+use App\Models\Size;
 use App\Models\TimeSlot;
 use App\Models\Video;
 use Illuminate\Http\Request;
@@ -101,6 +102,10 @@ class HomeController extends Controller
         //return $productsobj;
         $products=[];
         foreach($productsobj as $product)
+            foreach($product->sizeprice as $size){
+                $size->quantity=$cart[$size->id]??0;
+                $size->in_stocks=Size::getStockStatus($size, $product);
+            }
             $products[$product->id]=[
                 'sizeprice'=>$product->sizeprice,
                 'reviews'=>$product->reviews_count[0]->review??0,
