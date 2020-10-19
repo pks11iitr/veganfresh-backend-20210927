@@ -137,10 +137,10 @@ class PaymentController extends Controller
 
         }
         if($request->type=='cod'){
-            return [
-                'status'=>'failed',
-                'message'=>'Your Account Has Been Blocked'
-            ];
+//            return [
+//                'status'=>'failed',
+//                'message'=>'Your Account Has Been Blocked'
+//            ];
             $result=$this->initiateCODPayment($order);
         }else{
             $result=$this->initiateGatewayPayment($order);
