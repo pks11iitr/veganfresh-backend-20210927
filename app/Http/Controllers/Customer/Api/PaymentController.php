@@ -155,11 +155,11 @@ class PaymentController extends Controller
         //points can be used for therapy only
 
         $walletpoints=Wallet::points($order->user_id);
-        if($walletpoints >= $order->total_cost-$order->coupon_discount){
+        if($walletpoints >= $order->total_cost+$order->delivery_charge-$order->coupon_discount){
             $order->payment_status='paid';
             $order->status='confirmed';
             $order->use_points=true;
-            $order->points_used=$order->total_cost-$order->coupon_discount;
+            $order->points_used=$order->total_cost+$order->delivery_charge-$order->coupon_discount;
             $order->payment_mode='online';
             $order->save();
 
@@ -205,11 +205,11 @@ class PaymentController extends Controller
                 'remaining_amount'=>$order->total_cost
             ];
 
-        if($walletbalance >= $order->total_cost-$order->coupon_discount-$order->points_used) {
+        if($walletbalance >= $order->total_cost+$order->delivery_charge-$order->coupon_discount-$order->points_used) {
             $order->payment_status='paid';
             $order->status='confirmed';
             $order->use_balance=true;
-            $order->balance_used=$order->total_cost-$order->coupon_discount-$order->points_used;
+            $order->balance_used=$order->total_cost+$order->delivery_charge-$order->coupon_discount-$order->points_used;
             $order->payment_mode='online';
             $order->save();
 
@@ -248,7 +248,7 @@ class PaymentController extends Controller
 
     private function initiateGatewayPayment($order){
         $response=$this->pay->generateorderid([
-            "amount"=>($order->total_cost-$order->coupon_discount-$order->points_used-$order->balance_used+$order->delivery_charge)*100,
+            "amount"=>($order->total_cost+$order->delivery_charge-$order->coupon_discount-$order->points_used-$order->balance_used)*100,
             "currency"=>"INR",
             "receipt"=>$order->refid,
         ]);
@@ -264,7 +264,7 @@ class PaymentController extends Controller
                 'data'=>[
                     'payment_done'=>'no',
                     'razorpay_order_id'=> $order->order_id,
-                    'total'=>($order->total_cost-$order->coupon_discount-$order->points_used-$order->balance_used+$order->delivery_charge)*100,
+                    'total'=>($order->total_cost+$order->delivery_charge-$order->coupon_discount-$order->points_used-$order->balance_used)*100,
                     'email'=>$order->email,
                     'mobile'=>$order->mobile,
                     'description'=>'Product Purchase at HalloBasket',
@@ -337,14 +337,13 @@ class PaymentController extends Controller
 
         return [
             'status'=>'success',
-            'message'=>'Congratulations! Your order at Hallobasket is successful',
+            'message'=>'Congratulations! Your order at SuzoDailyNeeds is successful',
             'data'=>[
                 'payment_done'=>'yes',
                 'refid'=>$order->refid
             ],
         ];
     }
-
 
     public function verifyPayment(Request $request){
 

@@ -53,7 +53,7 @@ class OrderController extends Controller
                 'title' => ($order->details[0]->name ?? '') . ' ' . ($total > 1 ? 'and ' . ($total - 1) . ' more' : ''),
                 'booking_id' => $order->refid,
                 'datetime' => date('D d M,Y', strtotime($order->created_at)),
-                'total_price' => $order->total_cost,
+                'total_price' => +$order->delivery_charge-$order->coupon_discount,
                 'image' => $order->details[0]->image ?? ''
             ];
         }
