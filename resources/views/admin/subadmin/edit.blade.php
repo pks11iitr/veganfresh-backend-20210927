@@ -80,7 +80,7 @@
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">Dashboard Permissions</label><br>
                                                 <div>
-                                                    <input type="checkbox" name="permissions[dashboard-viewer]"  id="exampleInputEmail1" placeholder="Enter Password" @if(auth()->user()->hasRole('dashboard-viewer')) {{'checked'}} @endif> View Dashboard
+                                                    <input type="checkbox" name="permissions[dashboard-viewer]"  id="exampleInputEmail1" placeholder="Enter Password" @if($subadmin->hasRole('dashboard-viewer')) {{'checked'}} @endif> View Dashboard
                                                 </div>
                                             </div>
                                         </div>
@@ -88,8 +88,8 @@
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">Banner Permissions</label><br>
                                                 <div>
-                                                    <input type="checkbox" name="permissions[banner-viewer]"  id="exampleInputEmail1" placeholder="Enter Password" @if(auth()->user()->hasRole('banner-viewer')) {{'checked'}} @endif> View Banner
-                                                    <input type="checkbox" name="permissions[banner-editor]"  id="exampleInputEmail1" placeholder="Enter Password" @if(auth()->user()->hasRole('banner-editor')) {{'checked'}} @endif> Add/Update Banners
+                                                    <input type="checkbox" name="permissions[banner-viewer]"  id="exampleInputEmail1" placeholder="Enter Password" @if($subadmin->hasRole('banner-viewer')) {{'checked'}} @endif> View Banner
+                                                    <input type="checkbox" name="permissions[banner-editor]"  id="exampleInputEmail1" placeholder="Enter Password" @if($subadmin->hasRole('banner-editor')) {{'checked'}} @endif> Add/Update Banners
                                                 </div>
                                             </div>
                                         </div>
@@ -97,8 +97,8 @@
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">Category Permissions</label><br>
                                                 <div>
-                                                    <input type="checkbox" name="permissions[category-viewer]"  id="exampleInputEmail1" placeholder="Enter Password" @if(auth()->user()->hasRole('category-viewer')) {{'checked'}} @endif> View Category
-                                                    <input type="checkbox" name="permissions[category-editor]"  id="exampleInputEmail1" placeholder="Enter Password" @if(auth()->user()->hasRole('category-editor')) {{'checked'}} @endif> Add/Update Category
+                                                    <input type="checkbox" name="permissions[category-viewer]"  id="exampleInputEmail1" placeholder="Enter Password" @if($subadmin->hasRole('category-viewer')) {{'checked'}} @endif> View Category
+                                                    <input type="checkbox" name="permissions[category-editor]"  id="exampleInputEmail1" placeholder="Enter Password" @if($subadmin->hasRole('category-editor')) {{'checked'}} @endif> Add/Update Category
                                                 </div>
                                             </div>
                                         </div>
@@ -106,8 +106,8 @@
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">Sub-Category Permissions</label><br>
                                                 <div>
-                                                    <input type="checkbox" name="permissions[subcategory-viewer]"  id="exampleInputEmail1" placeholder="Enter Password"> View Sub-Category
-                                                    <input type="checkbox" name="permissions[subcategory-editor]"  id="exampleInputEmail1" placeholder="Enter Password"> Add/Update Sub-Category
+                                                    <input type="checkbox" name="permissions[subcategory-viewer]"  id="exampleInputEmail1" placeholder="Enter Password" @if($subadmin->hasRole('subcategory-viewer')) {{'checked'}} @endif> View Sub-Category
+                                                    <input type="checkbox" name="permissions[subcategory-editor]"  id="exampleInputEmail1" placeholder="Enter Password" @if($subadmin->hasRole('subcategory-editor')) {{'checked'}} @endif> Add/Update Sub-Category
                                                 </div>
                                             </div>
                                         </div>
@@ -115,8 +115,8 @@
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">Product Permissions</label><br>
                                                 <div>
-                                                    <input type="checkbox" name="permissions[product-viewer]"  id="exampleInputEmail1" placeholder="Enter Password"> View Product
-                                                    <input type="checkbox" name="permissions[product-editor]"  id="exampleInputEmail1" placeholder="Enter Password"> Add/Update Product
+                                                    <input type="checkbox" name="permissions[product-viewer]"  id="exampleInputEmail1" placeholder="Enter Password" @if($subadmin->hasRole('product-viewer')) {{'checked'}} @endif> View Product
+                                                    <input type="checkbox" name="permissions[product-editor]"  id="exampleInputEmail1" placeholder="Enter Password" @if($subadmin->hasRole('product-editor')) {{'checked'}} @endif> Add/Update Product
                                                 </div>
                                             </div>
                                         </div>
@@ -124,8 +124,8 @@
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">Customer Permissions</label><br>
                                                 <div>
-                                                    <input type="checkbox" name="permissions[customer-viewer]"  id="exampleInputEmail1" placeholder="Enter Password"> View Customer
-                                                    <input type="checkbox" name="permissions[customer-editor]"  id="exampleInputEmail1" placeholder="Enter Password"> Add/Update Customer
+                                                    <input type="checkbox" name="permissions[customer-viewer]"  id="exampleInputEmail1" placeholder="Enter Password" @if($subadmin->hasRole('customer-viewer')) {{'checked'}} @endif> View Customer
+                                                    <input type="checkbox" name="permissions[customer-editor]"  id="exampleInputEmail1" placeholder="Enter Password" @if($subadmin->hasRole('customer-editor')) {{'checked'}} @endif> Add/Update Customer
                                                 </div>
                                             </div>
                                         </div>
@@ -133,8 +133,8 @@
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">Coupon Permissions</label><br>
                                                 <div>
-                                                    <input type="checkbox" name="permissions[coupon-viewer]"  id="exampleInputEmail1" placeholder="Enter Password"> View Coupon
-                                                    <input type="checkbox" name="permissions[coupon-editor]"  id="exampleInputEmail1" placeholder="Enter Password"> Add/Update Coupon
+                                                    <input type="checkbox" name="permissions[coupon-viewer]"  id="exampleInputEmail1" placeholder="Enter Password" @if($subadmin->hasRole('coupon-viewer')) {{'checked'}} @endif> View Coupon
+                                                    <input type="checkbox" name="permissions[coupon-editor]"  id="exampleInputEmail1" placeholder="Enter Password" @if($subadmin->hasRole('coupon-editor')) {{'checked'}} @endif> Add/Update Coupon
                                                 </div>
                                             </div>
                                         </div>
@@ -142,8 +142,8 @@
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">Order Permissions</label><br>
                                                 <div>
-                                                    <input type="checkbox" name="permissions[order-viewer]"  id="exampleInputEmail1" placeholder="Enter Password"> View Order
-                                                    <input type="checkbox" name="permissions[order-editor]"  id="exampleInputEmail1" placeholder="Enter Password"> Add/Update Order
+                                                    <input type="checkbox" name="permissions[order-viewer]"  id="exampleInputEmail1" placeholder="Enter Password" @if($subadmin->hasRole('order-viewer')) {{'checked'}} @endif> View Order
+                                                    <input type="checkbox" name="permissions[order-editor]"  id="exampleInputEmail1" placeholder="Enter Password" @if($subadmin->hasRole('order-editor')) {{'checked'}} @endif> Add/Update Order
                                                 </div>
                                             </div>
                                         </div>
@@ -151,7 +151,7 @@
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">Sales Permissions</label><br>
                                                 <div>
-                                                    <input type="checkbox" name="permissions[sale-viewer]"  id="exampleInputEmail1" placeholder="Enter Password"> View Sales
+                                                    <input type="checkbox" name="permissions[sale-viewer]"  id="exampleInputEmail1" placeholder="Enter Password" @if($subadmin->hasRole('sale-viewer')) {{'checked'}} @endif> View Sales
                                                 </div>
                                             </div>
                                         </div>
@@ -159,7 +159,7 @@
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">Return Product Permissions</label><br>
                                                 <div>
-                                                    <input type="checkbox" name="permissions[return-viewer]"  id="exampleInputEmail1" placeholder="Enter Password"> View Return Products
+                                                    <input type="checkbox" name="permissions[return-viewer]"  id="exampleInputEmail1" placeholder="Enter Password" @if($subadmin->hasRole('return-viewer')) {{'checked'}} @endif> View Return Products
                                                 </div>
                                             </div>
                                         </div>
@@ -167,7 +167,7 @@
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">Inventory Permissions</label><br>
                                                 <div>
-                                                    <input type="checkbox" name="permissions[inventory-viewer]"  id="exampleInputEmail1" placeholder="Enter Password"> View Inventory
+                                                    <input type="checkbox" name="permissions[inventory-viewer]"  id="exampleInputEmail1" placeholder="Enter Password" @if($subadmin->hasRole('inventory-viewer')) {{'checked'}} @endif> View Inventory
                                                 </div>
                                             </div>
                                         </div>
@@ -175,7 +175,7 @@
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">Notification Permissions</label><br>
                                                 <div>
-                                                    <input type="checkbox" name="permissions[notification-editor]"  id="exampleInputEmail1" placeholder="Enter Password"> Send Notifications
+                                                    <input type="checkbox" name="permissions[notification-editor]"  id="exampleInputEmail1" placeholder="Enter Password" @if($subadmin->hasRole('notification-editor')) {{'checked'}} @endif> Send Notifications
                                                 </div>
                                             </div>
                                         </div>
@@ -183,8 +183,8 @@
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">Complaints Permissions</label><br>
                                                 <div>
-                                                    <input type="checkbox" name="permissions[complaint-viewer]"  id="exampleInputEmail1" placeholder="Enter Password"> View Complaint
-                                                    <input type="checkbox" name="permissions[complaint-editor]"  id="exampleInputEmail1" placeholder="Enter Password"> Reply Complaint
+                                                    <input type="checkbox" name="permissions[complaint-viewer]"  id="exampleInputEmail1" placeholder="Enter Password" @if($subadmin->hasRole('complaint-viewer')) {{'checked'}} @endif> View Complaint
+                                                    <input type="checkbox" name="permissions[complaint-editor]"  id="exampleInputEmail1" placeholder="Enter Password" @if($subadmin->hasRole('complaint-editor')) {{'checked'}} @endif> Reply Complaint
                                                 </div>
                                             </div>
                                         </div>
@@ -192,8 +192,8 @@
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">Area List Permissions</label><br>
                                                 <div>
-                                                    <input type="checkbox" name="permissions[arealist-viewer]"  id="exampleInputEmail1" placeholder="Enter Password"> View Area List
-                                                    <input type="checkbox" name="permissions[arealist-editor]"  id="exampleInputEmail1" placeholder="Enter Password"> Add/Update Area List
+                                                    <input type="checkbox" name="permissions[arealist-viewer]"  id="exampleInputEmail1" placeholder="Enter Password" @if($subadmin->hasRole('arealist-viewer')) {{'checked'}} @endif> View Area List
+                                                    <input type="checkbox" name="permissions[arealist-editor]"  id="exampleInputEmail1" placeholder="Enter Password" @if($subadmin->hasRole('arealist-editor')) {{'checked'}} @endif> Add/Update Area List
                                                 </div>
                                             </div>
                                         </div>
@@ -201,8 +201,8 @@
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">Rider Permissions</label><br>
                                                 <div>
-                                                    <input type="checkbox" name="permissions[rider-viewer]"  id="exampleInputEmail1" placeholder="Enter Password"> View Riders
-                                                    <input type="checkbox" name="permissions[rider-editor]"  id="exampleInputEmail1" placeholder="Enter Password"> Add/Update Riders
+                                                    <input type="checkbox" name="permissions[rider-viewer]"  id="exampleInputEmail1" placeholder="Enter Password" @if($subadmin->hasRole('rider-viewer')) {{'checked'}} @endif> View Riders
+                                                    <input type="checkbox" name="permissions[rider-editor]"  id="exampleInputEmail1" placeholder="Enter Password" @if($subadmin->hasRole('rider-editor')) {{'checked'}} @endif> Add/Update Riders
                                                 </div>
                                             </div>
                                         </div>
@@ -210,8 +210,8 @@
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">Store Permissions</label><br>
                                                 <div>
-                                                    <input type="checkbox" name="permissions[store-viewer]"  id="exampleInputEmail1" placeholder="Enter Password"> View Stores
-                                                    <input type="checkbox" name="permissions[store-editor]"  id="exampleInputEmail1" placeholder="Enter Password"> Add/Update Stores
+                                                    <input type="checkbox" name="permissions[store-viewer]"  id="exampleInputEmail1" placeholder="Enter Password" @if($subadmin->hasRole('store-viewer')) {{'checked'}} @endif> View Stores
+                                                    <input type="checkbox" name="permissions[store-editor]"  id="exampleInputEmail1" placeholder="Enter Password" @if($subadmin->hasRole('store-editor')) {{'checked'}} @endif> Add/Update Stores
                                                 </div>
                                             </div>
                                         </div>
@@ -219,7 +219,7 @@
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">Configuration Permissions</label><br>
                                                 <div>
-                                                    <input type="checkbox" name="permissions[configuration-editor]"  id="exampleInputEmail1" placeholder="Enter Password"> View Configuration
+                                                    <input type="checkbox" name="permissions[configuration-editor]"  id="exampleInputEmail1" placeholder="Enter Password" @if($subadmin->hasRole('configuration-editor')) {{'checked'}} @endif> View Configuration
                                                     <input type="checkbox" name="permissions[configuration-editor]"  id="exampleInputEmail1" placeholder="Enter Password"> Update Configuration
                                                 </div>
                                             </div>
@@ -228,8 +228,8 @@
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">Sub-Admin Permissions</label><br>
                                                 <div>
-                                                    <input type="checkbox" name="permissions[subadmin-viewer]"  id="exampleInputEmail1" placeholder="Enter Password"> View Sub-Admins
-                                                    <input type="checkbox" name="permissions[subadmin-editor]"  id="exampleInputEmail1" placeholder="Enter Password"> Add/Update Sub-Admins
+                                                    <input type="checkbox" name="permissions[subadmin-viewer]"  id="exampleInputEmail1" placeholder="Enter Password" @if($subadmin->hasRole('subadmin-viewer')) {{'checked'}} @endif> View Sub-Admins
+                                                    <input type="checkbox" name="permissions[subadmin-editor]"  id="exampleInputEmail1" placeholder="Enter Password" @if($subadmin->hasRole('subadmin-editor')) {{'checked'}} @endif> Add/Update Sub-Admins
                                                 </div>
                                             </div>
                                         </div>

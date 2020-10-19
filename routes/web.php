@@ -331,12 +331,12 @@ Route::group(['middleware'=>['auth', 'acl']], function(){
     });
 
     Route::group(['prefix'=>'category'], function(){
-        Route::group(['can'=>'view.category'], function(){
+        Route::group(['is'=>'admin|category-viewer'], function(){
             Route::get('/','SuperAdmin\CategoryController@index')->name('category.list');
             Route::get('create','SuperAdmin\CategoryController@create')->name('category.create');
             Route::get('edit/{id}','SuperAdmin\CategoryController@edit')->name('category.edit');
         });
-        Route::group(['can'=>'update.category'], function(){
+        Route::group(['is'=>'admin|category-editor'], function(){
             Route::post('store','SuperAdmin\CategoryController@store')->name('category.store');
 
             Route::post('update/{id}','SuperAdmin\CategoryController@update')->name('category.update');
@@ -344,12 +344,12 @@ Route::group(['middleware'=>['auth', 'acl']], function(){
     });
 
     Route::group(['prefix'=>'subcategory'], function(){
-        Route::group(['can'=>'view.subcategory'], function(){
+        Route::group(['is'=>'admin|subcategory-viewer'], function(){
             Route::get('/','SuperAdmin\SubCategoryController@index')->name('subcategory.list');
             Route::get('create','SuperAdmin\SubCategoryController@create')->name('subcategory.create');
             Route::get('edit/{id}','SuperAdmin\SubCategoryController@edit')->name('subcategory.edit');
         });
-        Route::group(['can'=>'update.subcategory'], function(){
+        Route::group(['is'=>'admin|subcategory-editor'], function(){
             Route::post('store','SuperAdmin\SubCategoryController@store')->name('subcategory.store');
 
             Route::post('update/{id}','SuperAdmin\SubCategoryController@update')->name('subcategory.update');
@@ -358,14 +358,14 @@ Route::group(['middleware'=>['auth', 'acl']], function(){
     });
 
     Route::group(['prefix'=>'product'], function(){
-        Route::group(['can'=>'view.product'], function(){
+        Route::group(['is'=>'admin|product-viewer'], function(){
             Route::get('/','SuperAdmin\ProductController@index')->name('product.list');
             Route::get('create','SuperAdmin\ProductController@create')->name('product.create');
             Route::get('edit/{id}','SuperAdmin\ProductController@edit')->name('product.edit');
             Route::get('size-images','SuperAdmin\ProductController@allimages')->name('product.size.images');
             Route::get('bulk-upload','SuperAdmin\ProductController@bulk_upload_form')->name('product.bulk.form');
         });
-        Route::group(['can'=>'update.product'], function(){
+        Route::group(['is'=>'admin|product-editor'], function(){
             Route::post('store','SuperAdmin\ProductController@store')->name('product.store');
 
             Route::post('update/{id}','SuperAdmin\ProductController@update')->name('product.update');
@@ -386,7 +386,7 @@ Route::group(['middleware'=>['auth', 'acl']], function(){
 
     });
     Route::group(['prefix'=>'homesection'], function(){
-        Route::group(['can'=>'view.homesection'], function(){
+        Route::group(['is'=>'admin|homesection-viewer'], function(){
             Route::get('/','SuperAdmin\HomeSectionController@index')->name('homesection.list');
             Route::get('banner-create','SuperAdmin\HomeSectionController@bannercreate')->name('homesection.bannercreate');
             Route::get('banner-edit/{id}','SuperAdmin\HomeSectionController@banneredit')->name('homesection.banneredit');
@@ -396,7 +396,7 @@ Route::group(['middleware'=>['auth', 'acl']], function(){
             Route::get('sub-category-create','SuperAdmin\HomeSectionController@subcategorycreate')->name('homesection.subcategorycreate');
             Route::get('sub-category-edit/{id}','SuperAdmin\HomeSectionController@subcategoryedit')->name('homesection.subcategoryedit');
         });
-        Route::group(['can'=>'update.homesection'], function(){
+        Route::group(['is'=>'admin|homesection-editor'], function(){
             Route::post('banner-store','SuperAdmin\HomeSectionController@bannerstore')->name('homesection.bannerstore');
 
             Route::post('banner-update/{id}','SuperAdmin\HomeSectionController@bannerupdate')->name('homesection.bannerupdate');
@@ -417,12 +417,12 @@ Route::group(['middleware'=>['auth', 'acl']], function(){
     });
 
     Route::group(['prefix'=>'coupon'], function(){
-        Route::group(['can'=>'view.coupon'], function(){
+        Route::group(['is'=>'admin|coupon-viewer'], function(){
             Route::get('/','SuperAdmin\CouponController@index')->name('coupon.list');
             Route::get('create','SuperAdmin\CouponController@create')->name('coupon.create');
             Route::get('edit/{id}','SuperAdmin\CouponController@edit')->name('coupon.edit');
         });
-        Route::group(['can'=>'update.coupon'], function(){
+        Route::group(['is'=>'admin|coupon-editor'], function(){
             Route::post('store','SuperAdmin\CouponController@store')->name('coupon.store');
             Route::post('update/{id}','SuperAdmin\CouponController@update')->name('coupon.update');
         });
@@ -430,11 +430,11 @@ Route::group(['middleware'=>['auth', 'acl']], function(){
     });
 
     Route::group(['prefix'=>'orders'], function(){
-        Route::group(['can'=>'view.order'], function(){
+        Route::group(['is'=>'admin|order-viewer'], function(){
             Route::get('/','SuperAdmin\OrderController@index')->name('orders.list');
             Route::get('details/{id}','SuperAdmin\OrderController@details')->name('order.details');
         });
-        Route::group(['can'=>'update.order'], function(){
+        Route::group(['is'=>'admin|order-editor'], function(){
             Route::get('change-status/{id}','SuperAdmin\OrderController@changeStatus')->name('order.status.change');
             Route::get('change-payment-status/{id}','SuperAdmin\OrderController@changePaymentStatus')->name('payment.status.change');
             Route::post('changeRider/{id}','SuperAdmin\OrderController@changeRider')->name('rider.change');
@@ -446,20 +446,20 @@ Route::group(['middleware'=>['auth', 'acl']], function(){
     });
 
     Route::group(['prefix'=>'returnproduct'], function(){
-        Route::group(['can'=>'view.return'], function(){
+        Route::group(['is'=>'admin|return-viewer'], function(){
             Route::get('/','SuperAdmin\ReturnProductController@index')->name('return.product.list');
         });
     });
 
     Route::group(['prefix'=>'sales'], function(){
-        Route::group(['can'=>'view.sale'], function(){
+        Route::group(['is'=>'admin|sales-viewer'], function(){
             Route::get('/','SuperAdmin\SalesController@index')->name('sales.list');
         });
     });
 
 
     Route::group(['prefix'=>'inventory'], function(){
-        Route::group(['can'=>'view.inventory'], function(){
+        Route::group(['is'=>'admin|inventory-viewer'], function(){
             Route::get('packets','SuperAdmin\InventoryController@packet')->name('packets.list');
             Route::get('quantity','SuperAdmin\InventoryController@quantity')->name('quantity.list');
         });
@@ -476,13 +476,13 @@ Route::group(['middleware'=>['auth', 'acl']], function(){
     });
 
     Route::group(['prefix'=>'area'], function(){
-        Route::group(['can'=>'view.arealist'], function(){
+        Route::group(['is'=>'admin|arealist-viewer'], function(){
             Route::get('/','SuperAdmin\AreaController@index')->name('area.list');
             Route::get('create','SuperAdmin\AreaController@create')->name('area.create');
             Route::get('edit/{id}','SuperAdmin\AreaController@edit')->name('area.edit');
 
         });
-        Route::group(['can'=>'update.arealist'], function(){
+        Route::group(['is'=>'admin|arealist-editor'], function(){
             Route::post('store','SuperAdmin\AreaController@store')->name('area.store');
             Route::post('update/{id}','SuperAdmin\AreaController@update')->name('area.update');
             Route::post('import','SuperAdmin\AreaController@import')->name('area.import');
@@ -492,13 +492,13 @@ Route::group(['middleware'=>['auth', 'acl']], function(){
     });
 
     Route::group(['prefix'=>'rider'], function(){
-        Route::group(['can'=>'view.rider'], function(){
+        Route::group(['is'=>'admin|rider-viewer'], function(){
             Route::get('/','SuperAdmin\RiderController@index')->name('rider.list');
             Route::get('create','SuperAdmin\RiderController@create')->name('rider.create');
             Route::get('edit/{id}','SuperAdmin\RiderController@edit')->name('rider.edit');
 
         });
-        Route::group(['can'=>'update.rider'], function(){
+        Route::group(['is'=>'admin|rider-editor'], function(){
             Route::post('store','SuperAdmin\RiderController@store')->name('rider.store');
             Route::post('update/{id}','SuperAdmin\RiderController@update')->name('rider.update');
 
@@ -507,13 +507,13 @@ Route::group(['middleware'=>['auth', 'acl']], function(){
     });
 
     Route::group(['prefix'=>'stores'], function(){
-        Route::group(['can'=>'view.store'], function(){
+        Route::group(['is'=>'admin|store-viewer'], function(){
             Route::get('/','SuperAdmin\StoreController@index')->name('stores.list');
             Route::get('create','SuperAdmin\StoreController@create')->name('stores.create');
             Route::get('edit/{id}','SuperAdmin\StoreController@edit')->name('stores.edit');
 
         });
-        Route::group(['can'=>'update.store'], function(){
+        Route::group(['is'=>'admin|store-editor'], function(){
             Route::post('store','SuperAdmin\StoreController@store')->name('stores.store');
             Route::post('update/{id}','SuperAdmin\StoreController@update')->name('stores.update');
 
@@ -523,11 +523,11 @@ Route::group(['middleware'=>['auth', 'acl']], function(){
 
 
     Route::group(['prefix'=>'customer'], function(){
-        Route::group(['can'=>'view.customer'], function(){
+        Route::group(['is'=>'admin|customer-editor'], function(){
             Route::get('/','SuperAdmin\CustomerController@index')->name('customer.list');
             Route::get('edit/{id}','SuperAdmin\CustomerController@edit')->name('customer.edit');
         });
-        Route::group(['can'=>'update.customer'], function(){
+        Route::group(['is'=>'admin|customer-editor'], function(){
 
             Route::post('update/{id}','SuperAdmin\CustomerController@update')->name('customer.update');
             Route::post('send_message','SuperAdmin\CustomerController@send_message')->name('customer.send_message');
@@ -536,13 +536,13 @@ Route::group(['middleware'=>['auth', 'acl']], function(){
     });
 
     Route::group(['prefix'=>'complain'], function(){
-        Route::group(['can'=>'view.complaint'], function(){
+        Route::group(['is'=>'admin|complaint-viewer'], function(){
             Route::get('/','SuperAdmin\ComplainController@index')->name('complain.list');
             Route::get('view/{id}','SuperAdmin\ComplainController@details')->name('complain.view');
             Route::post('message','SuperAdmin\ComplainController@send_message')->name('complain.message');
 
         });
-        Route::group(['can'=>'update.complaint'], function(){
+        Route::group(['is'=>'admin|complaint-editor'], function(){
             Route::get('mark-closed/{id}','SuperAdmin\ComplainController@markAsClosed')->name('complain.close');
 
         });
@@ -560,11 +560,8 @@ Route::group(['middleware'=>['auth', 'acl']], function(){
     });
 
     Route::group(['prefix'=>'notification'], function(){
-        Route::group(['can'=>'update.notification'], function(){
+        Route::group(['is'=>'admin|notification-editor'], function(){
             Route::get('create','SuperAdmin\NotificationController@create')->name('notification.create');
-
-        });
-        Route::group(['can'=>'update.notification'], function(){
             Route::post('store','SuperAdmin\NotificationController@store')->name('notification.store');
 
         });
