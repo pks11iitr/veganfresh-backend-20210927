@@ -14,12 +14,14 @@ class HomeController extends BaseController
        public function check_n_redirect(Request $request){
 
            if(auth()->user()->hasRole('admin'))
-           { //die;
+           {   //die('1222');
                return redirect()->route('home')->with('success', 'Login Successfull');}
-           else if(auth()->user()->hasRole('rider-admin')){
-               return redirect()->route('rideradmin.home')->with('success', 'Login Successfull');
-           }else if(auth()->user()->hasRole('clinic-therapist')){
-               return redirect()->route('clinic.therapist.home')->with('success', 'Login Successfull');
+           else if(auth()->user()->hasRole('store')){
+               return redirect()->route('storeadmin.home')->with('success', 'Login Successfull');
+           }else if(auth()->user()->hasRole('dashboard-viewer')){
+               return redirect()->route('home')->with('success', 'Login Successfull');
+           }else{
+               return redirect()->route('subadmin.home')->with('success', 'Login Successfull');
            }
 
        }

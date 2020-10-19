@@ -22,16 +22,17 @@ class RiderController extends Controller
 
     public function store(Request $request){
         $request->validate([
-            'status'=>'required',
+            //'status'=>'required',
             'name'=>'required',
-            'email'=>'required',
-            'mobile'=>'required',
+            'email'=>'required|unique:riders',
+            'mobile'=>'required|unique:riders',
             'address'=>'required',
             'state'=>'required',
             'city'=>'required',
             'password'=>'required',
             'image'=>'required|image',
-            'store_id'=>'required|integer'
+            'store_id'=>'required|integer',
+            'isactive'=>'required|integer'
         ]);
 
         if(Rider::where('mobile', $request->mobile)->first()){
@@ -46,7 +47,8 @@ class RiderController extends Controller
             'state'=>$request->state,
             'city'=>$request->city,
             'password'=> Hash::make($request->password),
-            'status'=>$request->status,
+            //'status'=>$request->status,
+            'isactive'=>$request->isactive,
             'image'=>'a',
             'store_id'=>$request->store_id]))
         {
@@ -64,15 +66,16 @@ class RiderController extends Controller
 
     public function update(Request $request,$id){
         $request->validate([
-            'status'=>'required',
+            //'status'=>'required',
             'name'=>'required',
-            'email'=>'required',
-            'mobile'=>'required',
+            'email'=>'required|unique:users,email,'.$id,
+            'mobile'=>'required|unique:users,mobile,'.$id,
             'address'=>'required',
             'state'=>'required',
             'city'=>'required',
             'image'=>'image',
-            'store_id'=>'required|integer'
+            'store_id'=>'required|integer',
+            'isactive'=>'required|integer'
         ]);
 
 
@@ -90,7 +93,8 @@ class RiderController extends Controller
             'address' => $request->address,
             'state' => $request->state,
             'city' => $request->city,
-            'status' => $request->status,
+            //'status' => $request->status,
+            'isactive'=>$request->isactive,
             'image'=>'a',
             'store_id'=>$request->store_id,
             'password'=>!empty($request->password)?Hash::make($request->password):$rider->password

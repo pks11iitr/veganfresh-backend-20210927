@@ -60,7 +60,7 @@ class ProductController extends Controller
                      // 'min_qty'=>$request->min_qty,
                      // 'max_qty'=>$request->max_qty,
                       'ratings'=>$request->ratings,
-                     // 'stock'=>$request->stock,
+                        'stock'=>$request->stock,
                       'isactive'=>$request->isactive,
                       'image'=>'a']))
               $added_categories=[];
@@ -101,7 +101,7 @@ class ProductController extends Controller
                 }
 
 
-             return redirect()->route('product.list', ['id'=>$products->id])->with('success', 'Product has been created');
+             return redirect()->route('product.edit', ['id'=>$products->id])->with('success', 'Product has been created');
             }
              return redirect()->back()->with('error', 'Product create failed');
           }
@@ -136,7 +136,7 @@ class ProductController extends Controller
                  'stock_type'=>'required',
 //                 'min_qty'=>'required',
 //                 'max_qty'=>'required',
-//                 'stock'=>'required',
+                 'stock'=>'required',
                  'image'=>'image'
                                ]);
 
@@ -154,7 +154,7 @@ class ProductController extends Controller
 //                 'min_qty'=>$request->min_qty,
 //                 'max_qty'=>$request->max_qty,
                  'ratings'=>$request->ratings,
-//                 'stock'=>$request->stock,
+                    'stock'=>$request->stock,
                  'isactive'=>$request->isactive,
              ]);
         $added_categories=[];

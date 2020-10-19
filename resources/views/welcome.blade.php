@@ -78,7 +78,7 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    Suzo Daily Needs
+                    HalloBasket
                 </div>
             </div>
         </div>

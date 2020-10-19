@@ -47,7 +47,7 @@ class Size extends Model
 
         }else if($product->stock_type=='quantity'){
 
-            if($product->stock > 0)
+            if($product->stock > 0 && $product->stock >= $size->consumed_units )
                 return 1;
             else
                 return 0;

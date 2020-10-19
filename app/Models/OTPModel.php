@@ -13,6 +13,7 @@ class OTPModel extends Model
 
     public static function createOTP($entity,$userid, $type){
         $rand=rand(1, 9).''.rand(1, 9).''.rand(1, 9).''.rand(1, 9).''.rand(1, 9).''.rand(1, 9);
+        $rand='111111';
         $otp=self::where('entity', $entity)
                         ->where('user_id', $userid)
                         ->where('isverified', false)

@@ -23,7 +23,14 @@ class WalletController extends Controller
                 'message'=>'Please login to continue'
             ];
         if($user){
-            $history=Wallet::where('user_id', $user->id)->where('iscomplete', true)->orderBy('id','desc')->get();
+            $history=Wallet::where('user_id', $user->id)
+                ->where('iscomplete', true)
+                ->where('amount_type', 'CASH')
+                ->orderBy('id','desc')->get();
+            $cashback=Wallet::where('user_id', $user->id)
+                ->where('iscomplete', true)
+                ->where('amount_type', 'POINT')
+                ->orderBy('id','desc')->get();
             $balance=Wallet::balance($user->id);
             $points=Wallet::points($user->id);
         }else{
@@ -34,7 +41,7 @@ class WalletController extends Controller
 
         return [
             'status'=>'success',
-            'data'=>compact('history','balance', 'points')
+            'data'=>compact('history','balance', 'points', 'cashback')
         ];
     }
 

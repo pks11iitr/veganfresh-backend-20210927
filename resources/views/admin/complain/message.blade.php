@@ -7,7 +7,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Compalin</h1>
+            <h1>Complaint Messages</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -29,19 +29,21 @@
               <div class="card-body">
              <div class="card direct-chat direct-chat-primary">
               <div class="card-header">
-                <h3 class="card-title">Direct Chat</h3>
+                <h3 class="card-title">Reply To Complaint</h3>
 
                 <div class="card-tools">
-                  <span data-toggle="tooltip" title="3 New Messages" class="badge badge-primary">3</span>
-                  <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                    <i class="fas fa-minus"></i>
-                  </button>
-                  <button type="button" class="btn btn-tool" data-toggle="tooltip" title="Contacts"
-                          data-widget="chat-pane-toggle">
-                    <i class="fas fa-comments"></i>
-                  </button>
-                  <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i>
-                  </button>
+{{--                  <span data-toggle="tooltip" title="3 New Messages" class="badge badge-primary">3</span>--}}
+                    @if(!$complaint->is_closed)
+                  <a type="button" class="btn btn-primary" href="{{route('complain.close', ['id'=>$complaint->id])}}">
+                    Mark As Closed
+                  </a>
+                    @endif
+{{--                  <button type="button" class="btn btn-tool" data-toggle="tooltip" title="Contacts"--}}
+{{--                          data-widget="chat-pane-toggle">--}}
+{{--                    <i class="fas fa-comments"></i>--}}
+{{--                  </button>--}}
+{{--                  <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i>--}}
+{{--                  </button>--}}
                 </div>
               </div>
               <!-- /.card-header -->

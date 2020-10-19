@@ -60,10 +60,11 @@
 
                                                     <select id="status" name="status" class="form-control" >
 
-                                                        <option value="" {{ request('status')==''?'selected':''}}>Select Order Status</option>
-                                                        <option value="pending" {{ request('status')=='pending'?'selected':''}}>pending</option>
-                                                        <option value="confirmed" {{ request('status')==='confirmed'?'selected':''}}>confirmed</option>
-                                                        <option value="cancelled" {{ request('status')=='cancelled'?'selected':''}}>cancelled</option>
+                                                        <option value="" {{ request('status')==''?'selected':''}}>Please select</option>
+                                                        <option value="pending" {{ request('status')=='confirmed'?'selected':''}}>New Order</option>
+                                                        <option value="confirmed" {{ request('status')==='dispatched'?'selected':''}}>Dispatched</option>
+                                                        <option value="cancelled" {{ request('status')=='cancelled'?'selected':''}}>Cancelled</option>
+                                                        <option value="cancelled" {{ request('status')=='completed'?'selected':''}}>Completed</option>
                                                     </select>
 
                                                 </div><br><br>
@@ -83,8 +84,14 @@
                                                 <div class="col-4">
                                                     <input  id="fullname"  class="form-control" name="todate" placeholder=" search name" value="{{request('todate')}}"  type="date" />
                                                 </div>
-                                                <div class="col-4">
+                                                <div class="col-8">
                                                     <button type="submit" name="save" class="btn btn-primary">Submit</button>
+                                                </div>
+                                                <div class="col-4">
+                                                    <a class="btn btn-primary" href="{{route('sales.report')}}?{{Request::getQueryString()}}">Download Sales Report</a>
+                                                </div>
+                                                <div class="col-4">
+                                                    <a class="btn btn-primary" href="{{route('order.report')}}?{{Request::getQueryString()}}">Download Order Report</a>
                                                 </div>
                                             </div>
                                         </form>

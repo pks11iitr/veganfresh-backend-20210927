@@ -143,6 +143,7 @@ class ProductController extends Controller
             }])->limit(4)->get();
             $avg_reviews=$product->avg_reviews()->get()[0]['rating']??0.0;
             $ratings1=$product->reviews_count()->get();
+            //var_dump($ratings1->toArray());die;
            // $totalcount=$product->reviews_count()->count();
             $ratings=['one'=>0, 'two'=>0, 'three'=>0, 'four'=>0, 'five'=>0];
         $totalcount=0;

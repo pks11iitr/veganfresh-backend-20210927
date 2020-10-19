@@ -45,7 +45,7 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">Email</label>
-                                                <input type="text" name="email" class="form-control" id="exampleInputEmail1" placeholder="Enter Email">
+                                                <input type="email" name="email" class="form-control" id="exampleInputEmail1" placeholder="Enter Email">
                                             </div>
                                         </div>
                                         <div class="col-md-6">
@@ -81,10 +81,9 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Status</label>
-                                                <select class="form-control" name="status" required>
-                                                    <option value="0">Active</option>
-                                                    <option value="1">Inactive</option>
-                                                    <option value="2">Blocked</option>
+                                                <select class="form-control" name="isactive" required>
+                                                    <option value="0">Inactive</option>
+                                                    <option value="1">Active</option>
                                                 </select>
                                             </div>
                                         </div>

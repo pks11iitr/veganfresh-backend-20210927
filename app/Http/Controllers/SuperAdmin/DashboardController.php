@@ -4,6 +4,7 @@ namespace App\Http\Controllers\SuperAdmin;
 
 use App\Models\Customer;
 use App\Models\Order;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
@@ -27,24 +28,24 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        $therapy_orders=Order::whereHas('details',function($details){
-            $details->where('entity_type', 'App\Models\Therapy');
-        })
-            ->where('status', '!=', 'pending')
-            ->groupBy('status')
-            ->selectRaw('count(*) as count, status')
-            ->get();
-        $therapy_orders_array=[];
-        $total_order=0;
-        foreach($therapy_orders as $o){
-            if(isset($therapy_orders_array[$o->status]))
-                $therapy_orders_array[$o->status]=0;
-            $therapy_orders_array[$o->status]=$o->count;
-            $total_order=$total_order+$o->count??0;
-        }
-
-
-        $therapy_orders_array['total']=$total_order;
+//        $therapy_orders=Order::whereHas('details',function($details){
+//            $details->where('entity_type', 'App\Models\Therapy');
+//        })
+//            ->where('status', '!=', 'pending')
+//            ->groupBy('status')
+//            ->selectRaw('count(*) as count, status')
+//            ->get();
+//        $therapy_orders_array=[];
+//        $total_order=0;
+//        foreach($therapy_orders as $o){
+//            if(isset($therapy_orders_array[$o->status]))
+//                $therapy_orders_array[$o->status]=0;
+//            $therapy_orders_array[$o->status]=$o->count;
+//            $total_order=$total_order+$o->count??0;
+//        }
+//
+//
+//        $therapy_orders_array['total']=$total_order;
         //var_dump($therapy_orders_array);die;
 
         //var_dump($therapy_orders_array);die;
@@ -53,9 +54,9 @@ class DashboardController extends Controller
         $product_orders=Order::whereHas('details',function($details){
             $details->where('entity_type', 'App\Models\Product');
         })
-            ->where('status', '!=', 'pending')
+            ->whereIn('status', ['confirmed', 'completed', 'dispatched', 'cancelled'])
             ->groupBy('status')
-            ->selectRaw('count(*) as count, status')
+            ->selectRaw('count(*) as count, sum(total_cost) as total_cost, sum(points_used) as points, sum(points_used) as cashback, sum(coupon_discount) as coupon, status')
             ->get();
         $product_orders_array=[];
         $total_order=0;
@@ -68,16 +69,32 @@ class DashboardController extends Controller
                 $product_orders_array[$o->status]=0;
             $product_orders_array[$o->status]=$o->count??0;
             $total_order=$total_order+($o->count??0);
-
             //var_dump($therapy_orders_array);
         }
 
 
         $product_orders_array['total']=$total_order;
 
+
+        $product_revenue=Order::whereHas('details',function($details){
+            $details->where('entity_type', 'App\Models\Product');
+        })
+            ->whereIn('status', ['completed'])
+            ->groupBy('status')
+            ->selectRaw('sum(total_cost) as total_cost, sum(balance_used) as balance, sum(points_used) as cashback, sum(coupon_discount) as coupon, status')
+            ->get();
+
+        $revenue_product=[];
+        $revenue_product['total']=$product_revenue[0]['total_cost']??0;
+        $revenue_product['cashback']=$product_revenue[0]['cashback']??0;
+        $revenue_product['balance']=$product_revenue[0]['balance']??0;
+        $revenue_product['coupon']=$product_revenue[0]['coupon']??0;
+        //return $revenue_product;
+
         //var_dump($therapy_orders_array);die;
 
-        $customers=Customer::selectRaw('count(*) as total, status')->groupBy('status')->get();
+        $customers=Customer::selectRaw('count(*) as total, status')
+            ->groupBy('status')->get();
         $customers_array=[];
         $total_order=0;
         foreach($customers as $customer){
@@ -90,28 +107,6 @@ class DashboardController extends Controller
         //echo '<pre>';
         //print_r($customers_array);die;
 
-        $revenue_therapy=Order::whereHas('details',function($details){
-            $details->where('entity_type', 'App\Models\Therapy');
-        })->where('status', 'confirmed')->sum('total_cost');
-
-        $revenue_product=Order::whereHas('details',function($details){
-            $details->where('entity_type', 'App\Models\Product');
-        })->where('status', 'confirmed')->sum('total_cost');
-
-        $therapy_orders_data=Order::where('status', 'confirmed')
-            ->where('created_at', '>=', date('Y').'-01-01 00:00:00')
-            ->whereHas('details',function($details){
-                $details->where('entity_type', 'App\Models\Therapy');
-            })
-            ->select(DB::raw('Month(created_at) as month'), DB::raw('SUM(total_cost) as total_cost'))
-            ->groupBy(DB::raw('Month(created_at)'))
-            ->orderBy(DB::raw('Month(created_at)'), 'asc')
-            ->get();
-
-        $therapy_sales=[];
-        foreach($therapy_orders_data as $d){
-            $therapy_sales[$d->month]=$d->total_cost;
-        }
 
         $product_orders_data=Order::where('status', 'confirmed')
             ->where('created_at', '>=', date('Y').'-01-01 00:00:00')
@@ -128,24 +123,17 @@ class DashboardController extends Controller
         }
 
 
-        //var_dump($therapy_orders_data->toArray());die;
-
-        $sales_data=[
-            'therapy'=>$therapy_sales,
-            'product'=>$product_sales
-        ];
+        $products=Product::count();
 
         $revenue=[];
         $revenue['product']=$revenue_product;
-        $revenue['therapy']=$revenue_therapy;
-        $revenue['total']=$revenue_therapy+$revenue_product;
+        $revenue['total']=$revenue_product;
         //var_dump($therapy_orders_array);die;
         return view('admin.home', [
-            'therapy'=>$therapy_orders_array,
             'product'=>$product_orders_array,
             'customer'=>$customers_array,
             'revenue'=>$revenue,
-            'sales'=>$sales_data
+            'products'=>$products
         ]);
     }
 }

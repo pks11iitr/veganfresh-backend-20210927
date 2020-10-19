@@ -108,7 +108,7 @@ class PaymentController extends Controller
 
                 return [
                     'status'=>'success',
-                    'message'=>'Congratulations! Your order at SuzoDailyNeeds is successful',
+                    'message'=>'Congratulations! Your order at Hallobasket is successful',
                     'data'=>[
                         'payment_done'=>'yes',
                         'ref_id'=>$order->refid,
@@ -126,7 +126,7 @@ class PaymentController extends Controller
 
                 return [
                     'status'=>'success',
-                    'message'=>'Congratulations! Your order at SuzoDailyNeeds is successful',
+                    'message'=>'Congratulations! Your order at Hallobasket is successful',
                     'data'=>[
                         'payment_done'=>'yes',
                         'ref_id'=>$order->refid,
@@ -137,6 +137,10 @@ class PaymentController extends Controller
 
         }
         if($request->type=='cod'){
+//            return [
+//                'status'=>'failed',
+//                'message'=>'Your Account Has Been Blocked'
+//            ];
             $result=$this->initiateCODPayment($order);
         }else{
             $result=$this->initiateGatewayPayment($order);
@@ -333,7 +337,7 @@ class PaymentController extends Controller
 
         return [
             'status'=>'success',
-            'message'=>'Congratulations! Your order at SuzoDailyNeeds is successful',
+            'message'=>'Congratulations! Your order at Hallobasket is successful',
             'data'=>[
                 'payment_done'=>'yes',
                 'refid'=>$order->refid
@@ -414,7 +418,7 @@ class PaymentController extends Controller
             event(new OrderConfirmed($order));
             return [
                 'status'=>'success',
-                'message'=> 'Congratulations! Your order at SuzoDailyNeeds is successful',
+                'message'=> 'Congratulations! Your order at Hallobasket is successful',
                 'data'=>[
                     'ref_id'=>$order->refid,
                     'order_id'=>$order->id

@@ -68,7 +68,7 @@
                     <th>Stock Type</th>
 {{--                    <th>Min Qty</th>--}}
 {{--                    <th>Max Qty</th>--}}
-{{--                    <th>Stock</th>--}}
+                    <th>Stock</th>
 {{--                    <th>Image</th>--}}
                     <th>Isactive</th>
                    <th>Action</th>
@@ -98,7 +98,7 @@
                       </td>
 					  <td>{{$product->stock_type}}</td>
 {{--					  <td>{{$product->max_qty}}</td>--}}
-{{--					  <td>{{$product->stock}}</td>--}}
+					  <td>{{$product->stock}}</td>
 {{--                      <td><img src="{{$product->image}}" height="80px" width="80px"/></td>--}}
                        <td>
                         @if($product->isactive==1){{'Yes'}}

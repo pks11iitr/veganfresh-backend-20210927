@@ -37,6 +37,7 @@
                     <th>Complain No.</th>
                     <th>Category</th>
                     <th>Subject</th>
+                    <th>Status</th>
                     <th>Date</th>
                    <th>Action</th>
                   </tr>
@@ -48,8 +49,10 @@
 					  <td>{{$compalin->customer->mobile??''}}</td>
 					  <td>{{$compalin->refid}}</td>
 					  <td>{{$compalin->category}}</td>
+
 					  <td>{{$compalin->subject}}</td>
-					  <td>{{$compalin->created_at}}</td>
+                      <td>{{$compalin->is_closed?'Closed':'Open'}}</td>
+                      <td>{{$compalin->created_at}}</td>
                       <td><a href="{{route('complain.view',['id'=>$compalin->id])}}" class="btn btn-success">View</a></td>
                  </tr>
                  @endforeach

@@ -15,8 +15,11 @@ class OrderController extends Controller
 {
 
      public function index(Request $request){
+
+         $orders=Order::where('status', '!=', 'pending');
+
          if(isset($request->search)){
-             $orders=Order::where(function($orders) use ($request){
+             $orders=$orders->where(function($orders) use ($request){
 
                  $orders->where('name', 'like', "%".$request->search."%")
                      ->orWhere('email', 'like', "%".$request->search."%")
@@ -29,28 +32,31 @@ class OrderController extends Controller
                      });
              });
 
-         }else{
-             $orders =Order::where('id', '>=', 0);
          }
+
          if($request->fromdate)
-            $orders=$orders->where('delivery_date', '>=', $request->fromdate.'00:00:00');
+            $orders=$orders->where('delivery_date', '>=', $request->fromdate);
 
-         if($request->todate)
-                $orders=$orders->where('delivery_date', '<=', $request->todate.'23:59:50');
 
-            if($request->status)
-                $orders=$orders->where('status', $request->status);
+        if($request->todate)
+                $orders=$orders->where('delivery_date', '<=', $request->todate);
 
-             if($request->payment_status)
+        if($request->status)
+            $orders=$orders->where('status', $request->status);
+
+        if($request->payment_status)
                 $orders=$orders->where('payment_status', $request->payment_status);
-         if($request->store_id)
+
+        if($request->store_id)
               $orders=$orders->where('store_id', $request->store_id);
-         if($request->rider_id)
+
+        if($request->rider_id)
              $orders=$orders->where('rider_id', $request->rider_id);
 
         if($request->ordertype)
             $orders=$orders->orderBy('created_at', $request->ordertype);
-            $orders=$orders->orderBy('id', 'desc')->paginate(10);
+
+        $orders=$orders->paginate(10);
 
         $stores=User::where('id','>', 1)->get();
         $riders=Rider::get();
@@ -61,7 +67,7 @@ class OrderController extends Controller
 
     public function details(Request $request,$id){
         $order =Order::with(['details.entity'])->findOrFail($id);
-        $riders =Rider::get();
+        $riders =Rider::active()->get();
         return view('admin.order.details',['order'=>$order,'riders'=>$riders]);
     }
 
@@ -94,10 +100,12 @@ class OrderController extends Controller
                     Wallet::updatewallet($order->user_id, 'Points added in wallet for order cancellation. Order ID: '.$order->refid,'Credit',$order->points_used,'POINT',$order->id);
                 }
 
-                if($order->use_balance && $order->balance_used){
-                    $amount=$order->total_cost-$order->coupon_discount+$order->delivery_charge-$order->points_used;
+                //if($order->use_balance && $order->balance_used){
+                $amount=$order->total_cost-$order->coupon_discount+$order->delivery_charge-$order->points_used;
+                if($amount){
                     Wallet::updatewallet($order->user_id, 'Amount added in wallet for order cancellation. Order ID: '.$order->refid,'Credit',$amount,'CASH',$order->id);
                 }
+                //}
 
             }else{
                 if($order->use_points && $order->points_used){
@@ -120,22 +128,22 @@ class OrderController extends Controller
 
         switch($order->status){
             case 'dispatched':
-                $message='Your order at SuzoDailyNeeds with  ID:'.$order->refid.' has been dispatched. You will receive your order shortly';
+                $message='Your order at Hallobasket with  ID:'.$order->refid.' has been dispatched. You will receive your order shortly';
                 $title='Order Dispatched';
                 break;
             case 'delivered':
-                $message='Your order at SuzoDailyNeeds with  ID:'.$order->refid.' has been delivered.';
+                $message='Your order at Hallobasket with  ID:'.$order->refid.' has been delivered.';
                 $title='Order Delivered';
                 break;
             case 'cancelled':
-                $message='Your order at SuzoDailyNeeds with  ID:'.$order->refid.' has been reopened.';
+                $message='Your order at Hallobasket with  ID:'.$order->refid.' has been reopened.';
                 $title='Order Cancelled';
                 break;
 
         }
 
         if($status=='reopen'){
-            $message='Your order at SuzoDailyNeeds with  ID:'.$order->refid.' has been cancelled.';
+            $message='Your order at Hallobasket with  ID:'.$order->refid.' has been cancelled.';
             $title='Order Cancelled';
         }
 

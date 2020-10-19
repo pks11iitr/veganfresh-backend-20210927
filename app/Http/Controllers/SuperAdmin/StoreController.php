@@ -22,8 +22,8 @@ class StoreController extends Controller
     public function store(Request $request){
         $request->validate([
             'name'=>'required',
-            'email'=>'required',
-            'mobile'=>'required',
+            'email'=>'required|unique:users',
+            'mobile'=>'required|unique:users',
             'address'=>'required',
             'password'=>'required',
             'status'=>'required'
@@ -39,6 +39,8 @@ class StoreController extends Controller
         ]))
 
         {
+            //var_dump($area->toArray());die;
+            $area->assignRole('store');
             return redirect()->route('stores.list')->with('success', 'store has been created');
         }
         return redirect()->back()->with('error', 'store create failed');
@@ -52,8 +54,8 @@ class StoreController extends Controller
     public function update(Request $request ,$id){
         $request->validate([
             'name'=>'required',
-            'email'=>'required',
-            'mobile'=>'required',
+            'email'=>'required|unique:users,email,'.$id,
+            'mobile'=>'required|unique:users,mobile,'.$id,
             'address'=>'required',
             //'password'=>'required',
             'status'=>'required'

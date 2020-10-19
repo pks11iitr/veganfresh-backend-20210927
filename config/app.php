@@ -178,6 +178,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         LaravelFCM\FCMServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
+        Kodeine\Acl\AclServiceProvider::class,
 
     ],
 

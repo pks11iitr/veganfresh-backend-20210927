@@ -99,12 +99,19 @@
                                                     <option selected="selected"
                                                             value="packet" {{$products->stock_type=='packet'?'selected':''}}>Packet
                                                     </option>
-                                                    <option value="quantity" {{$products->stock_type==''?'selected':'quantity'}}>Quantity
+                                                    <option value="quantity" {{$products->stock_type=='quantity'?'selected':'quantity'}}>Quantity
                                                     </option>
                                                 </select>
                                             </div>
                                         </div>
-
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail1">Stock</label>
+                                                <input type="text" name="stock" class="form-control"
+                                                       id="exampleInputEmail1" placeholder="Enter Rating"
+                                                       value="{{$products->stock}}">
+                                            </div>
+                                        </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Is Offer</label>

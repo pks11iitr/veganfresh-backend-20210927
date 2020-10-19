@@ -12,6 +12,7 @@ use App\Models\CustomerAddress;
 use App\Models\DailyBookingsSlots;
 use App\Models\HomeBookingSlots;
 use App\Models\Membership;
+use App\Models\Notification;
 use App\Models\Order;
 use App\Models\OrderDetail;
 use App\Models\OrderStatus;
@@ -20,6 +21,7 @@ use App\Models\RescheduleRequest;
 use App\Models\Therapy;
 use App\Models\TimeSlot;
 use App\Models\Wallet;
+use App\Services\Notification\FCMNotification;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
@@ -213,7 +215,7 @@ class OrderController extends Controller
                 'price'=>$detail->price,
                 'cut_price'=>$detail->cut_price,
                 'quantity'=>$detail->quantity,
-                'size'=>$detail->size->name??'',
+                'size'=>$detail->size->size??'',
                 'item_id'=>$detail->entity_id,
                 //'show_return'=>($detail->status=='delivered'?1:0),
                 //'show_cancel'=>in_array($detail->status, ['confirmed'])?1:0,
@@ -339,6 +341,7 @@ class OrderController extends Controller
     public function orderdetails(Request $request, $id){
 
         $show_cancel_product=0;
+        $show_download_invoice=0;
 
         $user=auth()->guard('customerapi')->user();
         if(!$user)
@@ -378,11 +381,11 @@ class OrderController extends Controller
                 'price'=>$detail->price,
                 'cut_price'=>$detail->cut_price,
                 'quantity'=>$detail->quantity,
-                'size'=>$detail->size->name??'',
+                'size'=>$detail->size->size??'',
                 'item_id'=>$detail->entity_id,
                 //'show_return'=>($detail->status=='delivered'?1:0),
                 //'show_cancel'=>in_array($detail->status, ['confirmed'])?1:0,
-                'show_review'=>isset($reviews[$detail->entity_id])?0:1
+                'show_review'=>($order->status=='completed')?(isset($reviews[$detail->entity_id])?0:1):0
             ];
             $savings=$savings+($detail->cut_price-$detail->price);
 
@@ -458,8 +461,8 @@ class OrderController extends Controller
                 Wallet::updatewallet($user->id, 'Points added in wallet for order cancellation. Order ID: '.$order->refid,'Credit',$order->points_used,'POINT',$order->id);
             }
 
-            if($order->use_balance && $order->balance_used){
-                $amount=$order->total_cost-$order->coupon_discount+$order->delivery_charge-$order->points_used;
+            $amount=$order->total_cost-$order->coupon_discount+$order->delivery_charge-$order->points_used;
+            if($amount>0){
                 Wallet::updatewallet($user->id, 'Amount added in wallet for order cancellation. Order ID: '.$order->refid,'Credit',$amount,'CASH',$order->id);
             }
 
@@ -477,6 +480,18 @@ class OrderController extends Controller
         $order->save();
 
         Order::increaseInventory($order);
+
+        $message='Congratulations! Your order of Rs. '.$order->total_cost.' at Hallobasket is cancelled. Order Reference ID: '.$order->refid;
+
+        Notification::create([
+            'user_id'=>$order->user_id,
+            'title'=>'Order Cancelled',
+            'description'=>$message,
+            'data'=>null,
+            'type'=>'individual'
+        ]);
+        if($order->customer->notification_token??null)
+            FCMNotification::sendNotification($order->customer->notification_token, 'Order Cancelled', $message);
 
         return [
             'status'=>'success',
@@ -497,7 +512,7 @@ class OrderController extends Controller
         // var_dump($orders);die();
         $pdf = PDF::loadView('admin.contenturl.newinvoice', compact('orders'))->setPaper('a4', 'portrait');
         return $pdf->download('invoice.pdf');
-        return view('admin.contenturl.newinvoice',['orders'=>$orders]);
+        //return view('admin.contenturl.newinvoice',['orders'=>$orders]);
     }
 
 }

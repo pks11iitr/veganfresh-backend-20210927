@@ -99,7 +99,7 @@ class RiderOrderController extends Controller
                 'status'=>'failed',
                 'message'=>'Please login to continue'
             ];
-        $order=Order::with(['details.size', 'deliveryaddress'])
+        $order=Order::with(['details.size', 'deliveryaddress', ])
             ->where('rider_id', $user->id)
             ->where('status', '!=', 'pending')
             ->find($id);
@@ -122,7 +122,7 @@ class RiderOrderController extends Controller
                 'price'=>$detail->price,
                 'cut_price'=>$detail->cut_price,
                 'quantity'=>$detail->quantity,
-                'size'=>$detail->size->name??'',
+                'size'=>$detail->size->size??'',
                 'item_id'=>$detail->entity_id,
                 'id'=>$detail->id
                 //'show_return'=>($detail->status=='dispatched'?1:0),
@@ -347,7 +347,7 @@ class RiderOrderController extends Controller
                 'order_id'=>$d->order_id,
                 'store_id'=>$order->store_id,
                 'rider_id'=>$order->rider_id,
-                'ref_id'=>$order->ref_id,
+                'ref_id'=>$order->refid,
                 'entity_id'=>$d->entity_id,
                 'entity_type'=>$d->entity_type,
                 'size_id'=>$d->size_id,
@@ -537,14 +537,14 @@ class RiderOrderController extends Controller
                 'status'=>'failed',
                 'message'=>'Please login to continue'
             ];
-        $returnproducts = ReturnProduct::where(function ($returnproducts) use ($user) {
+        $returnproducts = ReturnProduct::with(['storename', 'size'])->where(function ($returnproducts) use ($user) {
 
             $returnproducts->where('rider_id',$user->id);
         });
         $returnproducts=$returnproducts->orderBy('id', 'desc')->get();
       //  $returnproducts=ReturnProduct::where('rider_id',$user->id)
                                    //   ->orderBy('id', 'desc')
-                                    //  ->get();
+        $returnd=[];                            //  ->get();
         foreach ($returnproducts as $return)
         {
             $returnd[]=array(
@@ -553,10 +553,10 @@ class RiderOrderController extends Controller
                 "name"=>$return->name,
                 "price"=>$return->price,
                 "cut_price"=>$return->cut_price,
-                "size"=>$return->size->size,
+                "size"=>$return->size->size??'',
                 "quantity"=>$return->quantity,
                 "image"=>$return->image,
-                "created_at"=>$return->created_at,
+                "created_at"=>date('Y-m-d h:iA', strtotime($return->created_at)),
             );
 
         }

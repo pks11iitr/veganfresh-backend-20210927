@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Suzo Daily Needs</title>
+    <title>HalloBasket</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Font Awesome -->
@@ -83,7 +83,7 @@
         <a href="index3.html" class="brand-link">
            <!-- <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
                  style="opacity: .8">-->
-            <span class="brand-text font-weight-light">Suzo Daily Needs CMS</span>
+            <span class="brand-text font-weight-light">HalloBasket CMS</span>
         </a>
 
         <!-- Sidebar -->
@@ -94,7 +94,7 @@
                     <img src="{{\Illuminate\Support\Facades\Storage::url('images/logo.jpeg')}}" class="img-circle elevation-2" alt="User Image">
                 </div>
                 <div class="info">
-                    <a href="#" class="d-block">Suzo Daily Needs</a>
+                    <a href="#" class="d-block">HalloBasket</a>
                 </div>
             </div>
 
@@ -104,6 +104,7 @@
                     <!-- Add icons to the links using the .nav-icon class
                          with font-awesome or any other icon font library -->
                     <li class="nav-item has-treeview menu-open">
+                        @if(auth()->user()->hasRole('admin') || auth()->user()->hasRole('dashboard-viewer'))
                         <a href="{{route('home')}}" class="nav-link active">
                             <i class="nav-icon fas fa-tachometer-alt"></i>
                             <p>
@@ -111,6 +112,16 @@
                                 <i class="right fas fa-angle-left"></i>
                             </p>
                         </a>
+                        @else
+                            <a href="{{route('subadmin.home')}}" class="nav-link active">
+                                <i class="nav-icon fas fa-tachometer-alt"></i>
+                                <p>
+                                    Dashboard
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                        @endif
+
 {{--                        <ul class="nav nav-treeview">--}}
 {{--                            <li class="nav-item">--}}
 {{--                                <a href="./index.html" class="nav-link active">--}}
@@ -133,6 +144,7 @@
 {{--                        </ul>--}}
                     </li>
                     <!--**************************************************************************************************-->
+                    @if(auth()->user()->hasRole('admin') || auth()->user()->hasRole('banner-viewer') || auth()->user()->hasRole('banner-editor'))
                     <li class="nav-item">
                         <a href="{{route('banners.list')}}" class="nav-link">
                             <i class="nav-icon fas fa-th"></i>
@@ -142,6 +154,8 @@
                             </p>
                         </a>
                     </li>
+                    @endif
+                    @if(auth()->user()->hasRole('admin') || auth()->user()->hasRole('homesection-viewer') || auth()->user()->hasRole('homesection-editor'))
                     <li class="nav-item">
                         <a href="{{route('homesection.list')}}" class="nav-link">
                             <i class="nav-icon fas fa-th"></i>
@@ -151,6 +165,9 @@
                             </p>
                         </a>
                     </li>
+                    @endif
+                    @if(auth()->user()->hasRole('admin') || auth()->user()->hasRole('category-viewer') || auth()->user()->hasRole('category-editor'))
+
                     <li class="nav-item">
                         <a href="{{route('category.list')}}" class="nav-link">
                             <i class="nav-icon fas fa-th"></i>
@@ -160,6 +177,9 @@
                             </p>
                         </a>
                     </li>
+                    @endif
+                    @if(auth()->user()->hasRole('admin') || auth()->user()->hasRole('subcategory-viewer') || auth()->user()->hasRole('subcategory-editor'))
+
                     <li class="nav-item">
                         <a href="{{route('subcategory.list')}}" class="nav-link">
                             <i class="nav-icon fas fa-th"></i>
@@ -169,7 +189,8 @@
                             </p>
                         </a>
                     </li>
-{{--                     <li class="nav-item">--}}
+                    @endif
+                        {{--                     <li class="nav-item">--}}
 {{--                        <a href="{{route('therapy.list')}}" class="nav-link">--}}
 {{--                            <i class="nav-icon fas fa-th"></i>--}}
 {{--                            <p>--}}
@@ -188,7 +209,9 @@
 {{--                            </p>--}}
 {{--                        </a>--}}
 {{--                    </li>--}}
-                   <li class="nav-item">
+                    @if(auth()->user()->hasRole('admin') || auth()->user()->hasRole('customer-viewer') || auth()->user()->hasRole('customer-editor'))
+
+                    <li class="nav-item">
                         <a href="{{route('customer.list')}}" class="nav-link">
                             <i class="nav-icon fas fa-th"></i>
                             <p>
@@ -197,6 +220,9 @@
                             </p>
                         </a>
                     </li>
+                    @endif
+                    @if(auth()->user()->hasRole('admin') || auth()->user()->hasRole('product-viewer') || auth()->user()->hasRole('product-editor'))
+
                     <li class="nav-item">
                         <a href="{{route('product.list')}}" class="nav-link">
                             <i class="nav-icon fas fa-th"></i>
@@ -206,6 +232,9 @@
                             </p>
                         </a>
                     </li>
+                    @endif
+                    @if(auth()->user()->hasRole('admin') || auth()->user()->hasRole('coupon-viewer') || auth()->user()->hasRole('coupon-editor'))
+
                     <li class="nav-item">
                         <a href="{{route('coupon.list')}}" class="nav-link">
                             <i class="nav-icon fas fa-th"></i>
@@ -215,6 +244,9 @@
                             </p>
                         </a>
                     </li>
+                    @endif
+                    @if(auth()->user()->hasRole('admin') || auth()->user()->hasRole('order-viewer') || auth()->user()->hasRole('order-editor'))
+
                     <li class="nav-item">
                         <a href="{{route('orders.list')}}" class="nav-link">
                             <i class="nav-icon fas fa-th"></i>
@@ -225,6 +257,48 @@
                         </a>
 
                     </li>
+                    @endif
+                    @if(auth()->user()->hasRole('admin') || auth()->user()->hasRole('sale-viewer') || auth()->user()->hasRole('sale-editor'))
+
+                    <li class="nav-item">
+                        <a href="{{route('sales.list')}}" class="nav-link">
+                            <i class="nav-icon fas fa-th"></i>
+                            <p>
+                                Sales
+
+                            </p>
+                        </a>
+
+                    </li>
+                    @endif
+                    @if(auth()->user()->hasRole('admin') || auth()->user()->hasRole('inventory-viewer') || auth()->user()->hasRole('inventory-editor'))
+
+                    <li class="nav-item">
+                        <a href="" class="nav-link">
+                            <i class="nav-icon fas fa-th"></i>
+                            <p>
+                                Inventory
+
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="{{route('packets.list')}}" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Packets Inventory</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{route('quantity.list')}}" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Quantity Inventory</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    @endif
+                    @if(auth()->user()->hasRole('admin') || auth()->user()->hasRole('complaint-viewer') || auth()->user()->hasRole('complaint-editor'))
+
                     <li class="nav-item">
                         <a href="{{route('complain.list')}}" class="nav-link">
                             <i class="nav-icon fas fa-th"></i>
@@ -234,7 +308,9 @@
                             </p>
                         </a>
                     </li>
-{{--                    <li class="nav-item">--}}
+                    @endif
+
+                        {{--                    <li class="nav-item">--}}
 {{--                        <a href="{{route('news.list')}}" class="nav-link">--}}
 {{--                            <i class="nav-icon fas fa-th"></i>--}}
 {{--                            <p>--}}
@@ -243,6 +319,7 @@
 {{--                            </p>--}}
 {{--                        </a>--}}
 {{--                    </li>--}}
+                    @if(auth()->user()->hasRole('admin') || auth()->user()->hasRole('notification-viewer') || auth()->user()->hasRole('notification-editor'))
 
                     <li class="nav-item">
                         <a href="{{route('notification.create')}}" class="nav-link">
@@ -253,6 +330,9 @@
                             </p>
                         </a>
                     </li>
+                    @endif
+                    @if(auth()->user()->hasRole('admin') || auth()->user()->hasRole('return-viewer') || auth()->user()->hasRole('return-editor'))
+
                     <li class="nav-item">
                         <a href="{{route('return.product.list')}}" class="nav-link">
                             <i class="nav-icon fas fa-th"></i>
@@ -262,15 +342,19 @@
                             </p>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a href="{{route('timeslot.list')}}" class="nav-link">
-                            <i class="nav-icon fas fa-th"></i>
-                            <p>
-                                Time Slot
+                    @endif
 
-                            </p>
-                        </a>
-                    </li>
+{{--                    <li class="nav-item">--}}
+{{--                        <a href="{{route('timeslot.list')}}" class="nav-link">--}}
+{{--                            <i class="nav-icon fas fa-th"></i>--}}
+{{--                            <p>--}}
+{{--                                Time Slot--}}
+
+{{--                            </p>--}}
+{{--                        </a>--}}
+{{--                    </li>--}}
+                    @if(auth()->user()->hasRole('admin') || auth()->user()->hasRole('arealist-viewer') || auth()->user()->hasRole('arealist-editor'))
+
                     <li class="nav-item">
                         <a href="{{route('area.list')}}" class="nav-link">
                             <i class="nav-icon fas fa-th"></i>
@@ -280,6 +364,9 @@
                             </p>
                         </a>
                     </li>
+                    @endif
+                    @if(auth()->user()->hasRole('admin') || auth()->user()->hasRole('rider-viewer') || auth()->user()->hasRole('rider-editor'))
+
                     <li class="nav-item">
                         <a href="{{route('rider.list')}}" class="nav-link">
                             <i class="nav-icon fas fa-th"></i>
@@ -289,6 +376,9 @@
                             </p>
                         </a>
                     </li>
+                    @endif
+                    @if(auth()->user()->hasRole('admin') || auth()->user()->hasRole('store-viewer') || auth()->user()->hasRole('store-editor'))
+
                     <li class="nav-item">
                         <a href="{{route('stores.list')}}" class="nav-link">
                             <i class="nav-icon fas fa-th"></i>
@@ -297,6 +387,8 @@
                             </p>
                         </a>
                     </li>
+                    @endif
+                    @if(auth()->user()->hasRole('admin') || auth()->user()->hasRole('configuration-viewer') || auth()->user()->hasRole('configuration-editor'))
                     <li class="nav-item">
                         <a href="{{route('configurations.list')}}" class="nav-link">
                             <i class="nav-icon fas fa-th"></i>
@@ -305,7 +397,19 @@
                             </p>
                         </a>
                     </li>
-{{--                    <li class="nav-item">--}}
+                    @endif
+                    @if(auth()->user()->hasRole('admin') || auth()->user()->hasRole('subadmin-viewer') || auth()->user()->hasRole('subadmin-editor'))
+                        <li class="nav-item">
+                            <a href="{{route('subadmin.list')}}" class="nav-link">
+                                <i class="nav-icon fas fa-th"></i>
+                                <p>
+                                    Subadmin
+                                </p>
+                            </a>
+                        </li>
+                    @endif
+
+                    {{--                    <li class="nav-item">--}}
 {{--                        <a href="{{route('video.list')}}" class="nav-link">--}}
 {{--                            <i class="nav-icon fas fa-th"></i>--}}
 {{--                            <p>--}}
@@ -851,10 +955,11 @@
 
     <!-- this is for validation errors -->
         @if ($errors->any())
-            <?php var_dump($errors); ?>
             <div class="alert alert-danger">
                 <button type="button" class="close" data-dismiss="alert">×</button>
-                Please check the form below for errors
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
             </div>
         @endif
     </div>
