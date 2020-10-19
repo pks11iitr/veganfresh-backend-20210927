@@ -295,11 +295,11 @@ Route::group(['prefix'=>'store-admin', 'middleware'=>['auth', 'acl'], 'is'=>'sto
 Route::group(['middleware'=>['auth', 'acl']], function(){
 
     Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
-    Route::group(['is'=>'admin'], function(){
+    Route::group(['is'=>'admin|dashboard-viewer'], function(){
         Route::get('/dashboard', 'SuperAdmin\DashboardController@index')->name('home');
     });
 
-    Route::group(['is'=>'dashboard-viewer'], function() {
+    Route::group(['is'=>'subadmin'], function() {
         Route::get('/subadmin-dashboard', 'SuperAdmin\SubAdminDashboardController@index')->name('subadmin.home');
     });
 
