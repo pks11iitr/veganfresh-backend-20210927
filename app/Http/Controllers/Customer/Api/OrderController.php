@@ -483,6 +483,10 @@ class OrderController extends Controller
 
         Order::increaseInventory($order);
 
+        if($order->cashback_given){
+            Wallet::updatewallet($order->user_id, 'Cashback Revoked For Order ID: '.$order->refid, 'DEBIT', $order->cashback_given, 'POINT', $order->id);
+        }
+
         $message='Congratulations! Your order of Rs. '.$order->total_cost.' at Hallobasket is cancelled. Order Reference ID: '.$order->refid;
 
         Notification::create([
