@@ -523,7 +523,7 @@ Route::group(['middleware'=>['auth', 'acl']], function(){
 
 
     Route::group(['prefix'=>'customer'], function(){
-        Route::group(['is'=>'admin|customer-editor'], function(){
+        Route::group(['is'=>'admin|customer-viewer'], function(){
             Route::get('/','SuperAdmin\CustomerController@index')->name('customer.list');
             Route::get('edit/{id}','SuperAdmin\CustomerController@edit')->name('customer.edit');
         });
