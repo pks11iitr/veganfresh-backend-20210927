@@ -99,7 +99,7 @@ class OrderController extends Controller
 
         $delivery_charge=Configuration::where('param', 'delivery_charge')->first();
 
-        $delivery_charge=$user->isMembershipActive()?0:($delivery_charge->value??0);
+        //$delivery_charge=$user->isMembershipActive()?0:($delivery_charge->value??0);
 
         $order=Order::create([
             'user_id'=>auth()->guard('customerapi')->user()->id,
@@ -233,11 +233,13 @@ class OrderController extends Controller
         }
 
         $delivery_charge=Configuration::where('param', 'delivery_charge')->first();
-        if(!$user->isMembershipActive()){
-            $order->delivery_charge=$delivery_charge->value??0;
-        }else{
-            $order->delivery_charge=0;
-        }
+//        if(!$user->isMembershipActive()){
+//            $order->delivery_charge=$delivery_charge->value??0;
+//        }else{
+//            $order->delivery_charge=0;
+//        }
+
+        $order->delivery_charge=$delivery_charge->value??0;
 
         $order->save();
 

@@ -3,11 +3,15 @@
 namespace App\Http\Controllers\Rider\Api;
 
 use App\Models\Coupon;
+use App\Models\Customer;
+use App\Models\Membership;
+use App\Models\Notification;
 use App\Models\Order;
 use App\Models\OrderDetail;
 use App\Models\OrderStatus;
 use App\Models\ReturnProduct;
 use App\Models\Wallet;
+use App\Services\Notification\FCMNotification;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -520,6 +524,29 @@ class RiderOrderController extends Controller
             'current_status'=>$order->status
         ]);
 
+        // add cashback to user
+        $customer=Customer::find($order->user_id);
+        if($customer->isMembershipActive()){
+            $membership=Membership::find($customer->active_membership);
+            if($membership){
+                $amount=intval(($order->total_cost-$order->coupon_discount-$order->points_used)*$membership->cashback/100);
+                $order->cashback_given=$amount;
+                $order->save();
+                Wallet::updatewallet($order->user_id, 'Cashback received For Order ID: '.$order->refid, 'CREDIT',$amount, 'POINT', $order->id);
+
+                $title='Cashback Credited';
+                $message='Cashback of $amount received For Order ID: '.$order->refid;
+
+                FCMNotification::sendNotification($order->customer->notification_token, $title, $message);
+
+            }
+
+        }
+
+        $title='Order Delivered';
+        $message='Your Order ID: '.$order->refid.' at Hallobasket has been delivered';
+
+        FCMNotification::sendNotification($order->customer->notification_token, $title, $message);
 
         return [
             'status'=>'success',
