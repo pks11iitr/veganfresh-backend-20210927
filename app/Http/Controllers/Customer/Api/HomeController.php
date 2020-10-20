@@ -165,7 +165,7 @@ class HomeController extends Controller
                             'categoryname'=>$entity->name,
                             'categoryimage'=>$entity->image,
                             'subcategory_id'=>$entity->entity_id,
-                            'category_id'=>$entity->parent_category,
+                            'category_id'=>$entity->entity->parent_category,
                         ];
                     }
                 break;
