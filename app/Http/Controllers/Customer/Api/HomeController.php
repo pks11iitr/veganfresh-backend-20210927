@@ -101,16 +101,17 @@ class HomeController extends Controller
             ->get();
         //return $productsobj;
         $products=[];
-        foreach($productsobj as $product)
-            foreach($product->sizeprice as $size){
-                $size->quantity=$cart[$size->id]??0;
-                $size->in_stocks=Size::getStockStatus($size, $product);
+        foreach($productsobj as $product) {
+            foreach ($product->sizeprice as $size) {
+                $size->quantity = $cart[$size->id] ?? 0;
+                $size->in_stocks = Size::getStockStatus($size, $product);
             }
-            $products[$product->id]=[
-                'sizeprice'=>$product->sizeprice,
-                'reviews'=>$product->reviews_count[0]->review??0,
-                'ratings'=>number_format($product->reviews_count[0]->rating??0,1),
+            $products[$product->id] = [
+                'sizeprice' => $product->sizeprice,
+                'reviews' => $product->reviews_count[0]->review ?? 0,
+                'ratings' => number_format($product->reviews_count[0]->rating ?? 0, 1),
             ];
+        }
 
         //return $products;
         //var_dump(DB::getQueryLog());
@@ -173,8 +174,9 @@ class HomeController extends Controller
             $sections[]=$new_sec;
 
         }
-
-        return compact('banners', 'categories', 'user', 'sections', 'next_slot', 'cart_total');
+        $status='success';
+        $message='';
+        return compact('banners', 'categories', 'user', 'sections', 'next_slot', 'cart_total', 'status', 'message');
 
     }
 }
