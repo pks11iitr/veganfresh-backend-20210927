@@ -124,7 +124,7 @@ class HomeSectionController extends Controller
         $homesectionentity =HomeSectionEntity::where('entity_type','App\Models\Product')
             ->where('home_section_id',$id)->get();
         $products =Product::active()->get();
-        $homeEntityNames=HomeSectionEntity::where('entity_type','App\Models\Product')->get();
+        $homeEntityNames=HomeSectionEntity::where('entity_type','App\Models\Product')->where('home_section_id',$id)->get();
         return view('admin.homesection.productedit',['homesection'=>$homesection,'products'=>$products,'homesectionentity'=>$homesectionentity,'homeEntityNames'=>$homeEntityNames]);
     }
 
@@ -210,7 +210,7 @@ class HomeSectionController extends Controller
         $homesection =HomeSection::findOrFail($id);
         $homesectionentity =HomeSectionEntity::where('entity_type','App\Models\SubCategory')
             ->where('home_section_id',$id)->get();
-        $homeEntityImage=HomeSectionEntity::where('entity_type','App\Models\SubCategory')->get();
+        $homeEntityImage=HomeSectionEntity::where('entity_type','App\Models\SubCategory') ->where('home_section_id',$id)->get();
 
         return view('admin.homesection.subcategoryedit',['homesection'=>$homesection,'subcategorys'=>$subcategorys,'homesectionentity'=>$homesectionentity,'homeEntityImage'=>$homeEntityImage]);
     }
