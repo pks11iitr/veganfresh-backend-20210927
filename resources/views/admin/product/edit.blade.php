@@ -605,7 +605,8 @@
             formdata.append('isactive', isactive_val)
             formdata.append('size_id', no)
             var files = $('#sel_image'+no)[0].files[0];
-            formdata.append('file',files);
+            if(files!=undefined)
+                formdata.append('file',files);
 
             $.ajax({
                 url: "{{route('product.size.update')}}",
