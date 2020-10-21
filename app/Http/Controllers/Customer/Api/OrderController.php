@@ -106,7 +106,7 @@ class OrderController extends Controller
             'refid'=>$refid,
             'status'=>'pending',
             'total_cost'=>$total_cost,
-            'delivery_charge'=>$delivery_charge,
+            'delivery_charge'=>$delivery_charge->value??0,
         ]);
 
         foreach($remaining as $item){
