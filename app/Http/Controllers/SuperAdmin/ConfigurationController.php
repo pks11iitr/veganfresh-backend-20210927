@@ -21,7 +21,10 @@ class ConfigurationController extends Controller
 
         foreach($request->all() as $key=>$val){
 
-            Configuration::where('param', $key)->update(['value'=>$val]);
+            if($key=='express_delivery')
+                Configuration::where('param', $key)->update(['value'=>$val, 'description'=>$request->express_description]);
+            else
+                Configuration::where('param', $key)->update(['value'=>$val]);
 
         }
 

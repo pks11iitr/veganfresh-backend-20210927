@@ -7,6 +7,7 @@ use App\Events\OrderSuccessfull;
 use App\Events\RescheduleConfirmed;
 use App\Models\BookingSlot;
 use App\Models\Cart;
+use App\Models\Configuration;
 use App\Models\Coupon;
 use App\Models\HomeBookingSlots;
 use App\Models\Order;
@@ -54,7 +55,7 @@ class PaymentController extends Controller
             if(OrderDetail::removeOutOfStockItems($detail))
                 return [
                     'status'=>'failed',
-                    'message'=>'Some items from your cart is not available'
+                    'message'=>'Some items from your cart are not available'
                 ];
         }
 
@@ -70,16 +71,38 @@ class PaymentController extends Controller
             $timeslot=explode('**', $request->time_slot);
         }
 
-        $order->update([
-            'use_balance'=>false,
-            'use_points'=>false,
-            'points_used'=>0,
-            'balance_used'=>0,
-            'coupon_applied'=>null,
-            'coupon_discount'=>0,
-            'delivery_slot'=>$timeslot[0]??null,
-            'delivery_date'=>$timeslot[1]??null,
-        ]);
+        if(!empty($request->express_delivery)){
+
+            $express_delivery=Configuration::where('param', 'express_delivery')->first();
+            $express_delivery=[
+                'text'=>$express_delivery->description??'',
+                'price'=>$express_delivery->value??$order->delivery_charge
+            ];
+
+            $order->update([
+                'use_balance'=>false,
+                'use_points'=>false,
+                'points_used'=>0,
+                'balance_used'=>0,
+                'coupon_applied'=>null,
+                'coupon_discount'=>0,
+                'delivery_slot'=>$timeslot[0]??null,
+                'delivery_date'=>$timeslot[1]??null,
+                'delivery_charge'=>$express_delivery['price']
+            ]);
+        }else{
+            $order->update([
+                'use_balance'=>false,
+                'use_points'=>false,
+                'points_used'=>0,
+                'balance_used'=>0,
+                'coupon_applied'=>null,
+                'coupon_discount'=>0,
+                'delivery_slot'=>$timeslot[0]??null,
+                'delivery_date'=>$timeslot[1]??null,
+
+            ]);
+        }
 
         if(!empty($request->coupon)){
             $coupon=Coupon::active()->where('code', $request->coupon)->first();
@@ -98,7 +121,6 @@ class PaymentController extends Controller
 
             $order->applyCoupon($coupon);
         }
-
 
         if($request->use_points==1) {
             $result=$this->payUsingPoints($order);

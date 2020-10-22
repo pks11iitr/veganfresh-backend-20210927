@@ -238,6 +238,12 @@ class OrderController extends Controller
 //        }else{
 //            $order->delivery_charge=0;
 //        }
+        $express_delivery=Configuration::where('param', 'express_delivery')->first();
+        $express_delivery=[
+            'text'=>$express_delivery->description??'',
+            'price'=>$express_delivery->value??0
+        ];
+
 
         $order->delivery_charge=$delivery_charge->value??0;
 
@@ -258,11 +264,65 @@ class OrderController extends Controller
 
         return [
             'status'=>'success',
-            'data'=>compact('prices', 'delivery_address', 'cashback', 'wallet_balance', 'timeslot', 'itemdetails', 'timeslot_list')
+            'data'=>compact('prices', 'delivery_address', 'cashback', 'wallet_balance', 'timeslot', 'itemdetails', 'timeslot_list', 'express_delivery')
         ];
 
 
     }
+
+
+//    public function selectExpressDelivery(Request $request, $order_id){
+//        $user= auth()->guard('customerapi')->user();
+//        if(!$user)
+//            return [
+//                'status'=>'failed',
+//                'message'=>'Please login to continue'
+//            ];
+//
+//        $order=Order::with('details')
+//        ->where('status', 'pending')
+//            ->find($order_id);
+//        if(!$order)
+//            return [
+//                'status'=>'failed',
+//                'message'=>'No Such Order Found'
+//            ];
+//
+//        $cost=0;
+//        $savings=0;
+//        $itemdetails=[];
+//        foreach($order->details as $detail){
+//            $itemdetails[]=[
+//                'name'=>$detail->name??'',
+//                'image'=>$detail->image??'',
+//                'company'=>$detail->entity->company??'',
+//                'price'=>$detail->price,
+//                'cut_price'=>$detail->cut_price,
+//                'quantity'=>$detail->quantity,
+//                'size'=>$detail->size->name??'',
+//                'item_id'=>$detail->entity_id,
+//                //'show_return'=>($detail->status=='delivered'?1:0),
+//                //'show_cancel'=>in_array($detail->status, ['confirmed'])?1:0,
+//                'show_review'=>isset($reviews[$detail->entity_id])?0:1
+//            ];
+//            $cost=$cost+$detail->price*$detail->quantity;
+//            $savings=$savings+($detail->cut_price-$detail->price)*$detail->quantity;
+//        }
+//
+//        $express_delivery=Configuration::where('param', 'express_delivery')->first();
+//        $express_delivery=[
+//            'text'=>$express_delivery->description??'',
+//            'price'=>$express_delivery->value??$order->delivery_charge
+//        ];
+//
+//        $prices=[
+//            'basket_total'=>$cost,
+//            'delivery_charge'=>$express_delivery,
+//            'coupon_discount'=>$order->coupon_discount,
+//            'total_savings'=>$savings+$order->coupon_discount,
+//            'total_payble'=>$cost+$express_delivery-$order->coupon_discount,
+//        ];
+//    }
 
     public function applyCoupon(Request $request, $order_id){
 
@@ -283,7 +343,11 @@ class OrderController extends Controller
         }
 
         $order=Order::with('details')->find($order_id);
-
+        if(!$order)
+            return [
+                'status'=>'failed',
+                'message'=>'No Such Order Found'
+            ];
         $cost=0;
         $savings=0;
         $itemdetails=[];
