@@ -35,6 +35,14 @@
 		 <form class="form-validate form-horizontal"  method="get" action="" enctype="multipart/form-data">
 
                      <div class="row">
+                         <div class="col-4">
+                             <select name="category_id" class="form-control" >
+                                 <option value="">Select Category</option>
+                                 @foreach($categories as $category)
+                                     <option value="{{$category->id}}" @if(request('category_id')==$category->id){{'selected'}}@endif>{{$category->name}}</option>
+                                 @endforeach
+                             </select>
+                         </div>
 					      <div class="col-4">
                            <input  id="fullname" onfocus="this.value=''" class="form-control" name="search" placeholder=" search name" value="{{request('search')}}"  type="text" />
                            </div>
