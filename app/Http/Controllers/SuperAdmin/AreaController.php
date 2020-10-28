@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\SuperAdmin;
 
+use App\Exports\AreaExport;
 use App\Imports\AreaImport;
 use App\Models\Area;
 use App\Models\User;
@@ -64,22 +65,16 @@ class AreaController extends Controller
     }
 
     public function import(Request $request){
+
         Excel::import(new AreaImport, request()->file('select_file'));
 
-       /* Excel::load($request->file('select_file'), function($reader) {
-            $results = $reader->all();
-            foreach ($results as $row) {
-                $strtoupper =$row->name;
-                $arealist=Area::where('name',$strtoupper)->get();
-                if($arealist->count()<=0) {
-                    $findermap = new Area();
-                    $findermap->name = $row->name;
-                    $findermap->save();
-                }
-            }
-        });*/
         return redirect()->route('area.list')->with('success', 'Your Data imported successfully.');
 
         return redirect()->back()->with('error', 'Your Data import failed');
+    }
+
+    public function export(Request $request){
+
+        return Excel::download(new AreaExport, 'areas.xlsx');
     }
 }
