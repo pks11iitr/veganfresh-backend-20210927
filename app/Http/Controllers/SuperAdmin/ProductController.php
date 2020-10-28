@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\SuperAdmin;
 
+use App\Exports\SalesExport;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
 use App\Models\Category;
@@ -12,21 +13,65 @@ use App\Models\Size;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Storage;
+use Excel;
 
 class ProductController extends Controller
 {
      public function index(Request $request){
 
-		 $products=Product::where(function($products) use($request){
+         if($request->type=='export'){
+             return $this->downloadProduct($request);
+         }
+
+
+         if($request->search){
+             $products=Product::where(function($products) use($request){
+                 $products->where('name','LIKE','%'.$request->search.'%');
+             });
+         }else{
+             $products=Product::where('id','>', 0);
+         }
+
+         if($request->category_id)
+             $products=$products->whereHas('category', function($category) use($request){
+                 $category->where('categories.id', $request->category_id);
+             });
+
+
+         if($request->ordertype)
+             $products=$products->orderBy('name', $request->ordertype);
+
+         $products=$products->paginate(10);
+
+         $categories=Category::get();
+
+         return view('admin.product.view',['products'=>$products, 'categories'=>$categories]);
+              }
+
+
+    public function downloadProduct(Request $request){
+
+         $product=Product::with(['category', 'sizeprice', 'subcategory']);
+         if($request->search){
+            $products=$product->where(function($products) use($request){
                 $products->where('name','LIKE','%'.$request->search.'%');
             });
+        }
 
-            if($request->ordertype)
-                $products=$products->orderBy('name', $request->ordertype);
+        if($request->category_id)
+            $products=$products->whereHas('category', function($category) use($request){
+                $category->where('categories.id', $request->category_id);
+            });
 
-            $products=$products->paginate(10);
-            return view('admin.product.view',['products'=>$products]);
-              }
+
+        if($request->ordertype)
+            $products=$products->orderBy('name', $request->ordertype);
+
+        $products=$products->get();
+
+        return Excel::download(new ProductsExport($products), 'products.xlsx');
+
+    }
 
     public function create(Request $request){
         $categories=Category::active()->get();
