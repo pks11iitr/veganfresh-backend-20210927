@@ -132,7 +132,7 @@
                                 <thead>
                                 <tr>
                                     <th>Product Details</th>
-                                    {{--<th></th>--}}
+                                    <th></th>
                                     <th></th>
                                     <th></th>
                                     <th></th>
@@ -142,7 +142,7 @@
                                 @foreach($order->details as $detail)
                                     <tr>
                                         <td>{{$detail->entity->name??''}}</td>
-                                        {{--<td>{{$detail->size->name??''}}</td>--}}
+                                        <td>Size: {{$detail->size->size??''}}</td>
                                         <td>Quantity: {{$detail->quantity}}</td>
                                         <td>Rs. {{$detail->cost}}/Item</td>
                                         <td>Rs. {{$detail->cost*$detail->quantity}} Total</td>
