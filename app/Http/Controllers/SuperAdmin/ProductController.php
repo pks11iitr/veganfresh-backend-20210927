@@ -358,6 +358,7 @@ class ProductController extends Controller
          ]);
 
          $product=Product::where(DB::raw('BINARY name'), $request->name)
+             ->where('company', $request->company)
              ->first();
          if($product){
              $product->update(array_merge($request->only('company', 'description', 'isactive', 'stock_type', 'stock', 'is_offer'), ['is_hotdeal'=>$request->hot_deal, 'is_newarrival'=>$request->new_arrival, 'is_discounted'=>$request->discounted]));

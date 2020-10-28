@@ -16,7 +16,7 @@ class Size extends Model
     protected $fillable=['size', 'price','cut_price','product_id', 'isactive','min_qty','max_qty','stock','image','consumed_units'];
 
     protected $hidden =['created_at','updated_at','deleted_at','isactive'];
-    protected $appends=['discount'];
+    protected $appends=['discount','price_str', 'cut_price_str'];
 
     public function getDiscountAttribute($value){
         return empty($this->cut_price)?0:intval((($this->cut_price-$this->price)/$this->cut_price)*100);
@@ -54,6 +54,47 @@ class Size extends Model
         }
 
         return 0;
+
+    }
+
+
+    public function getPriceStrAttribute($value){
+
+        if(is_decimal($this->price)){
+            return $this->price.'';
+        }else{
+            return intval($this->price).'';
+        }
+
+    }
+
+    public function getCutPriceStrAttribute($value){
+
+        if(is_decimal($this->cut_price)){
+            return $this->cut_price.'';
+        }else{
+            return intval($this->cut_price).'';
+        }
+
+    }
+
+    public function getPriceAttribute($value){
+
+        if(is_decimal($value)){
+            return $value.'';
+        }else{
+            return intval($value).'';
+        }
+
+    }
+
+    public function getCutPriceAttribute($value){
+
+        if(is_decimal($value)){
+            return $value.'';
+        }else{
+            return intval($value).'';
+        }
 
     }
 

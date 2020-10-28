@@ -6,10 +6,12 @@ use App\Events\OrderConfirmed;
 use App\Models\Cart;
 use App\Models\Customer;
 use App\Models\Membership;
+use App\Models\Notification;
 use App\Models\Order;
 use App\Models\OrderStatus;
 use App\Models\Subscription;
 use App\Models\Wallet;
+use App\Services\Notification\FCMNotification;
 use App\Services\Payment\RazorPayService;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -147,9 +149,24 @@ class MembershipController extends Controller
             $user->save();
 
 
+            $title='Membership Subscription Confirmed';
+            $message='Congratulations! Your subscription at Hallobasket is successful';
+
+            Notification::create([
+                'user_id'=>$subscription->user_id,
+                'title'=>$title,
+                'description'=>$message,
+                'data'=>null,
+                'type'=>'individual'
+            ]);
+
+            if($subscription->customer->notification_token??null)
+                FCMNotification::sendNotification($subscription->customer->notification_token, $title, $message);
+
+
             return [
                 'status'=>'success',
-                'message'=> 'Congratulations! Your subscription at Hallobasket is successful',
+                'message'=> $message,
                 'data'=>[
                     'ref_id'=>$subscription->refid,
                     'order_id'=>$subscription->id

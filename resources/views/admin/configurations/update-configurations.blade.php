@@ -39,10 +39,17 @@
                                 @csrf
                                 <div class="card-body">
                                     @foreach($configurations as $conf)
+
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">{{strtoupper($conf->param)}}</label>
                                         <input type="text" name="{{$conf->param}}" class="form-control" id="exampleInputEmail1" placeholder="Enter title" value="{{$conf->value}}" required>
                                     </div>
+                                        @if($conf->param=='express_delivery')
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail1">Express Description</label>
+                                                <input type="text" name="express_description" class="form-control" id="exampleInputEmail1" placeholder="Enter title" value="{{$conf->description}}" required>
+                                            </div>
+                                        @endif
                                     @endforeach
                                 </div>
                                 <!-- /.card-body -->

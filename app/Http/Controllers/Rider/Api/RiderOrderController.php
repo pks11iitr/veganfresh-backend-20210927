@@ -535,7 +535,7 @@ class RiderOrderController extends Controller
                 Wallet::updatewallet($order->user_id, 'Cashback received For Order ID: '.$order->refid, 'CREDIT',$amount, 'POINT', $order->id);
 
                 $title='Cashback Credited';
-                $message='Cashback of $amount received For Order ID: '.$order->refid;
+                $message="Cashback of $amount received For Order ID: ".$order->refid;
 
                 FCMNotification::sendNotification($order->customer->notification_token, $title, $message);
 
