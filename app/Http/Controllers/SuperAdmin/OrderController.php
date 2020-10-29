@@ -56,6 +56,9 @@ class OrderController extends Controller
         if($request->ordertype)
             $orders=$orders->orderBy('created_at', $request->ordertype);
 
+        if($request->delivery_slot)
+            $orders=$orders->orderBy('delivery_slot', $request->delivery_slot);
+
         $orders=$orders->paginate(10);
 
         $stores=User::where('id','>', 1)->get();
