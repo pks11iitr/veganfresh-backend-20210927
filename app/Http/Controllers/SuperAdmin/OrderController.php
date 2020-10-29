@@ -126,7 +126,10 @@ class OrderController extends Controller
             Order::increaseInventory($order);
 
 
-        }else {
+        }else if($status=='delivered'){
+            $order->status=$status;
+            $order->delivered_at=date('Y-m-d H:i:s');
+        }else{
             $order->status=$status;
         }
 
