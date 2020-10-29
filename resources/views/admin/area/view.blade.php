@@ -26,7 +26,12 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <a href="{{route('area.create')}}" class="btn btn-primary">Add Area List</a>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <a href="{{route('area.create')}}" class="btn btn-primary">Add Area List</a>
+                                        <a class="btn btn-warning" href="{{route('area.export')}}">Export Data</a>
+                                </div>
+                                </div>
                             </div>
                             <!-- /.card-header -->
                             <div class="card-header">

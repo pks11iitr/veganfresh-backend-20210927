@@ -486,6 +486,7 @@ Route::group(['middleware'=>['auth', 'acl']], function(){
             Route::post('store','SuperAdmin\AreaController@store')->name('area.store');
             Route::post('update/{id}','SuperAdmin\AreaController@update')->name('area.update');
             Route::post('import','SuperAdmin\AreaController@import')->name('area.import');
+            Route::get('export','SuperAdmin\AreaController@export')->name('area.export');
 
         });
 

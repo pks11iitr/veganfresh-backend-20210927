@@ -22,7 +22,7 @@
             <td>{{ ($order->customer->name??'') }}</td>
             <td>{{ $order->customer->email??'' }}</td>
             <td>{{ $order->customer->mobile??'' }}</td>
-            <td>{{ $order->total_cost }}</td>
+            <td>{{ $order->total_cost+$order->delivery_charge }}</td>
             <td>{{ $order->payment_mode }}</td>
             <td>{{ $order->delivery_date??'' }}</td>
             <td>{{ $order->timeslot->name??'' }}</td>

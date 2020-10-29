@@ -54,7 +54,7 @@
 
                                                     </select>
 
-                                                </div>
+                                                </div><br><br>
 
                                                 <div class="col-4">
 
@@ -78,15 +78,27 @@
                                                     </select>
 
                                                 </div><br><br>
+
+                                                <div class="col-4">
+
+                                                    <select id="delivery_slot" name="delivery_slot" class="form-control" >
+                                                        <option value="" {{ request('delivery_slot')==''?'selected':''}}>Select Time Slot</option>
+                                                        @foreach($timeslots as $timeslot)
+                                                            <option value="{{$timeslot->id}}" {{request('delivery_slot')==$timeslot->id?'selected':''}}>{{ $timeslot->name }}</option>                                    @endforeach
+
+                                                    </select>
+
+                                                </div>
+
                                                 <div class="col-4">
                                                     <input  id="fullname"  class="form-control" name="fromdate" placeholder=" search name" value="{{request('fromdate')}}"  type="date" />
                                                 </div>
                                                 <div class="col-4">
                                                     <input  id="fullname"  class="form-control" name="todate" placeholder=" search name" value="{{request('todate')}}"  type="date" />
                                                 </div>
-                                                <div class="col-8">
+                                                <div class="col-4">
                                                     <button type="submit" name="save" class="btn btn-primary">Submit</button>
-                                                </div>
+                                                </div><br><br>
                                                 <div class="col-4">
                                                     <a class="btn btn-primary" href="{{route('sales.report')}}?{{Request::getQueryString()}}">Download Sales Report</a>
                                                 </div>
