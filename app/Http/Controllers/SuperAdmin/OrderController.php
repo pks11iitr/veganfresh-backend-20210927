@@ -5,6 +5,7 @@ namespace App\Http\Controllers\SuperAdmin;
 use App\Models\Notification;
 use App\Models\Order;
 use App\Models\Rider;
+use App\Models\TimeSlot;
 use App\Models\Wallet;
 use App\Models\User;
 use App\Services\Notification\FCMNotification;
@@ -53,24 +54,26 @@ class OrderController extends Controller
         if($request->rider_id)
              $orders=$orders->where('rider_id', $request->rider_id);
 
+        if($request->delivery_slot)
+             $orders=$orders->where('delivery_slot', $request->delivery_slot);
+
         if($request->ordertype)
             $orders=$orders->orderBy('created_at', $request->ordertype);
 
-        if($request->delivery_slot)
-            $orders=$orders->orderBy('delivery_slot', $request->delivery_slot);
-
-        $orders=$orders->paginate(10);
+        $orders=$orders->orderBy('id', 'DESC')->paginate(10);
 
         $stores=User::where('id','>', 1)->get();
         $riders=Rider::get();
+        $timeslots=TimeSlot::get();
 //var_dump($stores);die();
-        return view('admin.order.view',['orders'=>$orders,'stores'=>$stores,'riders'=>$riders]);
+        return view('admin.order.view',['orders'=>$orders,'stores'=>$stores,'riders'=>$riders,'timeslots'=>$timeslots]);
 
     }
 
     public function details(Request $request,$id){
-        $order =Order::with(['details.entity'])->findOrFail($id);
+        $order =Order::with(['details.entity','details.size'])->findOrFail($id);
         $riders =Rider::active()->get();
+        //var_dump($order);die();
         return view('admin.order.details',['order'=>$order,'riders'=>$riders]);
     }
 
