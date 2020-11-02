@@ -128,7 +128,7 @@ class LoginController extends Controller
     protected function validateOTPLogin(Request $request)
     {
         $request->validate([
-            'mobile' => 'required|digits:10|string|exists:customers',
+            'mobile' => 'required|digits:10',
         ]);
     }
 
