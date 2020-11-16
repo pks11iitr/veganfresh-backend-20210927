@@ -14,7 +14,6 @@ class AreaController extends Controller
 {
     public function index(Request $request){
         $arealists =Area::get();
-        //jdfjdfjdkjf
         return view('admin.area.view',['arealists'=>$arealists]);
     }
 
