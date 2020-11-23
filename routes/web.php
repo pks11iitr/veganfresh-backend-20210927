@@ -604,3 +604,11 @@ Route::group(['middleware'=>['auth', 'acl']], function(){
 
 });
 
+Route::group(['prefix'=>'url'], function() {
+    Route::get('privacy-policy', 'SuperAdmin\AppUrlController@privacypolicy')->name('policy');
+    Route::get('terms-condition', 'SuperAdmin\AppUrlController@termscondition')->name('terms');
+    Route::get('about-us', 'SuperAdmin\AppUrlController@aboutus')->name('about');
+    Route::get('cancellation-policy', 'SuperAdmin\AppUrlController@cancelationpolicy')->name('cancelation');
+    Route::get('refund-policy', 'SuperAdmin\AppUrlController@refundpolicy')->name('contact');
+});
+
