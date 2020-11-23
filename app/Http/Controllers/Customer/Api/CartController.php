@@ -163,6 +163,7 @@ class CartController extends Controller
 
         $cart=Cart::getUserCart($user);
         $cart_total=$cart['total'];
+        $price_total=$cart['price_total'];
         $cart=$cart['cart'];
         foreach($products as $product){
             foreach($product->sizeprice as $size)
@@ -173,7 +174,8 @@ class CartController extends Controller
             'status'=>'success',
             'message'=>'success',
             'product'=>$product,
-            'cart_total'=>$cart_total
+            'cart_total'=>$cart_total,
+            'price_total'=>round($price_total)
         ];
 
     }

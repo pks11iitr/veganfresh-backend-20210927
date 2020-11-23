@@ -28,19 +28,22 @@ class Cart extends Model
                 'total'=>0
             ];
         $cart=[];
-        $total=0;
         $items=Cart::with(['product', 'sizeprice'])
             ->where('user_id', $user->id)
             ->get();
 
+        $total=0;
+        $price_total=0;
         foreach ($items as $item){
             if(self::removeOutOfStockItems($item)){
-               continue;
+                continue;
             }
+
             $cart[$item->size_id]=$item->quantity;
             $total=$total+$item->quantity;
+            $price_total=$price_total+$item->quantity*($item->sizeprice->price??0);
         }
-        return compact('cart', 'total');
+        return compact('cart', 'total', 'price_total');
     }
 
     public static function removeOutOfStockItems($item){

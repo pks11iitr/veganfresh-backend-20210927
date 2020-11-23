@@ -55,6 +55,9 @@ class ReportDownloader extends Controller
         if($request->ordertype)
             $orders=$orders->orderBy('created_at', $request->ordertype);
 
+        if($request->delivery_slot)
+            $orders=$orders->orderBy('delivery_slot', $request->delivery_slot);
+
         $orders=$orders->get();
 
         //return $orders;
@@ -107,6 +110,9 @@ class ReportDownloader extends Controller
 
         if($request->ordertype)
             $orders=$orders->orderBy('created_at', $request->ordertype);
+
+        if($request->delivery_slot)
+            $orders=$orders->orderBy('delivery_slot', $request->delivery_slot);
 
         $orders=$orders->get();
 

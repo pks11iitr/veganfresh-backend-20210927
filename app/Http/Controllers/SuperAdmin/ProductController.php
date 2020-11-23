@@ -418,7 +418,9 @@ class ProductController extends Controller
             $subcategories=explode(',', $request->sub_category);
             $filtered_sub=[];
             foreach($subcategories as $s){
-                $filtered_sub[]=trim($s);
+                $s=trim($s);
+                if(!empty($s))
+                    $filtered_cat[]=$s;
             }
             if(!empty($filtered_sub)){
                 $subcategories=SubCategory::active()->whereIn('name', $filtered_sub)->get();
@@ -438,9 +440,11 @@ class ProductController extends Controller
             $categories=explode(',', $request->category);
             $filtered_cat=[];
             foreach($categories as $s){
-                $filtered_cat[]=trim($s);
+                $s=trim($s);
+                if(!empty($s))
+                    $filtered_cat[]=$s;
             }
-            if($filtered_cat){
+            if(!empty($filtered_cat)){
                 $categories=Category::active()
                     ->whereIn('name', $filtered_cat)
                     ->get();

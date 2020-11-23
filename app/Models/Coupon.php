@@ -15,7 +15,7 @@ class Coupon extends Model
 
     public function getCouponDiscount($amount){
 
-        if($this->type=='fixed'){
+        if($this->type=='Fixed'){
             $discount=$this->discount;
         }else{
             $discount=floor($amount*$this->discount/100);
@@ -25,7 +25,7 @@ class Coupon extends Model
             return 0;
         }
 
-        if($this->maximum_discount && $amount>$this->maximum_discount)
+        if($this->maximum_discount && $discount > $this->maximum_discount)
         {
             return $this->maximum_discount;
         }
