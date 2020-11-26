@@ -187,16 +187,19 @@
                                 </thead>
                                 <tbody>
                                 <tr>
-                                    <td>Name</td><td>{{$order->name}}</td>
+                                    <td>Name</td><td>{{$order->deliveryaddress->first_name??''}} {{$order->deliveryaddress->last_name??''}}</td>
                                 </tr>
                                 <tr>
-                                    <td>Mobile</td><td>{{$order->mobile}}</td>
+                                    <td>Mobile</td><td>{{$order->deliveryaddress->mobile_no??''}}</td>
                                 </tr>
                                 <tr>
-                                    <td>Email</td><td>{{$order->email}}</td>
+                                    <td>Email</td><td>{{$order->deliveryaddress->email??''}}</td>
                                 </tr>
                                 <tr>
-                                    <td>Adress</td><td>{{$order->address}}</td>
+                                    <td>Address</td><td>{{$order->deliveryaddress->house_no??''}},{{$order->deliveryaddress->appertment_name??''}}, {{$order->deliveryaddress->street??''}}, {{$order->deliveryaddress->landmark??''}}, {{$order->deliveryaddress->	area??''}}, {{$order->deliveryaddress->city??''}}, {{$order->deliveryaddress->pincode??''}}, {{$order->deliveryaddress->address_type??''}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Map Address</td><td>{{$order->deliveryaddress->map_address??''}}</td>
                                 </tr>
                                 </tbody>
 
