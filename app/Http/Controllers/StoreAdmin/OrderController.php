@@ -57,6 +57,8 @@ class OrderController extends Controller
 
         if($request->ordertype)
             $orders=$orders->orderBy('created_at', $request->ordertype);
+        else
+            $orders=$orders->orderBy('created_at', 'desc');
 
         $orders=$orders->paginate(10);
 
