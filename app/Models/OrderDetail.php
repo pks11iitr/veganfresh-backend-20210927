@@ -10,7 +10,7 @@ class OrderDetail extends Model
 
     protected $fillable=[ 'order_id', 'entity_id','entity_type', 'size_id', 'quantity', 'image', 'price', 'cut_price', 'name', 'status'];
 
-    protected $appends=['cost', 'price_str', 'cut_price_str'];
+    protected $appends=['price_str', 'cut_price_str'];
 
     public function entity(){
         return $this->morphTo();
@@ -67,15 +67,15 @@ class OrderDetail extends Model
 
     }
 
-    public function getCostStrAttribute($value){
-
-        if(is_decimal($this->cost)){
-            return $this->cost.'';
-        }else{
-            return intval($this->cost).'';
-        }
-
-    }
+//    public function getCostStrAttribute($value){
+//
+//        if(is_decimal($this->cost)){
+//            return $this->cost.'';
+//        }else{
+//            return intval($this->cost).'';
+//        }
+//
+//    }
 
 
     public function getPriceAttribute($value){
