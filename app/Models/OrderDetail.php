@@ -67,7 +67,7 @@ class OrderDetail extends Model
 
     }
 
-    public function getCostStrAttribute($value){
+    public function getCostAttribute($value){
 
         if(is_decimal($this->cost)){
             return $this->cost.'';
