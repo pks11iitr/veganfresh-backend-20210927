@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Customer\Api;
 
+use App\Models\Area;
 use App\Models\BookingSlot;
 use App\Models\Cart;
 use App\Models\Clinic;
@@ -155,6 +156,9 @@ class OrderController extends Controller
                 'message'=>'No address Found'
             ];
 
+        $area=Area::active()
+            ->where('name', $address->area)
+            ->first();
         $order=Order::where('user_id', $user->id)
             ->where('status', 'pending')
             ->find($id);
@@ -166,6 +170,7 @@ class OrderController extends Controller
             ];
 
         $order->address_id=$address->id;
+        $order->store_id=$area->store_id??null;
 
         $order->save();
 
