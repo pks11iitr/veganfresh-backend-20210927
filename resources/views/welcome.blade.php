@@ -150,7 +150,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <h2 class="heading text-center">Download Our App : <img src="img/playstore.png" style="width:200px; height:auto;"></h2>
+                <h2 class="heading text-center">Download Our App : <img src="homepage/img/playstore.png" style="width:200px; height:auto;"></h2>
             </div>
         </div>
     </div>
@@ -263,30 +263,30 @@
     </div>
 </section>
 <!-- Contact Form Start -->
-<div class="contact-form-page">
-    <div class="form-head">
-        <div class="header-btn">
-            <a class="top-btn" href="#"><i class="fa fa-times"></i></a>
-        </div>
-    </div>
-    <h1 class="text-center">Please fill the form - I will response as fast as I can!</h1>
-    <form method="post" class="qer" action="http://KMS Vetshomeservices.com/submit">
-        <input type="hidden" name="_token" value="5vEtVCpjprwcxR3jzldkxf8NqxWZ5AHVE6E258KF">        <div class="form-group">
-            <input type="text" class="form-control"  placeholder="Enter Your Name" required name="name">
-        </div>
-        <div class="form-group">
-            <input type="phone" class="form-control"  placeholder="Enter Your Mobile" required name="mobile">
-        </div>
-        <div class="form-group">
-            <input type="email" class="form-control" placeholder="Enter Your Email" required name="email">
-        </div>
-        <div class="form-group">
-            <textarea class="form-control" rows="2"  required="required" required placeholder="Write requirement details" name="description"></textarea>
-        </div>
-        <button type="submit" class="submit-buttom btn-block">Send</button>
-    </form>
-</div>
-<a class="buttom-btn" href="#"><i class="fa fa-envelope"></i></a>
+{{--<div class="contact-form-page">--}}
+{{--    <div class="form-head">--}}
+{{--        <div class="header-btn">--}}
+{{--            <a class="top-btn" href="#"><i class="fa fa-times"></i></a>--}}
+{{--        </div>--}}
+{{--    </div>--}}
+{{--    <h1 class="text-center">Please fill the form - I will response as fast as I can!</h1>--}}
+{{--    <form method="post" class="qer" action="http://KMS Vetshomeservices.com/submit">--}}
+{{--        <input type="hidden" name="_token" value="5vEtVCpjprwcxR3jzldkxf8NqxWZ5AHVE6E258KF">        <div class="form-group">--}}
+{{--            <input type="text" class="form-control"  placeholder="Enter Your Name" required name="name">--}}
+{{--        </div>--}}
+{{--        <div class="form-group">--}}
+{{--            <input type="phone" class="form-control"  placeholder="Enter Your Mobile" required name="mobile">--}}
+{{--        </div>--}}
+{{--        <div class="form-group">--}}
+{{--            <input type="email" class="form-control" placeholder="Enter Your Email" required name="email">--}}
+{{--        </div>--}}
+{{--        <div class="form-group">--}}
+{{--            <textarea class="form-control" rows="2"  required="required" required placeholder="Write requirement details" name="description"></textarea>--}}
+{{--        </div>--}}
+{{--        <button type="submit" class="submit-buttom btn-block">Send</button>--}}
+{{--    </form>--}}
+{{--</div>--}}
+{{--<a class="buttom-btn" href="#"><i class="fa fa-envelope"></i></a>--}}
 <!-- Contact Form End -->
 <!-- Footer Starts -->
 <footer class="footer pt-3">
