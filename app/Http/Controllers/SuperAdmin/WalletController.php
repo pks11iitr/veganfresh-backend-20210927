@@ -111,4 +111,21 @@ class WalletController extends Controller
 
     }
 
+    public function getWalletHistory(Request $request, $user_id){
+
+        $balance_history=Wallet::where('user_id', $user_id)
+            ->where('iscomplete', true)
+            ->where('amount_type', 'CASH')
+            ->orderBy('id', 'desc')
+            ->get();
+        $cashback_history=Wallet::where('user_id', $user_id)
+            ->where('iscomplete', true)
+            ->where('amount_type', 'POINT')
+            ->orderBy('id', 'desc')
+            ->get();
+
+        return view('admin.wallet.wallet-history', compact('user_id', 'balance_history', 'cashback_history'));
+
+    }
+
 }

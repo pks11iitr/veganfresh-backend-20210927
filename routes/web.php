@@ -575,6 +575,8 @@ Route::group(['middleware'=>['auth', 'acl']], function(){
 
         Route::get('get-wallet-balance/{id}', 'SuperAdmin\WalletController@getbalance')->name('user.wallet.balance');
 
+        Route::get('get-wallet-history/{id}', 'SuperAdmin\WalletController@getWalletHistory')->name('user.wallet.history');
+
     });
 
     Route::group(['prefix'=>'reports'], function(){
