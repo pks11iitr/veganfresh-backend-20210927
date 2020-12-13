@@ -96,7 +96,7 @@
                                 <div class="card-body">
                                     <div class="form-group">
                                         <label>Product Name</label>
-                                        <select class="form-control" name="entity_type" >
+                                        <select class="form-control" name="entity_type" id="entity_type">
                                             <option value="">Please Select....</option>
                                             @foreach($products as $product)
                                                 <option value="prod_{{$product->id}}">
@@ -171,4 +171,12 @@
     </div>
     <!-- ./wrapper -->
 @endsection
+@section('scripts')
+    <script>
 
+        $(document).ready(function(){
+            $("#entity_type").select2()
+        })
+
+    </script>
+@endsection

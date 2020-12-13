@@ -23,7 +23,7 @@ class Wallet extends Model
             $balances[$w->type]=$w->total;
         }
 
-        return ($balances['Credit']??0)-($balances['Debit']??0);
+        return round(($balances['Credit']??0)-($balances['Debit']??0),2);
     }
 
     public static function points($userid){
@@ -33,7 +33,7 @@ class Wallet extends Model
             $balances[$w->type]=$w->total;
         }
 
-        return ($balances['Credit']??0)-($balances['Debit']??0);
+        return round(($balances['Credit']??0)-($balances['Debit']??0), 2);
     }
 
 

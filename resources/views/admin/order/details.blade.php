@@ -301,7 +301,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Amount</label>
-                                        <input type="number" name="amount" class="form-control" required="" min="1">
+                                        <input type="number" name="amount" class="form-control" required="" value="0.0" min="0.01" step=".01">
                                     </div>
 
                                 </div>

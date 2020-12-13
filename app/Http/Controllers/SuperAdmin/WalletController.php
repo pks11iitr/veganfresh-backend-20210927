@@ -34,7 +34,7 @@ class WalletController extends Controller
             'amount_type'=>'required|in:cashback,balance',
             'calculation_type'=>'required|in:fixed,percentage',
             'action_type'=>'required|in:add,revoke',
-            'amount'=>'required|integer|min:1',
+            'amount'=>'required|numeric|min:0.01',
             'wallet_text'=>'required'
 
         ]);
