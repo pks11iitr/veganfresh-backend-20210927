@@ -422,6 +422,7 @@ Route::group(['middleware'=>['auth', 'acl']], function(){
             Route::get('create','SuperAdmin\CouponController@create')->name('coupon.create');
             Route::get('edit/{id}','SuperAdmin\CouponController@edit')->name('coupon.edit');
         });
+
         Route::group(['is'=>'admin|coupon-editor'], function(){
             Route::post('store','SuperAdmin\CouponController@store')->name('coupon.store');
             Route::post('update/{id}','SuperAdmin\CouponController@update')->name('coupon.update');
@@ -557,6 +558,16 @@ Route::group(['middleware'=>['auth', 'acl']], function(){
         Route::post('store','SuperAdmin\NewsUpdateController@store')->name('news.store');
         Route::get('edit/{id}','SuperAdmin\NewsUpdateController@edit')->name('news.edit');
         Route::post('update/{id}','SuperAdmin\NewsUpdateController@update')->name('news.update');
+
+    });
+
+    Route::group(['prefix'=>'membership'], function(){
+
+        Route::get('/','SuperAdmin\MembershipController@index')->name('membership.list');
+        Route::get('create','SuperAdmin\MembershipController@create')->name('membership.create');
+        Route::post('store','SuperAdmin\MembershipController@store')->name('membership.store');
+        Route::get('edit/{id}','SuperAdmin\MembershipController@edit')->name('membership.edit');
+        Route::post('update/{id}','SuperAdmin\MembershipController@update')->name('membership.update');
 
     });
 

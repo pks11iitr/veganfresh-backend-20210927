@@ -408,7 +408,16 @@
                             </a>
                         </li>
                     @endif
-
+                    @if(auth()->user()->hasRole('admin'))
+                    <li class="nav-item">
+                        <a href="{{route('membership.list')}}" class="nav-link">
+                            <i class="nav-icon fas fa-th"></i>
+                            <p>
+                                Membership
+                            </p>
+                        </a>
+                    </li>
+                    @endif
                     {{--                    <li class="nav-item">--}}
 {{--                        <a href="{{route('video.list')}}" class="nav-link">--}}
 {{--                            <i class="nav-icon fas fa-th"></i>--}}

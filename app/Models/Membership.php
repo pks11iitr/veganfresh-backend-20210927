@@ -10,7 +10,7 @@ class Membership extends Model
     use Active;
     protected $table='memberships';
 
-    protected $fillable=['name', 'price', 'validity'];
+    protected $fillable=['name', 'price', 'validity','isactive','cashback'];
 
 
 
