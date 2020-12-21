@@ -57,7 +57,7 @@ class ProfileController extends Controller
 
         }
 
-        if($user->update($request->only('name','email', 'dob', 'address', 'city', 'state','pincode'))){
+        if($user->update($request->only('name','email', 'dob', 'address', 'city', 'state','pincode', 'last_name'))){
             return [
                 'status'=>'success',
                 'message'=>'Profile has been updated'
