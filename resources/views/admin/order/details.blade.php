@@ -120,7 +120,12 @@
                                     <td>Add/Revoke Cashback/Wallet Balance<br></td>
                                     <td>
                                         <a href="javascript:void(0)" onclick="openWalletPanel('{{$order->id}}', '{{route('user.wallet.balance', ['id'=>$order->user_id])}}')">Open Panel</a>
+&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <a href="{{route('user.wallet.history', ['id'=>$order->user_id])}}" target="_blank">Wallet History</a>
+
                                     </td>
+
+
                                 </tr>
                                 </tbody>
                             </table>
@@ -143,9 +148,9 @@
                                     <tr>
                                         <td>{{$detail->entity->name??''}}</td>
                                         <td>Size: {{$detail->size->size??''}}</td>
-                                        <td>Quantity: {{$detail->quantity}}</td>
-                                        <td>Rs. {{$detail->size->price}}/Item</td>
-                                        <td>Rs. {{$detail->size->price*$detail->quantity}} Total</td>
+                                        <td>Quantity: {{$detail->quantity??0}}</td>
+                                        <td>Rs. {{$detail->size->price??0}}/Item</td>
+                                        <td>Rs. {{($detail->size->price??0)*($detail->quantity??0)}} Total</td>
                                     </tr>
                                 @endforeach
                                 </tbody>
@@ -296,7 +301,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Amount</label>
-                                        <input type="number" name="amount" class="form-control" required="" min="1">
+                                        <input type="number" name="amount" class="form-control" required="" value="0.0" min="0.01" step=".01">
                                     </div>
 
                                 </div>

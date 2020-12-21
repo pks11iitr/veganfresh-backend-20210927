@@ -14,7 +14,7 @@ class Customer extends Authenticatable implements JWTSubject
     protected $table='customers';
 
     protected $fillable = [
-        'name', 'email', 'mobile', 'password', 'image', 'dob','address','city', 'state','status','pincode','notification_token'
+        'name','last_name', 'email', 'mobile', 'password', 'image', 'dob','address','city', 'state','status','pincode','notification_token', 'area_id'
     ];
 
     protected $hidden = [
@@ -62,6 +62,10 @@ class Customer extends Authenticatable implements JWTSubject
 
     public function membership(){
         return $this->belongsTo('App\Model\Membership', 'active_membership');
+    }
+
+    public function area(){
+        return $this->belongsTo('App\Models\Area', 'area_id');
     }
 
 }

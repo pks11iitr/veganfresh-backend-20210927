@@ -34,7 +34,7 @@ class WalletController extends Controller
             'amount_type'=>'required|in:cashback,balance',
             'calculation_type'=>'required|in:fixed,percentage',
             'action_type'=>'required|in:add,revoke',
-            'amount'=>'required|integer|min:1',
+            'amount'=>'required|numeric|min:0.01',
             'wallet_text'=>'required'
 
         ]);
@@ -108,6 +108,23 @@ class WalletController extends Controller
         }
 
         return redirect()->back()->with('error', 'Invalid Request');
+
+    }
+
+    public function getWalletHistory(Request $request, $user_id){
+
+        $balance_history=Wallet::where('user_id', $user_id)
+            ->where('iscomplete', true)
+            ->where('amount_type', 'CASH')
+            ->orderBy('id', 'desc')
+            ->get();
+        $cashback_history=Wallet::where('user_id', $user_id)
+            ->where('iscomplete', true)
+            ->where('amount_type', 'POINT')
+            ->orderBy('id', 'desc')
+            ->get();
+
+        return view('admin.wallet.wallet-history', compact('user_id', 'balance_history', 'cashback_history'));
 
     }
 

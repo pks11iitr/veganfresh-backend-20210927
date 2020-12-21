@@ -83,6 +83,9 @@ class StoreController extends Controller
         }
         if($store)
         {
+            if(!$store->hasRole('store')){
+                $store->assignRole('store');
+            }
             return redirect()->route('stores.list')->with('success', 'store has been updated');
         }
         return redirect()->back()->with('error', 'store update failed');
