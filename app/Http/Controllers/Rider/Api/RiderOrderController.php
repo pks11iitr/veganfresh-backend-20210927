@@ -527,11 +527,14 @@ class RiderOrderController extends Controller
         // add cashback to user
         $customer=Customer::find($order->user_id);
         if($customer->isMembershipActive()){
+
             $membership=Membership::find($customer->active_membership);
+
             if($membership){
-                $amount=intval(($order->total_cost-$order->coupon_discount-$order->points_used)*$membership->cashback/100);
+                $amount=round(($order->total_cost-$order->coupon_discount-$order->points_used)*$membership->cashback/100, 2);
                 $order->cashback_given=$amount;
                 $order->save();
+
                 Wallet::updatewallet($order->user_id, 'Cashback received For Order ID: '.$order->refid, 'CREDIT',$amount, 'POINT', $order->id);
 
                 $title='Cashback Credited';

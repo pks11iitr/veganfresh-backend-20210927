@@ -531,12 +531,16 @@ class OrderController extends Controller
         if($order->payment_status=='paid'){
 
             if($order->use_points && $order->points_used){
-                Wallet::updatewallet($user->id, 'Points added in wallet for order cancellation. Order ID: '.$order->refid,'Credit',$order->points_used,'POINT',$order->id);
+                Wallet::updatewallet($user->id, 'Cashback refunded for order cancellation. Order ID: '.$order->refid,'Credit',$order->points_used,'POINT',$order->id);
             }
 
             $amount=$order->total_cost-$order->coupon_discount+$order->delivery_charge-$order->points_used;
             if($amount>0){
-                Wallet::updatewallet($user->id, 'Amount added in wallet for order cancellation. Order ID: '.$order->refid,'Credit',$amount,'CASH',$order->id);
+                Wallet::updatewallet($user->id, 'Amount refunded for order cancellation. Order ID: '.$order->refid,'Credit',$amount,'CASH',$order->id);
+            }
+
+            if($order->cashback_given){
+                Wallet::updatewallet($user->id, 'Cashback revoked for order cancellation. Order ID: '.$order->refid,'Debit',$order->cashback_given,'POINT',$order->id);
             }
 
         }else{
