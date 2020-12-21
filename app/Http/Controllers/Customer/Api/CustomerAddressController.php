@@ -97,10 +97,19 @@ class CustomerAddressController extends Controller
 
     public function getAreaList(Request $request){
         $area=Area::active()->get();
+        $user=auth()->guard('customerapi')->user();
+
+        if(!$user)
+            return [
+                'status'=>'failed',
+                'message'=>'Please login to continue'
+            ];
+
+        $user=$user->only('name', 'last_name', 'email', 'mobile', 'area_id');
 
         return [
             'status'=>'success',
-            'data'=>compact('area')
+            'data'=>compact('area', 'user')
         ];
     }
 }

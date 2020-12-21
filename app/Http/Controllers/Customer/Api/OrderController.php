@@ -171,6 +171,8 @@ class OrderController extends Controller
 
         $order->address_id=$address->id;
         $order->store_id=$area->store_id??null;
+        $order->email=$user->email;
+        $order->mobile=$user->mobile;
 
         $order->save();
 
