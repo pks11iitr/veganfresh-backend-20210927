@@ -149,7 +149,8 @@ class RiderOrderController extends Controller
             'cashback_used'=>$order->points_used,
             'balance_used'=>$order->balance_used,
             'total_savings'=>$savings+$order->coupon_discount,
-            'total_paid'=>$order->total_cost+$order->delivery_charge-$order->coupon_discount-$order->points_used-$order->balance_used,
+            'total_paid'=>$order->total_cost+$order->delivery_charge,
+            'amount_to_be_collected'=>($order->payment_mode=='COD')?($order->total_cost+$order->delivery_charge-$order->coupon_discount-$order->points_used-$order->balance_used):0,
         ];
 
         $delivery_time=$order->delivery_date.' '.($order->timeslot->name??'');
@@ -206,24 +207,9 @@ class RiderOrderController extends Controller
                 'message'=>'No Such Order Found'
             ];
 
-
-//        $items=OrderDetail::with('order', 'size', 'entity')
-//            ->whereHas('order', function($order)use($order_id){
-//                $order->where('orders.id', $order_id);
-//            })
-//            ->whereIn('details.id', $itemids)
-//            ->get();
-//
-//        if(!count($items))
-//            return [
-//                'status'=>'failed',
-//                'message'=>'No Valid Item Found'
-//            ];
-
+        //calculate return product total value
         $total_return=0;
-        //$itemids=[];
         foreach($order->details as $item){
-            //if($item->order->rider_id==$user->id){
                 if($request->items[$item->id]>$item->quantity){
                     return [
                         'status'=>'failed',
@@ -231,25 +217,30 @@ class RiderOrderController extends Controller
                     ];
                 }
                 $total_return=$total_return+$item->price*$request->items[$item->id];
-                //$itemids[]=$item->id;
-//            }else
-//                return [
-//                    'status'=>'failed',
-//                    'message'=>'Invalid Request'
-//                ];
         }
 
-        //$order=$items[0]->order;
+        //total cost after deduction
+        $total_cost=$order->total_cost-$total_return;
 
         if($order->coupon_applied && $order->coupon_discount){
-
-            //$total_cost=$order->total_cost+$order->coupon_discount;
-            $total_cost=$order->total_cost-$total_return;
             $coupon=Coupon::where('code', $order->coupon_applied)->first();
             $coupon_discount=$coupon->getCouponDiscount($total_cost);
         }else{
-            $total_cost=$order->total_cost-$total_return;
             $coupon_discount=0;
+        }
+
+        $total_payble=($total_cost>0)?($total_cost+$order->delivery_charge-$coupon_discount):0;
+
+        if($order->payment_mode=='COD'){
+            $total_paid=$order->balance_used+$order->points_used;
+        }else{
+            $total_paid=$order->total_cost+$order->delivery_charge;
+        }
+
+        if($total_paid >= $total_payble){
+            $amount_to_be_collected=0;
+        }else{
+            $amount_to_be_collected=$total_payble-$total_paid;
         }
 
         $prices=[
@@ -258,7 +249,8 @@ class RiderOrderController extends Controller
             'coupon_discount'=>($total_cost>0)?$coupon_discount:0,
             'cashback_used'=>$order->points_used,
             'balance_used'=>$order->balance_used,
-            'total_paid'=>($total_cost>0)?($total_cost+$order->delivery_charge-$coupon_discount-$order->balance_used-$order->points_used):0,
+            'total_paid'=>($total_cost>0)?($total_cost+$order->delivery_charge):0,
+            'amount_to_be_collected'=>$amount_to_be_collected
         ];
 
         return [
@@ -367,7 +359,7 @@ class RiderOrderController extends Controller
             $new_coupon_discount=0;
         }
 
-        // make return product entries in databse
+        // make return product entries in database
         foreach($details as $d){
 
             ReturnProduct::create([
