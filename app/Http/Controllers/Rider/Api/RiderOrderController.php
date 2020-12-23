@@ -97,6 +97,7 @@ class RiderOrderController extends Controller
         $show_delivered=0;
         $show_return=0;
 
+
         $user=auth()->guard('riderapi')->user();
         if(!$user)
             return [
@@ -150,7 +151,7 @@ class RiderOrderController extends Controller
             'balance_used'=>$order->balance_used,
             'total_savings'=>$savings+$order->coupon_discount,
             'total_paid'=>$order->total_cost+$order->delivery_charge,
-            'amount_to_be_collected'=>($order->payment_mode=='COD')?($order->total_cost+$order->delivery_charge-$order->coupon_discount-$order->points_used-$order->balance_used):0,
+            'amount_to_be_collected'=>($order->payment_status=='payment-wait')?($order->total_cost+$order->delivery_charge-$order->coupon_discount-$order->points_used-$order->balance_used):($order->extra_amount>0?$order->extra_amount:0.0),
         ];
 
         $delivery_time=$order->delivery_date.' '.($order->timeslot->name??'');
@@ -231,17 +232,17 @@ class RiderOrderController extends Controller
 
         $total_payble=($total_cost>0)?($total_cost+$order->delivery_charge-$coupon_discount):0;
 
-        if($order->payment_mode=='COD'){
-            $total_paid=$order->balance_used+$order->points_used;
-        }else{
-            $total_paid=$order->total_cost+$order->delivery_charge;
-        }
+//        if($order->payment_mode=='COD'){
+//            $total_paid=$order->balance_used+$order->points_used;
+//        }else{
+//            $total_paid=$order->total_cost+$order->delivery_charge;
+//        }
 
-        if($total_paid >= $total_payble){
-            $amount_to_be_collected=0;
-        }else{
-            $amount_to_be_collected=$total_payble-$total_paid;
-        }
+//        if($total_paid >= $total_payble){
+//            $amount_to_be_collected=0;
+//        }else{
+//            $amount_to_be_collected=$total_payble-$total_paid;
+//        }
 
         $prices=[
             'total'=>$total_cost,
@@ -249,8 +250,8 @@ class RiderOrderController extends Controller
             'coupon_discount'=>($total_cost>0)?$coupon_discount:0,
             'cashback_used'=>$order->points_used,
             'balance_used'=>$order->balance_used,
-            'total_paid'=>($total_cost>0)?($total_cost+$order->delivery_charge):0,
-            'amount_to_be_collected'=>$amount_to_be_collected
+            'total_paid'=>($total_cost>0)?($total_payble):0,
+            //'additional_amount'=>$amount_to_be_collected
         ];
 
         return [
@@ -288,7 +289,7 @@ class RiderOrderController extends Controller
         $order=Order::with(['details'=>function($details)use($itemids){
             $details->with(['entity', 'size']);
             //->whereIn('details.id', $itemids);
-        }])
+            }])
             ->where('status', 'dispatched')
             ->where('rider_id', $user->id)
             ->find($order_id);
@@ -300,18 +301,10 @@ class RiderOrderController extends Controller
             ];
 
 
-//        $prev_total=$order->total_cost;
-//        $prev_delivery=$order->delivery_charge;
-//        $prev_cashback=$order->points_used;
-//        $prev_balance=$order->balance_used;
-//        $prev_discount=$order->coupon_discount;
-
-
+        //calculate return total value
         $total_return=0;
-        //$itemids=[];
         $details=[];
         foreach($order->details as $item){
-            //if($item->order->rider_id==$user->id){
             if(key_exists($item->id, $request->items)){
                 if($request->items[$item->id] > $item->quantity){
                     return [
@@ -319,8 +312,6 @@ class RiderOrderController extends Controller
                         'message'=>'Invalid Request'
                     ];
                 }
-
-
                 $total_return=$total_return+$item->price*$request->items[$item->id];
                 $details[]=$item;
             }
@@ -334,8 +325,8 @@ class RiderOrderController extends Controller
             }
         }else{
             //refund complete paid amount
-            if($order->total_cost-$order->coupon_discount-$order->points_used+$order->delivery_charge){
-                Wallet::updatewallet($user->id, 'Refund For Order ID: '.$order->refid, 'Credit',  ($order->total_cost+$order->delivery_charge-$order->coupon_discount-$order->points_used), 'CASH',$order->id);
+            if($order->total_cost-$order->coupon_discount-$order->points_used+$order->delivery_charge-$order->extra_amount){
+                Wallet::updatewallet($user->id, 'Refund For Order ID: '.$order->refid, 'Credit',  ($order->total_cost+$order->delivery_charge-$order->coupon_discount-$order->points_used-$order->extra_amount), 'CASH',$order->id);
             }
         }
 
@@ -350,12 +341,9 @@ class RiderOrderController extends Controller
         $new_delivery_charge=$order->delivery_charge;
 
         if($order->coupon_applied && $order->coupon_discount){
-
             $coupon=Coupon::where('code', $order->coupon_applied)->first();
             $new_coupon_discount=$coupon->getCouponDiscount($new_total_cost);
-
         }else{
-
             $new_coupon_discount=0;
         }
 
@@ -405,68 +393,19 @@ class RiderOrderController extends Controller
             ];
         }
 
-        //Get Wallet Balances
-        $balance=Wallet::balance($order->user_id);
-        $points=Wallet::points($order->user_id);
-
-
         // Set New Values To Order
         $order->total_cost=$new_total_cost;
         $order->coupon_discount=$new_coupon_discount;
         $order->delivery_charge=$new_delivery_charge;
+        $order->use_balance=0;
+        $order->balance_used=0;
+        $order->use_points=0;
+        $order->points_used=0;
 
-        //balance after deduction of delivery charge
-        $balance=$balance-$new_delivery_charge;
-
-
-        // final amount to be paid
-        $payble_amount=$order->total_cost-$order->coupon_discount;
-
-        // pay using cashback
-        if($payble_amount>0 && $order->use_cashback){
-            if($payble_amount <= $points){
-                $cashback_consumed=$payble_amount;
-                Wallet::updatewallet($order->user_id, 'Cashback deducted for Order ID: '.$order->refid, 'Debit', $cashback_consumed, 'POINT', $order->id);
-            }else{
-                $cashback_consumed=$points;
-                Wallet::updatewallet($order->user_id, 'Cashback deducted for Order ID: '.$order->refid, 'Debit', $cashback_consumed, 'POINT', $order->id);
-            }
-            $order->points_used=$cashback_consumed;
-            $payble_amount=$payble_amount - $cashback_consumed;
-        }
-
-        // pay using wallet balance
-        if($order->use_balance){
-            if($payble_amount > 0){
-                // deduct from pending amout + delivery charge from balance
-                if($payble_amount <= $balance){
-                    $balance_consumed=$payble_amount;
-                    Wallet::updatewallet($order->user_id, 'Amount deducted for Order ID: '.$order->refid, 'Debit', $balance_consumed+$new_delivery_charge, 'CASH', $order->id);
-                }else{
-                    $balance_consumed=$balance;
-                    Wallet::updatewallet($order->user_id, 'Amount deducted for Order ID: '.$order->refid, 'Debit', $balance_consumed+$new_delivery_charge, 'CASH', $order->id);
-                }
-
-                $order->balance_used=$balance_consumed;
-
-                //$payble_amount=$payble_amount - $balance_consumed;
-            }else{
-                // deduct delivery charge from balance
-                if($new_delivery_charge>0){
-                    Wallet::updatewallet($order->user_id, 'Amount deducted for Order ID: '.$order->refid, 'Debit', $new_delivery_charge, 'CASH', $order->id);
-                    $order->balance_used=$new_delivery_charge;
-                }
-            }
-        }else{
-            if($new_delivery_charge>0){
-                Wallet::updatewallet($order->user_id, 'Amount deducted for Order ID: '.$order->refid, 'Debit', $new_delivery_charge, 'CASH', $order->id);
-                $order->balance_used=$new_delivery_charge;
-            }
-        }
-
-        $order->save();
-
-        //Order::deductInventory($order);
+        if($order->payment_mode=='COD')
+            return $this->returnFromCODOrder($order);
+        else
+            return $this->returnFromPaidOrder($order);
 
         return [
 
@@ -476,6 +415,94 @@ class RiderOrderController extends Controller
         ];
 
     }
+
+    public function returnFromCODOrder($order){
+
+        //Get Wallet Balances
+        $balance=Wallet::balance($order->user_id);
+        $points=Wallet::points($order->user_id);
+
+        // final amount to be paid
+        $payble_amount=$order->total_cost-$order->coupon_discount+$order->delivery_charge;
+
+        // pay using cashback
+        if($payble_amount > 0 && $points > 0){
+            if($payble_amount <= $points){
+                $cashback_consumed=$payble_amount;
+                Wallet::updatewallet($order->user_id, 'Cashback deducted for Order ID: '.$order->refid, 'Debit', $cashback_consumed, 'POINT', $order->id);
+            }else{
+                $cashback_consumed=$points;
+                Wallet::updatewallet($order->user_id, 'Cashback deducted for Order ID: '.$order->refid, 'Debit', $cashback_consumed, 'POINT', $order->id);
+            }
+            $order->points_used=$cashback_consumed;
+            $order->use_points=1;
+            $payble_amount=$payble_amount - $cashback_consumed;
+        }
+
+        // pay using wallet balance
+        if($payble_amount > 0 && $balance > 0){
+            // deduct from pending amout + delivery charge from balance
+            if($payble_amount <= $balance){
+                $balance_consumed=$payble_amount;
+                Wallet::updatewallet($order->user_id, 'Amount deducted for Order ID: '.$order->refid, 'Debit', $balance_consumed, 'CASH', $order->id);
+            }else{
+                $balance_consumed=$balance;
+                Wallet::updatewallet($order->user_id, 'Amount deducted for Order ID: '.$order->refid, 'Debit', $balance_consumed, 'CASH', $order->id);
+            }
+            $order->use_points=1;
+            $order->balance_used=$balance_consumed;
+            $payble_amount=$payble_amount - $balance_consumed;
+        }
+
+        $order->save();
+
+        return $payble_amount;
+
+    }
+
+    public function returnFromPaidOrder($order){
+        //Get Wallet Balances
+        $balance=Wallet::balance($order->user_id);
+        $points=Wallet::points($order->user_id);
+
+        // final amount to be paid
+        $payble_amount=$order->total_cost-$order->coupon_discount+$order->delivery_charge;
+
+        // pay using cashback
+        if($payble_amount > 0 && $points > 0){
+            if($payble_amount <= $points){
+                $cashback_consumed=$payble_amount;
+                Wallet::updatewallet($order->user_id, 'Cashback deducted for Order ID: '.$order->refid, 'Debit', $cashback_consumed, 'POINT', $order->id);
+            }else{
+                $cashback_consumed=$points;
+                Wallet::updatewallet($order->user_id, 'Cashback deducted for Order ID: '.$order->refid, 'Debit', $cashback_consumed, 'POINT', $order->id);
+            }
+            $order->points_used=$cashback_consumed;
+            $order->use_points=1;
+            $payble_amount=$payble_amount - $cashback_consumed;
+        }
+
+        // pay using wallet balance
+        if($payble_amount > 0 && $balance > 0){
+            // deduct from pending amout + delivery charge from balance
+            if($payble_amount <= $balance){
+                $balance_consumed=$payble_amount;
+                Wallet::updatewallet($order->user_id, 'Amount deducted for Order ID: '.$order->refid, 'Debit', $balance_consumed, 'CASH', $order->id);
+            }else{
+                $balance_consumed=$balance;
+                Wallet::updatewallet($order->user_id, 'Amount deducted for Order ID: '.$order->refid, 'Debit', $balance_consumed, 'CASH', $order->id);
+            }
+            $order->use_points=1;
+            $order->balance_used=$balance_consumed;
+            $payble_amount=$payble_amount - $balance_consumed;
+        }
+
+        $order->extra_amount=$payble_amount;
+        $order->save();
+
+        return $payble_amount;
+    }
+
 
     public function markDelivered(Request $request, $order_id){
 
