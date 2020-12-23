@@ -403,9 +403,9 @@ class RiderOrderController extends Controller
         $order->points_used=0;
 
         if($order->payment_mode=='COD')
-            return $this->returnFromCODOrder($order);
+            $this->returnFromCODOrder($order);
         else
-            return $this->returnFromPaidOrder($order);
+            $this->returnFromPaidOrder($order);
 
         return [
 
