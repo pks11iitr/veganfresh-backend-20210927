@@ -335,7 +335,7 @@ class RiderOrderController extends Controller
         }else{
             //refund complete paid amount
             if($order->total_cost-$order->coupon_discount-$order->points_used+$order->delivery_charge){
-                Wallet::updatewallet($user->id, 'Refund For Order ID: '.$order->refid, 'Credit',  ($order->total_cost-$order->coupon_discount-$order->points_used), 'CASH',$order->id);
+                Wallet::updatewallet($user->id, 'Refund For Order ID: '.$order->refid, 'Credit',  ($order->total_cost+$order->delivery_charge-$order->coupon_discount-$order->points_used), 'CASH',$order->id);
             }
         }
 
