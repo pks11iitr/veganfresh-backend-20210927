@@ -330,18 +330,18 @@ class RiderOrderController extends Controller
         if($order->payment_mode=='COD'){
             //refund only for wallet balance used
             if($order->balance_used){
-                Wallet::updatewallet($user->id, 'Refund For Order ID: '.$order->refid, 'Credit', 'CASH', $order->balance_used, $order->id);
+                Wallet::updatewallet($user->id, 'Refund For Order ID: '.$order->refid, 'Credit', $order->balance_used, 'CASH', $order->id);
             }
         }else{
             //refund complete paid amount
             if($order->total_cost-$order->coupon_discount-$order->points_used+$order->delivery_charge){
-                Wallet::updatewallet($user->id, 'Refund For Order ID: '.$order->refid, 'Credit', 'CASH', ($order->total_cost-$order->coupon_discount-$order->points_used), $order->id);
+                Wallet::updatewallet($user->id, 'Refund For Order ID: '.$order->refid, 'Credit',  ($order->total_cost-$order->coupon_discount-$order->points_used), 'CASH',$order->id);
             }
         }
 
         // Refund Cashback to Wallet
         if($order->points_used){
-            Wallet::updatewallet($user->id, 'Refund For Order ID: '.$order->refid, 'Credit', 'POINT', $order->points_used, $order->id);
+            Wallet::updatewallet($user->id, 'Refund For Order ID: '.$order->refid, 'Credit',  $order->points_used, 'POINT',$order->id);
         }
 
 
