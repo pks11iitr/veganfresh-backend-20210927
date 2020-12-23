@@ -423,7 +423,7 @@ class RiderOrderController extends Controller
         $payble_amount=$order->total_cost-$order->coupon_discount;
 
         // pay using cashback
-        if($payble_amount>0){
+        if($payble_amount>0 && $order->use_cashback){
             if($payble_amount <= $points){
                 $cashback_consumed=$payble_amount;
                 Wallet::updatewallet($order->user_id, 'Cashback deducted for Order ID: '.$order->refid, 'Debit', $cashback_consumed, 'POINT', $order->id);
@@ -431,26 +431,40 @@ class RiderOrderController extends Controller
                 $cashback_consumed=$points;
                 Wallet::updatewallet($order->user_id, 'Cashback deducted for Order ID: '.$order->refid, 'Debit', $cashback_consumed, 'POINT', $order->id);
             }
+            $order->points_used=$cashback_consumed;
             $payble_amount=$payble_amount - $cashback_consumed;
         }
 
         // pay using wallet balance
-        if($payble_amount > 0){
-            // deduct from pending amout + delivery charge from balance
-            if($payble_amount <= $balance){
-                $balance_consumed=$payble_amount;
-                Wallet::updatewallet($order->user_id, 'Amount deducted for Order ID: '.$order->refid, 'Debit', $balance_consumed+$new_delivery_charge, 'CASH', $order->id);
+        if($order->use_balance){
+            if($payble_amount > 0){
+                // deduct from pending amout + delivery charge from balance
+                if($payble_amount <= $balance){
+                    $balance_consumed=$payble_amount;
+                    Wallet::updatewallet($order->user_id, 'Amount deducted for Order ID: '.$order->refid, 'Debit', $balance_consumed+$new_delivery_charge, 'CASH', $order->id);
+                }else{
+                    $balance_consumed=$balance;
+                    Wallet::updatewallet($order->user_id, 'Amount deducted for Order ID: '.$order->refid, 'Debit', $balance_consumed+$new_delivery_charge, 'CASH', $order->id);
+                }
+
+                $order->balance_used=$balance_consumed;
+
+                //$payble_amount=$payble_amount - $balance_consumed;
             }else{
-                $balance_consumed=$balance;
-                Wallet::updatewallet($order->user_id, 'Amount deducted for Order ID: '.$order->refid, 'Debit', $balance_consumed+$new_delivery_charge, 'CASH', $order->id);
+                // deduct delivery charge from balance
+                if($new_delivery_charge>0){
+                    Wallet::updatewallet($order->user_id, 'Amount deducted for Order ID: '.$order->refid, 'Debit', $new_delivery_charge, 'CASH', $order->id);
+                    $order->balance_used=$new_delivery_charge;
+                }
             }
-            //$payble_amount=$payble_amount - $balance_consumed;
         }else{
-            // deduct delivery charge from balance
             if($new_delivery_charge>0){
                 Wallet::updatewallet($order->user_id, 'Amount deducted for Order ID: '.$order->refid, 'Debit', $new_delivery_charge, 'CASH', $order->id);
+                $order->balance_used=$new_delivery_charge;
             }
         }
+
+        $order->save();
 
         //Order::deductInventory($order);
 
