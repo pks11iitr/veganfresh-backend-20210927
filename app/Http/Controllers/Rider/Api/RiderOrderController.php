@@ -334,31 +334,40 @@ class RiderOrderController extends Controller
             }
         }
 
-        if($order->total_cost-$order->coupon_discount-$order->points_used+$order->delivery_charge){
-            Wallet::updatewallet($user->id, 'Refund For Order ID: '.$order->refid, 'Credit', 'CASH', ($order->total_cost-$order->coupon_discount-$order->points_used), $order->id);
+        // Refund Balance to Wallet
+        if($order->payment_mode=='COD'){
+            //refund only for wallet balance used
+            if($order->balance_used){
+                Wallet::updatewallet($user->id, 'Refund For Order ID: '.$order->refid, 'Credit', 'CASH', $order->balance_used, $order->id);
+            }
+        }else{
+            //refund complete paid amount
+            if($order->total_cost-$order->coupon_discount-$order->points_used+$order->delivery_charge){
+                Wallet::updatewallet($user->id, 'Refund For Order ID: '.$order->refid, 'Credit', 'CASH', ($order->total_cost-$order->coupon_discount-$order->points_used), $order->id);
+            }
         }
 
+        // Refund Cashback to Wallet
         if($order->points_used){
             Wallet::updatewallet($user->id, 'Refund For Order ID: '.$order->refid, 'Credit', 'POINT', $order->points_used, $order->id);
         }
 
+
+        // Calculate new values
         $new_total_cost=$order->total_cost-$total_return;
         $new_delivery_charge=$order->delivery_charge;
 
-        //$order=$items[0]->order;
         if($order->coupon_applied && $order->coupon_discount){
 
-            //$total_cost=$order->total_cost+$order->coupon_discount;
-            //$total_cost=$new_total_cost;
             $coupon=Coupon::where('code', $order->coupon_applied)->first();
             $new_coupon_discount=$coupon->getCouponDiscount($new_total_cost);
 
         }else{
-            //$total_cost=$order->total_cost-$total_return;
+
             $new_coupon_discount=0;
         }
 
-
+        // make return product entries in databse
         foreach($details as $d){
 
             ReturnProduct::create([
@@ -404,49 +413,50 @@ class RiderOrderController extends Controller
             ];
         }
 
+        //Get Wallet Balances
+        $balance=Wallet::balance($order->user_id);
+        $points=Wallet::points($order->user_id);
+
+
+        // Set New Values To Order
         $order->total_cost=$new_total_cost;
         $order->coupon_discount=$new_coupon_discount;
         $order->delivery_charge=$new_delivery_charge;
 
-        if($order->payment_mode!='COD') {
+        //balance after deduction of delivery charge
+        $balance=$balance-$new_delivery_charge;
 
-            $balance=Wallet::balance($order->user_id);
-            $points=Wallet::points($order->user_id);
 
-            //deduct delivery charge
-            $balance=$balance-$new_delivery_charge;
+        // final amount to be paid
+        $payble_amount=$order->total_cost-$order->coupon_discount;
 
-            $payble_amount=$order->total_cost-$order->coupon_discount;
-            if($payble_amount>0){
-                if($payble_amount <= $points){
-                    $cashback_consumed=$payble_amount;
-                    Wallet::updatewallet($order->user_id, 'Cashback deducted for Order ID: '.$order->refid, 'Debit', $cashback_consumed, 'POINT', $order->id);
-                }else{
-                    $cashback_consumed=$points;
-                    Wallet::updatewallet($order->user_id, 'Cashback deducted for Order ID: '.$order->refid, 'Debit', $cashback_consumed, 'POINT', $order->id);
-                }
-                $payble_amount=$payble_amount - $cashback_consumed;
+        // pay using cashback
+        if($payble_amount>0){
+            if($payble_amount <= $points){
+                $cashback_consumed=$payble_amount;
+                Wallet::updatewallet($order->user_id, 'Cashback deducted for Order ID: '.$order->refid, 'Debit', $cashback_consumed, 'POINT', $order->id);
+            }else{
+                $cashback_consumed=$points;
+                Wallet::updatewallet($order->user_id, 'Cashback deducted for Order ID: '.$order->refid, 'Debit', $cashback_consumed, 'POINT', $order->id);
             }
+            $payble_amount=$payble_amount - $cashback_consumed;
+        }
 
-            if($payble_amount > 0){
-                if($payble_amount <= $balance){
-                    $balance_consumed=$payble_amount;
-                    Wallet::updatewallet($order->user_id, 'Amount deducted for Order ID: '.$order->refid, 'Debit', $balance_consumed+$new_delivery_charge, 'CASH', $order->id);
-                }else{
-                    $balance_consumed=$balance;
-                    Wallet::updatewallet($order->user_id, 'Amount deducted for Order ID: '.$order->refid, 'Debit', $balance_consumed+$new_delivery_charge, 'CASH', $order->id);
-                }
-                $payble_amount=$payble_amount - $balance_consumed;
+        // pay using wallet balance
+        if($payble_amount > 0){
+            // deduct from pending amout + delivery charge from balance
+            if($payble_amount <= $balance){
+                $balance_consumed=$payble_amount;
+                Wallet::updatewallet($order->user_id, 'Amount deducted for Order ID: '.$order->refid, 'Debit', $balance_consumed+$new_delivery_charge, 'CASH', $order->id);
+            }else{
+                $balance_consumed=$balance;
+                Wallet::updatewallet($order->user_id, 'Amount deducted for Order ID: '.$order->refid, 'Debit', $balance_consumed+$new_delivery_charge, 'CASH', $order->id);
             }
-
+            //$payble_amount=$payble_amount - $balance_consumed;
         }else{
-            //Return cashback used
-            if ($prev_cashback) {
-                Wallet::updatewallet($order->user_id, 'Refund for Order ID: '.$order->refid, 'CREDIT',$prev_cashback, 'POINT', $order->id);
-            }
-            //Return balance used
-            if ($prev_balance) {
-                Wallet::updatewallet($order->user_id, 'Refund for Order ID: '.$order->refid, 'CREDIT',$prev_balance+$prev_delivery, 'CASH', $order->id);
+            // deduct delivery charge from balance
+            if($new_delivery_charge>0){
+                Wallet::updatewallet($order->user_id, 'Amount deducted for Order ID: '.$order->refid, 'Debit', $new_delivery_charge, 'CASH', $order->id);
             }
         }
 
