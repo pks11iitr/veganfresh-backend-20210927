@@ -150,7 +150,7 @@ class RiderOrderController extends Controller
             'cashback_used'=>$order->points_used,
             'balance_used'=>$order->balance_used,
             'total_savings'=>$savings+$order->coupon_discount,
-            'total_paid'=>$order->total_cost+$order->delivery_charge,
+            'total_paid'=>$order->total_cost+$order->delivery_charge-$order->coupon_discount,
             'amount_to_be_collected'=>($order->payment_status=='payment-wait')?($order->total_cost+$order->delivery_charge-$order->coupon_discount-$order->points_used-$order->balance_used):($order->extra_amount>0?$order->extra_amount:0.0),
         ];
 
@@ -321,18 +321,18 @@ class RiderOrderController extends Controller
         if($order->payment_mode=='COD'){
             //refund only for wallet balance used
             if($order->balance_used){
-                Wallet::updatewallet($user->id, 'Refund For Order ID: '.$order->refid, 'Credit', $order->balance_used, 'CASH', $order->id);
+                Wallet::updatewallet($order->user_id, 'Refund For Order ID: '.$order->refid, 'Credit', $order->balance_used, 'CASH', $order->id);
             }
         }else{
             //refund complete paid amount
             if($order->total_cost-$order->coupon_discount-$order->points_used+$order->delivery_charge-$order->extra_amount){
-                Wallet::updatewallet($user->id, 'Refund For Order ID: '.$order->refid, 'Credit',  ($order->total_cost+$order->delivery_charge-$order->coupon_discount-$order->points_used-$order->extra_amount), 'CASH',$order->id);
+                Wallet::updatewallet($order->user_id, 'Refund For Order ID: '.$order->refid, 'Credit',  ($order->total_cost+$order->delivery_charge-$order->coupon_discount-$order->points_used-$order->extra_amount), 'CASH',$order->id);
             }
         }
 
         // Refund Cashback to Wallet
         if($order->points_used){
-            Wallet::updatewallet($user->id, 'Refund For Order ID: '.$order->refid, 'Credit',  $order->points_used, 'POINT',$order->id);
+            Wallet::updatewallet($order->user_id, 'Refund For Order ID: '.$order->refid, 'Credit',  $order->points_used, 'POINT',$order->id);
         }
 
 
