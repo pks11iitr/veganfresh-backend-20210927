@@ -345,15 +345,15 @@
                     </li>
                     @endif
 
-{{--                    <li class="nav-item">--}}
-{{--                        <a href="{{route('timeslot.list')}}" class="nav-link">--}}
-{{--                            <i class="nav-icon fas fa-th"></i>--}}
-{{--                            <p>--}}
-{{--                                Time Slot--}}
+                    <li class="nav-item">
+                        <a href="{{route('timeslot.list')}}" class="nav-link">
+                            <i class="nav-icon fas fa-th"></i>
+                            <p>
+                                Time Slot
 
-{{--                            </p>--}}
-{{--                        </a>--}}
-{{--                    </li>--}}
+                            </p>
+                        </a>
+                    </li>
                     @if(auth()->user()->hasRole('admin') || auth()->user()->hasRole('arealist-viewer') || auth()->user()->hasRole('arealist-editor'))
 
                     <li class="nav-item">
