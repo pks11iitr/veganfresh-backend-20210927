@@ -5,6 +5,7 @@ namespace App\Listeners;
 use App\Events\OrderConfirmed;
 use App\Models\Notification;
 use App\Services\Notification\FCMNotification;
+use App\Services\SMS\Msg91;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
@@ -54,5 +55,13 @@ class OrderConfirmListner
         ]);
         if($order->customer->notification_token??null)
             FCMNotification::sendNotification($order->customer->notification_token, $title, $message);
+
+        //send customer notification
+        Msg91::send($order->customer->mobile, $message);
+
+        //store notification
+        if(!empty($order->storename->mobile))
+            Msg91::send($order->storename->mobile, 'New Order '.$order->refid.' arrived. Scheduled Delivery is '.($order->delivery_date??'').' '.($order->timeslot->name??''));
+
     }
 }

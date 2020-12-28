@@ -9,6 +9,7 @@ use App\Models\TimeSlot;
 use App\Models\Wallet;
 use App\Models\User;
 use App\Services\Notification\FCMNotification;
+use App\Services\SMS\Msg91;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -171,6 +172,11 @@ class OrderController extends Controller
             FCMNotification::sendNotification($order->customer->notification_token, $title, $message);
         }
 
+        if($old_status!='dispatched' &&  $order->status=='dispatched' && !empty($order->rider_id)){
+            $rider=Rider::find($order->rider_id);
+            Msg91::send($rider->mobile, 'New Order '.$order->refid.' arrived. Scheduled Delivery is '.($order->delivery_date??'').' '.($order->timeslot->name??''));
+        }
+
         return redirect()->back()->with('success', 'Order has been updated');
 
 
@@ -189,9 +195,16 @@ class OrderController extends Controller
     }
 
     public function changeRider(Request $request,$id){
-        $rider =Order::findOrFail($id);
-        $rider->rider_id=$request->riderid;
-        $rider->save();
+        $order =Order::findOrFail($id);
+
+
+        $old_rider=$order->rider_id;
+        $rider=Rider::findOraild($request->rider_id);
+        $order->rider_id=$request->riderid;
+        $order->save();
+        if($old_rider!=$order->rider_id && $order->status=='dispatched')
+            Msg91::send($rider->mobile, 'New Order '.$order->refid.' arrived. Scheduled Delivery is '.($order->delivery_date??'').' '.($order->timeslot->name??''));
+
         return redirect()->back()->with('success', 'Rider Has Been change');
     }
 
