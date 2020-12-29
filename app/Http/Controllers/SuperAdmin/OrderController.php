@@ -227,7 +227,7 @@ class OrderController extends Controller
 
 
         $old_rider=$order->rider_id;
-        $rider=Rider::findOraild($request->rider_id);
+        $rider=Rider::findOrFail($request->rider_id);
         $order->rider_id=$request->riderid;
         $order->save();
         if($old_rider!=$order->rider_id && $order->status=='dispatched')
