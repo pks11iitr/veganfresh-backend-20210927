@@ -89,8 +89,8 @@
                 <span>{{$orders->deliveryaddress->city??''}}, {{$orders->deliveryaddress->pincode??''}}</span>
 
             </td>
-
-{{--            <td colspan="6">{{$orders->deliveryaddress->first_name??''}} {{$orders->deliveryaddress->last_name??''}}<br>--}}
+            <td colspan="6">
+{{--            {{$orders->deliveryaddress->first_name??''}} {{$orders->deliveryaddress->last_name??''}}<br>--}}
 {{--                <span>{{$orders->deliveryaddress->house_no??''}}, {{$orders->deliveryaddress->appertment_name??''}}</span><br>--}}
 {{--                @if(!empty($orders->deliveryaddress->street) || !empty($orders->deliveryaddress->landmark))--}}
 {{--                    <span>{{!empty($orders->deliveryaddress->street)?$orders->deliveryaddress->street.', ':''}}{{$orders->deliveryaddress->landmark??''}},</span><br>--}}
@@ -101,7 +101,7 @@
                 {{$invoice->address??''}}
 
             </td>
-
+        </tr>
         </tbody>
     </table>
     <table width="100%" class="outline-table" style="margin-bottom: 10px;">
