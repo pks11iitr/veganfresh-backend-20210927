@@ -75,7 +75,7 @@
         <tbody>
         <tr class="border-bottom border-right grey">
             <td colspan="6"><strong>Sold to:</strong></td>
-            <td colspan="6"><strong>Ship to:</strong></td>
+            <td colspan="6"><strong>Seller:</strong></td>
         </tr>
 
         <tr class="border-right">
@@ -85,19 +85,20 @@
                 <span>{{!empty($orders->deliveryaddress->street)?$orders->deliveryaddress->street.', ':''}}{{$orders->deliveryaddress->landmark??''}},</span><br>
                 @endif
 {{--                <span>{{$orders->deliveryaddress->address_type??''}} , {{$orders->deliveryaddress->other_text??''}},</span><br>--}}
-                <span>{{$orders->deliveryaddress->area??''}}, {{$orders->deliveryaddress->city??''}}, {{$orders->deliveryaddress->pincode??''}}</span>
+                <span>{{$orders->deliveryaddress->area??''}}</span>
                 <span>{{$orders->deliveryaddress->city??''}}, {{$orders->deliveryaddress->pincode??''}}</span>
 
             </td>
 
-            <td colspan="6">{{$orders->deliveryaddress->first_name??''}} {{$orders->deliveryaddress->last_name??''}}<br>
-                <span>{{$orders->deliveryaddress->house_no??''}}, {{$orders->deliveryaddress->appertment_name??''}}</span><br>
-                @if(!empty($orders->deliveryaddress->street) || !empty($orders->deliveryaddress->landmark))
-                    <span>{{!empty($orders->deliveryaddress->street)?$orders->deliveryaddress->street.', ':''}}{{$orders->deliveryaddress->landmark??''}},</span><br>
-                @endif
-                {{--                <span>{{$orders->deliveryaddress->address_type??''}} , {{$orders->deliveryaddress->other_text??''}},</span><br>--}}
-                <span>{{$orders->deliveryaddress->area??''}}, {{$orders->deliveryaddress->city??''}}, {{$orders->deliveryaddress->pincode??''}}</span>
-                <span>{{$orders->deliveryaddress->city??''}}, {{$orders->deliveryaddress->pincode??''}}</span>
+{{--            <td colspan="6">{{$orders->deliveryaddress->first_name??''}} {{$orders->deliveryaddress->last_name??''}}<br>--}}
+{{--                <span>{{$orders->deliveryaddress->house_no??''}}, {{$orders->deliveryaddress->appertment_name??''}}</span><br>--}}
+{{--                @if(!empty($orders->deliveryaddress->street) || !empty($orders->deliveryaddress->landmark))--}}
+{{--                    <span>{{!empty($orders->deliveryaddress->street)?$orders->deliveryaddress->street.', ':''}}{{$orders->deliveryaddress->landmark??''}},</span><br>--}}
+{{--                @endif--}}
+{{--                --}}{{--                <span>{{$orders->deliveryaddress->address_type??''}} , {{$orders->deliveryaddress->other_text??''}},</span><br>--}}
+{{--                <span>{{$orders->deliveryaddress->area??''}}</span>--}}
+{{--                <span>{{$orders->deliveryaddress->city??''}}, {{$orders->deliveryaddress->pincode??''}}</span>--}}
+                {{$invoice->address??''}}
 
             </td>
 
