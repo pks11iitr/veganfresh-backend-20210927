@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\SuperAdmin;
 
+use App\Models\Invoice;
 use App\Models\Notification;
 use App\Models\Order;
 use App\Models\Rider;
@@ -66,8 +67,9 @@ class OrderController extends Controller
         $stores=User::where('id','>', 1)->get();
         $riders=Rider::get();
         $timeslots=TimeSlot::get();
+        $invoice = Invoice::first();
 //var_dump($stores);die();
-        return view('admin.order.view',['orders'=>$orders,'stores'=>$stores,'riders'=>$riders,'timeslots'=>$timeslots]);
+        return view('admin.order.view',['orders'=>$orders,'stores'=>$stores,'riders'=>$riders,'timeslots'=>$timeslots,'invoice'=>$invoice]);
 
     }
 
@@ -242,6 +244,25 @@ class OrderController extends Controller
 
         return redirect()->back()->with('error', 'Invalid Request');
 
+    }
+
+    public function invoice_update(Request $request,$id){
+        $request->validate([
+            'prefix'=>'required',
+            'sequence'=>'required',
+        ]);
+
+        $invoice =Invoice::findOrFail($id);
+
+        if($invoice->update([
+            'prefix'=>$request->prefix,
+            'sequence'=>$request->sequence
+        ]))
+        {
+
+            return redirect()->back()->with('success', 'Invoice has been updated');
+        }
+        return redirect()->back()->with('error', 'Invoice update failed');
     }
 
 }
