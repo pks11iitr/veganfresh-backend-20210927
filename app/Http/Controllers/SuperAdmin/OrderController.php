@@ -256,7 +256,10 @@ class OrderController extends Controller
 
         if($invoice->update([
             'prefix'=>$request->prefix,
-            'sequence'=>$request->sequence
+            'sequence'=>$request->sequence,
+            'address'=>$request->address,
+            'current_sequence'=>$request->current_sequence??1,
+            'pan_gst'=>$request->pan_gst
         ]))
         {
 

@@ -52,7 +52,7 @@
                                                 </div>
                                                 <div class="col-3">
                                                     <label>Address</label>
-                                                    <input type="number" name="address" class="form-control" min="0" id="exampleInputEmail3" placeholder="Enter Sequence" value="{{$invoice->current_sequence??1}}">
+                                                    <input type="text" name="address" class="form-control" min="0" id="exampleInputEmail3" placeholder="Enter Sequence" value="{{$invoice->address??''}}">
                                                 </div>
                                                 <div class="col-3"><label>.</label><br>
                                                     <button type="submit" name="save" class="btn btn-danger">Update</button>
