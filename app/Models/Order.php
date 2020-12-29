@@ -125,6 +125,19 @@ class Order extends Model
 
     }
 
+    public static function setInvoiceNumber($order){
+
+        if(empty($order->invoice_number)){
+            Invoice::where('id', 1)->update(['current_sequence'=>DB::raw('current_sequence+1')]);
+            $invoice_sequence=Invoice::find(1);
+            $current=$invoice_sequence->current_sequence;
+            $current=$current+1;
+            $order->invoice_number=$invoice_sequence->prefix.$current;
+            $order->save();
+        }
+
+
+    }
 
 
 }

@@ -42,6 +42,18 @@
                                                     <label>Sequence</label>
                                                     <input type="number" name="sequence" class="form-control" min="0" id="exampleInputEmail3" placeholder="Enter Sequence" value="{{$invoice->sequence}}">
                                                 </div>
+                                                <div class="col-3">
+                                                    <label>Current Sequence</label>
+                                                    <input type="number" name="current_sequence" class="form-control" min="0" id="exampleInputEmail3" placeholder="Enter Sequence" value="{{$invoice->current_sequence??1}}">
+                                                </div>
+                                                <div class="col-3">
+                                                    <label>PAN/GST</label>
+                                                    <input type="text" name="pan_gst" class="form-control" min="0" id="exampleInputEmail3" placeholder="Enter Sequence" value="{{$invoice->pan_gst}}">
+                                                </div>
+                                                <div class="col-3">
+                                                    <label>Address</label>
+                                                    <input type="number" name="address" class="form-control" min="0" id="exampleInputEmail3" placeholder="Enter Sequence" value="{{$invoice->current_sequence??1}}">
+                                                </div>
                                                 <div class="col-3"><label>.</label><br>
                                                     <button type="submit" name="save" class="btn btn-danger">Update</button>
                                                 </div>

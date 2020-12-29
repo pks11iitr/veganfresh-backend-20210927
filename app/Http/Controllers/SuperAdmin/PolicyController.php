@@ -32,7 +32,7 @@ class PolicyController extends Controller
 //    }
 
     public function invoice($id){
-        $orders = Order::with(['details'])->find($id);
+        $orders = Order::with(['details', 'customer', 'deliveryaddress'])->find($id);
        // var_dump($orders);die();
      $pdf = PDF::loadView('admin.contenturl.newinvoice', compact('orders'))->setPaper('a4', 'portrait');
      return $pdf->download('invoice.pdf');

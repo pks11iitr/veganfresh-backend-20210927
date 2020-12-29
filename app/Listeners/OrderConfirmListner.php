@@ -4,6 +4,7 @@ namespace App\Listeners;
 
 use App\Events\OrderConfirmed;
 use App\Models\Notification;
+use App\Models\Order;
 use App\Services\Notification\FCMNotification;
 use App\Services\SMS\Msg91;
 use Illuminate\Queue\InteractsWithQueue;
@@ -37,6 +38,8 @@ class OrderConfirmListner
 
 
     public function sendNotifications($order){
+
+        Order::setInvoiceNumber($order);
 
         $title='Order Confirmed';
         if($order->details[0]->entity_type == 'App\Models\Product'){

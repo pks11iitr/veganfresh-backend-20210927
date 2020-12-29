@@ -64,7 +64,7 @@
     <table width="100%" class="outline-table" style="margin-bottom: 10px;">
         <tbody>
         <tr class="black">
-            <td colspan="6" style="color: white"><strong>Order # {{$orders->refid}}</strong></td>
+            <td colspan="6" style="color: white"><strong>Order # {{$orders->invoice_number}}</strong></td>
         </tr>
         <tr class="black">
             <td colspan="6" style="color: white"><strong>Order Date: {{date('D d ,Y', strtotime($orders->delivery_date))}} ({{$orders->timeslot->name??''}})</strong></td>
