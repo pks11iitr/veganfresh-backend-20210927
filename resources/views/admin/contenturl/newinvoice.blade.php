@@ -84,8 +84,10 @@
                 @if(!empty($orders->deliveryaddress->street) || !empty($orders->deliveryaddress->landmark))
                 <span>{{!empty($orders->deliveryaddress->street)?$orders->deliveryaddress->street.', ':''}}{{$orders->deliveryaddress->landmark??''}},</span><br>
                 @endif
-                <span>{{$orders->deliveryaddress->address_type??''}} , {{$orders->deliveryaddress->other_text??''}},</span><br>
+{{--                <span>{{$orders->deliveryaddress->address_type??''}} , {{$orders->deliveryaddress->other_text??''}},</span><br>--}}
                 <span>{{$orders->deliveryaddress->area??''}}, {{$orders->deliveryaddress->city??''}}, {{$orders->deliveryaddress->pincode??''}}</span>
+                <span>{{$orders->deliveryaddress->city??''}}, {{$orders->deliveryaddress->pincode??''}}</span>
+
             </td>
 
             <td colspan="6">{{$orders->deliveryaddress->first_name??''}} {{$orders->deliveryaddress->last_name??''}}<br>
@@ -93,8 +95,10 @@
                 @if(!empty($orders->deliveryaddress->street) || !empty($orders->deliveryaddress->landmark))
                     <span>{{!empty($orders->deliveryaddress->street)?$orders->deliveryaddress->street.', ':''}}{{$orders->deliveryaddress->landmark??''}},</span><br>
                 @endif
-                <span>{{$orders->deliveryaddress->address_type??''}} , {{$orders->deliveryaddress->other_text??''}},</span><br>
+                {{--                <span>{{$orders->deliveryaddress->address_type??''}} , {{$orders->deliveryaddress->other_text??''}},</span><br>--}}
                 <span>{{$orders->deliveryaddress->area??''}}, {{$orders->deliveryaddress->city??''}}, {{$orders->deliveryaddress->pincode??''}}</span>
+                <span>{{$orders->deliveryaddress->city??''}}, {{$orders->deliveryaddress->pincode??''}}</span>
+
             </td>
 
         </tbody>
