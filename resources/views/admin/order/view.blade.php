@@ -24,6 +24,43 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-12">
+                        <div class="card card-info">
+                            <div class="card-header">
+                                <h3 class="card-title">Invoice Number Setup</h3>
+                            </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <form class="form-validate form-horizontal"  method="post" action="{{route('order.invoice.update',['id'=>$invoice->id])}}" enctype="multipart/form-data">
+                                            <div class="row">
+                                                <div class="col-3">
+                                                    <label>Prifix</label>
+                                                    <input type="text" name="prefix" class="form-control" id="exampleInputEmail1" placeholder="Enter Prifix" value="{{$invoice->prefix}}">
+                                                </div>
+                                                <div class="col-3">
+                                                    <label>Sequence</label>
+                                                    <input type="number" name="sequence" class="form-control" min="0" id="exampleInputEmail3" placeholder="Enter Sequence" value="{{$invoice->sequence}}">
+                                                </div>
+                                                <div class="col-3"><label>.</label><br>
+                                                    <button type="submit" name="save" class="btn btn-danger">Update</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
                         <div class="card">
                             <div class="card-header">
                                 <div class="row">
@@ -108,7 +145,6 @@
                                             </div>
                                         </form>
                                     </div>
-
                                 </div>
                             </div>
                             <!-- /.card-header -->
@@ -153,7 +189,7 @@
                         {{$orders->links()}}
                         <!-- /.card-body -->
                         </div>
-
+                        </div>
                         <!-- /.card -->
                     </div>
                     <!-- /.col -->

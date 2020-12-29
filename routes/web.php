@@ -434,6 +434,7 @@ Route::group(['middleware'=>['auth', 'acl']], function(){
         Route::group(['is'=>'admin|order-viewer'], function(){
             Route::get('/','SuperAdmin\OrderController@index')->name('orders.list');
             Route::get('details/{id}','SuperAdmin\OrderController@details')->name('order.details');
+            Route::post('invoice-update/{id}','SuperAdmin\OrderController@invoice_update')->name('order.invoice.update');
         });
         Route::group(['is'=>'admin|order-editor'], function(){
             Route::get('change-status/{id}','SuperAdmin\OrderController@changeStatus')->name('order.status.change');
