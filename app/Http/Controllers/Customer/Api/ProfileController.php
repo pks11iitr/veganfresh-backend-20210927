@@ -21,7 +21,7 @@ class ProfileController extends Controller
 
         return [
             'status'=>'success',
-                'user'=>$user->only('name','email','mobile', 'image', 'dob', 'address', 'city', 'state','pincode', 'last_name'),
+                'user'=>$user->only('name','email','mobile', 'image', 'dob', 'address', 'city', 'state','pincode', 'last_name', 'area_id'),
                 'areas'=>$areas
 
         ];
