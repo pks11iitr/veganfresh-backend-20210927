@@ -56,18 +56,21 @@ class SendBulkNotifications implements ShouldQueue
                 ->get();
         }
 
-
-        Notification::create([
-            'user_id'=>0,
-            'title'=>$this->title,
-            'description'=>$this->message,
-            'data'=>null,
-            'type'=>'all'
-        ]);
-
         foreach($tokens as $token){
+            $message=str_replace('{{name}}', $token->name??'User', $this->message);
+            $message=str_replace('{{Name}}', $token->name??'User', $message);
 
-            FCMNotification::sendNotification($token, $this->title, $this->message);
+            Notification::create([
+                'user_id'=>$token->id,
+                'title'=>$this->title,
+                'description'=>$message,
+                'data'=>null,
+                'type'=>'individual'
+            ]);
+
+
+
+            FCMNotification::sendNotification($token->notification_token, $this->title, $this->message);
 
         }
 
