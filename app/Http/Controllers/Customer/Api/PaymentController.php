@@ -135,6 +135,7 @@ class PaymentController extends Controller
                     'data'=>[
                         'payment_done'=>'yes',
                         'ref_id'=>$order->refid,
+                        'refid'=>$order->refid,
                         'order_id'=>$order->id
                     ]
                 ];
@@ -153,6 +154,7 @@ class PaymentController extends Controller
                     'data'=>[
                         'payment_done'=>'yes',
                         'ref_id'=>$order->refid,
+                        'refid'=>$order->refid,
                         'order_id'=>$order->id
                     ]
                 ];
@@ -470,7 +472,8 @@ class PaymentController extends Controller
                 'message'=> 'Congratulations! Your order at Hallobasket is successful',
                 'data'=>[
                     'ref_id'=>$order->refid,
-                    'order_id'=>$order->id
+                    'order_id'=>$order->id,
+                    'refid'=>$order->refid,
                 ]
             ];
         }else{
