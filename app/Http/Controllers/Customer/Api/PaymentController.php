@@ -10,6 +10,7 @@ use App\Models\Cart;
 use App\Models\Configuration;
 use App\Models\Coupon;
 use App\Models\HomeBookingSlots;
+use App\Models\LogData;
 use App\Models\Order;
 use App\Models\OrderDetail;
 use App\Models\OrderStatus;
@@ -134,6 +135,7 @@ class PaymentController extends Controller
                     'data'=>[
                         'payment_done'=>'yes',
                         'ref_id'=>$order->refid,
+                        'refid'=>$order->refid,
                         'order_id'=>$order->id
                     ]
                 ];
@@ -152,6 +154,7 @@ class PaymentController extends Controller
                     'data'=>[
                         'payment_done'=>'yes',
                         'ref_id'=>$order->refid,
+                        'refid'=>$order->refid,
                         'order_id'=>$order->id
                     ]
                 ];
@@ -177,11 +180,17 @@ class PaymentController extends Controller
         //points can be used for therapy only
 
         $walletpoints=Wallet::points($order->user_id);
-        if($walletpoints >= $order->total_cost+$order->delivery_charge-$order->coupon_discount){
+        if($walletpoints<=0)
+            return [
+                'status'=>'failed',
+                'remaining_amount'=>$order->total_cost+$order->delivery_charge+$order->extra_amount-$order->coupon_discount
+            ];
+
+        if($walletpoints >= $order->total_cost+$order->delivery_charge+$order->extra_amount-$order->coupon_discount){
             $order->payment_status='paid';
             $order->status='confirmed';
             $order->use_points=true;
-            $order->points_used=$order->total_cost+$order->delivery_charge-$order->coupon_discount;
+            $order->points_used=$order->total_cost+$order->delivery_charge-$order->coupon_discount+$order->extra_amount;
             $order->payment_mode='online';
             $order->save();
 
@@ -202,6 +211,7 @@ class PaymentController extends Controller
                 'status'=>'success',
             ];
         }else{
+
             $order->use_points=true;
             $order->points_used=$walletpoints;
             $order->payment_mode='online';
@@ -211,11 +221,15 @@ class PaymentController extends Controller
                 'order_id'=>$order->id,
                 'current_status'=>$order->status
             ]);
+
+            return [
+                'status'=>'failed',
+                'remaining_amount'=>$order->total_cost+$order->delivery_charge+$order->extra_amount-$order->coupon_discount-$order->points_used
+            ];
+
         }
 
-        return [
-            'status'=>'failed'
-        ];
+
     }
 
     private function payUsingBalance($order){
@@ -224,14 +238,14 @@ class PaymentController extends Controller
         if($walletbalance<=0)
             return [
                 'status'=>'failed',
-                'remaining_amount'=>$order->total_cost
+                'remaining_amount'=>$order->total_cost+$order->delivery_charge+$order->extra_amount-$order->coupon_discount-$order->points_used
             ];
 
-        if($walletbalance >= $order->total_cost+$order->delivery_charge-$order->coupon_discount-$order->points_used) {
+        if($walletbalance >= $order->total_cost+$order->delivery_charge+$order->extra_amount-$order->coupon_discount-$order->points_used) {
             $order->payment_status='paid';
             $order->status='confirmed';
             $order->use_balance=true;
-            $order->balance_used=$order->total_cost+$order->delivery_charge-$order->coupon_discount-$order->points_used;
+            $order->balance_used=$order->total_cost+$order->delivery_charge+$order->extra_amount-$order->coupon_discount-$order->points_used;
             $order->payment_mode='online';
             $order->save();
 
@@ -255,25 +269,35 @@ class PaymentController extends Controller
                 'status'=>'success',
             ];
         }else {
-            if($walletbalance>0){
-                $order->use_balance=true;
-                $order->balance_used=$walletbalance;
-                $order->payment_mode='online';
-                $order->save();
-            }
+
+            $order->use_balance=true;
+            $order->balance_used=$walletbalance;
+            $order->payment_mode='online';
+            $order->save();
+
+            return [
+                'status'=>'failed',
+                'remaining_amount'=>$order->total_cost+$order->delivery_charge+$order->extra_amount-$order->coupon_discount-$order->points_used-$order->balance_used
+            ];
+
         }
 
-        return [
-            'status'=>'failed',
-        ];
     }
 
     private function initiateGatewayPayment($order){
-        $response=$this->pay->generateorderid([
-            "amount"=>($order->total_cost+$order->delivery_charge-$order->coupon_discount-$order->points_used-$order->balance_used)*100,
+        $data=[
+            "amount"=>($order->total_cost+$order->delivery_charge+$order->extra_amount-$order->coupon_discount-$order->points_used-$order->balance_used)*100,
             "currency"=>"INR",
             "receipt"=>$order->refid,
+        ];
+
+        $response=$this->pay->generateorderid($data);
+
+        LogData::create([
+            'data'=>($response.' orderid:'.$order->id. ' '.json_encode($data)),
+            'type'=>'order'
         ]);
+
         $responsearr=json_decode($response);
         //var_dump($responsearr);die;
         if(isset($responsearr->id)){
@@ -286,7 +310,7 @@ class PaymentController extends Controller
                 'data'=>[
                     'payment_done'=>'no',
                     'razorpay_order_id'=> $order->order_id,
-                    'total'=>($order->total_cost+$order->delivery_charge-$order->coupon_discount-$order->points_used-$order->balance_used)*100,
+                    'total'=>($order->total_cost+$order->delivery_charge+$order->extra_amount-$order->coupon_discount-$order->points_used-$order->balance_used)*100,
                     'email'=>$order->email,
                     'mobile'=>$order->mobile,
                     'description'=>'Product Purchase at HalloBasket',
@@ -376,6 +400,12 @@ class PaymentController extends Controller
 
         ]);
 
+
+        LogData::create([
+            'data'=>(json_encode($request->all())??'No Payment Verify Data Found'),
+            'type'=>'verify'
+        ]);
+
         $order=Order::with('details')->where('order_id', $request->razorpay_order_id)->first();
 
         if(!$order || $order->status!='pending')
@@ -442,7 +472,8 @@ class PaymentController extends Controller
                 'message'=> 'Congratulations! Your order at Hallobasket is successful',
                 'data'=>[
                     'ref_id'=>$order->refid,
-                    'order_id'=>$order->id
+                    'order_id'=>$order->id,
+                    'refid'=>$order->refid,
                 ]
             ];
         }else{

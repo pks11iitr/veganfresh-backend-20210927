@@ -78,7 +78,10 @@ class WalletController extends Controller
                     'data'=>[
                         'id'=>$wallet->id,
                         'order_id'=>$wallet->order_id,
-                        'amount'=>$wallet->amount*100
+                        'amount'=>$wallet->amount*100,
+                        'email'=>$user->email,
+                        'mobile'=>$user->mobile,
+                        'description'=>'Add Money'
                     ]
                 ];
             }else{

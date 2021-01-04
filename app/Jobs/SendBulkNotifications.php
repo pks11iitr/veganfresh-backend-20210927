@@ -38,7 +38,10 @@ class SendBulkNotifications implements ShouldQueue
     public function handle()
     {
         //var_dump($this->stores);die;
-        $user_ids=Order::whereIn('store_id', $this->stores)->select('user_id')->get();
+        if($this->stores)
+            $user_ids=Order::whereIn('store_id', $this->stores)->select('user_id')->get();
+        else
+            $user_ids=Order::select('user_id')->get();
 
         $user_ids=$user_ids->map(function($id){
             return $id->user_id;
@@ -47,27 +50,30 @@ class SendBulkNotifications implements ShouldQueue
         if(!empty($user_ids)){
             $tokens=Customer::whereIn('id', $user_ids)
                 ->where('notification_token', '!=', null)
-                ->select('notification_token')
+                ->select('notification_token', 'id')
                 ->get();
         }else{
             $tokens=Customer::
                 where('notification_token', '!=', null)
-                ->select('notification_token')
+                ->select('notification_token', 'id')
                 ->get();
         }
 
-
-        Notification::create([
-            'user_id'=>0,
-            'title'=>$this->title,
-            'description'=>$this->message,
-            'data'=>null,
-            'type'=>'all'
-        ]);
-
         foreach($tokens as $token){
+            $message=str_replace('{{name}}', $token->name??'User', $this->message);
+            $message=str_replace('{{Name}}', $token->name??'User', $message);
 
-            FCMNotification::sendNotification($token, $this->title, $this->message);
+            Notification::create([
+                'user_id'=>$token->id,
+                'title'=>$this->title,
+                'description'=>$message,
+                'data'=>null,
+                'type'=>'individual'
+            ]);
+
+
+
+            FCMNotification::sendNotification($token->notification_token, $this->title, $message);
 
         }
 

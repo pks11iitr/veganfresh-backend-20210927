@@ -533,22 +533,8 @@ class RiderOrderController extends Controller
             ];
         }
 
-        // if payment is COD deduct amount from wallet if any used
         if($order->payment_mode=='COD'){
-
             $order->payment_status='paid';
-
-//            if($order->use_points){
-//                if($order->points_used > 0)
-//                    Wallet::updatewallet($order->user_id, 'Paid For Order ID: '.$order->refid, 'DEBIT',$order->points_used, 'POINT', $order->id);
-//
-//            }
-//
-//            if($order->use_balance){
-//                if($order->balance_used > 0)
-//                    Wallet::updatewallet($order->user_id, 'Paid For Order ID: '.$order->refid, 'DEBIT',$order->balance_used, 'CASH', $order->id);
-//            }
-
         }
 
         $order->status='completed';

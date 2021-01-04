@@ -15,7 +15,9 @@ class CategoryController extends Controller
 {
 
     public function category(Request $request){
-        $categories=Category::active()->with('subcategory')->get();
+        $categories=Category::active()->with(['subcategory'=>function($subcategory){
+            $subcategory->where('sub_category.isactive', true);
+        }])->get();
         if($categories){
          return [
              'status'=>'success',
@@ -40,7 +42,8 @@ class CategoryController extends Controller
                 ->whereHas('product', function($product) use($request){
 
                     $product->whereHas('subcategory', function($subcategory) use($request){
-                        $subcategory->where('sub_category.id', $request->subcategory_id);
+                        $subcategory->where('sub_category.isactive', true)
+                            ->where('sub_category.id', $request->subcategory_id);
                     });
 
                 })
@@ -51,7 +54,8 @@ class CategoryController extends Controller
                 ->whereHas('product', function($product) use($id){
 
                     $product->whereHas('category', function($category) use($id){
-                        $category->where('categories.id', $id);
+                        $category->where('categories.isactive', true)
+                            ->where('categories.id', $id);
                     });
                 })
                 ->select(DB::raw('distinct(size) as size'))
@@ -61,14 +65,16 @@ class CategoryController extends Controller
       if(!empty($request->subcategory_id)){
           $brand=Product::active()
               ->whereHas('subcategory', function($subcategory) use($request){
-                      $subcategory->where('sub_category.id', $request->subcategory_id);
+                      $subcategory->where('sub_category.isactive', true)
+                          ->where('sub_category.id', $request->subcategory_id);
                   })
               ->select(DB::raw('distinct(products.company) as brand'))
               ->get();
       }else{
           $brand=Product::active()
               ->whereHas('category', function($category) use($id){
-                      $category->where('categories.id', $id);
+                      $category->where('categories.isactive', true)
+                          ->where('categories.id', $id);
                   })
               ->select(DB::raw('distinct(products.company) as brand'))
               ->get();
@@ -83,7 +89,8 @@ class CategoryController extends Controller
               ->whereHas('product', function($product) use($request){
 
                   $product->whereHas('subcategory', function($subcategory) use($request){
-                      $subcategory->where('sub_category.id', $request->subcategory_id);
+                      $subcategory->where('sub_category.isactive', true)
+                          ->where('sub_category.id', $request->subcategory_id);
                   });
 
               })
@@ -94,7 +101,8 @@ class CategoryController extends Controller
               ->whereHas('product', function($product) use($id){
 
                   $product->whereHas('category', function($category) use($id){
-                      $category->where('categories.id', $id);
+                      $category->where('categories.isactive', true)
+                          ->where('categories.id', $id);
                   });
               })
               ->select(DB::raw('max(price) as max_price'), DB::raw('max(price) as min_price'))

@@ -23,45 +23,52 @@
         <section class="content">
             <div class="container-fluid">
                 <div class="row">
-                    <!-- left column -->
-                    <div class="col-md-12">
-                        <!-- general form elements -->
+                    <div class="col-12">
                         <div class="card card-info">
                             <div class="card-header">
                                 <h3 class="card-title">Invoice Number Setup</h3>
                             </div>
-                            <form class="form-validate form-horizontal"  method="post" action="{{route('order.invoice.update',['id'=>$invoice->id])}}" enctype="multipart/form-data">
-                                @csrf
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label>Prifix</label>
-                                                <input type="text" name="prefix" class="form-control" id="exampleInputEmail1" placeholder="Enter Prifix" value="{{$invoice->prefix}}">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <form class="form-validate form-horizontal"  method="post" action="{{route('order.invoice.update',['id'=>$invoice->id])}}" enctype="multipart/form-data">
+                                            <div class="row">
+                                                <div class="col-3">
+                                                    <label>Prifix</label>
+                                                    <input type="text" name="prefix" class="form-control" id="exampleInputEmail1" placeholder="Enter Prifix" value="{{$invoice->prefix}}">
+                                                </div>
+                                                <div class="col-3">
+                                                    <label>Sequence</label>
+                                                    <input type="number" name="sequence" class="form-control" min="0" id="exampleInputEmail3" placeholder="Enter Sequence" value="{{$invoice->sequence}}">
+                                                </div>
+                                                <div class="col-3">
+                                                    <label>Current Sequence</label>
+                                                    <input type="number" name="current_sequence" class="form-control" min="0" id="exampleInputEmail3" placeholder="Enter Sequence" value="{{$invoice->current_sequence??1}}">
+                                                </div>
+                                                <div class="col-3">
+                                                    <label>PAN/GST</label>
+                                                    <input type="text" name="pan_gst" class="form-control" min="0" id="exampleInputEmail3" placeholder="Enter Sequence" value="{{$invoice->pan_gst}}">
+                                                </div>
+                                                <div class="col-3">
+                                                    <label>Address</label>
+                                                    <input type="text" name="address" class="form-control" min="0" id="exampleInputEmail3" placeholder="Enter Sequence" value="{{$invoice->address??''}}">
+                                                </div>
+                                                <div class="col-3"><label>.</label><br>
+                                                    <button type="submit" name="save" class="btn btn-danger">Update</button>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label>Sequence</label>
-                                                <input type="number" name="sequence" class="form-control" min="0" id="exampleInputEmail3" placeholder="Enter Sequence" value="{{$invoice->sequence}}">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <label>.</label><br>
-                                            <button type="submit" name="save" class="btn btn-danger">Update</button>
-                                        </div>
+                                        </form>
                                     </div>
                                 </div>
-                            </form>
+                            </div>
                         </div>
-                        <!-- /.card -->
+                        </div>
                     </div>
-                    <!--/.col (right) -->
                 </div>
-                <!-- /.row -->
             </div>
         </section>
-        <!-- Order-filter-list -->
+
         <section class="content">
             <div class="container-fluid">
                 <div class="row">

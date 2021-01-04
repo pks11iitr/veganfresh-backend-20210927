@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\SuperAdmin;
 
 use App\Models\Invoice;
+use App\Models\Membership;
 use App\Models\Notification;
 use App\Models\Order;
 use App\Models\Rider;
@@ -182,6 +183,31 @@ class OrderController extends Controller
             FCMNotification::sendNotification($order->customer->notification_token, $title, $message);
         }
 
+        //credit cashback on completion
+        if($status=='completed' && $old_status!='completed'){
+
+            if($order->customer->isMembershipActive()){
+
+                $membership=Membership::find($order->customer->active_membership);
+
+                if($membership){
+                    $amount=round(($order->total_cost-$order->coupon_discount-$order->points_used)*$membership->cashback/100, 2);
+                    $order->cashback_given=$amount;
+                    $order->save();
+
+                    Wallet::updatewallet($order->user_id, 'Cashback received For Order ID: '.$order->refid, 'CREDIT',$amount, 'POINT', $order->id);
+
+                    $title='Cashback Credited';
+                    $message="Cashback of $amount received For Order ID: ".$order->refid;
+
+                    FCMNotification::sendNotification($order->customer->notification_token, $title, $message);
+
+                }
+            }
+
+        }
+
+
         if($old_status!='dispatched' &&  $order->status=='dispatched' && !empty($order->rider_id)){
             $rider=Rider::find($order->rider_id);
             Msg91::send($rider->mobile, 'New Order '.$order->refid.' arrived. Scheduled Delivery is '.($order->delivery_date??'').' '.($order->timeslot->name??''));
@@ -209,7 +235,7 @@ class OrderController extends Controller
 
 
         $old_rider=$order->rider_id;
-        $rider=Rider::findOraild($request->rider_id);
+        $rider=Rider::findOrFail($request->riderid);
         $order->rider_id=$request->riderid;
         $order->save();
         if($old_rider!=$order->rider_id && $order->status=='dispatched')
@@ -264,7 +290,10 @@ class OrderController extends Controller
 
         if($invoice->update([
             'prefix'=>$request->prefix,
-            'sequence'=>$request->sequence
+            'sequence'=>$request->sequence,
+            'address'=>$request->address,
+            'current_sequence'=>$request->current_sequence??1,
+            'pan_gst'=>$request->pan_gst
         ]))
         {
 

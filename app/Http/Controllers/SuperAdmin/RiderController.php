@@ -68,8 +68,8 @@ class RiderController extends Controller
         $request->validate([
             //'status'=>'required',
             'name'=>'required',
-            'email'=>'required|unique:users,email,'.$id,
-            'mobile'=>'required|unique:users,mobile,'.$id,
+            'email'=>'required|unique:riders,email,'.$id,
+            'mobile'=>'required|unique:riders,mobile,'.$id,
             'address'=>'required',
             'state'=>'required',
             'city'=>'required',

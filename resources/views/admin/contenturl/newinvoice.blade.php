@@ -64,7 +64,7 @@
     <table width="100%" class="outline-table" style="margin-bottom: 10px;">
         <tbody>
         <tr class="black">
-            <td colspan="6" style="color: white"><strong>Order # {{$orders->refid}}</strong></td>
+            <td colspan="6" style="color: white"><strong>Invoice No # {{$orders->invoice_number}}</strong><br>Pan/GST: {{$invoice->pan_gst??''}}</td>
         </tr>
         <tr class="black">
             <td colspan="6" style="color: white"><strong>Order Date: {{date('D d ,Y', strtotime($orders->delivery_date))}} ({{$orders->timeslot->name??''}})</strong></td>
@@ -75,14 +75,33 @@
         <tbody>
         <tr class="border-bottom border-right grey">
             <td colspan="6"><strong>Sold to:</strong></td>
-            <td colspan="6"><strong>Ship to:</strong></td>
+            <td colspan="6"><strong>Seller:</strong></td>
         </tr>
 
         <tr class="border-right">
-            <td colspan="6">{{$orders->deliveryaddress->first_name??''}} {{$orders->deliveryaddress->last_name??''}}<br><span>{{$orders->deliveryaddress->house_no??''}}, {{$orders->deliveryaddress->appertment_name??''}}</span><br><span>{{$orders->deliveryaddress->street??''}}, {{$orders->deliveryaddress->landmark??''}},</span><br><span>{{$orders->deliveryaddress->address_type??''}} , {{$orders->deliveryaddress->other_text??''}},</span><br><span>{{$orders->deliveryaddress->area??''}}, {{$orders->deliveryaddress->city??''}}, {{$orders->deliveryaddress->pincode??''}}</span></td>
+            <td colspan="6">{{$orders->deliveryaddress->first_name??''}} {{$orders->deliveryaddress->last_name??''}}<br>
+                <span>{{$orders->deliveryaddress->house_no??''}}, {{$orders->deliveryaddress->appertment_name??''}}</span><br>
+                @if(!empty($orders->deliveryaddress->street) || !empty($orders->deliveryaddress->landmark))
+                <span>{{!empty($orders->deliveryaddress->street)?$orders->deliveryaddress->street.', ':''}}{{$orders->deliveryaddress->landmark??''}},</span><br>
+                @endif
+{{--                <span>{{$orders->deliveryaddress->address_type??''}} , {{$orders->deliveryaddress->other_text??''}},</span><br>--}}
+                <span>{{$orders->deliveryaddress->area??''}}</span>
+                <span>{{$orders->deliveryaddress->city??''}}, {{$orders->deliveryaddress->pincode??''}}</span>
 
-            <td colspan="6">{{$orders->deliveryaddress->first_name??''}} {{$orders->deliveryaddress->last_name??''}}<br><span>{{$orders->deliveryaddress->house_no??''}}, {{$orders->deliveryaddress->appertment_name??''}}</span><br><span>{{$orders->deliveryaddress->street??''}}, {{$orders->deliveryaddress->landmark??''}},</span><br><span>{{$orders->deliveryaddress->address_type??''}} , {{$orders->deliveryaddress->other_text??''}},</span><br><span>{{$orders->deliveryaddress->area??''}}, {{$orders->deliveryaddress->city??''}}, {{$orders->deliveryaddress->pincode??''}}</span></td>
+            </td>
+            <td colspan="6">
+{{--            {{$orders->deliveryaddress->first_name??''}} {{$orders->deliveryaddress->last_name??''}}<br>--}}
+{{--                <span>{{$orders->deliveryaddress->house_no??''}}, {{$orders->deliveryaddress->appertment_name??''}}</span><br>--}}
+{{--                @if(!empty($orders->deliveryaddress->street) || !empty($orders->deliveryaddress->landmark))--}}
+{{--                    <span>{{!empty($orders->deliveryaddress->street)?$orders->deliveryaddress->street.', ':''}}{{$orders->deliveryaddress->landmark??''}},</span><br>--}}
+{{--                @endif--}}
+{{--                --}}{{--                <span>{{$orders->deliveryaddress->address_type??''}} , {{$orders->deliveryaddress->other_text??''}},</span><br>--}}
+{{--                <span>{{$orders->deliveryaddress->area??''}}</span>--}}
+{{--                <span>{{$orders->deliveryaddress->city??''}}, {{$orders->deliveryaddress->pincode??''}}</span>--}}
+                {{$invoice->address??''}}
 
+            </td>
+        </tr>
         </tbody>
     </table>
     <table width="100%" class="outline-table" style="margin-bottom: 10px;">
@@ -115,7 +134,7 @@
         @foreach($orders->details as $product)
         <tr class="border-right">
             <td colspan="3">{{$product->name}}</td>
-            <td colspan="3">{{$product->size->size}}</td>
+            <td colspan="3">{{$product->size->size??''}}</td>
             <td colspan="1">Rs. {{$product->cut_price}}</td>
             <td colspan="1">Rs. {{$product->price}}</td>
             <td colspan="1">Rs. {{$product->cut_price - $product->price}}</td>

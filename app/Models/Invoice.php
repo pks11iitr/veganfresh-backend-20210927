@@ -8,5 +8,5 @@ class Invoice extends Model
 {
     protected $table ='invoice';
 
-    protected $fillable=['prefix','sequence'];
+    protected $fillable=['prefix','sequence','current_sequence', 'pan_gst', 'address'];
 }
