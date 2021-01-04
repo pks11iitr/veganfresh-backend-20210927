@@ -70,7 +70,7 @@ class SendBulkNotifications implements ShouldQueue
 
 
 
-            FCMNotification::sendNotification($token->notification_token, $this->title, $this->message);
+            FCMNotification::sendNotification($token->notification_token, $this->title, $message);
 
         }
 
