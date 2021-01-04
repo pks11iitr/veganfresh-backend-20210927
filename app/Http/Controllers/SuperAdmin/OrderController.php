@@ -50,6 +50,14 @@ class OrderController extends Controller
         if($request->payment_status)
                 $orders=$orders->where('payment_status', $request->payment_status);
 
+         //var_dump($request->payment_mode);die();
+         if($request->payment_mode) {
+             if ($request->payment_mode == 'COD'){
+                 $orders = $orders->where('payment_mode', $request->payment_mode);
+             } else {
+                 $orders = $orders->where('payment_mode', '!=', 'COD');
+             }
+         }
         if($request->store_id)
               $orders=$orders->where('store_id', $request->store_id);
 

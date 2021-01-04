@@ -23,40 +23,45 @@
         <section class="content">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-12">
+                    <!-- left column -->
+                    <div class="col-md-12">
+                        <!-- general form elements -->
                         <div class="card card-info">
                             <div class="card-header">
                                 <h3 class="card-title">Invoice Number Setup</h3>
                             </div>
-                        <div class="card">
-                            <div class="card-header">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <form class="form-validate form-horizontal"  method="post" action="{{route('order.invoice.update',['id'=>$invoice->id])}}" enctype="multipart/form-data">
-                                            <div class="row">
-                                                <div class="col-3">
-                                                    <label>Prifix</label>
-                                                    <input type="text" name="prefix" class="form-control" id="exampleInputEmail1" placeholder="Enter Prifix" value="{{$invoice->prefix}}">
-                                                </div>
-                                                <div class="col-3">
-                                                    <label>Sequence</label>
-                                                    <input type="number" name="sequence" class="form-control" min="0" id="exampleInputEmail3" placeholder="Enter Sequence" value="{{$invoice->sequence}}">
-                                                </div>
-                                                <div class="col-3"><label>.</label><br>
-                                                    <button type="submit" name="save" class="btn btn-danger">Update</button>
-                                                </div>
+                            <form class="form-validate form-horizontal"  method="post" action="{{route('order.invoice.update',['id'=>$invoice->id])}}" enctype="multipart/form-data">
+                                @csrf
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>Prifix</label>
+                                                <input type="text" name="prefix" class="form-control" id="exampleInputEmail1" placeholder="Enter Prifix" value="{{$invoice->prefix}}">
                                             </div>
-                                        </form>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>Sequence</label>
+                                                <input type="number" name="sequence" class="form-control" min="0" id="exampleInputEmail3" placeholder="Enter Sequence" value="{{$invoice->sequence}}">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label>.</label><br>
+                                            <button type="submit" name="save" class="btn btn-danger">Update</button>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            </form>
                         </div>
-                        </div>
+                        <!-- /.card -->
                     </div>
+                    <!--/.col (right) -->
                 </div>
+                <!-- /.row -->
             </div>
         </section>
-
+        <!-- Order-filter-list -->
         <section class="content">
             <div class="container-fluid">
                 <div class="row">
@@ -133,6 +138,18 @@
                                                 <div class="col-4">
                                                     <input  id="fullname"  class="form-control" name="todate" placeholder=" search name" value="{{request('todate')}}"  type="date" />
                                                 </div>
+
+                                                <div class="col-4">
+                                                    <select id="payment_mode" name="payment_mode" class="form-control" >
+
+                                                        <option value="" {{ request('payment_mode')==''?'selected':''}}>Select Payment Mode</option>
+                                                        <option value="COD" {{ request('payment_mode')=='COD'?'selected':''}}>COD</option>
+                                                        <option value="online" {{ request('payment_mode')=='online'?'selected':''}}>Online</option>
+
+                                                    </select>
+
+                                                </div><br><br>
+
                                                 <div class="col-4">
                                                     <button type="submit" name="save" class="btn btn-primary">Submit</button>
                                                 </div><br><br>
@@ -178,7 +195,7 @@
                                                 <td>{{$order->payment_mode}}</td>
                                                 <td>
                                                     <a href="{{route('order.details',['id'=>$order->id])}}" class="btn btn-primary">Details</a><br><br>
-                                                    <a href="{{route('invoice.view',['id'=>$order->id])}}" class="btn btn-primary">Invoice</a>
+                                                    <a href="{{route('invoice.view',['id'=>$order->id])}}" class="btn btn-warning">Invoice</a>
                                                 </td>
                                             </tr
                                     @endforeach
@@ -188,7 +205,6 @@
                             </div>
                         {{$orders->links()}}
                         <!-- /.card-body -->
-                        </div>
                         </div>
                         <!-- /.card -->
                     </div>
