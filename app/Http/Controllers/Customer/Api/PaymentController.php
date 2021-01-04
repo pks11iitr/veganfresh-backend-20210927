@@ -239,7 +239,7 @@ class PaymentController extends Controller
                 'remaining_amount'=>$order->total_cost+$order->delivery_charge+$order->extra_amount-$order->coupon_discount-$order->points_used
             ];
 
-        if($walletbalance >= $order->total_cost+$order->delivery_charge-$order->coupon_discount-$order->points_used) {
+        if($walletbalance >= $order->total_cost+$order->delivery_charge+$order->extra_amount-$order->coupon_discount-$order->points_used) {
             $order->payment_status='paid';
             $order->status='confirmed';
             $order->use_balance=true;
@@ -283,9 +283,8 @@ class PaymentController extends Controller
     }
 
     private function initiateGatewayPayment($order){
-
         $data=[
-            "amount"=>($order->total_cost+$order->delivery_charge-$order->coupon_discount-$order->points_used-$order->balance_used)*100,
+            "amount"=>($order->total_cost+$order->delivery_charge+$order->extra_amount-$order->coupon_discount-$order->points_used-$order->balance_used)*100,
             "currency"=>"INR",
             "receipt"=>$order->refid,
         ];
@@ -309,7 +308,7 @@ class PaymentController extends Controller
                 'data'=>[
                     'payment_done'=>'no',
                     'razorpay_order_id'=> $order->order_id,
-                    'total'=>($order->total_cost+$order->delivery_charge-$order->coupon_discount-$order->points_used-$order->balance_used)*100,
+                    'total'=>($order->total_cost+$order->delivery_charge+$order->extra_amount-$order->coupon_discount-$order->points_used-$order->balance_used)*100,
                     'email'=>$order->email,
                     'mobile'=>$order->mobile,
                     'description'=>'Product Purchase at HalloBasket',
