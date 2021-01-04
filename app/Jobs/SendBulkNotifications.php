@@ -38,7 +38,10 @@ class SendBulkNotifications implements ShouldQueue
     public function handle()
     {
         //var_dump($this->stores);die;
-        $user_ids=Order::whereIn('store_id', $this->stores)->select('user_id')->get();
+        if($this->stores)
+            $user_ids=Order::whereIn('store_id', $this->stores)->select('user_id')->get();
+        else
+            $user_ids=Order::select('user_id')->get();
 
         $user_ids=$user_ids->map(function($id){
             return $id->user_id;
