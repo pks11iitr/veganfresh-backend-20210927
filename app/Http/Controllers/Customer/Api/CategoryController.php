@@ -41,7 +41,7 @@ class CategoryController extends Controller
         $subcat=[];
         $subcat[]=['id'=>0, 'name'=>'All'];
         foreach($subcatobj as $obj){
-            $subcat[]=['id'=>$obj->id, 'name'=>$obj];
+            $subcat[]=['id'=>$obj->id, 'name'=>$obj->name];
         }
 
         if(!empty($request->subcategory_id)){
