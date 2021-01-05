@@ -44,15 +44,15 @@
                                                 </div>
                                                 <div class="col-3">
                                                     <label>Current Sequence</label>
-                                                    <input type="number" name="current_sequence" class="form-control" min="0" id="exampleInputEmail3" placeholder="Enter Sequence" value="{{$invoice->current_sequence??1}}">
+                                                    <input type="number" name="current_sequence" class="form-control" min="0" id="exampleInputEmail3" placeholder="Enter Current Sequence" value="{{$invoice->current_sequence??1}}">
                                                 </div>
                                                 <div class="col-3">
                                                     <label>PAN/GST</label>
-                                                    <input type="text" name="pan_gst" class="form-control" min="0" id="exampleInputEmail3" placeholder="Enter Sequence" value="{{$invoice->pan_gst}}">
+                                                    <input type="text" name="pan_gst" class="form-control" min="0" id="exampleInputEmail3" placeholder="Enter PAN/GST" value="{{$invoice->pan_gst}}">
                                                 </div>
                                                 <div class="col-3">
                                                     <label>Address</label>
-                                                    <input type="text" name="address" class="form-control" min="0" id="exampleInputEmail3" placeholder="Enter Sequence" value="{{$invoice->address??''}}">
+                                                    <input type="text" name="address" class="form-control" min="0" id="exampleInputEmail3" placeholder="Enter Address" value="{{$invoice->address??''}}">
                                                 </div>
                                                 <div class="col-3"><label>.</label><br>
                                                     <button type="submit" name="save" class="btn btn-danger">Update</button>
@@ -145,6 +145,18 @@
                                                 <div class="col-4">
                                                     <input  id="fullname"  class="form-control" name="todate" placeholder=" search name" value="{{request('todate')}}"  type="date" />
                                                 </div>
+
+                                                <div class="col-4">
+                                                    <select id="payment_mode" name="payment_mode" class="form-control" >
+
+                                                        <option value="" {{ request('payment_mode')==''?'selected':''}}>Select Payment Mode</option>
+                                                        <option value="COD" {{ request('payment_mode')=='COD'?'selected':''}}>COD</option>
+                                                        <option value="online" {{ request('payment_mode')=='online'?'selected':''}}>Online</option>
+
+                                                    </select>
+
+                                                </div><br><br>
+
                                                 <div class="col-4">
                                                     <button type="submit" name="save" class="btn btn-primary">Submit</button>
                                                 </div><br><br>
@@ -190,7 +202,7 @@
                                                 <td>{{$order->payment_mode}}</td>
                                                 <td>
                                                     <a href="{{route('order.details',['id'=>$order->id])}}" class="btn btn-primary">Details</a><br><br>
-                                                    <a href="{{route('invoice.view',['id'=>$order->id])}}" class="btn btn-primary">Invoice</a>
+                                                    <a href="{{route('invoice.view',['id'=>$order->id])}}" class="btn btn-warning">Invoice</a>
                                                 </td>
                                             </tr
                                     @endforeach
@@ -200,7 +212,6 @@
                             </div>
                         {{$orders->links()}}
                         <!-- /.card-body -->
-                        </div>
                         </div>
                         <!-- /.card -->
                     </div>
