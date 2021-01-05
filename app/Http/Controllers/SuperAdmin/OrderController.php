@@ -56,7 +56,8 @@ class OrderController extends Controller
              if ($request->payment_mode == 'COD'){
                  $orders = $orders->where('payment_mode', $request->payment_mode);
              } else {
-                 $orders = $orders->where('payment_mode', '!=', 'COD');
+                 $orders = $orders->whereNull('payment_mode')
+                     ->orWhere('payment_mode','online');
              }
          }
         if($request->store_id)
