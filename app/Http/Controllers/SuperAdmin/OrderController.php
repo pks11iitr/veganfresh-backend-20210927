@@ -195,8 +195,8 @@ class OrderController extends Controller
                     $amount=round(($order->total_cost-$order->coupon_discount-$order->points_used)*$membership->cashback/100, 2);
                     $order->cashback_given=$amount;
                     $order->save();
-
-                    Wallet::updatewallet($order->user_id, 'Cashback received For Order ID: '.$order->refid, 'CREDIT',$amount, 'POINT', $order->id);
+                    if($amount>0)
+                        Wallet::updatewallet($order->user_id, 'Cashback received For Order ID: '.$order->refid, 'CREDIT',$amount, 'POINT', $order->id);
 
                     $title='Cashback Credited';
                     $message="Cashback of $amount received For Order ID: ".$order->refid;
