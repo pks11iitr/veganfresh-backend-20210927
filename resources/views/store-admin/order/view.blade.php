@@ -75,6 +75,16 @@
                                                     <input  id="fullname"  class="form-control" name="todate" placeholder=" search name" value="{{request('todate')}}"  type="date" />
                                                 </div>
                                                 <div class="col-4">
+                                                    <select id="payment_mode" name="payment_mode" class="form-control" >
+
+                                                        <option value="" {{ request('payment_mode')==''?'selected':''}}>Select Payment Mode</option>
+                                                        <option value="COD" {{ request('payment_mode')=='COD'?'selected':''}}>COD</option>
+                                                        <option value="online" {{ request('payment_mode')=='online'?'selected':''}}>Online</option>
+
+                                                    </select>
+
+                                                </div>
+                                                <div class="col-4">
                                                     <button type="submit" name="save" class="btn btn-primary">Submit</button>
                                                 </div>
                                             </div>
