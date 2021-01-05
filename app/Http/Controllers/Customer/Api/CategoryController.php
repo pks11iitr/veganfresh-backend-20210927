@@ -18,6 +18,7 @@ class CategoryController extends Controller
         $categories=Category::active()->with(['subcategory'=>function($subcategory){
             $subcategory->where('sub_category.isactive', true);
         }])->get();
+
         if($categories){
          return [
              'status'=>'success',
@@ -35,7 +36,13 @@ class CategoryController extends Controller
   public function subcategory(Request $request,$id){
 
 
-        $subcat=SubCategory::active()->where('category_id',$id)->get();
+        $subcatobj=SubCategory::active()->where('category_id',$id)->get();
+
+        $subcat=[];
+        $subcat[]=['id'=>0, 'name'=>'All'];
+        foreach($subcatobj as $obj){
+            $subcat[]=['id'=>$obj->id, 'name'=>$obj];
+        }
 
         if(!empty($request->subcategory_id)){
             $pack_size=Size::active()
