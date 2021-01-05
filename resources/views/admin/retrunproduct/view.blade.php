@@ -54,7 +54,7 @@
                                                         <option value="{{$rider->id}}" {{request('rider_id')==$rider->id?'selected':''}}>{{ $rider->name }}</option>                                    @endforeach
 
                                                 </select>
-                                                </div>
+                                                </div><br><br>
                                                 <div class="col-4">
                                                     <input  id="fullname"  class="form-control" name="fromdate" placeholder=" search name" value="{{request('fromdate')}}"  type="date" />
                                                 </div><br><br>
