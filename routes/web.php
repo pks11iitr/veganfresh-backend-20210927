@@ -572,6 +572,13 @@ Route::group(['middleware'=>['auth', 'acl']], function(){
 
     });
 
+    Route::group(['prefix'=>'purchase'], function(){
+        Route::get('/','SuperAdmin\PurchaseController@index')->name('purchase.list');
+        Route::get('create','SuperAdmin\PurchaseController@create')->name('purchase.create');
+        Route::post('store','SuperAdmin\PurchaseController@store')->name('purchase.store');
+
+    });
+
     Route::group(['prefix'=>'notification'], function(){
         Route::group(['is'=>'admin|notification-editor'], function(){
             Route::get('create','SuperAdmin\NotificationController@create')->name('notification.create');
