@@ -29,7 +29,7 @@ class TimeSlot extends Model
             //echo "Checking For $date, $time";
 
             $orders=Order::where('status', 'confirmed')
-                ->groupBy('delivery_slot', DB::raw('DATE(updated_at)'))
+                ->groupBy('delivery_slot', DB::raw('DATE(delivery_date)'))
                 ->where(DB::raw('DATE(updated_at)'), $date)
                 ->select(DB::raw('count(delivery_slot) as available'), 'delivery_slot')
                 ->get();
