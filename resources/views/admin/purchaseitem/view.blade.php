@@ -27,22 +27,21 @@
                             <div class="card-header">
                                 <div class="row">
                                     <div class="col-3">
-                                        <a href="{{route('purchase.create')}}" class="btn btn-primary">Add Purchase Item</a></div>
-                                    <div class="col-9">
+                                        <a href="{{route('purchase.create')}}" class="btn btn-primary">Add Purchase Item</a></div><br><br>
 
+                                    <div class="col-12">
                                         <form class="form-validate form-horizontal"  method="get" action="" enctype="multipart/form-data">
-
                                             <div class="row">
                                                 <div class="col-4">
                                                     <input  id="fullname"  class="form-control" name="search" placeholder=" search name" value="{{request('search')}}"  type="text" />
                                                 </div>
-{{--                                                <div class="col-4">--}}
-{{--                                                    <select id="ordertype" name="ordertype" class="form-control" >--}}
-{{--                                                        <option value="DESC" {{ request('ordertype')=='DESC'?'selected':''}}>DESC</option>--}}
-{{--                                                        <option value="ASC" {{ request('ordertype')=='ASC'?'selected':''}}>ASC</option>--}}
-{{--                                                    </select>--}}
-{{--                                                </div>--}}
-                                                <div class="col-4">
+                                                <div class="col-3">
+                                                    <input   class="form-control" name="fromdate" placeholder=" search name" value="{{request('fromdate')}}"  type="date" />
+                                                </div>
+                                                <div class="col-3">
+                                                    <input  class="form-control" name="todate" placeholder=" search name" value="{{request('todate')}}"  type="date" />
+                                                </div>
+                                                <div class="col-2">
                                                     <button type="submit" name="save" class="btn btn-primary">Submit</button>
                                                 </div>
                                             </div>
