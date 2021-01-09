@@ -13,6 +13,12 @@ class PurchaseController extends Controller
             $purchases->where('name','LIKE','%'.$request->search.'%');
         });
 
+        if($request->fromdate)
+            $purchases=$purchases->where('create_date', '>=', $request->fromdate);
+
+        if($request->todate)
+            $purchases=$purchases->where('create_date', '<=', $request->todate);
+
         $purchases=$purchases->paginate(10);
         return view('admin.purchaseitem.view',['purchases'=>$purchases]);
     }
