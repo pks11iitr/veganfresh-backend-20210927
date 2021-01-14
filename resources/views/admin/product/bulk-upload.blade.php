@@ -139,17 +139,18 @@
                                 //formdata.append('size_stock',row[14])
                                 formdata.append('consumed_units',row[14])
                                 formdata.append('is_size_active',row[15])
-                                formdata.append('new_arrival',row[17])
-                                formdata.append('hot_deal',row[18])
-                                formdata.append('discounted',row[19])
+                                formdata.append('new_arrival',row[16])
+                                formdata.append('hot_deal',row[17])
+                                formdata.append('discounted',row[18])
 
 
                                 file_count=0;
-                                image_identifier=row[16]
+                                image_identifier=row[19]
 
                                 //alert(image_identifier)
                                 for (var i = 0; i < files.length; i++) {
-                                    if(files[i].name.search(image_identifier)==0){
+                                    //console.log(files[i].name.search(image_identifier))
+                                    if(files[i].name.indexOf(image_identifier)==0){
                                         formdata.append('images['+file_count+']', files[i])
                                         console.log(files[i].name+'matched:'+row[0])
                                         file_count++
