@@ -86,10 +86,12 @@ class ProductController extends Controller
 //                'message'=>'Please login to continue'
 //            ];
 
-        if(!empty($request->search))
-            $banner=Banner::active()->select('id','image')->get();
-        $category=Category::active()->select('id','name','image')->get();
+        if(!empty($request->search)){
+            //$banner=Banner::active()->select('id','image')->get();
+            //$category=Category::active()->select('id','name','image')->get();
             $products = Product::active()->where('name', 'like', "%".$request->search."%");
+        }
+
 //
 //            $product=Product::active()
 //            ->with(['category', 'sizeprice'])
@@ -119,8 +121,8 @@ class ProductController extends Controller
 
         return [
             'status'=>'success',
-            'banner'=>$banner,
-            'category'=>$category,
+            'banner'=>$banner??null,
+            'category'=>$category??null,
             'data'=>$searchproducts,
             'cart_total'=>$cart_total
         ];
