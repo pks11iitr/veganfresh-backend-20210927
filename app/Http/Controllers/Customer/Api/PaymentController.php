@@ -383,7 +383,7 @@ class PaymentController extends Controller
 
         return [
             'status'=>'success',
-            'message'=>'Congratulations! Your order at SuzoDailyNeeds is successful',
+            'message'=>'Congratulations! Your order at HalloBasket is successful',
             'data'=>[
                 'payment_done'=>'yes',
                 'refid'=>$order->refid
