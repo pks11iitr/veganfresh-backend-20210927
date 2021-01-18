@@ -86,7 +86,7 @@
                                         @else
 
                                         {{date('d/m/Y', strtotime($order->delivery_date)).' '. ($order->timeslot->name??'')}}</td>
-                                        @emdif
+                                        @endif
                                 </tr>
                                 <tr>
                                     <td>Delivery Time</td><td>{{$order->delivered_at?date('d/m/Y h:i a', strtotime($order->delivered_at)):'Not Yet Delivered'}}</td>
