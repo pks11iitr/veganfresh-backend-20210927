@@ -151,7 +151,7 @@ class RiderOrderController extends Controller
             'balance_used'=>$order->balance_used,
             'total_savings'=>$savings+$order->coupon_discount,
             'total_paid'=>$order->total_cost+$order->delivery_charge-$order->coupon_discount,
-            'amount_to_be_collected'=>($order->payment_status=='payment-wait')?($order->total_cost+$order->delivery_charge-$order->coupon_discount-$order->points_used-$order->balance_used):($order->extra_amount>0?$order->extra_amount:0.0),
+            'amount_to_be_collected'=>($order->payment_status=='payment-wait')?($order->total_cost+$order->delivery_charge-$order->coupon_discount+$order->extra_amount-$order->points_used-$order->balance_used):($order->extra_amount>0?$order->extra_amount:0.0),
         ];
 
         $delivery_time=$order->delivery_date.' '.($order->timeslot->name??'');
