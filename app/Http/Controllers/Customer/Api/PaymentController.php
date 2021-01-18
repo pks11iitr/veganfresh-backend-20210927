@@ -90,7 +90,7 @@ class PaymentController extends Controller
                 'delivery_slot'=>$timeslot[0]??null,
                 'delivery_date'=>$timeslot[1]??null,
                 'delivery_charge'=>$express_delivery['price'],
-                'is_express_delivey'=>true
+                'is_express_delivery'=>true
             ]);
         }else{
             $order->update([
@@ -102,7 +102,7 @@ class PaymentController extends Controller
                 'coupon_discount'=>0,
                 'delivery_slot'=>$timeslot[0]??null,
                 'delivery_date'=>$timeslot[1]??null,
-                'is_express_delivey'=>false
+                'is_express_delivery'=>false
 
             ]);
         }
