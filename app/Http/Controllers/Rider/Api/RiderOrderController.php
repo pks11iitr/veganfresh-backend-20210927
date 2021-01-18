@@ -154,7 +154,7 @@ class RiderOrderController extends Controller
             'amount_to_be_collected'=>($order->payment_status=='payment-wait')?($order->total_cost+$order->delivery_charge-$order->coupon_discount+$order->extra_amount-$order->points_used-$order->balance_used):($order->extra_amount>0?$order->extra_amount:0.0),
         ];
 
-        $delivery_time=$order->delivery_date.' '.($order->timeslot->name??'');
+        $delivery_time=($order->is_express_delivery)?'Express Delivery':($order->delivery_date.' '.($order->timeslot->name??''));
         $delivered_at=$order->delivered_at??'Not Yet Delivered';
 
         return [
