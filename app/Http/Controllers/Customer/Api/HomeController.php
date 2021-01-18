@@ -124,7 +124,7 @@ class HomeController extends Controller
                     $new_sec['name']='';
                     $new_sec['bannerdata']=[
                         'image'=>$section->entities[0]->entity->image??'',
-                        'category_id'=>$section->entities[0]->entity->parent_category??$section->entities[0]->entity->entity_id,
+                        'category_id'=>$section->entities[0]->entity->parent_category??$section->entities[0]->entity->entity_id??null,
                         'subcategory_id'=>!empty($section->entities[0]->entity->parent_category)?$section->entities[0]->entity->entity_id:'',
                     ];
                     $new_sec['products']=[];

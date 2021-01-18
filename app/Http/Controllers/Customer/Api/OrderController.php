@@ -480,9 +480,12 @@ class OrderController extends Controller
             'total_paid'=>$order->total_cost+$order->delivery_charge-$order->coupon_discount,
         ];
 
+        $express_delivery=Configuration::find(7);
+
+
         $time_slot=[
 
-            'delivery_time'=>$order->delivery_date.' -'. ($order->timeslot->name??''),
+            'delivery_time'=>($order->is_express_delivery==true)?($express_delivery->description):($order->delivery_date.' -'. ($order->timeslot->name??'')),
             'delivered_at'=>$order->delivered_at?date('m/d/Y h:iA', strtotime($order->delivered_at)):'No Yet Delivered',
         ];
 
