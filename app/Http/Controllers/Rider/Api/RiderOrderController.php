@@ -268,7 +268,8 @@ class RiderOrderController extends Controller
         $request->validate([
 
             'items'=>'required|array',
-            'items.*'=>'required|integer'
+            'items.*'=>'required|integer',
+            'message'=>'required'
 
         ]);
 
@@ -293,6 +294,9 @@ class RiderOrderController extends Controller
             ->where('status', 'dispatched')
             ->where('rider_id', $user->id)
             ->find($order_id);
+
+        $order->return_reason=$request->messages;
+        $order->save();
 
         if(!$order || empty($order->details->toArray()))
             return [
