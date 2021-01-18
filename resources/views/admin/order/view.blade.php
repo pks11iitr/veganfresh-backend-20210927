@@ -200,9 +200,9 @@
                                                 <td>@if($order->is_express_delivery)
                                                         Express Delivery
                                                     @else
-                                                        {{$order->delivery_date}}
+                                                        {{$order->delivery_date}} {{$order->timeslot->name??''}}
 
- @endif                                                       {{$order->timeslot->name??''}}</td>
+ @endif                                                       </td>
                                                 <td>{{$order->total_cost+$order->delivery_charge}}</td>
                                                 <td>{{$order->status}}</td>
                                                 <td>{{$order->payment_status}}</td>
