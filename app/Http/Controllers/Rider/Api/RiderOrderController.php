@@ -295,7 +295,7 @@ class RiderOrderController extends Controller
             ->where('rider_id', $user->id)
             ->find($order_id);
 
-        $order->return_reason=$request->messages;
+        $order->return_reason=$request->message;
         $order->save();
 
         if(!$order || empty($order->details->toArray()))
