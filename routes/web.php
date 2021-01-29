@@ -573,9 +573,13 @@ Route::group(['middleware'=>['auth', 'acl']], function(){
     });
 
     Route::group(['prefix'=>'purchase'], function(){
-        Route::get('/','SuperAdmin\PurchaseController@index')->name('purchase.list');
-        Route::get('create','SuperAdmin\PurchaseController@create')->name('purchase.create');
-        Route::post('store','SuperAdmin\PurchaseController@store')->name('purchase.store');
+        Route::group(['is'=>'admin|complaint-viewer'], function() {
+            Route::get('/', 'SuperAdmin\PurchaseController@index')->name('purchase.list');
+            Route::get('create', 'SuperAdmin\PurchaseController@create')->name('purchase.create');
+        });
+        Route::group(['is'=>'admin|complaint-editor'], function() {
+            Route::post('store', 'SuperAdmin\PurchaseController@store')->name('purchase.store');
+        });
 
     });
 

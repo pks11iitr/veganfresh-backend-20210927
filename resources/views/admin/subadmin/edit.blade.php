@@ -233,7 +233,15 @@
                                                 </div>
                                             </div>
                                         </div>
-
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail1">Purchase Permissions</label><br>
+                                                <div>
+                                                    <input type="checkbox" name="permissions[purchase-viewer]"  id="exampleInputEmail1" placeholder="Enter Password" @if($subadmin->hasRole('purchase-viewer')) {{'checked'}} @endif> View Purchase Items
+                                                    <input type="checkbox" name="permissions[purchase-editor]"  id="exampleInputEmail1" placeholder="Enter Password" @if($subadmin->hasRole('purchase-editor')) {{'checked'}} @endif> Add/Update Purchase Items
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <!-- /.card-body -->

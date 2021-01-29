@@ -233,6 +233,15 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail1">Purchase Permissions</label><br>
+                                                <div>
+                                                    <input type="checkbox" name="permissions[purchase-viewer]"  id="exampleInputEmail1" placeholder="Enter Password"> View Purchase Items
+                                                    <input type="checkbox" name="permissions[purchase-editor]"  id="exampleInputEmail1" placeholder="Enter Password"> Add/Update Purchase Items
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <!-- /.card-body -->
