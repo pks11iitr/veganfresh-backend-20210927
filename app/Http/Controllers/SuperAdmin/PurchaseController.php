@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\SuperAdmin;
 
+use App\Models\Product;
 use App\Models\PurchaseItem;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -24,7 +25,14 @@ class PurchaseController extends Controller
     }
 
     public function create(Request $request){
-        return view('admin.purchaseitem.add');
+
+        $products=Product::active()
+            ->with(['sizeprice'=> function($sizes){
+                $sizes->where('isactive', true);
+            }])
+            ->get();
+
+        return view('admin.purchaseitem.add', compact('products'));
     }
 
     public function store(Request $request){

@@ -39,7 +39,18 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">Name</label>
-                                                <input type="text" name="name" class="form-control" id="exampleInputEmail1" placeholder="Enter Name">
+                                                <select type="text" name="name" class="form-control" id="exampleInputEmail1" placeholder="Enter Name">
+                                                    <option value="">Select</option>
+                                                    @foreach($products as $product)
+                                                        @if($product->stock_type=='packet')
+                                                            @foreach($product->sizeprice as $size)
+                                                            <option value="{{$product->name}}--{{$size->size}}">{{$product->name}}--{{$size->size}}</option>
+                                                            @endforeach
+                                                        @else
+                                                            <option value="{{$product->name}}">{{$product->name}}</option>
+                                                        @endif
+                                                    @endforeach
+                                                </select>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
@@ -57,7 +68,7 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">Date</label>
-                                                <input type="date" name="create_date" class="form-control" id="exampleInputEmail1" placeholder="Enter Date">
+                                                <input type="date" name="create_date" class="form-control" id="exampleInputEmail1" placeholder="Enter Date" value="{{date('Y-m-d')}}">
                                             </div>
                                         </div>
 
