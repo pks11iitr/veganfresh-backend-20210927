@@ -16,6 +16,8 @@ class FCMNotification
         $notificationBuilder = new PayloadNotificationBuilder($title);
         $notificationBuilder->setBody($body)
             ->setSound('default');
+        $notificationBuilder
+            ->setClickAction("notification_screen");
 
         $dataBuilder = new PayloadDataBuilder();
         $dataBuilder->addData([
