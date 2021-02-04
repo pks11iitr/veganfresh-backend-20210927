@@ -108,8 +108,8 @@ class LoginController extends Controller
 
         $user=Customer::where('mobile', $request->mobile)->first();
 
-        if($request->mobile=='8802035788')
-            return ['status'=>'success', 'message'=>'Please verify OTP to continue'];
+//        if($request->mobile=='8802035788')
+//            return ['status'=>'success', 'message'=>'Please verify OTP to continue'];
 
         if(!$user){
             $user=Customer::create([
