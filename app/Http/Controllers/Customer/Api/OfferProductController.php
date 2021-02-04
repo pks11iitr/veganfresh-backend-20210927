@@ -26,16 +26,20 @@ class OfferProductController extends Controller
         $offercategory=OfferCategory::active()->select('id','name','image')->get();
           if(!empty($request->offer_cat_id)){
               $offerproduct=Product::active()->whereHas('offercategory', function($category) use($request){
-                  $category->where('offer_category.id', $request->offer_cat_id);
+                  $category->where('offer_category.id', $request->offer_cat_id)->where('offer_category.isactive',1);
               });
         }else{
-              $offerproduct=Product::active()->has('offercategory');
+              $offerproduct=Product::active()->has('offercategory',function ($category){
+                  $category->where('offer_category.isactive',1);
+              });
         }
         $cart=Cart::getUserCart($user);
         $cart_total=$cart['total'];
         $cart=$cart['cart'];
 
-        $offerproducts=$offerproduct->with('sizeprice')->paginate(20);
+        $offerproducts=$offerproduct->with(['sizeprice'=>function($size){
+            $size->where('product_prices.isactive', true);
+        }])->paginate(20);
 
         foreach($offerproducts as $product){
             foreach($product->sizeprice as $size){
@@ -83,7 +87,7 @@ class OfferProductController extends Controller
         if(!empty($request->category_id)){
 
         $offerproduct=Product::active()->where('is_offer',true)->whereHas('category', function($category) use($request){
-            $category->where('categories.id', $request->category_id);
+            $category->where('categories.id', $request->category_id)->where('categories.isactive',true);
 
         });
         }else {
@@ -95,7 +99,9 @@ class OfferProductController extends Controller
         $cart_total=$cart['total'];
         $cart=$cart['cart'];
 
-        $offerproducts=$offerproduct->with('sizeprice')->paginate(20);
+        $offerproducts=$offerproduct->with(['sizeprice'=>function($size){
+            $size->where('product_prices.isactive', true);
+        }])->paginate(20);
 
         foreach($offerproducts as $product){
             foreach($product->sizeprice as $size){

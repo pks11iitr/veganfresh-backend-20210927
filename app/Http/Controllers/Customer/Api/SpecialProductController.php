@@ -20,7 +20,8 @@ class SpecialProductController extends Controller
         if(!empty($request->category_id)){
 
             $products=Product::active()->where('is_hotdeal',true)->whereHas('category', function($category) use($request){
-                $category->where('categories.id', $request->category_id);
+                $category->where('categories.id', $request->category_id)
+                ->where('categories.isactive',true);
 
             });
         }else {
@@ -31,7 +32,9 @@ class SpecialProductController extends Controller
         $cart=Cart::getUserCart($user);
         $cart_total=$cart['total'];
         $cart=$cart['cart'];
-        $specialproducts=$products->with('sizeprice')->paginate(20);
+        $specialproducts=$products->with(['sizeprice'=>function($size){
+            $size->where('product_prices.isactive', true);
+        }])->paginate(20);
 
         foreach($specialproducts as $product) {
             foreach ($product->sizeprice as $size) {
@@ -68,7 +71,9 @@ class SpecialProductController extends Controller
         $cart=Cart::getUserCart($user);
         $cart_total=$cart['total'];
         $cart=$cart['cart'];
-        $specialproducts=$products->with('sizeprice')->paginate(20);
+        $specialproducts=$products->with(['sizeprice'=>function($size){
+            $size->where('product_prices.isactive', true);
+        }])->paginate(20);
 
         foreach($specialproducts as $product){
             foreach($product->sizeprice as $size){
@@ -93,7 +98,8 @@ class SpecialProductController extends Controller
         if(!empty($request->category_id)){
 
             $products=Product::active()->where('is_discounted',true)->whereHas('category', function($category) use($request){
-                $category->where('categories.id', $request->category_id);
+                $category->where('categories.id', $request->category_id)
+                ->where('categories.isactive',true);
 
             });
         }else {
@@ -104,7 +110,9 @@ class SpecialProductController extends Controller
         $cart=Cart::getUserCart($user);
         $cart_total=$cart['total'];
         $cart=$cart['cart'];
-        $specialproducts=$products->with('sizeprice')->paginate(20);
+        $specialproducts=$products->with(['sizeprice'=>function($size){
+            $size->where('product_prices.isactive', true);
+        }])->paginate(20);
 
         foreach($specialproducts as $product){
             foreach($product->sizeprice as $size){

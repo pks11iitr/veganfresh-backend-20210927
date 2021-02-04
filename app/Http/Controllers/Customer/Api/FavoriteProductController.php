@@ -75,7 +75,9 @@ class FavoriteProductController extends Controller
             //->where('favorite_products.user_id', $user->id)
             //->get();
 
-        $favoriteproducts=$user->favouriteProducts()->with('sizeprice')->where('products.isactive', true)->get();
+        $favoriteproducts=$user->favouriteProducts()->with(['sizeprice'=>function($size){
+            $size->where('product_prices.isactive', true);
+        }])->where('products.isactive', true)->get();
 
         $cart=Cart::getUserCart($user);
         $cart_total=$cart['total'];

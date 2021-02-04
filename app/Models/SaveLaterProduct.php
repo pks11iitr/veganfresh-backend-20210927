@@ -15,6 +15,6 @@ class SaveLaterProduct extends Model
         return $this->belongsTo('App\Models\Product', 'product_id');
     }
     public function sizeprice(){
-        return $this->belongsTo('App\Models\Size', 'size_id');
+        return $this->belongsTo('App\Models\Size', 'size_id')->where('isactive',1);
     }
 }

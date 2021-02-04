@@ -98,7 +98,7 @@ class CategoryController extends Controller
                   $product->whereHas('subcategory', function($subcategory) use($request){
                       $subcategory->where('sub_category.isactive', true)
                           ->where('sub_category.id', $request->subcategory_id);
-                  });
+                  })->where('products.isactive', true);
 
               })
               ->select(DB::raw('max(price) as max_price'), DB::raw('max(price) as min_price'))
@@ -110,7 +110,7 @@ class CategoryController extends Controller
                   $product->whereHas('category', function($category) use($id){
                       $category->where('categories.isactive', true)
                           ->where('categories.id', $id);
-                  });
+                  })->where('products.isactive', true);
               })
               ->select(DB::raw('max(price) as max_price'), DB::raw('max(price) as min_price'))
               ->get();
