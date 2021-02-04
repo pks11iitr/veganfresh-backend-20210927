@@ -94,6 +94,8 @@ class ProductController extends Controller
             //$banner=Banner::active()->select('id','image')->get();
             //$category=Category::active()->select('id','name','image')->get();
             $products = Product::active()->where('name', 'like', "%".$request->search."%");
+        }else{
+            $products = Product::active()->limit(5);
         }
 
 //
