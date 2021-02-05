@@ -576,6 +576,7 @@ Route::group(['middleware'=>['auth', 'acl']], function(){
         Route::get('/','SuperAdmin\PurchaseController@index')->name('purchase.list');
         Route::get('create','SuperAdmin\PurchaseController@create')->name('purchase.create');
         Route::post('store','SuperAdmin\PurchaseController@store')->name('purchase.store');
+        Route::get('export{id}','SuperAdmin\PurchaseController@export')->name('purchase.export');
 
     });
 

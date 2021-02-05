@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\SuperAdmin;
 
+use App\Exports\PurchaseItemExport;
 use App\Models\PurchaseItem;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Maatwebsite\Excel\Facades\Excel;
 
 class PurchaseController extends Controller
 {
@@ -19,8 +21,17 @@ class PurchaseController extends Controller
         if($request->todate)
             $purchases=$purchases->where('create_date', '<=', $request->todate);
 
+        if($request->export)
+            return $this->export($purchases);
+
         $purchases=$purchases->paginate(10);
         return view('admin.purchaseitem.view',['purchases'=>$purchases]);
+    }
+
+    public function export($purchases)
+    {
+        $purchases=$purchases->get();
+        return Excel::download(new PurchaseItemExport($purchases), 'purchaseitem.xlsx');
     }
 
     public function create(Request $request){
@@ -47,4 +58,5 @@ class PurchaseController extends Controller
         }
         return redirect()->back()->with('error', 'purchase create failed');
     }
+
 }
