@@ -254,9 +254,9 @@ Route::group(['middleware'=>['auth', 'acl']], function(){
 //});
 
 Route::group(['prefix'=>'api'], function() {
-    Route::get('privacy-policy', 'SuperAdmin\PolicyController@index')->name('policy.view');
-    Route::get('terms-condition', 'SuperAdmin\PolicyController@terms')->name('terms.view');
-    Route::get('about-us', 'SuperAdmin\PolicyController@about')->name('about.view');
+//    Route::get('privacy-policy', 'SuperAdmin\PolicyController@index')->name('policy.view');
+//    Route::get('terms-condition', 'SuperAdmin\PolicyController@terms')->name('terms.view');
+//    Route::get('about-us', 'SuperAdmin\PolicyController@about')->name('about.view');
     Route::get('invoice/{id}', 'SuperAdmin\PolicyController@invoice')->name('invoice.view');
 });
 
@@ -573,10 +573,14 @@ Route::group(['middleware'=>['auth', 'acl']], function(){
     });
 
     Route::group(['prefix'=>'purchase'], function(){
-        Route::get('/','SuperAdmin\PurchaseController@index')->name('purchase.list');
-        Route::get('create','SuperAdmin\PurchaseController@create')->name('purchase.create');
-        Route::post('store','SuperAdmin\PurchaseController@store')->name('purchase.store');
-        Route::get('export{id}','SuperAdmin\PurchaseController@export')->name('purchase.export');
+        Route::group(['is'=>'admin|purchase-viewer'], function() {
+            Route::get('/', 'SuperAdmin\PurchaseController@index')->name('purchase.list');
+            Route::get('create', 'SuperAdmin\PurchaseController@create')->name('purchase.create');
+            Route::get('export{id}','SuperAdmin\PurchaseController@export')->name('purchase.export');
+        });
+        Route::group(['is'=>'admin|purchase-editor'], function() {
+            Route::post('store', 'SuperAdmin\PurchaseController@store')->name('purchase.store');
+        });
 
     });
 

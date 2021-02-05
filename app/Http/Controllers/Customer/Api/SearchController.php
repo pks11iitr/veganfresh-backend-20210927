@@ -24,7 +24,8 @@ class SearchController extends Controller
                 $product=Product::active()->with(['commentscount', 'avgreviews']);
                 if($request->category_id)
                     $product=$product->whereHas('category', function($category) use($request){
-                        $category->where('categories.id', $request->category_id);
+                        $category->where('categories.id', $request->category_id)
+                            ->where('categories.isactive',true);
                     });
                 if(!empty($request->search))
                     $product=$product->where('name', 'like', "%".$request->search."%");

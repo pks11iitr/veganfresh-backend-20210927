@@ -80,7 +80,13 @@
                                     <td>Payment Mode</td><td>{{$order->payment_mode}}</td>
                                 </tr>
                                 <tr>
-                                    <td>Delivery Schedule</td><td>{{date('d/m/Y', strtotime($order->delivery_date)).' '. ($order->timeslot->name??'')}}</td>
+                                    <td>Delivery Schedule</td><td>
+                                        @if($order->is_express_delivery)
+                                            {{'Express Delivery'}}
+                                        @else
+
+                                        {{date('d/m/Y', strtotime($order->delivery_date)).' '. ($order->timeslot->name??'')}}</td>
+                                        @endif
                                 </tr>
                                 <tr>
                                     <td>Delivery Time</td><td>{{$order->delivered_at?date('d/m/Y h:i a', strtotime($order->delivered_at)):'Not Yet Delivered'}}</td>
@@ -181,6 +187,7 @@
                                 <tfoot>
                                 </tfoot>
                             </table>
+                            Return Reason: {{$order->return_reason}}
                         </div>
                         <div class="card-body">
                             <table id="example2" class="table table-bordered table-hover">

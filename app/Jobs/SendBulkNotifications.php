@@ -58,8 +58,12 @@ class SendBulkNotifications implements ShouldQueue
                 ->select('notification_token', 'id')
                 ->get();
         }
-
+        $tokens_arr=[];
         foreach($tokens as $token){
+
+            if(in_array($token->notification_token, $tokens_arr))
+               continue;
+
             $message=str_replace('{{name}}', $token->name??'User', $this->message);
             $message=str_replace('{{Name}}', $token->name??'User', $message);
 
@@ -74,6 +78,8 @@ class SendBulkNotifications implements ShouldQueue
 
 
             FCMNotification::sendNotification($token->notification_token, $this->title, $message);
+
+            $tokens_arr[]=$token->notification_token;
 
         }
 

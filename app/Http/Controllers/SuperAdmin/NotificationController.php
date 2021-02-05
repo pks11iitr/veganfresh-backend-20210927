@@ -22,18 +22,18 @@ class NotificationController extends Controller
                   			'description'=>'required'
                                ]);
 
-          if($notification=Notification::create([
-                      'title'=>$request->title,
-                      'description'=>$request->description,
-                      'type'=>'all',
-                      'user_id'=>'0',
-
-                      ]))
-            {
-                dispatch(new SendBulkNotifications($request->title,$request->description, $request->store_ids));
+//          if($notification=Notification::create([
+//                      'title'=>$request->title,
+//                      'description'=>$request->description,
+//                      'type'=>'all',
+//                      'user_id'=>'0',
+//
+//                      ]))
+//            {
+             dispatch(new SendBulkNotifications($request->title,$request->description, $request->store_ids));
              return redirect()->back()->with('success', 'Notification Send Successfully');
-            }
-             return redirect()->back()->with('error', 'Notification failed');
+//            }
+//             return redirect()->back()->with('error', 'Notification failed');
           }
 
   }

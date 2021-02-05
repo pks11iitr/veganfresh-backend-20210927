@@ -60,9 +60,11 @@ class CartController extends Controller
             ];
 
 
-        $cart = Cart::with([
-            'product',
-            'sizeprice'])
+        $cart = Cart::with(['product'=>function($product){
+            $product->where('products.isactive',true);
+        }, 'sizeprice'=>function($size){
+            $size->where('product_prices.isactive', true);
+        }])
             ->where('product_id',$request->product_id)
             ->where('size_id',$request->size_id)
             ->where('user_id', $user->id)
@@ -157,7 +159,9 @@ class CartController extends Controller
             }
         }
         $products=Product::active()
-            ->with(['sizeprice'])
+            ->with(['sizeprice'=>function($size){
+                $size->where('product_prices.isactive', true);
+            }])
             ->where('id',$request->product_id)
             ->get();
 
@@ -187,7 +191,11 @@ class CartController extends Controller
                 'status'=>'failed',
                 'message'=>'Please login to continue'
             ];
-        $cartitems=Cart::with(['product', 'sizeprice'])
+        $cartitems=Cart::with(['product'=>function($product){
+            $product->where('products.isactive',true);
+        }, 'sizeprice'=>function($size){
+            $size->where('product_prices.isactive', true);
+        }])
             ->where('user_id', $user->id)
             ->get();
 

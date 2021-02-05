@@ -180,6 +180,7 @@
                                         <th>User</th>
                                         <th>Store Name</th>
                                         <th>Rider Name</th>
+                                        <th>Order Date</th>
                                         <th>Delivery Slot</th>
                                         <th>Cost</th>
                                         <th>Status</th>
@@ -195,7 +196,13 @@
                                                 <td>{{$order->storename->name??''}}</td>
                                                 <td>{{$order->rider->name??''}}</td>
                                                 <td>{{$order->customer->name??''}} <br>Mob: {{$order->customer->mobile??''}}</td>
-                                                <td>{{$order->delivery_date}} {{$order->timeslot->name??''}}</td>
+                                                <td>{{date('d/m/Y H:i A', strtotime($order->delivery_date))}}</td>
+                                                <td>@if($order->is_express_delivery)
+                                                        Express Delivery
+                                                    @else
+                                                        {{$order->delivery_date}} {{$order->timeslot->name??''}}
+
+ @endif                                                       </td>
                                                 <td>{{$order->total_cost+$order->delivery_charge}}</td>
                                                 <td>{{$order->status}}</td>
                                                 <td>{{$order->payment_status}}</td>

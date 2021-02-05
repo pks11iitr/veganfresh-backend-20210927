@@ -151,10 +151,10 @@ class RiderOrderController extends Controller
             'balance_used'=>$order->balance_used,
             'total_savings'=>$savings+$order->coupon_discount,
             'total_paid'=>$order->total_cost+$order->delivery_charge-$order->coupon_discount,
-            'amount_to_be_collected'=>($order->payment_status=='payment-wait')?($order->total_cost+$order->delivery_charge-$order->coupon_discount-$order->points_used-$order->balance_used):($order->extra_amount>0?$order->extra_amount:0.0),
+            'amount_to_be_collected'=>($order->payment_status=='payment-wait')?($order->total_cost+$order->delivery_charge-$order->coupon_discount+$order->extra_amount-$order->points_used-$order->balance_used):($order->extra_amount>0?$order->extra_amount:0.0),
         ];
 
-        $delivery_time=$order->delivery_date.' '.($order->timeslot->name??'');
+        $delivery_time=($order->is_express_delivery)?'Express Delivery':($order->delivery_date.' '.($order->timeslot->name??''));
         $delivered_at=$order->delivered_at??'Not Yet Delivered';
 
         return [
@@ -268,7 +268,8 @@ class RiderOrderController extends Controller
         $request->validate([
 
             'items'=>'required|array',
-            'items.*'=>'required|integer'
+            'items.*'=>'required|integer',
+            'message'=>'required'
 
         ]);
 
@@ -293,6 +294,9 @@ class RiderOrderController extends Controller
             ->where('status', 'dispatched')
             ->where('rider_id', $user->id)
             ->find($order_id);
+
+        $order->return_reason=$request->message;
+        $order->save();
 
         if(!$order || empty($order->details->toArray()))
             return [

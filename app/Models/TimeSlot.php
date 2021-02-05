@@ -20,7 +20,10 @@ class TimeSlot extends Model
 
         $date=date('Y-m-d');
         $time=date('H:i:s');
+        //$time='21:00:00';
         $text='Today';
+
+        $slot_timer=0;
         while(true){
             $timeslot=TimeSlot::where('from_time', '>=', $time)
                 ->orderBy('from_time', 'asc')
@@ -29,9 +32,10 @@ class TimeSlot extends Model
             //echo "Checking For $date, $time";
 
             $orders=Order::where('status', 'confirmed')
-                ->groupBy('delivery_slot', DB::raw('DATE(delivery_date)'))
-                ->where(DB::raw('DATE(updated_at)'), $date)
+                ->groupBy('delivery_slot', 'delivery_date')
+                ->where('delivery_date', $date)
                 ->select(DB::raw('count(delivery_slot) as available'), 'delivery_slot')
+                ->where('status', 'confirmed')
                 ->get();
 
             $availability=[];
@@ -40,11 +44,18 @@ class TimeSlot extends Model
             }
             //print_r($availability);
             foreach($timeslot as $ts){
-                if($ts->slot_capacity > ($availability[$ts->id]??0)){
+                //if( $date > date('Y-m-d') || $ts->from_time > $time){
+                    if($slot_timer==0)
+                    {
+                        $slot_timer++;
+                        continue;
+                    }
+                    if($ts->slot_capacity > ($availability[$ts->id]??0)){
 
-                       return ['slot_id'=>$ts->id,  'next_slot'=>$text.' '.$ts->name, 'date'=>$date];
+                        return ['slot_id'=>$ts->id,  'next_slot'=>$text.' '.$ts->name, 'date'=>$date];
 
-                }
+                    }
+                //}
             }
 
             $date=date('Y-m-d', strtotime('+1 days', strtotime($date)));
@@ -68,7 +79,7 @@ class TimeSlot extends Model
         $text='Today';
 
         $time_slots=[];
-
+        $slot_timer=0;
         while(count($time_slots)<50){
             $timeslot=TimeSlot::where('from_time', '>=', $time)
                 ->orderBy('from_time', 'asc')
@@ -88,6 +99,11 @@ class TimeSlot extends Model
             }
             //print_r($availability);
             foreach($timeslot as $ts){
+                if($slot_timer==0)
+                {
+                    $slot_timer++;
+                    continue;
+                }
                 if($ts->slot_capacity > ($availability[$ts->id]??0)){
 
                     //return ['slot_id'=>$ts->id,  'next_slot'=>$text.' '.$ts->from_time.' - '.$ts->to_time, 'date'=>$date];

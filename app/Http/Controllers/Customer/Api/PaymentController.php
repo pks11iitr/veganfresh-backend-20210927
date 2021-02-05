@@ -89,7 +89,8 @@ class PaymentController extends Controller
                 'coupon_discount'=>0,
                 'delivery_slot'=>$timeslot[0]??null,
                 'delivery_date'=>$timeslot[1]??null,
-                'delivery_charge'=>$express_delivery['price']
+                'delivery_charge'=>$express_delivery['price'],
+                'is_express_delivery'=>true
             ]);
         }else{
             $order->update([
@@ -101,6 +102,7 @@ class PaymentController extends Controller
                 'coupon_discount'=>0,
                 'delivery_slot'=>$timeslot[0]??null,
                 'delivery_date'=>$timeslot[1]??null,
+                'is_express_delivery'=>false
 
             ]);
         }
@@ -383,7 +385,7 @@ class PaymentController extends Controller
 
         return [
             'status'=>'success',
-            'message'=>'Congratulations! Your order at SuzoDailyNeeds is successful',
+            'message'=>'Congratulations! Your order at HalloBasket is successful',
             'data'=>[
                 'payment_done'=>'yes',
                 'refid'=>$order->refid

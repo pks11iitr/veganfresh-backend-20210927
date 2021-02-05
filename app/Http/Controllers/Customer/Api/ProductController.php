@@ -25,11 +25,11 @@ class ProductController extends Controller
         if(!empty($request->sub_cat_id)){
 
           $product=Product::active()->whereHas('subcategory', function($category) use($request){
-              $category->where('sub_category.id', $request->sub_cat_id);
+              $category->where('sub_category.id', $request->sub_cat_id)->where('sub_category.isactive',true);
             });
         }else{
           $product=Product::active()->whereHas('category', function($category) use($request){
-              $category->where('categories.id', $request->category_id);
+              $category->where('categories.id', $request->category_id)->where('categories.isactive',true);
             });
         }
 
@@ -40,11 +40,13 @@ class ProductController extends Controller
                 if($request->prices){
                     $prices=explode('-', $request->prices??'');
                     $size->where('product_prices.price', '>=', intval($prices[0]??0))
-                        ->where('product_prices.price', '<=', intval($prices[1]??0));
+                        ->where('product_prices.price', '<=', intval($prices[1]??0))
+                        ->where('product_prices.isactive',true);
                 }
                 if($request->sizes){
                     $sizes=explode('#', $request->sizes);
-                    $size->whereIn('product_prices.size', $sizes);
+                    $size->whereIn('product_prices.size', $sizes)
+                        ->where('product_prices.isactive',true);
                 }
             });
         }
@@ -60,7 +62,9 @@ class ProductController extends Controller
         $cart_total=$cart['total'];
         $cart=$cart['cart'];
 
-        $products=$product->with(['sizeprice'])->paginate(20);
+        $products=$product->with(['sizeprice'=>function($size){
+            $size->where('product_prices.isactive', true);
+        }])->paginate(5);
 
         foreach($products as $product){
             foreach($product->sizeprice as $size){
@@ -86,10 +90,14 @@ class ProductController extends Controller
 //                'message'=>'Please login to continue'
 //            ];
 
-        if(!empty($request->search))
-            $banner=Banner::active()->select('id','image')->get();
-        $category=Category::active()->select('id','name','image')->get();
+        if(!empty($request->search)){
+            //$banner=Banner::active()->select('id','image')->get();
+            //$category=Category::active()->select('id','name','image')->get();
             $products = Product::active()->where('name', 'like', "%".$request->search."%");
+        }else{
+            $products = Product::active()->limit(5);
+        }
+
 //
 //            $product=Product::active()
 //            ->with(['category', 'sizeprice'])
@@ -108,7 +116,7 @@ class ProductController extends Controller
             $size->where('product_prices.isactive', true);
 
         })
-            ->paginate(20);
+            ->paginate(5);
 
         foreach($searchproducts as $product){
             foreach($product->sizeprice as $size){
@@ -119,8 +127,8 @@ class ProductController extends Controller
 
         return [
             'status'=>'success',
-            'banner'=>$banner,
-            'category'=>$category,
+            'banner'=>$banner??null,
+            'category'=>$category??null,
             'data'=>$searchproducts,
             'cart_total'=>$cart_total
         ];
@@ -135,7 +143,9 @@ class ProductController extends Controller
 //                'message'=>'Please login to continue'
 //            ];
         $product=Product::active()
-            ->with(['sizeprice.images'])
+            ->with(['sizeprice'=>function($sizeprice){
+                $sizeprice->with('images')->where('isactive', true);
+            }])
             ->findOrFail($id);
             $timeslot=TimeSlot::active()->select('id','from_time','to_time')->get();
             $reviews=$product->reviews()->with(['customer'=>function($customer){
