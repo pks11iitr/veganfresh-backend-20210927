@@ -67,13 +67,13 @@ class SendBulkNotifications implements ShouldQueue
             $message=str_replace('{{name}}', $token->name??'User', $this->message);
             $message=str_replace('{{Name}}', $token->name??'User', $message);
 
-//            Notification::create([
-//                'user_id'=>$token->id,
-//                'title'=>$this->title,
-//                'description'=>$message,
-//                'data'=>null,
-//                'type'=>'individual'
-//            ]);
+            Notification::create([
+                'user_id'=>$token->id,
+                'title'=>$this->title,
+                'description'=>$message,
+                'data'=>null,
+                'type'=>'individual'
+            ]);
 
 
 
