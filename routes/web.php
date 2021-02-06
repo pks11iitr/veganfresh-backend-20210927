@@ -576,6 +576,7 @@ Route::group(['middleware'=>['auth', 'acl']], function(){
         Route::group(['is'=>'admin|purchase-viewer'], function() {
             Route::get('/', 'SuperAdmin\PurchaseController@index')->name('purchase.list');
             Route::get('create', 'SuperAdmin\PurchaseController@create')->name('purchase.create');
+            Route::get('export{id}','SuperAdmin\PurchaseController@export')->name('purchase.export');
         });
         Route::group(['is'=>'admin|purchase-editor'], function() {
             Route::post('store', 'SuperAdmin\PurchaseController@store')->name('purchase.store');
