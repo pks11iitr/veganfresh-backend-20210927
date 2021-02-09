@@ -150,7 +150,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <h2 class="heading text-center">Download Our App : <img src="homepage/img/playstore.png" style="width:200px; height:auto;"></h2>
+                <h2 class="heading text-center">Download Our App : <a href="https://play.google.com/store/apps/details?id=com.hallo.hallobasket"><img src="homepage/img/playstore.png" style="width:244px; height:auto;   "></a><a href="https://apps.apple.com/in/app/hallo-basket/id1544917219"><img src="homepage/img/appstore.png" style="width:200px; height:auto;    "></a></h2>
             </div>
         </div>
     </div>
