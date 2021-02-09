@@ -64,10 +64,12 @@
     <table width="100%" class="outline-table" style="margin-bottom: 10px;">
         <tbody>
         <tr class="black">
-            <td colspan="6" style="color: white"><strong>Invoice No # {{$orders->invoice_number}}</strong><br>Pan/GST: {{$invoice->pan_gst??''}}</td>
+            <td colspan="5" style="color: white"><strong>Invoice No # {{$orders->invoice_number}}</strong><br>Pan/GST: {{$invoice->pan_gst??''}}</td>
+            <td colspan="1" style="color: white">Date: {{date('d/m/Y h:ia', strtotime($orders->updated_at))}}</td>
         </tr>
         <tr class="black">
-            <td colspan="6" style="color: white"><strong>Order Date: {{date('D d ,Y', strtotime($orders->delivery_date))}} ({{$orders->timeslot->name??''}})</strong></td>
+            <td colspan="6" style="color: white"><strong>Delivery Date: @if($orders->is_express_delivery){{'60 Min Express Delivery'}}@else{{date('D d ,Y', strtotime($orders->delivery_date))}} ({{$orders->timeslot->name??''}})@endif</strong></td>
+            <td></td>
         </tr>
         </tbody>
     </table>

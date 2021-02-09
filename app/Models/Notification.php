@@ -13,6 +13,6 @@ class Notification extends Model
     protected $fillable=['user_id', 'title', 'description', 'data', 'type'];
 
     public function getCreatedAtAttribute($value){
-        return date('m/d/Y h:ia', strtotime($value));
+        return date('d/m/Y h:ia', strtotime($value));
     }
 }
