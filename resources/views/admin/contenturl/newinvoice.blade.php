@@ -65,7 +65,7 @@
         <tbody>
         <tr class="black">
             <td colspan="6" style="color: white"><strong>Invoice No # {{$orders->invoice_number}}</strong><br>Pan/GST: {{$invoice->pan_gst??''}}</td>
-            <td>Date: {{date('d/m/Y h:ia', strtotime($order->updated_at))}}</td>
+            <td>Date: {{date('d/m/Y h:ia', strtotime($orders->updated_at))}}</td>
         </tr>
         <tr class="black">
             <td colspan="6" style="color: white"><strong>Delivery Date: @if($orders->is_express_delivery){{'60 Min Express Delivery'}}@else{{date('D d ,Y', strtotime($orders->delivery_date))}} ({{$orders->timeslot->name??''}})@endif</strong></td>
