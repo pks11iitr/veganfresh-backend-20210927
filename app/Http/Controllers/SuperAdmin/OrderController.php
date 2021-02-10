@@ -289,15 +289,18 @@ class OrderController extends Controller
 
         $invoice =Invoice::findOrFail($id);
 
-        if($invoice->update([
+        $invoice->update([
             'prefix'=>$request->prefix,
             'sequence'=>$request->sequence,
             'address'=>$request->address,
             'current_sequence'=>$request->current_sequence??1,
             'pan_gst'=>$request->pan_gst
-        ]))
-        {
+        ]);
+        if($request->image){
+            $invoice->saveImage($request->image, 'invoice');
+        }
 
+        if($invoice) {
             return redirect()->back()->with('success', 'Invoice has been updated');
         }
         return redirect()->back()->with('error', 'Invoice update failed');
