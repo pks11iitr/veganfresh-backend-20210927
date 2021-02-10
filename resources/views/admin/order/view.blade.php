@@ -54,6 +54,14 @@
                                                     <label>Address</label>
                                                     <input type="text" name="address" class="form-control" min="0" id="exampleInputEmail3" placeholder="Enter Address" value="{{$invoice->address??''}}">
                                                 </div>
+                                                <div class="col-3">
+                                                    <label>Image</label>
+                                                    <input type="file" name="image" class="form-control" id="exampleInputEmail3">
+                                                </div>
+                                                <div class="col-3">
+                                                    <label>View Image</label>
+                                                    <img src="{{$invoice->image??''}}" width="200px" height="100px">
+                                                </div>
                                                 <div class="col-3"><label>.</label><br>
                                                     <button type="submit" name="save" class="btn btn-danger">Update</button>
                                                 </div>
