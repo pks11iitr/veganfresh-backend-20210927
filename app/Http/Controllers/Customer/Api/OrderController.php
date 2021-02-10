@@ -565,7 +565,7 @@ class OrderController extends Controller
             Wallet::updatewallet($order->user_id, 'Cashback Revoked For Order ID: '.$order->refid, 'DEBIT', $order->cashback_given, 'POINT', $order->id);
         }
 
-        $message='Congratulations! Your order of Rs. '.$order->total_cost.' at Hallobasket is cancelled. Order Reference ID: '.$order->refid;
+        $message='Your order of Rs. '.($order->total_cost-$order->coupon_discount+$order->delivery_charge+$order->extra_amount).' at Hallobasket is cancelled. Order Reference ID: '.$order->refid;
 
         Notification::create([
             'user_id'=>$order->user_id,

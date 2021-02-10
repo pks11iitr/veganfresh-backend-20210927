@@ -43,7 +43,7 @@ class OrderConfirmListner
 
         $title='Order Confirmed';
         if($order->details[0]->entity_type == 'App\Models\Product'){
-            $message='Congratulations! Your purchase of Rs. '.$order->total_cost.' at Hallobasket is successfull. Order Reference ID: '.$order->refid;
+            $message='Congratulations! Your purchase of Rs. '.($order->total_cost-$order->coupon_discount+$order->delivery_charge+$order->extra_amount).' at Hallobasket is successfull. Order Reference ID: '.$order->refid;
         }else{
             $message='Congratulations! Your therapy booking of Rs. '.$order->total_cost.' at Hallobasket is successfull. Order Reference ID: '.$order->refid;
 
