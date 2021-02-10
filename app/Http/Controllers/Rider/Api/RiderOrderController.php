@@ -12,6 +12,7 @@ use App\Models\OrderStatus;
 use App\Models\ReturnProduct;
 use App\Models\Wallet;
 use App\Services\Notification\FCMNotification;
+use App\Services\SMS\Msg91;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -576,6 +577,8 @@ class RiderOrderController extends Controller
         $message='Your Order ID: '.$order->refid.' at Hallobasket has been delivered';
 
         FCMNotification::sendNotification($order->customer->notification_token, $title, $message);
+
+        Msg91::send($user->mobile, $message);
 
         return [
             'status'=>'success',
