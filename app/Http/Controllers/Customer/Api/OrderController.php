@@ -12,6 +12,7 @@ use App\Models\Customer;
 use App\Models\CustomerAddress;
 use App\Models\DailyBookingsSlots;
 use App\Models\HomeBookingSlots;
+use App\Models\Invoice;
 use App\Models\Membership;
 use App\Models\Notification;
 use App\Models\Order;
@@ -594,7 +595,8 @@ class OrderController extends Controller
     public function downloadPDF($id){
         $orders = Order::with(['details'])->find($id);
         // var_dump($orders);die();
-        $pdf = PDF::loadView('admin.contenturl.newinvoice', compact('orders'))->setPaper('a4', 'portrait');
+        $invoice=Invoice::find(1);
+        $pdf = PDF::loadView('admin.contenturl.newinvoice', compact('orders', 'invoice'))->setPaper('a4', 'portrait');
         return $pdf->download('invoice.pdf');
         //return view('admin.contenturl.newinvoice',['orders'=>$orders]);
     }
