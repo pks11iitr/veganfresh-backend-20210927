@@ -59,8 +59,13 @@
                                     <tr>
                                         <th>Name</th>
                                         <th>Price</th>
+                                        <th>Mrp</th>
                                         <th>Quantity</th>
                                         <th>Date</th>
+                                        <th>Expiry</th>
+                                        <th>Manufacturing</th>
+                                        <th>Vendor</th>
+                                        <th>Remarks</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -68,8 +73,13 @@
                                         <tr>
                                             <td>{{$purchase->name}}</td>
                                             <td>{{$purchase->price}}</td>
+                                            <td>{{$purchase->mrp}}</td>
                                             <td>{{$purchase->quantity}}</td>
                                             <td>{{$purchase->create_date}}</td>
+                                            <td>{{$purchase->expiry}}</td>
+                                            <td>{{$purchase->vendor}}</td>
+                                            <td>{{$purchase->manufacturer}}</td>
+                                            <td>{{$purchase->remarks}}</td>
 
                                         </tr>
                                     @endforeach
@@ -78,8 +88,13 @@
                                     <tr>
                                         <th>Name</th>
                                         <th>Price</th>
+                                        <th>Mrp</th>
                                         <th>Quantity</th>
                                         <th>Date</th>
+                                        <th>Expiry</th>
+                                        <th>Manufacturing</th>
+                                        <th>Vendor</th>
+                                        <th>Remarks</th>
                                     </tr>
                                     </tfoot>
                                 </table>

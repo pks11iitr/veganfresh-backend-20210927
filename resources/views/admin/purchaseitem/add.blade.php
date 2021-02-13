@@ -61,8 +61,14 @@
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
+                                                <label for="exampleInputEmail1">MRP</label>
+                                                <input type="text" name="mrp" class="form-control" id="exampleInputEmail1" placeholder="Enter Price" min="0">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
                                                 <label for="exampleInputEmail1">Quantity</label>
-                                                <input type="number" name="quantity" class="form-control" id="exampleInputEmail1" placeholder="Enter Quantity" min="0">
+                                                <input type="text" name="quantity" class="form-control" id="exampleInputEmail1" placeholder="Enter Quantity" min="0">
                                             </div>
                                         </div>
                                         <div class="col-md-6">
@@ -71,7 +77,30 @@
                                                 <input type="date" name="create_date" class="form-control" id="exampleInputEmail1" placeholder="Enter Date" value="{{date('Y-m-d')}}">
                                             </div>
                                         </div>
-
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail1">Expiry</label>
+                                                <input type="date" name="expiry" class="form-control" id="exampleInputEmail1" placeholder="Enter Date" value="{{date('Y-m-d')}}">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail1">Manufacturing</label>
+                                                <input type="text" name="manufacturer" class="form-control" id="exampleInputEmail1" placeholder="Enter Manufactorer">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail1">Vendor</label>
+                                                <input type="text" name="vendor" class="form-control" id="exampleInputEmail1" placeholder="Enter Vendor" min="0">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail1">Remark</label>
+                                                <textarea name="remarks" class="form-control" id="exampleInputEmail1" placeholder="Enter Remarks"></textarea>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <!-- /.card-body -->

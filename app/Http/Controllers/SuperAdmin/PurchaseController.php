@@ -51,7 +51,11 @@ class PurchaseController extends Controller
             'name'=>'required',
             'price'=>'required',
             'quantity'=>'required',
-            'create_date'=>'required'
+            'create_date'=>'required',
+            'manufacturer'=>'required',
+            'expiry'=>'required',
+            'mrp'=>'required',
+            'vendor'=>'required'
         ]);
 
         if($area=PurchaseItem::create([
@@ -59,6 +63,11 @@ class PurchaseController extends Controller
             'price'=>$request->price,
             'quantity'=>$request->quantity,
             'create_date'=>$request->create_date,
+            'manufacturer'=>$request->manufacturer,
+            'expiry'=>$request->expiry,
+            'mrp'=>$request->mrp,
+            'vendor'=>$request->vendor,
+            'remarks'=>$request->remarks
         ]))
 
         {
