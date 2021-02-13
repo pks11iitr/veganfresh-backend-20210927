@@ -56,49 +56,49 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">Price</label>
-                                                <input type="text" name="price" class="form-control" id="exampleInputEmail1" placeholder="Enter Price" min="0">
+                                                <input type="text" name="price" class="form-control" id="exampleInputEmail1" placeholder="Enter Price" min="0" value="{{old('price')}}">
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">MRP</label>
-                                                <input type="text" name="mrp" class="form-control" id="exampleInputEmail1" placeholder="Enter Price" min="0">
+                                                <input type="text" name="mrp" class="form-control" id="exampleInputEmail1" placeholder="Enter Price" min="0" value="{{old('mrp')}}">
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">Quantity</label>
-                                                <input type="text" name="quantity" class="form-control" id="exampleInputEmail1" placeholder="Enter Quantity" min="0">
+                                                <input type="text" name="quantity" class="form-control" id="exampleInputEmail1" placeholder="Enter Quantity" min="0" {{old('quantity')}}>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">Date</label>
-                                                <input type="date" name="create_date" class="form-control" id="exampleInputEmail1" placeholder="Enter Date" value="{{date('Y-m-d')}}">
+                                                <input type="date" name="create_date" class="form-control" id="exampleInputEmail1" placeholder="Enter Date" value="{{old('created_at')??date('Y-m-d')}}">
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">Expiry</label>
-                                                <input type="date" name="expiry" class="form-control" id="exampleInputEmail1" placeholder="Enter Date" value="{{date('Y-m-d')}}">
+                                                <input type="date" name="expiry" class="form-control" id="exampleInputEmail1" placeholder="Enter Date" value="{{old('expiry')??date('Y-m-d')}}">
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">Manufacturing</label>
-                                                <input type="text" name="manufacturer" class="form-control" id="exampleInputEmail1" placeholder="Enter Manufactorer">
+                                                <input type="text" name="manufacturer" class="form-control" id="exampleInputEmail1" placeholder="Enter Manufactorer" value="{{old('manufacturer')}}">
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">Vendor</label>
-                                                <input type="text" name="vendor" class="form-control" id="exampleInputEmail1" placeholder="Enter Vendor" min="0">
+                                                <input type="text" name="vendor" class="form-control" id="exampleInputEmail1" placeholder="Enter Vendor" min="0" value="{{old('vendor')}}">
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">Remark</label>
-                                                <textarea name="remarks" class="form-control" id="exampleInputEmail1" placeholder="Enter Remarks"></textarea>
+                                                <textarea name="remarks" class="form-control" id="exampleInputEmail1" placeholder="Enter Remarks">{{old('remarks')}}</textarea>
                                             </div>
                                         </div>
                                     </div>
