@@ -416,7 +416,7 @@ class OrderController extends Controller
 
         $show_cancel_product=0;
         $show_download_invoice=0;
-
+        $show_repeat_order=0;
         $user=auth()->guard('customerapi')->user();
         if(!$user)
             return [
@@ -433,6 +433,9 @@ class OrderController extends Controller
                 'status'=>'failed',
                 'message'=>'Invalid Operation Performed'
             ];
+
+        if(in_array($order->status, ['completed','delivered']))
+            $show_repeat_order=1;
 
         //get reviews information
         $reviews=[];
@@ -500,7 +503,8 @@ class OrderController extends Controller
                 'prices'=>$prices,
                 'show_download_invoice'=>$show_download_invoice??0,
                 'invoice_link'=>$show_download_invoice?route('download.invoice', ['id'=>$order->id]):'',
-                'time_slot'=>$time_slot
+                'time_slot'=>$time_slot,
+                'show_repeat_order'=>$show_repeat_order??0
             ]
         ];
     }
@@ -600,5 +604,92 @@ class OrderController extends Controller
         return $pdf->download('invoice.pdf');
         //return view('admin.contenturl.newinvoice',['orders'=>$orders]);
     }
+
+    public function repeatOrder(Request $request, $order_id){
+
+        $user=auth()->guard('customerapi')->user();
+        if(!$user)
+            return [
+                'status'=>'failed',
+                'message'=>'Please login to continue'
+            ];
+
+        Cart::where('user_id', $user->id)->delete();
+
+        $order=Order::with(['details'=>function($details){
+            $details->select('id','entity_id','order_id', 'size_id', 'quantity');
+        }])->findOrFail($order_id)->toArray();
+        //return $order;
+        $pids=array_map(function($element){
+            return $element['entity_id'];
+        }, $order['details']);
+
+        $sids=array_map(function($element){
+            return $element['size_id'];
+        }, $order['details']);
+
+//        $quantities1=array_map(function($element){
+//            return [$element['size_id']=>$element['quantity']];
+//        }, $order['details']);
+
+        $quantities=[];
+        foreach($order['details'] as $d){
+            $quantities[$d['size_id']]=$d['quantity'];
+        }
+
+        //return $quantities;
+        //return $pids;
+        if(!($sids && $pids))
+            return [
+                'status'=>'failed',
+                'message'=>'No product available stocks'
+            ];
+
+
+        $products=Product::active()
+            ->with(['sizeprice'=>function($sizes) use ($sids){
+                $sizes->where('isactive', true)->whereIn('product_prices.id', $sids);
+            }])
+            ->whereIn('id', $pids)
+            ->get();
+
+        foreach($products as $product){
+            if(count($product->sizeprice)){
+                if($product->stock_type=='packet'){
+                    if($product->sizeprice[0]->stock > $quantities[$product->sizeprice[0]->id]){
+                        Cart::create([
+                            'product_id'=>$product->id,
+                            'quantity'=>$quantities[$product->sizeprice[0]->id],
+                            'user_id'=>$user->id,
+                            'size_id'=>$product->sizeprice[0]->id,
+                        ]);
+                    }else if($product->sizeprice[0]->stock>0){
+                        Cart::create([
+                            'product_id'=>$product->id,
+                            'quantity'=>$product->sizeprice[0]->stock,
+                            'user_id'=>$user->id,
+                            'size_id'=>$product->sizeprice[0]->id,
+                        ]);
+                    }
+            }else{
+                    if($product->stock > $quantities[$product->sizeprice[0]->id]*$product->sizeprice[0]->consumed_units){
+                        Cart::create([
+                            'product_id'=>$product->id,
+                            'quantity'=>$quantities[$product->sizeprice[0]->id],
+                            'user_id'=>$user->id,
+                            'size_id'=>$product->sizeprice[0]->id,
+                        ]);
+                    }
+                }
+            }
+        }
+
+        return [
+            'status'=>'success',
+            'message'=>'Item has been added to cart'
+        ];
+
+    }
+
 
 }

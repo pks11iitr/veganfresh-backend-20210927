@@ -8,6 +8,7 @@ use App\Models\Wallet;
 use App\Services\Payment\RazorPayService;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 
 class WalletController extends Controller
 {
@@ -151,6 +152,14 @@ class WalletController extends Controller
                 'status'=>'failed',
                 'message'=>'Please login to continue'
             ];
+
+//        DB::beginTransaction();
+//        $balance=Wallet::balancewithlock($user->id);
+//        echo date('h:i:s');
+//        sleep(10);
+//        echo date('h:i:s');
+//        DB::commit();
+
         if($user){
             return [
                 'balance'=>Wallet::balance($user->id),
