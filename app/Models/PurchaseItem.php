@@ -10,4 +10,19 @@ class PurchaseItem extends Model
 
     protected $fillable=['name','price','quantity','create_date', 'mrp','expiry','vendor','manufacturer','remarks'];
 
+    public function getCreateDateAttribute($value){
+        if(!empty($value)){
+            return date('d-m-Y',strtotime($value));
+        }
+        return '';
+    }
+
+
+    public function getExpiryAttribute($value){
+        if(!empty($value)){
+            return date('d-m-Y',strtotime($value));
+        }
+        return '';
+    }
+
 }

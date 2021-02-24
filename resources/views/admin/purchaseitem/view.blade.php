@@ -63,8 +63,8 @@
                                         <th>Quantity</th>
                                         <th>Date</th>
                                         <th>Expiry</th>
-                                        <th>Manufacturing</th>
                                         <th>Vendor</th>
+                                        <th>Manufacturing</th>
                                         <th>Remarks</th>
                                     </tr>
                                     </thead>

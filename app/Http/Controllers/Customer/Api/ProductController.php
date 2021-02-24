@@ -172,21 +172,21 @@ class ProductController extends Controller
         $cart=$cart['cart'];
         foreach($product->sizeprice as $size)
             $size->quantity=$cart[$size->id]??0;
-            $productdetails=array(
-                     'id'=>$product->id,
-                     'name'=>$product->name,
-                     'description'=>$product->description,
-                     'company'=>$product->company,
-                     'ratings'=>$product->ratings,
-                     'sizeprice'=>$product->sizeprice,
-                     'reviews_count'=>$ratings,
-                     'avg_reviews'=>$avg_reviews,
-                     'totalcount'=>$totalcount,
-                     'reviews'=>$reviews,
-                     'timeslot'=>$timeslot,
-                     'in_stocks'=>Size::getStockStatus($size, $product),
-                     'min_qty'=>$size->min_qty,
-                     'max_qty'=>$size->max_qty,
+        $productdetails=array(
+                 'id'=>$product->id,
+                 'name'=>$product->name,
+                 'description'=>$product->description,
+                 'company'=>$product->company,
+                 'ratings'=>$product->ratings,
+                 'sizeprice'=>$product->sizeprice,
+                 'reviews_count'=>$ratings,
+                 'avg_reviews'=>$avg_reviews,
+                 'totalcount'=>$totalcount,
+                 'reviews'=>$reviews,
+                 'timeslot'=>$timeslot,
+                 'in_stocks'=>empty($size)?0:Size::getStockStatus($size, $product),
+                 'min_qty'=>$size->min_qty,
+                 'max_qty'=>$size->max_qty,
         );
 
         return [
