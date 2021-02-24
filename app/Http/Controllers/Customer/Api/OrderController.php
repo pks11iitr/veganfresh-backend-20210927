@@ -434,7 +434,7 @@ class OrderController extends Controller
                 'message'=>'Invalid Operation Performed'
             ];
 
-        if(in_array($order->status, ['completed','delivered']))
+        if(in_array($order->status, ['completed','delivered', 'cancelled']))
             $show_repeat_order=1;
 
         //get reviews information
