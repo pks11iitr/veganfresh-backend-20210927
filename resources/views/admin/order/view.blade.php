@@ -201,10 +201,11 @@
                                     @foreach($orders as $order)
                                             <tr>
                                                 <td>{{$order->refid}}</td>
+                                                <td>{{$order->customer->name??''}} <br>Mob: {{$order->customer->mobile??''}}</td>
+
                                                 <td>{{$order->storename->name??''}}</td>
                                                 <td>{{$order->rider->name??''}}</td>
-                                                <td>{{$order->customer->name??''}} <br>Mob: {{$order->customer->mobile??''}}</td>
-                                                <td>{{date('d/m/Y H:i A', strtotime($order->delivery_date))}}</td>
+                                                                                               <td>{{date('d/m/Y H:i A', strtotime($order->created_at))}}</td>
                                                 <td>@if($order->is_express_delivery)
                                                         Express Delivery
                                                     @else
