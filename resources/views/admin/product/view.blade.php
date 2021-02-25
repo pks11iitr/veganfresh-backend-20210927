@@ -138,7 +138,7 @@
                   </tfoot>
                 </table>
               </div>
-              {{$products->appends($request->all())->links()}}
+              {{$products->appends(request()->all())->links()}}
               <!-- /.card-body -->
             </div>
             <!-- /.card -->
