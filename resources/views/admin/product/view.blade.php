@@ -54,6 +54,7 @@
                       </div>
                     <div class="col-1">
                        <button type="submit" name="save" class="btn btn-primary">Submit</button>
+                        <a href="" class="btn btn-primary">Reset Filters</a>
                      </div>
                   </div>
               </form>
