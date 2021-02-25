@@ -68,7 +68,7 @@ class ProductController extends Controller
 
         $products=$product->with(['sizeprice'=>function($size){
             $size->where('product_prices.isactive', true);
-        }])->paginate(5);
+        }])->paginate(20);
 
         foreach($products as $product){
             foreach($product->sizeprice as $size){
@@ -120,7 +120,7 @@ class ProductController extends Controller
             $size->where('product_prices.isactive', true);
 
         })
-            ->paginate(5);
+            ->paginate(20);
 
         foreach($searchproducts as $product){
             foreach($product->sizeprice as $size){
