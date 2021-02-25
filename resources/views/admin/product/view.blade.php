@@ -27,15 +27,17 @@
             <div class="card">
               <div class="card-header">
 			 <div class="row">
-			  <div class="col-3">
-                <a href="{{route('product.create')}}" class="btn btn-primary">Add Product</a></div>&nbsp;&nbsp;
-                 <a href="{{route('product.bulk.form')}}" class="btn btn-primary">Bulk Upload</a></div><br>
+                  <div class="col-3">
+                    <a href="{{route('product.create')}}" class="btn btn-primary">Add Product</a>&nbsp;&nbsp;
+                     <a href="{{route('product.bulk.form')}}" class="btn btn-primary">Bulk Upload</a>
+                  </div>
+             </div><br>
+             <div class="row">
 
-            <div class="col-9">
 		 <form class="form-validate form-horizontal"  method="get" action="" enctype="multipart/form-data">
 
-                     <div class="row">
-                         <div class="col-4">
+             <div class="row">
+                         <div class="col-3">
                              <select name="category_id" class="form-control" >
                                  <option value="">Select Category</option>
                                  @foreach($categories as $category)
@@ -43,22 +45,31 @@
                                  @endforeach
                              </select>
                          </div>
-					      <div class="col-4">
+					      <div class="col-3">
                            <input  id="fullname" onfocus="this.value=''" class="form-control" name="search" placeholder=" search name" value="{{request('search')}}"  type="text" />
                            </div>
-					  <div class="col-3">
-                          <select id="ordertype" name="ordertype" class="form-control" >
-                             <option value="DESC" {{ request('ordertype')=='DESC'?'selected':''}}>DESC</option>
-                              <option value="ASC" {{ request('ordertype')=='ASC'?'selected':''}}>ASC</option>
-                          </select>
-                      </div>
-                    <div class="col-1">
-                       <button type="submit" name="save" class="btn btn-primary">Submit</button>
-                        <a href="" class="btn btn-primary">Reset Filters</a>
+{{--					  <div class="col-3">--}}
+{{--                          --}}
+{{--                      </div>--}}
+                    <div class="col-3">
+                        <select id="ordertype" name="ordertype" class="form-control" >
+                            <option value="DESC" {{ request('ordertype')=='DESC'?'selected':''}}>DESC</option>
+                            <option value="ASC" {{ request('ordertype')=='ASC'?'selected':''}}>ASC</option>
+                        </select>
                      </div>
-                  </div>
+                 <div class="col-3">
+                     <button type="submit" name="save" class="btn btn-primary">Submit</button>
+                 </div>
+             </div>
+             <br>
+             <div class="row">
+                 <div class="col-12">
+
+                 <a href="{{route('product.list')}}" class="btn btn-primary">Reset Filters</a>
+                 </div>
+             </div>
               </form>
-         </div>
+
 
      </div>
   </div>
