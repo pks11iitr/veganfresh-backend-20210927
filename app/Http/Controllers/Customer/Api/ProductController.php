@@ -25,12 +25,16 @@ class ProductController extends Controller
         if(!empty($request->sub_cat_id)){
 
           $product=Product::active()->whereHas('subcategory', function($category) use($request){
-              $category->where('sub_category.id', $request->sub_cat_id)->where('sub_category.isactive',true);
+              $category->where('sub_category.id', $request->sub_cat_id)
+                  ->where('sub_category.isactive',true);
             });
         }else{
           $product=Product::active()->whereHas('category', function($category) use($request){
-              $category->where('categories.id', $request->category_id)->where('categories.isactive',true);
-            });
+              $category->where('categories.id', $request->category_id)
+                  ->where('categories.isactive',true);
+            })->whereDoesntHave('subcategory', function($category) use($request){
+              $category->where('sub_category.isactive',false);
+          });
         }
 
         if($request->prices || $request->sizes){
