@@ -61,7 +61,7 @@ class Customer extends Authenticatable implements JWTSubject
     }
 
     public function membership(){
-        return $this->belongsTo('App\Model\Membership', 'active_membership');
+        return $this->belongsTo('App\Models\Membership', 'active_membership');
     }
 
     public function area(){

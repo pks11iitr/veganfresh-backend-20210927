@@ -14,7 +14,7 @@ class CustomerController extends Controller
 {
      public function index(Request $request){
 
-            $customers=Customer::where(function($customers) use($request){
+            $customers=Customer::with('membership')->where(function($customers) use($request){
                 $customers->where('name','LIKE','%'.$request->search.'%')
                     ->orWhere('mobile','LIKE','%'.$request->search.'%')
                     ->orWhere('email','LIKE','%'.$request->search.'%');
@@ -32,12 +32,15 @@ class CustomerController extends Controller
             if($request->ordertype)
                 $customers=$customers->orderBy('created_at', $request->ordertype);
 
-            $customers=$customers->paginate(10);
+            if($request->membership)
+                $customers=$customers->where('active_membership', '>',0)->where('membership_expiry', '>', date('Y-m-d'));
+
+            $customers=$customers->orderBy('id', 'desc')->paginate(10);
             return view('admin.customer.view',['customers'=>$customers]);
      }
 
     public function edit(Request $request,$id){
-             $customers = Customer::findOrFail($id);
+             $customers = Customer::with('membership')->findOrFail($id);
              return view('admin.customer.edit',['customers'=>$customers]);
              }
 

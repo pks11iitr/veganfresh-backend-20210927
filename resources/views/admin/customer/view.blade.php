@@ -57,6 +57,12 @@
                            <div class="col-4">
                            <input  class="form-control" name="todate" placeholder=" search name" value="{{request('todate')}}"  type="date" />
                            </div>
+                         <div class="col-4">
+                             <select id="status" name="membership" class="form-control" >
+                                 <option value="">All Users</option>
+                                 <option value="1" {{ request('membership')=='1'?'selected':''}}>Active Membership</option>
+                             </select>
+                         </div>
                     <div class="col-4">
                        <button type="submit" name="save" class="btn btn-primary">Submit</button>
                      </div>
@@ -79,6 +85,7 @@
                     <th>City</th>
                     <th>State</th>-->
                     <th>Image</th>
+                    <th>Membership</th>
                     <th>Isactive</th>
                    <th>Action</th>
                   </tr>
@@ -94,6 +101,7 @@
 					  <td>{{$customer->city}}</td>
 					  <td>{{$customer->state}}</td>-->
                       <td><img src="{{$customer->image}}" height="80px" width="80px"/></td>
+                      <td>@if($customer->isMembershipActive()){{$customer->membership->name??'--'}}@endif</td>
                        <td>
                         @if($customer->status==1){{'Active'}}
                              @elseif($customer->status==2){{'Blocked'}}@else{{'Inactive'}}
