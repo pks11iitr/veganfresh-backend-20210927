@@ -18,8 +18,8 @@
         </div>
       </div><!-- /.container-fluid -->
     </section>
-    
-    
+
+
     <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
@@ -56,7 +56,7 @@
                     <label for="exampleInputEmail1">State</label>
                     <input type="text" name="state" class="form-control" id="exampleInputEmail1" placeholder="Enter State" value="{{$customers->state}}">
                   </div>
-              
+
                     <div class="form-group">
                         <label>Is Active</label>
                         <select class="form-control" name="status" required>
@@ -65,19 +65,32 @@
                             <option value="2" {{$customers->status==2?'selected':''}}>Blocked</option>
                         </select>
                       </div>
+                    <div class="form-group">
+                        <label>Membership</label>
+                        <select class="form-control" name="active_membership" required>
+                            <option value="0">Select Membership</option>
+                            @foreach($memberships as $member)
+                                <option value="{{$member->id}}" @if($member->id==$customers->active_membership){{'selected'}}@endif>{{$member->name}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Membership Expiry</label>
+                        <input type="date" name="membership_expiry" class="form-control" id="exampleInputEmail1" placeholder="Enter State" value="{{$customers->membership_expity}}">
+                    </div>
                   <div class="form-group">
                     <label for="exampleInputFile">File input</label>
                     <div class="input-group">
                       <div class="custom-file">
                         <input type="file" name="image" class="custom-file-input" id="exampleInputFile" accept="image/*">
                         <label class="custom-file-label" for="exampleInputFile">Choose file</label>
-                         
+
                       </div>
                       <div class="input-group-append">
                         <span class="input-group-text" id="">Upload</span>
-                        
+
                       </div>
-                      
+
                     </div>
                   </div>
                   <image src="{{$customers->image}}" height="100" width="200">
@@ -96,7 +109,7 @@
       </div><!-- /.container-fluid -->
     </section>
     <!-- /.content -->
-  
+
 </div>
 <!-- ./wrapper -->
 @endsection

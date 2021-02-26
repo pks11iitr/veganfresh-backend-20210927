@@ -4,6 +4,7 @@ namespace App\Http\Controllers\SuperAdmin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Customer;
+use App\Models\Membership;
 use App\Models\Notification;
 use App\Services\Notification\FCMNotification;
 use Illuminate\Http\Request;
@@ -41,18 +42,19 @@ class CustomerController extends Controller
 
     public function edit(Request $request,$id){
              $customers = Customer::with('membership')->findOrFail($id);
-             return view('admin.customer.edit',['customers'=>$customers]);
+             $memberships=Membership::get();
+             return view('admin.customer.edit',['customers'=>$customers, 'memberships'=>$memberships]);
              }
 
     public function update(Request $request,$id){
              $request->validate([
                              'status'=>'required',
                   			'name'=>'required',
-                  			'dob'=>'required',
-                  			'address'=>'required',
-                  			'city'=>'required',
-                  			'state'=>'required',
-                  			'image'=>'image'
+                  			//'dob'=>'required',
+                  			//'address'=>'required',
+                  			//'city'=>'required',
+                  			//'state'=>'required',
+                  			//'image'=>'image'
                   			]);
 
              $customers = Customer::findOrFail($id);
@@ -64,6 +66,8 @@ class CustomerController extends Controller
                       'address'=>$request->address,
                       'city'=>$request->city,
                       'state'=>$request->state,
+                 'active_membership'=>$request->active_membership,
+                      'membership_expiry'=>$request->membership_expiry,
                       'image'=>'a']);
              $customers->saveImage($request->image, 'customers');
         }else{
@@ -73,7 +77,9 @@ class CustomerController extends Controller
                       'dob'=>$request->dob,
                       'address'=>$request->address,
                       'city'=>$request->city,
-                      'state'=>$request->state
+                      'state'=>$request->state,
+                        'active_membership'=>$request->active_membership,
+                 'membership_expiry'=>$request->membership_expiry,
                          ]);
              }
           if($customers)
