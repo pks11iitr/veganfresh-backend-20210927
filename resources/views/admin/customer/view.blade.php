@@ -110,8 +110,10 @@
                              @elseif($customer->status==2){{'Blocked'}}@else{{'Inactive'}}
                              @endif
                         </td>
-                      <td><a href="{{route('customer.edit',['id'=>$customer->id])}}" class="btn btn-success">Edit</a>&nbsp;&nbsp;&nbsp;
+                      <td><a href="{{route('customer.edit',['id'=>$customer->id])}}" class="btn btn-success">Edit</a>
+                          <a href="{{route('user.wallet.history', ['id'=>$customer->id])}}" target="_blank" class='btn btn-primary'>Wallet History</a>&nbsp;&nbsp;&nbsp;
 {{--                      <a href="{{route('customer.edit',['id'=>$customer->id])}}" class="open-AddBookDialog btn btn-success" data-toggle="modal" data-target="#exampleModal" data-id="{{$customer->id}}">Notification</a></td>--}}
+                          <a href="javascript:void(0)" class='btn btn-primary' onclick="openWalletPanel('{{$order->id??''}}', '{{route('user.wallet.balance', ['id'=>$customer->id])}}', {{$customer->id}})">Add/Revoke Balance</a>
                  </tr>
                  @endforeach
                   </tbody>
@@ -172,7 +174,107 @@
     </div>
   </div>
 </div>
+
+        <div class="modal fade show" id="modal-lg" style="display: none; padding-right: 15px;" aria-modal="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Add/Remove Cashback/Wallet Balance&nbsp;&nbsp;&nbsp;&nbsp;Balance:<span id="user-wallet-balance"></span>&nbsp;&nbsp;Cashback:<span id="user-wallet-cashback"></span></h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body" id="booking-form-section">
+                        <form role="form" method="post" enctype="multipart/form-data" action="{{route('wallet.add.remove')}}">
+                            @csrf
+                            <input type="hidden" name="order_id" id="wallet-order-id" value="1">
+                            <input type="hidden" name="user_id" id="wallet-user-id" value="1">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">Select Add/Revoke</label>
+                                            <select class="form-control" name="action_type" required="">
+                                                <option value="">Select Any</option>
+                                                <option value="add">Add</option>
+                                                <option value="revoke">Revoke</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">Calculation Type</label>
+                                            <select class="form-control" name="calculation_type" required="">
+                                                <option value="">Select Any</option>
+                                                <option value="fixed">Fixed Amount</option>
+                                                <option value="percentage">Percentage</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">Type(Cashback/Wallet Balance)</label>
+                                            <select class="form-control" name="amount_type" required="">
+                                                <option value="">Select Any</option>
+                                                <option value="cashback">Cashback</option>
+                                                <option value="balance">Wallet Balance</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">Amount</label>
+                                            <input type="number" name="amount" class="form-control" required="" value="0.0" min="0.01" step=".01">
+                                        </div>
+
+                                    </div>
+
+
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Description</label>
+                                    <input type="text" name="wallet_text" class="form-control" required="" placeholder="Max 150 characters">
+                                </div>
+                            </div>
+                            <!-- /.card-body -->
+                            <div class="card-footer">
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                    {{--                <div class="modal-footer justify-content-between">--}}
+                    {{--                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>--}}
+                    {{--                    <button type="button" class="btn btn-primary">Save changes</button>--}}
+                    {{--                </div>--}}
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+
+
+
 <script>
+
+    function openWalletPanel(id, url, user_id){
+        $("#wallet-order-id").val(id)
+        $("#wallet-user-id").val(user_id)
+        $.ajax({
+            url:url,
+            method:'get',
+            datatype:'json',
+            success:function(data){
+//alert(data)
+                if(data.status=='success'){
+//alert()
+                    $("#user-wallet-balance").html(data.data.balance)
+                    $("#user-wallet-cashback").html(data.data.cashback)
+
+                }
+
+            }
+        })
+        $("#modal-lg").modal('show')
+
+    }
+
 
 $(document).on("click", ".open-AddBookDialog", function () {
      var myBookId = $(this).data('id');
