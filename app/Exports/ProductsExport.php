@@ -5,20 +5,21 @@ namespace App\Exports;
 
 
 use Illuminate\Contracts\View\View;
+use Maatwebsite\Excel\Concerns\FromView;
 
-class ProductsExport
+class ProductsExport implements FromView
 {
     public $products;
 
     public function __construct($data){
 
         $this->products=$data;
-        //dd($this->data);
+        //return $this->products;
     }
     public function view(): View
     {
 
-        //dd($this->data);
+        //dd($this->products);
 
         return view('admin.reports.products-report', [
             'products' => $this->products

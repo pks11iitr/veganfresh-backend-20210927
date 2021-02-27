@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\SuperAdmin;
 
+use App\Exports\ProductsExport;
 use App\Exports\SalesExport;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
@@ -51,9 +52,9 @@ class ProductController extends Controller
 
     public function downloadProduct(Request $request){
 
-         $product=Product::with(['category', 'sizeprice', 'subcategory']);
+         $products=Product::with(['category', 'sizeprice', 'subcategory']);
          if($request->search){
-            $products=$product->where(function($products) use($request){
+            $products=$products->where(function($products) use($request){
                 $products->where('name','LIKE','%'.$request->search.'%');
             });
         }
@@ -68,6 +69,7 @@ class ProductController extends Controller
             $products=$products->orderBy('name', $request->ordertype);
 
         $products=$products->get();
+        //return $products;
 
         return Excel::download(new ProductsExport($products), 'products.xlsx');
 
