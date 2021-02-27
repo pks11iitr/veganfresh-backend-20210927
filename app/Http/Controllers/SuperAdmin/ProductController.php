@@ -417,7 +417,7 @@ class ProductController extends Controller
 
         $added_categories=[];
         if($request->sub_category){
-            $subcategories=explode(',', $request->sub_category);
+            $subcategories=explode('***', $request->sub_category);
             $filtered_sub=[];
             foreach($subcategories as $s){
                 $s=trim($s);
@@ -439,7 +439,7 @@ class ProductController extends Controller
         }
 
         if($request->category){
-            $categories=explode(',', $request->category);
+            $categories=explode('***', $request->category);
             $filtered_cat=[];
             foreach($categories as $s){
                 $s=trim($s);

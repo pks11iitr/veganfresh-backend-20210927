@@ -35,15 +35,15 @@
                 <td>{{ $product->is_offer??0 }}</td>
                 <td>{{ $product->isactive??0 }}</td>
                 <td>@if(count($product->category))
-                        @foreach($product->category as $cat){{ $cat->name.',' }}@endforeach
+                        @foreach($product->category as $cat){{ $cat->name.'***' }}@endforeach
                     @else
-                        {{','}}
+                        {{'***'}}
                     @endif
                 </td>
                 <td>@if(count($product->subcategory))
-                        @foreach($product->subcategory as $cat){{ $cat->name.',' }}@endforeach
+                        @foreach($product->subcategory as $cat){{ $cat->name.'***' }}@endforeach
                     @else
-                        {{','}}
+                        {{'***'}}
                     @endif
                 </td>
                 <td>{{ $size->size }}</td>
