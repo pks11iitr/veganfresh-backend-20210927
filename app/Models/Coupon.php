@@ -75,6 +75,10 @@ class Coupon extends Model
 
     }
 
+    public function categories(){
+        return $this->belongsToMany('App\Models\SubCategory', 'coupon_categories', 'coupon_id', 'category_id');
+    }
+
 
 
 }

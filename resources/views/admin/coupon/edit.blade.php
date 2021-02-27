@@ -82,6 +82,25 @@
                                             <option value="multiple-multipleuser" {{$coupon->usage_type=='multiple-multipleuser'?'selected':''}}>Many User Can Use Many Time</option>
                                         </select>
                                     </div>
+                                    <div class="form-group">
+                                        <div class="form-group">
+                                            <label for="exampleInputtitle">Sub Category</label>
+                                            <select class="form-control select2" multiple
+                                                    data-placeholder="Select a subcategory" style="width: 100%;"
+                                                    name="sub_categories[]">
+
+                                                <option value="">Please Select Category</option>
+                                                @foreach($subcategories as $subcategory)
+
+                                                    <option
+                                                        value="{{$subcategory->id}}" @foreach($coupon->categories as $s) @if($s->id==$subcategory->id){{'selected'}}@endif @endforeach >{{$subcategory->name}}</option>
+
+
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+
                                     <!-- /.card-body -->
                                     <div class="card-footer">
                                         <button type="submit" class="btn btn-primary">Submit</button>
@@ -98,4 +117,12 @@
         </section>
         <!-- /.content -->
     </div>
+@endsection
+@section('scripts')
+    <script>
+        $(document).ready(function () {
+            $('.select2').select2();
+            $('#category_id_sel').select2();
+        });
+    </script>
 @endsection
