@@ -34,8 +34,18 @@
                 <td>{{ $product->stock??0 }}</td>
                 <td>{{ $product->is_offer??0 }}</td>
                 <td>{{ $product->isactive??0 }}</td>
-                <td>@foreach($product->category as $cat){{ $cat->name.',' }}@endforeach</td>
-                <td>@foreach($product->subcategory as $cat){{ $cat->name.',' }}@endforeach</td>
+                <td>@if(count($product->category))
+                        @foreach($product->category as $cat){{ $cat->name.',' }}@endforeach
+                    @else
+                        {{','}}
+                    @endif
+                </td>
+                <td>@if(count($product->subcategory))
+                        @foreach($product->subcategory as $cat){{ $cat->name.',' }}@endforeach
+                    @else
+                        {{','}}
+                    @endif
+                </td>
                 <td>{{ $size->size }}</td>
                 <td>{{ $size->price??0 }}</td>
                 <td>{{ $size->cut_price??0 }}</td>

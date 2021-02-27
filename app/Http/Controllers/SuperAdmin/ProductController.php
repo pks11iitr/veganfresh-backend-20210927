@@ -395,12 +395,12 @@ class ProductController extends Controller
              'stock'=>'required|integer|min:0',
              'is_offer'=>'required|integer|min:0',
               'size'=>'required',
-             'price'=>'required|integer',
-             'cut_price'=>'required|integer',
+             'price'=>'required|numeric',
+             'cut_price'=>'required|numeric',
              //'size_stock'=>'required|integer',
-             'min_qty'=>'required|integer|min:1',
-             'max_qty'=>'required|integer|min:1',
-             'consumed_units'=>'required|integer|min:1',
+             'min_qty'=>'required|integer',
+             'max_qty'=>'required|integer',
+             'consumed_units'=>'required|integer',
              'is_size_active'=>'required|in:0,1',
          ]);
 
