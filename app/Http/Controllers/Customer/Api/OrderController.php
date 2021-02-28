@@ -341,40 +341,17 @@ class OrderController extends Controller
                 'message'=>'Please login to continue'
             ];
 
-        $coupon=Coupon::where(DB::raw('BINARY code'), $request->coupon??null)
+        $coupon=Coupon::with(['categories'=>function($categories){
+                $categories->select('sub_category.id');
+                }])
+            ->where(DB::raw('BINARY code'), $request->coupon??null)
             ->first();
+
         if(!$coupon){
             return [
                 'status'=>'failed',
                 'message'=>'Invalid Coupon Applied',
             ];
-        }
-
-        $order=Order::with('details')->find($order_id);
-        if(!$order)
-            return [
-                'status'=>'failed',
-                'message'=>'No Such Order Found'
-            ];
-        $cost=0;
-        $savings=0;
-        $itemdetails=[];
-        foreach($order->details as $detail){
-            $itemdetails[]=[
-                'name'=>$detail->name??'',
-                'image'=>$detail->image??'',
-                'company'=>$detail->entity->company??'',
-                'price'=>$detail->price,
-                'cut_price'=>$detail->cut_price,
-                'quantity'=>$detail->quantity,
-                'size'=>$detail->size->name??'',
-                'item_id'=>$detail->entity_id,
-                //'show_return'=>($detail->status=='delivered'?1:0),
-                //'show_cancel'=>in_array($detail->status, ['confirmed'])?1:0,
-                'show_review'=>isset($reviews[$detail->entity_id])?0:1
-            ];
-            $cost=$cost+$detail->price*$detail->quantity;
-            $savings=$savings+($detail->cut_price-$detail->price)*$detail->quantity;
         }
 
         if($coupon->isactive==false || !$coupon->getUserEligibility($user)){
@@ -383,7 +360,45 @@ class OrderController extends Controller
                 'message'=>'Coupon Has Been Expired',
             ];
         }
-        $discount=$coupon->getCouponDiscount($cost)??0;
+
+        $order=Order::with(['details.entity.subcategory','details.size'])->find($order_id);
+        if(!$order)
+            return [
+                'status'=>'failed',
+                'message'=>'No Such Order Found'
+            ];
+        $cost=0;
+        $savings=0;
+        //$itemdetails=[];
+        foreach($order->details as $detail){
+//            $itemdetails[]=[
+//                'name'=>$detail->name??'',
+//                'image'=>$detail->image??'',
+//                'company'=>$detail->entity->company??'',
+//                'price'=>$detail->price,
+//                'cut_price'=>$detail->cut_price,
+//                'quantity'=>$detail->quantity,
+//                'size'=>$detail->size->name??'',
+//                'item_id'=>$detail->entity_id,
+//                //'show_return'=>($detail->status=='delivered'?1:0),
+//                //'show_cancel'=>in_array($detail->status, ['confirmed'])?1:0,
+//                'show_review'=>isset($reviews[$detail->entity_id])?0:1
+//            ];
+            $cost=$cost+$detail->price*$detail->quantity;
+            $savings=$savings+($detail->cut_price-$detail->price)*$detail->quantity;
+        }
+
+
+        //$discount=$coupon->getCouponDiscount($cost)??0;
+        $discount=$order->getCouponDiscount($coupon)??0;
+
+        if($discount <= 0 || $discount > $order->total_cost)
+        {
+            return [
+                'status'=>'failed',
+                'message'=>'Coupon Cannot Be Applied',
+            ];
+        }
 
         $prices=[
             'basket_total'=>$cost,
@@ -393,14 +408,6 @@ class OrderController extends Controller
             'total_payble'=>$cost+$order->delivery_charge-$discount,
         ];
 
-
-        if($discount > $order->total_cost)
-        {
-            return [
-                'status'=>'failed',
-                'message'=>'Coupon Cannot Be Applied',
-            ];
-        }
 
         return [
 

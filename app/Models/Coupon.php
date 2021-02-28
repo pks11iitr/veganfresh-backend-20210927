@@ -15,6 +15,9 @@ class Coupon extends Model
 
     public function getCouponDiscount($amount){
 
+        if(!$amount)
+            return 0;
+
         if($this->type=='Fixed'){
             $discount=$this->discount;
         }else{
