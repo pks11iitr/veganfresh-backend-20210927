@@ -7,19 +7,19 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Customer Update</h1>
+            <h1>Customer</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Customer Update</li>
+              <li class="breadcrumb-item"><a href="{{route('home')}}">Home</a></li>
+                <li class="breadcrumb-item active"><a href="{{route('customer.list')}}">Customer</a></li>
             </ol>
           </div>
         </div>
       </div><!-- /.container-fluid -->
     </section>
-    
-    
+
+
     <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
@@ -56,7 +56,7 @@
                     <label for="exampleInputEmail1">State</label>
                     <input type="text" name="state" class="form-control" id="exampleInputEmail1" placeholder="Enter State" value="{{$customers->state}}">
                   </div>
-              
+
                     <div class="form-group">
                         <label>Is Active</label>
                         <select class="form-control" name="status" required>
@@ -71,13 +71,13 @@
                       <div class="custom-file">
                         <input type="file" name="image" class="custom-file-input" id="exampleInputFile" accept="image/*">
                         <label class="custom-file-label" for="exampleInputFile">Choose file</label>
-                         
+
                       </div>
                       <div class="input-group-append">
                         <span class="input-group-text" id="">Upload</span>
-                        
+
                       </div>
-                      
+
                     </div>
                   </div>
                   <image src="{{$customers->image}}" height="100" width="200">
@@ -96,7 +96,7 @@
       </div><!-- /.container-fluid -->
     </section>
     <!-- /.content -->
-  
+
 </div>
 <!-- ./wrapper -->
 @endsection

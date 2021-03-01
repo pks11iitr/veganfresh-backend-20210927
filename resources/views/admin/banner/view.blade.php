@@ -11,7 +11,7 @@
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item"><a href="{{route('home')}}">Home</a></li>
               <li class="breadcrumb-item active">Banner</li>
             </ol>
           </div>
@@ -66,7 +66,7 @@
                              @endif
                         </td>
                       <td><a href="{{route('banners.edit',['id'=>$bann->id])}}" class="btn btn-success">Edit</a>
-                      <a href="{{route('banners.delete',['id'=>$bann->id])}}" class="btn btn-success">Delete</a></td>
+                      <a href="{{route('banners.delete',['id'=>$bann->id])}}" class="btn btn-danger">Delete</a></td>
                  </tr>
                  @endforeach
                   </tbody>

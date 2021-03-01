@@ -11,8 +11,8 @@
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item active">DataTables</li>
+                            <li class="breadcrumb-item"><a href="{{route('home')}}">Home</a></li>
+                            <li class="breadcrumb-item active">Order</li>
                         </ol>
                     </div>
                 </div>
@@ -167,6 +167,7 @@
 
                                                 <div class="col-4">
                                                     <button type="submit" name="save" class="btn btn-primary">Submit</button>
+                                                    <a href="{{route('orders.list')}}" class="btn btn-danger">Reset Filters</a>
                                                 </div><br><br>
                                                 <div class="col-4">
                                                     <a class="btn btn-primary" href="{{route('sales.report')}}?{{Request::getQueryString()}}">Download Sales Report</a>
@@ -192,7 +193,7 @@
                                         <th>Delivery Slot</th>
                                         <th>Cost</th>
                                         <th>Status</th>
-                                        <th>Payment Status</th>
+{{--                                        <th>Payment Status</th>--}}
                                         <th>Payment Mode</th>
                                         <th>Action</th>
                                     </tr>
@@ -213,7 +214,7 @@
  @endif                                                       </td>
                                                 <td>{{$order->total_cost+$order->delivery_charge}}</td>
                                                 <td>{{$order->status}}</td>
-                                                <td>{{$order->payment_status}}</td>
+{{--                                                <td>{{$order->payment_status}}</td>--}}
                                                 <td>{{$order->payment_mode}}</td>
                                                 <td>
                                                     <a href="{{route('order.details',['id'=>$order->id])}}" class="btn btn-primary">Details</a><br><br>
