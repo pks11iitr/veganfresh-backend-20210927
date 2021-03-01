@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\SuperAdmin;
 
+use App\Exports\InventoryQuantityExport;
+use App\Exports\UserExport;
 use App\Http\Controllers\Controller;
 use App\Models\Customer;
 use App\Models\Membership;
@@ -10,7 +12,7 @@ use App\Services\Notification\FCMNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Storage;
-
+use Excel;
 class CustomerController extends Controller
 {
      public function index(Request $request){
@@ -36,8 +38,14 @@ class CustomerController extends Controller
             if($request->membership)
                 $customers=$customers->where('active_membership', '>',0)->where('membership_expiry', '>', date('Y-m-d'));
 
-            $customers=$customers->orderBy('id', 'desc')->paginate(10);
-            return view('admin.customer.view',['customers'=>$customers]);
+            if($request->type=='export'){
+                $customers=$customers->get();
+                return Excel::download(new UserExport($customers), 'customers.xlsx');
+            }else{
+                $customers=$customers->orderBy('id', 'desc')->paginate(10);
+                return view('admin.customer.view',['customers'=>$customers]);
+            }
+
      }
 
     public function edit(Request $request,$id){
