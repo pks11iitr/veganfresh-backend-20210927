@@ -96,6 +96,8 @@ $api->group(['middleware' => ['customer-auth']], function ($api) {
 
     $api->get('cancel-order/{order_id}', ['as'=>'order.cancel', 'uses'=>'Customer\Api\OrderController@cancelOrder']);
 
+    $api->get('repeat-order/{order_id}', ['as'=>'order.repeat', 'uses'=>'Customer\Api\OrderController@repeatOrder']);
+
     $api->post('post-review/{order_id}', ['as'=>'order.review', 'uses'=>'Customer\Api\ReviewController@postReview']);
 
     //wallet apis

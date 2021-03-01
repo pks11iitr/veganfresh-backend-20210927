@@ -38,7 +38,7 @@ class PolicyController extends Controller
         $invoice=Invoice::find(1);
      $pdf = PDF::loadView('admin.contenturl.newinvoice', compact('orders','invoice'))->setPaper('a4', 'portrait');
      return $pdf->download('invoice.pdf');
-        return view('admin.contenturl.newinvoice',['orders'=>$orders, 'invoice'=>$invoice]);
+        //return view('admin.contenturl.newinvoice',['orders'=>$orders, 'invoice'=>$invoice]);
     }
 
 }

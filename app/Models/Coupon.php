@@ -15,6 +15,9 @@ class Coupon extends Model
 
     public function getCouponDiscount($amount){
 
+        if(!$amount)
+            return 0;
+
         if($this->type=='Fixed'){
             $discount=$this->discount;
         }else{
@@ -73,6 +76,10 @@ class Coupon extends Model
 
         return true;
 
+    }
+
+    public function categories(){
+        return $this->belongsToMany('App\Models\SubCategory', 'coupon_categories', 'coupon_id', 'category_id');
     }
 
 

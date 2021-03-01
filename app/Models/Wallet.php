@@ -79,4 +79,20 @@ class Wallet extends Model
         return $this->belongsTo('App\Models\Customer', 'user_id');
     }
 
+//    public static function balancewithlock($userid){
+//        $wallet=Wallet::where('user_id', $userid)
+//            ->where('amount_type', 'CASH')
+//            ->where('iscomplete', true)
+//            ->select(DB::raw('sum(amount) as total'), 'type')
+//            ->groupBy('type')
+//            ->lockforupdate()
+//            ->get();
+//        $balances=[];
+//        foreach($wallet as $w){
+//            $balances[$w->type]=$w->total;
+//        }
+//
+//        return round(($balances['Credit']??0)-($balances['Debit']??0),2);
+//    }
+
 }

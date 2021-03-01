@@ -12,6 +12,7 @@ use App\Models\Customer;
 use App\Models\CustomerAddress;
 use App\Models\DailyBookingsSlots;
 use App\Models\HomeBookingSlots;
+use App\Models\Invoice;
 use App\Models\Membership;
 use App\Models\Notification;
 use App\Models\Order;
@@ -340,40 +341,17 @@ class OrderController extends Controller
                 'message'=>'Please login to continue'
             ];
 
-        $coupon=Coupon::where(DB::raw('BINARY code'), $request->coupon??null)
+        $coupon=Coupon::with(['categories'=>function($categories){
+                $categories->select('sub_category.id');
+                }])
+            ->where(DB::raw('BINARY code'), $request->coupon??null)
             ->first();
+
         if(!$coupon){
             return [
                 'status'=>'failed',
                 'message'=>'Invalid Coupon Applied',
             ];
-        }
-
-        $order=Order::with('details')->find($order_id);
-        if(!$order)
-            return [
-                'status'=>'failed',
-                'message'=>'No Such Order Found'
-            ];
-        $cost=0;
-        $savings=0;
-        $itemdetails=[];
-        foreach($order->details as $detail){
-            $itemdetails[]=[
-                'name'=>$detail->name??'',
-                'image'=>$detail->image??'',
-                'company'=>$detail->entity->company??'',
-                'price'=>$detail->price,
-                'cut_price'=>$detail->cut_price,
-                'quantity'=>$detail->quantity,
-                'size'=>$detail->size->name??'',
-                'item_id'=>$detail->entity_id,
-                //'show_return'=>($detail->status=='delivered'?1:0),
-                //'show_cancel'=>in_array($detail->status, ['confirmed'])?1:0,
-                'show_review'=>isset($reviews[$detail->entity_id])?0:1
-            ];
-            $cost=$cost+$detail->price*$detail->quantity;
-            $savings=$savings+($detail->cut_price-$detail->price)*$detail->quantity;
         }
 
         if($coupon->isactive==false || !$coupon->getUserEligibility($user)){
@@ -382,7 +360,45 @@ class OrderController extends Controller
                 'message'=>'Coupon Has Been Expired',
             ];
         }
-        $discount=$coupon->getCouponDiscount($cost)??0;
+
+        $order=Order::with(['details.entity.subcategory','details.size'])->find($order_id);
+        if(!$order)
+            return [
+                'status'=>'failed',
+                'message'=>'No Such Order Found'
+            ];
+        $cost=0;
+        $savings=0;
+        //$itemdetails=[];
+        foreach($order->details as $detail){
+//            $itemdetails[]=[
+//                'name'=>$detail->name??'',
+//                'image'=>$detail->image??'',
+//                'company'=>$detail->entity->company??'',
+//                'price'=>$detail->price,
+//                'cut_price'=>$detail->cut_price,
+//                'quantity'=>$detail->quantity,
+//                'size'=>$detail->size->name??'',
+//                'item_id'=>$detail->entity_id,
+//                //'show_return'=>($detail->status=='delivered'?1:0),
+//                //'show_cancel'=>in_array($detail->status, ['confirmed'])?1:0,
+//                'show_review'=>isset($reviews[$detail->entity_id])?0:1
+//            ];
+            $cost=$cost+$detail->price*$detail->quantity;
+            $savings=$savings+($detail->cut_price-$detail->price)*$detail->quantity;
+        }
+
+
+        //$discount=$coupon->getCouponDiscount($cost)??0;
+        $discount=$order->getCouponDiscount($coupon)??0;
+
+        if($discount <= 0 || $discount > $order->total_cost)
+        {
+            return [
+                'status'=>'failed',
+                'message'=>'Coupon Cannot Be Applied',
+            ];
+        }
 
         $prices=[
             'basket_total'=>$cost,
@@ -392,14 +408,6 @@ class OrderController extends Controller
             'total_payble'=>$cost+$order->delivery_charge-$discount,
         ];
 
-
-        if($discount > $order->total_cost)
-        {
-            return [
-                'status'=>'failed',
-                'message'=>'Coupon Cannot Be Applied',
-            ];
-        }
 
         return [
 
@@ -415,7 +423,7 @@ class OrderController extends Controller
 
         $show_cancel_product=0;
         $show_download_invoice=0;
-
+        $show_repeat_order=0;
         $user=auth()->guard('customerapi')->user();
         if(!$user)
             return [
@@ -432,6 +440,9 @@ class OrderController extends Controller
                 'status'=>'failed',
                 'message'=>'Invalid Operation Performed'
             ];
+
+        if(in_array($order->status, ['completed','delivered', 'cancelled']))
+            $show_repeat_order=1;
 
         //get reviews information
         $reviews=[];
@@ -499,7 +510,8 @@ class OrderController extends Controller
                 'prices'=>$prices,
                 'show_download_invoice'=>$show_download_invoice??0,
                 'invoice_link'=>$show_download_invoice?route('download.invoice', ['id'=>$order->id]):'',
-                'time_slot'=>$time_slot
+                'time_slot'=>$time_slot,
+                'show_repeat_order'=>$show_repeat_order??0
             ]
         ];
     }
@@ -594,9 +606,97 @@ class OrderController extends Controller
     public function downloadPDF($id){
         $orders = Order::with(['details'])->find($id);
         // var_dump($orders);die();
-        $pdf = PDF::loadView('admin.contenturl.newinvoice', compact('orders'))->setPaper('a4', 'portrait');
+        $invoice=Invoice::find(1);
+        $pdf = PDF::loadView('admin.contenturl.newinvoice', compact('orders', 'invoice'))->setPaper('a4', 'portrait');
         return $pdf->download('invoice.pdf');
         //return view('admin.contenturl.newinvoice',['orders'=>$orders]);
     }
+
+    public function repeatOrder(Request $request, $order_id){
+
+        $user=auth()->guard('customerapi')->user();
+        if(!$user)
+            return [
+                'status'=>'failed',
+                'message'=>'Please login to continue'
+            ];
+
+        Cart::where('user_id', $user->id)->delete();
+
+        $order=Order::with(['details'=>function($details){
+            $details->select('id','entity_id','order_id', 'size_id', 'quantity');
+        }])->findOrFail($order_id)->toArray();
+        //return $order;
+        $pids=array_map(function($element){
+            return $element['entity_id'];
+        }, $order['details']);
+
+        $sids=array_map(function($element){
+            return $element['size_id'];
+        }, $order['details']);
+
+//        $quantities1=array_map(function($element){
+//            return [$element['size_id']=>$element['quantity']];
+//        }, $order['details']);
+
+        $quantities=[];
+        foreach($order['details'] as $d){
+            $quantities[$d['size_id']]=$d['quantity'];
+        }
+
+        //return $quantities;
+        //return $pids;
+        if(!($sids && $pids))
+            return [
+                'status'=>'failed',
+                'message'=>'No product available stocks'
+            ];
+
+
+        $products=Product::active()
+            ->with(['sizeprice'=>function($sizes) use ($sids){
+                $sizes->where('isactive', true)->whereIn('product_prices.id', $sids);
+            }])
+            ->whereIn('id', $pids)
+            ->get();
+
+        foreach($products as $product){
+            if(count($product->sizeprice)){
+                if($product->stock_type=='packet'){
+                    if($product->sizeprice[0]->stock > $quantities[$product->sizeprice[0]->id]){
+                        Cart::create([
+                            'product_id'=>$product->id,
+                            'quantity'=>$quantities[$product->sizeprice[0]->id],
+                            'user_id'=>$user->id,
+                            'size_id'=>$product->sizeprice[0]->id,
+                        ]);
+                    }else if($product->sizeprice[0]->stock>0){
+                        Cart::create([
+                            'product_id'=>$product->id,
+                            'quantity'=>$product->sizeprice[0]->stock,
+                            'user_id'=>$user->id,
+                            'size_id'=>$product->sizeprice[0]->id,
+                        ]);
+                    }
+            }else{
+                    if($product->stock > $quantities[$product->sizeprice[0]->id]*$product->sizeprice[0]->consumed_units){
+                        Cart::create([
+                            'product_id'=>$product->id,
+                            'quantity'=>$quantities[$product->sizeprice[0]->id],
+                            'user_id'=>$user->id,
+                            'size_id'=>$product->sizeprice[0]->id,
+                        ]);
+                    }
+                }
+            }
+        }
+
+        return [
+            'status'=>'success',
+            'message'=>'Item has been added to cart'
+        ];
+
+    }
+
 
 }

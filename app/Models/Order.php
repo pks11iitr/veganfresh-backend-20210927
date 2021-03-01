@@ -55,13 +55,39 @@ class Order extends Model
     }
 
     public function applyCoupon($coupon){
-
-        $discount=$coupon->getCouponDiscount($this->total_cost);
+        $discount=$this->getCouponDiscount($coupon);
         $this->coupon_applied=$coupon->code;
         $this->coupon_discount=$discount;
         $this->save();
 
     }
+
+    public function getCouponDiscount($coupon){
+        $eligible_amount=$this->getDiscountEligibleAmount($coupon);
+        $discount=$coupon->getCouponDiscount($eligible_amount);
+        return $discount;
+    }
+
+    public function getDiscountEligibleAmount($coupon){
+        $amount=0;
+        $coupon_cat=$coupon->categories->map(function($element){
+            return $element->id;
+        });
+        foreach($this->details as $detail){
+            if(count($coupon_cat)){
+                $product_cat=$detail->entity->subcategory->map(function($element){
+                    return $element->id;
+                });
+                if(count(array_intersect($product_cat,$coupon_cat))){
+                    $amount=$amount+$detail->price*$detail->quantity;
+                }
+            }else{
+                $amount=$amount+$detail->price*$detail->quantity;
+            }
+        }
+        return $amount;
+    }
+
 
     public function changeDetailsStatus($status, $id=null){
         if($id==null){

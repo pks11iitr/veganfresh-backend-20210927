@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\SuperAdmin;
 
+use App\Exports\ProductsExport;
 use App\Exports\SalesExport;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
@@ -51,9 +52,9 @@ class ProductController extends Controller
 
     public function downloadProduct(Request $request){
 
-         $product=Product::with(['category', 'sizeprice', 'subcategory']);
+         $products=Product::with(['category', 'sizeprice', 'subcategory']);
          if($request->search){
-            $products=$product->where(function($products) use($request){
+            $products=$products->where(function($products) use($request){
                 $products->where('name','LIKE','%'.$request->search.'%');
             });
         }
@@ -68,6 +69,7 @@ class ProductController extends Controller
             $products=$products->orderBy('name', $request->ordertype);
 
         $products=$products->get();
+        //return $products;
 
         return Excel::download(new ProductsExport($products), 'products.xlsx');
 
@@ -393,12 +395,12 @@ class ProductController extends Controller
              'stock'=>'required|integer|min:0',
              'is_offer'=>'required|integer|min:0',
               'size'=>'required',
-             'price'=>'required|integer',
-             'cut_price'=>'required|integer',
+             'price'=>'required|numeric',
+             'cut_price'=>'required|numeric',
              //'size_stock'=>'required|integer',
-             'min_qty'=>'required|integer|min:1',
-             'max_qty'=>'required|integer|min:1',
-             'consumed_units'=>'required|integer|min:1',
+             'min_qty'=>'required|integer',
+             'max_qty'=>'required|integer',
+             'consumed_units'=>'required|integer',
              'is_size_active'=>'required|in:0,1',
          ]);
 
@@ -415,7 +417,7 @@ class ProductController extends Controller
 
         $added_categories=[];
         if($request->sub_category){
-            $subcategories=explode(',', $request->sub_category);
+            $subcategories=explode('***', $request->sub_category);
             $filtered_sub=[];
             foreach($subcategories as $s){
                 $s=trim($s);
@@ -437,7 +439,7 @@ class ProductController extends Controller
         }
 
         if($request->category){
-            $categories=explode(',', $request->category);
+            $categories=explode('***', $request->category);
             $filtered_cat=[];
             foreach($categories as $s){
                 $s=trim($s);

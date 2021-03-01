@@ -4,6 +4,7 @@ namespace App\Http\Controllers\SuperAdmin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Customer;
+use App\Models\Membership;
 use App\Models\Notification;
 use App\Services\Notification\FCMNotification;
 use Illuminate\Http\Request;
@@ -14,7 +15,7 @@ class CustomerController extends Controller
 {
      public function index(Request $request){
 
-            $customers=Customer::where(function($customers) use($request){
+            $customers=Customer::with('membership')->where(function($customers) use($request){
                 $customers->where('name','LIKE','%'.$request->search.'%')
                     ->orWhere('mobile','LIKE','%'.$request->search.'%')
                     ->orWhere('email','LIKE','%'.$request->search.'%');
@@ -32,24 +33,28 @@ class CustomerController extends Controller
             if($request->ordertype)
                 $customers=$customers->orderBy('created_at', $request->ordertype);
 
-            $customers=$customers->paginate(10);
+            if($request->membership)
+                $customers=$customers->where('active_membership', '>',0)->where('membership_expiry', '>', date('Y-m-d'));
+
+            $customers=$customers->orderBy('id', 'desc')->paginate(10);
             return view('admin.customer.view',['customers'=>$customers]);
      }
 
     public function edit(Request $request,$id){
-             $customers = Customer::findOrFail($id);
-             return view('admin.customer.edit',['customers'=>$customers]);
+             $customers = Customer::with('membership')->findOrFail($id);
+             $memberships=Membership::get();
+             return view('admin.customer.edit',['customers'=>$customers, 'memberships'=>$memberships]);
              }
 
     public function update(Request $request,$id){
              $request->validate([
                              'status'=>'required',
                   			'name'=>'required',
-                  			'dob'=>'required',
-                  			'address'=>'required',
-                  			'city'=>'required',
-                  			'state'=>'required',
-                  			'image'=>'image'
+                  			//'dob'=>'required',
+                  			//'address'=>'required',
+                  			//'city'=>'required',
+                  			//'state'=>'required',
+                  			//'image'=>'image'
                   			]);
 
              $customers = Customer::findOrFail($id);
@@ -61,6 +66,8 @@ class CustomerController extends Controller
                       'address'=>$request->address,
                       'city'=>$request->city,
                       'state'=>$request->state,
+                 'active_membership'=>$request->active_membership,
+                      'membership_expiry'=>$request->membership_expiry,
                       'image'=>'a']);
              $customers->saveImage($request->image, 'customers');
         }else{
@@ -70,7 +77,9 @@ class CustomerController extends Controller
                       'dob'=>$request->dob,
                       'address'=>$request->address,
                       'city'=>$request->city,
-                      'state'=>$request->state
+                      'state'=>$request->state,
+                        'active_membership'=>$request->active_membership,
+                 'membership_expiry'=>$request->membership_expiry,
                          ]);
              }
           if($customers)

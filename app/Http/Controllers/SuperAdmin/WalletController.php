@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\SuperAdmin;
 
+use App\Models\Customer;
 use App\Models\Order;
 use App\Models\Wallet;
 use Illuminate\Http\Request;
@@ -30,16 +31,21 @@ class WalletController extends Controller
 
         $request->validate([
 
-            'order_id'=>'required',
             'amount_type'=>'required|in:cashback,balance',
             'calculation_type'=>'required|in:fixed,percentage',
             'action_type'=>'required|in:add,revoke',
             'amount'=>'required|numeric|min:0.01',
-            'wallet_text'=>'required'
+            'wallet_text'=>'required',
+            'order_id'=>'required_if:calculation_type,percentage',
+            //'user_id'=>'required_if:calculation_type,fixed'
 
         ]);
 
-        $order=Order::findOrFail($request->order_id);
+        $order=Order::find($request->order_id);
+        if($order)
+            $user=$order->customer;
+        else
+            $user=Customer::findOrFail($request->user_id??0);
 
         if($request->action_type=='add'){
 
@@ -47,12 +53,12 @@ class WalletController extends Controller
 
                 if($request->amount_type=='cashback'){
 
-                    Wallet::updatewallet($order->user_id, $request->wallet_text, 'Credit', $request->amount, 'POINT', $request->order_id);
-                    return $request->all();
+                    Wallet::updatewallet($user->id, $request->wallet_text, 'Credit', $request->amount, 'POINT', $request->order_id);
+
                     return redirect()->back()->with('success', 'Wallet has been updated');
 
                 }else if($request->amount_type=='balance'){
-                    Wallet::updatewallet($order->user_id, $request->wallet_text, 'Credit', $request->amount, 'CASH', $request->order_id);
+                    Wallet::updatewallet($user->id, $request->wallet_text, 'Credit', $request->amount, 'CASH', $request->order_id);
                     return redirect()->back()->with('success', 'Wallet has been updated');
                 }
 

@@ -25,12 +25,16 @@ class ProductController extends Controller
         if(!empty($request->sub_cat_id)){
 
           $product=Product::active()->whereHas('subcategory', function($category) use($request){
-              $category->where('sub_category.id', $request->sub_cat_id)->where('sub_category.isactive',true);
+              $category->where('sub_category.id', $request->sub_cat_id)
+                  ->where('sub_category.isactive',true);
             });
         }else{
           $product=Product::active()->whereHas('category', function($category) use($request){
-              $category->where('categories.id', $request->category_id)->where('categories.isactive',true);
-            });
+              $category->where('categories.id', $request->category_id)
+                  ->where('categories.isactive',true);
+            })->whereDoesntHave('subcategory', function($category) use($request){
+              $category->where('sub_category.isactive',false);
+          });
         }
 
         if($request->prices || $request->sizes){
@@ -64,7 +68,7 @@ class ProductController extends Controller
 
         $products=$product->with(['sizeprice'=>function($size){
             $size->where('product_prices.isactive', true);
-        }])->paginate(5);
+        }])->paginate(20);
 
         foreach($products as $product){
             foreach($product->sizeprice as $size){
@@ -116,7 +120,7 @@ class ProductController extends Controller
             $size->where('product_prices.isactive', true);
 
         })
-            ->paginate(5);
+            ->paginate(20);
 
         foreach($searchproducts as $product){
             foreach($product->sizeprice as $size){
@@ -172,21 +176,21 @@ class ProductController extends Controller
         $cart=$cart['cart'];
         foreach($product->sizeprice as $size)
             $size->quantity=$cart[$size->id]??0;
-            $productdetails=array(
-                     'id'=>$product->id,
-                     'name'=>$product->name,
-                     'description'=>$product->description,
-                     'company'=>$product->company,
-                     'ratings'=>$product->ratings,
-                     'sizeprice'=>$product->sizeprice,
-                     'reviews_count'=>$ratings,
-                     'avg_reviews'=>$avg_reviews,
-                     'totalcount'=>$totalcount,
-                     'reviews'=>$reviews,
-                     'timeslot'=>$timeslot,
-                     'in_stocks'=>Size::getStockStatus($size, $product),
-                     'min_qty'=>$size->min_qty,
-                     'max_qty'=>$size->max_qty,
+        $productdetails=array(
+                 'id'=>$product->id,
+                 'name'=>$product->name,
+                 'description'=>$product->description,
+                 'company'=>$product->company,
+                 'ratings'=>$product->ratings,
+                 'sizeprice'=>$product->sizeprice,
+                 'reviews_count'=>$ratings,
+                 'avg_reviews'=>$avg_reviews,
+                 'totalcount'=>$totalcount,
+                 'reviews'=>$reviews,
+                 'timeslot'=>$timeslot,
+                 'in_stocks'=>empty($size)?0:Size::getStockStatus($size, $product),
+                 'min_qty'=>$size->min_qty,
+                 'max_qty'=>$size->max_qty,
         );
 
         return [

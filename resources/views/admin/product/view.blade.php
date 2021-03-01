@@ -22,47 +22,57 @@
     <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
-        <div class="row">
-          <div class="col-12">
+{{--        <div class="row">--}}
+{{--          <div class="col-12">--}}
             <div class="card">
-              <div class="card-header">
-			 <div class="row">
-			  <div class="col-3">
-                <a href="{{route('product.create')}}" class="btn btn-primary">Add Product</a></div>&nbsp;&nbsp;
-                 <a href="{{route('product.bulk.form')}}" class="btn btn-primary">Bulk Upload</a></div><br>
+                <div class="card-header">
+                <div class="row">
 
-            <div class="col-9">
-		 <form class="form-validate form-horizontal"  method="get" action="" enctype="multipart/form-data">
+                </div><br>
+                <div class="row">
+                    <div class="col-12">
+                        <form class="form-validate form-horizontal"  method="get" action="" enctype="multipart/form-data">
 
-                     <div class="row">
-                         <div class="col-4">
-                             <select name="category_id" class="form-control" >
-                                 <option value="">Select Category</option>
-                                 @foreach($categories as $category)
-                                     <option value="{{$category->id}}" @if(request('category_id')==$category->id){{'selected'}}@endif>{{$category->name}}</option>
-                                 @endforeach
-                             </select>
-                         </div>
-					      <div class="col-4">
-                           <input  id="fullname" onfocus="this.value=''" class="form-control" name="search" placeholder=" search name" value="{{request('search')}}"  type="text" />
-                           </div>
-					  <div class="col-3">
-                          <select id="ordertype" name="ordertype" class="form-control" >
-                             <option value="DESC" {{ request('ordertype')=='DESC'?'selected':''}}>DESC</option>
-                              <option value="ASC" {{ request('ordertype')=='ASC'?'selected':''}}>ASC</option>
-                          </select>
-                      </div>
-                    <div class="col-1">
-                       <button type="submit" name="save" class="btn btn-primary">Submit</button>
-                     </div>
-                  </div>
-              </form>
-         </div>
+                        <div class="row">
+                        <div class="col-3">
+                        <select name="category_id" class="form-control" >
+                         <option value="">Select Category</option>
+                         @foreach($categories as $category)
+                             <option value="{{$category->id}}" @if(request('category_id')==$category->id){{'selected'}}@endif>{{$category->name}}</option>
+                         @endforeach
+                        </select>
+                        </div>
+                        <div class="col-3">
+                        <input  id="fullname" onfocus="this.value=''" class="form-control" name="search" placeholder=" search name" value="{{request('search')}}"  type="text" />
+                        </div>
 
-     </div>
-  </div>
-              <!-- /.card-header -->
-              <div class="card-body">
+                        <div class="col-3">
+                        <select id="ordertype" name="ordertype" class="form-control" >
+                        <option value="DESC" {{ request('ordertype')=='DESC'?'selected':''}}>DESC</option>
+                        <option value="ASC" {{ request('ordertype')=='ASC'?'selected':''}}>ASC</option>
+                        </select>
+                        </div>
+                        <div class="col-3">
+                        <button type="submit" name="save" class="btn btn-primary">Submit</button>
+                            <a href="{{route('product.list')}}" class="btn btn-primary">Reset Filters</a>
+                        </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-12">
+
+                                <a href="{{ url()->current().'?'.http_build_query(array_merge(request()->all(),['type' => 'export'])) }}" class="btn btn-info">Download</a>
+                                <a href="{{route('product.create')}}" class="btn btn-primary">Add Product</a>
+                                <a href="{{route('product.bulk.form')}}" class="btn btn-primary">Bulk Upload</a>
+                            </div>
+
+                        </div>
+                        </form>
+                    </div>
+                </div>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body">
                 <table id="example2" class="table table-bordered table-hover">
                   <thead>
                   <tr>
@@ -138,16 +148,18 @@
                   </tfoot>
                 </table>
               </div>
-              {{$products->links()}}
+                {{$products->appends(request()->all())->links()}}
               <!-- /.card-body -->
             </div>
             <!-- /.card -->
             <!-- /.card -->
-          </div>
-          <!-- /.col -->
-        </div>
+{{--          </div>--}}
+{{--          <!-- /.col -->--}}
+{{--        </div>--}}
         <!-- /.row -->
+      </div>
       <!-- /.container-fluid -->
+
     </section>
     <!-- /.content -->
 

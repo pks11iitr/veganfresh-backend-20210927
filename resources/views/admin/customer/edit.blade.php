@@ -65,6 +65,19 @@
                             <option value="2" {{$customers->status==2?'selected':''}}>Blocked</option>
                         </select>
                       </div>
+                    <div class="form-group">
+                        <label>Membership</label>
+                        <select class="form-control" name="active_membership" required>
+                            <option value="0">Select Membership</option>
+                            @foreach($memberships as $member)
+                                <option value="{{$member->id}}" @if($member->id==$customers->active_membership){{'selected'}}@endif>{{$member->name}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Membership Expiry</label>
+                        <input type="date" name="membership_expiry" class="form-control" id="exampleInputEmail1" placeholder="Enter State" value="{{$customers->membership_expity}}">
+                    </div>
                   <div class="form-group">
                     <label for="exampleInputFile">File input</label>
                     <div class="input-group">
