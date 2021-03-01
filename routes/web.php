@@ -450,6 +450,7 @@ Route::group(['middleware'=>['auth', 'acl']], function(){
     Route::group(['prefix'=>'returnproduct'], function(){
         Route::group(['is'=>'admin|return-viewer'], function(){
             Route::get('/','SuperAdmin\ReturnProductController@index')->name('return.product.list');
+            Route::get('return-export{id}','SuperAdmin\ReturnProductController@export')->name('return.return.export');
         });
     });
 

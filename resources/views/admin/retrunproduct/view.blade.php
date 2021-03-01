@@ -64,6 +64,7 @@
                                                 <div class="col-4">
                                                     <button type="submit" name="save" class="btn btn-primary">Submit</button>
                                                     <a href="{{route('return.product.list')}}" class="btn btn-danger">Reset Filters</a>
+                                                    <a class="btn btn-warning" href="{{route('return.product.list')}}?{{Request::getQueryString()}}&export=1">Download</a>
                                                 </div>
                                             </div>
                                         </form>
@@ -84,7 +85,7 @@
                                         <th>Cost</th>
                                         <th>Returned Quantity</th>
                                         <th>Reason</th>
-                                        <th>Time</th>
+                                        <th>Date & Time</th>
                                     </tr>
                                     </thead>
                                     <tbody>

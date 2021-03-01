@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers\SuperAdmin;
 
+use App\Exports\ReturnProductExport;
 use App\Models\Order;
 use App\Models\ReturnProduct;
 use App\Models\Rider;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ReturnProductController extends Controller
 {
@@ -32,6 +34,9 @@ class ReturnProductController extends Controller
         if($request->rider_id)
             $returnproducts=$returnproducts->where('rider_id', $request->rider_id);
 
+        if($request->export)
+            return $this->export($returnproducts);
+
 
         $returnproducts=$returnproducts->orderBy('id', 'desc')->paginate(10);
             $stores=User::where('id','>', 1)->get();
@@ -42,4 +47,12 @@ class ReturnProductController extends Controller
 
 
     }
+
+    public function export($returnproducts)
+    {
+        $returnproducts=$returnproducts->get();
+
+        return Excel::download(new ReturnProductExport($returnproducts), 'returnproducts.xlsx');
+    }
+
 }
