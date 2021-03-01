@@ -35,6 +35,10 @@
                                         <form class="form-validate form-horizontal"  method="post" action="{{route('order.invoice.update',['id'=>$invoice->id])}}" enctype="multipart/form-data">
                                             <div class="row">
                                                 <div class="col-3">
+                                                    <label>Organization Name</label>
+                                                    <input type="text" name="organization_name" class="form-control" id="exampleInputEmail1" placeholder="Please Type" value="{{$invoice->organization_name}}">
+                                                </div>
+                                                <div class="col-3">
                                                     <label>Prifix</label>
                                                     <input type="text" name="prefix" class="form-control" id="exampleInputEmail1" placeholder="Enter Prifix" value="{{$invoice->prefix}}">
                                                 </div>

@@ -12,7 +12,7 @@ class Invoice extends Model
 
     protected $table ='invoice';
 
-    protected $fillable=['prefix','sequence','current_sequence', 'pan_gst', 'address','image'];
+    protected $fillable=['prefix','sequence','current_sequence', 'pan_gst', 'address','image','organization_name'];
 
     public function getImageAttribute($value){
         if($value)

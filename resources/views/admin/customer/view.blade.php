@@ -70,6 +70,9 @@
                          <div class="col-4">
                              <a href="{{route('customer.list')}}" type="submit" name="save" class="btn btn-primary">Reset</a>
                          </div>
+                         <div class="col-4">
+                             <a href="{{ url()->current().'?'.http_build_query(array_merge(request()->all(),['type' => 'export'])) }}" class="btn btn-info">Download</a>
+                         </div>
                   </div>
               </form>
          </div>

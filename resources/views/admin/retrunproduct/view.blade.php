@@ -64,7 +64,7 @@
                                                 <div class="col-4">
                                                     <button type="submit" name="save" class="btn btn-primary">Submit</button>
                                                     <a href="{{route('return.product.list')}}" class="btn btn-danger">Reset Filters</a>
-                                                    <a class="btn btn-warning" href="{{route('return.product.list')}}?{{Request::getQueryString()}}&export=1">Download</a>
+                                                    <a href="{{ url()->current().'?'.http_build_query(array_merge(request()->all(),['type' => 'export'])) }}" class="btn btn-info">Download</a>
                                                 </div>
                                             </div>
                                         </form>

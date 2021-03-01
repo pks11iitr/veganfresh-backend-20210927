@@ -86,6 +86,7 @@
 
         <tr class="border-right">
             <td colspan="6">{{$orders->deliveryaddress->first_name??''}} {{$orders->deliveryaddress->last_name??''}}<br>
+                <span>{{$orders->deliveryaddress->mobile??''}}, {{$orders->deliveryaddress->email??''}}</span><br>
                 <span>{{$orders->deliveryaddress->house_no??''}}, {{$orders->deliveryaddress->appertment_name??''}}</span><br>
                 @if(!empty($orders->deliveryaddress->street) || !empty($orders->deliveryaddress->landmark))
                 <span>{{!empty($orders->deliveryaddress->street)?$orders->deliveryaddress->street.', ':''}}{{$orders->deliveryaddress->landmark??''}},</span><br>
@@ -104,6 +105,9 @@
 {{--                --}}{{--                <span>{{$orders->deliveryaddress->address_type??''}} , {{$orders->deliveryaddress->other_text??''}},</span><br>--}}
 {{--                <span>{{$orders->deliveryaddress->area??''}}</span>--}}
 {{--                <span>{{$orders->deliveryaddress->city??''}}, {{$orders->deliveryaddress->pincode??''}}</span>--}}
+
+
+                {{$invoice->organization_name??''}}
                 {{$invoice->address??''}}
 
             </td>
@@ -130,10 +134,10 @@
         <tr class="border-bottom border-right grey">
             <td colspan="3"><strong>Product</strong></td>
             <td colspan="3"><strong>SKU</strong></td>
+            <td colspan="1"><strong>Qty</strong></td>
             <td colspan="1"><strong>Price</strong></td>
             <td colspan="1"><strong>Sale Price</strong></td>
             <td colspan="1"><strong>Saving</strong></td>
-            <td colspan="1"><strong>Qty</strong></td>
             <td colspan="1"><strong>Tax</strong></td>
             <td colspan="1"><strong>Subtotal</strong></td>
         </tr>
@@ -141,10 +145,10 @@
         <tr class="border-right">
             <td colspan="3">{{$product->name}}</td>
             <td colspan="3">{{$product->size->size??''}}</td>
+            <td colspan="1">{{$product->quantity}}</td>
             <td colspan="1">Rs. {{$product->cut_price}}</td>
             <td colspan="1">Rs. {{$product->price}}</td>
             <td colspan="1">Rs. {{$product->cut_price - $product->price}}</td>
-            <td colspan="1">{{$product->quantity}}</td>
             <td colspan="1">Rs. 0.00</td>
             <td colspan="1">Rs. {{$product->price * $product->quantity}}</td>
         </tr>

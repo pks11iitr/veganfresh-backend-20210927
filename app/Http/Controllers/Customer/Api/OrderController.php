@@ -188,6 +188,7 @@ class OrderController extends Controller
     public function getPaymentInfo(Request $request, $order_id){
 
         $user= auth()->guard('customerapi')->user();
+
         if(!$user)
             return [
                 'status'=>'failed',

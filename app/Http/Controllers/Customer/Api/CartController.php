@@ -35,10 +35,12 @@ class CartController extends Controller
             ->with(['sizeprice'=>function($size) use($request){
                 $size->where('product_prices.isactive', true)
                     ->where('product_prices.id', $request->size_id);
-            }])->whereHas('sizeprice', function($size) use($request){
+            }])
+            ->whereHas('sizeprice', function($size) use($request){
                 $size->where('product_prices.isactive', true)
                     ->where('product_prices.id', $request->size_id);
-            })->find($request->product_id);
+            })
+            ->find($request->product_id);
 
         if(!$product){
             return [
