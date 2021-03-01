@@ -3,12 +3,14 @@
 namespace App\Http\Controllers\SuperAdmin;
 
 use App\Exports\InventoryExport;
+use App\Exports\InventoryQuantityExport;
 use App\Exports\ProductsExport;
 use App\Models\Product;
 use App\Models\Size;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
+use Excel;
 
 class InventoryController extends Controller
 {
@@ -22,7 +24,8 @@ class InventoryController extends Controller
                 $product->where('stock_type', 'packet');
             })
             ->orderBy('product_prices.stock', $request->order_by??'asc');
-        if($request->export==1){
+        if($request->type=='export'){
+            $sizes=$sizes->get();
             return Excel::download(new InventoryExport($sizes), 'packet-inventory.xlsx');
         }else{
             $sizes=$sizes->paginate(20);
@@ -40,8 +43,13 @@ class InventoryController extends Controller
         if($request->search)
             $products=$products->where('products.name', 'LIKE', "%".$request->search."%");
 
-        $products=$products->paginate(20);
+        if($request->type=='export'){
+            $products=$products->get();
+            return Excel::download(new InventoryQuantityExport($products), 'packet-quantity.xlsx');
+        }else {
+            $products = $products->paginate(20);
 
-        return view('admin.inventory.quantity', compact('products'));
+            return view('admin.inventory.quantity', compact('products'));
+        }
     }
 }
