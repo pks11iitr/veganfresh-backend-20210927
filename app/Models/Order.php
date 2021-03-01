@@ -73,11 +73,13 @@ class Order extends Model
         $coupon_cat=$coupon->categories->map(function($element){
             return $element->id;
         });
+        $coupon_cat=$coupon_cat->toArray();
         foreach($this->details as $detail){
             if(count($coupon_cat)){
                 $product_cat=$detail->entity->subcategory->map(function($element){
                     return $element->id;
                 });
+                $product_cat=$product_cat->toArray();
                 if(count(array_intersect($product_cat,$coupon_cat))){
                     $amount=$amount+$detail->price*$detail->quantity;
                 }
