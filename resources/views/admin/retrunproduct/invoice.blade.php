@@ -9,7 +9,7 @@
         <th>Cost</th>
         <th>Returned Quantity</th>
         <th>Reason</th>
-        <th>Date & Time</th>
+        <th>Date Time</th>
     </tr>
     </thead>
     <tbody>
