@@ -67,10 +67,10 @@ class WalletController extends Controller
                 $amount=intval(($order->total_cost*$request->amount)/100);
                 if($amount>0){
                     if($request->amount_type=='cashback'){
-                        Wallet::updatewallet($order->user_id, $request->wallet_text, 'Credit', $amount, 'POINT', $request->order_id);
+                        Wallet::updatewallet($user->id, $request->wallet_text, 'Credit', $amount, 'POINT', $request->order_id);
                         return redirect()->back()->with('success', 'Wallet has been updated');
                     }else if($request->amount_type=='balance'){
-                        Wallet::updatewallet($order->user_id, $request->wallet_text, 'Credit', $amount, 'CASH', $request->order_id);
+                        Wallet::updatewallet($user->id, $request->wallet_text, 'Credit', $amount, 'CASH', $request->order_id);
                         return redirect()->back()->with('success', 'Wallet has been updated');
                     }
                 }
@@ -86,12 +86,12 @@ class WalletController extends Controller
             if($request->calculation_type=='fixed'){
 
                 if($request->amount_type=='cashback'){
-                    Wallet::updatewallet($order->user_id, $request->wallet_text, 'Debit', $request->amount, 'POINT', $request->order_id);
+                    Wallet::updatewallet($user->id, $request->wallet_text, 'Debit', $request->amount, 'POINT', $request->order_id);
 
                     return redirect()->back()->with('success', 'Wallet has been updated');
 
                 }else if($request->amount_type=='balance'){
-                    Wallet::updatewallet($order->user_id, $request->wallet_text, 'Debit', $request->amount, 'CASH', $request->order_id);
+                    Wallet::updatewallet($user->id, $request->wallet_text, 'Debit', $request->amount, 'CASH', $request->order_id);
                     return redirect()->back()->with('success', 'Wallet has been updated');
                 }
 
@@ -100,10 +100,10 @@ class WalletController extends Controller
                 $amount=intval(($order->total_cost*$request->amount)/100);
                 if($amount>0){
                     if($request->amount_type=='cashback'){
-                        Wallet::updatewallet($order->user_id, $request->wallet_text, 'Debit', $amount, 'POINT', $request->order_id);
+                        Wallet::updatewallet($user->id, $request->wallet_text, 'Debit', $amount, 'POINT', $request->order_id);
                         return redirect()->back()->with('success', 'Wallet has been updated');
                     }else if($request->amount_type=='balance'){
-                        Wallet::updatewallet($order->user_id, $request->wallet_text, 'Debit', $amount, 'CASH', $request->order_id);
+                        Wallet::updatewallet($user->id, $request->wallet_text, 'Debit', $amount, 'CASH', $request->order_id);
                         return redirect()->back()->with('success', 'Wallet has been updated');
                     }
                 }
