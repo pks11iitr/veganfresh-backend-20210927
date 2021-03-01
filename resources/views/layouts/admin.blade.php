@@ -81,9 +81,9 @@
     <!-- Main Sidebar Container -->
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
         <!-- Brand Logo -->
-        <a href="index3.html" class="brand-link">
-           <!-- <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
-                 style="opacity: .8">-->
+        <a href="{{route('home')}}" class="brand-link">
+           <img src="{{asset('admin-theme/img/AdminLTELogo.png')}}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
+                 style="opacity: .8">
             <span class="brand-text font-weight-light">HalloBasket CMS</span>
         </a>
 
@@ -95,7 +95,7 @@
                     <img src="{{\Illuminate\Support\Facades\Storage::url('images/logo.jpeg')}}" class="img-circle elevation-2" alt="User Image">
                 </div>
                 <div class="info">
-                    <a href="#" class="d-block">HalloBasket</a>
+                    <a href="{{route('home')}}" class="d-block">HalloBasket</a>
                 </div>
             </div>
 
@@ -985,7 +985,7 @@
     </div>
     @yield('content')
     <footer class="main-footer">
-        <strong>Copyright &copy; 2019-2020 <a href="http://adminlte.io">Avaskm Technology</a>.</strong>
+        <strong>Copyright &copy; 2019-2020 <a href="http://www.avaskmtechnology.in/index.php">Avaskm Technology</a>.</strong>
         All rights reserved.
         <div class="float-right d-none d-sm-inline-block">
             <b>Version</b> 3.0.5

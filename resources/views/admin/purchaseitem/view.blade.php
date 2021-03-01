@@ -11,7 +11,7 @@
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="#">Home</a></li>
+                            <li class="breadcrumb-item"><a href="{{route('home')}}">Home</a></li>
                             <li class="breadcrumb-item active">Purchase Item</li>
                         </ol>
                     </div>
@@ -34,7 +34,7 @@
                                     <div class="col-12">
                                         <form class="form-validate form-horizontal"  method="get" action="" enctype="multipart/form-data">
                                             <div class="row">
-                                                <div class="col-4">
+                                                <div class="col-3">
                                                     <input  id="fullname"  class="form-control" name="search" placeholder=" search name" value="{{request('search')}}"  type="text" />
                                                 </div>
                                                 <div class="col-3">
@@ -43,8 +43,9 @@
                                                 <div class="col-3">
                                                     <input  class="form-control" name="todate" placeholder=" search name" value="{{request('todate')}}"  type="date" />
                                                 </div>
-                                                <div class="col-2">
+                                                <div class="col-3">
                                                     <button type="submit" name="save" class="btn btn-primary">Submit</button>
+                                                    <a href="{{route('purchase.list')}}" class="btn btn-danger">Reset Filters</a>
                                                 </div>
                                             </div>
                                         </form>

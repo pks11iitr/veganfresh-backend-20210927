@@ -36,8 +36,11 @@ class InventoryController extends Controller
 
     public function quantity(Request $request){
         $products=Product::where('stock_type', 'quantity')
-            ->orderBy('stock', 'asc')
-        ->paginate(20);
+            ->orderBy('stock', $request->order_by??'asc');
+        if($request->search)
+            $products=$products->where('products.name', 'LIKE', "%".$request->search."%");
+
+        $products=$products->paginate(20);
 
         return view('admin.inventory.quantity', compact('products'));
     }
