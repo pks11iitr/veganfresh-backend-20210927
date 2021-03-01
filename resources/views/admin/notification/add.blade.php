@@ -14,7 +14,7 @@
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item"><a href="{{route('home')}}">Home</a></li>
               <li class="breadcrumb-item active">Notification Send</li>
             </ol>
           </div>
@@ -59,8 +59,8 @@
                     <input type="text" name="title" class="form-control" id="exampleInputEmail1" placeholder="Enter title" required>
                   </div>
                   <div class="form-group">
-                   <label for="exampleInputEmail1">Description</label><br>
-                    <textarea id="w3review" name="description" rows="4" cols="120"> </textarea>
+                   <label for="exampleInputEmail1">Description</label>
+                    <textarea class="form-control" name="description" rows="4"></textarea>
                   </div>
 
                 </div>

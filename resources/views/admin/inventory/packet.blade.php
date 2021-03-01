@@ -11,8 +11,8 @@
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item active">DataTables</li>
+                            <li class="breadcrumb-item"><a href="{{route('home')}}">Home</a></li>
+                            <li class="breadcrumb-item active">Inventory</li>
                         </ol>
                     </div>
                 </div>
@@ -26,7 +26,7 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h3 class="card-title">Sales</h3>
+{{--                                <h3 class="card-title">Sales</h3>--}}
 
                                 <div class="row">
                                     <div class="col-12">
@@ -35,7 +35,7 @@
 
                                             <div class="row">
                                                 <div class="col-4">
-                                                    <input  id="fullname"  class="form-control" name="search" placeholder=" search product name,order ref No." value="{{request('search')}}"  type="text" />
+                                                    <input  id="fullname"  class="form-control" name="search" placeholder=" search product name" value="{{request('search')}}"  type="text" />
                                                 </div>
                                                 <div class="col-4">
 
@@ -50,6 +50,7 @@
                                                 </div>
                                                 <div class="col-4">
                                                     <button type="submit" name="save" class="btn btn-primary">Submit</button>
+                                                    <a href="{{route('packets.list')}}" class="btn btn-danger">Reset Filters</a>
                                                 </div>
                                             </div>
                                         </form>
