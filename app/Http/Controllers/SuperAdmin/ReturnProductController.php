@@ -34,7 +34,7 @@ class ReturnProductController extends Controller
         if($request->rider_id)
             $returnproducts=$returnproducts->where('rider_id', $request->rider_id);
 
-        if($request->export)
+        if($request->type=='export')
             return $this->export($returnproducts);
 
 
