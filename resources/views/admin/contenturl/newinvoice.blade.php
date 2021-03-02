@@ -86,7 +86,7 @@
 
         <tr class="border-right">
             <td colspan="6">{{$orders->deliveryaddress->first_name??''}} {{$orders->deliveryaddress->last_name??''}}<br>
-                <span>{{$orders->deliveryaddress->mobile??''}}, {{$orders->deliveryaddress->email??''}}</span><br>
+                <span>{{$orders->deliveryaddress->mobile_no??''}}, {{$orders->deliveryaddress->email??''}}</span><br>
                 <span>{{$orders->deliveryaddress->house_no??''}}, {{$orders->deliveryaddress->appertment_name??''}}</span><br>
                 @if(!empty($orders->deliveryaddress->street) || !empty($orders->deliveryaddress->landmark))
                 <span>{{!empty($orders->deliveryaddress->street)?$orders->deliveryaddress->street.', ':''}}{{$orders->deliveryaddress->landmark??''}},</span><br>
