@@ -93,6 +93,12 @@ class PaymentController extends Controller
                 'is_express_delivery'=>true
             ]);
         }else{
+            if(!$timeslot){
+                return [
+                    'status'=>'failed',
+                    'message'=>'Please select delivery time'
+                ];
+            }
             $order->update([
                 'use_balance'=>false,
                 'use_points'=>false,
