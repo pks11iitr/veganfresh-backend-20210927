@@ -24,6 +24,7 @@ use App\Models\Therapy;
 use App\Models\TimeSlot;
 use App\Models\Wallet;
 use App\Services\Notification\FCMNotification;
+use App\Services\SMS\Msg91;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
@@ -589,6 +590,10 @@ class OrderController extends Controller
         ]);
         if($order->customer->notification_token??null)
             FCMNotification::sendNotification($order->customer->notification_token, 'Order Cancelled', $message);
+
+        if(!empty($order->storename->mobile)){
+            Msg91::send($order->storename->mobile, 'Order ID '.$order->refid.' has been cancelled by customer');
+        }
 
         return [
             'status'=>'success',

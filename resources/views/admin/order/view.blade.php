@@ -216,7 +216,7 @@
                                                 <td>@if($order->is_express_delivery)
                                                         Express Delivery
                                                     @else
-                                                        {{$order->delivery_date}} {{$order->timeslot->name??''}}
+                                                        {{date('d/m/Y', strtotime($order->delivery_date))}} {{$order->timeslot->name??''}}
 
  @endif                                                       </td>
                                                 <td>{{$order->total_cost+$order->delivery_charge}}</td>

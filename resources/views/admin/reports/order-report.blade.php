@@ -7,8 +7,10 @@
         <th>Quantity</th>
         <th>Price/Unit</th>
         <th>Total Price</th>
-        <th>Date</th>
-        <th>Time</th>
+        <th>Order Date</th>
+        <th>Delivery Date</th>
+        <th>Delivery Time</th>
+        <th>Delivered Time</th>
         <th>Status</th>
         <th>Store</th>
         <th>Rider</th>
@@ -25,8 +27,20 @@
             <td>{{ $details->quantity??'' }}</td>
             <td>{{ $details->size->price??0 }}</td>
             <td>{{ ($details->size->price??0)*($details->quantity) }}</td>
-            <td>{{ $order->delivery_date??'' }}</td>
-            <td>{{ $order->timeslot->name??'' }}</td>
+            <td>{{ date('d/m/Y h:ia', strtotime($order->created_at??'')) }}</td>
+            <td>@if($order->is_express_delivery)
+                    Express Delivery
+                @else
+                    {{date('d/m/Y', strtotime($order->delivery_date))}}
+                @endif
+            </td>
+            <td>@if($order->is_express_delivery)
+                    Express Delivery
+                @else
+                    {{ $order->timeslot->name??'' }}
+                @endif
+            </td>
+            <td>@if($order->delivered_at){{date('d/m/Y h:ia', strtotime($order->delivered_at))}}</td>
             <td>{{ $order->status??'' }}</td>
             <td>{{ $order->storename->name??'' }}</td>
             <td>{{ $order->rider->name??'' }}</td>

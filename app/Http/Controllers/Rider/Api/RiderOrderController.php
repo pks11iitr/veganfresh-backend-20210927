@@ -580,6 +580,11 @@ class RiderOrderController extends Controller
 
         Msg91::send($user->mobile, $message);
 
+        if(!empty($order->storename->mobile)){
+            Msg91::send($order->storename->mobile, 'Order ID '.$order->refid.' has been delivered successfully. Delivered time is: '.(date('d/m/Y h:ia', strtotime($order->delivered_at??''))));
+        }
+
+
         return [
             'status'=>'success',
             'message'=>'Order Has Been Delivered'
