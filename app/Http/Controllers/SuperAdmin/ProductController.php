@@ -21,6 +21,8 @@ class ProductController extends Controller
      public function index(Request $request){
 
          if($request->type=='export'){
+             if(!auth()->user()->hasRole('admin'))
+                 abort(403);
              return $this->downloadProduct($request);
          }
 

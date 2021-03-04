@@ -107,7 +107,7 @@
 {{--                <span>{{$orders->deliveryaddress->city??''}}, {{$orders->deliveryaddress->pincode??''}}</span>--}}
 
 
-                {{$invoice->organization_name??''}}
+                {{$invoice->organization_name??''}}<br>
                 {{$invoice->address??''}}
 
             </td>

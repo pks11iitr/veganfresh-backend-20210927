@@ -20,6 +20,7 @@
         </section>
 
         <!-- Main content -->
+        @if(auth()->user()->hasRole('admin'))
         <section class="content">
             <div class="container-fluid">
                 <div class="row">
@@ -80,6 +81,7 @@
                 </div>
             </div>
         </section>
+        @endif
 
         <section class="content">
             <div class="container-fluid">

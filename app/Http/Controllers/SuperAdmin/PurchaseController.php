@@ -22,8 +22,12 @@ class PurchaseController extends Controller
         if($request->todate)
             $purchases=$purchases->where('create_date', '<=', $request->todate);
 
-        if($request->export)
+        if($request->export){
+            if(!auth()->user()->hasRole('admin'))
+                abort(403);
             return $this->export($purchases);
+        }
+
 
         $purchases=$purchases->paginate(10);
         return view('admin.purchaseitem.view',['purchases'=>$purchases]);
