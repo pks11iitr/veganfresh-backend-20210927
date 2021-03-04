@@ -40,7 +40,7 @@
                     {{ $order->timeslot->name??'' }}
                 @endif
             </td>
-            <td>@if($order->delivered_at){{date('d/m/Y h:ia', strtotime($order->delivered_at))}}</td>
+            <td>@if($order->delivered_at){{date('d/m/Y h:ia', strtotime($order->delivered_at))}}@endif</td>
             <td>{{ $order->status??'' }}</td>
             <td>{{ $order->storename->name??'' }}</td>
             <td>{{ $order->rider->name??'' }}</td>
