@@ -44,6 +44,8 @@ class InventoryController extends Controller
             $products=$products->where('products.name', 'LIKE', "%".$request->search."%");
 
         if($request->type=='export'){
+            if(!auth()->user()->hasRole('admin'))
+                abort(403);
             $products=$products->get();
             return Excel::download(new InventoryQuantityExport($products), 'packet-quantity.xlsx');
         }else {
