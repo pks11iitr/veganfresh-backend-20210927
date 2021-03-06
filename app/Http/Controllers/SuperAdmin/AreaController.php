@@ -5,6 +5,7 @@ namespace App\Http\Controllers\SuperAdmin;
 use App\Exports\AreaExport;
 use App\Imports\AreaImport;
 use App\Models\Area;
+use App\Models\CustomerAddress;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -59,6 +60,7 @@ class AreaController extends Controller
         ]))
 
         {
+            //CustomerAddress::where('area', $request->name)->update(['name'=>$request->name]);
             return redirect()->route('area.list')->with('success', 'Area has been updated');
         }
         return redirect()->back()->with('error', 'Area update failed');

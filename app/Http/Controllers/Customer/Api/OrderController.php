@@ -159,8 +159,8 @@ class OrderController extends Controller
             ];
 
         $area=Area::active()
-            ->where('name', $address->area)
-            ->first();
+            //->where('name', $address->area)
+            ->find($address->area_id);
         $order=Order::where('user_id', $user->id)
             ->where('status', 'pending')
             ->find($id);
