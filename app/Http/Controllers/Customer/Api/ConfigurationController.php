@@ -45,7 +45,8 @@ class ConfigurationController extends Controller
         return [
           'status'=>'success',
           'data'=>[
-              'version'=>$version->version??''
+              'android_version'=>$version->android_version??'',
+              'ios_version'=>$version->ios_version??''
           ]
         ];
     }
