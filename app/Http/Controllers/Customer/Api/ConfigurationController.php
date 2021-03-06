@@ -45,7 +45,7 @@ class ConfigurationController extends Controller
         return [
           'status'=>'success',
           'data'=>[
-              'version'=>$version->version
+              'version'=>$version->version??''
           ]
         ];
     }
