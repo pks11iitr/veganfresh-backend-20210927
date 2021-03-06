@@ -39,6 +39,8 @@ class CustomerController extends Controller
                 $customers=$customers->where('active_membership', '>',0)->where('membership_expiry', '>', date('Y-m-d'));
 
             if($request->type=='export'){
+                if(!auth()->user()->hasRole('admin'))
+                    abort(403);
                 $customers=$customers->get();
                 return Excel::download(new UserExport($customers), 'customers.xlsx');
             }else{

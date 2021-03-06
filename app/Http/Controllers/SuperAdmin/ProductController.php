@@ -21,6 +21,8 @@ class ProductController extends Controller
      public function index(Request $request){
 
          if($request->type=='export'){
+             if(!auth()->user()->hasRole('admin'))
+                 abort(403);
              return $this->downloadProduct($request);
          }
 
@@ -418,14 +420,15 @@ class ProductController extends Controller
         $added_categories=[];
         if($request->sub_category){
             $subcategories=explode('***', $request->sub_category);
-            $filtered_sub=[];
+            $filtered_cat=[];
             foreach($subcategories as $s){
                 $s=trim($s);
                 if(!empty($s))
                     $filtered_cat[]=$s;
             }
-            if(!empty($filtered_sub)){
-                $subcategories=SubCategory::active()->whereIn('name', $filtered_sub)->get();
+            //var_dump($filtered_cat);die;
+            if(!empty($filtered_cat)){
+                $subcategories=SubCategory::active()->whereIn('name', $filtered_cat)->get();
                 foreach($subcategories as $sub) {
                     CategoryProduct::create([
                         'category_id' => $sub->category_id,

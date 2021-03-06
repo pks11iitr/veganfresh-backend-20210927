@@ -69,7 +69,7 @@
         <tbody>
         <tr class="black">
             <td colspan="5" style="color: white"><strong>Invoice No # {{$orders->invoice_number}}</strong><br>Pan/GST: {{$invoice->pan_gst??''}}</td>
-            <td colspan="1" style="color: white">Date: {{date('d/m/Y h:ia', strtotime($orders->updated_at))}}</td>
+            <td colspan="1" style="color: white">Date: {{date('d/m/Y h:ia', strtotime($orders->updated_at))}}<br>Status: {{strtoupper($orders->status)}}</td>
         </tr>
         <tr class="black">
             <td colspan="6" style="color: white"><strong>Delivery Date: @if($orders->is_express_delivery){{'60 Min Express Delivery'}}@else{{date('D d ,Y', strtotime($orders->delivery_date))}} ({{$orders->timeslot->name??''}})@endif</strong></td>
@@ -86,7 +86,7 @@
 
         <tr class="border-right">
             <td colspan="6">{{$orders->deliveryaddress->first_name??''}} {{$orders->deliveryaddress->last_name??''}}<br>
-                <span>{{$orders->deliveryaddress->mobile??''}}, {{$orders->deliveryaddress->email??''}}</span><br>
+                <span>{{$orders->deliveryaddress->mobile_no??''}}, {{$orders->deliveryaddress->email??''}}</span><br>
                 <span>{{$orders->deliveryaddress->house_no??''}}, {{$orders->deliveryaddress->appertment_name??''}}</span><br>
                 @if(!empty($orders->deliveryaddress->street) || !empty($orders->deliveryaddress->landmark))
                 <span>{{!empty($orders->deliveryaddress->street)?$orders->deliveryaddress->street.', ':''}}{{$orders->deliveryaddress->landmark??''}},</span><br>
@@ -107,7 +107,7 @@
 {{--                <span>{{$orders->deliveryaddress->city??''}}, {{$orders->deliveryaddress->pincode??''}}</span>--}}
 
 
-                {{$invoice->organization_name??''}}
+                {{$invoice->organization_name??''}}<br>
                 {{$invoice->address??''}}
 
             </td>

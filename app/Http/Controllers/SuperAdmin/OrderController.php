@@ -102,7 +102,7 @@ class OrderController extends Controller
         if($status=='reopen'){
             $order->status='confirmed';
             $order->payment_status='payment-wait';
-            $order->paymnet_mode='COD';
+            $order->payment_mode='COD';
             //$order->save();
         }else if($status=='cancelled') {
 
@@ -137,6 +137,8 @@ class OrderController extends Controller
             }
 
             Order::increaseInventory($order);
+
+
 
 
         }else if($status=='delivered'){
@@ -212,6 +214,18 @@ class OrderController extends Controller
         if($old_status!='dispatched' &&  $order->status=='dispatched' && !empty($order->rider_id)){
             $rider=Rider::find($order->rider_id);
             Msg91::send($rider->mobile, 'New Order '.$order->refid.' arrived. Scheduled Delivery is '.($order->delivery_date??'').' '.($order->timeslot->name??''));
+        }
+
+        //sms to store owners
+        if($status=='completed'){
+            if(!empty($order->storename->mobile)){
+                Msg91::send($order->storename->mobile, 'Order ID '.$order->refid.' has been delivered successfully. Delivered time is: '.(date('d/m/Y h:ia', strtotime($order->delivered_at??''))));
+            }
+        }
+        else if($status=='cancelled'){
+            if(!empty($order->storename->mobile)){
+                Msg91::send($order->storename->mobile, 'Order ID '.$order->refid.' has been cancelled by customer');
+            }
         }
 
         return redirect()->back()->with('success', 'Order has been updated');

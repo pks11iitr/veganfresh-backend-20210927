@@ -102,10 +102,11 @@
                                         <th>User</th>
                                         <th>Store Name</th>
                                         <th>Rider Name</th>
+                                        <th>Order Date</th>
                                         <th>Delivery Slot</th>
                                         <th>Cost</th>
                                         <th>Status</th>
-                                        <th>Payment Status</th>
+                                        {{--                                        <th>Payment Status</th>--}}
                                         <th>Payment Mode</th>
                                         <th>Action</th>
                                     </tr>
@@ -114,17 +115,24 @@
                                     @foreach($orders as $order)
                                         <tr>
                                             <td>{{$order->refid}}</td>
+                                            <td>{{$order->customer->name??''}} <br>Mob: {{$order->customer->mobile??''}}</td>
+
                                             <td>{{$order->storename->name??''}}</td>
                                             <td>{{$order->rider->name??''}}</td>
-                                            <td>{{$order->customer->name??''}} <br>Mob: {{$order->customer->mobile??''}}</td>
-                                            <td>{{$order->delivery_date}} {{$order->timeslot->name??''}}</td>
+                                            <td>{{date('d/m/Y H:i A', strtotime($order->created_at))}}</td>
+                                            <td>@if($order->is_express_delivery)
+                                                    Express Delivery
+                                                @else
+                                                    {{date('d/m/Y', strtotime($order->delivery_date))}} {{$order->timeslot->name??''}}
+
+                                                @endif                                                       </td>
                                             <td>{{$order->total_cost+$order->delivery_charge}}</td>
                                             <td>{{$order->status}}</td>
-                                            <td>{{$order->payment_status}}</td>
+                                            {{--                                                <td>{{$order->payment_status}}</td>--}}
                                             <td>{{$order->payment_mode}}</td>
                                             <td>
-                                                <a href="{{route('storeadmin.order.details',['id'=>$order->id])}}" class="btn btn-primary">Details</a><br><br>
-                                                <a href="{{route('invoice.view',['id'=>$order->id])}}" class="btn btn-primary">Invoice</a>
+                                                <a href="{{route('order.details',['id'=>$order->id])}}" class="btn btn-primary">Details</a><br><br>
+                                                <a href="{{route('invoice.view',['id'=>$order->id])}}" class="btn btn-warning">Invoice</a>
                                             </td>
                                         </tr
                                     @endforeach

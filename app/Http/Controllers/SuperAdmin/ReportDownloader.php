@@ -13,7 +13,8 @@ use Excel;
 class ReportDownloader extends Controller
 {
     public function downloadSalesReport(Request $request){
-
+        if(!auth()->user()->hasRole('admin'))
+            abort(403);
         $orders=Order::with(['deliveryaddress','customer', 'rider', 'storename', 'timeslot'])
         ->where('status', '!=', 'pending');
 
@@ -70,6 +71,8 @@ class ReportDownloader extends Controller
 
 
     public function downloadOrderReport(Request $request){
+        if(!auth()->user()->hasRole('admin'))
+            abort(403);
         $orders=Order::with(['deliveryaddress','customer', 'rider', 'storename', 'timeslot', 'details.entity', 'details.size'])
             ->where('status', '!=', 'pending');
 

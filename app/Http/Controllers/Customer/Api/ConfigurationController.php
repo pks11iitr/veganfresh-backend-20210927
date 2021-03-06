@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Customer\Api;
 
+use App\Models\AppVersion;
 use App\Models\Configuration;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -37,5 +38,16 @@ class ConfigurationController extends Controller
             'data'=>compact('list')
         ];
 
+    }
+
+    public function version(Request $request){
+        $version=AppVersion::orderBy('id', 'desc')->first();
+        return [
+          'status'=>'success',
+          'data'=>[
+              'android_version'=>$version->android_version??'',
+              'ios_version'=>$version->ios_version??''
+          ]
+        ];
     }
 }

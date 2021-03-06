@@ -34,8 +34,11 @@ class ReturnProductController extends Controller
         if($request->rider_id)
             $returnproducts=$returnproducts->where('rider_id', $request->rider_id);
 
-        if($request->type=='export')
+        if($request->type=='export') {
+            if (!auth()->user()->hasRole('admin'))
+                abort(403);
             return $this->export($returnproducts);
+        }
 
 
         $returnproducts=$returnproducts->orderBy('id', 'desc')->paginate(10);

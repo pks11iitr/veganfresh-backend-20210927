@@ -25,6 +25,8 @@ class InventoryController extends Controller
             })
             ->orderBy('product_prices.stock', $request->order_by??'asc');
         if($request->type=='export'){
+            if(!auth()->user()->hasRole('admin'))
+                abort(403);
             $sizes=$sizes->get();
             return Excel::download(new InventoryExport($sizes), 'packet-inventory.xlsx');
         }else{
@@ -44,6 +46,8 @@ class InventoryController extends Controller
             $products=$products->where('products.name', 'LIKE', "%".$request->search."%");
 
         if($request->type=='export'){
+            if(!auth()->user()->hasRole('admin'))
+                abort(403);
             $products=$products->get();
             return Excel::download(new InventoryQuantityExport($products), 'packet-quantity.xlsx');
         }else {

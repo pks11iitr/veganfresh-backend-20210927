@@ -63,6 +63,12 @@ class CustomerAddressController extends Controller
                 'message'=>'Please login to continue'
             ];
 
+        $area=Area::where('name', $request->area)->first();
+        if(!$area)
+            return [
+                'status'=>'failed',
+                'message'=>'Please select area'
+            ];
 
         $customeraddress =  CustomerAddress::create([
                     'user_id'=>$user->id,
@@ -79,6 +85,7 @@ class CustomerAddressController extends Controller
                     'pincode'=>$request->pincode,
                     'address_type'=>$request->address_type??'home',
                     'other_text'=>$request->other_text?$request->other_text:'',
+                    'area_id'=>$area->id
                     //'lat'=>$request->lat?$request->lat:'',
                     //'lang'=>$request->lang?$request->lang:'',
                     //'map_address'=>$request->map_address?$request->map_address:'',

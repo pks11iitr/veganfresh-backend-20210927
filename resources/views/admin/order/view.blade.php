@@ -20,6 +20,7 @@
         </section>
 
         <!-- Main content -->
+        @if(auth()->user()->hasRole('admin'))
         <section class="content">
             <div class="container-fluid">
                 <div class="row">
@@ -80,6 +81,7 @@
                 </div>
             </div>
         </section>
+        @endif
 
         <section class="content">
             <div class="container-fluid">
@@ -214,7 +216,7 @@
                                                 <td>@if($order->is_express_delivery)
                                                         Express Delivery
                                                     @else
-                                                        {{$order->delivery_date}} {{$order->timeslot->name??''}}
+                                                        {{date('d/m/Y', strtotime($order->delivery_date))}} {{$order->timeslot->name??''}}
 
  @endif                                                       </td>
                                                 <td>{{$order->total_cost+$order->delivery_charge}}</td>

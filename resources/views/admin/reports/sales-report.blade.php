@@ -7,8 +7,10 @@
         <th>Mobile</th>
         <th>Amount</th>
         <th>Payment Mode</th>
-        <th>Date</th>
+        <th>Order Date</th>
+        <th>Delivery Date</th>
         <th>Time</th>
+        <th>Delivered At</th>
         <th>Status</th>
         <th>Store</th>
         <th>Rider</th>
@@ -24,8 +26,20 @@
             <td>{{ $order->customer->mobile??'' }}</td>
             <td>{{ $order->total_cost+$order->delivery_charge }}</td>
             <td>{{ $order->payment_mode }}</td>
-            <td>{{ $order->delivery_date??'' }}</td>
-            <td>{{ $order->timeslot->name??'' }}</td>
+            <td>{{ date('d/m/Y h:ia', strtotime($order->created_at??'')) }}</td>
+            <td>@if($order->is_express_delivery)
+                    Express Delivery
+                @else
+                    {{date('d/m/Y', strtotime($order->delivery_date))}}
+                @endif
+            </td>
+            <td>@if($order->is_express_delivery)
+                    Express Delivery
+                @else
+                    {{ $order->timeslot->name??'' }}
+                @endif
+            </td>
+            <td>@if($order->delivered_at){{date('d/m/Y h:ia', strtotime($order->delivered_at))}}@endif</td>
             <td>{{ $order->status??'' }}</td>
             <td>{{ $order->storename->name??'' }}</td>
             <td>{{ $order->rider->name??'' }}</td>
