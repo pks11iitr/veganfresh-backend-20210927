@@ -109,7 +109,7 @@
 					  <td>{{$customer->city}}</td>
 					  <td>{{$customer->state}}</td>-->
                       <td><img src="{{$customer->image}}" height="80px" width="80px"/></td>
-                      <td>{{date('Y-m-d H:i:s', strtotime($customer->created_at))}}</td>
+                      <td>{{date('d/m/Y h:ia', strtotime($customer->created_at))}}</td>
                       <td>@if($customer->isMembershipActive()){{$customer->membership->name??'--'}}@endif</td>
                        <td>
                         @if($customer->status==1){{'Active'}}
