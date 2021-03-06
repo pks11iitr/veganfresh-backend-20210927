@@ -102,7 +102,7 @@ class OrderController extends Controller
         if($status=='reopen'){
             $order->status='confirmed';
             $order->payment_status='payment-wait';
-            $order->paymnet_mode='COD';
+            $order->payment_mode='COD';
             //$order->save();
         }else if($status=='cancelled') {
 
