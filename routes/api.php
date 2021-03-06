@@ -14,6 +14,7 @@ $api = app('Dingo\Api\Routing\Router');
 |
 */
 
+$api->get('app-version', 'Customer\Api\ConfigurationController@version');
 $api->post('login', 'Customer\Auth\LoginController@login');
 $api->post('login-with-otp', 'Customer\Auth\LoginController@loginWithOtp');
 $api->post('register', 'Customer\Auth\RegisterController@register');
