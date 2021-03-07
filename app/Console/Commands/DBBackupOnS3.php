@@ -61,6 +61,7 @@ class DBBackupOnS3 extends Command
 
         Storage::disk('s3')->put('database/dbbackup.mysql', Storage::disk('backups')->get('database/dbbackup.mysql'), 'private');
 
+        Storage::disk('backups')->delete('database/dbbackup.mysql');
 
     }
 }
