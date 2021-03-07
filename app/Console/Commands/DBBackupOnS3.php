@@ -49,19 +49,19 @@ class DBBackupOnS3 extends Command
             mkdir($path, 0755, true);
         }
 
-        Storage::disk('backups')->delete('database/dbbackup.mysql');
+        Storage::disk('backups')->delete('database/dbbackups3.mysql');
 
-        $command = sprintf('mysqldump -h %s -u %s -p\'%s\' %s > %s', $host, $username, $password, $database, $path.'/dbbackup.mysql');
+        $command = sprintf('mysqldump -h %s -u %s -p\'%s\' %s > %s', $host, $username, $password, $database, $path.'/dbbackups3.mysql');
 
         exec($command);
 
-        if(Storage::disk('s3')->exists('database/dbbackup.mysql')){
-            Storage::disk('s3')->delete('database/dbbackup.mysql');
+        if(Storage::disk('s3')->exists('database/dbbackups3.mysql')){
+            Storage::disk('s3')->delete('database/dbbackups3.mysql');
         }
 
-        Storage::disk('s3')->put('database/dbbackup.mysql', Storage::disk('backups')->get('database/dbbackup.mysql'), 'private');
+        Storage::disk('s3')->put('database/dbbackups3.mysql', Storage::disk('backups')->get('database/dbbackups3.mysql'), 'private');
 
-        Storage::disk('backups')->delete('database/dbbackup.mysql');
+        Storage::disk('backups')->delete('database/dbbackups3.mysql');
 
     }
 }
