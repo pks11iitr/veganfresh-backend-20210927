@@ -55,11 +55,11 @@ class DBBackupOnS3 extends Command
 
         exec($command);
 
-        if(Storage::disk('s3')->exists('database/dbbackups3.mysql')){
-            Storage::disk('s3')->delete('database/dbbackups3.mysql');
-        }
+//        if(Storage::disk('s3')->exists('database/dbbackups3.mysql')){
+//            Storage::disk('s3')->delete('database/dbbackups3.mysql');
+//        }
 
-        Storage::disk('s3')->put('database/dbbackups3.mysql', Storage::disk('backups')->get('database/dbbackups3.mysql'), 'private');
+        Storage::disk('s3')->put('database/dbbackups3-'.date('Y-m-d-H-i-s').'.mysql', Storage::disk('backups')->get('database/dbbackups3.mysql'), 'private');
 
         Storage::disk('backups')->delete('database/dbbackups3.mysql');
 
