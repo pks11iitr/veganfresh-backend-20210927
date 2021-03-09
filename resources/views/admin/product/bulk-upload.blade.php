@@ -133,19 +133,21 @@
                                 formdata.append('sub_category',row[8])
                                 formdata.append('size',row[9])
                                 formdata.append('price',row[10])
-                                formdata.append('cut_price',row[11])
-                                formdata.append('min_qty',row[12])
-                                formdata.append('max_qty',row[13])
+                                formdata.append('sgst',row[11])
+                                formdata.append('cgst',row[12])
+                                formdata.append('cut_price',row[13])
+                                formdata.append('min_qty',row[14])
+                                formdata.append('max_qty',row[15])
                                 //formdata.append('size_stock',row[14])
-                                formdata.append('consumed_units',row[14])
-                                formdata.append('is_size_active',row[15])
-                                formdata.append('new_arrival',row[16])
-                                formdata.append('hot_deal',row[17])
-                                formdata.append('discounted',row[18])
+                                formdata.append('consumed_units',row[16])
+                                formdata.append('is_size_active',row[17])
+                                formdata.append('new_arrival',row[18])
+                                formdata.append('hot_deal',row[19])
+                                formdata.append('discounted',row[20])
 
 
                                 file_count=0;
-                                image_identifier=row[19]
+                                image_identifier=row[21]
 
                                 //alert(image_identifier)
                                 for (var i = 0; i < files.length; i++) {

@@ -329,6 +329,20 @@
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
+                                                <label for="exampleInputEmail1">SGST</label>
+                                                <input type="number" name="sgst" value="0.0" class="form-control"
+                                                       id="exampleInputEmail1" placeholder="Enter price" step="0.1">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail1">CGST</label>
+                                                <input type="number" name="cgst" value="0.0" class="form-control"
+                                                       id="exampleInputEmail1" placeholder="Enter price" step="0.1">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
                                                 <label for="exampleInputEmail1">Cut Price</label>
                                                 <input type="number" min="0" name="cut_price" class="form-control"
                                                        id="exampleInputEmail1" placeholder="Enter price">
@@ -427,6 +441,8 @@
                                     <tr>
                                         <th>Size</th>
                                         <th>Price</th>
+                                        <th>CGST(%)</th>
+                                        <th>SGST(%)</th>
                                         <th>Cut Price</th>
                                         <th>Min. QTY</th>
                                         <th>Max QTY</th>
@@ -442,11 +458,14 @@
                                         <tr id="row{{$size->id}}">
                                             <td id="size{{$size->id}}">{{$size->size}}</td>
                                             <td id="price{{$size->id}}">{{$size->price}}</td>
+                                            <td id="sgst{{$size->id}}">{{$size->sgst}}</td>
+                                            <td id="cgst{{$size->id}}">{{$size->cgst}}</td>
                                             <td id="cut_price{{$size->id}}">{{$size->cut_price}}</td>
                                             <td id="min_qty{{$size->id}}">{{$size->min_qty}}</td>
                                             <td id="max_qty{{$size->id}}">{{$size->max_qty}}</td>
                                             <td id="stock{{$size->id}}">{{$size->stock}}</td>
                                             <td id="consumed_units{{$size->id}}">{{$size->consumed_units}}</td>
+
                                             <td id="image{{$size->id}}"><img src="{{$size->image}}" height="80px" width="80px"/><br><br><input type="file" style='width:80px; margin-left: 5px;' id="sel_image{{$size->id}}"></td>
                                             <td id="isactive{{$size->id}}">
                                                 @if($size->isactive==1){{'Yes'}}
@@ -467,6 +486,8 @@
                                     <tr>
                                         <th>Size</th>
                                         <th>Price</th>
+                                        <th>CGST(%)</th>
+                                        <th>SGST(%)</th>
                                         <th>Cut Price</th>
                                         <th>Min. QTY</th>
                                         <th>Max QTY</th>
@@ -553,6 +574,8 @@
             var max = document.getElementById("max_qty" + no);
             var image = document.getElementById("image" + no);
             var stock = document.getElementById("stock" + no);
+            var cgst = document.getElementById("cgst" + no);
+            var sgst = document.getElementById("sgst" + no);
             var consumed_units = document.getElementById("consumed_units" + no);
             var isactive = document.getElementById("isactive" + no);
 
@@ -563,6 +586,8 @@
             var max_data = max.innerHTML;
             var image_data = image.src;
             var stock_data = stock.innerHTML;
+            var cgst_data = cgst.innerHTML;
+            var sgst_data = sgst.innerHTML;
             var consumed_units_data = consumed_units.innerHTML;
             var isactive_data1 = isactive.innerHTML
             if (isactive_data1.trim() === "Yes") {
@@ -574,6 +599,8 @@
 
             size.innerHTML = "<input type='text' style='width:70px;' id='size_text" + no + "' value='" + size_data + "'>";
             price.innerHTML = "<input type='text' style='width:70px;' id='price_text" + no + "' value='" + price_data + "'>";
+            sgst.innerHTML = "<input type='text' style='width:70px;' id='sgst_text" + no + "' value='" + sgst_data + "'>";
+            cgst.innerHTML = "<input type='text' style='width:70px;' id='cgst_text" + no + "' value='" + cgst_data + "'>";
             cut_price.innerHTML = "<input type='text' style='width:70px;' id='cut_price_text" + no + "' value='" + cut_price_data + "'>";
             min.innerHTML = "<input type='text' style='width:70px;'  id='min_text" + no + "' value='" + min_data + "'>";
             max.innerHTML = "<input type='text' style='width:70px;' id='max_text" + no + "' value='" + max_data + "'>";
@@ -587,6 +614,8 @@
 
             var size_val = document.getElementById("size_text" + no).value;
             var price_val = document.getElementById("price_text" + no).value;
+            var sgst_val = document.getElementById("sgst_text" + no).value;
+            var cgst_val = document.getElementById("cgst_text" + no).value;
             var cut_price_val = document.getElementById("cut_price_text" + no).value;
             var min_val = document.getElementById("min_text" + no).value;
             var max_val = document.getElementById("max_text" + no).value;
@@ -597,6 +626,8 @@
             formdata = new FormData();
             formdata.append('size', size_val)
             formdata.append('price', price_val)
+            formdata.append('sgst', sgst_val)
+            formdata.append('cgst', cgst_val)
             formdata.append('cut_price', cut_price_val)
             formdata.append('min_qty', min_val)
             formdata.append('max_qty', max_val)

@@ -12,6 +12,8 @@
         <th>Subcategory</th>
         <th>Size</th>
         <th>Price</th>
+        <th>SGST(%)</th>
+        <th>CGST(%)</th>
         <th>Cut Price</th>
         <th>Min Quantity</th>
         <th>Max. Quantity</th>
@@ -48,6 +50,8 @@
                 </td>
                 <td>{{ $size->size }}</td>
                 <td>{{ $size->price??0 }}</td>
+                <td>{{ $size->sgst??0 }}</td>
+                <td>{{ $size->cgst??0 }}</td>
                 <td>{{ $size->cut_price??0 }}</td>
                 <td>{{ $size->min_qty }}</td>
                 <td>{{ $size->max_qty }}</td>
