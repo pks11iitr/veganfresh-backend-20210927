@@ -20,6 +20,7 @@ use App\Models\OrderDetail;
 use App\Models\OrderStatus;
 use App\Models\Product;
 use App\Models\RescheduleRequest;
+use App\Models\ReturnRequest;
 use App\Models\Therapy;
 use App\Models\TimeSlot;
 use App\Models\Wallet;
@@ -437,6 +438,11 @@ class OrderController extends Controller
             ->where('status', '!=', 'pending')
             ->find($id);
 
+        if($order->status=='completed')
+            $show_return=1;
+        else
+            $show_return=0;
+
         if(!$order)
             return [
                 'status'=>'failed',
@@ -469,7 +475,7 @@ class OrderController extends Controller
                 'quantity'=>$detail->quantity,
                 'size'=>$detail->size->size??'',
                 'item_id'=>$detail->entity_id,
-                //'show_return'=>($detail->status=='delivered'?1:0),
+                'show_return'=>$show_return,
                 //'show_cancel'=>in_array($detail->status, ['confirmed'])?1:0,
                 'show_review'=>($order->status=='completed')?(isset($reviews[$detail->entity_id])?0:1):0
             ];
@@ -513,7 +519,8 @@ class OrderController extends Controller
                 'show_download_invoice'=>$show_download_invoice??0,
                 'invoice_link'=>$show_download_invoice?route('download.invoice', ['id'=>$order->id]):'',
                 'time_slot'=>$time_slot,
-                'show_repeat_order'=>$show_repeat_order??0
+                'show_repeat_order'=>$show_repeat_order??0,
+                'show_return'=>$show_return
             ]
         ];
     }
@@ -700,6 +707,38 @@ class OrderController extends Controller
         return [
             'status'=>'success',
             'message'=>'Item has been added to cart'
+        ];
+
+    }
+
+    public function raiseReturn(Request $request, $detail_id){
+
+        $request->validate([
+            'quantity'=>'required|integer'
+        ]);
+
+        $user=$request->user;
+        $detail=OrderDetail::with('order')->where('status', 'completed')
+            ->whereHas('order', function($order) use ($user){
+                $order->where('user_id', $user->id);
+            })->findOrFail($detail_id);
+
+        if($request->quantity > $detail->quantity){
+            return [
+                'status'=>'failed',
+                'message'=>'Max quantity '.$detail->quantity.' can be returned'
+            ];
+        }
+
+        ReturnRequest::create([
+            'order_id'=>$detail->order_id,
+            'detail_id'=>$detail->id,
+            'quantity'=>$request->quantity
+        ]);
+
+        return [
+            'status'=>'success',
+            'message'=>'Return request has been raised'
         ];
 
     }
