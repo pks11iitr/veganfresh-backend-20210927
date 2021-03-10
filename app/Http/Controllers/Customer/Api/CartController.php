@@ -188,6 +188,7 @@ class CartController extends Controller
 
     public function getCartDetails(Request $request){
         $user=auth()->guard('customerapi')->user();
+        //return $user;
         if(!$user)
             return [
                 'status'=>'failed',
@@ -261,16 +262,16 @@ class CartController extends Controller
                 'name'=>$sl->product->name??'',
                 'company'=>$sl->product->company??'',
                 'ratings'=>$sl->product->ratings??'',
-                'image'=>$sl->sizeprice->image,
+                'image'=>$sl->sizeprice->image??'',
                 'product_id'=>$sl->product->id??'',
-                'size_id'=>$sl->sizeprice->id,
-                'min_qty'=>$sl->sizeprice->min_qty,
-                'max_qty'=>$sl->sizeprice->max_qty,
-                'discount'=>$sl->sizeprice->discount,
-                'size'=>$sl->sizeprice->size,
-                'price'=>$sl->sizeprice->price,
-                'cut_price'=>$sl->sizeprice->cut_price,
-                'stock'=>$sl->sizeprice->stock,
+                'size_id'=>$sl->sizeprice->id??0,
+                'min_qty'=>$sl->sizeprice->min_qty??0,
+                'max_qty'=>$sl->sizeprice->max_qty??0,
+                'discount'=>$sl->sizeprice->discount??0,
+                'size'=>$sl->sizeprice->size??'',
+                'price'=>$sl->sizeprice->price??0,
+                'cut_price'=>$sl->sizeprice->cut_price??0,
+                'stock'=>$sl->sizeprice->stock??0,
             );
         }
         return [
