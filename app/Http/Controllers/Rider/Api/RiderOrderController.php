@@ -604,25 +604,29 @@ class RiderOrderController extends Controller
         ]);
 
         // add cashback to user
-        $customer=Customer::find($order->user_id);
-        if($customer->isMembershipActive()){
 
-            $membership=Membership::find($customer->active_membership);
+        if(!($order->cashback_used || $order->coupon_discount)) {
 
-            if($membership){
-                $amount=round(($order->total_cost-$order->coupon_discount-$order->points_used)*$membership->cashback/100, 2);
-                $order->cashback_given=$amount;
-                $order->save();
-                if($amount>0)
-                    Wallet::updatewallet($order->user_id, 'Cashback received For Order ID: '.$order->refid, 'CREDIT',$amount, 'POINT', $order->id);
+            $customer = Customer::find($order->user_id);
+            if ($customer && $customer->isMembershipActive()) {
 
-                $title='Cashback Credited';
-                $message="Cashback of $amount received For Order ID: ".$order->refid;
+                $membership = Membership::find($customer->active_membership);
 
-                FCMNotification::sendNotification($order->customer->notification_token, $title, $message);
+                if ($membership) {
+                    $amount = round(($order->total_cost - $order->coupon_discount - $order->points_used) * $membership->cashback / 100, 2);
+                    $order->cashback_given = $amount;
+                    $order->save();
+                    if ($amount > 0)
+                        Wallet::updatewallet($order->user_id, 'Cashback received For Order ID: ' . $order->refid, 'CREDIT', $amount, 'POINT', $order->id);
+
+                    $title = 'Cashback Credited';
+                    $message = "Cashback of $amount received For Order ID: " . $order->refid;
+
+                    FCMNotification::sendNotification($customer->notification_token, $title, $message);
+
+                }
 
             }
-
         }
 
         $title='Order Delivered';

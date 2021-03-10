@@ -189,24 +189,27 @@ class OrderController extends Controller
         //credit cashback on completion
         if($status=='completed' && $old_status!='completed'){
 
-            if($order->customer->isMembershipActive()){
+            if(!($order->cashback_used || $order->coupon_discount)){
+                if($order->customer->isMembershipActive()){
 
-                $membership=Membership::find($order->customer->active_membership);
+                    $membership=Membership::find($order->customer->active_membership);
 
-                if($membership){
-                    $amount=round(($order->total_cost-$order->coupon_discount-$order->points_used)*$membership->cashback/100, 2);
-                    $order->cashback_given=$amount;
-                    $order->save();
-                    if($amount>0)
-                        Wallet::updatewallet($order->user_id, 'Cashback received For Order ID: '.$order->refid, 'CREDIT',$amount, 'POINT', $order->id);
+                    if($membership){
+                        $amount=round(($order->total_cost-$order->coupon_discount-$order->points_used)*$membership->cashback/100, 2);
+                        $order->cashback_given=$amount;
+                        $order->save();
+                        if($amount>0)
+                            Wallet::updatewallet($order->user_id, 'Cashback received For Order ID: '.$order->refid, 'CREDIT',$amount, 'POINT', $order->id);
 
-                    $title='Cashback Credited';
-                    $message="Cashback of $amount received For Order ID: ".$order->refid;
+                        $title='Cashback Credited';
+                        $message="Cashback of $amount received For Order ID: ".$order->refid;
 
-                    FCMNotification::sendNotification($order->customer->notification_token, $title, $message);
+                        FCMNotification::sendNotification($order->customer->notification_token, $title, $message);
 
+                    }
                 }
             }
+
 
         }
 
