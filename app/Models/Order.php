@@ -90,6 +90,28 @@ class Order extends Model
         return $amount;
     }
 
+    public function getMembershipEligibleDiscount($membership){
+        $amount=0;
+        $membership_cat=$membership->categories->map(function($element){
+            return $element->id;
+        });
+        $membership_cat=$membership_cat->toArray();
+        foreach($this->details as $detail){
+            if(count($membership_cat)){
+                $product_cat=$detail->entity->subcategory->map(function($element){
+                    return $element->id;
+                });
+                $product_cat=$product_cat->toArray();
+                if(count(array_intersect($product_cat,$membership_cat))){
+                    $amount=$amount+$detail->price*$detail->quantity;
+                }
+            }else{
+                $amount=$amount+$detail->price*$detail->quantity;
+            }
+        }
+        return $amount;
+    }
+
 
     public function changeDetailsStatus($status, $id=null){
         if($id==null){
