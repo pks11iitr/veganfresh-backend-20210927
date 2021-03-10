@@ -192,10 +192,13 @@ class OrderController extends Controller
             if(!($order->cashback_used || $order->coupon_discount)){
                 if($order->customer->isMembershipActive()){
 
-                    $membership=Membership::find($order->customer->active_membership);
+                    $membership=Membership::with('categories')->find($order->customer->active_membership);
 
                     if($membership){
-                        $amount=round(($order->total_cost-$order->coupon_discount-$order->points_used)*$membership->cashback/100, 2);
+
+                        $amount=$order->getMembershipEligibleDiscount($membership);
+
+                        $amount=round(($amount)*$membership->cashback/100, 2);
                         $order->cashback_given=$amount;
                         $order->save();
                         if($amount>0)
