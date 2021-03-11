@@ -10,4 +10,16 @@ class ReturnRequest extends Model
 
     protected $fillable = ['order_id', 'details_id', 'quantity'];
 
+    public function order(){
+        return $this->belongsTo('App\Models\Order', 'order_id');
+    }
+
+    public function details(){
+        return $this->belongsTo('App\Models\OrderDetail', 'details_id');
+    }
+
+    public function size(){
+        return $this->belongsToMany('App\Models\Size', 'details', 'order_id', 'size_id');
+    }
+
 }
