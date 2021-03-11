@@ -99,7 +99,7 @@ class ProductController extends Controller
             //$category=Category::active()->select('id','name','image')->get();
             $products = Product::active()->where('name', 'like', "%".$request->search."%");
         }else{
-            $products = Product::active()->limit(5);
+            $products = Product::active();
         }
 
 //
