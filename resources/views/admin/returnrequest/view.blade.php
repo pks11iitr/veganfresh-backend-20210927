@@ -54,9 +54,10 @@
 
                                             <td>{{$return->return_reason}}</td>
                                             <td>{{$return->created_at}}</td>
-                                            <td>{{$return->status}}<br><br>
+                                            <td>
                                                 @if($return->status=='pending')
                                                     <a href="{{route('cancel.return.request', ['id'=>$return->id,'status'=>'rejected'])}}" name='status' class="btn btn-danger">Rejected</a>
+                                                    <a href="{{route('cancel.return.request', ['id'=>$return->id,'status'=>'approved'])}}" name='status' class="btn btn-success">Approved</a>
                                                 @endif
                                             </td>
                                             <td>
