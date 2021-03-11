@@ -288,6 +288,8 @@ class ProductController extends Controller
             'isactive'=>'required',
             'size'=>'required',
             'price'=>'required',
+            //'sgst'=>'required',
+            //'cgst'=>'required',
             'stock'=>'required',
             'consumed_units'=>'required',
             'min_qty'=>'required',
@@ -299,6 +301,8 @@ class ProductController extends Controller
         if($products=Size::create([
             'size'=>$request->size,
             'price'=>$request->price,
+            'sgst'=>$request->sgst??0.0,
+            'cgst'=>$request->cgst??0.0,
             'min_qty'=>$request->min_qty,
             'max_qty'=>$request->max_qty,
             'stock'=>$request->stock,
@@ -326,12 +330,16 @@ class ProductController extends Controller
             'max_qty'=>'required',
             'consumed_units'=>'required',
             'cut_price'=>'required',
+            'cgst'=>'required|numeric',
+            'sgst'=>'required|numeric',
         ]);
-
+        //return $request->all();
         $product = Size::findOrFail($request->size_id);
         $product->update([
             'size'=>$request->size,
             'price'=>$request->price,
+            'cgst'=>$request->cgst,
+            'sgst'=>$request->sgst,
             'cut_price'=>$request->cut_price,
             'min_qty'=>$request->min_qty,
             'max_qty'=>$request->max_qty,
@@ -340,6 +348,7 @@ class ProductController extends Controller
             'isactive'=>$request->isactive,
         ]);
         {
+            //echo 'updated';die;
             if($request->file){
                 $product->saveImage($request->file, 'products');
             }
@@ -398,6 +407,8 @@ class ProductController extends Controller
              'is_offer'=>'required|integer|min:0',
               'size'=>'required',
              'price'=>'required|numeric',
+             'cgst'=>'required|numeric',
+             'sgst'=>'required|numeric',
              'cut_price'=>'required|numeric',
              //'size_stock'=>'required|integer',
              'min_qty'=>'required|integer',
@@ -476,9 +487,9 @@ class ProductController extends Controller
                 ->where(DB::raw('BINARY size'), $request->size)
                 ->first();
             if($size){
-                $size->update(array_merge($request->only('price', 'cut_price', 'consumed_units', 'min_qty', 'max_qty', 'is_offer'), ['stock'=>$request->stock, 'isactive'=>$request->is_size_active]));
+                $size->update(array_merge($request->only('price', 'cut_price', 'consumed_units', 'min_qty', 'max_qty', 'is_offer','sgst','cgst'), ['stock'=>$request->stock, 'isactive'=>$request->is_size_active]));
             }else{
-                $size=Size::create(array_merge($request->only('size', 'price', 'cut_price', 'consumed_units', 'min_qty', 'max_qty', 'is_offer'), ['product_id'=>$product->id, 'stock'=>$request->stock, 'isactive'=>$request->is_size_active]));
+                $size=Size::create(array_merge($request->only('size', 'price', 'cut_price', 'consumed_units', 'min_qty', 'max_qty', 'is_offer','sgst','cgst'), ['product_id'=>$product->id, 'stock'=>$request->stock, 'isactive'=>$request->is_size_active]));
             }
         }
 

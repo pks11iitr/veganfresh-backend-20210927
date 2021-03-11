@@ -6,6 +6,8 @@ use App\Models\Invoice;
 use App\Models\Membership;
 use App\Models\Notification;
 use App\Models\Order;
+use App\Models\OrderDetail;
+use App\Models\ReturnRequest;
 use App\Models\Rider;
 use App\Models\TimeSlot;
 use App\Models\Wallet;
@@ -189,24 +191,30 @@ class OrderController extends Controller
         //credit cashback on completion
         if($status=='completed' && $old_status!='completed'){
 
-            if($order->customer->isMembershipActive()){
+            if(!($order->cashback_used || $order->coupon_discount)){
+                if($order->customer->isMembershipActive()){
 
-                $membership=Membership::find($order->customer->active_membership);
+                    $membership=Membership::with('categories')->find($order->customer->active_membership);
 
-                if($membership){
-                    $amount=round(($order->total_cost-$order->coupon_discount-$order->points_used)*$membership->cashback/100, 2);
-                    $order->cashback_given=$amount;
-                    $order->save();
-                    if($amount>0)
-                        Wallet::updatewallet($order->user_id, 'Cashback received For Order ID: '.$order->refid, 'CREDIT',$amount, 'POINT', $order->id);
+                    if($membership){
 
-                    $title='Cashback Credited';
-                    $message="Cashback of $amount received For Order ID: ".$order->refid;
+                        $amount=$order->getMembershipEligibleDiscount($membership);
 
-                    FCMNotification::sendNotification($order->customer->notification_token, $title, $message);
+                        $amount=round(($amount)*$membership->cashback/100, 2);
+                        $order->cashback_given=$amount;
+                        $order->save();
+                        if($amount>0)
+                            Wallet::updatewallet($order->user_id, 'Cashback received For Order ID: '.$order->refid, 'CREDIT',$amount, 'POINT', $order->id);
 
+                        $title='Cashback Credited';
+                        $message="Cashback of $amount received For Order ID: ".$order->refid;
+
+                        FCMNotification::sendNotification($order->customer->notification_token, $title, $message);
+
+                    }
                 }
             }
+
 
         }
 

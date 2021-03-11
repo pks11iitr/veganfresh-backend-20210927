@@ -31,6 +31,9 @@ class Membership extends Model
 
     }
 
+    public function categories(){
+        return $this->belongsToMany('App\Models\SubCategory', 'membership_categories', 'membership_id', 'category_id');
+    }
 
 
 }

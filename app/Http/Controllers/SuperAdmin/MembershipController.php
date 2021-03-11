@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\SuperAdmin;
 
 use App\Models\Membership;
+use App\Models\SubCategory;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -42,7 +43,8 @@ class MembershipController extends Controller
 
     public function edit(Request $request,$id){
         $membership = Membership::findOrFail($id);
-        return view('admin.membership.edit',['membership'=>$membership]);
+        $subcategories=SubCategory::get();
+        return view('admin.membership.edit',['membership'=>$membership,'subcategories'=>$subcategories]);
     }
 
     public function update(Request $request,$id){
@@ -64,6 +66,7 @@ class MembershipController extends Controller
         ]))
 
         {
+            $membership->categories()->sync($request->sub_categories);
             return redirect()->route('membership.list')->with('success', 'Membership has been updated');
         }
         return redirect()->back()->with('error', 'Membership update failed');

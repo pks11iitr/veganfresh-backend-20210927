@@ -182,7 +182,7 @@ class RiderOrderController extends Controller
             'items.*'=>'required|integer'
 
         ]);
-
+        //return $request->items;
         $user=auth()->guard('riderapi')->user();
         if(!$user)
             return [
@@ -196,9 +196,9 @@ class RiderOrderController extends Controller
             if(!empty($value))
                 $itemids[]=$key;
         }
-
+        //return $itemids;
         $order=Order::with(['details'=>function($details)use($itemids){
-            $details->whereIn('details.id', $itemids);
+            //$details->whereIn('details.id', $itemids);
         }])
             ->where('rider_id', $user->id)
             ->find($order_id);
@@ -209,48 +209,71 @@ class RiderOrderController extends Controller
                 'message'=>'No Such Order Found'
             ];
 
+        //var_dump($itemids);
+        //var_dump($request->items);
         //calculate return product total value
-        $total_return=0;
+        $total_after_return=0;
         foreach($order->details as $item){
-                if($request->items[$item->id]>$item->quantity){
-                    return [
-                        'status'=>'failed',
-                        'message'=>'Invalid Request'
-                    ];
+                //var_dump($request->items[$item->id]);
+                if(isset($request->items[$item->id])){
+                    if($request->items[$item->id]>$item->quantity){
+                        return [
+                            'status'=>'failed',
+                            'message'=>'Invalid Request'
+                        ];
+                    }
+                    $total_after_return=$total_after_return+$item->price*($item->quantity-($request->items[$item->id]??0));
+                    $item->quantity=$item->quantity-($request->items[$item->id]??0);
+                    //echo '--aa--';
+                }else{
+                    $total_after_return=$total_after_return+$item->price*($item->quantity-($request->items[$item->id]??0));
+                    //echo '-bb--';
                 }
-                $total_return=$total_return+$item->price*$request->items[$item->id];
+
         }
 
+        //return $order->details;
+        //die;
         //total cost after deduction
-        $total_cost=$order->total_cost-$total_return;
+        $total_cost=$total_after_return;
 
         if($order->coupon_applied && $order->coupon_discount){
             $coupon=Coupon::where('code', $order->coupon_applied)->first();
-            $coupon_discount=$coupon->getCouponDiscount($total_cost);
+            $coupon_discount=$order->getCouponDiscount($coupon);
         }else{
             $coupon_discount=0;
         }
 
+
+        if($total_cost>0) {
+            if (($total_cost + $order->delivery_charge - $coupon_discount) > $order->points_used) {
+                $cashback_used = $order->points_used;
+            } else {
+                $cashback_used = $total_cost + $order->delivery_charge - $coupon_discount;
+            }
+
+            if ($total_cost + $order->delivery_charge - $coupon_discount - $cashback_used > 0) {
+                if ($total_cost + $order->delivery_charge - $coupon_discount - $cashback_used > $order->balance_used) {
+                    $balance_used = $order->balance_used;
+                } else {
+                    $balance_used = $total_cost + $order->delivery_charge - $coupon_discount - $cashback_used;
+                }
+            }else{
+                $balance_used=0;
+            }
+        }else {
+            $cashback_used=0;
+            $balance_used=0;
+        }
+
         $total_payble=($total_cost>0)?($total_cost+$order->delivery_charge-$coupon_discount):0;
-
-//        if($order->payment_mode=='COD'){
-//            $total_paid=$order->balance_used+$order->points_used;
-//        }else{
-//            $total_paid=$order->total_cost+$order->delivery_charge;
-//        }
-
-//        if($total_paid >= $total_payble){
-//            $amount_to_be_collected=0;
-//        }else{
-//            $amount_to_be_collected=$total_payble-$total_paid;
-//        }
 
         $prices=[
             'total'=>$total_cost,
             'delivery_charge'=>($total_cost>0)?$order->delivery_charge:0,
             'coupon_discount'=>($total_cost>0)?$coupon_discount:0,
-            'cashback_used'=>$order->points_used,
-            'balance_used'=>$order->balance_used,
+            'cashback_used'=>$cashback_used,
+            'balance_used'=>$balance_used,
             'total_paid'=>($total_cost>0)?($total_payble):0,
             //'additional_amount'=>$amount_to_be_collected
         ];
@@ -294,7 +317,7 @@ class RiderOrderController extends Controller
             }])
             ->where('status', 'dispatched')
             ->where('rider_id', $user->id)
-            ->find($order_id);
+            ->findOrFail($order_id);
 
         $order->return_reason=$request->message;
         $order->save();
@@ -305,22 +328,6 @@ class RiderOrderController extends Controller
                 'message'=>'No Such Order Found'
             ];
 
-
-        //calculate return total value
-        $total_return=0;
-        $details=[];
-        foreach($order->details as $item){
-            if(key_exists($item->id, $request->items)){
-                if($request->items[$item->id] > $item->quantity){
-                    return [
-                        'status'=>'failed',
-                        'message'=>'Invalid Request'
-                    ];
-                }
-                $total_return=$total_return+$item->price*$request->items[$item->id];
-                $details[]=$item;
-            }
-        }
 
         // Refund Balance to Wallet
         if($order->payment_mode=='COD'){
@@ -340,46 +347,91 @@ class RiderOrderController extends Controller
             Wallet::updatewallet($order->user_id, 'Refund For Order ID: '.$order->refid, 'Credit',  $order->points_used, 'POINT',$order->id);
         }
 
+        //calculate return total value
+//        $total_return=0;
+//        $details=[];
+//        foreach($order->details as $item){
+//            if(key_exists($item->id, $request->items)){
+//                if($request->items[$item->id] > $item->quantity){
+//                    return [
+//                        'status'=>'failed',
+//                        'message'=>'Invalid Request'
+//                    ];
+//                }
+//                $total_return=$total_return+$item->price*$request->items[$item->id];
+//                $details[]=$item;
+//            }
+//        }
+
+        $total_after_return=0;
+        foreach($order->details as $item){
+            //var_dump($request->items[$item->id]);
+            if(isset($request->items[$item->id])){
+                if($request->items[$item->id]>$item->quantity){
+                    return [
+                        'status'=>'failed',
+                        'message'=>'Invalid Request'
+                    ];
+                }
+                $total_after_return=$total_after_return+$item->price*($item->quantity-($request->items[$item->id]??0));
+                $item->quantity=$item->quantity-($request->items[$item->id]??0);
+                //echo '--aa--';
+            }else{
+                $total_after_return=$total_after_return+$item->price*($item->quantity-($request->items[$item->id]??0));
+                //echo '-bb--';
+            }
+
+        }
+
 
         // Calculate new values
-        $new_total_cost=$order->total_cost-$total_return;
+        $new_total_cost=$total_after_return;
         $new_delivery_charge=$order->delivery_charge;
 
         if($order->coupon_applied && $order->coupon_discount){
             $coupon=Coupon::where('code', $order->coupon_applied)->first();
-            $new_coupon_discount=$coupon->getCouponDiscount($new_total_cost);
+            $new_coupon_discount=$order->getCouponDiscount($coupon);
         }else{
             $new_coupon_discount=0;
         }
 
         // make return product entries in database
-        foreach($details as $d){
+        foreach($order->details as $d){
 
-            ReturnProduct::create([
+            if(in_array($d->id, $itemids)){
+                ReturnProduct::create([
 
-                'order_id'=>$d->order_id,
-                'store_id'=>$order->store_id,
-                'rider_id'=>$order->rider_id,
-                'ref_id'=>$order->refid,
-                'entity_id'=>$d->entity_id,
-                'entity_type'=>$d->entity_type,
-                'size_id'=>$d->size_id,
-                'name'=>$d->name,
-                'image'=>$d->image,
-                'price'=>$d->price,
-                'cut_price'=>$d->cut_price,
-                'quantity'=>$request->items[$d->id],
-                'reason'=>$request->reason
+                    'order_id'=>$d->order_id,
+                    'store_id'=>$order->store_id,
+                    'rider_id'=>$order->rider_id,
+                    'ref_id'=>$order->refid,
+                    'entity_id'=>$d->entity_id,
+                    'entity_type'=>$d->entity_type,
+                    'size_id'=>$d->size_id,
+                    'name'=>$d->name,
+                    'image'=>$d->image,
+                    'price'=>$d->price,
+                    'cut_price'=>$d->cut_price,
+                    'quantity'=>$request->items[$d->id],
+                    'reason'=>$request->reason
 
-            ]);
-            if($d->quantity==$request->items[$d->id])
-                $d->delete();
-            else{
-                $d->quantity=$d->quantity - $request->items[$d->id];
-                $d->save();
+                ]);
+//                if($d->quantity==$request->items[$d->id])
+//                    $d->delete();
+//                else{
+//                    $d->quantity=$d->quantity - $request->items[$d->id];
+//                    $d->save();
+//                }
+
+                Order::increaseItemCount($d, $request->items[$d->id]*$d->size->consumed_units);
+
+                if($d->quantity==0)
+                    $d->delete();
+                else{
+                    $d->save();
+                }
             }
 
-            Order::increaseItemCount($d, $request->items[$d->id]*$d->size->consumed_units);
         }
 
         //refund when total goes to 0
@@ -454,7 +506,7 @@ class RiderOrderController extends Controller
                 $balance_consumed=$balance;
                 Wallet::updatewallet($order->user_id, 'Amount deducted for Order ID: '.$order->refid, 'Debit', $balance_consumed, 'CASH', $order->id);
             }
-            $order->use_points=1;
+            $order->use_balance=1;
             $order->balance_used=$balance_consumed;
             $payble_amount=$payble_amount - $balance_consumed;
         }
@@ -497,7 +549,7 @@ class RiderOrderController extends Controller
                 $balance_consumed=$balance;
                 Wallet::updatewallet($order->user_id, 'Amount deducted for Order ID: '.$order->refid, 'Debit', $balance_consumed, 'CASH', $order->id);
             }
-            $order->use_points=1;
+            $order->use_balance=1;
             $order->balance_used=$balance_consumed;
             $payble_amount=$payble_amount - $balance_consumed;
         }
@@ -552,25 +604,37 @@ class RiderOrderController extends Controller
         ]);
 
         // add cashback to user
-        $customer=Customer::find($order->user_id);
-        if($customer->isMembershipActive()){
 
-            $membership=Membership::find($customer->active_membership);
+        if(!($order->cashback_used || $order->coupon_discount)) {
 
-            if($membership){
-                $amount=round(($order->total_cost-$order->coupon_discount-$order->points_used)*$membership->cashback/100, 2);
-                $order->cashback_given=$amount;
-                $order->save();
-                if($amount>0)
-                    Wallet::updatewallet($order->user_id, 'Cashback received For Order ID: '.$order->refid, 'CREDIT',$amount, 'POINT', $order->id);
+            $customer = Customer::find($order->user_id);
+            if ($customer && $customer->isMembershipActive()) {
 
-                $title='Cashback Credited';
-                $message="Cashback of $amount received For Order ID: ".$order->refid;
+                $membership = Membership::with('categories')->find($customer->active_membership);
 
-                FCMNotification::sendNotification($order->customer->notification_token, $title, $message);
+                if ($membership) {
+
+                    $amount=$order->getMembershipEligibleDiscount($membership);
+
+                    //$amount = round(($order->total_cost - $order->coupon_discount - $order->points_used) * $membership->cashback / 100, 2);
+
+                    $amount = round($amount* $membership->cashback / 100, 2);
+
+
+
+                    $order->cashback_given = $amount;
+                    $order->save();
+                    if ($amount > 0)
+                        Wallet::updatewallet($order->user_id, 'Cashback received For Order ID: ' . $order->refid, 'CREDIT', $amount, 'POINT', $order->id);
+
+                    $title = 'Cashback Credited';
+                    $message = "Cashback of $amount received For Order ID: " . $order->refid;
+
+                    FCMNotification::sendNotification($customer->notification_token, $title, $message);
+
+                }
 
             }
-
         }
 
         $title='Order Delivered';

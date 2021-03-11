@@ -13,7 +13,7 @@ class Size extends Model
     use ReviewTrait, Active,DocumentUploadTrait;
     protected $table='product_prices';
 
-    protected $fillable=['size', 'price','cut_price','product_id', 'isactive','min_qty','max_qty','stock','image','consumed_units'];
+    protected $fillable=['size', 'price','cut_price','product_id', 'isactive','min_qty','max_qty','stock','image','consumed_units','cgst','sgst'];
 
     protected $hidden =['created_at','updated_at','deleted_at','isactive'];
     protected $appends=['discount','price_str', 'cut_price_str'];
