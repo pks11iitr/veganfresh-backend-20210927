@@ -83,6 +83,8 @@ $api->group(['middleware' => ['customer-auth']], function ($api) {
     $api->post('initiate-order', ['as'=>'initiate.order', 'uses'=>'Customer\Api\OrderController@initiateOrder']);
     $api->post('add-delivery-address/{order_id}', ['as'=>'order.delivery.address', 'uses'=>'Customer\Api\OrderController@selectAddress']);
 
+    $api->get('coupons-list', ['as'=>'coupons.list', 'uses'=>'Customer\Api\CouponController@coupons']);
+
     $api->post('apply-coupon/{order_id}', ['as'=>'order.apply.coupon', 'uses'=>'Customer\Api\OrderController@applyCoupon']);
 
     $api->get('get-payment-info/{order_id}', ['as'=>'order.payment.info', 'uses'=>'Customer\Api\OrderController@getPaymentInfo']);
