@@ -226,7 +226,7 @@ class RiderOrderController extends Controller
                     $item->quantity=$item->quantity-($request->items[$item->id]??0);
                     //echo '--aa--';
                 }else{
-                    $total_after_return=$total_after_return+$item->price*($item->quantity-($request->items[$item->id]??0));
+                    $total_after_return=$total_after_return+$item->price*$item->quantity;
                     //echo '-bb--';
                 }
 
@@ -377,7 +377,7 @@ class RiderOrderController extends Controller
                 $item->quantity=$item->quantity-($request->items[$item->id]??0);
                 //echo '--aa--';
             }else{
-                $total_after_return=$total_after_return+$item->price*($item->quantity-($request->items[$item->id]??0));
+                $total_after_return=$total_after_return+$item->price*$item->quantity;
                 //echo '-bb--';
             }
 

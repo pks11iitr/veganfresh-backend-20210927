@@ -20,10 +20,10 @@ class ReturnRequestController extends Controller
     }
 
     public function cancelReturnRequest(Request $request,$detail_id){
-        $details=OrderDetail::findOrFail($detail_id);
-
-        $details->status='rejected';
-        $details->save();
+        $return=ReturnRequest::where('status', 'pending')
+            ->findOrFail($detail_id);
+        $return->status='rejected';
+        $return->save();
 
         return redirect()->back()->with('success', 'Return has been cancelled');
     }
@@ -31,20 +31,21 @@ class ReturnRequestController extends Controller
 
     public function approveReturnProduct(Request $request, $detail_id){
 
-        $details=OrderDetail::findOrFail($detail_id);
+        $return=ReturnRequest::where('status', 'pending')
+            ->findOrFail($detail_id);
+        //$details=OrderDetail::findOrFail($return->detail_id);
 
-        $itemids=[];
-        foreach($request->items as $key=>$value){
-            if(!empty($value))
-                $itemids[]=$key;
-        }
+        $items=[];
+        $items[$return->detail_id]=$return->quantity;
+
+        $itemids=[$return->detail_id];
 
         $order=Order::with(['details'=>function($details)use($itemids){
             $details->with(['entity', 'size']);
             //->whereIn('details.id', $itemids);
         }])
             ->where('status', 'completed')
-            ->findOrFail($details->order_id);
+            ->findOrFail($return->order_id);
 
         if(!$order || empty($order->details->toArray()))
             return abort(404);
@@ -71,18 +72,18 @@ class ReturnRequestController extends Controller
         $total_after_return=0;
         foreach($order->details as $item){
             //var_dump($request->items[$item->id]);
-            if(isset($request->items[$item->id])){
-                if($request->items[$item->id]>$item->quantity){
+            if(isset($items[$item->id])){
+                if($items[$item->id]>$item->quantity){
                     return [
                         'status'=>'failed',
                         'message'=>'Invalid Request'
                     ];
                 }
-                $total_after_return=$total_after_return+$item->price*($item->quantity-($request->items[$item->id]??0));
-                $item->quantity=$item->quantity-($request->items[$item->id]??0);
+                $total_after_return=$total_after_return+$item->price*($item->quantity-($items[$item->id]??0));
+                $item->quantity=$item->quantity-($items[$item->id]??0);
                 //echo '--aa--';
             }else{
-                $total_after_return=$total_after_return+$item->price*($item->quantity-($request->items[$item->id]??0));
+                $total_after_return=$total_after_return+$item->price*$item->quantity;
                 //echo '-bb--';
             }
 
@@ -122,7 +123,7 @@ class ReturnRequestController extends Controller
 
                 ]);
 
-                Order::increaseItemCount($d, $request->items[$d->id]*$d->size->consumed_units);
+                Order::increaseItemCount($d, $items[$d->id]*$d->size->consumed_units);
 
                 if($d->quantity==0)
                     $d->delete();
@@ -160,8 +161,8 @@ class ReturnRequestController extends Controller
 
         $this->returnFromPaidOrder($order);
 
-        $details->status='approved';
-        $details->save();
+        $return->status='approved';
+        $return->save();
 
         return redirect()->back()->with('success', 'Return has been approved');
 
