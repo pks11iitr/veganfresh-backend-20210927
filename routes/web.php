@@ -469,6 +469,15 @@ Route::group(['middleware'=>['auth', 'acl']], function(){
     });
 
 
+    Route::group(['prefix'=>'returnrequest'], function(){
+        Route::group(['is'=>'admin|returnrequest-viewer'], function(){
+            Route::get('/','SuperAdmin\ReturnRequestController@index')->name('returnrequest.list');
+
+            Route::get('cancel-request/{id}','SuperAdmin\ReturnRequestController@cancelReturnRequest')->name('cancel.return.request');
+        });
+    });
+
+
     Route::group(['prefix'=>'timeslot'], function(){
         Route::get('/','SuperAdmin\TimeSlotController@index')->name('timeslot.list');
         Route::get('create','SuperAdmin\TimeSlotController@create')->name('timeslot.create');

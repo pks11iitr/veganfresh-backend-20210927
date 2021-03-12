@@ -15,8 +15,17 @@ class ReturnRequestController extends Controller
 {
     public function index(Request $request){
 
-        $returns=ReturnRequest::orderBy('id', 'desc')->paginate(10);
+        $returns=ReturnRequest::with(['details','size'])
+            ->orderBy('id', 'desc')
+            ->paginate(10);
 
+        return view('admin.returnrequest.view',['returns'=>$returns]);
+
+    }
+
+    public function details(Request $request,$id){
+        $orderdetails = ReturnRequest::findOrFail($id);
+        return view('admin.returnrequest.details',['orderdetails'=>$orderdetails]);
     }
 
     public function cancelReturnRequest(Request $request,$detail_id){

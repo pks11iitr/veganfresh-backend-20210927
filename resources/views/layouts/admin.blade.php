@@ -354,6 +354,18 @@
                             </p>
                         </a>
                     </li>
+                    @if(auth()->user()->hasRole('admin') || auth()->user()->hasRole('returnrequest-viewer') || auth()->user()->hasRole('returnrequest-editor'))
+
+                        <li class="nav-item">
+                            <a href="{{route('returnrequest.list')}}" class="nav-link">
+                                <i class="nav-icon fas fa-th"></i>
+                                <p>
+                                   Return Request
+
+                                </p>
+                            </a>
+                        </li>
+                    @endif
                     @if(auth()->user()->hasRole('admin') || auth()->user()->hasRole('arealist-viewer') || auth()->user()->hasRole('arealist-editor'))
 
                     <li class="nav-item">

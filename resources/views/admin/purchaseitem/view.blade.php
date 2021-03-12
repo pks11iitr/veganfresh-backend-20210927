@@ -46,6 +46,11 @@
                                                 <div class="col-3">
                                                     <button type="submit" name="save" class="btn btn-primary">Submit</button>
                                                     <a href="{{route('purchase.list')}}" class="btn btn-danger">Reset Filters</a>
+
+
+
+
+
                                                 </div>
                                             </div>
                                         </form>
