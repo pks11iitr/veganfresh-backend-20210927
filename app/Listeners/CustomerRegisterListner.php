@@ -32,6 +32,6 @@ class CustomerRegisterListner implements ShouldQueue
 
         $otp=OTPModel::createOTP('customer', $event->user->id, 'register');
         $msg=str_replace('{{otp}}', $otp, config('sms-templates.register'));
-        Msg91::send($event->user->mobile,$msg);
+        Msg91::send($event->user->mobile,$msg, env('OTP'));
     }
 }

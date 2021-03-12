@@ -599,7 +599,7 @@ class OrderController extends Controller
             FCMNotification::sendNotification($order->customer->notification_token, 'Order Cancelled', $message);
 
         if(!empty($order->storename->mobile)){
-            Msg91::send($order->storename->mobile, 'Order ID '.$order->refid.' has been cancelled by customer');
+            Msg91::send($order->storename->mobile, 'Order ID '.$order->refid.' has been cancelled by customer', env('CANCEL_ORDER_STORE'));
         }
 
         return [

@@ -48,7 +48,7 @@ class RechargeConfirmListner
         ]);
 
         if($wallet->customer->notification_token??null)
-            FCMNotification::sendNotification($wallet->customer->notification_token, $title, $message);
+            FCMNotification::sendNotification($wallet->customer->notification_token, $title, $message, env('RECHARGE_CONFIRM'));
 
 
     }

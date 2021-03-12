@@ -60,11 +60,11 @@ class OrderConfirmListner
             FCMNotification::sendNotification($order->customer->notification_token, $title, $message);
 
         //send customer notification
-        Msg91::send($order->customer->mobile, $message);
+        Msg91::send($order->customer->mobile, $message, env('CUSTOMER_ORDER_CONFIRM'));
 
         //store notification
         if(!empty($order->storename->mobile))
-            Msg91::send($order->storename->mobile, 'New Order '.$order->refid.' arrived. Scheduled Delivery is '.($order->delivery_date??'').' '.($order->timeslot->name??''));
+            Msg91::send($order->storename->mobile, 'New Order '.$order->refid.' arrived. Scheduled Delivery is '.($order->delivery_date??'').' '.($order->timeslot->name??''), env('STORE_ORDER_CONFIRM'));
 
     }
 }

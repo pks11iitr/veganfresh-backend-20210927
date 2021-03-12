@@ -22,7 +22,7 @@ class ForgotPasswordController extends Controller
         }
         $otp=OTPModel::createOTP('customer', $customer->id, 'reset');
         $msg=str_replace('{{otp}}', $otp, config('sms-templates.reset'));
-        Msg91::send($customer->mobile,$msg);
+        Msg91::send($customer->mobile,$msg, env('OTP'));
         return ['status'=>'success', 'message'=>'otp verify', 'token'=>''];
     }
 

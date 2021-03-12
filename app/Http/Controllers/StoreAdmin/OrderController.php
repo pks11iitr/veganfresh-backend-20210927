@@ -201,7 +201,7 @@ class OrderController extends Controller
 
         if($old_status!='dispatched' &&  $order->status=='dispatched' && !empty($order->rider_id)){
             $rider=Rider::find($order->rider_id);
-            Msg91::send($rider->mobile, 'New Order '.$order->refid.' arrived. Scheduled Delivery is '.($order->delivery_date??'').' '.($order->timeslot->name??''));
+            Msg91::send($rider->mobile, 'New Order '.$order->refid.' arrived. Scheduled Delivery is '.($order->delivery_date??'').' '.($order->timeslot->name??''), env('NEW_ORDER_RIDER'));
         }
 
         return redirect()->back()->with('success', 'Order has been updated');
@@ -236,7 +236,7 @@ class OrderController extends Controller
         $order->save();
 
         if($old_rider!=$order->rider_id && $order->status=='dispatched')
-            Msg91::send($rider->mobile, 'New Order '.$order->refid.' arrived. Scheduled Delivery is '.($order->delivery_date??'').' '.($order->timeslot->name??''));
+            Msg91::send($rider->mobile, 'New Order '.$order->refid.' arrived. Scheduled Delivery is '.($order->delivery_date??'').' '.($order->timeslot->name??''), env('NEW_ORDER_RIDER'));
 
         return redirect()->back()->with('success', 'Rider Has Been change');
     }

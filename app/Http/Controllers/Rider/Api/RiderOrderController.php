@@ -642,10 +642,10 @@ class RiderOrderController extends Controller
 
         FCMNotification::sendNotification($order->customer->notification_token, $title, $message);
 
-        Msg91::send($user->mobile, $message);
+        Msg91::send($user->mobile, $message, env('CUSTOMER_ORDER_DELIVERED'));
 
         if(!empty($order->storename->mobile)){
-            Msg91::send($order->storename->mobile, 'Order ID '.$order->refid.' has been delivered successfully. Delivered time is: '.(date('d/m/Y h:ia', strtotime($order->delivered_at??''))));
+            Msg91::send($order->storename->mobile, 'Order ID '.$order->refid.' has been delivered successfully. Delivered time is: '.(date('d/m/Y h:ia', strtotime($order->delivered_at??''))), env('STORE_ORDER_DELIVERED'));
         }
 
 
