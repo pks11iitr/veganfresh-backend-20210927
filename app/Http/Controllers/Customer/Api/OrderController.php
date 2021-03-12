@@ -714,13 +714,14 @@ class OrderController extends Controller
     public function raiseReturn(Request $request, $detail_id){
 
         $request->validate([
-            'quantity'=>'required|integer'
+            'quantity'=>'required|integer',
+            'return_reason'=>'required|string'
         ]);
 
         $user=$request->user;
-        $detail=OrderDetail::with('order')->where('status', 'completed')
+        $detail=OrderDetail::with('order')
             ->whereHas('order', function($order) use ($user){
-                $order->where('user_id', $user->id);
+                $order->where('user_id', $user->id)->where('status', 'completed');
             })->findOrFail($detail_id);
 
         if($request->quantity > $detail->quantity){
@@ -730,11 +731,22 @@ class OrderController extends Controller
             ];
         }
 
-        ReturnRequest::create([
+        $return=ReturnRequest::where('order_id', $detail->order_id)
+            ->where('details_id', $detail->id)->first();
+        if($return && $return->status!='pending'){
+            return [
+                'status'=>'failed',
+                'message'=>'This item cannot be returned now'
+            ];
+        }
+
+        ReturnRequest::updateOrCreate([
             'order_id'=>$detail->order_id,
-            'detail_id'=>$detail->id,
-            'quantity'=>$request->quantity
-        ]);
+            'details_id'=>$detail->id,
+            ],[
+            'quantity'=>$request->quantity,
+            'return_reason'=>$request->return_reason
+            ]);
 
         return [
             'status'=>'success',

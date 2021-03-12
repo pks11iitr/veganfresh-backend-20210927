@@ -49,19 +49,21 @@
                                         <tr>
                                             <td>{{$return->order->refid??''}}</td>
                                             <td>{{$return->details->name??''}}</td>
-                                            <td>{{$return->size[0]->size??''}}</td>
+                                            <td>{{$return->details->size->size??''}}</td>
                                             <td>{{$return->quantity}}</td>
 
                                             <td>{{$return->return_reason}}</td>
                                             <td>{{$return->created_at}}</td>
                                             <td>
                                                 @if($return->status=='pending')
-                                                    <a href="{{route('cancel.return.request', ['id'=>$return->id,'status'=>'rejected'])}}" name='status' class="btn btn-danger">Rejected</a>
-                                                    <a href="{{route('cancel.return.request', ['id'=>$return->id,'status'=>'approved'])}}" name='status' class="btn btn-success">Approved</a>
+                                                    <a href="{{route('cancel.return.request', ['id'=>$return->id])}}" name='status' class="btn btn-danger">Reject</a>
+                                                    <a href="{{route('approve.return.request', ['id'=>$return->id])}}" name='status' class="btn btn-success">Approve</a>
+                                                @else
+                                                    {{$return->status}}
                                                 @endif
                                             </td>
                                             <td>
-                                                <a href="{{route('order.details',['id'=>$return->id])}}" class="btn btn-primary">Details</a>
+                                                <a href="{{route('order.details',['id'=>$return->order_id])}}" class="btn btn-primary">Details</a>
 
                                             </td>
                                         </tr>

@@ -99,7 +99,7 @@ $api->group(['middleware' => ['customer-auth']], function ($api) {
 
     $api->get('repeat-order/{order_id}', ['as'=>'order.repeat', 'uses'=>'Customer\Api\OrderController@repeatOrder']);
 
-    $api->post('return-product/{detail_id}', ['as'=>'order.product.return', 'uses'=>'Customer\Api\OrderController@returnRequest']);
+    $api->post('return-product/{detail_id}', ['as'=>'order.product.return', 'uses'=>'Customer\Api\OrderController@raiseReturn']);
 
 
 

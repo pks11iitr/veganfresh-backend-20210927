@@ -15,7 +15,7 @@ class ReturnRequestController extends Controller
 {
     public function index(Request $request){
 
-        $returns=ReturnRequest::with(['details','size'])
+        $returns=ReturnRequest::with(['details.size'])
             ->orderBy('id', 'desc')
             ->paginate(10);
 
@@ -28,9 +28,9 @@ class ReturnRequestController extends Controller
         return view('admin.returnrequest.details',['orderdetails'=>$orderdetails]);
     }
 
-    public function cancelReturnRequest(Request $request,$detail_id){
+    public function cancelReturnRequest(Request $request,$return_id){
         $return=ReturnRequest::where('status', 'pending')
-            ->findOrFail($detail_id);
+            ->findOrFail($return_id);
         $return->status='rejected';
         $return->save();
 
@@ -38,10 +38,10 @@ class ReturnRequestController extends Controller
     }
 
 
-    public function approveReturnProduct(Request $request, $detail_id){
+    public function approveReturnProduct(Request $request, $return_id){
 
         $return=ReturnRequest::where('status', 'pending')
-            ->findOrFail($detail_id);
+            ->findOrFail($return_id);
         //$details=OrderDetail::findOrFail($return->detail_id);
 
         $items=[];
