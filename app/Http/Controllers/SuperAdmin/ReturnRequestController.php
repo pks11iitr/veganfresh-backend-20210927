@@ -15,18 +15,66 @@ class ReturnRequestController extends Controller
 {
     public function index(Request $request){
 
-        $returns=ReturnRequest::with(['details.size'])
+        $returns=ReturnRequest::with(['details.size', 'order.details.entity'])
             ->orderBy('id', 'desc')
             ->paginate(10);
+
+        foreach($returns as $return){
+            $return->cost=$this->checkTotalAfterReturn($return);
+        }
 
         return view('admin.returnrequest.view',['returns'=>$returns]);
 
     }
 
-    public function details(Request $request,$id){
-        $orderdetails = ReturnRequest::findOrFail($id);
-        return view('admin.returnrequest.details',['orderdetails'=>$orderdetails]);
+
+    public function checkTotalAfterReturn($returnrequest){
+
+        $items=[];
+        $items[$returnrequest->details_id]=$returnrequest->quantity;
+        $itemids=[$returnrequest->details_id];
+
+        //return $itemids;
+        $order=Order::with(['details'=>function($details)use($itemids){
+            //$details->whereIn('details.id', $itemids);
+        }])
+            ->where('rider_id', $returnrequest->order->rider_id)
+            ->find($returnrequest->order->id);
+
+        if(!$order || empty($order->details->toArray()))
+            return [
+                'status'=>'failed',
+                'message'=>'No Such Order Found'
+            ];
+
+        //var_dump($itemids);
+        //var_dump($request->items);
+        //calculate return product total value
+        $total_after_return=0;
+        foreach($order->details as $item){
+            //var_dump($request->items[$item->id]);
+            if(isset($items[$item->id])){
+                $total_after_return=$total_after_return+$item->price*($item->quantity-($items[$item->id]??0));
+                $item->quantity=$item->quantity-($items[$item->id]??0);
+                //echo '--aa--';
+            }else{
+                $total_after_return=$total_after_return+$item->price*$item->quantity;
+                //echo '-bb--';
+            }
+
+        }
+
+        //return $order->details;
+        //die;
+        //total cost after deduction
+        return $total_cost=$total_after_return;
+
     }
+
+//    public function details(Request $request,$id){
+//        $orderdetails = ReturnRequest::findOrFail($id);
+//        return view('admin.returnrequest.details',['orderdetails'=>$orderdetails]);
+//    }
 
     public function cancelReturnRequest(Request $request,$return_id){
         $return=ReturnRequest::where('status', 'pending')

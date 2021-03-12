@@ -39,6 +39,7 @@
                                         <th>Size</th>
                                         <th>Quantity</th>
                                         <th>Reason</th>
+                                        <th>Total After Return</th>
                                         <th>Date & Time</th>
                                         <th>Status</th>
                                         <th>Action</th>
@@ -53,6 +54,7 @@
                                             <td>{{$return->quantity}}</td>
 
                                             <td>{{$return->return_reason}}</td>
+                                            <td>{{$return->cost}}</td>
                                             <td>{{$return->created_at}}</td>
                                             <td>
                                                 @if($return->status=='pending')
