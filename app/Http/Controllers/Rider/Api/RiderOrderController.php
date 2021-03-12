@@ -454,9 +454,9 @@ class RiderOrderController extends Controller
         $order->total_cost=$new_total_cost;
         $order->coupon_discount=$new_coupon_discount;
         $order->delivery_charge=$new_delivery_charge;
-        $order->use_balance=0;
+        //$order->use_balance=0;
         $order->balance_used=0;
-        $order->use_points=0;
+        //$order->use_points=0;
         $order->points_used=0;
 
         if($order->payment_mode=='COD')
@@ -483,7 +483,7 @@ class RiderOrderController extends Controller
         $payble_amount=$order->total_cost-$order->coupon_discount+$order->delivery_charge;
 
         // pay using cashback
-        if($payble_amount > 0 && $points > 0){
+        if($payble_amount > 0 && $points > 0 && $order->use_points == 1){
             if($payble_amount <= $points){
                 $cashback_consumed=$payble_amount;
                 Wallet::updatewallet($order->user_id, 'Cashback deducted for Order ID: '.$order->refid, 'Debit', $cashback_consumed, 'POINT', $order->id);
@@ -497,7 +497,7 @@ class RiderOrderController extends Controller
         }
 
         // pay using wallet balance
-        if($payble_amount > 0 && $balance > 0){
+        if($payble_amount > 0 && $balance > 0 && $order->use_balance == 1 ){
             // deduct from pending amout + delivery charge from balance
             if($payble_amount <= $balance){
                 $balance_consumed=$payble_amount;
@@ -526,7 +526,7 @@ class RiderOrderController extends Controller
         $payble_amount=$order->total_cost-$order->coupon_discount+$order->delivery_charge;
 
         // pay using cashback
-        if($payble_amount > 0 && $points > 0){
+        if($payble_amount > 0 && $points > 0 && $order->use_points){
             if($payble_amount <= $points){
                 $cashback_consumed=$payble_amount;
                 Wallet::updatewallet($order->user_id, 'Cashback deducted for Order ID: '.$order->refid, 'Debit', $cashback_consumed, 'POINT', $order->id);
@@ -540,7 +540,7 @@ class RiderOrderController extends Controller
         }
 
         // pay using wallet balance
-        if($payble_amount > 0 && $balance > 0){
+        if($payble_amount > 0 && $balance > 0 && $order->use_balance){
             // deduct from pending amout + delivery charge from balance
             if($payble_amount <= $balance){
                 $balance_consumed=$payble_amount;

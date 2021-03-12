@@ -45,9 +45,9 @@ class ReturnRequestController extends Controller
         //$details=OrderDetail::findOrFail($return->detail_id);
 
         $items=[];
-        $items[$return->detail_id]=$return->quantity;
+        $items[$return->details_id]=$return->quantity;
 
-        $itemids=[$return->detail_id];
+        $itemids=[$return->details_id];
 
         $order=Order::with(['details'=>function($details)use($itemids){
             $details->with(['entity', 'size']);
@@ -77,7 +77,7 @@ class ReturnRequestController extends Controller
         if($order->points_used){
             Wallet::updatewallet($order->user_id, 'Refund For Order ID: '.$order->refid, 'Credit',  $order->points_used, 'POINT',$order->id);
         }
-
+        //var_dump($items);
         $total_after_return=0;
         foreach($order->details as $item){
             //var_dump($request->items[$item->id]);
@@ -92,12 +92,13 @@ class ReturnRequestController extends Controller
                 $item->quantity=$item->quantity-($items[$item->id]??0);
                 //echo '--aa--';
             }else{
+                //echo 'a';
                 $total_after_return=$total_after_return+$item->price*$item->quantity;
                 //echo '-bb--';
             }
 
         }
-
+        //echo $total_after_return;die;
 
         // Calculate new values
         $new_total_cost=$total_after_return;
@@ -127,7 +128,7 @@ class ReturnRequestController extends Controller
                     'image'=>$d->image,
                     'price'=>$d->price,
                     'cut_price'=>$d->cut_price,
-                    'quantity'=>$request->items[$d->id],
+                    'quantity'=>$items[$d->id],
                     'reason'=>$request->reason
 
                 ]);
@@ -163,9 +164,9 @@ class ReturnRequestController extends Controller
         $order->total_cost=$new_total_cost;
         $order->coupon_discount=$new_coupon_discount;
         $order->delivery_charge=$new_delivery_charge;
-        $order->use_balance=0;
+        //$order->use_balance=0;
         $order->balance_used=0;
-        $order->use_points=0;
+        //$order->use_points=0;
         $order->points_used=0;
 
         $this->returnFromPaidOrder($order);
@@ -186,7 +187,7 @@ class ReturnRequestController extends Controller
         $payble_amount=$order->total_cost-$order->coupon_discount+$order->delivery_charge;
 
         // pay using cashback
-        if($payble_amount > 0 && $points > 0){
+        if($payble_amount > 0 && $points > 0 && $order->points){
             if($payble_amount <= $points){
                 $cashback_consumed=$payble_amount;
                 Wallet::updatewallet($order->user_id, 'Cashback deducted for Order ID: '.$order->refid, 'Debit', $cashback_consumed, 'POINT', $order->id);
@@ -200,7 +201,7 @@ class ReturnRequestController extends Controller
         }
 
         // pay using wallet balance
-        if($payble_amount > 0 && $balance > 0){
+        if($payble_amount > 0 && $balance > 0 && $order->use_balance){
             // deduct from pending amout + delivery charge from balance
             if($payble_amount <= $balance){
                 $balance_consumed=$payble_amount;
