@@ -29,6 +29,11 @@ class SpecialProductController extends Controller
             $products = Product::active()->where('is_hotdeal', true);
         }
 
+        $products=$products->whereDoesntHave('subcategory', function($category) {
+            $category->where('sub_category.isactive', false);
+        });
+
+
         $cart=Cart::getUserCart($user);
         $cart_total=$cart['total'];
         $cart=$cart['cart'];
@@ -68,6 +73,10 @@ class SpecialProductController extends Controller
             $products = Product::active()->where('is_newarrival', true);
         }
 
+        $products=$products->whereDoesntHave('subcategory', function($category) {
+            $category->where('sub_category.isactive', false);
+        });
+
         $cart=Cart::getUserCart($user);
         $cart_total=$cart['total'];
         $cart=$cart['cart'];
@@ -106,6 +115,10 @@ class SpecialProductController extends Controller
 
             $products = Product::active()->where('is_discounted', true);
         }
+
+        $products=$products->whereDoesntHave('subcategory', function($category) {
+            $category->where('sub_category.isactive', false);
+        });
 
         $cart=Cart::getUserCart($user);
         $cart_total=$cart['total'];

@@ -61,6 +61,7 @@ $api->get('memberships', ['as'=>'membership.list', 'uses'=>'Customer\Api\Members
 
 $api->get('download-invoice/{id}', ['as'=>'download.invoice', 'uses'=>'Customer\Api\OrderController@downloadPDF']);
 
+$api->get('coupons-list', ['as'=>'coupons.list', 'uses'=>'Customer\Api\CouponController@coupons']);
 
 $api->group(['middleware' => ['customer-auth']], function ($api) {
 
@@ -82,6 +83,8 @@ $api->group(['middleware' => ['customer-auth']], function ($api) {
 
     $api->post('initiate-order', ['as'=>'initiate.order', 'uses'=>'Customer\Api\OrderController@initiateOrder']);
     $api->post('add-delivery-address/{order_id}', ['as'=>'order.delivery.address', 'uses'=>'Customer\Api\OrderController@selectAddress']);
+
+
 
     $api->post('apply-coupon/{order_id}', ['as'=>'order.apply.coupon', 'uses'=>'Customer\Api\OrderController@applyCoupon']);
 
