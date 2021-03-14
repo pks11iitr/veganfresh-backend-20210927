@@ -467,6 +467,7 @@ class OrderController extends Controller
         foreach($order->details as $detail){
 
             $itemdetails[]=[
+                'id'=>$detail->id??'',
                 'name'=>$detail->name??'',
                 'image'=>$detail->image??'',
                 'company'=>$detail->entity->company??'',
