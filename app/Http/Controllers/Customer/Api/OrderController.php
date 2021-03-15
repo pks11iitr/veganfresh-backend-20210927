@@ -457,8 +457,8 @@ class OrderController extends Controller
         //get reviews information
         $reviews=[];
         if($order->status=='completed'){
-            $reviews=$order->reviews()->get();
-            foreach($reviews as $review){
+            $reviewsobj=$order->reviews()->get();
+            foreach($reviewsobj as $review){
                 $reviews[$review->entity_id]=$review;
             }
         }
