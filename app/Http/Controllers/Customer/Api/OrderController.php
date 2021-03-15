@@ -438,16 +438,18 @@ class OrderController extends Controller
             ->where('status', '!=', 'pending')
             ->find($id);
 
-        if($order->status=='completed')
-            $show_return=1;
-        else
-            $show_return=0;
-
         if(!$order)
             return [
                 'status'=>'failed',
                 'message'=>'Invalid Operation Performed'
             ];
+
+        if($order->status=='completed')
+            $show_return=1;
+        else
+            $show_return=0;
+
+
 
         if(in_array($order->status, ['completed','delivered', 'cancelled']))
             $show_repeat_order=1;
