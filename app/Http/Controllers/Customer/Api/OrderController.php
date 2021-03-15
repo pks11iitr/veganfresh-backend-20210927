@@ -459,7 +459,7 @@ class OrderController extends Controller
         if($order->status=='completed'){
             $reviewsobj=$order->reviews()->get();
             foreach($reviewsobj as $review){
-                $reviews[$review->entity_id]=$review;
+                $reviews[$review->product_id]=$review;
             }
         }
 
