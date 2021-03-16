@@ -595,6 +595,7 @@ class RiderOrderController extends Controller
         }
 
         $order->status='completed';
+        $order->payment_collect_mode=$request->payment_mode;
         $order->delivered_at=date('Y-m-d H:i:s');
         $order->save();
 
