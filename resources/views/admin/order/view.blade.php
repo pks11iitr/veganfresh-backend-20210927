@@ -67,6 +67,9 @@
                                                     <label>View Image</label>
                                                     <img src="{{$invoice->image??''}}" width="200px" height="100px">
                                                 </div>
+                                                <div class="col-3">
+                                                    <textarea name="t_n_c" class="form-control" >{{$invoice->t_n_c}}</textarea>
+                                                </div>
                                                 <div class="col-3"><label>.</label><br>
                                                     <button type="submit" name="save" class="btn btn-danger">Update</button>
                                                 </div>

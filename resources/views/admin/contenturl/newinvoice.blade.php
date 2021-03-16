@@ -132,25 +132,34 @@
     <table width="100%" class="outline-table">
         <tbody>
         <tr class="border-bottom border-right grey">
-            <td colspan="3"><strong>Product</strong></td>
-            <td colspan="3"><strong>SKU</strong></td>
+            <td colspan="4"><strong>Product</strong></td>
             <td colspan="1"><strong>Qty</strong></td>
             <td colspan="1"><strong>Price</strong></td>
             <td colspan="1"><strong>Sale Price</strong></td>
             <td colspan="1"><strong>Saving</strong></td>
-            <td colspan="1"><strong>Tax</strong></td>
+            <td colspan="1"><strong>CGST</strong></td>
+            <td colspan="1"><strong>SGST</strong></td>
+            <td colspan="1"><strong>Cess</strong></td>
             <td colspan="1"><strong>Subtotal</strong></td>
         </tr>
+        @php
+        $cgst=0;$sgst=0;
+        @endphp
         @foreach($orders->details as $product)
         <tr class="border-right">
-            <td colspan="3">{{$product->name}}</td>
-            <td colspan="3">{{$product->size->size??''}}</td>
+            <td colspan="3">{{$product->name}}-{{$product->size->size??''}}</td>
             <td colspan="1">{{$product->quantity}}</td>
-            <td colspan="1">Rs. {{$product->cut_price}}</td>
+            <td colspan="1">{{$product->cut_price}}</td>
             <td colspan="1">Rs. {{$product->price}}</td>
             <td colspan="1">Rs. {{$product->cut_price - $product->price}}</td>
-            <td colspan="1">Rs. 0.00</td>
+            <td colspan="1">Rs. {{round($product->price*($product->size->cgst??'0')*5/100,2)}}</td>
+            <td colspan="1">Rs. {{round($product->price*($product->size->sgst??'0')*5/100,2)}}</td>
+            <td colspan="1">Rs. 0.0</td>
             <td colspan="1">Rs. {{$product->price * $product->quantity}}</td>
+            @php
+            $cgst=$cgst+round($product->price*($product->size->cgst??'0')*5/100*$product->quantity,2);
+            $sgst=$cgst+round($product->price*($product->size->sgst??'0')*5/100*$product->quantity,2);
+            @endphp
         </tr>
         @endforeach
         </tbody>
@@ -160,22 +169,34 @@
         <tbody>
 
         <tr class="border-right">
-            <td  style="padding-left: 450px;"><strong>SubTotal</strong></td>
-            <td style="padding-right: 70px;">Rs. {{$orders->total_cost}}</td>
+            <td rowspan="7" width="60%">{{$invoice->t_n_c??''}}</td>
+            <td  style="padding-left: 20px;"><strong>SubTotal</strong></td>
+            <td style="padding-right: 20px;">Rs. {{$orders->total_cost}}</td>
         </tr>
         <tr class="border-right">
-            <td  style="padding-left: 450px;"><strong>Coupon Discount</strong></td>
-            <td style="padding-right: 70px;">Rs. {{$orders->coupon_discount}}</td>
+            <td  style="padding-left: 20px;"><strong>Coupon Discount</strong></td>
+            <td style="padding-right: 20px;">Rs. {{$orders->coupon_discount}}</td>
         </tr>
         <tr class="border-bottom border-right">
-            <td  style="padding-left: 450px;"><strong>Shipping Charge</strong></td>
-            <td style="padding-right: 70px;">Rs. {{$orders->delivery_charge}}</td>
+            <td  style="padding-left: 20px;"><strong>Shipping Charge</strong></td>
+            <td style="padding-right: 20px;">Rs. {{$orders->delivery_charge}}</td>
         </tr>
         <tr class="border-bottom border-right">
-            <td  style="padding-left: 450px;"><strong>Grand Total</strong></td>
-            <td style="padding-right: 70px;">Rs. {{$orders->total_cost + $orders->delivery_charge - $orders->coupon_discount}}</td>
+            <td  style="padding-left: 20px;"><strong>CGST</strong></td>
+            <td style="padding-right: 20px;">Rs. {{$cgst}}</td>
         </tr>
-
+        <tr class="border-bottom border-right">
+            <td  style="padding-left: 20px;"><strong>SGST</strong></td>
+            <td style="padding-right: 20px;">Rs. {{$sgst}}</td>
+        </tr>
+        <tr class="border-bottom border-right">
+            <td  style="padding-left: 20px;"><strong>Cess</strong></td>
+            <td style="padding-right: 20px;">Rs. 0.0</td>
+        </tr>
+        <tr class="border-bottom border-right">
+            <td  style="padding-left: 20px;"><strong>Grand Total</strong></td>
+            <td style="padding-right: 20px;">Rs. {{$orders->total_cost + $orders->delivery_charge - $orders->coupon_discount}}</td>
+        </tr>
         </tbody>
     </table>
 {{--    <p>&nbsp;</p>--}}
