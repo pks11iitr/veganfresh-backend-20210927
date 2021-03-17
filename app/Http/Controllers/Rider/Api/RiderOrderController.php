@@ -161,7 +161,7 @@ class RiderOrderController extends Controller
         return [
             'status'=>'success',
             'data'=>[
-                'orderdetails'=>$order->only('id', 'total_cost','refid', 'status','payment_mode', 'name', 'mobile', 'email', 'address','booking_date', 'booking_time','is_instant','status'),
+                'orderdetails'=>$order->only('id', 'total_cost','refid', 'status','payment_mode', 'name', 'mobile', 'email', 'address','booking_date', 'booking_time','is_instant','status', 'payment_collect_mode'),
                 'itemdetails'=>$itemdetails,
                 'show_cancel_product'=>$show_cancel_product??0,
                 'deliveryaddress'=>$order->deliveryaddress??'',
