@@ -132,7 +132,7 @@
     <table width="100%" class="outline-table">
         <tbody>
         <tr class="border-bottom border-right grey">
-            <td colspan="4"><strong>Product</strong></td>
+            <td colspan="1"><strong>Product</strong></td>
             <td colspan="1"><strong>Qty</strong></td>
             <td colspan="1"><strong>Price</strong></td>
             <td colspan="1"><strong>Sale Price</strong></td>
@@ -147,7 +147,7 @@
         @endphp
         @foreach($orders->details as $product)
         <tr class="border-right">
-            <td colspan="3">{{$product->name}}-{{$product->size->size??''}}</td>
+            <td colspan="1">{{$product->name}}-{{$product->size->size??''}}</td>
             <td colspan="1">{{$product->quantity}}</td>
             <td colspan="1">{{$product->cut_price}}</td>
             <td colspan="1">Rs. {{$product->price}}</td>
