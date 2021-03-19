@@ -110,6 +110,11 @@ class ProductController extends Controller
         $cart=Cart::getUserCart($user);
         $cart_total=$cart['total'];
         $cart=$cart['cart'];
+
+        $products=$products->whereDoesntHave('subcategory', function($category) {
+            $category->where('sub_category.isactive', false);
+        });
+
         $searchproducts=$products->with(['sizeprice'=>function($size){
 
             $size->where('product_prices.isactive', true);
