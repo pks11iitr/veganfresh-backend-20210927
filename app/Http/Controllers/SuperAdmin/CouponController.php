@@ -19,7 +19,7 @@ class CouponController extends Controller
     }
 
     public function store(Request $request){
-        Coupon::create($request->only(['code','discount_type','minimum_order', 'discount', 'isactive','usage_type','maximum_discount','expiry_date']));
+        Coupon::create($request->only(['code','discount_type','minimum_order', 'discount', 'isactive','usage_type','maximum_discount','expiry_date','description']));
         {
             return redirect()->route('coupon.list')->with('success', 'Coupon has been created');
         }
@@ -34,7 +34,7 @@ class CouponController extends Controller
 
     public function update(Request $request,$id){
         $coupon =Coupon::findOrFail($id);
-        $coupon->update($request->only(['code','discount_type','minimum_order', 'discount', 'isactive','usage_type','maximum_discount','expiry_date']));
+        $coupon->update($request->only(['code','discount_type','minimum_order', 'discount', 'isactive','usage_type','maximum_discount','expiry_date','description']));
 
         $coupon->categories()->sync($request->sub_categories);
 

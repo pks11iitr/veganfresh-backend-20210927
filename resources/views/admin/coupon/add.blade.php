@@ -82,6 +82,11 @@
                                             <option value="multiple-multipleuser">Many User Can Use Many Time</option>
                                         </select>
                                     </div>
+
+                                    <div class="form-group">
+                                        <label for="exampleInputimage">Description</label>
+                                        <input type="text" name="description" class="form-control" id="exampleInputimage" placeholder="Enter Description">
+                                    </div>
                                     <!-- /.card-body -->
                                     <div class="card-footer">
                                         <button type="submit" class="btn btn-primary">Submit</button>
