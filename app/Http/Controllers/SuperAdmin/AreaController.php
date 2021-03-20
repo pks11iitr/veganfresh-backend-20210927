@@ -68,15 +68,16 @@ class AreaController extends Controller
 
     public function import(Request $request){
 
-        Excel::import(new AreaImport, request()->file('select_file'));
-
-        return redirect()->route('area.list')->with('success', 'Your Data imported successfully.');
+//        Excel::import(new AreaImport, request()->file('select_file'));
+//
+//        return redirect()->route('area.list')->with('success', 'Your Data imported successfully.');
 
         return redirect()->back()->with('error', 'Your Data import failed');
     }
 
     public function export(Request $request){
 
-        return Excel::download(new AreaExport, 'areas.xlsx');
+        $area=Area::with('store')->get();
+        return Excel::download(new AreaExport($area), 'areas.xlsx');
     }
 }
