@@ -152,7 +152,7 @@
                                 //alert(image_identifier)
                                 for (var i = 0; i < files.length; i++) {
                                     //console.log(files[i].name.search(image_identifier))
-                                    if(files[i].name.indexOf(image_identifier)==0){
+                                    if(image_identifier!='.' && files[i].name.indexOf(image_identifier)==0){
                                         formdata.append('images['+file_count+']', files[i])
                                         console.log(files[i].name+'matched:'+row[0])
                                         file_count++
