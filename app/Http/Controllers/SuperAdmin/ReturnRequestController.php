@@ -45,10 +45,7 @@ class ReturnRequestController extends Controller
             ->find($returnrequest->order->id);
 
         if(!$order || empty($order->details->toArray()))
-            return [
-                'status'=>'failed',
-                'message'=>'No Such Order Found'
-            ];
+            return 0;
 
         //var_dump($itemids);
         //var_dump($request->items);
