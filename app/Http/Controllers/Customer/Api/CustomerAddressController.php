@@ -85,7 +85,8 @@ class CustomerAddressController extends Controller
                     'pincode'=>$request->pincode,
                     'address_type'=>$request->address_type??'home',
                     'other_text'=>$request->other_text?$request->other_text:'',
-                    'area_id'=>$area->id
+                    'area_id'=>$area->id,
+                    'floor'=>$request->floor,
                     //'lat'=>$request->lat?$request->lat:'',
                     //'lang'=>$request->lang?$request->lang:'',
                     //'map_address'=>$request->map_address?$request->map_address:'',

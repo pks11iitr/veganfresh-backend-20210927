@@ -666,11 +666,13 @@ class RiderOrderController extends Controller
                 'status'=>'failed',
                 'message'=>'Please login to continue'
             ];
-        $returnproducts = ReturnProduct::with(['storename', 'size'])->where(function ($returnproducts) use ($user) {
-
-            $returnproducts->where('rider_id',$user->id);
-        });
+        $returnproducts = ReturnProduct::with(['storename', 'size', 'order.deliveryaddress'])
+            ->where(function ($returnproducts) use ($user) {
+                $returnproducts->where('rider_id',$user->id);
+            });
         $returnproducts=$returnproducts->orderBy('id', 'desc')->get();
+
+
         //  $returnproducts=ReturnProduct::where('rider_id',$user->id)
         //   ->orderBy('id', 'desc')
         $returnd=[];                            //  ->get();
@@ -686,6 +688,7 @@ class RiderOrderController extends Controller
                 "quantity"=>$return->quantity,
                 "image"=>$return->image,
                 "created_at"=>date('Y-m-d h:iA', strtotime($return->created_at)),
+                'delivery_address'=>$return->order->delivery_address??null
             );
 
         }
