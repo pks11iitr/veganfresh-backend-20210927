@@ -752,7 +752,7 @@ class OrderController extends Controller
             ]);
 
         if(isset($return->order->customer->mobile))
-            Msg91::send($detail->order->customer->mobile, 'Return has been raised for Order ID:'.$detail->order->refid.', Product: '.$detail->entity->name??'', $request->reason, env('RETURN_APPROVED'));
+            Msg91::send($detail->order->customer->mobile, 'Return has been raised for Order ID:'.$detail->order->refid.', Product: '.$detail->entity->name??'', $request->reason, env('RETURN_RAISED'));
 
         return [
             'status'=>'success',
