@@ -155,6 +155,9 @@ $api->group(['prefix' => 'rider'], function ($api) {
         $api->get('returned-order-pass', ['as'=>'rider.item.return', 'uses'=>'Rider\Api\RiderOrderController@returnorder']);
 
         $api->post('check-return-total/{order_id}', ['as'=>'rider.check.return', 'uses'=>'Rider\Api\RiderOrderController@checkTotalAfterReturn']);
+        $api->get('pickup-requests', ['as'=>'rider.check.pickup', 'uses'=>'Rider\Api\RiderPickController@checkTotalAfterReturn']);
+        $api->get('mark-pickup/{id}', ['as'=>'rider.mark.pickup', 'uses'=>'Rider\Api\RiderPickController@markPickup']);
+
 
     });
 
