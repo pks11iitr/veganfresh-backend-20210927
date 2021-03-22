@@ -240,10 +240,10 @@ class ReturnRequestController extends Controller
 
         //send customer notification
         if(isset($return->order->storename->mobile))
-            Msg91::send($return->order->storename->mobile, 'Return has been approved for Order ID:'.$return->order->refid.', Product: '.$return->details->entity->name??'', $request->reason, env('RETURN_REQUEST_REJECTED'));
+            Msg91::send($return->order->storename->mobile, 'Return has been approved for Order ID:'.$return->order->refid.', Product: '.$return->details->entity->name??'', $request->reason, env('RETURN_REQUEST_APPROVED'));
 
         if(isset($return->order->rider->mobile))
-            Msg91::send($return->order->rider->mobile, 'Return has been approved for Order ID:'.$return->order->refid.', Product: '.$return->details->entity->name??'', $request->reason, env('RETURN_REQUEST_REJECTED'));
+            Msg91::send($return->order->rider->mobile, 'Return has been approved for Order ID:'.$return->order->refid.', Product: '.$return->details->entity->name??'', $request->reason, env('RETURN_REQUEST_APPROVED'));
 
         return redirect()->back()->with('success', 'Return has been approved');
 
