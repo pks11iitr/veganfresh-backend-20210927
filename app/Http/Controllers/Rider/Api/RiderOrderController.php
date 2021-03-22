@@ -688,7 +688,7 @@ class RiderOrderController extends Controller
                 "quantity"=>$return->quantity,
                 "image"=>$return->image,
                 "created_at"=>date('Y-m-d h:iA', strtotime($return->created_at)),
-                'delivery_address'=>$return->order->delivery_address??null
+                'delivery_address'=>$return->order->deliveryaddress??null
             );
 
         }
