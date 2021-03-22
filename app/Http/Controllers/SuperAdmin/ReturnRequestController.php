@@ -80,7 +80,7 @@ class ReturnRequestController extends Controller
 //    }
 
     public function cancelReturnRequest(Request $request,$return_id){
-        $return=ReturnRequest::with(['order.customer', 'details.entity', 'order.store', 'order.rider'])
+        $return=ReturnRequest::with(['order.customer', 'details.entity', 'order.storename', 'order.rider'])
             ->where('status', 'pending')
             ->findOrFail($return_id);
         $return->status='rejected';
@@ -104,7 +104,7 @@ class ReturnRequestController extends Controller
 
     public function approveReturnProduct(Request $request, $return_id){
 
-        $return=ReturnRequest::with('order.customer', 'details.entity', 'order.rider', 'order.store')->where('status', 'pending')
+        $return=ReturnRequest::with('order.customer', 'details.entity', 'order.rider', 'order.storename')->where('status', 'pending')
             ->findOrFail($return_id);
         //$details=OrderDetail::findOrFail($return->detail_id);
 
