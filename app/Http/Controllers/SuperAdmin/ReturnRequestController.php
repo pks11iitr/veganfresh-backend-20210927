@@ -91,8 +91,8 @@ class ReturnRequestController extends Controller
             FCMNotification::sendNotification($return->order->customer->notification_token, 'Return Rejected', $request->reason);
 
         //send customer notification
-        if(isset($return->order->store->mobile))
-            Msg91::send($return->order->store->mobile, 'Return has been rejected for Order ID:'.$return->order->refid.', Product: '.$return->details->entity->name??'', $request->reason, env('RETURN_REJECTED'));
+        if(isset($return->order->storename->mobile))
+            Msg91::send($return->order->storename->mobile, 'Return has been rejected for Order ID:'.$return->order->refid.', Product: '.$return->details->entity->name??'', $request->reason, env('RETURN_REJECTED'));
 
         if(isset($return->order->rider->mobile))
             Msg91::send($return->order->rider->mobile, 'Return has been rejected for Order ID:'.$return->order->refid.', Product: '.$return->details->entity->name??'', $request->reason, env('RETURN_REJECTED'));
@@ -239,8 +239,8 @@ class ReturnRequestController extends Controller
         $return->save();
 
         //send customer notification
-        if(isset($return->order->store->mobile))
-            Msg91::send($return->order->store->mobile, 'Return has been approved for Order ID:'.$return->order->refid.', Product: '.$return->details->entity->name??'', $request->reason, env('RETURN_APPROVED'));
+        if(isset($return->order->storename->mobile))
+            Msg91::send($return->order->storename->mobile, 'Return has been approved for Order ID:'.$return->order->refid.', Product: '.$return->details->entity->name??'', $request->reason, env('RETURN_APPROVED'));
 
         if(isset($return->order->rider->mobile))
             Msg91::send($return->order->rider->mobile, 'Return has been approved for Order ID:'.$return->order->refid.', Product: '.$return->details->entity->name??'', $request->reason, env('RETURN_APPROVED'));
