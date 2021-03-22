@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Rider\Api;
 
 use App\Models\ReturnRequest;
+use App\Services\SMS\Msg91;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -47,10 +48,13 @@ class ReturnPickController extends Controller
 
         $user=auth()->guard('riderapi')->user();
 
-        $return = ReturnRequest::findOrFail($id);
+        $return = ReturnRequest::with('order.customer')->findOrFail($id);
 
         $return->rider_status='complete';
         $return->save();
+
+        if(isset($return->order->customer->mobile))
+            Msg91::send($return->order->customer->mobile, 'Return has been picked up for Order ID:'.$return->order->refid.', Product: '.$return->details->entity->name??'', $request->reason, env('RETURN_PICKED_UP'));
 
         return [
             'status'=>'success',
