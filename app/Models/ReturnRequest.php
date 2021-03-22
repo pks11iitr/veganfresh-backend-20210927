@@ -8,7 +8,7 @@ class ReturnRequest extends Model
 {
     protected $table = 'return_requests';
 
-    protected $fillable = ['order_id', 'details_id', 'quantity', 'return_reason'];
+    protected $fillable = ['order_id', 'details_id', 'quantity', 'return_reason', 'remark'];
 
     public function order(){
         return $this->belongsTo('App\Models\Order', 'order_id');

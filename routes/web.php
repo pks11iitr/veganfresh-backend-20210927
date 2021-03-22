@@ -475,7 +475,7 @@ Route::group(['middleware'=>['auth', 'acl']], function(){
 
             Route::get('approve-request/{return_id}','SuperAdmin\ReturnRequestController@approveReturnProduct')->name('approve.return.request');
 
-            Route::get('cancel-request/{return_id}','SuperAdmin\ReturnRequestController@cancelReturnRequest')->name('cancel.return.request');
+            Route::post('cancel-request/{return_id}','SuperAdmin\ReturnRequestController@cancelReturnRequest')->name('cancel.return.request');
         });
     });
 

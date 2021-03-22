@@ -722,7 +722,7 @@ class OrderController extends Controller
         ]);
 
         $user=$request->user;
-        $detail=OrderDetail::with('order')
+        $detail=OrderDetail::with('order.customer', 'entity')
             ->whereHas('order', function($order) use ($user){
                 $order->where('user_id', $user->id)->where('status', 'completed');
             })->findOrFail($detail_id);
@@ -750,6 +750,9 @@ class OrderController extends Controller
             'quantity'=>$request->quantity,
             'return_reason'=>$request->return_reason
             ]);
+
+        if(isset($return->order->customer->mobile))
+            Msg91::send($detail->order->customer->mobile, 'Return has been raised for Order ID:'.$detail->order->refid.', Product: '.$detail->entity->name??'', $request->reason, env('RETURN_APPROVED'));
 
         return [
             'status'=>'success',

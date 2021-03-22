@@ -8,6 +8,8 @@ use App\Models\OrderDetail;
 use App\Models\ReturnProduct;
 use App\Models\ReturnRequest;
 use App\Models\Wallet;
+use App\Services\Notification\FCMNotification;
+use App\Services\SMS\Msg91;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -78,10 +80,23 @@ class ReturnRequestController extends Controller
 //    }
 
     public function cancelReturnRequest(Request $request,$return_id){
-        $return=ReturnRequest::where('status', 'pending')
+        $return=ReturnRequest::with(['order.customer', 'details.entity', 'order.store', 'order.rider'])
+            ->where('status', 'pending')
             ->findOrFail($return_id);
         $return->status='rejected';
+        $return->remark=$request->reason;
         $return->save();
+
+        if($return->order->customer->notification_token??'')
+            FCMNotification::sendNotification($return->order->customer->notification_token, 'Return Rejected', $request->reason);
+
+        //send customer notification
+        if(isset($return->order->store->mobile))
+            Msg91::send($return->order->store->mobile, 'Return has been rejected for Order ID:'.$return->order->refid.', Product: '.$return->details->entity->name??'', $request->reason, env('RETURN_REJECTED'));
+
+        if(isset($return->order->rider->mobile))
+            Msg91::send($return->order->rider->mobile, 'Return has been rejected for Order ID:'.$return->order->refid.', Product: '.$return->details->entity->name??'', $request->reason, env('RETURN_REJECTED'));
+
 
         return redirect()->back()->with('success', 'Return has been cancelled');
     }
@@ -89,7 +104,7 @@ class ReturnRequestController extends Controller
 
     public function approveReturnProduct(Request $request, $return_id){
 
-        $return=ReturnRequest::where('status', 'pending')
+        $return=ReturnRequest::with('order.customer', 'details.entity', 'order.rider', 'order.store')->where('status', 'pending')
             ->findOrFail($return_id);
         //$details=OrderDetail::findOrFail($return->detail_id);
 
@@ -222,6 +237,13 @@ class ReturnRequestController extends Controller
 
         $return->status='approved';
         $return->save();
+
+        //send customer notification
+        if(isset($return->order->store->mobile))
+            Msg91::send($return->order->store->mobile, 'Return has been approved for Order ID:'.$return->order->refid.', Product: '.$return->details->entity->name??'', $request->reason, env('RETURN_APPROVED'));
+
+        if(isset($return->order->rider->mobile))
+            Msg91::send($return->order->rider->mobile, 'Return has been approved for Order ID:'.$return->order->refid.', Product: '.$return->details->entity->name??'', $request->reason, env('RETURN_APPROVED'));
 
         return redirect()->back()->with('success', 'Return has been approved');
 

@@ -41,7 +41,8 @@
                                         <th>Reason</th>
                                         <th>Total After Return</th>
                                         <th>Date & Time</th>
-                                        <th>Status</th>
+                                        <th>Approve</th>
+                                        <th>Reject</th>
                                         <th>Action</th>
                                     </tr>
                                     </thead>
@@ -58,10 +59,19 @@
                                             <td>{{$return->created_at}}</td>
                                             <td>
                                                 @if($return->status=='pending')
-                                                    <a href="{{route('cancel.return.request', ['id'=>$return->id])}}" name='status' class="btn btn-danger">Reject</a>
                                                     <a href="{{route('approve.return.request', ['id'=>$return->id])}}" name='status' class="btn btn-success">Approve</a>
                                                 @else
                                                     {{$return->status}}
+                                                @endif
+                                            </td>
+                                            <td>
+                                                @if($return->status=='pending')
+                                                    <form method="POST" action="{{route('cancel.return.request', ['id'=>$return->id])}}">
+                                                        <textarea name="reason"></textarea>
+                                                        <button type="submit" class="btn btn-danger">Reject</button>
+                                                    </form>
+                                                @else
+                                                    {{$return->remark}}
                                                 @endif
                                             </td>
                                             <td>
