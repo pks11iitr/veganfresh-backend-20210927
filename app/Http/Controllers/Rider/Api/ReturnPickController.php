@@ -56,7 +56,7 @@ class ReturnPickController extends Controller
         $return->save();
 
         if(isset($return->order->customer->mobile))
-            Msg91::send($return->order->customer->mobile, 'Return has been picked up for Order ID:'.$return->order->refid.', Product: '.$return->details->entity->name??'', $request->reason, env('RETURN_PICKED_UP'));
+            Msg91::send($return->order->customer->mobile, 'Return has been picked up for Order ID:'.$return->order->refid.', Product: '.($return->product->name??''), $request->reason, env('RETURN_PICKED_UP'));
 
         return [
             'status'=>'success',
