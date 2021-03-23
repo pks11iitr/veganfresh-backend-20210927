@@ -19,7 +19,11 @@ class ReturnRequest extends Model
     }
 
     public function size(){
-        return $this->belongsToMany('App\Models\Size', 'details', 'order_id', 'size_id');
+        return $this->belongsTo('App\Models\Size', 'size_id');
+    }
+
+    public function product(){
+        return $this->belongsTo('App\Models\Product', 'product_id');
     }
 
 }

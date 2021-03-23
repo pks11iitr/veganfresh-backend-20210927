@@ -13,7 +13,7 @@ class ReturnPickController extends Controller
 
         $user=auth()->guard('riderapi')->user();
 
-        $returnsobj=ReturnRequest::with('details.entity', 'order.deliveryaddress', 'order.storename', 'details.size')
+        $returnsobj=ReturnRequest::with('product', 'order.deliveryaddress', 'order.storename', 'size')
             //->where('rider_status', 'pending')
             ->whereHas('order', function($order) use($user){
                     $order->where('rider_id', $user->id);
@@ -28,10 +28,11 @@ class ReturnPickController extends Controller
                 "id"=>$return->id,
                 "storename"=>$return->order->storename->name??'',
                 "ref_id"=>$return->order->refid,
-                "name"=>$return->datails->entity->name??'',
-                "size"=>$return->details->size->size??'',
+                "name"=>$return->product->name??'',
+                "size"=>$return->size->size??'',
                 "quantity"=>$return->quantity,
-                "image"=>$return->details->entity->image??'',
+                "price"=>$return->price,
+                "image"=>$return->product->image??'',
                 "created_at"=>date('Y-m-d h:iA', strtotime($return->created_at)),
                 'delivery_address'=>$return->order->deliveryaddress??null
             );
