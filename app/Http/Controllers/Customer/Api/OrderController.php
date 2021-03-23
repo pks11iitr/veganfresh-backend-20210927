@@ -746,9 +746,12 @@ class OrderController extends Controller
         ReturnRequest::updateOrCreate([
             'order_id'=>$detail->order_id,
             'details_id'=>$detail->id,
+            'product_id'=>$detail->entity_id,
+            'size_id'=>$detail->size_id
             ],[
             'quantity'=>$request->quantity,
-            'return_reason'=>$request->return_reason
+            'return_reason'=>$request->return_reason,
+            'price'=>$detail->cost
             ]);
 
         if(isset($return->order->customer->mobile))
