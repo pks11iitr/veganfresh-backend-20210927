@@ -34,6 +34,7 @@ class ReturnPickController extends Controller
                 "price"=>$return->price,
                 "image"=>$return->product->image??'',
                 "created_at"=>date('Y-m-d h:iA', strtotime($return->created_at)),
+                'status'=>$return->rider_status,
                 'delivery_address'=>$return->order->deliveryaddress??null
             );
         }
