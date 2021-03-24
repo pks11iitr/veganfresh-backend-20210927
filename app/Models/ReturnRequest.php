@@ -8,7 +8,7 @@ class ReturnRequest extends Model
 {
     protected $table = 'return_requests';
 
-    protected $fillable = ['order_id', 'details_id', 'quantity', 'return_reason', 'remark', 'product_id', 'size_id', 'price', 'rider_status','status'];
+    protected $fillable = ['order_id', 'details_id', 'quantity', 'return_reason', 'remark', 'product_id', 'size_id', 'price', 'rider_status','status', 'rider_id', 'user_id', 'store_id'];
 
     public function order(){
         return $this->belongsTo('App\Models\Order', 'order_id');
@@ -24,6 +24,10 @@ class ReturnRequest extends Model
 
     public function product(){
         return $this->belongsTo('App\Models\Product', 'product_id');
+    }
+
+    public function store(){
+        return $this->belongsTo('App\Models\User', 'store_id');
     }
 
 }

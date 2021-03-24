@@ -470,9 +470,11 @@ Route::group(['middleware'=>['auth', 'acl']], function(){
 
 
     Route::group(['prefix'=>'returnrequest'], function(){
-        Route::group(['is'=>'admin|returnrequest-viewer'], function(){
-            Route::get('/','SuperAdmin\ReturnRequestController@index')->name('returnrequest.list');
+        Route::group(['is'=>'admin|returnrequest-viewer'], function() {
+            Route::get('/', 'SuperAdmin\ReturnRequestController@index')->name('returnrequest.list');
+        });
 
+        Route::group(['is'=>'admin|returnrequest-editor'], function() {
             Route::get('approve-request/{return_id}','SuperAdmin\ReturnRequestController@approveReturnProduct')->name('approve.return.request');
 
             Route::post('cancel-request/{return_id}','SuperAdmin\ReturnRequestController@cancelReturnRequest')->name('cancel.return.request');

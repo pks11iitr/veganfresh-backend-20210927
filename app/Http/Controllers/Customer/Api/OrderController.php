@@ -751,7 +751,10 @@ class OrderController extends Controller
             ],[
             'quantity'=>$request->quantity,
             'return_reason'=>$request->return_reason,
-            'price'=>$detail->cost
+            'price'=>$detail->cost,
+            'store_id'=>$detail->order->store_id,
+            'user_id'=>$detail->order->user_id,
+            'rider_id'=>$detail->order->rider_id
             ]);
 
         if(isset($return->order->customer->mobile))

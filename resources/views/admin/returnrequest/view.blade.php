@@ -35,6 +35,7 @@
                                     <thead>
                                     <tr>
                                         <th>OrderID</th>
+                                        <th>Store</th>
                                         <th>Product Name</th>
                                         <th>Size</th>
                                         <th>Quantity</th>
@@ -50,8 +51,9 @@
                                     @foreach($returns as $return)
                                         <tr>
                                             <td>{{$return->order->refid??''}}</td>
-                                            <td>{{$return->details->name??''}}</td>
-                                            <td>{{$return->details->size->size??''}}</td>
+                                            <td>{{$return->store->name??''}}</td>
+                                            <td>{{$return->product->name??''}}</td>
+                                            <td>{{$return->size->size??''}}</td>
                                             <td>{{$return->quantity}}</td>
 
                                             <td>{{$return->return_reason}}</td>

@@ -17,10 +17,18 @@ class ReturnRequestController extends Controller
 {
     public function index(Request $request){
 
-        $returns=ReturnRequest::with(['details.size', 'order.details.entity'])
-            ->has('details')
-            ->orderBy('id', 'desc')
-            ->paginate(10);
+        if(auth()->user()->hasRole('admin')){
+            $returns=ReturnRequest::with(['size', 'product', 'order.details.entity'])
+                //->has('details')
+                ->orderBy('id', 'desc')
+                ->paginate(10);
+        }else{
+            $returns=ReturnRequest::with(['size', 'product', 'order.details.entity'])
+                //->has('details')
+                ->orderBy('id', 'desc')
+                ->paginate(10);
+        }
+
 
         foreach($returns as $return){
             if($return->status=='pending')
