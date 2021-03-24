@@ -242,6 +242,15 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail1">Return Request Permissions</label><br>
+                                                <div>
+                                                    <input type="checkbox" name="permissions[returnrequest-viewer]"  id="exampleInputEmail1" placeholder="Enter Password"> View Return Request
+                                                    <input type="checkbox" name="permissions[returnrequest-editor]"  id="exampleInputEmail1" placeholder="Enter Password"> Add/Update Return Request
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <!-- /.card-body -->
