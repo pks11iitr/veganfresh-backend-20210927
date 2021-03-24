@@ -68,6 +68,7 @@
                                                     <img src="{{$invoice->image??''}}" width="200px" height="100px">
                                                 </div>
                                                 <div class="col-3">
+                                                    <label>Terms & Conditions</label>
                                                     <textarea name="t_n_c" class="form-control" >{{$invoice->t_n_c}}</textarea>
                                                 </div>
                                                 <div class="col-3"><label>.</label><br>
