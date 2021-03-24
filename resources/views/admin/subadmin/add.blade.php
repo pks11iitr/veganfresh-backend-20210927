@@ -251,6 +251,15 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail1">Timeslot Permissions</label><br>
+                                                <div>
+                                                    <input type="checkbox" name="permissions[timeslot-viewer]"  id="exampleInputEmail1" placeholder="Enter Password"> View Timeslot
+                                                    <input type="checkbox" name="permissions[timeslot-editor]"  id="exampleInputEmail1" placeholder="Enter Password"> Add/Update Timeslot
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <!-- /.card-body -->
