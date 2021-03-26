@@ -523,7 +523,9 @@ class OrderController extends Controller
                 'invoice_link'=>$show_download_invoice?route('download.invoice', ['id'=>$order->id]):'',
                 'time_slot'=>$time_slot,
                 'show_repeat_order'=>$show_repeat_order??0,
-                'show_return'=>$show_return
+                'show_return'=>$show_return,
+                'payment_status'=>$order->payment_status,
+                'payment_mode'=>$order->payment_mode??'Online'
             ]
         ];
     }
