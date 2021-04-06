@@ -156,9 +156,9 @@
             <td colspan="1">Rs. {{round($product->price*($product->size->cgst??'0')/100,2)}}</td>
             <td colspan="1">Rs. {{round($product->price*($product->size->sgst??'0')/100,2)}}</td>
             <td colspan="1">Rs. 0.0</td>
-            <td colspan="1">Rs. {{round($product->price - $product->price*($product->size->cgst??0+$product->size->sgst??0)/100* $product->quantity, 2)}}</td>
+            <td colspan="1">Rs. {{round($product->price - $product->price*(($product->size->cgst??0)+($product->size->sgst??0))/100* $product->quantity, 2)}}</td>
             @php
-                $subtotal=$subtotal+$product->price - $product->price*($product->size->cgst??0+$product->size->sgst??0)/100* $product->quantity;
+                $subtotal=$subtotal+$product->price - $product->price*(($product->size->cgst??0)+($product->size->sgst??0))/100* $product->quantity;
                 $cgst=$cgst+$product->price*($product->size->cgst??'0')/100*$product->quantity;
                 $sgst=$sgst+$product->price*($product->size->sgst??'0')/100*$product->quantity;
             @endphp
@@ -171,9 +171,9 @@
         <tbody>
 
         <tr class="border-right">
-            <td rowspan="7" width="60%">{{$invoice->t_n_c??''}}</td>
+            <td rowspan="8" width="60%">{{$invoice->t_n_c??''}}</td>
             <td  style="padding-left: 20px;"><strong>SubTotal</strong></td>
-            <td style="padding-right: 20px;">Rs. {{$subtotal}}</td>
+            <td style="padding-right: 20px;">Rs. {{round($subtotal,2)}}</td>
         </tr>
         <tr class="border-right">
             <td  style="padding-left: 20px;"><strong>Coupon Discount</strong></td>
