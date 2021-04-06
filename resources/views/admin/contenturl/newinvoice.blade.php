@@ -144,6 +144,7 @@
         </tr>
         @php
         $cgst=0;$sgst=0;
+        $subtotal=0;
         @endphp
         @foreach($orders->details as $product)
         <tr class="border-right">
@@ -152,13 +153,14 @@
             <td colspan="1">{{$product->cut_price}}</td>
             <td colspan="1">Rs. {{$product->price}}</td>
             <td colspan="1">Rs. {{$product->cut_price - $product->price}}</td>
-            <td colspan="1">Rs. {{round($product->price*($product->size->cgst??'0')*5/100,2)}}</td>
-            <td colspan="1">Rs. {{round($product->price*($product->size->sgst??'0')*5/100,2)}}</td>
+            <td colspan="1">Rs. {{round($product->price*($product->size->cgst??'0')/100,2)}}</td>
+            <td colspan="1">Rs. {{round($product->price*($product->size->sgst??'0')/100,2)}}</td>
             <td colspan="1">Rs. 0.0</td>
-            <td colspan="1">Rs. {{$product->price * $product->quantity}}</td>
+            <td colspan="1">Rs. {{(round($product->price - $product->price*($product->size->cgst??0+$product->size->sgst??0)/100* $product->quantity, 2)}}</td>
             @php
-            $cgst=$cgst+round($product->price*($product->size->cgst??'0')*5/100*$product->quantity,2);
-            $sgst=$cgst+round($product->price*($product->size->sgst??'0')*5/100*$product->quantity,2);
+                $subtotal=$subtotal+$product->price - $product->price*($product->size->cgst??0+$product->size->sgst??0)/100* $product->quantity;
+                $cgst=$cgst+$product->price*($product->size->cgst??'0')/100*$product->quantity;
+                $sgst=$sgst+$product->price*($product->size->sgst??'0')/100*$product->quantity;
             @endphp
         </tr>
         @endforeach
@@ -171,7 +173,7 @@
         <tr class="border-right">
             <td rowspan="7" width="60%">{{$invoice->t_n_c??''}}</td>
             <td  style="padding-left: 20px;"><strong>SubTotal</strong></td>
-            <td style="padding-right: 20px;">Rs. {{$orders->total_cost}}</td>
+            <td style="padding-right: 20px;">Rs. {{$subtotal}}</td>
         </tr>
         <tr class="border-right">
             <td  style="padding-left: 20px;"><strong>Coupon Discount</strong></td>
@@ -195,7 +197,11 @@
         </tr>
         <tr class="border-bottom border-right">
             <td  style="padding-left: 20px;"><strong>Grand Total</strong></td>
-            <td style="padding-right: 20px;">Rs. {{$orders->total_cost + $orders->delivery_charge - $orders->coupon_discount}}</td>
+            <td style="padding-right: 20px;">Rs. {{round($subtotal + $cgst + $sgst+ $orders->delivery_charge - $orders->coupon_discount,2}}</td>
+        </tr>
+        <tr class="border-bottom border-right">
+            <td  style="padding-left: 20px;"><strong>Round-Off Total</strong></td>
+            <td style="padding-right: 20px;">Rs. {{round($subtotal + $cgst + $sgst+ $orders->delivery_charge - $orders->coupon_discount)}}</td>
         </tr>
         </tbody>
     </table>
