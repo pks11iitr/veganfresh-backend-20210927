@@ -156,9 +156,9 @@
             <td colspan="1">Rs. {{round($product->price*($product->size->cgst??'0')/100,2)}}</td>
             <td colspan="1">Rs. {{round($product->price*($product->size->sgst??'0')/100,2)}}</td>
             <td colspan="1">Rs. 0.0</td>
-            <td colspan="1">Rs. {{round($product->price - $product->price*(($product->size->cgst??0)+($product->size->sgst??0))/100* $product->quantity, 2)}}</td>
+            <td colspan="1">Rs. {{round(($product->price - $product->price*(($product->size->cgst??0)+($product->size->sgst??0))/100)*$product->quantity, 2)}}</td>
             @php
-                $subtotal=$subtotal+$product->price - $product->price*(($product->size->cgst??0)+($product->size->sgst??0))/100* $product->quantity;
+                $subtotal=$subtotal+($product->price - $product->price*(($product->size->cgst??0)+($product->size->sgst??0))/100)*$product->quantity;
                 $cgst=$cgst+$product->price*($product->size->cgst??'0')/100*$product->quantity;
                 $sgst=$sgst+$product->price*($product->size->sgst??'0')/100*$product->quantity;
             @endphp
@@ -185,11 +185,11 @@
         </tr>
         <tr class="border-bottom border-right">
             <td  style="padding-left: 20px;"><strong>CGST</strong></td>
-            <td style="padding-right: 20px;">Rs. {{$cgst}}</td>
+            <td style="padding-right: 20px;">Rs. {{round($cgst,2)}}</td>
         </tr>
         <tr class="border-bottom border-right">
             <td  style="padding-left: 20px;"><strong>SGST</strong></td>
-            <td style="padding-right: 20px;">Rs. {{$sgst}}</td>
+            <td style="padding-right: 20px;">Rs. {{round($sgst,2)}}</td>
         </tr>
         <tr class="border-bottom border-right">
             <td  style="padding-left: 20px;"><strong>Cess</strong></td>
