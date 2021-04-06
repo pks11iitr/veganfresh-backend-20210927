@@ -144,7 +144,7 @@
         </tr>
         @php
         $cgst=0;$sgst=0;
-        $subtotal=0;$total=0;
+        $subtotal=0;$grand_total=0;
         @endphp
         @foreach($orders->details as $product)
         <tr class="border-right">
@@ -161,7 +161,7 @@
                 $subtotal=$subtotal+($product->price - $product->price*(($product->size->cgst??0)+($product->size->sgst??0))/100)*$product->quantity;
                 $cgst=$cgst+$product->price*($product->size->cgst??'0')/100*$product->quantity;
                 $sgst=$sgst+$product->price*($product->size->sgst??'0')/100*$product->quantity;
-                $total=$total+$product->price*$product->quntity;
+                $grand_total=$grand_total+$product->price*$product->quantity;
             @endphp
         </tr>
         @endforeach
