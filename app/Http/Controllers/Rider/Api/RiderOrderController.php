@@ -105,7 +105,7 @@ class RiderOrderController extends Controller
                 'status'=>'failed',
                 'message'=>'Please login to continue'
             ];
-        $order=Order::with(['details.size', 'deliveryaddress', ])
+        $order=Order::with(['details.size', 'deliveryaddress', 'storename'])
             ->where('rider_id', $user->id)
             ->where('status', '!=', 'pending')
             ->find($id);
@@ -170,6 +170,7 @@ class RiderOrderController extends Controller
                 'show_return'=>$show_return,
                 'delivery_time'=>$delivery_time,
                 'delivered_at'=>$delivered_at,
+                'pickup_store'=>$order->storename->name??''
             ]
         ];
     }
