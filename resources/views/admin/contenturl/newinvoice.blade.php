@@ -198,7 +198,7 @@
         </tr>
         <tr class="border-bottom border-right">
             <td  style="padding-left: 20px;"><strong>Grand Total</strong></td>
-            <td style="padding-right: 20px;">Rs. {{round($total+ $orders->delivery_charge - $orders->coupon_discount,2)}}</td>
+            <td style="padding-right: 20px;">Rs. {{round($grand_total+ $orders->delivery_charge - $orders->coupon_discount,2)}}</td>
         </tr>
         <tr class="border-bottom border-right">
             <td  style="padding-left: 20px;"><strong>Total(round-off)</strong></td>
