@@ -162,7 +162,7 @@ class RiderOrderController extends Controller
         return [
             'status'=>'success',
             'data'=>[
-                'orderdetails'=>$order->only('id', 'total_cost','refid', 'status','payment_mode', 'name', 'mobile', 'email', 'address','booking_date', 'booking_time','is_instant','status', 'payment_collect_mode'),
+                'orderdetails'=>array_merge($order->only('id', 'total_cost','refid', 'status','payment_mode', 'name', 'mobile', 'email', 'address','booking_date', 'booking_time','is_instant','status', 'payment_collect_mode'), ['pickup_store'=>$storename]),
                 'itemdetails'=>$itemdetails,
                 'show_cancel_product'=>$show_cancel_product??0,
                 'deliveryaddress'=>$order->deliveryaddress??'',
@@ -170,8 +170,7 @@ class RiderOrderController extends Controller
                 'show_delivered'=>$show_delivered,
                 'show_return'=>$show_return,
                 'delivery_time'=>$delivery_time,
-                'delivered_at'=>$delivered_at,
-                'pickup_store'=>$storename
+                'delivered_at'=>$delivered_at
             ]
         ];
     }
