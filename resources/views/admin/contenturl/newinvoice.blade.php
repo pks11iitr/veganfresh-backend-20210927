@@ -148,7 +148,7 @@
         @endphp
         @foreach($orders->details as $product)
         <tr class="border-right">
-            <td colspan="1">{{$product->name}}-{{$product->size->size??''}}</td>
+            <td colspan="1">{{$product->company}}--{{$product->name}}-{{$product->size->size??''}}</td>
             <td colspan="1">{{$product->quantity}}</td>
             <td colspan="1">{{$product->cut_price}}</td>
             <td colspan="1">Rs. {{$product->price}}</td>
