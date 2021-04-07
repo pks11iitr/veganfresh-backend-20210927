@@ -116,6 +116,7 @@ class RiderOrderController extends Controller
                 'message'=>'Invalid Operation Performed'
             ];
 
+        $storename=$order->storename->name??'';
 
         $itemdetails=[];
         $savings=0;
@@ -170,7 +171,7 @@ class RiderOrderController extends Controller
                 'show_return'=>$show_return,
                 'delivery_time'=>$delivery_time,
                 'delivered_at'=>$delivered_at,
-                'pickup_store'=>$order->storename->name??''
+                'pickup_store'=>$storename
             ]
         ];
     }
