@@ -19,7 +19,7 @@ class AreaController extends Controller
     }
 
     public function create(Request $request){
-        $stores=User::where('id', '>', 1)->get();
+        $stores=User::where('id', '>', 1)->role('store')->get();
         return view('admin.area.add', compact('stores'));
     }
 
@@ -43,7 +43,7 @@ class AreaController extends Controller
 
     public function edit(Request $request,$id){
         $arealist=Area::findOrFail($id);
-        $stores=User::where('id', '>', 1)->get();
+        $stores=User::where('id', '>', 1)->role('store')->get();
         return view('admin.area.edit',['arealist'=>$arealist, 'stores'=>$stores]);
     }
 
