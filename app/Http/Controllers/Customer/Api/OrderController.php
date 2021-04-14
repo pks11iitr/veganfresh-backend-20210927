@@ -604,7 +604,7 @@ class OrderController extends Controller
             FCMNotification::sendNotification($order->customer->notification_token, 'Order Cancelled', $message);
 
         if(!empty($order->storename->mobile)){
-            Msg91::send($order->storename->mobile, 'Order ID '.$order->refid.' has been cancelled by customer', env('CANCEL_ORDER_STORE'));
+            Msg91::send($order->storename->mobile, 'Order ID '.$order->refid.' at HalloBasket has been cancelled by customer. Please cancel the delivery if scheduled.', env('HALLO_CANCEL_ORDER_STORE'));
         }
 
         return [
@@ -760,7 +760,11 @@ class OrderController extends Controller
             ]);
 
         if(isset($return->order->customer->mobile))
-            Msg91::send($detail->order->customer->mobile, 'Return has been raised for Order ID:'.$detail->order->refid.', Product: '.$detail->entity->name??'', $request->reason, env('RETURN_RAISED'));
+            Msg91::send($detail->order->customer->mobile, 'Return has been raised at HalloBasket for Order ID: '.$detail->order->refid.', Product: '.($detail->entity->name??'').', Quantity: '.$request->quantity, env('HALLO_RETURN_RAISED'));
+
+        if(isset($return->order->storename->mobile))
+            Msg91::send($detail->order->customer->mobile, 'Return has been raised at HalloBasket for Order ID: '.$detail->order->refid.', Product: '.($detail->entity->name??'').', Quantity: '.$request->quantity, env('HALLO_RETURN_RAISED'));
+
 
         return [
             'status'=>'success',

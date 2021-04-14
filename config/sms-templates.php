@@ -1,6 +1,6 @@
 <?php
 return [
-    'register'=>'Your OTP is {{otp}} For Hallobasket',
-    'login'=>'Your OTP is {{otp}} For Hallobasket',
-    'reset'=>'Your OTP is {{otp}} For Hallobasket',
+    'register'=>'Your OTP at Hallobasket is {{otp}}.',
+    'login'=>'Your OTP at Hallobasket is {{otp}}.',
+    'reset'=>'Your OTP at Hallobasket is {{otp}}.',
 ];

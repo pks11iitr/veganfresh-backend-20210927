@@ -221,18 +221,18 @@ class OrderController extends Controller
 
         if($old_status!='dispatched' &&  $order->status=='dispatched' && !empty($order->rider_id)){
             $rider=Rider::find($order->rider_id);
-            Msg91::send($rider->mobile, 'New Order '.$order->refid.' arrived. Scheduled Delivery is '.($order->delivery_date??'').' '.($order->timeslot->name??''), env('NEW_ORDER_RIDER'));
+            Msg91::send($rider->mobile, 'New Order '.$order->refid.' received at HalloBasket. Scheduled Delivery is '.($order->delivery_date??'').' '.($order->timeslot->name??''), env('HALLO_NEW_ORDER_RIDER'));
         }
 
         //sms to store owners
         if($status=='completed'){
             if(!empty($order->storename->mobile)){
-                Msg91::send($order->storename->mobile, 'Order ID '.$order->refid.' has been delivered successfully. Delivered time is: '.(date('d/m/Y h:ia', strtotime($order->delivered_at??''))), env('STORE_ORDER_DELIVERED'));
+                Msg91::send($order->storename->mobile, 'Order ID '.$order->refid.' at HalloBasket has been delivered successfully. Delivered time is: '.(date('d/m/Y h:ia', strtotime($order->delivered_at??''))), env('HALLO_STORE_ORDER_DELIVERED'));
             }
         }
         else if($status=='cancelled'){
             if(!empty($order->storename->mobile)){
-                Msg91::send($order->storename->mobile, 'Order ID '.$order->refid.' has been cancelled by customer', env('CANCEL_ORDER_STORE'));
+                Msg91::send($order->storename->mobile, 'Order ID '.$order->refid.' at HalloBasket has been cancelled by customer. Please cancel the delivery if scheduled.', env('HALLO_CANCEL_ORDER_STORE'));
             }
         }
 
@@ -262,7 +262,7 @@ class OrderController extends Controller
         $order->rider_id=$request->riderid;
         $order->save();
         if($old_rider!=$order->rider_id && $order->status=='dispatched')
-            Msg91::send($rider->mobile, 'New Order '.$order->refid.' arrived. Scheduled Delivery is '.($order->delivery_date??'').' '.($order->timeslot->name??''), env('NEW_ORDER_RIDER'));
+            Msg91::send($rider->mobile, 'New Order '.$order->refid.' received at HalloBasket. Scheduled Delivery is '.($order->delivery_date??'').' '.($order->timeslot->name??''), env('HALLO_NEW_ORDER_RIDER'));
 
         return redirect()->back()->with('success', 'Rider Has Been change');
     }
