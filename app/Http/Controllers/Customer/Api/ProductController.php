@@ -194,8 +194,8 @@ class ProductController extends Controller
                  'reviews'=>$reviews,
                  'timeslot'=>$timeslot,
                  'in_stocks'=>empty($size)?0:Size::getStockStatus($size, $product),
-                 'min_qty'=>$size->min_qty,
-                 'max_qty'=>$size->max_qty,
+                 'min_qty'=>$size->min_qty??1,
+                 'max_qty'=>$size->max_qty??50,
         );
 
         return [
