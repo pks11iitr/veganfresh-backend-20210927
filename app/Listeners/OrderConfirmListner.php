@@ -56,7 +56,7 @@ class OrderConfirmListner
             FCMNotification::sendNotification($order->customer->notification_token, $title, $message);
 
         //send customer notification
-        Msg91::send($order->customer->mobile, $message, env('HALLOB_CUSTOMER_ORDER_CONFIRM'));
+        Msg91::send($order->customer->mobile, $message, env('HALLOBB_CUSTOMER_ORDER_CONFIRM'));
 
         //store notification
         if(!empty($order->storename->mobile))
