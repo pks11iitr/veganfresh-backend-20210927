@@ -234,6 +234,9 @@ class OrderController extends Controller
             if(!empty($order->storename->mobile)){
                 Msg91::send($order->storename->mobile, 'Order ID '.$order->refid.' at HalloBasket has been cancelled by customer. Please cancel the delivery if scheduled.', env('HALLO_CANCEL_ORDER_STORE'));
             }
+        }else if($status=='delivered'){
+            $message='Your Order ID: '.$order->refid.' at Hallobasket has been delivered';
+            Msg91::send($order->customer->mobile, $message, env('HALLO_CUSTOMER_ORDER_DELIVERED'));
         }
 
         return redirect()->back()->with('success', 'Order has been updated');
