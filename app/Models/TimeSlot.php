@@ -84,7 +84,7 @@ class TimeSlot extends Model
         $time_slots=[];
         $slot_timer=0;
         while(count($time_slots)<50){
-            $timeslot=TimeSlot::where('from_time', '>=', $time)
+            $timeslot=TimeSlot::active()->where('from_time', '>=', $time)
                 ->orderBy('from_time', 'asc')
                 ->get();
 
