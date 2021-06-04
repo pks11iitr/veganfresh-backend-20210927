@@ -103,7 +103,27 @@ class OfferProductController extends Controller
     public function offerproducts_withoutcategory(Request $request){
         $user=auth()->guard('customerapi')->user();
 
-        $banner=Banner::active()->select('id','image')->get();
+        //$banner=Banner::active()->select('id','image')->get();
+
+        $bannersobj=Banner::active()->select('entity_type', 'entity_id', 'image', 'parent_category')->get();
+
+        $banners=[];
+        foreach($bannersobj as $banner){
+            $new_ban=[];
+            if($banner->entity_type=='App\Models\Category'){
+                $new_ban['image']=$banner->image;
+                $new_ban['type']='category';
+                $new_ban['cat_id']=$banner->entity_id;
+                $new_ban['subcat_id']='';
+            }else if($banner->entity_type=='App\Models\SubCategory'){
+                $new_ban['image']=$banner->image;
+                $new_ban['type']='subcategory';
+                $new_ban['cat_id']=$banner->parent_category;
+                $new_ban['subcat_id']=$banner->entity_id;
+            }
+            $banners[]=$new_ban;
+        }
+
         $category=Category::active()->select('id','name','image')->get();
         if(!empty($request->category_id)){
 
@@ -134,7 +154,7 @@ class OfferProductController extends Controller
 
         return [
             'status'=>'success',
-            'banner'=>$banner,
+            'banner'=>$banners,
             'category'=>$category,
             'data'=>$offerproducts,
             'cart_total'=>$cart_total
