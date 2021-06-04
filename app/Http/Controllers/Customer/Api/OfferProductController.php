@@ -22,7 +22,25 @@ class OfferProductController extends Controller
 //                'status'=>'failed',
 //                'message'=>'Please login to continue'
 //            ];
-        $banner=Banner::active()->select('id','image')->get();
+        //$banner=Banner::active()->select('id','image')->get();
+        $bannersobj=Banner::active()->select('entity_type', 'entity_id', 'image', 'parent_category')->get();
+
+        $banners=[];
+        foreach($bannersobj as $banner){
+            $new_ban=[];
+            if($banner->entity_type=='App\Models\Category'){
+                $new_ban['image']=$banner->image;
+                $new_ban['type']='category';
+                $new_ban['cat_id']=$banner->entity_id;
+                $new_ban['subcat_id']='';
+            }else if($banner->entity_type=='App\Models\SubCategory'){
+                $new_ban['image']=$banner->image;
+                $new_ban['type']='subcategory';
+                $new_ban['cat_id']=$banner->parent_category;
+                $new_ban['subcat_id']=$banner->entity_id;
+            }
+            $banners[]=$new_ban;
+        }
         $offercategory=OfferCategory::active()->select('id','name','image')->get();
           if(!empty($request->offer_cat_id)){
               $offerproduct=Product::active()
@@ -54,7 +72,7 @@ class OfferProductController extends Controller
 
         return [
             'status'=>'success',
-            'banner'=>$banner,
+            'banner'=>$banners,
             'offercategory'=>$offercategory,
             'data'=>$offerproducts,
             'cart_total'=>$cart_total
