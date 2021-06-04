@@ -25,11 +25,14 @@ class OfferProductController extends Controller
         $banner=Banner::active()->select('id','image')->get();
         $offercategory=OfferCategory::active()->select('id','name','image')->get();
           if(!empty($request->offer_cat_id)){
-              $offerproduct=Product::active()->whereHas('offercategory', function($category) use($request){
-                  $category->where('offer_category.id', $request->offer_cat_id)->where('offer_category.isactive',1);
-              });
+              $offerproduct=Product::active()
+                  ->whereHas('offercategory', function($category) use($request){
+                      $category->where('offer_category.id', $request->offer_cat_id)
+                          ->where('offer_category.isactive',1);
+                  });
         }else{
-              $offerproduct=Product::active()->has('offercategory',function ($category){
+              $offerproduct=Product::active()
+                  ->whereHas('offercategory',function ($category){
                   $category->where('offer_category.isactive',1);
               });
         }
