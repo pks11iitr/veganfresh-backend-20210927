@@ -16,7 +16,13 @@ class SpecialProductController extends Controller
         $user=auth()->guard('customerapi')->user();
 
         $banner=Banner::active()->select('id','image')->get();
-        $category=Category::active()->select('id','name','image')->get();
+        $categoryobj=Category::active()->select('id','name','image')->get();
+        $category=[];
+        $category[]=['name'=>'All', 'id'=>0,'image'=>''];
+        foreach ($categoryobj as $cat){
+            $category[]=['name'=>$cat->name, 'id'=>$cat->id,'image'=>$cat->image];
+        }
+
         if(!empty($request->category_id)){
 
             $products=Product::active()->where('is_hotdeal',true)->whereHas('category', function($category) use($request){
@@ -61,7 +67,12 @@ class SpecialProductController extends Controller
         $user=auth()->guard('customerapi')->user();
 
         $banner=Banner::active()->select('id','image')->get();
-        $category=Category::active()->select('id','name','image')->get();
+        $categoryobj=Category::active()->select('id','name','image')->get();
+        $category=[];
+        $category[]=['name'=>'All', 'id'=>0,'image'=>''];
+        foreach ($categoryobj as $cat){
+            $category[]=['name'=>$cat->name, 'id'=>$cat->id,'image'=>$cat->image];
+        }
         if(!empty($request->category_id)){
 
             $products=Product::active()->where('is_newarrival',true)->whereHas('category', function($category) use($request){
@@ -103,7 +114,13 @@ class SpecialProductController extends Controller
         $user=auth()->guard('customerapi')->user();
 
         $banner=Banner::active()->select('id','image')->get();
-        $category=Category::active()->select('id','name','image')->get();
+        $categoryobj=Category::active()->select('id','name','image')->get();
+        $category=[];
+        $category[]=['name'=>'All', 'id'=>0,'image'=>''];
+        foreach ($categoryobj as $cat){
+            $category[]=['name'=>$cat->name, 'id'=>$cat->id,'image'=>$cat->image];
+        }
+
         if(!empty($request->category_id)){
 
             $products=Product::active()->where('is_discounted',true)->whereHas('category', function($category) use($request){

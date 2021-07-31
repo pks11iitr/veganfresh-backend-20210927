@@ -40,7 +40,10 @@
                                         <label for="exampleInputimage">Code</label>
                                         <input type="text" name="code" class="form-control" id="exampleInputimage" placeholder="Enter Code" value="{{$coupon->code}}">
                                     </div>
-
+                                    <div class="form-group">
+                                        <label for="exampleInputimage">Description</label>
+                                        <input type="text" name="description" class="form-control" id="exampleInputimage" placeholder="Enter Description" value="{{$coupon->description}}">
+                                    </div>
                                     <div class="form-group">
                                         <label for="exampleInputimage">Discount</label>
                                         <input type="number" name="discount" class="form-control" id="exampleInputimage" placeholder="Enter Discount" min="0" value="{{$coupon->discount}}">

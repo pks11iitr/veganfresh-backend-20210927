@@ -19,7 +19,7 @@ class AreaController extends Controller
     }
 
     public function create(Request $request){
-        $stores=User::where('id', '>', 1)->get();
+        $stores=User::where('id', '>', 1)->role('store')->get();
         return view('admin.area.add', compact('stores'));
     }
 
@@ -43,7 +43,7 @@ class AreaController extends Controller
 
     public function edit(Request $request,$id){
         $arealist=Area::findOrFail($id);
-        $stores=User::where('id', '>', 1)->get();
+        $stores=User::where('id', '>', 1)->role('store')->get();
         return view('admin.area.edit',['arealist'=>$arealist, 'stores'=>$stores]);
     }
 
@@ -68,15 +68,16 @@ class AreaController extends Controller
 
     public function import(Request $request){
 
-        Excel::import(new AreaImport, request()->file('select_file'));
-
-        return redirect()->route('area.list')->with('success', 'Your Data imported successfully.');
+//        Excel::import(new AreaImport, request()->file('select_file'));
+//
+//        return redirect()->route('area.list')->with('success', 'Your Data imported successfully.');
 
         return redirect()->back()->with('error', 'Your Data import failed');
     }
 
     public function export(Request $request){
 
-        return Excel::download(new AreaExport, 'areas.xlsx');
+        $area=Area::with('store')->get();
+        return Excel::download(new AreaExport($area), 'areas.xlsx');
     }
 }

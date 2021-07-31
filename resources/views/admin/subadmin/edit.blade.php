@@ -242,6 +242,24 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail1">Return Request Permissions</label><br>
+                                                <div>
+                                                    <input type="checkbox" name="permissions[returnrequest-viewer]"  id="exampleInputEmail1" placeholder="Enter Password" @if($subadmin->hasRole('returnrequest-viewer')) {{'checked'}} @endif> View Return Request
+                                                    <input type="checkbox" name="permissions[returnrequest-editor]"  id="exampleInputEmail1" placeholder="Enter Password" @if($subadmin->hasRole('returnrequest-editor')) {{'checked'}} @endif> Add/Update Return Request
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail1">Timeslot Permissions</label><br>
+                                                <div>
+                                                    <input type="checkbox" name="permissions[timeslot-viewer]"  id="exampleInputEmail1" placeholder="Enter Password" @if($subadmin->hasRole('timeslot-viewer')) {{'checked'}} @endif> View Timeslot
+                                                    <input type="checkbox" name="permissions[timeslot-editor]"  id="exampleInputEmail1" placeholder="Enter Password" @if($subadmin->hasRole('timeslot-editor')) {{'checked'}} @endif> Add/Update Timeslot
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <!-- /.card-body -->

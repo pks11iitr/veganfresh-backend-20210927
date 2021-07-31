@@ -42,12 +42,8 @@ class OrderConfirmListner
         Order::setInvoiceNumber($order);
 
         $title='Order Confirmed';
-        if($order->details[0]->entity_type == 'App\Models\Product'){
-            $message='Congratulations! Your purchase of Rs. '.($order->total_cost-$order->coupon_discount+$order->delivery_charge+$order->extra_amount).' at Hallobasket is successfull. Order Reference ID: '.$order->refid;
-        }else{
-            $message='Congratulations! Your therapy booking of Rs. '.$order->total_cost.' at Hallobasket is successfull. Order Reference ID: '.$order->refid;
+        $message='Congratulations! Your purchase of Rs. '.($order->total_cost-$order->coupon_discount+$order->delivery_charge+$order->extra_amount).' at Hallobasket is successfull. Order Reference ID: '.$order->refid;
 
-        }
 
         Notification::create([
             'user_id'=>$order->user_id,
@@ -60,11 +56,11 @@ class OrderConfirmListner
             FCMNotification::sendNotification($order->customer->notification_token, $title, $message);
 
         //send customer notification
-        Msg91::send($order->customer->mobile, $message);
+        Msg91::send($order->customer->mobile, $message, env('HALLOBB_CUSTOMER_ORDER_CONFIRM'));
 
         //store notification
         if(!empty($order->storename->mobile))
-            Msg91::send($order->storename->mobile, 'New Order '.$order->refid.' arrived. Scheduled Delivery is '.($order->delivery_date??'').' '.($order->timeslot->name??''));
+            Msg91::send($order->storename->mobile, 'New Order '.$order->refid.' received at HalloBasket. Scheduled Delivery is '.($order->delivery_date??'').' '.($order->timeslot->name??''), env('HALLOB_STORE_ORDER_CONFIRM'));
 
     }
 }

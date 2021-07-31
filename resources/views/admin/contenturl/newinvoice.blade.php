@@ -69,7 +69,7 @@
         <tbody>
         <tr class="black">
             <td colspan="5" style="color: white"><strong>Invoice No # {{$orders->invoice_number}}</strong><br>Pan/GST: {{$invoice->pan_gst??''}}</td>
-            <td colspan="1" style="color: white">Date: {{date('d/m/Y h:ia', strtotime($orders->updated_at))}}<br>Status: {{strtoupper($orders->status)}}</td>
+            <td colspan="1" style="color: white">Date: {{date('d/m/Y h:ia', strtotime($orders->created_at))}}<br>Status: {{strtoupper($orders->status)}}</td>
         </tr>
         <tr class="black">
             <td colspan="6" style="color: white"><strong>Delivery Date: @if($orders->is_express_delivery){{'60 Min Express Delivery'}}@else{{date('D d ,Y', strtotime($orders->delivery_date))}} ({{$orders->timeslot->name??''}})@endif</strong></td>
@@ -132,25 +132,37 @@
     <table width="100%" class="outline-table">
         <tbody>
         <tr class="border-bottom border-right grey">
-            <td colspan="3"><strong>Product</strong></td>
-            <td colspan="3"><strong>SKU</strong></td>
+            <td colspan="1"><strong>Product</strong></td>
             <td colspan="1"><strong>Qty</strong></td>
             <td colspan="1"><strong>Price</strong></td>
             <td colspan="1"><strong>Sale Price</strong></td>
             <td colspan="1"><strong>Saving</strong></td>
-            <td colspan="1"><strong>Tax</strong></td>
+            <td colspan="1"><strong>CGST</strong></td>
+            <td colspan="1"><strong>SGST</strong></td>
+            <td colspan="1"><strong>Cess</strong></td>
             <td colspan="1"><strong>Subtotal</strong></td>
         </tr>
+        @php
+        $cgst=0;$sgst=0;
+        $subtotal=0;$grand_total=0;
+        @endphp
         @foreach($orders->details as $product)
         <tr class="border-right">
-            <td colspan="3">{{$product->name}}</td>
-            <td colspan="3">{{$product->size->size??''}}</td>
+            <td colspan="1">{{$product->entity->company}}--{{$product->name}}-{{$product->size->size??''}}</td>
             <td colspan="1">{{$product->quantity}}</td>
-            <td colspan="1">Rs. {{$product->cut_price}}</td>
+            <td colspan="1">{{$product->cut_price}}</td>
             <td colspan="1">Rs. {{$product->price}}</td>
             <td colspan="1">Rs. {{$product->cut_price - $product->price}}</td>
-            <td colspan="1">Rs. 0.00</td>
-            <td colspan="1">Rs. {{$product->price * $product->quantity}}</td>
+            <td colspan="1">Rs. {{round($product->price*($product->size->cgst??'0')/100,2)}}</td>
+            <td colspan="1">Rs. {{round($product->price*($product->size->sgst??'0')/100,2)}}</td>
+            <td colspan="1">Rs. 0.0</td>
+            <td colspan="1">Rs. {{round(($product->price - $product->price*(($product->size->cgst??0)+($product->size->sgst??0))/100)*$product->quantity, 2)}}</td>
+            @php
+                $subtotal=$subtotal+($product->price - $product->price*(($product->size->cgst??0)+($product->size->sgst??0))/100)*$product->quantity;
+                $cgst=$cgst+$product->price*($product->size->cgst??'0')/100*$product->quantity;
+                $sgst=$sgst+$product->price*($product->size->sgst??'0')/100*$product->quantity;
+                $grand_total=$grand_total+$product->price*$product->quantity;
+            @endphp
         </tr>
         @endforeach
         </tbody>
@@ -160,22 +172,38 @@
         <tbody>
 
         <tr class="border-right">
-            <td  style="padding-left: 450px;"><strong>SubTotal</strong></td>
-            <td style="padding-right: 70px;">Rs. {{$orders->total_cost}}</td>
+            <td rowspan="8" width="60%">{{$invoice->t_n_c??''}}</td>
+            <td  style="padding-left: 20px;"><strong>SubTotal</strong></td>
+            <td style="padding-right: 20px;">Rs. {{round($subtotal,2)}}</td>
         </tr>
         <tr class="border-right">
-            <td  style="padding-left: 450px;"><strong>Coupon Discount</strong></td>
-            <td style="padding-right: 70px;">Rs. {{$orders->coupon_discount}}</td>
+            <td  style="padding-left: 20px;"><strong>Coupon Discount</strong></td>
+            <td style="padding-right: 20px;">Rs. {{$orders->coupon_discount}}</td>
         </tr>
         <tr class="border-bottom border-right">
-            <td  style="padding-left: 450px;"><strong>Shipping Charge</strong></td>
-            <td style="padding-right: 70px;">Rs. {{$orders->delivery_charge}}</td>
+            <td  style="padding-left: 20px;"><strong>Shipping Charge</strong></td>
+            <td style="padding-right: 20px;">Rs. {{$orders->delivery_charge}}</td>
         </tr>
         <tr class="border-bottom border-right">
-            <td  style="padding-left: 450px;"><strong>Grand Total</strong></td>
-            <td style="padding-right: 70px;">Rs. {{$orders->total_cost + $orders->delivery_charge - $orders->coupon_discount}}</td>
+            <td  style="padding-left: 20px;"><strong>CGST</strong></td>
+            <td style="padding-right: 20px;">Rs. {{round($cgst,2)}}</td>
         </tr>
-
+        <tr class="border-bottom border-right">
+            <td  style="padding-left: 20px;"><strong>SGST</strong></td>
+            <td style="padding-right: 20px;">Rs. {{round($sgst,2)}}</td>
+        </tr>
+        <tr class="border-bottom border-right">
+            <td  style="padding-left: 20px;"><strong>Cess</strong></td>
+            <td style="padding-right: 20px;">Rs. 0.0</td>
+        </tr>
+        <tr class="border-bottom border-right">
+            <td  style="padding-left: 20px;"><strong>Grand Total</strong></td>
+            <td style="padding-right: 20px;">Rs. {{round($grand_total+ $orders->delivery_charge - $orders->coupon_discount,2)}}</td>
+        </tr>
+        <tr class="border-bottom border-right">
+            <td  style="padding-left: 20px;"><strong>Total(round-off)</strong></td>
+            <td style="padding-right: 20px;">Rs. {{round($subtotal + $cgst + $sgst+ $orders->delivery_charge - $orders->coupon_discount)}}</td>
+        </tr>
         </tbody>
     </table>
 {{--    <p>&nbsp;</p>--}}

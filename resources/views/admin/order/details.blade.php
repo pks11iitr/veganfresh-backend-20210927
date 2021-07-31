@@ -133,6 +133,10 @@
 
 
                                 </tr>
+                                <tr>
+                                    <td>Rider Payment Collect Mode</td>
+                                    <td>{{$order->payment_collect_mode}}</td>
+                                </tr>
                                 </tbody>
                             </table>
                         </div>

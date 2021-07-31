@@ -138,7 +138,7 @@ class OtpController extends Controller
         if(in_array($user->status, [0,1])){
                 $otp=OTPModel::createOTP('riders', $user->id, $request->type);
                 $msg=str_replace('{{otp}}', $otp, config('sms-templates.'.$request->type));
-                event(new SendOtp($user->mobile, $msg));
+                event(new SendOtp($user->mobile, $msg, env('OTP')));
                 return [
                     'status'=>'success',
                     'message'=>'Please verify OTP to continue',

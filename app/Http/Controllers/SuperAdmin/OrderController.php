@@ -6,6 +6,8 @@ use App\Models\Invoice;
 use App\Models\Membership;
 use App\Models\Notification;
 use App\Models\Order;
+use App\Models\OrderDetail;
+use App\Models\ReturnRequest;
 use App\Models\Rider;
 use App\Models\TimeSlot;
 use App\Models\Wallet;
@@ -189,43 +191,52 @@ class OrderController extends Controller
         //credit cashback on completion
         if($status=='completed' && $old_status!='completed'){
 
-            if($order->customer->isMembershipActive()){
+            if(!($order->cashback_used || $order->coupon_discount)){
+                if($order->customer->isMembershipActive()){
 
-                $membership=Membership::find($order->customer->active_membership);
+                    $membership=Membership::with('categories')->find($order->customer->active_membership);
 
-                if($membership){
-                    $amount=round(($order->total_cost-$order->coupon_discount-$order->points_used)*$membership->cashback/100, 2);
-                    $order->cashback_given=$amount;
-                    $order->save();
-                    if($amount>0)
-                        Wallet::updatewallet($order->user_id, 'Cashback received For Order ID: '.$order->refid, 'CREDIT',$amount, 'POINT', $order->id);
+                    if($membership){
 
-                    $title='Cashback Credited';
-                    $message="Cashback of $amount received For Order ID: ".$order->refid;
+                        $amount=$order->getMembershipEligibleDiscount($membership);
 
-                    FCMNotification::sendNotification($order->customer->notification_token, $title, $message);
+                        $amount=round(($amount)*$membership->cashback/100, 2);
+                        $order->cashback_given=$amount;
+                        $order->save();
+                        if($amount>0)
+                            Wallet::updatewallet($order->user_id, 'Cashback received For Order ID: '.$order->refid, 'CREDIT',$amount, 'POINT', $order->id);
 
+                        $title='Cashback Credited';
+                        $message="Cashback of $amount received For Order ID: ".$order->refid;
+
+                        FCMNotification::sendNotification($order->customer->notification_token, $title, $message);
+
+                    }
                 }
             }
+
 
         }
 
 
         if($old_status!='dispatched' &&  $order->status=='dispatched' && !empty($order->rider_id)){
             $rider=Rider::find($order->rider_id);
-            Msg91::send($rider->mobile, 'New Order '.$order->refid.' arrived. Scheduled Delivery is '.($order->delivery_date??'').' '.($order->timeslot->name??''));
+            Msg91::send($rider->mobile, 'New Order '.$order->refid.' received at HalloBasket. Scheduled Delivery is '.($order->delivery_date??'').' '.($order->timeslot->name??''), env('HALLO_NEW_ORDER_RIDER'));
         }
 
         //sms to store owners
         if($status=='completed'){
             if(!empty($order->storename->mobile)){
-                Msg91::send($order->storename->mobile, 'Order ID '.$order->refid.' has been delivered successfully. Delivered time is: '.(date('d/m/Y h:ia', strtotime($order->delivered_at??''))));
+                Msg91::send($order->storename->mobile, 'Order ID '.$order->refid.' at HalloBasket has been delivered successfully. Delivered time is: '.(date('d/m/Y h:ia', strtotime($order->delivered_at??''))), env('HALLO_STORE_ORDER_DELIVERED'));
             }
         }
         else if($status=='cancelled'){
             if(!empty($order->storename->mobile)){
-                Msg91::send($order->storename->mobile, 'Order ID '.$order->refid.' has been cancelled by customer');
+                Msg91::send($order->storename->mobile, 'Order ID '.$order->refid.' at HalloBasket has been cancelled by customer. Please cancel the delivery if scheduled.', env('HALLO_CANCEL_ORDER_STORE'));
             }
+        }else if($status=='delivered'){
+            $message='Your Order ID: '.$order->refid.' at Hallobasket has been delivered';
+            Msg91::send($order->customer->mobile, $message, env('HALLO_CUSTOMER_ORDER_DELIVERED'));
         }
 
         return redirect()->back()->with('success', 'Order has been updated');
@@ -254,7 +265,7 @@ class OrderController extends Controller
         $order->rider_id=$request->riderid;
         $order->save();
         if($old_rider!=$order->rider_id && $order->status=='dispatched')
-            Msg91::send($rider->mobile, 'New Order '.$order->refid.' arrived. Scheduled Delivery is '.($order->delivery_date??'').' '.($order->timeslot->name??''));
+            Msg91::send($rider->mobile, 'New Order '.$order->refid.' received at HalloBasket. Scheduled Delivery is '.($order->delivery_date??'').' '.($order->timeslot->name??''), env('HALLO_NEW_ORDER_RIDER'));
 
         return redirect()->back()->with('success', 'Rider Has Been change');
     }
@@ -299,7 +310,7 @@ class OrderController extends Controller
         $request->validate([
             'prefix'=>'required',
             'sequence'=>'required',
-            'organization_name'=>'required'
+            'organization_name'=>'required',
         ]);
 
         $invoice =Invoice::findOrFail($id);
@@ -310,7 +321,8 @@ class OrderController extends Controller
             'address'=>$request->address,
             'current_sequence'=>$request->current_sequence??1,
             'pan_gst'=>$request->pan_gst,
-            'organization_name'=>$request->organization_name
+            'organization_name'=>$request->organization_name,
+            't_n_c'=>$request->t_n_c
         ]);
         if($request->image){
             $invoice->saveImage($request->image, 'invoice');

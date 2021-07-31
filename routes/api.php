@@ -102,6 +102,10 @@ $api->group(['middleware' => ['customer-auth']], function ($api) {
 
     $api->get('repeat-order/{order_id}', ['as'=>'order.repeat', 'uses'=>'Customer\Api\OrderController@repeatOrder']);
 
+    $api->post('return-product/{detail_id}', ['as'=>'order.product.return', 'uses'=>'Customer\Api\OrderController@raiseReturn']);
+
+
+
     $api->post('post-review/{order_id}', ['as'=>'order.review', 'uses'=>'Customer\Api\ReviewController@postReview']);
 
     //wallet apis
@@ -151,6 +155,9 @@ $api->group(['prefix' => 'rider'], function ($api) {
         $api->get('returned-order-pass', ['as'=>'rider.item.return', 'uses'=>'Rider\Api\RiderOrderController@returnorder']);
 
         $api->post('check-return-total/{order_id}', ['as'=>'rider.check.return', 'uses'=>'Rider\Api\RiderOrderController@checkTotalAfterReturn']);
+        $api->get('pickup-requests', ['as'=>'rider.check.pickup', 'uses'=>'Rider\Api\ReturnPickController@index']);
+        $api->get('mark-pickup/{id}', ['as'=>'rider.mark.pickup', 'uses'=>'Rider\Api\ReturnPickController@markPickup']);
+
 
     });
 

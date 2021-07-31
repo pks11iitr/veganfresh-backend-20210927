@@ -84,7 +84,7 @@ class LoginController extends Controller
         if($user->status==0){
             $otp=OTPModel::createOTP('customer', $user->id, 'login');
             $msg=str_replace('{{otp}}', $otp, config('sms-templates.login'));
-            Msg91::send($user->mobile,$msg);
+            Msg91::send($user->mobile,$msg, env('HALLO_OTP'));
             return ['status'=>'success', 'message'=>'otp verify', 'token'=>''];
         }
         else if($user->status==1)
@@ -122,7 +122,7 @@ class LoginController extends Controller
 
         $otp=OTPModel::createOTP('customer', $user->id, 'login');
         $msg=str_replace('{{otp}}', $otp, config('sms-templates.login'));
-        event(new SendOtp($user->mobile, $msg));
+        event(new SendOtp($user->mobile, $msg, env('HALLO_OTP')));
 
         return ['status'=>'success', 'message'=>'Please verify OTP to continue'];
     }

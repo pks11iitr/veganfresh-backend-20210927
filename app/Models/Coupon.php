@@ -10,7 +10,7 @@ class Coupon extends Model
     use Active;
     protected $table='coupons';
 
-    protected $fillable=['code', 'discount_type', 'discount', 'isactive', 'is_used', 'minimum_order', 'maximum_discount', 'expiry_date', 'usage_type'];
+    protected $fillable=['code', 'discount_type', 'discount', 'isactive', 'is_used', 'minimum_order', 'maximum_discount', 'expiry_date', 'usage_type','description'];
 
 
     public function getCouponDiscount($amount){

@@ -20,6 +20,7 @@ use App\Models\OrderDetail;
 use App\Models\OrderStatus;
 use App\Models\Product;
 use App\Models\RescheduleRequest;
+use App\Models\ReturnRequest;
 use App\Models\Therapy;
 use App\Models\TimeSlot;
 use App\Models\Wallet;
@@ -443,15 +444,22 @@ class OrderController extends Controller
                 'message'=>'Invalid Operation Performed'
             ];
 
+        if($order->status=='completed')
+            $show_return=1;
+        else
+            $show_return=0;
+
+
+
         if(in_array($order->status, ['completed','delivered', 'cancelled']))
             $show_repeat_order=1;
 
         //get reviews information
         $reviews=[];
         if($order->status=='completed'){
-            $reviews=$order->reviews()->get();
-            foreach($reviews as $review){
-                $reviews[$review->entity_id]=$review;
+            $reviewsobj=$order->reviews()->get();
+            foreach($reviewsobj as $review){
+                $reviews[$review->product_id]=$review;
             }
         }
 
@@ -461,6 +469,7 @@ class OrderController extends Controller
         foreach($order->details as $detail){
 
             $itemdetails[]=[
+                'id'=>$detail->id??'',
                 'name'=>$detail->name??'',
                 'image'=>$detail->image??'',
                 'company'=>$detail->entity->company??'',
@@ -469,7 +478,7 @@ class OrderController extends Controller
                 'quantity'=>$detail->quantity,
                 'size'=>$detail->size->size??'',
                 'item_id'=>$detail->entity_id,
-                //'show_return'=>($detail->status=='delivered'?1:0),
+                'show_return'=>$show_return,
                 //'show_cancel'=>in_array($detail->status, ['confirmed'])?1:0,
                 'show_review'=>($order->status=='completed')?(isset($reviews[$detail->entity_id])?0:1):0
             ];
@@ -513,7 +522,10 @@ class OrderController extends Controller
                 'show_download_invoice'=>$show_download_invoice??0,
                 'invoice_link'=>$show_download_invoice?route('download.invoice', ['id'=>$order->id]):'',
                 'time_slot'=>$time_slot,
-                'show_repeat_order'=>$show_repeat_order??0
+                'show_repeat_order'=>$show_repeat_order??0,
+                'show_return'=>$show_return,
+                'payment_status'=>$order->payment_status,
+                'payment_mode'=>$order->payment_mode??'Online'
             ]
         ];
     }
@@ -592,8 +604,13 @@ class OrderController extends Controller
             FCMNotification::sendNotification($order->customer->notification_token, 'Order Cancelled', $message);
 
         if(!empty($order->storename->mobile)){
-            Msg91::send($order->storename->mobile, 'Order ID '.$order->refid.' has been cancelled by customer');
+            Msg91::send($order->storename->mobile, 'Order ID '.$order->refid.' at HalloBasket has been cancelled by customer. Please cancel the delivery if scheduled.', env('HALLO_CANCEL_ORDER_STORE'));
         }
+
+        if(!empty($order->customer->mobile)){
+            Msg91::send($order->customer->mobile, 'Order ID '.$order->refid.' at HalloBasket has been cancelled.', env('HALLO_CANCEL_ORDER_CUSTOMER'));
+        }
+
 
         return [
             'status'=>'success',
@@ -700,6 +717,63 @@ class OrderController extends Controller
         return [
             'status'=>'success',
             'message'=>'Item has been added to cart'
+        ];
+
+    }
+
+    public function raiseReturn(Request $request, $detail_id){
+
+        $request->validate([
+            'quantity'=>'required|integer',
+            'return_reason'=>'required|string'
+        ]);
+
+        $user=$request->user;
+        $detail=OrderDetail::with('order.customer', 'entity')
+            ->whereHas('order', function($order) use ($user){
+                $order->where('user_id', $user->id)->where('status', 'completed');
+            })->findOrFail($detail_id);
+
+        if($request->quantity > $detail->quantity){
+            return [
+                'status'=>'failed',
+                'message'=>'Max quantity '.$detail->quantity.' can be returned'
+            ];
+        }
+
+        $return=ReturnRequest::where('order_id', $detail->order_id)
+            ->where('details_id', $detail->id)->first();
+        if($return && $return->status!='pending'){
+            return [
+                'status'=>'failed',
+                'message'=>'This item cannot be returned now'
+            ];
+        }
+
+        ReturnRequest::updateOrCreate([
+            'order_id'=>$detail->order_id,
+            'details_id'=>$detail->id,
+            'product_id'=>$detail->entity_id,
+            'size_id'=>$detail->size_id
+            ],[
+            'quantity'=>$request->quantity,
+            'return_reason'=>$request->return_reason,
+            'price'=>$detail->cost,
+            'store_id'=>$detail->order->store_id,
+            'user_id'=>$detail->order->user_id,
+            'rider_id'=>$detail->order->rider_id
+            ]);
+
+        if(isset($return->order->customer->mobile))
+            Msg91::send($detail->order->customer->mobile, 'Return has been raised at HalloBasket for Order ID: '.$detail->order->refid.', Product: '.($detail->entity->name??'').', Quantity: '.$request->quantity, env('HALLO_RETURN_RAISED'));
+
+        if(isset($return->order->storename->mobile))
+            Msg91::send($detail->order->customer->mobile, 'Return has been raised at HalloBasket for Order ID: '.$detail->order->refid.', Product: '.($detail->entity->name??'').', Quantity: '.$request->quantity, env('HALLO_RETURN_RAISED'));
+
+
+        return [
+            'status'=>'success',
+            'message'=>'Return request has been raised'
         ];
 
     }

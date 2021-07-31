@@ -9,13 +9,18 @@ class Msg91
 
     protected static $authkey='346121AMS5Qw9kDvN5f9fac3eP1';
 
-    public static function send($mobile, $message){
+    public static function send($mobile, $message, $dlt_te_id){
+
+
+        //$url="https://api.msg91.com/api/sendhttp.php?authkey=".self::$authkey."&mobiles=$mobile&unicode=&country=91&message=".urlencode($message)."&sender=HALLOB&route=4";
+
+        $url="https://api.msg91.com/api/sendhttp.php?authkey=".self::$authkey."&mobiles=$mobile&unicode=&country=91&message=".urlencode($message)."&sender=HALLOB&route=4&DLT_TE_ID=$dlt_te_id";
 
         //return true;
         $curl = curl_init();
 
         curl_setopt_array($curl, array(
-            CURLOPT_URL => "https://api.msg91.com/api/sendhttp.php?authkey=".self::$authkey."&mobiles=$mobile&unicode=&country=91&message=".urlencode($message)."&sender=HALLOB&route=4",
+            CURLOPT_URL => $url,
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => "",
             CURLOPT_MAXREDIRS => 10,

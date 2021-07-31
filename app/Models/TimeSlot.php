@@ -3,11 +3,14 @@
 namespace App\Models;
 
 use App\Models\BaseModel as Model;
+use App\Models\Traits\Active;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 class TimeSlot extends Model
 {
+    use Active;
+
     protected $table='time_slot';
 
     protected $fillable=['name', 'from_time','to_time','isactive','slot_capacity'];
@@ -25,7 +28,7 @@ class TimeSlot extends Model
 
         $slot_timer=0;
         while(true){
-            $timeslot=TimeSlot::where('from_time', '>=', $time)
+            $timeslot=TimeSlot::active()->where('from_time', '>=', $time)
                 ->orderBy('from_time', 'asc')
                 ->get();
 
@@ -81,7 +84,7 @@ class TimeSlot extends Model
         $time_slots=[];
         $slot_timer=0;
         while(count($time_slots)<50){
-            $timeslot=TimeSlot::where('from_time', '>=', $time)
+            $timeslot=TimeSlot::active()->where('from_time', '>=', $time)
                 ->orderBy('from_time', 'asc')
                 ->get();
 

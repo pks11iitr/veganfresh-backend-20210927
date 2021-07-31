@@ -7,11 +7,11 @@
     </tr>
     </thead>
     <tbody>
-    @foreach($areas as $area)
+    @foreach($data as $d)
         <tr>
-            <td>{{ $area->name??'' }}</td>
-            <td>{{ $area->isactive??'' }}</td>
-            <td>{{ $area->store_id??'' }}</td>
+            <td>{{ $d->name??'' }}</td>
+            <td>{{ $d->isactive??'' }}</td>
+            <td>{{ $d->store->name??'' }}</td>
         </tr>
     @endforeach
     </tbody>

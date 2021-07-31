@@ -3,15 +3,27 @@
 namespace App\Exports;
 
 use App\Models\Area;
+use Illuminate\Contracts\View\View;
 use Maatwebsite\Excel\Concerns\FromCollection;
+use Maatwebsite\Excel\Concerns\FromView;
 
-class AreaExport implements FromCollection
+class AreaExport implements FromView
 {
-    /**
-    * @return \Illuminate\Support\Collection
-    */
-    public function collection()
+    public $data;
+
+    public function __construct($data){
+
+        $this->data=$data;
+        //dd($this->data);
+    }
+
+    public function view(): View
     {
-        return Area::all();
+
+        //dd($this->data);
+
+        return view('admin.reports.area-list', [
+            'data' => $this->data
+        ]);
     }
 }
