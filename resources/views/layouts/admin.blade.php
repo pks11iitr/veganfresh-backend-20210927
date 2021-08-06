@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>HalloBasket</title>
+    <title>House Goods</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Font Awesome -->
@@ -84,7 +84,7 @@
         <a href="{{route('home')}}" class="brand-link">
            <img src="{{asset('admin-theme/img/AdminLTELogo.png')}}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
                  style="opacity: .8">
-            <span class="brand-text font-weight-light">HalloBasket CMS</span>
+            <span class="brand-text font-weight-light">House Goods CMS</span>
         </a>
 
         <!-- Sidebar -->
@@ -95,7 +95,7 @@
                     <img src="{{\Illuminate\Support\Facades\Storage::url('images/logo.jpeg')}}" class="img-circle elevation-2" alt="User Image">
                 </div>
                 <div class="info">
-                    <a href="{{route('home')}}" class="d-block">HalloBasket</a>
+                    <a href="{{route('home')}}" class="d-block">House Goods</a>
                 </div>
             </div>
 
@@ -378,29 +378,29 @@
                         </a>
                     </li>
                     @endif
-                    @if(auth()->user()->hasRole('admin') || auth()->user()->hasRole('rider-viewer') || auth()->user()->hasRole('rider-editor'))
+{{--                    @if(auth()->user()->hasRole('admin') || auth()->user()->hasRole('rider-viewer') || auth()->user()->hasRole('rider-editor'))--}}
 
-                    <li class="nav-item">
-                        <a href="{{route('rider.list')}}" class="nav-link">
-                            <i class="nav-icon fas fa-th"></i>
-                            <p>
-                                Rider
+{{--                    <li class="nav-item">--}}
+{{--                        <a href="{{route('rider.list')}}" class="nav-link">--}}
+{{--                            <i class="nav-icon fas fa-th"></i>--}}
+{{--                            <p>--}}
+{{--                                Rider--}}
 
-                            </p>
-                        </a>
-                    </li>
-                    @endif
-                    @if(auth()->user()->hasRole('admin') || auth()->user()->hasRole('store-viewer') || auth()->user()->hasRole('store-editor'))
+{{--                            </p>--}}
+{{--                        </a>--}}
+{{--                    </li>--}}
+{{--                    @endif--}}
+{{--                    @if(auth()->user()->hasRole('admin') || auth()->user()->hasRole('store-viewer') || auth()->user()->hasRole('store-editor'))--}}
 
-                    <li class="nav-item">
-                        <a href="{{route('stores.list')}}" class="nav-link">
-                            <i class="nav-icon fas fa-th"></i>
-                            <p>
-                                Stores
-                            </p>
-                        </a>
-                    </li>
-                    @endif
+{{--                    <li class="nav-item">--}}
+{{--                        <a href="{{route('stores.list')}}" class="nav-link">--}}
+{{--                            <i class="nav-icon fas fa-th"></i>--}}
+{{--                            <p>--}}
+{{--                                Stores--}}
+{{--                            </p>--}}
+{{--                        </a>--}}
+{{--                    </li>--}}
+{{--                    @endif--}}
                     @if(auth()->user()->hasRole('admin') || auth()->user()->hasRole('configuration-viewer') || auth()->user()->hasRole('configuration-editor'))
                     <li class="nav-item">
                         <a href="{{route('configurations.list')}}" class="nav-link">
@@ -411,16 +411,16 @@
                         </a>
                     </li>
                     @endif
-                    @if(auth()->user()->hasRole('admin') || auth()->user()->hasRole('subadmin-viewer') || auth()->user()->hasRole('subadmin-editor'))
-                        <li class="nav-item">
-                            <a href="{{route('subadmin.list')}}" class="nav-link">
-                                <i class="nav-icon fas fa-th"></i>
-                                <p>
-                                    Subadmin
-                                </p>
-                            </a>
-                        </li>
-                    @endif
+{{--                    @if(auth()->user()->hasRole('admin') || auth()->user()->hasRole('subadmin-viewer') || auth()->user()->hasRole('subadmin-editor'))--}}
+{{--                        <li class="nav-item">--}}
+{{--                            <a href="{{route('subadmin.list')}}" class="nav-link">--}}
+{{--                                <i class="nav-icon fas fa-th"></i>--}}
+{{--                                <p>--}}
+{{--                                    Subadmin--}}
+{{--                                </p>--}}
+{{--                            </a>--}}
+{{--                        </li>--}}
+{{--                    @endif--}}
                     @if(auth()->user()->hasRole('admin'))
                     <li class="nav-item">
                         <a href="{{route('membership.list')}}" class="nav-link">

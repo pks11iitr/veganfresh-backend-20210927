@@ -3,6 +3,7 @@
 namespace App\Listeners;
 
 use App\Events\SendOtp;
+use App\Services\SMS\JaySms;
 use App\Services\SMS\Msg91;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -27,6 +28,6 @@ class SendOtpListner implements ShouldQueue
      */
     public function handle(SendOtp $event)
     {
-        Msg91::send($event->mobile,$event->message,$event->dlt_te_id);
+        JaySms::send($event->mobile,$event->message,$event->dlt_te_id);
     }
 }

@@ -42,7 +42,7 @@ class OrderConfirmListner
         Order::setInvoiceNumber($order);
 
         $title='Order Confirmed';
-        $message='Congratulations! Your purchase of Rs. '.($order->total_cost-$order->coupon_discount+$order->delivery_charge+$order->extra_amount).' at Hallobasket is successfull. Order Reference ID: '.$order->refid;
+        $message='Congratulations! Your purchase of Rs. '.($order->total_cost-$order->coupon_discount+$order->delivery_charge+$order->extra_amount).' at House Goods is successfull. Order Reference ID: '.$order->refid;
 
 
         Notification::create([
@@ -60,7 +60,7 @@ class OrderConfirmListner
 
         //store notification
         if(!empty($order->storename->mobile))
-            Msg91::send($order->storename->mobile, 'New Order '.$order->refid.' received at HalloBasket. Scheduled Delivery is '.($order->delivery_date??'').' '.($order->timeslot->name??''), env('HALLOB_STORE_ORDER_CONFIRM'));
+            Msg91::send($order->storename->mobile, 'New Order '.$order->refid.' received at House Goods. Scheduled Delivery is '.($order->delivery_date??'').' '.($order->timeslot->name??''), env('HALLOB_STORE_ORDER_CONFIRM'));
 
     }
 }

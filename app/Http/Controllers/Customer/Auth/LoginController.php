@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Customer\Auth;
 use App\Events\SendOtp;
 use App\Models\Customer;
 use App\Models\OTPModel;
+use App\Services\SMS\JaySms;
 use App\Services\SMS\Msg91;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -84,7 +85,7 @@ class LoginController extends Controller
         if($user->status==0){
             $otp=OTPModel::createOTP('customer', $user->id, 'login');
             $msg=str_replace('{{otp}}', $otp, config('sms-templates.login'));
-            Msg91::send($user->mobile,$msg, env('HALLO_OTP'));
+            JaySms::send($user->mobile,$msg, env('LOGIN_OTP'));
             return ['status'=>'success', 'message'=>'otp verify', 'token'=>''];
         }
         else if($user->status==1)
@@ -122,7 +123,7 @@ class LoginController extends Controller
 
         $otp=OTPModel::createOTP('customer', $user->id, 'login');
         $msg=str_replace('{{otp}}', $otp, config('sms-templates.login'));
-        event(new SendOtp($user->mobile, $msg, env('HALLO_OTP')));
+        event(new SendOtp($user->mobile, $msg, env('LOGIN_OTP')));
 
         return ['status'=>'success', 'message'=>'Please verify OTP to continue'];
     }

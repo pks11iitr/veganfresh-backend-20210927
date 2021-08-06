@@ -92,14 +92,14 @@ class ReturnRequestController extends Controller
             FCMNotification::sendNotification($return->order->customer->notification_token, 'Return Rejected', $request->reason);
 
         if(isset($return->order->customer->mobile))
-            Msg91::send($return->order->customer->mobile, 'Return at HalloBasket has been rejected for Order ID:'.$return->order->refid.', Product: '.($return->details->entity->name??''), env('HALLO_RETURN_REQUEST_REJECTED'));
+            Msg91::send($return->order->customer->mobile, 'Return at House Goods has been rejected for Order ID:'.$return->order->refid.', Product: '.($return->details->entity->name??''), env('HALLO_RETURN_REQUEST_REJECTED'));
 
         //send customer notification
         if(isset($return->order->storename->mobile))
-            Msg91::send($return->order->storename->mobile, 'Return at HalloBasket has been rejected for Order ID: '.$return->order->refid.', Product: '.($return->details->entity->name??''), env('HALLO_RETURN_REQUEST_REJECTED'));
+            Msg91::send($return->order->storename->mobile, 'Return at House Goods has been rejected for Order ID: '.$return->order->refid.', Product: '.($return->details->entity->name??''), env('HALLO_RETURN_REQUEST_REJECTED'));
 
         if(isset($return->order->rider->mobile))
-            Msg91::send($return->order->rider->mobile, 'Return at HalloBasket has been rejected for Order ID: '.$return->order->refid.', Product: '.($return->details->entity->name??''), env('HALLO_RETURN_REQUEST_REJECTED'));
+            Msg91::send($return->order->rider->mobile, 'Return at House Goods has been rejected for Order ID: '.$return->order->refid.', Product: '.($return->details->entity->name??''), env('HALLO_RETURN_REQUEST_REJECTED'));
 
 
         return redirect()->back()->with('success', 'Return has been cancelled');
@@ -244,14 +244,14 @@ class ReturnRequestController extends Controller
 
         //send customer notification
         if(isset($return->order->customer->mobile))
-            Msg91::send($return->order->storename->mobile, 'Return at HalloBasket has been approved for Order ID: '.$return->order->refid.', Product: '.($return->details->entity->name??'').', Quantity: '.$return->quantity, env('HALLO_RETURN_REQUEST_APPROVED'));
+            Msg91::send($return->order->storename->mobile, 'Return at House Goods has been approved for Order ID: '.$return->order->refid.', Product: '.($return->details->entity->name??'').', Quantity: '.$return->quantity, env('HALLO_RETURN_REQUEST_APPROVED'));
 
 
         if(isset($return->order->storename->mobile))
-            Msg91::send($return->order->storename->mobile, 'Return at HalloBasket has been approved for Order ID: '.$return->order->refid.', Product: '.($return->details->entity->name??'').', Quantity: '.$return->quantity, env('HALLO_RETURN_REQUEST_APPROVED'));
+            Msg91::send($return->order->storename->mobile, 'Return at House Goods has been approved for Order ID: '.$return->order->refid.', Product: '.($return->details->entity->name??'').', Quantity: '.$return->quantity, env('HALLO_RETURN_REQUEST_APPROVED'));
 
         if(isset($return->order->rider->mobile))
-            Msg91::send($return->order->rider->mobile, 'Return at HalloBasket has been approved for Order ID: '.$return->order->refid.', Product: '.($return->details->entity->name??'').', Quantity: '.$return->quantity, env('HALLO_RETURN_REQUEST_APPROVED'));
+            Msg91::send($return->order->rider->mobile, 'Return at House Goods has been approved for Order ID: '.$return->order->refid.', Product: '.($return->details->entity->name??'').', Quantity: '.$return->quantity, env('HALLO_RETURN_REQUEST_APPROVED'));
 
         return redirect()->back()->with('success', 'Return has been approved');
 

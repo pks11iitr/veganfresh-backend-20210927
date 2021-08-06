@@ -591,7 +591,7 @@ class OrderController extends Controller
             Wallet::updatewallet($order->user_id, 'Cashback Revoked For Order ID: '.$order->refid, 'DEBIT', $order->cashback_given, 'POINT', $order->id);
         }
 
-        $message='Your order of Rs. '.($order->total_cost-$order->coupon_discount+$order->delivery_charge+$order->extra_amount).' at Hallobasket is cancelled. Order Reference ID: '.$order->refid;
+        $message='Your order of Rs. '.($order->total_cost-$order->coupon_discount+$order->delivery_charge+$order->extra_amount).' at House Goods is cancelled. Order Reference ID: '.$order->refid;
 
         Notification::create([
             'user_id'=>$order->user_id,
@@ -604,11 +604,11 @@ class OrderController extends Controller
             FCMNotification::sendNotification($order->customer->notification_token, 'Order Cancelled', $message);
 
         if(!empty($order->storename->mobile)){
-            Msg91::send($order->storename->mobile, 'Order ID '.$order->refid.' at HalloBasket has been cancelled by customer. Please cancel the delivery if scheduled.', env('HALLO_CANCEL_ORDER_STORE'));
+            Msg91::send($order->storename->mobile, 'Order ID '.$order->refid.' at House Goods has been cancelled by customer. Please cancel the delivery if scheduled.', env('HALLO_CANCEL_ORDER_STORE'));
         }
 
         if(!empty($order->customer->mobile)){
-            Msg91::send($order->customer->mobile, 'Order ID '.$order->refid.' at HalloBasket has been cancelled.', env('HALLO_CANCEL_ORDER_CUSTOMER'));
+            Msg91::send($order->customer->mobile, 'Order ID '.$order->refid.' at House Goods has been cancelled.', env('HALLO_CANCEL_ORDER_CUSTOMER'));
         }
 
 
@@ -765,10 +765,10 @@ class OrderController extends Controller
             ]);
 
         if(isset($return->order->customer->mobile))
-            Msg91::send($detail->order->customer->mobile, 'Return has been raised at HalloBasket for Order ID: '.$detail->order->refid.', Product: '.($detail->entity->name??'').', Quantity: '.$request->quantity, env('HALLO_RETURN_RAISED'));
+            Msg91::send($detail->order->customer->mobile, 'Return has been raised at House Goods for Order ID: '.$detail->order->refid.', Product: '.($detail->entity->name??'').', Quantity: '.$request->quantity, env('HALLO_RETURN_RAISED'));
 
         if(isset($return->order->storename->mobile))
-            Msg91::send($detail->order->customer->mobile, 'Return has been raised at HalloBasket for Order ID: '.$detail->order->refid.', Product: '.($detail->entity->name??'').', Quantity: '.$request->quantity, env('HALLO_RETURN_RAISED'));
+            Msg91::send($detail->order->customer->mobile, 'Return has been raised at House Goods for Order ID: '.$detail->order->refid.', Product: '.($detail->entity->name??'').', Quantity: '.$request->quantity, env('HALLO_RETURN_RAISED'));
 
 
         return [

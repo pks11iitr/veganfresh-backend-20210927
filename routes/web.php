@@ -261,36 +261,36 @@ Route::group(['prefix'=>'api'], function() {
 });
 
 
-Route::group(['prefix'=>'store-admin', 'middleware'=>['auth', 'acl'], 'is'=>'store'], function() {
-
-    Route::get('/dashboard', 'StoreAdmin\DashboardController@index')->name('storeadmin.home');
-
-
-    Route::group(['prefix'=>'orders'], function(){
-        Route::get('/','StoreAdmin\OrderController@index')->name('storeadmin.orders.list');
-        Route::get('details/{id}','StoreAdmin\OrderController@details')->name('storeadmin.order.details');
-
-        Route::get('change-status/{id}','SuperAdmin\OrderController@changeStatus')->name('storeadmin.order.status.change');
-
-        Route::post('changeRider/{id}','SuperAdmin\OrderController@changeRider')->name('storeadmin.rider.change');
-
-    });
-
-    Route::group(['prefix'=>'rider'], function() {
-        Route::get('/', 'StoreAdmin\RiderController@index')->name('storeadmin.rider.list');
-        Route::get('create', 'StoreAdmin\RiderController@create')->name('storeadmin.rider.create');
-        Route::post('store', 'StoreAdmin\RiderController@store')->name('storeadmin.rider.store');
-        Route::get('edit/{id}', 'StoreAdmin\RiderController@edit')->name('storeadmin.rider.edit');
-        Route::post('update/{id}', 'StoreAdmin\RiderController@update')->name('storeadmin.rider.update');
-    });
-
-    Route::group(['prefix'=>'returnproduct'], function(){
-        Route::get('/','StoreAdmin\ReturnProductController@index')->name('storeadmin.return.product.list');
-
-    });
-
-
-});
+//Route::group(['prefix'=>'store-admin', 'middleware'=>['auth', 'acl'], 'is'=>'store'], function() {
+//
+//    Route::get('/dashboard', 'StoreAdmin\DashboardController@index')->name('storeadmin.home');
+//
+//
+//    Route::group(['prefix'=>'orders'], function(){
+//        Route::get('/','StoreAdmin\OrderController@index')->name('storeadmin.orders.list');
+//        Route::get('details/{id}','StoreAdmin\OrderController@details')->name('storeadmin.order.details');
+//
+//        Route::get('change-status/{id}','SuperAdmin\OrderController@changeStatus')->name('storeadmin.order.status.change');
+//
+//        Route::post('changeRider/{id}','SuperAdmin\OrderController@changeRider')->name('storeadmin.rider.change');
+//
+//    });
+//
+//    Route::group(['prefix'=>'rider'], function() {
+//        Route::get('/', 'StoreAdmin\RiderController@index')->name('storeadmin.rider.list');
+//        Route::get('create', 'StoreAdmin\RiderController@create')->name('storeadmin.rider.create');
+//        Route::post('store', 'StoreAdmin\RiderController@store')->name('storeadmin.rider.store');
+//        Route::get('edit/{id}', 'StoreAdmin\RiderController@edit')->name('storeadmin.rider.edit');
+//        Route::post('update/{id}', 'StoreAdmin\RiderController@update')->name('storeadmin.rider.update');
+//    });
+//
+//    Route::group(['prefix'=>'returnproduct'], function(){
+//        Route::get('/','StoreAdmin\ReturnProductController@index')->name('storeadmin.return.product.list');
+//
+//    });
+//
+//
+//});
 
 Route::group(['middleware'=>['auth', 'acl']], function(){
 
@@ -303,7 +303,7 @@ Route::group(['middleware'=>['auth', 'acl']], function(){
         Route::get('/subadmin-dashboard', 'SuperAdmin\SubAdminDashboardController@index')->name('subadmin.home');
     });
 
-//****************************************hallobasket********************************************
+//****************************************House Goods********************************************
 
     Route::group(['prefix' => 'configurations'], function () {
         Route::group(['is'=>'admin|configuration-viewer'], function() {

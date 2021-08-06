@@ -129,36 +129,3 @@ $api->group(['middleware' => ['customer-auth']], function ($api) {
 
 
 });
-
-//Rider api Start
-
-
-$api->group(['prefix' => 'rider'], function ($api) {
-    $api->post('login', 'Rider\Auth\LoginController@login');
-    //$api->post('login-with-otp', 'Rider\Auth\LoginController@loginWithOtp');
-    $api->post('forgot', 'Rider\Auth\ForgotPasswordController@sendResetOTP');
-    $api->post('rider-update-password', 'Rider\Auth\ForgotPasswordController@updatePassword');
-
-    $api->post('verify-otp', 'Rider\Auth\OtpController@verify');
-    $api->post('resend-otp', 'Rider\Auth\OtpController@resend');
-
-    $api->group(['middleware' => ['rider-auth']], function ($api) {
-
-        $api->get('rider-orders-history', ['as'=>'rider.order.history', 'uses'=>'Rider\Api\RiderOrderController@index']);
-        $api->get('rider-passed-order', ['as'=>'rider.order.passed', 'uses'=>'Rider\Api\RiderOrderController@passedorder']);
-
-        $api->get('rider-order-details/{order_id}', ['as'=>'rider.order.details', 'uses'=>'Rider\Api\RiderOrderController@orderdetails']);
-
-        $api->get('deliver-order/{order_id}', ['as'=>'rider.order.delivered', 'uses'=>'Rider\Api\RiderOrderController@markDelivered']);
-
-        $api->post('return-order/{order_id}', ['as'=>'rider.item.return', 'uses'=>'Rider\Api\RiderOrderController@returnProduct']);
-        $api->get('returned-order-pass', ['as'=>'rider.item.return', 'uses'=>'Rider\Api\RiderOrderController@returnorder']);
-
-        $api->post('check-return-total/{order_id}', ['as'=>'rider.check.return', 'uses'=>'Rider\Api\RiderOrderController@checkTotalAfterReturn']);
-        $api->get('pickup-requests', ['as'=>'rider.check.pickup', 'uses'=>'Rider\Api\ReturnPickController@index']);
-        $api->get('mark-pickup/{id}', ['as'=>'rider.mark.pickup', 'uses'=>'Rider\Api\ReturnPickController@markPickup']);
-
-
-    });
-
-});

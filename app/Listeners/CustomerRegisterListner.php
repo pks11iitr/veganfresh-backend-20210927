@@ -4,6 +4,7 @@ namespace App\Listeners;
 
 use App\Events\CustomerRegistered;
 use App\Models\OTPModel;
+use App\Services\SMS\JaySms;
 use App\Services\SMS\Msg91;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -32,6 +33,6 @@ class CustomerRegisterListner implements ShouldQueue
 
         $otp=OTPModel::createOTP('customer', $event->user->id, 'register');
         $msg=str_replace('{{otp}}', $otp, config('sms-templates.register'));
-        Msg91::send($event->user->mobile,$msg, env('HALLO_OTP'));
+        JaySms::send($event->user->mobile,$msg, env('LOGIN_OTP'));
     }
 }

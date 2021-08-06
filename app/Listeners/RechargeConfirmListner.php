@@ -38,7 +38,7 @@ class RechargeConfirmListner
     public function sendNotifications($wallet){
 
             $title='Wallet Recharge Successful';
-            $message='Congratulations! Your wallet recharge of Rs. '.$wallet->amount.' at Hallobasket is successfull. Order Reference ID: '.$wallet->refid;
+            $message='Congratulations! Your wallet recharge of Rs. '.$wallet->amount.' at House Goods is successfull. Order Reference ID: '.$wallet->refid;
 
         Notification::create([
             'user_id'=>$wallet->user_id,
