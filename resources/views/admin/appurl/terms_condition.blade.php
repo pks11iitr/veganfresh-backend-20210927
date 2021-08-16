@@ -1,16 +1,11 @@
-<html>
-<head>
-</head>
-<body>
-<div style="margin-left:15px;">
-
-    <h4><u>Terms & Condition</u></h4>
-    <div>Our mission is to provide an online platform where people can shop for groceries and   other household essential items along with door step delivery. House Goods App taps the     unattended needs of the people who do not find traditional trading convenient due to many   unavoidable reasons. Our foremost mission is to provide convenience to the customers       followed by best value for money backed by quality and satisfaction</div><br>
-
-</div>
-</body>
-</html>
-
-
-
-
+<p><span style="font-family: 'Abyssinica SIL';"><span style="font-size: medium;"><span style="color: #000000;"><strong>Terms and Conditions</strong></span></span></span></p>
+<p><span style="font-family: 'Abyssinica SIL';"><span style="font-size: medium;"><span style="color: #000000;">Krishnav skills &amp; marketing Pvt. Ltd is the brand of HOUSE GOODS. As a visitor to the website you are advised to please read the following terms and conditions carefully.</span></span></span></p>
+<p><span style="font-family: 'Abyssinica SIL';"><span style="font-size: medium;"><span style="color: #000000;">1) As a part of the registration on the site, HOUSE GOODS may collect personally identifiable information about you : Name , Mobile phone number and Contact details.</span></span></span></p>
+<p><span style="font-family: 'Abyssinica SIL';"><span style="font-size: medium;"><span style="color: #000000;">2) Service of the site would be available to only select geographies in India. Person who are "Incompetent to contract" within the meaning of the Indian contract act 1872.</span></span></span></p>
+<p><span style="font-family: 'Abyssinica SIL';"><span style="font-size: medium;"><span style="color: #000000;">3)If you are minor, you may use the site only under the supervision of a parent or legal guardian who agrees to be bound by these terms of use.</span></span></span></p>
+<p><span style="font-family: 'Abyssinica SIL';"><span style="font-size: medium;"><span style="color: #000000;">4) HOUSE GOODS, grants you a limited sub-license to access and make personal use of this site and not to download or modify it.</span></span></span></p>
+<p><span style="font-family: 'Abyssinica SIL';"><span style="font-size: medium;"><span style="color: #000000;">5) All shoppers have to register and login for placing order on the site. You have to keep your account and registration details current and correct for communication related to your purchase from the site.</span></span></span></p>
+<p><span style="font-family: 'Abyssinica SIL';"><span style="font-size: medium;"><span style="color: #000000;">6) All the products listed on the site will we sold at given price on website.</span></span></span></p>
+<p><span style="font-family: 'Abyssinica SIL';"><span style="font-size: medium;"><span style="color: #000000;">7) That in the event non-delivery occurs on account of a mistake by you, any extra cost incurred by House Goods for re-delivery shall be claimed from you.</span></span></span></p>
+<p><span style="font-family: 'Abyssinica SIL';"><span style="font-size: medium;"><span style="color: #000000;">8) House Goods may at any time modify the terms and conditions of use of the website without any prior notification to you.</span></span></span></p>
+<p><span style="font-family: 'Abyssinica SIL';"><span style="font-size: medium;"><span style="color: #000000;">9) This user agreement shall be construed in accordance with the applicable laws of India</span></span></span></p>
