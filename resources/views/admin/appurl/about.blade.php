@@ -1,7 +1,10 @@
-<p style="text-align: justify;" align="center"><span style="font-family: 'Abyssinica SIL';"><span style="font-size: medium;"><strong>About Us</strong></span></span></p>
-<p style="text-align: justify;" align="justify"><span style="color: #000000;"> <span style="font-family: 'Abyssinica SIL';"><span style="font-size: medium;">House Goods is an trademark of Krishnav Skills and Marketing Pvt Ltd. House Goods is an online Grocery service. </span></span></span></p>
-<p style="text-align: justify;" align="justify"><span style="color: #000000;"> <span style="font-family: 'Abyssinica SIL';"><span style="font-size: medium;">In our website you will find everything in Grocery which you are looking. Rice and Pulses, Spices, Beverages, Personal </span></span></span></p>
-<p style="text-align: justify;" align="justify"><span style="color: #000000;"> <span style="font-family: 'Abyssinica SIL';"><span style="font-size: medium;">care product- we have it all. Quality is of utmost importance to us and that is what we give the most attention. We </span></span></span></p>
-<p style="text-align: justify;" align="justify"><span style="color: #000000;"> <span style="font-family: 'Abyssinica SIL';"><span style="font-size: medium;">understand how important personal hygiene is, which is why, we have selected only the most reliable brands for you. </span></span></span></p>
-<p style="text-align: justify;" align="justify"><span style="color: #000000;"> <span style="font-family: 'Abyssinica SIL';"><span style="font-size: medium;">We represent the requirements of a typical Indian home. We incorporate the new Retail experience which will combine </span></span></span></p>
-<p style="text-align: justify;" align="justify"><span style="color: #000000;"> <span style="font-family: 'Abyssinica SIL';"><span style="font-size: medium;">you physical world with a supreme experience enabling you to shop with no bounds. </span></span></span></p>
+<p align="justify"><span lang="en-US">About Us:</span></p>
+<p lang="en-US" align="justify">&nbsp;</p>
+<p align="justify"><span lang="en-US">There was a time when everybody used to eat pure food, whether it is fruits or vegetables or wheat flour, lentils or spices. Today, a lot of health problems are happening because of lifestyle and specifically because of food. The food we eat, is adulterated and not what it used to be few decades ago and hence you see a sharp rise in the occurrence of various fatal diseases like hypertension, diabetes and even cancer. The situation is going to worsen due to the pollutants and usage of various chemical substances in the years to come.</span></p>
+<p lang="en-US" align="justify">&nbsp;</p>
+<p align="justify"><span lang="en-US">We, at Vegansfresh decided to bring the best of the Vegan food products available across the continents at your doorstep. We have tied up with the farmers, who are producing semi or fully organic products, we source the best of the processed or raw food items from the best source across the globe and deliver it to your doorstep.</span></p>
+<p lang="en-US" align="justify">&nbsp;</p>
+<p align="justify"><span lang="en-US">We are a group of professionals and entrepreneurs having a cumulative experience of over 100 years, joined hands to provide the best quality, unadulterated, pure vegan food to the Indian household.</span></p>
+<p lang="en-US" align="justify">&nbsp;</p>
+<p lang="en-US" align="justify">&nbsp;</p>
+<p align="justify">&nbsp;</p>
