@@ -5,8 +5,7 @@ namespace App\Http\Controllers\Customer\Auth;
 use App\Events\SendOtp;
 use App\Models\Customer;
 use App\Models\OTPModel;
-use App\Services\SMS\JaySms;
-use App\Services\SMS\Msg91;
+use App\Services\SMS\ConnectExpress;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -85,7 +84,7 @@ class LoginController extends Controller
         if($user->status==0){
             $otp=OTPModel::createOTP('customer', $user->id, 'login');
             $msg=str_replace('{{otp}}', $otp, config('sms-templates.login'));
-            JaySms::send($user->mobile,$msg, env('LOGIN_OTP'));
+            ConnectExpress::send($user->mobile,$msg, env('LOGIN_OTP'));
             return ['status'=>'success', 'message'=>'otp verify', 'token'=>''];
         }
         else if($user->status==1)

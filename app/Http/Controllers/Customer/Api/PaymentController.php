@@ -18,6 +18,7 @@ use App\Models\RescheduleRequest;
 use App\Models\Therapy;
 use App\Models\TimeSlot;
 use App\Models\Wallet;
+use App\Services\Payment\Payu;
 use App\Services\Payment\RazorPayService;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -25,7 +26,7 @@ use Illuminate\Support\Facades\DB;
 
 class PaymentController extends Controller
 {
-    public function __construct(RazorPayService $pay)
+    public function __construct(Payu $pay)
     {
         $this->pay=$pay;
     }
@@ -293,39 +294,61 @@ class PaymentController extends Controller
     }
 
     private function initiateGatewayPayment($order){
+//        $data=[
+//            "amount"=>($order->total_cost+$order->delivery_charge+$order->extra_amount-$order->coupon_discount-$order->points_used-$order->balance_used)*100,
+//            "currency"=>"INR",
+//            "receipt"=>$order->refid,
+//        ];
+
         $data=[
-            "amount"=>($order->total_cost+$order->delivery_charge+$order->extra_amount-$order->coupon_discount-$order->points_used-$order->balance_used)*100,
-            "currency"=>"INR",
-            "receipt"=>$order->refid,
+            'refid'=>$order->refid,
+            'amount'=>($order->total_cost+$order->delivery_charge+$order->extra_amount-$order->coupon_discount-$order->points_used-$order->balance_used)*100,
+            'product'=>'Product Purchase at Veganfresh',
+            'name'=>$order->name,
+            'email'=>$order->email,
+            'mobile'=>$order->mobile,
         ];
 
-        $response=$this->pay->generateorderid($data);
+        $response=$this->pay->generateHash($data);
 
         LogData::create([
             'data'=>($response.' orderid:'.$order->id. ' '.json_encode($data)),
             'type'=>'order'
         ]);
 
-        $responsearr=json_decode($response);
+        //$responsearr=json_decode($response);
         //var_dump($responsearr);die;
-        if(isset($responsearr->id)){
-            $order->order_id=$responsearr->id;
-            $order->order_id_response=$response;
-            $order->save();
+        if($response){
+            //$order->order_id=$responsearr->id;
+            //$order->order_id_response=$response;
+            //$order->save();
             return [
                 'status'=>'success',
                 'message'=>'success',
+//                'data'=>[
+//                    'payment_done'=>'no',
+//                    'razorpay_order_id'=> $order->order_id,
+//                    'total'=>($order->total_cost+$order->delivery_charge+$order->extra_amount-$order->coupon_discount-$order->points_used-$order->balance_used)*100,
+//                    'email'=>$order->email,
+//                    'mobile'=>$order->mobile,
+//                    'description'=>'Product Purchase at House Goods',
+//                    'name'=>$order->name,
+//                    'currency'=>'INR',
+//                    'merchantid'=>$this->pay->merchantkey,
+//                ],
                 'data'=>[
                     'payment_done'=>'no',
-                    'razorpay_order_id'=> $order->order_id,
+                    //'razorpay_order_id'=> $order->pg_order_id,
                     'total'=>($order->total_cost+$order->delivery_charge+$order->extra_amount-$order->coupon_discount-$order->points_used-$order->balance_used)*100,
                     'email'=>$order->email,
-                    'mobile'=>$order->mobile,
-                    'description'=>'Product Purchase at House Goods',
+                    'mobile'=>$order->mobile??'',
+                    'product'=>'Product Purchase at Veganfresh',
                     'name'=>$order->name,
-                    'currency'=>'INR',
-                    'merchantid'=>$this->pay->merchantkey,
+                    'refid'=>$order->refid,
+                    'hashdata'=>$response,
+                    'order_id'=>$order->id
                 ],
+
             ];
         }else{
             return [

@@ -4,8 +4,7 @@ namespace App\Http\Controllers\Customer\Auth;
 
 use App\Models\Customer;
 use App\Models\OTPModel;
-use App\Services\SMS\JaySms;
-use App\Services\SMS\Msg91;
+use App\Services\SMS\ConnectExpress;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
@@ -23,7 +22,7 @@ class ForgotPasswordController extends Controller
         }
         $otp=OTPModel::createOTP('customer', $customer->id, 'reset');
         $msg=str_replace('{{otp}}', $otp, config('sms-templates.reset'));
-        JaySms::send($customer->mobile,$msg, env('LOGIN_OTP'));
+        ConnectExpress::send($customer->mobile,$msg, env('LOGIN_OTP'));
         return ['status'=>'success', 'message'=>'otp verify', 'token'=>''];
     }
 
