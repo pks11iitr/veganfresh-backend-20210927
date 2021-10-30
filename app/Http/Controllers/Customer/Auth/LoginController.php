@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Customer\Auth;
 use App\Events\SendOtp;
 use App\Models\Customer;
 use App\Models\OTPModel;
+use App\Models\Wallet;
 use App\Services\SMS\ConnectExpress;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -115,6 +116,10 @@ class LoginController extends Controller
             $user=Customer::create([
                 'mobile'=>$request->mobile,
             ]);
+
+            /// welcome bonus
+            Wallet::updatewallet($user->id, 'Welcome Bonus', 'Credit', 51, 'CASH', null);
+
         }else{
             if(!in_array($user->status, [0,1]))
                 return ['status'=>'failed', 'message'=>'This account has been blocked'];
