@@ -117,8 +117,8 @@ class LoginController extends Controller
                 'mobile'=>$request->mobile,
             ]);
 
-            /// welcome bonus
-            Wallet::updatewallet($user->id, 'Welcome Bonus', 'Credit', 51, 'CASH', null);
+//            /// welcome bonus
+//            Wallet::updatewallet($user->id, 'Welcome Bonus', 'Credit', 51, 'CASH', null);
 
         }else{
             if(!in_array($user->status, [0,1]))
