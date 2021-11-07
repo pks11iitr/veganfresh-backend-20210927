@@ -424,29 +424,105 @@ class PaymentController extends Controller
 
     public function verifyPayment(Request $request){
 
-        $request->validate([
-           'razorpay_order_id'=>'required',
-            'razorpay_signature'=>'required',
-            'razorpay_payment_id'=>'required'
+        $originalcontent=Request::createFromGlobals()->getContent();
 
-        ]);
+        //$content=json_encode($content, true);
+        $refid='';
+        $status='';
+        $hash='';
+        $email='';
+        $firstname='';
+        $productinfo='';
+        $amount='';
+        $content=explode('&', $originalcontent);
+        foreach($content as $c){
+            $c1=explode('=', $c);
+            if(isset($c1[0]) && $c1[0]=='txnid'){
+                $refid=$c1[1]??'';
+            }
+            if(isset($c1[0]) && $c1[0]=='status'){
+                $status=$c1[1]??'';
+            }
+            if(isset($c1[0]) && $c1[0]=='hash'){
+                $hash=$c1[1]??'';
+            }
+            if(isset($c1[0]) && $c1[0]=='email'){
+                $email=$c1[1]??'';
+            }
+            if(isset($c1[0]) && $c1[0]=='productinfo'){
+                $productinfo=$c1[1]??'';
+            }
+            if(isset($c1[0]) && $c1[0]=='firstname'){
+                $firstname=$c1[1]??'';
+            }
+            if(isset($c1[0]) && $c1[0]=='amount'){
+                $amount=$c1[1]??'';
+            }
+        }
 
+        if($status!='success'){
+            return [
+                'status'=>'failed',
+                'message'=>'Payment Failed'
+            ];
+        }
 
-        LogData::create([
-            'data'=>(json_encode($request->all())??'No Payment Verify Data Found'),
-            'type'=>'verify'
-        ]);
+//        LogData::create([
+//            'data'=>$originalcontent,
+//            'type'=>'verify'
+//        ]);
 
-        $order=Order::with('details')->where('order_id', $request->razorpay_order_id)->first();
+        $order=Order::with('details')
+            ->where('refid', $refid)
+            ->first();
 
         if(!$order || $order->status!='pending')
             return [
                 'status'=>'failed',
-                'message'=>'Invalid Operation Performed'
+                'message'=>'Invalid Operation Performed',
             ];
 
-        $paymentresult=$this->pay->verifypayment($request->all());
-        if($paymentresult) {
+//        $request->validate([
+//           'razorpay_order_id'=>'required',
+//            'razorpay_signature'=>'required',
+//            'razorpay_payment_id'=>'required'
+//
+//        ]);
+
+
+//        LogData::create([
+//            'data'=>(json_encode($request->all())??'No Payment Verify Data Found'),
+//            'type'=>'verify'
+//        ]);
+
+//        $order=Order::with('details')->where('order_id', $request->razorpay_order_id)->first();
+//
+//        if(!$order || $order->status!='pending')
+//            return [
+//                'status'=>'failed',
+//                'message'=>'Invalid Operation Performed'
+//            ];
+
+        $data=[
+            "amount"=>$amount,
+            //"currency"=>"INR",
+            "refid"=>$refid,
+            "product"=>urldecode($productinfo),
+            "email"=>urldecode($email),
+            "name"=>urldecode($firstname),
+            "status"=>$status
+        ];
+
+        LogData::create([
+            'data'=>json_encode($data),
+            'type'=>'verify'
+        ]);
+
+        $paymentresult=$this->pay->verifyhash($data);
+        if(strtolower($paymentresult)==strtolower($hash)) {
+
+//        $paymentresult=$this->pay->verifypayment($request->all());
+//        if($paymentresult) {
             if ($order->use_points == true) {
                 $walletpoints = Wallet::points($order->user_id);
                 if ($walletpoints < $order->points_used) {
