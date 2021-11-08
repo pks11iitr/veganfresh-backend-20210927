@@ -101,13 +101,13 @@ class OtpController extends Controller
     protected function verifyLogin(Request $request){
         $user=Customer::where('mobile', $request->mobile)->first();
 
-        if($request->mobile=='1111111111' || $request->mobile=='8802035788')
-            return [
-                'status'=>'success',
-                'message'=>'OTP has been verified successfully',
-                'token'=>Auth::guard('customerapi')->fromUser($user),
-                'is_profile_complete'=>!empty($user->name)?1:0
-            ];
+//        if($request->mobile=='1111111111' || $request->mobile=='8802035788')
+//            return [
+//                'status'=>'success',
+//                'message'=>'OTP has been verified successfully',
+//                'token'=>Auth::guard('customerapi')->fromUser($user),
+//                'is_profile_complete'=>!empty($user->name)?1:0
+//            ];
 
         if(in_array($user->status, [0,1])){
             if(OTPModel::verifyOTP('customer',$user->id,$request->type,$request->otp)){
