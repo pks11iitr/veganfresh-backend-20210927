@@ -305,8 +305,8 @@ class PaymentController extends Controller
             'amount'=>($order->total_cost+$order->delivery_charge+$order->extra_amount-$order->coupon_discount-$order->points_used-$order->balance_used)*100,
             'product'=>'Product Purchase at Veganfresh',
             'name'=>$order->deliveryaddress->first_name??'',
-            'email'=>$order->deliveryaddress->email,
-            'mobile'=>$order->deliveryaddress->mobile_no,
+            'email'=>$order->deliveryaddress->email??'',
+            'mobile'=>$order->deliveryaddress->mobile_no??'',
         ];
 
         $response=$this->pay->generateHash($data);
