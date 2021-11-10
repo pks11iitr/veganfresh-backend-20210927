@@ -302,7 +302,7 @@ class PaymentController extends Controller
 
         $data=[
             'refid'=>$order->refid,
-            'amount'=>($order->total_cost+$order->delivery_charge+$order->extra_amount-$order->coupon_discount-$order->points_used-$order->balance_used)*100,
+            'amount'=>($order->total_cost+$order->delivery_charge+$order->extra_amount-$order->coupon_discount-$order->points_used-$order->balance_used),
             'product'=>'Product Purchase at Veganfresh',
             'name'=>$order->deliveryaddress->first_name??'',
             'email'=>$order->deliveryaddress->email??'',
@@ -339,7 +339,7 @@ class PaymentController extends Controller
                 'data'=>[
                     'payment_done'=>'no',
                     //'razorpay_order_id'=> $order->pg_order_id,
-                    'total'=>($order->total_cost+$order->delivery_charge+$order->extra_amount-$order->coupon_discount-$order->points_used-$order->balance_used)*100,
+                    'total'=>($order->total_cost+$order->delivery_charge+$order->extra_amount-$order->coupon_discount-$order->points_used-$order->balance_used),
                     'email'=>$order->deliveryaddress->email??'',
                     'mobile'=>$order->deliveryaddress->mobile_no??'',
                     'product'=>'Product Purchase at Veganfresh',
