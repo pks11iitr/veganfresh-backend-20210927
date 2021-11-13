@@ -84,7 +84,7 @@
         <a href="{{route('home')}}" class="brand-link">
            <img src="{{asset('admin-theme/img/AdminLTELogo.png')}}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
                  style="opacity: .8">
-            <span class="brand-text font-weight-light">House Goods CMS</span>
+            <span class="brand-text font-weight-light">Vegansfresh CMS</span>
         </a>
 
         <!-- Sidebar -->
