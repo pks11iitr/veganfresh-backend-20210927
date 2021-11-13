@@ -425,7 +425,7 @@ class PaymentController extends Controller
     public function verifyPayment(Request $request){
 
         //$originalcontent=Request::createFromGlobals()->getContent();
-        $originalcontent=;
+        $originalcontent='';
 
 
         //$content=json_encode($content, true);
