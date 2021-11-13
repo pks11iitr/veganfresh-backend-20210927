@@ -44,6 +44,12 @@
                   </div>
                   </div>
                         <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Order</label>
+                                <input type="number" name="order" class="form-control" id="exampleInputEmail1" placeholder="" value="{{$category->order}}">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
                         <div class="form-group">
                         <label>Is Active</label>
                         <select class="form-control" name="isactive" required>

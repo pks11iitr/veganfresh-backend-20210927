@@ -30,12 +30,14 @@ class CategoryController extends Controller
         $request->validate([
             'isactive'=>'required',
             'name'=>'required',
+            'order'=>'required|integer',
             'image'=>'required|image'
         ]);
 
         if($category=Category::create([
             'name'=>$request->name,
             'isactive'=>$request->isactive,
+            'order'=>$request->order,
             'image'=>'a']))
         {
             $category->saveImage($request->image, 'category');
@@ -53,7 +55,8 @@ class CategoryController extends Controller
         $request->validate([
             'isactive'=>'required',
             'name'=>'required',
-            'image'=>'image'
+            'image'=>'image',
+            'order'=>'required|integer'
         ]);
 
         $category = Category::findOrFail($id);
@@ -61,6 +64,7 @@ class CategoryController extends Controller
             $category->update([
                 'isactive'=>$request->isactive,
                 'name'=>$request->name,
+                'order'=>$request->order
                 ]);
         if($request->image){
             $category->saveImage($request->image, 'category');

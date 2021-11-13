@@ -60,6 +60,7 @@
                   <tr>
                     <th>Name</th>
                     <th>Image</th>
+                    <th>Ordering</th>
                     <th>Isactive</th>
                    <th>Action</th>
                   </tr>
@@ -69,7 +70,8 @@
                   <tr>
 					  <td>{{$cat->name}}</td>
                       <td><img src="{{$cat->image}}" height="80px" width="80px"/></td>
-                       <td>
+                      <td>{{$cat->order}}</td>
+                      <td>
                         @if($cat->isactive==1){{'Yes'}}
                              @else{{'No'}}
                              @endif
