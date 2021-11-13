@@ -95,7 +95,7 @@
                     <img src="{{\Illuminate\Support\Facades\Storage::url('images/logo.jpeg')}}" class="img-circle elevation-2" alt="User Image">
                 </div>
                 <div class="info">
-                    <a href="{{route('home')}}" class="d-block">House Goods</a>
+                    <a href="{{route('home')}}" class="d-block">Vegansfresh</a>
                 </div>
             </div>
 
