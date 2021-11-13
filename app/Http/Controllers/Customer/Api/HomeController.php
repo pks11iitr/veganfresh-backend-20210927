@@ -73,6 +73,7 @@ class HomeController extends Controller
 //return $home_sections;
         $categories=Category::active()
             ->select('id', 'name', 'image')
+            ->orderBy('order', 'asc')
             ->get();
 
         $sections=[];
