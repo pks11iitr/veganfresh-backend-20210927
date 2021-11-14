@@ -424,43 +424,56 @@ class PaymentController extends Controller
 
     public function verifyPayment(Request $request){
 
-        //$originalcontent=Request::createFromGlobals()->getContent();
-        $originalcontent='';
+//        $originalcontent=Request::createFromGlobals()->getContent();
+//
+//
+//        //$content=json_encode($content, true);
+//        $refid='';
+//        $status='';
+//        $hash='';
+//        $email='';
+//        $firstname='';
+//        $productinfo='';
+//        $amount='';
+//        $content=explode('&', $originalcontent);
+//        foreach($content as $c){
+//            $c1=explode('=', $c);
+//            if(isset($c1[0]) && $c1[0]=='txnid'){
+//                $refid=$c1[1]??'';
+//            }
+//            if(isset($c1[0]) && $c1[0]=='status'){
+//                $status=$c1[1]??'';
+//            }
+//            if(isset($c1[0]) && $c1[0]=='hash'){
+//                $hash=$c1[1]??'';
+//            }
+//            if(isset($c1[0]) && $c1[0]=='email'){
+//                $email=$c1[1]??'';
+//            }
+//            if(isset($c1[0]) && $c1[0]=='productinfo'){
+//                $productinfo=$c1[1]??'';
+//            }
+//            if(isset($c1[0]) && $c1[0]=='firstname'){
+//                $firstname=$c1[1]??'';
+//            }
+//            if(isset($c1[0]) && $c1[0]=='amount'){
+//                $amount=$c1[1]??'';
+//            }
+//        }
+
+        $data = json_decode($request->json_data, true);
+        $result= $data['result']??[];
+        $status = $result['status'];
+        $refid = $result['txnid'];
+        $hash = $result['hash'];
+        $email = $result['email'];
+        $productinfo = $result['productinfo'];
+        $firstname = $result['firstname'];
+        $amount = $result['amount'];
+        $paymetid = $result['paymentId'];
 
 
-        //$content=json_encode($content, true);
-        $refid='';
-        $status='';
-        $hash='';
-        $email='';
-        $firstname='';
-        $productinfo='';
-        $amount='';
-        $content=explode('&', $originalcontent);
-        foreach($content as $c){
-            $c1=explode('=', $c);
-            if(isset($c1[0]) && $c1[0]=='txnid'){
-                $refid=$c1[1]??'';
-            }
-            if(isset($c1[0]) && $c1[0]=='status'){
-                $status=$c1[1]??'';
-            }
-            if(isset($c1[0]) && $c1[0]=='hash'){
-                $hash=$c1[1]??'';
-            }
-            if(isset($c1[0]) && $c1[0]=='email'){
-                $email=$c1[1]??'';
-            }
-            if(isset($c1[0]) && $c1[0]=='productinfo'){
-                $productinfo=$c1[1]??'';
-            }
-            if(isset($c1[0]) && $c1[0]=='firstname'){
-                $firstname=$c1[1]??'';
-            }
-            if(isset($c1[0]) && $c1[0]=='amount'){
-                $amount=$c1[1]??'';
-            }
-        }
+
 
         if($status!='success'){
             return [
@@ -509,9 +522,9 @@ class PaymentController extends Controller
             "amount"=>$amount,
             //"currency"=>"INR",
             "refid"=>$refid,
-            "product"=>urldecode($productinfo),
-            "email"=>urldecode($email),
-            "name"=>urldecode($firstname),
+            "product"=>$productinfo,
+            "email"=>$email,
+            "name"=>$firstname,
             "status"=>$status
         ];
 
@@ -551,8 +564,8 @@ class PaymentController extends Controller
                 }
             }
             $order->status = 'confirmed';
-            $order->payment_id = $request->razorpay_payment_id;
-            $order->payment_id_response = $request->razorpay_signature;
+            $order->payment_id = $request->paymetid;
+            //$order->payment_id_response = $request->razorpay_signature;
             $order->payment_status = 'paid';
             $order->payment_mode = 'online';
             $order->save();
