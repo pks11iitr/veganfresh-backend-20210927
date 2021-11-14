@@ -470,7 +470,7 @@ class PaymentController extends Controller
         $productinfo = $result['productinfo'];
         $firstname = $result['firstname'];
         $amount = $result['amount'];
-        $paymetid = $result['paymentId'];
+        $paymentid = $result['paymentId'];
 
 
 
@@ -564,7 +564,7 @@ class PaymentController extends Controller
                 }
             }
             $order->status = 'confirmed';
-            $order->payment_id = $request->paymetid;
+            $order->payment_id = $paymentid;
             //$order->payment_id_response = $request->razorpay_signature;
             $order->payment_status = 'paid';
             $order->payment_mode = 'online';
