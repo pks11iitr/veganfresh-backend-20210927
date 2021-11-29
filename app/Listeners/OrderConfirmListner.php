@@ -6,7 +6,7 @@ use App\Events\OrderConfirmed;
 use App\Models\Notification;
 use App\Models\Order;
 use App\Services\Notification\FCMNotification;
-use App\Services\SMS\Msg91;
+//use App\Services\SMS\Msg91;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
@@ -56,11 +56,11 @@ class OrderConfirmListner
             FCMNotification::sendNotification($order->customer->notification_token, $title, $message);
 
         //send customer notification
-        Msg91::send($order->customer->mobile, $message, env('HALLOBB_CUSTOMER_ORDER_CONFIRM'));
+//        Msg91::send($order->customer->mobile, $message, env('HALLOBB_CUSTOMER_ORDER_CONFIRM'));
 
         //store notification
-        if(!empty($order->storename->mobile))
-            Msg91::send($order->storename->mobile, 'New Order '.$order->refid.' received at House Goods. Scheduled Delivery is '.($order->delivery_date??'').' '.($order->timeslot->name??''), env('HALLOB_STORE_ORDER_CONFIRM'));
+//        if(!empty($order->storename->mobile))
+//            Msg91::send($order->storename->mobile, 'New Order '.$order->refid.' received at House Goods. Scheduled Delivery is '.($order->delivery_date??'').' '.($order->timeslot->name??''), env('HALLOB_STORE_ORDER_CONFIRM'));
 
     }
 }
