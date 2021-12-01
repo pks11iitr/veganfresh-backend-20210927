@@ -74,9 +74,14 @@ class WalletController extends Controller
             $wallet=Wallet::create(['refid'=>env('MACHINE_ID').time(), 'type'=>'Credit', 'amount_type'=>'CASH', 'amount'=>$request->amount, 'description'=>'Wallet Recharge','user_id'=>$user->id]);
 
             $response=$this->pay->generateHash_recharge([
+                'id'=>$wallet->id,
                 "amount"=>$wallet->amount,
                 "currency"=>"INR",
                 "receipt"=>$wallet->refid.'',
+                "product" =>'Add Money',
+                "name" => $user->name,
+                "email" =>$user->email 
+                
             ]);
            // return $response;die;
                $responsearr=json_encode($response); 
@@ -93,7 +98,7 @@ class WalletController extends Controller
                         'order_id'=>$wallet->order_id,
                         'amount'=>$wallet->amount,
                         'email'=>$user->email,
-                        'mobile'=>$user->mobile,
+                        'name'=>$user->name,
                         'description'=>'Add Money',
                         'hashdata'=>$response
                     ]
