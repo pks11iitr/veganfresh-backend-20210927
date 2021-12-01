@@ -113,6 +113,8 @@ $api->group(['middleware' => ['customer-auth']], function ($api) {
     $api->get('wallet-history', ['as'=>'wallet.history', 'uses'=>'Customer\Api\WalletController@history']);
     $api->post('recharge', ['as'=>'wallet.add.money', 'uses'=>'Customer\Api\WalletController@addMoney']);
     $api->post('verify-recharge', ['as'=>'wallet.add.money', 'uses'=>'Customer\Api\WalletController@verifyRecharge']);
+    $api->get('success-url','Customer\Api\WalletController@surl');
+    $api->get('fail-url','Customer\Api\WalletController@furl');
 
 
     //complaints api

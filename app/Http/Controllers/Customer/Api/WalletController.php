@@ -180,4 +180,25 @@ class WalletController extends Controller
             ];
         }
     }
+
+
+
+    public function surl(){
+        return view('Payment.surl');
+    }
+
+    public function furl(){
+        return view('Payment.furl');
+    }
+
+
+
+
+
+
+
+
+
+
+
 }
