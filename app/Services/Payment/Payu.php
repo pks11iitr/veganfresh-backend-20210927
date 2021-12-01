@@ -19,7 +19,7 @@ class Payu
 
     public function generateHash($data){
         //var_dump($data);die;
-        $hashSequence = $this->key.'|'.$data['refid'].'|'.$data['amount'].'|'.$data['product'].'|'.$data['name'].'|'.$data['email'].'|||||||||||'.$this->api_salt;
+        $hashSequence = $this->key.'|'.$data['refid'].'|'.$data['amount'].'|'.$data['product'].'|'.$data['name'].'|'.$data['email'].'|||||||||||'.$this->api_salt; 
         $hash = hash("sha512", $hashSequence);
         return $hash;
     }
@@ -30,4 +30,17 @@ class Payu
         $hash = hash("sha512", $hashSequence);
         return $hash;
     }
+
+    
+//genrate hash for rechage
+
+    public function generateHash_recharge($data){
+        //var_dump($data);die;
+         $hashSequence = $this->key.'|'.$data['amount'].'|'.$data['currency'].'|'.$data['receipt'].'|||||||||||'.$this->api_salt;  
+        $hash = hash("sha512", $hashSequence);
+        return $hash;
+    }
+
+
+
 }

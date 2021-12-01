@@ -27,8 +27,6 @@ class PurchaseController extends Controller
                 abort(403);
             return $this->export($purchases);
         }
-
-
         $purchases=$purchases->paginate(10);
         return view('admin.purchaseitem.view',['purchases'=>$purchases]);
     }

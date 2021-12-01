@@ -6,15 +6,21 @@ use App\Events\RechargeConfirmed;
 use App\Events\RechargeSuccess;
 use App\Models\Wallet;
 use App\Services\Payment\RazorPayService;
+use App\Services\Payment\Payu;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 
 class WalletController extends Controller
 {
-    public function __construct(RazorPayService $pay){
-        $this->pay=$pay;
-    }
+     public function __construct(Payu $pay)
+     {
+         $this->pay=$pay;
+     }
+
+    // public function __construct(RazorPayService $pay){
+    //     $this->pay=$pay;
+    // }
 
     public function history(Request $request){
         $user=auth()->guard('customerapi')->user();
@@ -47,6 +53,9 @@ class WalletController extends Controller
     }
 
     public function addMoney(Request $request){
+
+        
+
         $request->validate([
             'amount'=>'required|integer|min:1'
         ]);
@@ -64,14 +73,17 @@ class WalletController extends Controller
             //start new attempt
             $wallet=Wallet::create(['refid'=>env('MACHINE_ID').time(), 'type'=>'Credit', 'amount_type'=>'CASH', 'amount'=>$request->amount, 'description'=>'Wallet Recharge','user_id'=>$user->id]);
 
-            $response=$this->pay->generateorderid([
-                "amount"=>$wallet->amount*100,
+            $response=$this->pay->generateHash_recharge([
+                "amount"=>$wallet->amount,
                 "currency"=>"INR",
                 "receipt"=>$wallet->refid.'',
             ]);
-            $responsearr=json_decode($response);
-            if(isset($responsearr->id)){
-                $wallet->order_id=$responsearr->id;
+           // return $response;die;
+               $responsearr=json_encode($response); 
+             
+            
+            if(isset($responsearr)){
+                $wallet->order_id=$wallet->refid;
                 $wallet->order_id_response=$response;
                 $wallet->save();
                 return [
@@ -82,7 +94,8 @@ class WalletController extends Controller
                         'amount'=>$wallet->amount*100,
                         'email'=>$user->email,
                         'mobile'=>$user->mobile,
-                        'description'=>'Add Money'
+                        'description'=>'Add Money',
+                        'hashdata'=>$response
                     ]
                 ];
             }else{
