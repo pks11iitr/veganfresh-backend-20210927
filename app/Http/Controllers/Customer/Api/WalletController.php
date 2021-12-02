@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Customer\Api;
 
 use App\Events\RechargeConfirmed;
 use App\Events\RechargeSuccess;
+use App\Models\LogData;
 use App\Models\Wallet;
 use App\Services\Payment\RazorPayService;
 use App\Services\Payment\Payu;
@@ -138,23 +139,54 @@ class WalletController extends Controller
     }
 
     public function verifyRecharge(Request $request){
-        $user=auth()->guard('customerapi')->user();
-        if(!$user)
-            return [
-                'status'=>'failed',
-                'message'=>'Please login to continue'
-            ];
-        $wallet=Wallet::where('order_id', $request->razorpay_order_id)->first();
+
+        $data = json_decode($request->json_data, true);
+        $result= $data['result']??[];
+        $status = $result['status'];
+        $refid = $result['txnid'];
+        $hash = $result['hash'];
+        $email = $result['email'];
+        $productinfo = $result['productinfo'];
+        $firstname = $result['firstname'];
+        $amount = $result['amount'];
+        $paymentid = $result['paymentId'];
+
+
+//        $user=auth()->guard('customerapi')->user();
+//        if(!$user)
+//            return [
+//                'status'=>'failed',
+//                'message'=>'Please login to continue'
+//            ];
+        $wallet=Wallet::where('refid', $refid)->first();
         if(!$wallet){
             return [
                 'status'=>'failed',
                 'message'=>'No Record found'
             ];
         }
-        $paymentresult=$this->pay->verifypayment($request->all());
-        if($paymentresult){
-            $wallet->payment_id=$request->razorpay_payment_id;
-            $wallet->payment_id_response=$request->razorpay_signature;
+
+        $data=[
+            "amount"=>$amount,
+            //"currency"=>"INR",
+            "refid"=>$refid,
+            "product"=>$productinfo,
+            "email"=>$email,
+            "name"=>$firstname,
+            "status"=>$status
+        ];
+
+        LogData::create([
+            'data'=>json_encode($data),
+            'type'=>'verify'
+        ]);
+
+        //$paymentresult=$this->pay->verifypayment($request->all());
+        $paymentresult=$this->pay->verifyhash($data);
+        if(strtolower($paymentresult)==strtolower($hash)) {
+        //if($paymentresult){
+            $wallet->payment_id=$paymentid;
+            //$wallet->payment_id_response=$request->razorpay_signature;
             $wallet->iscomplete=true;
             $wallet->save();
 
