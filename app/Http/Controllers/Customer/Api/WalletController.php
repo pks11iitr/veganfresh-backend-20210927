@@ -204,7 +204,7 @@ class WalletController extends Controller
                 'status'=>'failed',
                 'message'=>'Payment is not successfull',
                 'errors'=>[
-
+                    
                 ],
             ], 200);
         }

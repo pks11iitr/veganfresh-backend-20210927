@@ -132,3 +132,6 @@ $api->group(['middleware' => ['customer-auth']], function ($api) {
 });
     $api->post('success-url','Customer\Api\WalletController@surl');
     $api->post('fail-url','Customer\Api\WalletController@furl');
+    $api->get('about','CommonController@about');
+    $api->get('privacy','CommonController@privacy');
+    $api->get('term','CommonController@term');
