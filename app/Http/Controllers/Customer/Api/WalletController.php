@@ -80,7 +80,7 @@ class WalletController extends Controller
                 'product'=>'Wallet Recharge at Veganfresh',
                 'name'=>$user->name??'',
                 'email'=>$user->email??'',
-                'mobile'=>$order->mobile??'',
+                'mobile'=>$user->mobile??'',
             ];
 
             $response=$this->pay->generateHash($data);
