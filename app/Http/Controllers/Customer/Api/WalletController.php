@@ -54,7 +54,7 @@ class WalletController extends Controller
 
     public function addMoney(Request $request){
 
-        
+
 
         $request->validate([
             'amount'=>'required|integer|min:1'
@@ -73,35 +73,49 @@ class WalletController extends Controller
             //start new attempt
             $wallet=Wallet::create(['refid'=>env('MACHINE_ID').time(), 'type'=>'Credit', 'amount_type'=>'CASH', 'amount'=>$request->amount, 'description'=>'Wallet Recharge','user_id'=>$user->id]);
 
-            $response=$this->pay->generateHash_recharge([
-                'id'=>$wallet->id,
-                "amount"=>$wallet->amount,
-                "currency"=>"INR",
-                "receipt"=>$wallet->refid.'',
-                "product" =>'Add Money',
-                "name" => $user->name,
-                "email" =>$user->email, 
-                "mobile"=>$user->mobile
-            ]);
+            $data=[
+                'refid'=>$wallet->refid,
+                'amount'=>$request->amount,
+                'product'=>'Wallet Recharge at Veganfresh',
+                'name'=>$user->name??'',
+                'email'=>$user->email??'',
+                'mobile'=>$order->mobile??'',
+            ];
+
+            $response=$this->pay->generateHash($data);
            // return $response;die;
-               $responsearr=json_encode($response); 
-             
-            
-            if(isset($responsearr)){
-                $wallet->order_id=$wallet->refid;
-                $wallet->order_id_response=$response;
-                $wallet->save();
+               $responsearr=json_encode($response);
+
+
+            //if(isset($responsearr)){
+            if(!empty($response)){
+//                $wallet->order_id=$wallet->refid;
+//                $wallet->order_id_response=$response;
+//                $wallet->save();
+//                return [
+//                    'status'=>'success',
+//                    'data'=>[
+//                        'id'=>$wallet->id,
+//                        'order_id'=>$wallet->order_id,
+//                        'amount'=>$wallet->amount,
+//                        'email'=>$user->email,
+//                        'name'=>$user->name,
+//                        'mobile'=>$user->mobile,
+//                        'description'=>'Add Money',
+//                        'hashdata'=>$response
+//                    ]
+//                ];
+
                 return [
                     'status'=>'success',
                     'data'=>[
-                        'id'=>$wallet->id,
-                        'order_id'=>$wallet->order_id,
-                        'amount'=>$wallet->amount,
-                        'email'=>$user->email,
-                        'name'=>$user->name,
-                        'mobile'=>$user->mobile,
-                        'description'=>'Add Money',
-                        'hashdata'=>$response
+                        'total'=>$request->amount,
+                        'email'=>$user->email??'',
+                        'mobile'=>$user->mobile??'',
+                        'product'=>'Wallet recharge at Veganfresh',
+                        'name'=>$user->name??'',
+                        'refid'=>$wallet->refid,
+                        'hashdata'=>$response,
                     ]
                 ];
             }else{
