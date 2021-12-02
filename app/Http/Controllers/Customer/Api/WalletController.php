@@ -99,6 +99,7 @@ class WalletController extends Controller
                         'amount'=>$wallet->amount,
                         'email'=>$user->email,
                         'name'=>$user->name,
+                        'mobile'=>$user->mobile,
                         'description'=>'Add Money',
                         'hashdata'=>$response
                     ]
