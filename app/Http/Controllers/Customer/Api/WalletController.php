@@ -80,8 +80,8 @@ class WalletController extends Controller
                 "receipt"=>$wallet->refid.'',
                 "product" =>'Add Money',
                 "name" => $user->name,
-                "email" =>$user->email 
-                
+                "email" =>$user->email, 
+                "mobile"=>$user->mobile
             ]);
            // return $response;die;
                $responsearr=json_encode($response); 
