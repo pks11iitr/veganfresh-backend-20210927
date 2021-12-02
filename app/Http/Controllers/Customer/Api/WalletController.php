@@ -85,7 +85,7 @@ class WalletController extends Controller
 
             $response=$this->pay->generateHash($data);
            // return $response;die;
-               $responsearr=json_encode($response);
+            //$responsearr=json_encode($response);
 
 
             //if(isset($responsearr)){
