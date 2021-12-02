@@ -74,13 +74,14 @@ class WalletController extends Controller
             //start new attempt
             $wallet=Wallet::create(['refid'=>env('MACHINE_ID').time(), 'type'=>'Credit', 'amount_type'=>'CASH', 'amount'=>$request->amount, 'description'=>'Wallet Recharge','user_id'=>$user->id]);
 
+            $product = 'Wallet Recharge at Veganfresh';
             $data=[
                 'refid'=>$wallet->refid,
-                'amount'=>$request->amount,
-                'product'=>'Wallet Recharge at Veganfresh',
+                'amount'=>$wallet->amount,
+                'product'=>$product,
                 'name'=>$user->name??'',
                 'email'=>$user->email??'',
-                'mobile'=>$order->mobile??'',
+                'mobile'=>$user->mobile??'',
             ];
 
             $response=$this->pay->generateHash($data);
@@ -110,10 +111,10 @@ class WalletController extends Controller
                 return [
                     'status'=>'success',
                     'data'=>[
-                        'total'=>$request->amount,
+                        'total'=>$wallet->amount,
                         'email'=>$user->email??'',
                         'mobile'=>$user->mobile??'',
-                        'product'=>'Wallet recharge at Veganfresh',
+                        'product'=>$product,
                         'name'=>$user->name??'',
                         'refid'=>$wallet->refid,
                         'hashdata'=>$response,
