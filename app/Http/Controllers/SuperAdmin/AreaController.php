@@ -32,7 +32,7 @@ class AreaController extends Controller
         if($area=Area::create([
             'name'=>$request->name,
             'isactive'=>$request->isactive,
-            'store_id'=>$request->store_id,
+            //'store_id'=>$request->store_id,
         ]))
 
         {

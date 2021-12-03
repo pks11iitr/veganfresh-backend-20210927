@@ -126,12 +126,10 @@ $api->group(['middleware' => ['customer-auth']], function ($api) {
     $api->get('subscribe/{id}', ['as'=>'membership.subscribe', 'uses'=>'Customer\Api\MembershipController@subscribe']);
     $api->post('verify-subscription', ['as'=>'membership.verify', 'uses'=>'Customer\Api\MembershipController@verify']);
 
-
-
-
 });
-    $api->post('success-url','Customer\Api\WalletController@surl');
-    $api->post('fail-url','Customer\Api\WalletController@furl');
-    $api->get('about','CommonController@about');
-    $api->get('privacy','CommonController@privacy');
-    $api->get('term','CommonController@term');
+    
+$api->post('success-url','Customer\Api\WalletController@surl');
+$api->post('fail-url','Customer\Api\WalletController@furl');
+$api->get('about','CommonController@about');
+$api->get('privacy','CommonController@privacy');
+$api->get('term','CommonController@term');
