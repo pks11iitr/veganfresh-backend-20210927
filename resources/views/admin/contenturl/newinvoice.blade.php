@@ -54,11 +54,10 @@
     <table width="100%">
         <tbody>
         <tr>
-        @if($invoice->image)
             <td width="50%">
-                 <img style="height:100px;width: 100px;margin-left:250px" src="data:image/jpeg;base64,{{base64_encode(file_get_contents($invoice->image))}}">
+                 <img style="height:100px;width: 100px;margin-left:0px" src="data:image/jpeg;base64,{{base64_encode(file_get_contents($invoice->image))}}">
             </td>
-             
+            @if($invoice->image)
             <td width="50%">
                 <img style="height:100px;width: 100px;margin-left:250px" src="data:image/jpeg;base64,{{base64_encode(file_get_contents($invoice->image))}}">
             </td>
