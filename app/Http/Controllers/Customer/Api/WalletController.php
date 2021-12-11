@@ -143,14 +143,14 @@ class WalletController extends Controller
 
         $data = json_decode($request->json_data, true);
         $result= $data['result']??[];
-        $status = $result['status'];
-        $refid = $result['txnid'];
-        $hash = $result['hash'];
-        $email = $result['email'];
-        $productinfo = $result['productinfo'];
-        $firstname = $result['firstname'];
-        $amount = $result['amount'];
-        $paymentid = $result['paymentId'];
+        $status = $result['status']??'';
+        $refid = $result['txnid']??'';
+        $hash = $result['hash']??'';
+        $email = $result['email']??'';
+        $productinfo = $result['productinfo']??'';
+        $firstname = $result['firstname']??'';
+        $amount = $result['amount']??'';
+        $paymentid = $result['paymentId']??'';
 
 
 //        $user=auth()->guard('customerapi')->user();
@@ -205,7 +205,7 @@ class WalletController extends Controller
                 'status'=>'failed',
                 'message'=>'Payment is not successfull',
                 'errors'=>[
-                    
+
                 ],
             ], 200);
         }
