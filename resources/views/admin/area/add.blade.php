@@ -51,7 +51,7 @@
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="col-md-6">
+                                        <!-- <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Mapp Store</label>
                                                 <select class="form-control" name="store_id" required>
@@ -61,7 +61,7 @@
                                                     @endforeach
                                                 </select>
                                             </div>
-                                        </div>
+                                        </div> -->
 
                                     </div>
                                 </div>
