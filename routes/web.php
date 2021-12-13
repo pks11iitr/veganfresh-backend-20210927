@@ -12,7 +12,8 @@
 */
 
 Route::get('/', function () {
-    abort(403);
+   // abort(403);
+   return view('Website.index'); 
 });
 
 Route::get('/home', function () {
