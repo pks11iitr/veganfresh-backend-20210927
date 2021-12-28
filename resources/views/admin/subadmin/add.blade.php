@@ -197,7 +197,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-6">
+                                        <!-- <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">Rider Permissions</label><br>
                                                 <div>
@@ -205,8 +205,8 @@
                                                     <input type="checkbox" name="permissions[rider-editor]"  id="exampleInputEmail1" placeholder="Enter Password"> Add/Update Riders
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="col-md-6">
+                                        </div> -->
+                                        <!-- <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">Store Permissions</label><br>
                                                 <div>
@@ -214,7 +214,7 @@
                                                     <input type="checkbox" name="permissions[store-editor]"  id="exampleInputEmail1" placeholder="Enter Password"> Add/Update Stores
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div> -->
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">Configuration Permissions</label><br>

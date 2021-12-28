@@ -234,22 +234,22 @@ Route::group(['middleware'=>['auth', 'acl']], function(){
 //
 //    });
 //
-//    Route::group(['prefix'=>'subadmin'], function(){
-//
-//        Route::group(['can'=>'view.subadmin'], function() {
-//            Route::get('subadmins', 'SuperAdmin\SubAdminController@index')->name('subadmin.list');
-//
-//            Route::get('create', 'SuperAdmin\SubAdminController@create')->name('subadmin.create');
-//
-//            Route::get('edit/{id}', 'SuperAdmin\SubAdminController@edit')->name('subadmin.edit');
-//        });
-//        Route::group(['can'=>'update.subadmin'], function(){
-//            Route::post('create', 'SuperAdmin\SubAdminController@store');
-//
-//            Route::post('edit/{id}', 'SuperAdmin\SubAdminController@update');
-//        });
-//
-//    });
+   Route::group(['prefix'=>'subadmin'], function(){
+
+       Route::group(['can'=>'view.subadmin'], function() {
+           Route::get('subadmins', 'SuperAdmin\SubAdminController@index')->name('subadmin.list');
+
+           Route::get('create', 'SuperAdmin\SubAdminController@create')->name('subadmin.create');
+
+           Route::get('edit/{id}', 'SuperAdmin\SubAdminController@edit')->name('subadmin.edit');
+       });
+       Route::group(['can'=>'update.subadmin'], function(){
+           Route::post('create', 'SuperAdmin\SubAdminController@store');
+
+           Route::post('edit/{id}', 'SuperAdmin\SubAdminController@update');
+       });
+
+   });
 //
 //
 //});
