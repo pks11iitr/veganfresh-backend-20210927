@@ -344,7 +344,7 @@
                         </a>
                     </li>
                     @endif
-
+                    @if(auth()->user()->hasRole('admin'))
                     <li class="nav-item">
                         <a href="{{route('timeslot.list')}}" class="nav-link">
                             <i class="nav-icon fas fa-th"></i>
@@ -354,6 +354,7 @@
                             </p>
                         </a>
                     </li>
+                    @endif
                     @if(auth()->user()->hasRole('admin') || auth()->user()->hasRole('returnrequest-viewer') || auth()->user()->hasRole('returnrequest-editor'))
 
                         <li class="nav-item">
@@ -411,16 +412,16 @@
                         </a>
                     </li>
                     @endif
-{{--                    @if(auth()->user()->hasRole('admin') || auth()->user()->hasRole('subadmin-viewer') || auth()->user()->hasRole('subadmin-editor'))--}}
-{{--                        <li class="nav-item">--}}
-{{--                            <a href="{{route('subadmin.list')}}" class="nav-link">--}}
-{{--                                <i class="nav-icon fas fa-th"></i>--}}
-{{--                                <p>--}}
-{{--                                    Subadmin--}}
-{{--                                </p>--}}
-{{--                            </a>--}}
-{{--                        </li>--}}
-{{--                    @endif--}}
+                    @if(auth()->user()->hasRole('admin') || auth()->user()->hasRole('subadmin-viewer') || auth()->user()->hasRole('subadmin-editor'))
+                        <li class="nav-item"> 
+                            <a href="{{route('subadmin.list')}}" class="nav-link"> 
+                                <i class="nav-icon fas fa-th"></i> 
+                                <p> 
+                                    Subadmin 
+                               </p> 
+                           </a> 
+                       </li> 
+                    @endif 
 {{--                    @if(auth()->user()->hasRole('admin'))--}}
 {{--                    <li class="nav-item">--}}
 {{--                        <a href="{{route('membership.list')}}" class="nav-link">--}}
