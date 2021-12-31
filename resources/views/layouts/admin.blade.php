@@ -150,7 +150,7 @@
 
                     <li class="nav-item">
                         <a href="{{route('orders.list')}}" class="nav-link">
-                            <i class="nav-icon fas fa-th"></i>
+                            
                             <p>
                                 Orders
 
@@ -165,7 +165,7 @@
 
             <li class="nav-item">
                 <a href="{{route('product.list')}}" class="nav-link">
-                    <i class="nav-icon fas fa-th"></i>
+                  
                     <p>
                         Product
 
@@ -179,7 +179,7 @@
 
                     <li class="nav-item">
                         <a href="{{route('sales.list')}}" class="nav-link">
-                            <i class="nav-icon fas fa-th"></i>
+                         
                             <p>
                                 Sales
 
@@ -193,7 +193,7 @@
                     @if(auth()->user()->hasRole('admin') || auth()->user()->hasRole('banner-viewer') || auth()->user()->hasRole('banner-editor'))
                     <li class="nav-item">
                         <a href="{{route('banners.list')}}" class="nav-link">
-                            <i class="nav-icon fas fa-th"></i>
+                             
                             <p>
                                 Banner
 
@@ -204,7 +204,7 @@
                     @if(auth()->user()->hasRole('admin') || auth()->user()->hasRole('homesection-viewer') || auth()->user()->hasRole('homesection-editor'))
                     <li class="nav-item">
                         <a href="{{route('homesection.list')}}" class="nav-link">
-                            <i class="nav-icon fas fa-th"></i>
+                            
                             <p>
                                 Home Section
 
@@ -216,7 +216,7 @@
 
                     <li class="nav-item">
                         <a href="{{route('category.list')}}" class="nav-link">
-                            <i class="nav-icon fas fa-th"></i>
+                            
                             <p>
                                 Category
 
@@ -228,7 +228,7 @@
 
                     <li class="nav-item">
                         <a href="{{route('subcategory.list')}}" class="nav-link">
-                            <i class="nav-icon fas fa-th"></i>
+                            
                             <p>
                                 SubCategory
 
@@ -259,7 +259,7 @@
 
                     <li class="nav-item">
                         <a href="{{route('customer.list')}}" class="nav-link">
-                            <i class="nav-icon fas fa-th"></i>
+                           
                             <p>
                                 Customer
 
@@ -272,7 +272,7 @@
 
                     <li class="nav-item">
                         <a href="{{route('coupon.list')}}" class="nav-link">
-                            <i class="nav-icon fas fa-th"></i>
+                            
                             <p>
                                 Coupon
 
@@ -286,7 +286,7 @@
 
                     <li class="nav-item">
                         <a href="" class="nav-link">
-                            <i class="nav-icon fas fa-th"></i>
+                            
                             <p>
                                 Inventory
 
@@ -313,7 +313,7 @@
                     @if(auth()->user()->hasRole('admin') || auth()->user()->hasRole('purchase-viewer') || auth()->user()->hasRole('purchase-editor'))
                         <li class="nav-item">
                             <a href="{{route('purchase.list')}}" class="nav-link">
-                                <i class="nav-icon fas fa-th"></i>
+                                
                                 <p>
                                     Purchase Items
                                 </p>
@@ -328,7 +328,7 @@
 
                     <li class="nav-item">
                         <a href="{{route('complain.list')}}" class="nav-link">
-                            <i class="nav-icon fas fa-th"></i>
+                            
                             <p>
                                 Complaints
 
@@ -351,7 +351,7 @@
 
                     <li class="nav-item">
                         <a href="{{route('return.product.list')}}" class="nav-link">
-                            <i class="nav-icon fas fa-th"></i>
+                            
                             <p>
                                 Return Product
                             </p>
@@ -364,7 +364,7 @@
 
 <li class="nav-item">
     <a href="{{route('returnrequest.list')}}" class="nav-link">
-        <i class="nav-icon fas fa-th"></i>
+       
         <p>
            Return Request
 
@@ -378,7 +378,7 @@
 
                     <li class="nav-item">
                         <a href="{{route('notification.create')}}" class="nav-link">
-                            <i class="nav-icon fas fa-th"></i>
+                            
                             <p>
                                 Send Notification
 
@@ -392,7 +392,7 @@
                     @if(auth()->user()->hasRole('admin'))
                     <li class="nav-item">
                         <a href="{{route('timeslot.list')}}" class="nav-link">
-                            <i class="nav-icon fas fa-th"></i>
+                            
                             <p>
                                 Time Slot
 
@@ -405,7 +405,7 @@
 
                     <li class="nav-item">
                         <a href="{{route('area.list')}}" class="nav-link">
-                            <i class="nav-icon fas fa-th"></i>
+                             
                             <p>
                                 Area List
 
@@ -439,7 +439,7 @@
                     @if(auth()->user()->hasRole('admin') || auth()->user()->hasRole('configuration-viewer') || auth()->user()->hasRole('configuration-editor'))
                     <li class="nav-item">
                         <a href="{{route('configurations.list')}}" class="nav-link">
-                            <i class="nav-icon fas fa-th"></i>
+                             
                             <p>
                                 Configurations
                             </p>
@@ -449,7 +449,7 @@
                     @if(auth()->user()->hasRole('admin') || auth()->user()->hasRole('subadmin-viewer') || auth()->user()->hasRole('subadmin-editor'))
                         <li class="nav-item"> 
                             <a href="{{route('subadmin.list')}}" class="nav-link"> 
-                                <i class="nav-icon fas fa-th"></i> 
+                                
                                 <p> 
                                     Role 
                                </p> 
