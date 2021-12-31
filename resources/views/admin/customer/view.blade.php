@@ -106,7 +106,7 @@
 				    @foreach($customers as $customer)
             <tr>
              
-					  <td><a href="{{route('customer.edit',['id'=>$customer->id])}}" class="">{{$customer->name}}</a></td>
+					  <td><a href="{{route('customer.edit',['id'=>$customer->id])}}" class="">{{$customer->name??'Edit'}}</a></td>
 					  <td>{{$customer->mobile}}</td>
 					  <td>{{$customer->email}}</td>
 					  <td>{{$customer->dob}}</td>
