@@ -64,13 +64,16 @@
                              </select>
                          </div>
                     <div class="col-4">
+                      <br/>
                        <button type="submit" name="save" class="btn btn-primary">Submit</button>
                         <a href="{{route('customer.list')}}" class="btn btn-danger">Reset Filters</a>
                      </div>
                          <div class="col-4">
+                           <br/>
                              <a href="{{route('customer.list')}}" type="submit" name="save" class="btn btn-primary">Reset</a>
                          </div>
                          <div class="col-4">
+                           <br/>
                              <a href="{{ url()->current().'?'.http_build_query(array_merge(request()->all(),['type' => 'export'])) }}" class="btn btn-info">Download</a>
                          </div>
                   </div>
@@ -93,15 +96,17 @@
                     <th>State</th>-->
                     <th>Image</th>
                     <th>Registered On</th>
-                    <th>Membership</th>
+                    <!-- <th>Membership</th> -->
                     <th>Isactive</th>
+                    <th>Revoke</th>
                    <th>Action</th>
                   </tr>
                   </thead>
                   <tbody>
 				    @foreach($customers as $customer)
             <tr>
-					  <td>{{$customer->name}}</td>
+             
+					  <td><a href="{{route('customer.edit',['id'=>$customer->id])}}" class="">{{$customer->name}}</a></td>
 					  <td>{{$customer->mobile}}</td>
 					  <td>{{$customer->email}}</td>
 					  <td>{{$customer->dob}}</td>
@@ -110,16 +115,17 @@
 					  <td>{{$customer->state}}</td>-->
                       <td><img src="{{$customer->image}}" height="80px" width="80px"/></td>
                       <td>{{date('d/m/Y h:ia', strtotime($customer->created_at))}}</td>
-                      <td>@if($customer->isMembershipActive()){{$customer->membership->name??'--'}}@endif</td>
+                      <!-- <td>@if($customer->isMembershipActive()){{$customer->membership->name??'--'}}@endif</td> -->
                        <td>
                         @if($customer->status==1){{'Active'}}
                              @elseif($customer->status==2){{'Blocked'}}@else{{'Inactive'}}
                              @endif
                         </td>
-                      <td><a href="{{route('customer.edit',['id'=>$customer->id])}}" class="btn btn-success">Edit</a>
-                          <a href="{{route('user.wallet.history', ['id'=>$customer->id])}}" target="_blank" class='btn btn-primary'>Wallet History</a>&nbsp;&nbsp;&nbsp;
+                        <td><a href="javascript:void(0)" onclick="openWalletPanel('{{$order->id??''}}', '{{route('user.wallet.balance', ['id'=>$customer->id])}}', {{$customer->id}})" >Add/Revoke Balance</a></td>
+                      <td>
+                          <a href="{{route('user.wallet.history', ['id'=>$customer->id])}}" target="_blank" class=''>Wallet History</a> 
                         {{-- <a href="{{route('customer.edit',['id'=>$customer->id])}}" class="open-AddBookDialog btn btn-success" data-toggle="modal" data-target="#exampleModal" data-id="{{$customer->id}}">Notification</a></td>--}}
-                          <a href="javascript:void(0)" class='btn btn-primary' onclick="openWalletPanel('{{$order->id??''}}', '{{route('user.wallet.balance', ['id'=>$customer->id])}}', {{$customer->id}})">Add/Revoke Balance</a>
+                          
                  </tr>
                  @endforeach
                   </tbody>
@@ -134,6 +140,7 @@
                     <th>State</th>-->
                     <th>Image</th>
                     <th>Isactive</th>
+                    <th>Revoke</th>
                    <th>Action</th>
                   </tr>
                   </tfoot>
@@ -272,7 +279,9 @@
 //alert()
                     $("#user-wallet-balance").html(data.data.balance)
                     $("#user-wallet-cashback").html(data.data.cashback)
+
                 }
+
             }
         })
         $("#modal-lg").modal('show')
