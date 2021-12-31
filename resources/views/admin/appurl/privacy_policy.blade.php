@@ -1,4 +1,17 @@
-<p align="justify"><span style="color: #000000;"><span style="font-family: 'Trebuchet MS', serif;">Privacy Policy</span></span></p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+ 
+</head>
+<body>
+    <Br/>
+<h1 align="center"><span style="color: #000000;"><span style="font-family: 'Trebuchet MS', serif;">Privacy Policy</span></span></h1>
+
+
 <p align="justify"><span style="color: #666666;"><span style="font-family: 'Roboto Slab', serif;"><span style="font-size: large;">Personal Information</span></span></span></p>
 <p align="justify"><span style="color: #333333;"><span style="font-family: lato, serif;"><span style="font-size: medium;">Vegansfresh Organics Pvt. Ltd. (&ldquo;VOPL&rdquo;)is the licensed owner of the brand &ldquo;Vegans Fresh&rdquo; and the website vegansfresh.com (&rdquo;The Site&rdquo;). VOPL respects your privacy. This Privacy Policy provides succinct details about how your data is collected and used by VOPL on the Site. As a visitor to the Site/ Customer, you are advised to please read the Privacy Policy carefully. By accessing the services provided by the Site you agree to the collection and use of your data by VOPL in the manner provided in this Privacy Policy.&nbsp;</span></span></span></p>
 <p align="justify">&nbsp;</p>
@@ -23,3 +36,6 @@
 <p align="justify"><span style="color: #666666;"><span style="font-family: 'Roboto Slab', serif;"><span style="font-size: large;">Contact Information</span></span></span></p>
 <p align="justify"><a name="_GoBack"></a> <span style="color: #333333;"><span style="font-family: lato, serif;"><span style="font-size: medium;">Vegansfresh Organics Pvt. Ltd.,<br /> Plot No.2, Khasra No 15/17,<br /> Ground Floor, Main Sewa Dham Road, Mandoli Industrial Area, Delhi-110093 India<br /> Tel.: <br /> Email id: support@vegansfresh.com&nbsp;</span></span></span></p>
 <p align="justify">&nbsp;</p>
+
+</body>
+</html>

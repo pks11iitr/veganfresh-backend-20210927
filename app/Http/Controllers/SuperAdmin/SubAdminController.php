@@ -11,7 +11,7 @@ use Kodeine\Acl\Models\Eloquent\Permission;
 class SubAdminController extends Controller
 {
     public function index(Request $request){
-        $admins =User::where('id', '>', 1)
+        $admins = User::where('id', '>', 1)
             ->role('subadmin')
             ->paginate(10);
         return view('admin.subadmin.view',['admins'=>$admins]);

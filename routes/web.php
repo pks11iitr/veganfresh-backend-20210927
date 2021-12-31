@@ -546,12 +546,13 @@ Route::group(['middleware'=>['auth', 'acl']], function(){
 
 
     Route::group(['prefix'=>'customer'], function(){
+
         Route::group(['is'=>'admin|customer-viewer'], function(){
             Route::get('/','SuperAdmin\CustomerController@index')->name('customer.list');
             Route::get('edit/{id}','SuperAdmin\CustomerController@edit')->name('customer.edit');
         });
-        Route::group(['is'=>'admin|customer-editor'], function(){
 
+        Route::group(['is'=>'admin|customer-editor'], function(){
             Route::post('update/{id}','SuperAdmin\CustomerController@update')->name('customer.update');
             Route::post('send_message','SuperAdmin\CustomerController@send_message')->name('customer.send_message');
         });
@@ -615,9 +616,12 @@ Route::group(['middleware'=>['auth', 'acl']], function(){
 
     Route::group(['prefix'=>'wallet'], function(){
 
-        Route::post('add-remove-wallet-balance', 'SuperAdmin\WalletController@addremove')->name('wallet.add.remove');
-
+        Route::group(['is'=>'admin|customer-editor'], function(){
+            Route::post('add-remove-wallet-balance', 'SuperAdmin\WalletController@addremove')->name('wallet.add.remove');             
         Route::get('get-wallet-balance/{id}', 'SuperAdmin\WalletController@getbalance')->name('user.wallet.balance');
+        });
+
+
 
         Route::get('get-wallet-history/{id}', 'SuperAdmin\WalletController@getWalletHistory')->name('user.wallet.history');
 

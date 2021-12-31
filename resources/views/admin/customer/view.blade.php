@@ -99,8 +99,8 @@
                   </tr>
                   </thead>
                   <tbody>
-				@foreach($customers as $customer)
-                  <tr>
+				    @foreach($customers as $customer)
+            <tr>
 					  <td>{{$customer->name}}</td>
 					  <td>{{$customer->mobile}}</td>
 					  <td>{{$customer->email}}</td>
@@ -118,7 +118,7 @@
                         </td>
                       <td><a href="{{route('customer.edit',['id'=>$customer->id])}}" class="btn btn-success">Edit</a>
                           <a href="{{route('user.wallet.history', ['id'=>$customer->id])}}" target="_blank" class='btn btn-primary'>Wallet History</a>&nbsp;&nbsp;&nbsp;
-{{--                      <a href="{{route('customer.edit',['id'=>$customer->id])}}" class="open-AddBookDialog btn btn-success" data-toggle="modal" data-target="#exampleModal" data-id="{{$customer->id}}">Notification</a></td>--}}
+                        {{-- <a href="{{route('customer.edit',['id'=>$customer->id])}}" class="open-AddBookDialog btn btn-success" data-toggle="modal" data-target="#exampleModal" data-id="{{$customer->id}}">Notification</a></td>--}}
                           <a href="javascript:void(0)" class='btn btn-primary' onclick="openWalletPanel('{{$order->id??''}}', '{{route('user.wallet.balance', ['id'=>$customer->id])}}', {{$customer->id}})">Add/Revoke Balance</a>
                  </tr>
                  @endforeach
@@ -272,9 +272,7 @@
 //alert()
                     $("#user-wallet-balance").html(data.data.balance)
                     $("#user-wallet-cashback").html(data.data.cashback)
-
                 }
-
             }
         })
         $("#modal-lg").modal('show')
