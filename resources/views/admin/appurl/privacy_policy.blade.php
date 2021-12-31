@@ -8,6 +8,7 @@
  
 </head>
 <body>
+    <div style="padding:10px">
     <Br/>
 <h1 align="center"><span style="color: #000000;"><span style="font-family: 'Trebuchet MS', serif;">Privacy Policy</span></span></h1>
 
@@ -36,6 +37,6 @@
 <p align="justify"><span style="color: #666666;"><span style="font-family: 'Roboto Slab', serif;"><span style="font-size: large;">Contact Information</span></span></span></p>
 <p align="justify"><a name="_GoBack"></a> <span style="color: #333333;"><span style="font-family: lato, serif;"><span style="font-size: medium;">Vegansfresh Organics Pvt. Ltd.,<br /> Plot No.2, Khasra No 15/17,<br /> Ground Floor, Main Sewa Dham Road, Mandoli Industrial Area, Delhi-110093 India<br /> Tel.: <br /> Email id: support@vegansfresh.com&nbsp;</span></span></span></p>
 <p align="justify">&nbsp;</p>
-
+</div>
 </body>
 </html>

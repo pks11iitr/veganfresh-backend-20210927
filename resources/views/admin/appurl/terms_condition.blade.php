@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
  <style>
-        
+
      </style>
 </head>
 <body>
@@ -80,5 +80,6 @@
 <p align="justify"><span style="color: #666666;"><span style="font-family: 'Roboto Slab', serif;"><span style="font-size: large;">Termination </span></span></span></p>
 <p align="justify"><span style="color: #333333;"><span style="font-family: lato, serif;"><span style="font-size: medium;">This User Agreement is effective unless and until terminated by either you or VOPL. You may terminate this User Agreement at any time, provided that you discontinue any further use of this Site. VOPL may terminate this User Agreement at any time and may do so immediately without notice, and accordingly deny you access to the Site, Such termination will be without any liability to VOPL. Upon any termination of the User Agreement by either you or VOPL, you must promptly destroy all materials downloaded or otherwise obtained from this Site, as well as all copies of such materials, whether made under the User Agreement or otherwise. VOPL's right to any Comments shall survive any termination of this User Agreement. Any such termination of the User Agreement shall not cancel your obligation to pay for the product already ordered from the Website or affect any liability that may have arisen under the User Agreement.</span></span></span></p>
 <p align="justify">&nbsp;</p>
+</div>
 </body>
 </html>

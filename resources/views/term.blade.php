@@ -7,6 +7,8 @@
     <title>Document</title>
 </head>
 <body>
+<div style="padding:10px">
+<br/>
 <h3 style="text-align:center">Terms and Conditions</h3>
 
 <p style="text-align:justify">
