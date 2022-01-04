@@ -45,7 +45,7 @@ class CustomerAddressController extends Controller
             'mobile_no'=>'required',
             'email'=>'required',
             'house_no'=>'required',
-            'appertment_name'=>'required',
+            //'appertment_name'=>'required',
             //'street'=>'required',
             'area'=>'required',
             'city'=>'required',
