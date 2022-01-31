@@ -131,5 +131,12 @@ $api->group(['middleware' => ['customer-auth']], function ($api) {
 $api->post('success-url','Customer\Api\WalletController@surl');
 $api->post('fail-url','Customer\Api\WalletController@furl');
 $api->get('about','CommonController@about');
-$api->get('privacy','CommonController@privacy');
-$api->get('term','CommonController@term');
+$api->get('privacy','SuperAdmin\AppUrlController@privacypolicy');
+$api->get('term','SuperAdmin\AppUrlController@termscondition');
+
+
+// Route::get('privacy-policy', 'SuperAdmin\AppUrlController@privacypolicy')->name('policy');
+//     Route::get('terms-condition', 'SuperAdmin\AppUrlController@termscondition')->name('terms');
+//     Route::get('about-us', 'SuperAdmin\AppUrlController@aboutus')->name('about');
+//     Route::get('cancellation-policy', 'SuperAdmin\AppUrlController@cancelationpolicy')->name('cancelation');
+//     Route::get('refund-policy', 'SuperAdmin\AppUrlController@refundpolicy')->name('contact');
