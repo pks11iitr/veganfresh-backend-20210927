@@ -40,6 +40,7 @@ class CustomerAddressController extends Controller
     public function addcustomeraddress(Request $request){
 
         $request->validate([
+            
             'first_name'=>'required',
             'last_name'=>'required',
             'mobile_no'=>'required',
