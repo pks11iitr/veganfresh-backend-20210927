@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Customer;
 use App\Models\Membership;
 use App\Models\Notification;
+use App\Models\CustomerAddress;
 use App\Services\Notification\FCMNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -51,9 +52,10 @@ class CustomerController extends Controller
      }
 
     public function edit(Request $request,$id){
-             $customers = Customer::with('membership')->findOrFail($id);
+            // return $caddress=CustomerAddress::where('user_id',$id);
+            return $customers = Customer::with('membership')->findOrFail($id);
              $memberships=Membership::get();
-             return view('admin.customer.edit',['customers'=>$customers, 'memberships'=>$memberships]);
+                 return view('admin.customer.edit',['customers'=>$customers, 'memberships'=>$memberships, 'caddress'=>$caddress]);
              }
 
     public function update(Request $request,$id){

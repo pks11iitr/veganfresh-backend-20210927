@@ -40,6 +40,15 @@
                     <label for="exampleInputEmail1">Name</label>
                     <input type="text" name="name" class="form-control" id="exampleInputEmail1" placeholder="Enter Name" value="{{$customers->name}}">
                   </div>
+
+
+                  <!-- <div class="form-group">
+                    <label for="exampleInputEmail1">Email</label>
+                    <input type="text" name="email" class="form-control"  placeholder="Enter Email" value="{{$customers->email}}">
+                  </div> -->
+
+
+
                   <div class="form-group">
                     <label for="exampleInputEmail1">DOB</label>
                     <input type="text" name="dob" class="form-control" id="exampleInputEmail1" placeholder="Enter Description" value="{{$customers->dob}}">
@@ -109,6 +118,43 @@
       </div><!-- /.container-fluid -->
     </section>
     <!-- /.content -->
+
+
+
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <!-- left column -->
+          <div class="col-md-12">
+            <!-- general form elements -->
+            <div class="card card-primary">
+              <div class="card-header">
+                  <h3 class="card-title">Customer Address</h3>
+              </div>
+                  
+            </div>
+            <!-- /.card -->
+          </div>
+          <!--/.col (right) -->
+        </div>
+        <!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+
+
+
+
+
+
+
+
+
+
+
+
 
 </div>
 <!-- ./wrapper -->
