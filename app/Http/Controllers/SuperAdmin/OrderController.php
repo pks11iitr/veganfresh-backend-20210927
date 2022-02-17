@@ -150,22 +150,22 @@ class OrderController extends Controller
 
         switch($order->status){
             case 'dispatched':
-                $message='Your order at House Goods with  ID:'.$order->refid.' has been dispatched. You will receive your order shortly';
+                $message='Your order at Vegans Fresh with  ID:'.$order->refid.' has been dispatched. You will receive your order shortly';
                 $title='Order Dispatched';
                 break;
             case 'delivered':
-                $message='Your order at House Goods with  ID:'.$order->refid.' has been delivered.';
+                $message='Your order at Vegans Fresh with  ID:'.$order->refid.' has been delivered.';
                 $title='Order Delivered';
                 break;
             case 'cancelled':
-                $message='Your order at House Goods with  ID:'.$order->refid.' has been cancelled.';
+                $message='Your order at Vegans Fresh with  ID:'.$order->refid.' has been cancelled.';
                 $title='Order Cancelled';
                 break;
 
         }
 
         if($status=='reopen'){
-            $message='Your order at House Goods with  ID:'.$order->refid.' has been reopened.';
+            $message='Your order at Vegans Fresh with  ID:'.$order->refid.' has been reopened.';
             $title='Order Reopened';
         }
 
@@ -217,21 +217,21 @@ class OrderController extends Controller
 
         if($old_status!='dispatched' &&  $order->status=='dispatched' && !empty($order->rider_id)){
             $rider=Rider::find($order->rider_id);
-            Msg91::send($rider->mobile, 'New Order '.$order->refid.' received at House Goods. Scheduled Delivery is '.($order->delivery_date??'').' '.($order->timeslot->name??''), env('HALLO_NEW_ORDER_RIDER'));
+            Msg91::send($rider->mobile, 'New Order '.$order->refid.' received at Vegans Fresh. Scheduled Delivery is '.($order->delivery_date??'').' '.($order->timeslot->name??''), env('HALLO_NEW_ORDER_RIDER'));
         }
 
         //sms to store owners
         if($status=='completed'){
             if(!empty($order->storename->mobile)){
-                Msg91::send($order->storename->mobile, 'Order ID '.$order->refid.' at House Goods has been delivered successfully. Delivered time is: '.(date('d/m/Y h:ia', strtotime($order->delivered_at??''))), env('HALLO_STORE_ORDER_DELIVERED'));
+                Msg91::send($order->storename->mobile, 'Order ID '.$order->refid.' at Vegans Fresh has been delivered successfully. Delivered time is: '.(date('d/m/Y h:ia', strtotime($order->delivered_at??''))), env('HALLO_STORE_ORDER_DELIVERED'));
             }
         }
         else if($status=='cancelled'){
             if(!empty($order->storename->mobile)){
-                Msg91::send($order->storename->mobile, 'Order ID '.$order->refid.' at House Goods has been cancelled by customer. Please cancel the delivery if scheduled.', env('HALLO_CANCEL_ORDER_STORE'));
+                Msg91::send($order->storename->mobile, 'Order ID '.$order->refid.' at Vegans Fresh has been cancelled by customer. Please cancel the delivery if scheduled.', env('HALLO_CANCEL_ORDER_STORE'));
             }
         }else if($status=='delivered'){
-            $message='Your Order ID: '.$order->refid.' at House Goods has been delivered';
+            $message='Your Order ID: '.$order->refid.' at Vegans Fresh has been delivered';
             Msg91::send($order->customer->mobile, $message, env('HALLO_CUSTOMER_ORDER_DELIVERED'));
         }
 
@@ -261,7 +261,7 @@ class OrderController extends Controller
         $order->rider_id=$request->riderid;
         $order->save();
         if($old_rider!=$order->rider_id && $order->status=='dispatched')
-            Msg91::send($rider->mobile, 'New Order '.$order->refid.' received at House Goods. Scheduled Delivery is '.($order->delivery_date??'').' '.($order->timeslot->name??''), env('HALLO_NEW_ORDER_RIDER'));
+            Msg91::send($rider->mobile, 'New Order '.$order->refid.' received at Vegans Fresh. Scheduled Delivery is '.($order->delivery_date??'').' '.($order->timeslot->name??''), env('HALLO_NEW_ORDER_RIDER'));
 
         return redirect()->back()->with('success', 'Rider Has Been change');
     }

@@ -42,7 +42,7 @@ class OrderConfirmListner
         Order::setInvoiceNumber($order);
 
         $title='Order Confirmed';
-        $message='Congratulations! Your purchase of Rs. '.($order->total_cost-$order->coupon_discount+$order->delivery_charge+$order->extra_amount).' at House Goods is successfull. Order Reference ID: '.$order->refid;
+        $message='Congratulations! Your purchase of Rs. '.($order->total_cost-$order->coupon_discount+$order->delivery_charge+$order->extra_amount).' at Vegans Fresh is successfull. Order Reference ID: '.$order->refid;
 
 
         Notification::create([

@@ -9,7 +9,7 @@
     <meta name="keywords" content="KMS Vets">
     <meta name="author" content="KMS Vets">
 
-    <title>House Goods</title>
+    <title>Vegans Fresh</title>
     <link rel="icon" href="homepage/img/favicon.png">
     <!-- CSS Files -->
     <link rel="stylesheet" href="homepage/css/bootstrap.min.css">
@@ -34,7 +34,7 @@
                       <a href="tel:+91-9990300548"><i class="fa fa-phone"></i>+91-9990300548</a>
                     </span>
                     <span class="right">
-                      <a href="#"><i class="fa fa-envelope"></i>harpreet@House Goods.in</a>
+                      <a href="#"><i class="fa fa-envelope"></i></a>
                     </span>
                 </div>
             </div>
@@ -80,17 +80,17 @@
         <div class="row">
             <div class="col-xl-8 mx-auto mb-3 text-center">
                 <div class="section-title">
-                    <h4>Welcome to "House Goods"</h4>
+                    <h4>Welcome to "Vegans Fresh"</h4>
                 </div>
             </div>
         </div>
         <div class="row">
 
             <div class="col-md-12">
-                <p>House Goods App is focused on online grocery retail business through Application . It plans to connect household customers with our application for convenient shopping experience of grocery and daily household items. House Goods App is an Application available 24 X 7 to the internet friendly customers in both Android and IOS version. It is a virtual online market place facilitating easy buying of groceries. House Goods App aims to tap the growing Indian consumer goods market. House Goods App plans to start with its presence in Greater Noida ,Uttar Pradesh and then increase its regional base to Delhi NCR.<br><br>
+                <p>Vegans Fresh App is focused on online grocery retail business through Application . It plans to connect household customers with our application for convenient shopping experience of grocery and daily household items. Vegans Fresh App is an Application available 24 X 7 to the internet friendly customers in both Android and IOS version. It is a virtual online market place facilitating easy buying of groceries. Vegans Fresh App aims to tap the growing Indian consumer goods market. Vegans Fresh App plans to start with its presence in Greater Noida ,Uttar Pradesh and then increase its regional base to Delhi NCR.<br><br>
                     Ecommerce market continues to grow and the amount of online purchases shows no sign of decline.Despite the continued growth of the channel, online retailers face several challenges to growth: In our Area of Operation ,Online stores are broadly perceived as a second choice for shoppers, online retail is becoming increasingly seasonal, and online shoppers rarely admit to browsing due to unavailability of their needs at one stop destination and high delivery costs.
 
-                    House Goods App aims to be the nation's leading destination for online grocery shopping. Our mission is to provide House Goods App users with fast, convenient delivery without ever having to leave their home through both Android and IOS Version.</p></div>
+                    Vegans Fresh App aims to be the nation's leading destination for online grocery shopping. Our mission is to provide Vegans Fresh App users with fast, convenient delivery without ever having to leave their home through both Android and IOS Version.</p></div>
         </div>
     </div>
 </section>
@@ -194,7 +194,7 @@
 
                     <b>Note :- If you’ve received a non-returnable product in damaged/defective condition ,you can contact us within 2 days from the delivery of the product. After proper Inspection, return will be made. </b><br><br>
 
-                    <li>3. Products are returnable within the applicable return window if you have received them in a physically damaged condition , has missing parts or accessories ,defective or different from their description on the detail page on House Goods..</li>
+                    <li>3. Products are returnable within the applicable return window if you have received them in a physically damaged condition , has missing parts or accessories ,defective or different from their description on the detail page on Vegans Fresh.</li>
                     <li>4. Perishable products are eligible for return only within 2 hours of time of delivery. After that no returns will be entertained for perishable products.</li>
                     <li>5. Some of the products referred hereby are- Dairy Products and eggs, Fruits & Vegetables, Salad products etc.</li>
                     <li>6. Products may be eligible for return only once in some cases, including cases of order of incorrect model/brand, incorrect colour of product ordered, incorrect quantity or incorrect product ordered.</li>
@@ -205,11 +205,11 @@
                     <li>1. Refund, if any, shall be made at the same issuing bank through which the Product was purchased.</li>
                     <li>2. For payments made through electronic means like debit card, credit card, net banking, wallet etc. refund shall be made using the same payment mode.</li><br><br>
 
-                    <b>Note :-Refunds cannot be processed to third party accounts. This means that name on your House Goods Account should match with name of the bank account holder</b><br><br>
+                    <b>Note :-Refunds cannot be processed to third party accounts. This means that name on your Vegans Fresh Account should match with name of the bank account holder</b><br><br>
 
-                    <li>3. For Pay  on delivery transactions, the User has the option to receive the refund as House Goods Cash in the House Goods wallet or the refund can be credited in any bank account via NEFT (for which the User shall have to share the bank details).</li>
+                    <li>3. For Pay  on delivery transactions, the User has the option to receive the refund as Vegans Fresh Cash in the Vegans Fresh wallet or the refund can be credited in any bank account via NEFT (for which the User shall have to share the bank details).</li>
                     <li>4. All refunds shall be made in Indian Rupees only.</li>
-                    <li>5. For fulfilled by House Goods items ,return of delivery charges upto Rs.75 will be refunded. The cost of gift-wrapping will also be refunded, if any. All such refunds will be made to House Goods Wallet.</li>
+                    <li>5. For fulfilled by Vegans Fresh items ,return of delivery charges upto Rs.75 will be refunded. The cost of gift-wrapping will also be refunded, if any. All such refunds will be made to Vegans Fresh Wallet.</li>
                 </ul>
                 <!--<h4><u>REFUND TIMELINES</u></h4>
                 <table style="width:100%">
@@ -294,7 +294,7 @@
         <div class="row">
             <div class="col-12">
                 <div class="footer-text text-center">
-                    <p class="mb-3">Copyright @2020, House Goods. </p>
+                    <p class="mb-3">Copyright @2020, Vegans Fresh. </p>
                 </div>
             </div>
         </div>

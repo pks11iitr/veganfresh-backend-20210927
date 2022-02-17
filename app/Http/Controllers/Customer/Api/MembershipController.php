@@ -98,7 +98,7 @@ class MembershipController extends Controller
                     'total'=>($membership->price)*100,
                     'email'=>$user->email,
                     'mobile'=>$user->mobile,
-                    'description'=>'Membership Subscription at House Goods',
+                    'description'=>'Membership Subscription at Vegans Fresh',
                     //'name'=>$order->name,
                     'currency'=>'INR',
                     'merchantid'=>$this->pay->merchantkey,
@@ -150,7 +150,7 @@ class MembershipController extends Controller
 
 
             $title='Membership Subscription Confirmed';
-            $message='Congratulations! Your subscription at House Goods is successful';
+            $message='Congratulations! Your subscription at Vegans Fresh is successful';
 
             Notification::create([
                 'user_id'=>$subscription->user_id,

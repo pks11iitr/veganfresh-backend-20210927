@@ -140,7 +140,7 @@ class PaymentController extends Controller
 
                 return [
                     'status'=>'success',
-                    'message'=>'Congratulations! Your order at House Goods is successful',
+                    'message'=>'Congratulations! Your order at Vegans Fresh is successful',
                     'data'=>[
                         'payment_done'=>'yes',
                         'ref_id'=>$order->refid,
@@ -159,7 +159,7 @@ class PaymentController extends Controller
 
                 return [
                     'status'=>'success',
-                    'message'=>'Congratulations! Your order at House Goods is successful',
+                    'message'=>'Congratulations! Your order at Vegans Fresh is successful',
                     'data'=>[
                         'payment_done'=>'yes',
                         'ref_id'=>$order->refid,
@@ -591,7 +591,7 @@ class PaymentController extends Controller
             event(new OrderConfirmed($order));
             return [
                 'status'=>'success',
-                'message'=> 'Congratulations! Your order at House Goods is successful',
+                'message'=> 'Congratulations! Your order at Vegans Fresh is successful',
                 'data'=>[
                     'ref_id'=>$order->refid,
                     'order_id'=>$order->id,
