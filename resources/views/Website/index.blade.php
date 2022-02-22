@@ -48,7 +48,7 @@ img.emoji {
 <link rel="stylesheet" id="thegem-new-css-css" href="{{asset('website/css/thegem-new-css.css?ver=5.8.3')}}" type="text/css" media="all">
 <link rel="stylesheet" id="perevazka-css-css-css" href="{{asset('website/css/thegem-perevazka-css.css?ver=5.8.3')}}" type="text/css" media="all">
 <link rel="stylesheet" id="thegem-google-fonts-css" href="//fonts.googleapis.com/css?family=Montserrat%3A100%2C100italic%2C200%2C200italic%2C300%2C300italic%2C400%2C400italic%2C500%2C500italic%2C600%2C600italic%2C700%2C700italic%2C800%2C800italic%2C900%2C900italic%7CJost%3A100%2C200%2C300%2C400%2C500%2C600%2C700%2C800%2C900%2C100italic%2C200italic%2C300italic%2C400italic%2C500italic%2C600italic%2C700italic%2C800italic%2C900italic%7CSource+Sans+Pro%3A200%2C200italic%2C300%2C300italic%2C400%2C400italic%2C600%2C600italic%2C700%2C700italic%2C900%2C900italic&#038;subset=cyrillic%2Ccyrillic-ext%2Clatin%2Clatin-ext%2Cvietnamese%2Cgreek%2Cgreek-ext&#038;ver=5.8.3" type="text/css" media="all">
-<link rel="stylesheet" id="thegem-custom-css" href="{{asset('css/custom-y12KCOj4.css?ver=5.8.3')}}" type="text/css" media="all">
+<link rel="stylesheet" id="thegem-custom-css" href="{{asset('website/css/custom-y12KCOj4.css?ver=5.8.3')}}" type="text/css" media="all">
 <style id="thegem-custom-inline-css" type="text/css">.vc_custom_1605700148026{margin-bottom: 0px !important;background-position: center !important;background-repeat: no-repeat !important;background-size: cover !important;}.vc_custom_1605517138173{padding-top: 0px !important;}.vc_custom_1605701220622{margin-bottom: 0px !important;}.vc_custom_1605614794668{margin-bottom: 0px !important;}.vc_custom_1605704083290{padding-top: 0px !important;}.vc_custom_1605615385133{padding-top: 0px !important;}.vc_custom_1605518427047{padding-top: 0px !important;}.vc_custom_1605518430311{padding-top: 0px !important;}.vc_custom_1605518434095{padding-top: 0px !important;}.vc_row[data-vc-full-width] {
     overflow: visible;
 }
@@ -156,7 +156,7 @@ body .custom-background {
 }
 .main-bg.vc_row[data-vc-full-width] { overflow: visible;}
 .button-main .gem-button{ width: 214px;}</style>
-<style type="text/css" data-type="vc_shortcodes-custom-css">.vc_custom_1643461802737{margin-bottom: 0px !important;padding-top: 245px !important;background: #ffffff url(http://www.socialatglance.com/wp-content/uploads/2022/01/Home-Main1-1-1.jpg?id=39206) !important;background-position: 0 0 !important;background-repeat: no-repeat !important;}.vc_custom_1605697215706{margin-bottom: 0px !important;background-color: #ffffff !important;}.vc_custom_1613988058805{margin-bottom: 0px !important;background: #ffffff url(http://www.socialatglance.com/wp-content/uploads/2020/11/17.png?id=171) !important;background-position: 0 0 !important;background-repeat: no-repeat !important;}.vc_custom_1644049764338{margin-top: -10px !important;margin-bottom: 0px !important;background-color: #ffffff !important;}.vc_custom_1605859462966{margin-bottom: 0px !important;background-color: #ffffff !important;}.vc_custom_1644070481953{margin-bottom: 0px !important;background-image: url(img/beauty-bg1.jpg?id=26) !important;background-position: center !important;background-repeat: no-repeat !important;background-size: cover !important;}.vc_custom_1605526200310{padding-top: 0px !important;}.vc_custom_1612878351066{margin-bottom: 0px !important;}.vc_custom_1605599337996{margin-bottom: 0px !important;}.vc_custom_1612878355298{padding-top: 0px !important;}.vc_custom_1605602707148{padding-top: 0px !important;}.vc_custom_1605604266513{padding-top: 0px !important;}.vc_custom_1605250594281{padding-top: 0px !important;padding-right: 120px !important;}.vc_custom_1605604395645{padding-top: 0px !important;}.vc_custom_1605602973015{padding-top: 0px !important;}.vc_custom_1605612907095{padding-top: 0px !important;}.vc_custom_1605785286777{padding-top: 0px !important;}.vc_custom_1642668946451{margin-bottom: 0px !important;}.vc_custom_1613988121942{margin-bottom: 0px !important;}.vc_custom_1605606119273{padding-top: 0px !important;}.vc_custom_1605606109682{padding-top: 0px !important;}.vc_custom_1605261995808{padding-top: 0px !important;}.vc_custom_1605530522965{padding-top: 0px !important;}.vc_custom_1605265403541{padding-top: 0px !important;}.vc_custom_1605619014839{padding-top: 0px !important;}.vc_custom_1605607624746{padding-top: 0px !important;}.vc_custom_1644050517861{margin-bottom: 0px !important;background-color: #ffffff !important;}.vc_custom_1642758159792{margin-bottom: 0px !important;}.vc_custom_1605616923242{padding-top: 0px !important;}.vc_custom_1605615684720{padding-top: 0px !important;}.vc_custom_1605615688064{padding-top: 0px !important;}.vc_custom_1605615691352{padding-top: 0px !important;}.vc_custom_1605615695160{padding-top: 0px !important;}.vc_custom_1605616085437{padding-top: 0px !important;}.vc_custom_1605616075894{padding-top: 0px !important;}.vc_custom_1605616071293{padding-top: 0px !important;}.vc_custom_1605616065871{padding-top: 0px !important;}.vc_custom_1605858466731{padding-top: 0px !important;}.vc_custom_1642681208296{margin-top: -5px !important;}</style>
+<style type="text/css" data-type="vc_shortcodes-custom-css">.vc_custom_1643461802737{margin-bottom: 0px !important;padding-top: 245px !important;background: #ffffff url(http://www.socialatglance.com/wp-content/uploads/2022/01/Home-Main1-1-1.jpg?id=39206) !important;background-position: 0 0 !important;background-repeat: no-repeat !important;}.vc_custom_1605697215706{margin-bottom: 0px !important;background-color: #ffffff !important;}.vc_custom_1613988058805{margin-bottom: 0px !important;background: #ffffff url(http://www.socialatglance.com/wp-content/uploads/2020/11/17.png?id=171) !important;background-position: 0 0 !important;background-repeat: no-repeat !important;}.vc_custom_1644049764338{margin-top: -10px !important;margin-bottom: 0px !important;background-color: #ffffff !important;}.vc_custom_1605859462966{margin-bottom: 0px !important;background-color: #ffffff !important;}.vc_custom_1644070481953{margin-bottom: 0px !important;background-image: url({{asset('website/img/beauty-bg1.jpg')}}?id=26) !important;background-position: center !important;background-repeat: no-repeat !important;background-size: cover !important;}.vc_custom_1605526200310{padding-top: 0px !important;}.vc_custom_1612878351066{margin-bottom: 0px !important;}.vc_custom_1605599337996{margin-bottom: 0px !important;}.vc_custom_1612878355298{padding-top: 0px !important;}.vc_custom_1605602707148{padding-top: 0px !important;}.vc_custom_1605604266513{padding-top: 0px !important;}.vc_custom_1605250594281{padding-top: 0px !important;padding-right: 120px !important;}.vc_custom_1605604395645{padding-top: 0px !important;}.vc_custom_1605602973015{padding-top: 0px !important;}.vc_custom_1605612907095{padding-top: 0px !important;}.vc_custom_1605785286777{padding-top: 0px !important;}.vc_custom_1642668946451{margin-bottom: 0px !important;}.vc_custom_1613988121942{margin-bottom: 0px !important;}.vc_custom_1605606119273{padding-top: 0px !important;}.vc_custom_1605606109682{padding-top: 0px !important;}.vc_custom_1605261995808{padding-top: 0px !important;}.vc_custom_1605530522965{padding-top: 0px !important;}.vc_custom_1605265403541{padding-top: 0px !important;}.vc_custom_1605619014839{padding-top: 0px !important;}.vc_custom_1605607624746{padding-top: 0px !important;}.vc_custom_1644050517861{margin-bottom: 0px !important;background-color: #ffffff !important;}.vc_custom_1642758159792{margin-bottom: 0px !important;}.vc_custom_1605616923242{padding-top: 0px !important;}.vc_custom_1605615684720{padding-top: 0px !important;}.vc_custom_1605615688064{padding-top: 0px !important;}.vc_custom_1605615691352{padding-top: 0px !important;}.vc_custom_1605615695160{padding-top: 0px !important;}.vc_custom_1605616085437{padding-top: 0px !important;}.vc_custom_1605616075894{padding-top: 0px !important;}.vc_custom_1605616071293{padding-top: 0px !important;}.vc_custom_1605616065871{padding-top: 0px !important;}.vc_custom_1605858466731{padding-top: 0px !important;}.vc_custom_1642681208296{margin-top: -5px !important;}</style>
 <noscript><style>.wpb_animate_when_almost_visible { opacity: 1; }</style></noscript>
 		
 </head>
@@ -371,19 +371,19 @@ body .custom-background {
 											<div class="site-logo" style="width:290px;">
 			<a href="/" rel="home">
 									<span class="logo">
-										<img src="{{asset('website/img/logo_9f049dac806250a5f34e70bca9da999f_1x.png')}}" srcset="{{asset('website/img/img/logo_9f049dac806250a5f34e70bca9da999f_1x.png 1x,img/logo_9f049dac806250a5f34e70bca9da999f_2x.png 2x,img/logo_9f049dac806250a5f34e70bca9da999f_3x.png 3x')}}" alt="Vegans Fresh" style="width:290px;" class="tgp-exclude default">
-										<img src="{{asset('website/img/logo_9f049dac806250a5f34e70bca9da999f_1x.png')}}" srcset="{{asset('website/img/img/logo_58fb48350c9ebc4efd081fad4cfad75d_1x.png 1x,img/logo_58fb48350c9ebc4efd081fad4cfad75d_2x.png 2x,img/logo_58fb48350c9ebc4efd081fad4cfad75d_3x.png 3x')}}" alt="Vegans Fresh" style="width:132px;" class="tgp-exclude small light">
-										<img src="{{asset('website/img/logo_9f049dac806250a5f34e70bca9da999f_1x.png')}}" srcset="{{asset('website/img/img/logo_58fb48350c9ebc4efd081fad4cfad75d_1x.png 1x,img/logo_58fb48350c9ebc4efd081fad4cfad75d_2x.png 2x,img/logo_58fb48350c9ebc4efd081fad4cfad75d_3x.png 3x')}}" alt="Vegans Fresh" style="width:132px;" class="tgp-exclude small">
+		<img src="{{asset('website/img/logo_9f049dac806250a5f34e70bca9da999f_1x.png')}}" alt="Vegans Fresh" style="width:290px;" class="tgp-exclude default">
+		<img src="{{asset('website/img/logo_9f049dac806250a5f34e70bca9da999f_1x.png')}}"  alt="Vegans Fresh" style="width:132px;" class="tgp-exclude small light">
+		<img src="{{asset('website/img/logo_9f049dac806250a5f34e70bca9da999f_1x.png')}}"  alt="Vegans Fresh" style="width:132px;" class="tgp-exclude small">
 									</span>
 							</a>
 		</div>
 										</div>
 																											<nav id="primary-navigation" class="site-navigation primary-navigation" role="navigation">
 											<button class="menu-toggle dl-trigger">Primary Menu<span class="menu-line-1"></span><span class="menu-line-2"></span><span class="menu-line-3"></span></button><div class="overlay-menu-wrapper"><div class="overlay-menu-table"><div class="overlay-menu-row"><div class="overlay-menu-cell">																							<ul id="primary-menu" class="nav-menu styled no-responsive">
-<li id="menu-item-39168" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home current-menu-item page_item page-item-39009 current_page_item menu-item-39168 megamenu-first-element menu-item-active"><a href="index.html">Home</a></li>
-<li id="menu-item-39165" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-39165 megamenu-first-element"><a href="about/index.html">About</a></li>
-<li id="menu-item-39166" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-39166 megamenu-first-element"><a href="about-app/index.html">About App</a></li>
-<li id="menu-item-39167" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-39167 megamenu-first-element"><a href="contact-us/index.html">Contact Us</a></li>
+<li id="menu-item-39168" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home current-menu-item page_item page-item-39009 current_page_item menu-item-39168 megamenu-first-element menu-item-active"><a href="{{url('/')}}">Home</a></li>
+<li id="menu-item-39165" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-39165 megamenu-first-element"><a href="{{url('/')}}">About</a></li>
+<li id="menu-item-39166" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-39166 megamenu-first-element"><a href="{{url('/')}}">About App</a></li>
+<li id="menu-item-39167" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-39167 megamenu-first-element"><a href="{{url('/')}}">Contact Us</a></li>
 </ul>																						</div></div></div></div>										</nav>
 																														</div>
 					</div>
@@ -417,7 +417,8 @@ body .custom-background {
 	<div class="wpb_single_image wpb_content_element vc_align_left  wpb_animate_when_almost_visible wpb_fadeIn fadeIn">
 		
 		<figure class="wpb_wrapper vc_figure">
-			<div class="vc_single_image-wrapper   vc_box_border_grey"><img width="200" height="169" src="img/Home-Page-Element-1.png" class="vc_single_image-img attachment-full" alt=""></div>
+			<div class="vc_single_image-wrapper   vc_box_border_grey">
+			<img width="200" height="169" src="{{asset('website/img/Home-Page-Element-1.png')}}" class="vc_single_image-img attachment-full" alt=""></div>
 		</figure>
 	</div>
 	</div></div>
@@ -426,7 +427,7 @@ body .custom-background {
 	<div class="wpb_single_image wpb_content_element vc_align_right  wpb_animate_when_almost_visible wpb_fadeIn fadeIn" style="-webkit-animation-delay: 200ms;-moz-animation-delay: 200ms;-o-animation-delay: 200ms;animation-delay: 200ms;">
 		
 		<figure class="wpb_wrapper vc_figure">
-			<div class="vc_single_image-wrapper   vc_box_border_grey"><img width="185" height="173" src="img/Vegans-Fresh-copy.png" class="vc_single_image-img attachment-full" alt=""></div>
+			<div class="vc_single_image-wrapper   vc_box_border_grey"><img width="185" height="173" src="{{asset('website/img/Vegans-Fresh-copy.png')}}" class="vc_single_image-img attachment-full" alt=""></div>
 		</figure>
 	</div>
 	</div></div>
@@ -435,7 +436,7 @@ body .custom-background {
 	<div class="wpb_single_image wpb_content_element vc_align_right  wpb_animate_when_almost_visible wpb_fadeIn fadeIn" style="-webkit-animation-delay: 400ms;-moz-animation-delay: 400ms;-o-animation-delay: 400ms;animation-delay: 400ms;">
 		
 		<figure class="wpb_wrapper vc_figure">
-			<div class="vc_single_image-wrapper   vc_box_border_grey"><img width="725" height="898" src="img/Vegans-Fresh-New-Image.png" class="vc_single_image-img attachment-full" alt="" srcset="img/Vegans-Fresh-New-Image.png 725w, img/Vegans-Fresh-New-Image-242x300.png 242w, img/Vegans-Fresh-New-Image-600x743.png 600w" sizes="(max-width: 725px) 100vw, 725px"></div>
+			<div class="vc_single_image-wrapper   vc_box_border_grey"><img width="725" height="898" src="{{asset('website/img/Vegans-Fresh-New-Image.png')}}" class="vc_single_image-img attachment-full" alt="" ></div>
 		</figure>
 	</div>
 	</div></div>
@@ -444,7 +445,7 @@ body .custom-background {
 	<div class="wpb_single_image wpb_content_element vc_align_right  wpb_animate_when_almost_visible wpb_fadeIn fadeIn" style="-webkit-animation-delay: 600ms;-moz-animation-delay: 600ms;-o-animation-delay: 600ms;animation-delay: 600ms;">
 		
 		<figure class="wpb_wrapper vc_figure">
-			<div class="vc_single_image-wrapper   vc_box_border_grey"><img width="153" height="174" src="img/Home-Page-Element-4.png" class="vc_single_image-img attachment-full" alt=""></div>
+			<div class="vc_single_image-wrapper   vc_box_border_grey"><img width="153" height="174" src="{{asset('website/img/Home-Page-Element-4.png')}}" class="vc_single_image-img attachment-full" alt=""></div>
 		</figure>
 	</div>
 	</div></div>
@@ -476,7 +477,8 @@ body .custom-background {
 	<div class="wpb_single_image wpb_content_element vc_align_left">
 		
 		<figure class="wpb_wrapper vc_figure">
-			<a href="https://apps.apple.com/kz/app/vegans-fresh/id1596436378" target="_blank" class="vc_single_image-wrapper   vc_box_border_grey"><img width="300" height="111" src="img/App-Store-300x111.png" class="vc_single_image-img attachment-medium" alt="" srcset="img/App-Store-300x111.png 300w, img/App-Store-1024x380.png 1024w, img/App-Store-768x285.png 768w, img/App-Store-600x223.png 600w, img/App-Store.png 1116w" sizes="(max-width: 300px) 100vw, 300px"></a>
+			<a href="https://apps.apple.com/kz/app/vegans-fresh/id1596436378" target="_blank" class="vc_single_image-wrapper   vc_box_border_grey">
+			<img width="300" height="111" src="{{asset('website/img/App-Store-300x111.png')}}" class="vc_single_image-img attachment-medium" alt="" ></a>
 		</figure>
 	</div>
 	
@@ -485,7 +487,7 @@ body .custom-background {
 	<div class="wpb_single_image wpb_content_element vc_align_left">
 		
 		<figure class="wpb_wrapper vc_figure">
-			<a href="https://play.google.com/store/apps/details?id=com.vegansFresh.vegansFresh" target="_blank" class="vc_single_image-wrapper   vc_box_border_grey"><img width="300" height="105" src="img/Android-300x105.png" class="vc_single_image-img attachment-medium" alt="" srcset="img/Android-300x105.png 300w, img/Android-1024x357.png 1024w, img/Android-768x268.png 768w, img/Android-600x209.png 600w, img/Android.png 1200w" sizes="(max-width: 300px) 100vw, 300px"></a>
+			<a href="https://play.google.com/store/apps/details?id=com.vegansFresh.vegansFresh" target="_blank" class="vc_single_image-wrapper   vc_box_border_grey"><img width="300" height="105" src="{{asset('website/img/Android-300x105.png')}}" class="vc_single_image-img attachment-medium" alt=""></a>
 		</figure>
 	</div>
 	
@@ -498,7 +500,7 @@ body .custom-background {
 	<div class="wpb_single_image wpb_content_element vc_align_left">
 		
 		<figure class="wpb_wrapper vc_figure">
-			<div class="vc_single_image-wrapper   vc_box_border_grey"><img width="619" height="715" src="img/home-about.jpg" class="vc_single_image-img attachment-full" alt="" srcset="img/home-about.jpg 619w, img/home-about-260x300.jpg 260w, img/home-about-600x693.jpg 600w" sizes="(max-width: 619px) 100vw, 619px"></div>
+			<div class="vc_single_image-wrapper   vc_box_border_grey"><img width="619" height="715" src="{{asset('website/img/home-about.jpg')}}" class="vc_single_image-img attachment-full" alt=""  ></div>
 		</figure>
 	</div>
 	</div></div>
@@ -538,7 +540,7 @@ body .custom-background {
 	<div class="wpb_single_image wpb_content_element vc_align_left">
 		
 		<figure class="wpb_wrapper vc_figure">
-			<div class="vc_single_image-wrapper   vc_box_border_grey"><img width="558" height="365" src="img/Home-About-Element-3.png" class="vc_single_image-img attachment-full" alt="" srcset="img/Home-About-Element-3.png 558w, img/Home-About-Element-3-300x196.png 300w" sizes="(max-width: 558px) 100vw, 558px"></div>
+			<div class="vc_single_image-wrapper   vc_box_border_grey"><img width="558" height="365" src="{{asset('website/img/Home-About-Element-3.png')}}" class="vc_single_image-img attachment-full" alt="" ></div>
 		</figure>
 	</div>
 	</div></div>
@@ -547,7 +549,7 @@ body .custom-background {
 	<div class="wpb_single_image wpb_content_element vc_align_left">
 		
 		<figure class="wpb_wrapper vc_figure">
-			<div class="vc_single_image-wrapper   vc_box_border_grey"><img width="198" height="149" src="img/Home-About-Element-4.png" class="vc_single_image-img attachment-full" alt=""></div>
+			<div class="vc_single_image-wrapper   vc_box_border_grey"><img width="198" height="149" src="{{asset('website/img/Home-About-Element-4.png')}}" class="vc_single_image-img attachment-full" alt=""></div>
 		</figure>
 	</div>
 	</div></div>
@@ -575,13 +577,13 @@ body .custom-background {
 <div class="clearboth"></div>
 <div class="gem-divider " style="margin-top: 110px;"></div>
 <div id="fullwidth-block-6200e8dd6deec" class="fullwidth-block clearfix">
-<script type="text/javascript">if (typeof(gem_fix_fullwidth_position) == "function") { gem_fix_fullwidth_position(document.getElementById("fullwidth-block-6200e8dd6deec")); }</script><div class="fullwidth-block-background" style="background-image: url(img/13.png);background-repeat: no-repeat; background-size: cover;background-position: center top;"></div>
+<script type="text/javascript">if (typeof(gem_fix_fullwidth_position) == "function") { gem_fix_fullwidth_position(document.getElementById("fullwidth-block-6200e8dd6deec")); }</script><div class="fullwidth-block-background" style="background-image: url({{asset('website/img/13.png')}});background-repeat: no-repeat; background-size: cover;background-position: center top;"></div>
 <div class="fullwidth-block-inner"><div class="container">
 	
 	<div class="wpb_single_image wpb_content_element vc_align_right   pink-rectangle-right-bg">
 		
 		<figure class="wpb_wrapper vc_figure">
-			<div class="vc_single_image-wrapper   vc_box_border_grey"><img width="510" height="641" src="img/11.png" class="vc_single_image-img attachment-full" alt="" srcset="img/11.png 510w, img/11-239x300.png 239w" sizes="(max-width: 510px) 100vw, 510px"></div>
+			<div class="vc_single_image-wrapper   vc_box_border_grey"><img width="510" height="641" src="{{asset('website/img/11.png')}}" class="vc_single_image-img attachment-full" alt="" ></div>
 		</figure>
 	</div>
 	
@@ -589,7 +591,7 @@ body .custom-background {
 <div class="gem-divider " style="margin-top: -90px;"></div>
 <div class="vc_row wpb_row vc_inner vc_row-fluid custom-inner-column-6200e8dd6eb16">
 <div class="wpb_column vc_column_container vc_col-sm-3"><div class="vc_column-inner thegem-custom-inner-6200e8dd6ee05 "><div class="wpb_wrapper"><div class="lazy-loading" data-ll-item-delay="0"><div class="gem-textbox  lazy-loading-item" data-ll-effect="move-up"><div class="gem-textbox-inner" style="border-top-left-radius: 20px;border-top-right-radius: 20px;border-bottom-right-radius: 20px;border-bottom-left-radius: 20px;"><div class="gem-textbox-content" style="background-color: #ffffff;background-position: center top;padding-top: 20px;padding-bottom: 20px;padding-left: 20px;padding-right: 20px;">
-<div class="centered-box gem-image-centered-box"><div class="gem-image gem-wrapbox gem-wrapbox-style-default gem-wrapbox-position-centered lazy-loading"><div class="gem-wrapbox-inner  lazy-loading-item" data-ll-effect="move-up"><img class="gem-wrapbox-element img-responsive" src="img/Fresh-Fruits.png" alt=""></div></div></div>
+<div class="centered-box gem-image-centered-box"><div class="gem-image gem-wrapbox gem-wrapbox-style-default gem-wrapbox-position-centered lazy-loading"><div class="gem-wrapbox-inner  lazy-loading-item" data-ll-effect="move-up"><img class="gem-wrapbox-element img-responsive" src="{{asset('website/img/Fresh-Fruits.png')}}" alt=""></div></div></div>
 	
 		<div class="wpb_text_column wpb_content_element ">
 			<div class="wpb_wrapper">
@@ -600,7 +602,7 @@ body .custom-background {
 	
 </div></div></div></div></div></div></div>
 <div class="wpb_column vc_column_container vc_col-sm-3"><div class="vc_column-inner thegem-custom-inner-6200e8dd6fc30 "><div class="wpb_wrapper"><div class="lazy-loading" data-ll-item-delay="0"><div class="gem-textbox  lazy-loading-item" data-ll-effect="move-up"><div class="gem-textbox-inner" style="border-top-left-radius: 20px;border-top-right-radius: 20px;border-bottom-right-radius: 20px;border-bottom-left-radius: 20px;"><div class="gem-textbox-content" style="background-color: #ffffff;background-position: center top;padding-top: 20px;padding-bottom: 20px;padding-left: 20px;padding-right: 20px;">
-<div class="centered-box gem-image-centered-box"><div class="gem-image gem-wrapbox gem-wrapbox-style-default gem-wrapbox-position-centered lazy-loading"><div class="gem-wrapbox-inner  lazy-loading-item" data-ll-effect="move-up"><img class="gem-wrapbox-element img-responsive" src="img/Fresh-Vegetable.png" alt=""></div></div></div>
+<div class="centered-box gem-image-centered-box"><div class="gem-image gem-wrapbox gem-wrapbox-style-default gem-wrapbox-position-centered lazy-loading"><div class="gem-wrapbox-inner  lazy-loading-item" data-ll-effect="move-up"><img class="gem-wrapbox-element img-responsive" src="{{asset('website/img/Fresh-Vegetable.png')}}" alt=""></div></div></div>
 	
 		<div class="wpb_text_column wpb_content_element ">
 			<div class="wpb_wrapper">
@@ -611,7 +613,7 @@ body .custom-background {
 	
 </div></div></div></div></div></div></div>
 <div class="wpb_column vc_column_container vc_col-sm-3"><div class="vc_column-inner thegem-custom-inner-6200e8dd70b14 "><div class="wpb_wrapper"><div class="lazy-loading" data-ll-item-delay="0"><div class="gem-textbox  lazy-loading-item" data-ll-effect="move-up"><div class="gem-textbox-inner" style="border-top-left-radius: 20px;border-top-right-radius: 20px;border-bottom-right-radius: 20px;border-bottom-left-radius: 20px;"><div class="gem-textbox-content" style="background-color: #ffffff;background-position: center top;padding-top: 20px;padding-bottom: 20px;padding-left: 20px;padding-right: 20px;">
-<div class="centered-box gem-image-centered-box"><div class="gem-image gem-wrapbox gem-wrapbox-style-default gem-wrapbox-position-centered lazy-loading"><div class="gem-wrapbox-inner  lazy-loading-item" data-ll-effect="move-up"><img class="gem-wrapbox-element img-responsive" src="img/Pulses-and-Grains.png" alt=""></div></div></div>
+<div class="centered-box gem-image-centered-box"><div class="gem-image gem-wrapbox gem-wrapbox-style-default gem-wrapbox-position-centered lazy-loading"><div class="gem-wrapbox-inner  lazy-loading-item" data-ll-effect="move-up"><img class="gem-wrapbox-element img-responsive" src="{{asset('website/img/Pulses-and-Grains.png')}}" alt=""></div></div></div>
 	
 		<div class="wpb_text_column wpb_content_element ">
 			<div class="wpb_wrapper">
@@ -622,7 +624,7 @@ body .custom-background {
 	
 </div></div></div></div></div></div></div>
 <div class="wpb_column vc_column_container vc_col-sm-3"><div class="vc_column-inner thegem-custom-inner-6200e8dd714e6 "><div class="wpb_wrapper"><div class="lazy-loading" data-ll-item-delay="0"><div class="gem-textbox  lazy-loading-item" data-ll-effect="move-up"><div class="gem-textbox-inner" style="border-top-left-radius: 20px;border-top-right-radius: 20px;border-bottom-right-radius: 20px;border-bottom-left-radius: 20px;"><div class="gem-textbox-content" style="background-color: #ffffff;background-position: center top;padding-top: 20px;padding-bottom: 20px;padding-left: 20px;padding-right: 20px;">
-<div class="centered-box gem-image-centered-box"><div class="gem-image gem-wrapbox gem-wrapbox-style-default gem-wrapbox-position-centered lazy-loading"><div class="gem-wrapbox-inner  lazy-loading-item" data-ll-effect="move-up"><img class="gem-wrapbox-element img-responsive" src="img/Spices.png" alt=""></div></div></div>
+<div class="centered-box gem-image-centered-box"><div class="gem-image gem-wrapbox gem-wrapbox-style-default gem-wrapbox-position-centered lazy-loading"><div class="gem-wrapbox-inner  lazy-loading-item" data-ll-effect="move-up"><img class="gem-wrapbox-element img-responsive" src="{{asset('website/img/Spices.png')}}" alt=""></div></div></div>
 	
 		<div class="wpb_text_column wpb_content_element ">
 			<div class="wpb_wrapper">
@@ -635,7 +637,7 @@ body .custom-background {
 </div>
 <div class="vc_row wpb_row vc_inner vc_row-fluid custom-inner-column-6200e8dd72002">
 <div class="wpb_column vc_column_container vc_col-sm-3"><div class="vc_column-inner thegem-custom-inner-6200e8dd72236 "><div class="wpb_wrapper"><div class="lazy-loading" data-ll-item-delay="0"><div class="gem-textbox  lazy-loading-item" data-ll-effect="move-up"><div class="gem-textbox-inner" style="border-top-left-radius: 20px;border-top-right-radius: 20px;border-bottom-right-radius: 20px;border-bottom-left-radius: 20px;"><div class="gem-textbox-content" style="background-color: #ffffff;background-position: center top;padding-top: 20px;padding-bottom: 20px;padding-left: 20px;padding-right: 20px;">
-<div class="centered-box gem-image-centered-box"><div class="gem-image gem-wrapbox gem-wrapbox-style-default gem-wrapbox-position-centered lazy-loading"><div class="gem-wrapbox-inner  lazy-loading-item" data-ll-effect="move-up"><img class="gem-wrapbox-element img-responsive" src="img/Flour-and-Rice.png" alt=""></div></div></div>
+<div class="centered-box gem-image-centered-box"><div class="gem-image gem-wrapbox gem-wrapbox-style-default gem-wrapbox-position-centered lazy-loading"><div class="gem-wrapbox-inner  lazy-loading-item" data-ll-effect="move-up"><img class="gem-wrapbox-element img-responsive" src="{{asset('website/img/Flour-and-Rice.png')}}" alt=""></div></div></div>
 	
 		<div class="wpb_text_column wpb_content_element ">
 			<div class="wpb_wrapper">
@@ -646,7 +648,7 @@ body .custom-background {
 	
 </div></div></div></div></div></div></div>
 <div class="wpb_column vc_column_container vc_col-sm-3"><div class="vc_column-inner thegem-custom-inner-6200e8dd72d4e "><div class="wpb_wrapper"><div class="lazy-loading" data-ll-item-delay="0"><div class="gem-textbox  lazy-loading-item" data-ll-effect="move-up"><div class="gem-textbox-inner" style="border-top-left-radius: 20px;border-top-right-radius: 20px;border-bottom-right-radius: 20px;border-bottom-left-radius: 20px;"><div class="gem-textbox-content" style="background-color: #ffffff;background-position: center top;padding-top: 20px;padding-bottom: 20px;padding-left: 20px;padding-right: 20px;">
-<div class="centered-box gem-image-centered-box"><div class="gem-image gem-wrapbox gem-wrapbox-style-default gem-wrapbox-position-centered lazy-loading"><div class="gem-wrapbox-inner  lazy-loading-item" data-ll-effect="move-up"><img class="gem-wrapbox-element img-responsive" src="img/Dry-Fruits.png" alt=""></div></div></div>
+<div class="centered-box gem-image-centered-box"><div class="gem-image gem-wrapbox gem-wrapbox-style-default gem-wrapbox-position-centered lazy-loading"><div class="gem-wrapbox-inner  lazy-loading-item" data-ll-effect="move-up"><img class="gem-wrapbox-element img-responsive" src="{{asset('website/img/Dry-Fruits.png')}}" alt=""></div></div></div>
 	
 		<div class="wpb_text_column wpb_content_element ">
 			<div class="wpb_wrapper">
@@ -657,7 +659,7 @@ body .custom-background {
 	
 </div></div></div></div></div></div></div>
 <div class="wpb_column vc_column_container vc_col-sm-3"><div class="vc_column-inner thegem-custom-inner-6200e8dd73930 "><div class="wpb_wrapper"><div class="lazy-loading" data-ll-item-delay="0"><div class="gem-textbox  lazy-loading-item" data-ll-effect="move-up"><div class="gem-textbox-inner" style="border-top-left-radius: 20px;border-top-right-radius: 20px;border-bottom-right-radius: 20px;border-bottom-left-radius: 20px;"><div class="gem-textbox-content" style="background-color: #ffffff;background-position: center top;padding-top: 20px;padding-bottom: 20px;padding-left: 20px;padding-right: 20px;">
-<div class="centered-box gem-image-centered-box"><div class="gem-image gem-wrapbox gem-wrapbox-style-default gem-wrapbox-position-centered lazy-loading"><div class="gem-wrapbox-inner  lazy-loading-item" data-ll-effect="move-up"><img class="gem-wrapbox-element img-responsive" src="img/Seeds.png" alt=""></div></div></div>
+<div class="centered-box gem-image-centered-box"><div class="gem-image gem-wrapbox gem-wrapbox-style-default gem-wrapbox-position-centered lazy-loading"><div class="gem-wrapbox-inner  lazy-loading-item" data-ll-effect="move-up"><img class="gem-wrapbox-element img-responsive" src="{{asset('website/img/Seeds.png')}}" alt=""></div></div></div>
 	
 		<div class="wpb_text_column wpb_content_element ">
 			<div class="wpb_wrapper">
@@ -668,7 +670,7 @@ body .custom-background {
 	
 </div></div></div></div></div></div></div>
 <div class="wpb_column vc_column_container vc_col-sm-3"><div class="vc_column-inner thegem-custom-inner-6200e8dd74b0f "><div class="wpb_wrapper"><div class="lazy-loading" data-ll-item-delay="0"><div class="gem-textbox  lazy-loading-item" data-ll-effect="move-up"><div class="gem-textbox-inner" style="border-top-left-radius: 20px;border-top-right-radius: 20px;border-bottom-right-radius: 20px;border-bottom-left-radius: 20px;"><div class="gem-textbox-content" style="background-color: #ffffff;background-position: center top;padding-top: 20px;padding-bottom: 20px;padding-left: 20px;padding-right: 20px;">
-<div class="centered-box gem-image-centered-box"><div class="gem-image gem-wrapbox gem-wrapbox-style-default gem-wrapbox-position-centered lazy-loading"><div class="gem-wrapbox-inner  lazy-loading-item" data-ll-effect="move-up"><img class="gem-wrapbox-element img-responsive" src="img/English-Groceries.png" alt=""></div></div></div>
+<div class="centered-box gem-image-centered-box"><div class="gem-image gem-wrapbox gem-wrapbox-style-default gem-wrapbox-position-centered lazy-loading"><div class="gem-wrapbox-inner  lazy-loading-item" data-ll-effect="move-up"><img class="gem-wrapbox-element img-responsive" src="{{asset('website/img/English-Groceries.png')}}" alt=""></div></div></div>
 	
 		<div class="wpb_text_column wpb_content_element ">
 			<div class="wpb_wrapper">
@@ -755,7 +757,7 @@ body .custom-background {
 	<div class="wpb_single_image wpb_content_element vc_align_center">
 		
 		<figure class="wpb_wrapper vc_figure">
-			<div class="vc_single_image-wrapper   vc_box_border_grey"><img width="608" height="648" src="img/Vegans-Fresh-Features.png" class="vc_single_image-img attachment-full" alt="" srcset="img/Vegans-Fresh-Features.png 608w, img/Vegans-Fresh-Features-281x300.png 281w, img/Vegans-Fresh-Features-600x639.png 600w" sizes="(max-width: 608px) 100vw, 608px"></div>
+			<div class="vc_single_image-wrapper   vc_box_border_grey"><img width="608" height="648" src="{{asset('website/img/Vegans-Fresh-Features.png')}}" class="vc_single_image-img attachment-full" alt="" ></div>
 		</figure>
 	</div>
 	</div></div>
@@ -770,7 +772,7 @@ body .custom-background {
 	<div class="wpb_single_image wpb_content_element vc_align_left">
 		
 		<figure class="wpb_wrapper vc_figure">
-			<div class="vc_single_image-wrapper   vc_box_border_grey"><img width="510" height="641" src="img/11.png" class="vc_single_image-img attachment-full" alt="" srcset="img/11.png 510w, img/11-239x300.png 239w" sizes="(max-width: 510px) 100vw, 510px"></div>
+			<div class="vc_single_image-wrapper   vc_box_border_grey"><img width="510" height="641" src="{{asset('website/img/11.png')}}" class="vc_single_image-img attachment-full" alt="" ></div>
 		</figure>
 	</div>
 	</div></div>
@@ -885,7 +887,8 @@ Search and Discover</span></div>
 	<div class="wpb_single_image wpb_content_element vc_align_center  wpb_animate_when_almost_visible wpb_fadeInUp fadeInUp" style="-webkit-animation-delay: 100ms;-moz-animation-delay: 100ms;-o-animation-delay: 100ms;animation-delay: 100ms;">
 		
 		<figure class="wpb_wrapper vc_figure">
-			<div class="vc_single_image-wrapper   vc_box_border_grey"><img width="250" height="516" src="img/test.png 250w, class="vc_single_image-img attachment-full" alt="" srcset="img/test.png 250w, img/test.png 145w" sizes="(max-width: 250px) 100vw, 250px"></div>
+			<div class="vc_single_image-wrapper   vc_box_border_grey"><img width="250" height="516" 
+			src="{{asset('website/img/test.png')}}" class="vc_single_image-img attachment-full" alt="" ></div>
 		</figure>
 	</div>
 	</div></div>
@@ -894,7 +897,7 @@ Search and Discover</span></div>
 	<div class="wpb_single_image wpb_content_element vc_align_left  wpb_animate_when_almost_visible wpb_fadeInUp fadeInUp" style="-webkit-animation-delay: 200ms;-moz-animation-delay: 200ms;-o-animation-delay: 200ms;animation-delay: 200ms;">
 		
 		<figure class="wpb_wrapper vc_figure">
-			<div class="vc_single_image-wrapper   vc_box_border_grey"><img width="469" height="274" src="img/App-Feature-Element-1.png" class="vc_single_image-img attachment-full" alt="" srcset="img/App-Feature-Element-1.png 469w, img/App-Feature-Element-1-300x175.png 300w" sizes="(max-width: 469px) 100vw, 469px"></div>
+			<div class="vc_single_image-wrapper   vc_box_border_grey"><img width="469" height="274" src="{{asset('website/img/App-Feature-Element-1.png')}}" class="vc_single_image-img attachment-full" alt="" sizes="(max-width: 469px) 100vw, 469px"></div>
 		</figure>
 	</div>
 	</div></div>
@@ -984,7 +987,7 @@ Search and Discover</span></div>
 	<div class="wpb_single_image wpb_content_element vc_align_center">
 		
 		<figure class="wpb_wrapper vc_figure">
-			<a href="https://apps.apple.com/kz/app/vegans-fresh/id1596436378" target="_blank" class="vc_single_image-wrapper   vc_box_border_grey"><img width="300" height="111" src="img/App-Store-300x111.png" class="vc_single_image-img attachment-medium" alt="" srcset="img/App-Store-300x111.png 300w, img/App-Store-1024x380.png 1024w, img/App-Store-768x285.png 768w, img/App-Store-600x223.png 600w, img/App-Store.png 1116w" sizes="(max-width: 300px) 100vw, 300px"></a>
+			<a href="https://apps.apple.com/kz/app/vegans-fresh/id1596436378" target="_blank" class="vc_single_image-wrapper   vc_box_border_grey"><img width="300" height="111" src="{{asset('website/img/App-Store-300x111.png')}}" class="vc_single_image-img attachment-medium" alt=""  sizes="(max-width: 300px) 100vw, 300px"></a>
 		</figure>
 	</div>
 	
@@ -994,7 +997,7 @@ Search and Discover</span></div>
 	<div class="wpb_single_image wpb_content_element vc_align_center">
 		
 		<figure class="wpb_wrapper vc_figure">
-			<a href="https://play.google.com/store/apps/details?id=com.vegansFresh.vegansFresh" target="_blank" class="vc_single_image-wrapper   vc_box_border_grey"><img width="300" height="105" src="img/Android-300x105.png" class="vc_single_image-img attachment-medium" alt="" srcset="img/Android-300x105.png 300w, img/Android-1024x357.png 1024w, img/Android-768x268.png 768w, img/Android-600x209.png 600w, img/Android.png 1200w" sizes="(max-width: 300px) 100vw, 300px"></a>
+			<a href="https://play.google.com/store/apps/details?id=com.vegansFresh.vegansFresh" target="_blank" class="vc_single_image-wrapper   vc_box_border_grey"><img width="300" height="105" src="{{asset('website/img/Android-300x105.png')}}" class="vc_single_image-img attachment-medium" alt=""sizes="(max-width: 300px) 100vw, 300px"></a>
 		</figure>
 	</div>
 	
@@ -1007,13 +1010,13 @@ Search and Discover</span></div>
 <div id="vc_row-6200e8dd8165f" data-vc-full-width="true" data-vc-full-width-init="false" class="vc_row wpb_row vc_row-fluid vc_custom_1644049764338 thegem-custom-6200e8dd8163b4104 vc_row-has-fill">
 <script type="text/javascript">if (typeof(gem_fix_fullwidth_position) == "function") { gem_fix_fullwidth_position(document.getElementById("vc_row-6200e8dd8165f")); }</script><div class="background-team pricing wpb_column vc_column_container vc_col-sm-12 thegem-custom-6200e8dd819836770"><div class="vc_column-inner thegem-custom-inner-6200e8dd81987 vc_custom_1605607624746"><div class="wpb_wrapper">
 <div id="fullwidth-block-6200e8dd8211d" class="fullwidth-block clearfix" style="padding-left: 21px;padding-right: 21px;">
-<script type="text/javascript">if (typeof(gem_fix_fullwidth_position) == "function") { gem_fix_fullwidth_position(document.getElementById("fullwidth-block-6200e8dd8211d")); }</script><div class="fullwidth-block-background" style="background-image: url(img/counter.jpg);background-repeat: no-repeat; background-size: cover;background-position: center top;"></div>
+<script type="text/javascript">if (typeof(gem_fix_fullwidth_position) == "function") { gem_fix_fullwidth_position(document.getElementById("fullwidth-block-6200e8dd8211d")); }</script><div class="fullwidth-block-background" style="background-image: url({{asset('website/img/counter.jpg')}});background-repeat: no-repeat; background-size: cover;background-position: center top;"></div>
 <div class="fullwidth-block-inner"><div class="container">
 	<div class="gem-interactions-enabled   blue-triangle-2" data-vertical_scroll_enable="yes" data-vertical_scroll_speed="-2" data-mouse_effects="yes" data-mouse_effects_direction="1" data-mouse_effects_speed="0.4"><div class="mouse-effects-container">
 	<div class="wpb_single_image wpb_content_element vc_align_right">
 		
 		<figure class="wpb_wrapper vc_figure">
-			<div class="vc_single_image-wrapper   vc_box_border_grey"><img width="153" height="174" src="img/Home-Page-Element-4.png" class="vc_single_image-img attachment-full" alt=""></div>
+			<div class="vc_single_image-wrapper   vc_box_border_grey"><img width="153" height="174" src="{{asset('website/img/Home-Page-Element-4.png')}}" class="vc_single_image-img attachment-full" alt=""></div>
 		</figure>
 	</div>
 	</div></div>
@@ -1023,7 +1026,7 @@ Search and Discover</span></div>
 <div class="gem-divider " style="margin-top: 340px;"></div>
 </div></div></div>
 <div class="wpb_column vc_column_container vc_col-sm-3 vc_col-lg-3 vc_col-md-3 vc_hidden-xs"><div class="vc_column-inner thegem-custom-inner-6200e8dd82bed vc_custom_1605615684720"><div class="wpb_wrapper">
-<div class="centered-box gem-image-centered-box"><div class="gem-image gem-wrapbox gem-wrapbox-style-default gem-wrapbox-position-centered lazy-loading"><div class="gem-wrapbox-inner  lazy-loading-item" data-ll-effect="move-up"><img class="gem-wrapbox-element img-responsive" src="img/Offers_New.png" alt=""></div></div></div>
+<div class="centered-box gem-image-centered-box"><div class="gem-image gem-wrapbox gem-wrapbox-style-default gem-wrapbox-position-centered lazy-loading"><div class="gem-wrapbox-inner  lazy-loading-item" data-ll-effect="move-up"><img class="gem-wrapbox-element img-responsive" src="{{asset('website/img/Offers_New.png')}}" alt=""></div></div></div>
 <div class="clearboth"></div>
 <div class="gem-divider " style="margin-top: -70px;"></div>
 <div data-number-format="(ddd).ddd" class="gem-counter-box row inline-row inline-row-center gem-counter-style-1 lazy-loading lazy-loading-not-hide"><div class="gem-counter col-xs-12 inline-column gem-counter-effect-simple"><div class="gem-counter-inner">
@@ -1035,7 +1038,7 @@ Search and Discover</span></div>
 </div></div></div>
 </div></div></div>
 <div class="wpb_column vc_column_container vc_col-sm-3 vc_col-lg-3 vc_col-md-3 vc_hidden-xs"><div class="vc_column-inner thegem-custom-inner-6200e8dd836a1 vc_custom_1605615688064"><div class="wpb_wrapper">
-<div class="centered-box gem-image-centered-box"><div class="gem-image gem-wrapbox gem-wrapbox-style-default gem-wrapbox-position-centered lazy-loading"><div class="gem-wrapbox-inner  lazy-loading-item" data-ll-effect="move-up"><img class="gem-wrapbox-element img-responsive" src="img/Download_New.png" alt=""></div></div></div>
+<div class="centered-box gem-image-centered-box"><div class="gem-image gem-wrapbox gem-wrapbox-style-default gem-wrapbox-position-centered lazy-loading"><div class="gem-wrapbox-inner  lazy-loading-item" data-ll-effect="move-up"><img class="gem-wrapbox-element img-responsive" src="{{asset('website/img/Download_New.png')}}" alt=""></div></div></div>
 <div class="clearboth"></div>
 <div class="gem-divider " style="margin-top: -70px;"></div>
 <div data-number-format="(ddd).ddd" class="gem-counter-box row inline-row inline-row-center gem-counter-style-1 lazy-loading lazy-loading-not-hide"><div class="gem-counter col-xs-12 inline-column gem-counter-effect-simple"><div class="gem-counter-inner">
@@ -1047,7 +1050,7 @@ Search and Discover</span></div>
 </div></div></div>
 </div></div></div>
 <div class="wpb_column vc_column_container vc_col-sm-3 vc_col-lg-3 vc_col-md-3 vc_hidden-xs"><div class="vc_column-inner thegem-custom-inner-6200e8dd83ecf vc_custom_1605615691352"><div class="wpb_wrapper">
-<div class="centered-box gem-image-centered-box"><div class="gem-image gem-wrapbox gem-wrapbox-style-default gem-wrapbox-position-centered lazy-loading"><div class="gem-wrapbox-inner  lazy-loading-item" data-ll-effect="move-up"><img class="gem-wrapbox-element img-responsive" src="img/Order.png" alt=""></div></div></div>
+<div class="centered-box gem-image-centered-box"><div class="gem-image gem-wrapbox gem-wrapbox-style-default gem-wrapbox-position-centered lazy-loading"><div class="gem-wrapbox-inner  lazy-loading-item" data-ll-effect="move-up"><img class="gem-wrapbox-element img-responsive" src="{{asset('website/img/Order.png')}}" alt=""></div></div></div>
 <div class="clearboth"></div>
 <div class="gem-divider " style="margin-top: -70px;"></div>
 <div data-number-format="(ddd).ddd" class="gem-counter-box row inline-row inline-row-center gem-counter-style-1 lazy-loading lazy-loading-not-hide"><div class="gem-counter col-xs-12 inline-column gem-counter-effect-simple"><div class="gem-counter-inner">
@@ -1059,7 +1062,7 @@ Search and Discover</span></div>
 </div></div></div>
 </div></div></div>
 <div class="wpb_column vc_column_container vc_col-sm-3 vc_col-lg-3 vc_col-md-3 vc_hidden-xs"><div class="vc_column-inner thegem-custom-inner-6200e8dd848f9 vc_custom_1605615695160"><div class="wpb_wrapper">
-<div class="centered-box gem-image-centered-box"><div class="gem-image gem-wrapbox gem-wrapbox-style-default gem-wrapbox-position-centered lazy-loading"><div class="gem-wrapbox-inner  lazy-loading-item" data-ll-effect="move-up"><img class="gem-wrapbox-element img-responsive" src="img/Categories.png" alt=""></div></div></div>
+<div class="centered-box gem-image-centered-box"><div class="gem-image gem-wrapbox gem-wrapbox-style-default gem-wrapbox-position-centered lazy-loading"><div class="gem-wrapbox-inner  lazy-loading-item" data-ll-effect="move-up"><img class="gem-wrapbox-element img-responsive" src="{{asset('website/img/Categories.png')}}" alt=""></div></div></div>
 <div class="clearboth"></div>
 <div class="gem-divider " style="margin-top: -70px;"></div>
 <div data-number-format="(ddd).ddd" class="gem-counter-box row inline-row inline-row-center gem-counter-style-1 lazy-loading lazy-loading-not-hide"><div class="gem-counter col-xs-12 inline-column gem-counter-effect-simple"><div class="gem-counter-inner">
@@ -1077,7 +1080,7 @@ Search and Discover</span></div>
 </div>
 <div class="vc_row wpb_row vc_inner vc_row-fluid vc_custom_1644050517861 vc_row-has-fill custom-inner-column-6200e8dd851f7">
 <div class="wpb_column vc_column_container vc_col-sm-3 vc_col-lg-3 vc_hidden-lg vc_col-md-3 vc_hidden-md vc_hidden-sm"><div class="vc_column-inner thegem-custom-inner-6200e8dd853eb vc_custom_1605616085437"><div class="wpb_wrapper">
-<div class="centered-box gem-image-centered-box"><div class="gem-image gem-wrapbox gem-wrapbox-style-default gem-wrapbox-position-centered lazy-loading"><div class="gem-wrapbox-inner  lazy-loading-item" data-ll-effect="move-up"><img class="gem-wrapbox-element img-responsive" src="img/Offers_New.png" alt=""></div></div></div>
+<div class="centered-box gem-image-centered-box"><div class="gem-image gem-wrapbox gem-wrapbox-style-default gem-wrapbox-position-centered lazy-loading"><div class="gem-wrapbox-inner  lazy-loading-item" data-ll-effect="move-up"><img class="gem-wrapbox-element img-responsive" src="{{asset('website/img/Offers_New.png')}}" alt=""></div></div></div>
 <div class="clearboth"></div>
 <div class="gem-divider " style="margin-top: -70px;"></div>
 <div data-number-format="(ddd).ddd" class="gem-counter-box row inline-row inline-row-center gem-counter-style-1 lazy-loading lazy-loading-not-hide"><div class="gem-counter col-xs-12 inline-column gem-counter-effect-simple"><div class="gem-counter-inner">
@@ -1089,7 +1092,7 @@ Search and Discover</span></div>
 </div></div></div>
 </div></div></div>
 <div class="wpb_column vc_column_container vc_col-sm-3 vc_col-lg-3 vc_hidden-lg vc_col-md-3 vc_hidden-md vc_hidden-sm"><div class="vc_column-inner thegem-custom-inner-6200e8dd857ee vc_custom_1605616075894"><div class="wpb_wrapper">
-<div class="centered-box gem-image-centered-box"><div class="gem-image gem-wrapbox gem-wrapbox-style-default gem-wrapbox-position-centered lazy-loading"><div class="gem-wrapbox-inner  lazy-loading-item" data-ll-effect="move-up"><img class="gem-wrapbox-element img-responsive" src="img/Download_New.png" alt=""></div></div></div>
+<div class="centered-box gem-image-centered-box"><div class="gem-image gem-wrapbox gem-wrapbox-style-default gem-wrapbox-position-centered lazy-loading"><div class="gem-wrapbox-inner  lazy-loading-item" data-ll-effect="move-up"><img class="gem-wrapbox-element img-responsive" src="{{asset('website/img/Download_New.png')}}" alt=""></div></div></div>
 <div class="clearboth"></div>
 <div class="gem-divider " style="margin-top: -70px;"></div>
 <div data-number-format="(ddd).ddd" class="gem-counter-box row inline-row inline-row-center gem-counter-style-1 lazy-loading lazy-loading-not-hide"><div class="gem-counter col-xs-12 inline-column gem-counter-effect-simple"><div class="gem-counter-inner">
@@ -1101,7 +1104,7 @@ Search and Discover</span></div>
 </div></div></div>
 </div></div></div>
 <div class="wpb_column vc_column_container vc_col-sm-3 vc_col-lg-3 vc_hidden-lg vc_col-md-3 vc_hidden-md vc_hidden-sm"><div class="vc_column-inner thegem-custom-inner-6200e8dd85bf1 vc_custom_1605616071293"><div class="wpb_wrapper">
-<div class="centered-box gem-image-centered-box"><div class="gem-image gem-wrapbox gem-wrapbox-style-default gem-wrapbox-position-centered lazy-loading"><div class="gem-wrapbox-inner  lazy-loading-item" data-ll-effect="move-up"><img class="gem-wrapbox-element img-responsive" src="img/Order.png" alt=""></div></div></div>
+<div class="centered-box gem-image-centered-box"><div class="gem-image gem-wrapbox gem-wrapbox-style-default gem-wrapbox-position-centered lazy-loading"><div class="gem-wrapbox-inner  lazy-loading-item" data-ll-effect="move-up"><img class="gem-wrapbox-element img-responsive" src="{{asset('website/img/Order.png')}}" alt=""></div></div></div>
 <div class="clearboth"></div>
 <div class="gem-divider " style="margin-top: -70px;"></div>
 <div data-number-format="(ddd).ddd" class="gem-counter-box row inline-row inline-row-center gem-counter-style-1 lazy-loading lazy-loading-not-hide"><div class="gem-counter col-xs-12 inline-column gem-counter-effect-simple"><div class="gem-counter-inner">
@@ -1113,7 +1116,7 @@ Search and Discover</span></div>
 </div></div></div>
 </div></div></div>
 <div class="wpb_column vc_column_container vc_col-sm-3 vc_col-lg-3 vc_hidden-lg vc_col-md-3 vc_hidden-md vc_hidden-sm"><div class="vc_column-inner thegem-custom-inner-6200e8dd85fe6 vc_custom_1605616065871"><div class="wpb_wrapper">
-<div class="centered-box gem-image-centered-box"><div class="gem-image gem-wrapbox gem-wrapbox-style-default gem-wrapbox-position-centered lazy-loading"><div class="gem-wrapbox-inner  lazy-loading-item" data-ll-effect="move-up"><img class="gem-wrapbox-element img-responsive" src="img/Categories.png" alt=""></div></div></div>
+<div class="centered-box gem-image-centered-box"><div class="gem-image gem-wrapbox gem-wrapbox-style-default gem-wrapbox-position-centered lazy-loading"><div class="gem-wrapbox-inner  lazy-loading-item" data-ll-effect="move-up"><img class="gem-wrapbox-element img-responsive" src="{{asset('img/Categories.png')}}" alt=""></div></div></div>
 <div class="clearboth"></div>
 <div class="gem-divider " style="margin-top: -70px;"></div>
 <div data-number-format="(ddd).ddd" class="gem-counter-box row inline-row inline-row-center gem-counter-style-1 lazy-loading lazy-loading-not-hide"><div class="gem-counter col-xs-12 inline-column gem-counter-effect-simple"><div class="gem-counter-inner">
@@ -1174,7 +1177,7 @@ Search and Discover</span></div>
 	<div class="wpb_single_image wpb_content_element vc_align_center">
 		
 		<figure class="wpb_wrapper vc_figure">
-			<a href="https://apps.apple.com/kz/app/vegans-fresh/id1596436378" target="_blank" class="vc_single_image-wrapper   vc_box_border_grey"><img width="300" height="111" src="img/App-Store-300x111.png" class="vc_single_image-img attachment-medium" alt="" srcset="img/App-Store-300x111.png 300w, img/App-Store-1024x380.png 1024w, img/App-Store-768x285.png 768w, img/App-Store-600x223.png 600w, img/App-Store.png 1116w" sizes="(max-width: 300px) 100vw, 300px"></a>
+			<a href="https://apps.apple.com/kz/app/vegans-fresh/id1596436378" target="_blank" class="vc_single_image-wrapper   vc_box_border_grey"><img width="300" height="111" src="{{asset('website/img/App-Store-300x111.png')}}" class="vc_single_image-img attachment-medium" alt=""   sizes="(max-width: 300px) 100vw, 300px"></a>
 		</figure>
 	</div>
 	
@@ -1184,7 +1187,7 @@ Search and Discover</span></div>
 	<div class="wpb_single_image wpb_content_element vc_align_center">
 		
 		<figure class="wpb_wrapper vc_figure">
-			<a href="https://play.google.com/store/apps/details?id=com.vegansFresh.vegansFresh" target="_blank" class="vc_single_image-wrapper   vc_box_border_grey"><img width="300" height="105" src="img/Android-300x105.png" class="vc_single_image-img attachment-medium" alt="" srcset="img/Android-300x105.png 300w, img/Android-1024x357.png 1024w, img/Android-768x268.png 768w, img/Android-600x209.png 600w, img/Android.png 1200w" sizes="(max-width: 300px) 100vw, 300px"></a>
+			<a href="https://play.google.com/store/apps/details?id=com.vegansFresh.vegansFresh" target="_blank" class="vc_single_image-wrapper   vc_box_border_grey"><img width="300" height="105" src="{{asset('website/img/Android-300x105.png')}}" class="vc_single_image-img attachment-medium" alt=""  sizes="(max-width: 300px) 100vw, 300px"></a>
 		</figure>
 	</div>
 	
@@ -1199,7 +1202,22 @@ Search and Discover</span></div>
 <div class="clearboth"></div>
 <div class="gem-divider " style="margin-top: 100px;"></div>
 <div class="preloader"><div class="preloader-spin"></div></div>
-<div class="size-medium style1 gem-testimonials fullwidth-block" data-autoscroll="5000" style="background-color:"> <div id="post-39305" class="gem-testimonial-item post-39305 thegem_testimonial type-thegem_testimonial status-publish has-post-thumbnail"> <div class="gem-testimonial-wrapper quote-color-added "> <div class="gem-testimonial-image"> <img width="160" height="160" src="img/testimonial-team-thegem-person-160.jpeg" class="img-responsive img-circle wp-post-image" alt="testimonial-team" srcset="img/testimonial-team-thegem-testimonial.jpeg 2x" sizes="100vw"> </div> <div class="gem-testimonial-content"> <div class="gem-testimonial-name">Rashmi</div> <div class="gem-testimonial-text" style="color: #ffffff"> <p>Thank you Vegans Fresh for providing me fresh groceries, no wait now! Great packaging as well as quality!</p> </div> </div> <span style="color: #b77c66 " class="custom-color-blockqute-mark">&#xe60c;</span> </div> </div> <div id="post-39307" class="gem-testimonial-item post-39307 thegem_testimonial type-thegem_testimonial status-publish has-post-thumbnail"> <div class="gem-testimonial-wrapper quote-color-added "> <div class="gem-testimonial-image"> <img width="160" height="160" src="img/testimonial-team-thegem-person-160.jpeg" class="img-responsive img-circle wp-post-image" alt="testimonial-team" srcset="img/testimonial-team-thegem-testimonial.jpeg 2x" sizes="100vw"> </div> <div class="gem-testimonial-content"> <div class="gem-testimonial-name">Jai</div> <div class="gem-testimonial-text" style="color: #ffffff"> <p>Now I don’t have to plan for any grocery trip for my family. All I need is the app from where I am ordering fresh fruits, veggies and groceries.</p> </div> </div> <span style="color: #b77c66 " class="custom-color-blockqute-mark">&#xe60c;</span> </div> </div> <div id="post-39308" class="gem-testimonial-item post-39308 thegem_testimonial type-thegem_testimonial status-publish has-post-thumbnail"> <div class="gem-testimonial-wrapper quote-color-added "> <div class="gem-testimonial-image"> <img width="160" height="160" src="img/testimonial-team-thegem-person-160.jpeg" class="img-responsive img-circle wp-post-image" alt="testimonial-team" srcset="img/testimonial-team-thegem-testimonial.jpeg 2x" sizes="100vw"> </div> <div class="gem-testimonial-content"> <div class="gem-testimonial-name">Vinay</div> <div class="gem-testimonial-text" style="color: #ffffff"> <p>No discount but direct genuine prices; great deal Vegans Fresh! Thank you letting me know about you!</p> </div> </div> <span style="color: #b77c66 " class="custom-color-blockqute-mark">&#xe60c;</span> </div> </div> <div id="post-39309" class="gem-testimonial-item post-39309 thegem_testimonial type-thegem_testimonial status-publish has-post-thumbnail"> <div class="gem-testimonial-wrapper quote-color-added "> <div class="gem-testimonial-image"> <img width="160" height="160" src="img/testimonial-team-thegem-person-160.jpeg" class="img-responsive img-circle wp-post-image" alt="testimonial-team" srcset="img/testimonial-team-thegem-testimonial.jpeg 2x" sizes="100vw"> </div> <div class="gem-testimonial-content"> <div class="gem-testimonial-name">Aditi</div> <div class="gem-testimonial-text" style="color: #ffffff"> <p>First order free! Wow, a great deal as well as great products! I really appreciate the quality and packaging.</p> </div> </div> <span style="color: #b77c66 " class="custom-color-blockqute-mark">&#xe60c;</span> </div> </div> <div id="post-39311" class="gem-testimonial-item post-39311 thegem_testimonial type-thegem_testimonial status-publish has-post-thumbnail"> <div class="gem-testimonial-wrapper quote-color-added "> <div class="gem-testimonial-image"> <img width="160" height="160" src="img/testimonial-team-thegem-person-160.jpeg" class="img-responsive img-circle wp-post-image" alt="testimonial-team" srcset="img/testimonial-team-thegem-testimonial.jpeg 2x" sizes="100vw"> </div> <div class="gem-testimonial-content"> <div class="gem-testimonial-name">Neha</div> <div class="gem-testimonial-text" style="color: #ffffff"> <p>After a long time, I got fresh atta and spices for my home from Vegans Fresh. Highly appreciated and recommended.</p> </div> </div> <span style="color: #b77c66 " class="custom-color-blockqute-mark">&#xe60c;</span> </div> </div> <div class="testimonials_svg"><svg style="fill: " width="100" height="50"><path d="M 0,-1 Q 45,5 50,50 Q 55,5 100,-1"></path></svg></div>
+<div class="size-medium style1 gem-testimonials fullwidth-block" data-autoscroll="5000" style="background-color:"> 
+
+
+<div id="post-39308" class="gem-testimonial-item post-39308 thegem_testimonial type-thegem_testimonial status-publish has-post-thumbnail"> <div class="gem-testimonial-wrapper quote-color-added "> <div class="gem-testimonial-image"> <img width="160" height="160" src="{{asset('website/img/testimonial-team-thegem-person-160.jpeg')}}" class="img-responsive img-circle wp-post-image" alt="testimonial-team" sizes="100vw"> </div> <div class="gem-testimonial-content"> <div class="gem-testimonial-name">Rashmi</div> <div class="gem-testimonial-text" style="color: #ffffff"> <p>Thank you Vegans Fresh for providing me fresh groceries, no wait now! Great packaging as well as quality!</p> </div> </div> <span style="color: #b77c66 " class="custom-color-blockqute-mark">&#xe60c;</span> </div> </div>
+
+
+ 
+
+<div id="post-39308" class="gem-testimonial-item post-39308 thegem_testimonial type-thegem_testimonial status-publish has-post-thumbnail"> <div class="gem-testimonial-wrapper quote-color-added "> <div class="gem-testimonial-image"> <img width="160" height="160" src="{{asset('website/img/testimonial-team-thegem-person-160.jpeg')}}" class="img-responsive img-circle wp-post-image" alt="testimonial-team" sizes="100vw"> </div> <div class="gem-testimonial-content"> <div class="gem-testimonial-name">Jai</div> <div class="gem-testimonial-text" style="color: #ffffff"> <p>Now I don’t have to plan for any grocery trip for my family. All I need is the app from where I am ordering fresh fruits, veggies and groceries.</p> </div> </div> <span style="color: #b77c66 " class="custom-color-blockqute-mark">&#xe60c;</span> </div> </div>
+
+ 
+
+
+
+
+ <div id="post-39308" class="gem-testimonial-item post-39308 thegem_testimonial type-thegem_testimonial status-publish has-post-thumbnail"> <div class="gem-testimonial-wrapper quote-color-added "> <div class="gem-testimonial-image"> <img width="160" height="160" src="{{asset('website/img/testimonial-team-thegem-person-160.jpeg')}}" class="img-responsive img-circle wp-post-image" alt="testimonial-team" sizes="100vw"> </div> <div class="gem-testimonial-content"> <div class="gem-testimonial-name">Vinay</div> <div class="gem-testimonial-text" style="color: #ffffff"> <p>No discount but direct genuine prices; great deal Vegans Fresh! Thank you letting me know about you!</p> </div> </div> <span style="color: #b77c66 " class="custom-color-blockqute-mark">&#xe60c;</span> </div> </div> <div id="post-39309" class="gem-testimonial-item post-39309 thegem_testimonial type-thegem_testimonial status-publish has-post-thumbnail"> <div class="gem-testimonial-wrapper quote-color-added "> <div class="gem-testimonial-image"> <img width="160" height="160" src="{{asset('website/img/testimonial-team-thegem-person-160.jpeg')}}" class="img-responsive img-circle wp-post-image" alt="testimonial-team"   sizes="100vw"> </div> <div class="gem-testimonial-content"> <div class="gem-testimonial-name">Aditi</div> <div class="gem-testimonial-text" style="color: #ffffff"> <p>First order free! Wow, a great deal as well as great products! I really appreciate the quality and packaging.</p> </div> </div> <span style="color: #b77c66 " class="custom-color-blockqute-mark">&#xe60c;</span> </div> </div> <div id="post-39311" class="gem-testimonial-item post-39311 thegem_testimonial type-thegem_testimonial status-publish has-post-thumbnail"> <div class="gem-testimonial-wrapper quote-color-added "> <div class="gem-testimonial-image"> <img width="160" height="160" src="{{asset('website/img/testimonial-team-thegem-person-160.jpeg')}}" class="img-responsive img-circle wp-post-image" alt="testimonial-team" sizes="100vw"> </div> <div class="gem-testimonial-content"> <div class="gem-testimonial-name">Neha</div> <div class="gem-testimonial-text" style="color: #ffffff"> <p>After a long time, I got fresh atta and spices for my home from Vegans Fresh. Highly appreciated and recommended.</p> </div> </div> <span style="color: #b77c66 " class="custom-color-blockqute-mark">&#xe60c;</span> </div> </div> <div class="testimonials_svg"><svg style="fill: " width="100" height="50"><path d="M 0,-1 Q 45,5 50,50 Q 55,5 100,-1"></path></svg></div>
 </div>
 <div class="clearboth"></div>
 <div class="gem-divider " style="margin-top: 100px;"></div>
@@ -1238,7 +1256,7 @@ Search and Discover</span></div>
 <div class="vc_row-full-width-before"></div>
 <div id="vc_row-6200e8dd8fcd3" data-vc-full-width="true" data-vc-full-width-init="false" class="vc_row wpb_row vc_row-fluid vc_custom_1605700148026 thegem-custom-6200e8dd8fca84610 vc_row-has-fill">
 <script type="text/javascript">if (typeof(gem_fix_fullwidth_position) == "function") { gem_fix_fullwidth_position(document.getElementById("vc_row-6200e8dd8fcd3")); }</script><div class="wpb_column vc_column_container vc_col-sm-12 thegem-custom-6200e8dd900812678"><div class="vc_column-inner thegem-custom-inner-6200e8dd90086 vc_custom_1605517138173"><div class="wpb_wrapper"><div id="fullwidth-block-6200e8dd9081f" class="fullwidth-block clearfix" style="padding-top: 20px;">
-<script type="text/javascript">if (typeof(gem_fix_fullwidth_position) == "function") { gem_fix_fullwidth_position(document.getElementById("fullwidth-block-6200e8dd9081f")); }</script><div class="fullwidth-block-background" style="background-image: url(img/contact-main.jpg);background-repeat: no-repeat; background-size: cover;background-position: center top;"></div>
+<script type="text/javascript">if (typeof(gem_fix_fullwidth_position) == "function") { gem_fix_fullwidth_position(document.getElementById("fullwidth-block-6200e8dd9081f")); }</script><div class="fullwidth-block-background" style="background-image: url({{asset('website/img/contact-main.jpg')}});background-repeat: no-repeat; background-size: cover;background-position: center top;"></div>
 <div class="fullwidth-block-inner"><div class="container">
 <div class="vc_row wpb_row vc_inner vc_row-fluid vc_custom_1605701220622 custom-inner-column-6200e8dd90b58"><div class="wpb_column vc_column_container vc_col-sm-12 vc_hidden-md vc_hidden-sm vc_hidden-xs"><div class="vc_column-inner thegem-custom-inner-6200e8dd90e37 vc_custom_1605704083290"><div class="wpb_wrapper">
 	
@@ -1265,15 +1283,8 @@ Search and Discover</span></div>
 <div class="screen-reader-response">
 <p role="status" aria-live="polite" aria-atomic="true"></p> <ul></ul>
 </div>
-<form action="/#wpcf7-f39039-o1" method="post" class="wpcf7-form init gem-contact-form-white" novalidate="novalidate" data-status="init">
-<div style="display: none;">
-<input type="hidden" name="_wpcf7" value="39039">
-<input type="hidden" name="_wpcf7_version" value="5.5.3">
-<input type="hidden" name="_wpcf7_locale" value="en_US">
-<input type="hidden" name="_wpcf7_unit_tag" value="wpcf7-f39039-o1">
-<input type="hidden" name="_wpcf7_container_post" value="0">
-<input type="hidden" name="_wpcf7_posted_data_hash" value="">
-</div>
+<form action="{{route('contact-form')}}" method="post" class="wpcf7-form init gem-contact-form-white">
+
 <div class="contact-form" style="width: 70%; margin: 0 auto;">
 <div class="col-lg-6 col-md-6 col-xs-12" style="margin-bottom:20px;">
 <div class="form-line"><span class="wpcf7-form-control-wrap your-name"><input type="text" name="your-name" value="" size="40" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true" aria-invalid="false" placeholder="Name*"></span></div>
@@ -1292,7 +1303,9 @@ Search and Discover</span></div>
 </div>
 <div class="col-lg-12 col-md-12 col-xs-12" style="display: flex; justify-content: center;">
 <div class="form-line">
-<div class="gem-button-container gem-button-position-fullwidth thegem-button-6200e8dd927a69362"><input class="gem-button gem-button-size-medium gem-button-style-flat gem-button-text-weight-normal gem-button-no-uppercase wpcf7-form-control wpcf7-submit gem-button-wpcf-custom" style="border-radius: 40px;background-color: #283D40FF;color: #ffffff;" onmouseleave="this.style.backgroundColor='#283D40FF';this.style.color='#ffffff';" onmouseenter="this.style.backgroundColor='#B77C66FF';this.style.color='#ffffff';" id="" tabindex="" type="submit" value="Send Message"></div> </div>
+<div class="gem-button-container gem-button-position-fullwidth thegem-button-6200e8dd927a69362">
+
+<input class="gem-button gem-button-size-medium gem-button-style-flat gem-button-text-weight-normal gem-button-no-uppercase wpcf7-form-control wpcf7-submit gem-button-wpcf-custom" style="border-radius: 40px;background-color: #283D40FF;color: #ffffff;" onmouseleave="this.style.backgroundColor='#283D40FF';this.style.color='#ffffff';" onmouseenter="this.style.backgroundColor='#B77C66FF';this.style.color='#ffffff';" id="" tabindex="" type="submit" value="Send Message"></div> </div>
 </div>
 </div>
 <div class="wpcf7-response-output" aria-hidden="true"></div>
@@ -1303,7 +1316,7 @@ Search and Discover</span></div>
 	<div class="wpb_single_image wpb_content_element vc_align_left">
 		
 		<figure class="wpb_wrapper vc_figure">
-			<div class="vc_single_image-wrapper   vc_box_border_grey"><img width="200" height="169" src="img/Home-Contact-Element-1.png" class="vc_single_image-img attachment-full" alt=""></div>
+			<div class="vc_single_image-wrapper   vc_box_border_grey"><img width="200" height="169" src="{{asset('website/img/Home-Contact-Element-1.png')}}" class="vc_single_image-img attachment-full" alt=""></div>
 		</figure>
 	</div>
 	</div></div>
@@ -1312,7 +1325,7 @@ Search and Discover</span></div>
 	<div class="wpb_single_image wpb_content_element vc_align_left">
 		
 		<figure class="wpb_wrapper vc_figure">
-			<div class="vc_single_image-wrapper   vc_box_border_grey"><img width="200" height="169" src="img/Home-Page-Element-1.png" class="vc_single_image-img attachment-full" alt=""></div>
+			<div class="vc_single_image-wrapper   vc_box_border_grey"><img width="200" height="169" src="{{asset('website/img/Home-Page-Element-1.png')}}" class="vc_single_image-img attachment-full" alt=""></div>
 		</figure>
 	</div>
 	</div></div>
@@ -1412,7 +1425,7 @@ support@vegansfresh.com</span></p>
 <div class="clearboth"></div>
 <div class="gem-divider " style="margin-top: 30px;"></div>
 <div class="socials socials-list socials-colored-hover socials-rounded socials-alignment-center">
-<a class="socials-item" target="_blank" href="https://www.facebook.com/vegansfresh/" style="color: #ffffff;"><i class="socials-item-icon facebook" style="font-size: 40px"></i></a><a class="socials-item" target="_blank" href="https://www.instagram.com/vegansfresh/" style="color: #ffffff;"><i class="socials-item-icon instagram" style="font-size: 40px"></i></a><a class="socials-item" target="_blank" href="https://twitter.com/VegansFresh" style="color: #ffffff;"><i class="socials-item-icon twitter" style="font-size: 40px"></i></a><a class="socials-item" target="_blank" href="https://youtube.com/channel/UCaCbJkqespqec1Zez0j58Dg" style="color: #ffffff;"><i class="socials-item-icon youtube" style="font-size: 40px"></i></a><a class="socials-item" target="_blank" href="https://www.linkedin.com/company/vegan-fresh" style="color: #ffffff;"><i class="socials-item-icon linkedin" style="font-size: 40px"></i></a>
+<a class="socials-item" target="_blank" href="https://www.facebook.com/vegansfresh/" style="color: #ffffff;"><i class="socials-item-icon facebook" style="font-size: 40px"></i></a><a class="socials-item" target="_blank" href="https://www.instagram.com/vegansfresh/" style="color: #ffffff;"><i class="socials-item-icon instagram" style="font-size: 40px"></i></a><a class="socials-item" target="_blank" href="https://twitter.com/VegansFresh" style="color: #ffffff;"><i class="socials-item-icon twitter" style="font-size: 40px"></i></a><a class="socials-item" target="_blank" href="https://youtube.com/channel/UCaCbJkqespqec1Zez0j58Dg" style="color: #ffffff;"><i class="socials-item-icon youtube" style="font-size: 40px"></i></a><a class="socials-item" target="_blank" href="https://www.linkedin.com/company/vegans-fresh" style="color: #ffffff;"><i class="socials-item-icon linkedin" style="font-size: 40px"></i></a>
 </div>
 <div class="clearboth"></div>
 <div class="gem-divider " style="margin-top: 55px;"></div>
@@ -1443,7 +1456,7 @@ support@vegansfresh.com</span></p>
 	<div class="wpb_single_image wpb_content_element vc_align_left">
 		
 		<figure class="wpb_wrapper vc_figure">
-			<div class="vc_single_image-wrapper   vc_box_border_grey"><img width="153" height="174" src="img/Home-Page-Element-3.png" class="vc_single_image-img attachment-full" alt=""></div>
+			<div class="vc_single_image-wrapper   vc_box_border_grey"><img width="153" height="174" src="{{asset('website/img/Home-Page-Element-3.png')}}" class="vc_single_image-img attachment-full" alt=""></div>
 		</figure>
 	</div>
 	</div></div>
@@ -1510,19 +1523,19 @@ support@vegansfresh.com</span></p>
 			document.body.className = c;
 		})();
 	</script>
-	<link rel="stylesheet" id="vc_animate-css-css" href="asset('website/css/animate-css/animate.min.css?ver=6.7.0')}}" type="text/css" media="all">
-<link rel="stylesheet" id="thegem-wpb-animations-css" href="asset('website/css/thegem-wpb-animations.css?ver=5.8.3')}}" type="text/css" media="all">
-<link rel="stylesheet" id="thegem-lazy-loading-animations-css" href="asset('website/css/thegem-lazy-loading-animations.css?ver=5.8.3')}}" type="text/css" media="all">
-<link rel="stylesheet" id="vc_tta_style-css" href="asset('website/css/js_composer_tta.min.css?ver=6.7.0')}}" type="text/css" media="all">
-<link rel="stylesheet" id="icons-thegemdemo-css" href="asset('website/css/icons-thegemdemo.css?ver=5.8.3')}}" type="text/css" media="all">
-<link rel="stylesheet" id="odometr-css" href="asset('website/css/odometer-theme-default.css?ver=5.8.3')}}" type="text/css" media="all">
-<link rel="stylesheet" id="thegem-testimonials-css" href="asset('website/css/thegem-testimonials.css?ver=5.8.3')}}" type="text/css" media="all">
+	<link rel="stylesheet" id="vc_animate-css-css" href="{{asset('website/css/animate-css/animate.min.css')}}" type="text/css" media="all">
+<link rel="stylesheet" id="thegem-wpb-animations-css" href="{{asset('website/css/thegem-wpb-animations.css')}}" type="text/css" media="all">
+<link rel="stylesheet" id="thegem-lazy-loading-animations-css" href="{{asset('website/css/thegem-lazy-loading-animations.css')}}" type="text/css" media="all">
+<link rel="stylesheet" id="vc_tta_style-css" href="{{asset('website/css/js_composer_tta.min.css')}}" type="text/css" media="all">
+<link rel="stylesheet" id="icons-thegemdemo-css" href="{{asset('website/css/icons-thegemdemo.css')}}" type="text/css" media="all">
+<link rel="stylesheet" id="odometr-css" href="{{asset('website/css/odometer-theme-default.css')}}" type="text/css" media="all">
+<link rel="stylesheet" id="thegem-testimonials-css" href="{{asset('website/css/thegem-testimonials.css')}}" type="text/css" media="all">
 <script type="text/javascript" id="thegem-menu-init-script-js-extra">
 /* <![CDATA[ */
 var thegem_dlmenu_settings = {"backLabel":"Back","showCurrentLabel":"Show this page"};
 /* ]]> */
 </script>
-<script type="text/javascript" src="asset('website/js/thegem-menu_init.js?ver=5.8.3" id="thegem-menu-init-script-js"></script>
+<script type="text/javascript" src="{{asset('website/js/thegem-menu_init.js')}}" id="thegem-menu-init-script-js"></script>
 <script type="text/javascript" id="thegem-menu-init-script-js-after">
 function fullHeightRow() {
 			var fullHeight,
@@ -1551,8 +1564,8 @@ var thegem_scripts_data = {"ajax_url":"httpwww.sarovarmicrofinance.com\/wp-admin
 <script type="text/javascript" src="{{asset('website/js/fancyBox/jquery.mousewheel.pack.js?ver=5.8.3')}}" id="jquery-mousewheel-js"></script>
 <script type="text/javascript" src="{{asset('website/js/fancyBox/jquery.fancybox.min.js?ver=5.8.3')}}" id="jquery-fancybox-js"></script>
 <script type="text/javascript" src="{{asset('website/js/fancyBox/jquery.fancybox-init.js?ver=5.8.3')}}" id="fancybox-init-script-js"></script>
-<script type="text/javascript" src="{{asset('js/jquery.selectBox.min.js?ver=1.2.0')}}" id="jquery-selectBox-js"></script>
-<script type="text/javascript" src="{{asset('js/prettyPhoto/jquery.prettyPhoto.min.js?ver=3.1.6')}}" id="prettyPhoto-js"></script>
+<script type="text/javascript" src="{{asset('website/js/jquery.selectBox.min.js?ver=1.2.0')}}" id="jquery-selectBox-js"></script>
+<script type="text/javascript" src="{{asset('website/js/prettyPhoto/jquery.prettyPhoto.min.js?ver=3.1.6')}}" id="prettyPhoto-js"></script>
 <script type="text/javascript" id="jquery-yith-wcwl-js-extra">
 /* <![CDATA[ */
 var yith_wcwl_l10n = {"ajax_url":"\/wp-admin\/admin-ajax.php","redirect_to_cart":"no","multi_wishlist":"","hide_add_button":"1","enable_ajax_loading":"","ajax_loader_url":"httpwww.sarovarmicrofinance.com\/wp-content\/plugins\/yith-woocommerce-wishlist\/assets\/images\/ajax-loader-alt.svg","remove_from_wishlist_after_add_to_cart":"1","is_wishlist_responsive":"","time_to_close_prettyphoto":"3000","fragments_index_glue":".","reload_on_found_variation":"1","mobile_media_query":"768","labels":{"cookie_disabled":"We are sorry, but this feature is available only if cookies on your browser are enabled.","added_to_cart_message":"<div class=\"woocommerce-notices-wrapper\"><div class=\"woocommerce-message\" role=\"alert\">Product added to cart successfully<\/div><\/div>"},"actions":{"add_to_wishlist_action":"add_to_wishlist","remove_from_wishlist_action":"remove_from_wishlist","reload_wishlist_and_adding_elem_action":"reload_wishlist_and_adding_elem","load_mobile_action":"load_mobile","delete_item_action":"delete_item","save_title_action":"save_title","save_privacy_action":"save_privacy","load_fragments":"load_fragments"},"nonce":{"add_to_wishlist_nonce":"928b3cf11b","remove_from_wishlist_nonce":"b88cc26fe4","reload_wishlist_and_adding_elem_nonce":"4104ff3bc4","load_mobile_nonce":"6878cad1ee","delete_item_nonce":"36901fcf00","save_title_nonce":"7a454ea690","save_privacy_nonce":"02d45b3fba","load_fragments_nonce":"a409e26796"}};

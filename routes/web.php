@@ -20,6 +20,9 @@ Route::get('/home', function () {
     return redirect()->route('home');
 });
 
+Route::post('contact-form','WebsiteController@sendmail')->name('contact-form');
+
+
 Auth::routes();
 
 Route::group(['middleware'=>['auth', 'acl']], function(){
