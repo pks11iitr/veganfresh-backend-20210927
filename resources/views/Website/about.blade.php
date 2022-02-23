@@ -383,7 +383,7 @@ body .custom-background {
 <li id="menu-item-39168" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home current-menu-item page_item page-item-39009 current_page_item menu-item-39168 megamenu-first-element menu-item-active"><a href="{{url('/')}}">Home</a></li>
 <li id="menu-item-39165" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-39165 megamenu-first-element"><a href="{{url('about')}}">About</a></li>
 <li id="menu-item-39166" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-39166 megamenu-first-element"><a href="{{url('aboutapp')}}">About App</a></li>
-<li id="menu-item-39167" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-39167 megamenu-first-element"><a href="{{url('/')}}">Contact Us</a></li>
+<li id="menu-item-39167" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-39167 megamenu-first-element"><a href="{{url('contactus')}}">Contact Us</a></li>
 </ul>																						</div></div></div></div>										</nav>
 																														</div>
 					</div>

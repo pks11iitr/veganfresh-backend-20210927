@@ -24,6 +24,11 @@ class WebsiteController extends Controller
         return view('Website.about');
     }   
 
+    public function contactus(){
+
+        return view('Website.contact');
+    }
+
 
 
 

@@ -532,15 +532,16 @@ body .custom-background {
 			</div>
 		</div>
 	
+	
 <div class="clearboth"></div>
 <div class="gem-divider " style="margin-top: 60px;"></div>
-<div class="gem-button-container gem-button-position-left thegem-button-6200e8dd6b3c11027"><a title="httpwww.sarovarmicrofinance.com/about/" class="gem-button gem-button-size-medium gem-button-style-flat gem-button-text-weight-normal gem-button-no-uppercase" style="border-radius: 25px;background-color: #283d40;background: linear-gradient(to bottom, #283d40, #b77c66);color: #ffffff;" onmouseleave="this.style.backgroundColor='#283d40';this.style.color='#ffffff';this.style.background='linear-gradient(to bottom , #283d40 , #b77c66)';" onmouseenter="this.style.backgroundColor='#b77c66';this.style.color='#ffffff';this.style.background='linear-gradient(to bottom , #b77c66 , #283d40)';" href="/about/" target="_blank">About Us</a></div> </div></div></div>
-<div class="wpb_column vc_column_container vc_col-sm-12 vc_hidden-sm vc_hidden-xs"><div class="vc_column-inner thegem-custom-inner-6200e8dd6b554 vc_custom_1605602973015"><div class="wpb_wrapper">
+<div class="gem-button-container gem-button-position-left thegem-button-6200e8e3768388084"><a title="httpwww.sarovarmicrofinance.com/about/" class="gem-button gem-button-size-medium gem-button-style-flat gem-button-text-weight-normal gem-button-no-uppercase" style="border-radius: 25px;background-color: #283d40;background: linear-gradient(to bottom, #283d40, #b77c66);color: #ffffff;" onmouseleave="this.style.backgroundColor='#283d40';this.style.color='#ffffff';this.style.background='linear-gradient(to bottom , #283d40 , #b77c66)';" onmouseenter="this.style.backgroundColor='#b77c66';this.style.color='#ffffff';this.style.background='linear-gradient(to bottom , #b77c66 , #283d40)';" href="/about/" target="_blank">About Us</a></div> </div></div></div>
+<div class="wpb_column vc_column_container vc_col-sm-12 vc_hidden-sm vc_hidden-xs"><div class="vc_column-inner thegem-custom-inner-6200e8e376963 vc_custom_1605602973015"><div class="wpb_wrapper">
 	<div class="gem-interactions-enabled   laptop" data-vertical_scroll_enable="yes" data-vertical_scroll_speed="-0.4" data-mouse_effects="yes" data-mouse_effects_direction="-1" data-mouse_effects_speed="0.3"><div class="mouse-effects-container">
 	<div class="wpb_single_image wpb_content_element vc_align_left">
 		
 		<figure class="wpb_wrapper vc_figure">
-			<div class="vc_single_image-wrapper   vc_box_border_grey"><img width="558" height="365" src="{{asset('website/img/Home-About-Element-3.png')}}" class="vc_single_image-img attachment-full" alt="" ></div>
+			<div class="vc_single_image-wrapper   vc_box_border_grey"><img width="558" height="365" src="{{asset('website/img/Home-About-Element-3.png')}}" class="vc_single_image-img attachment-full" alt=""  sizes="(max-width: 558px) 100vw, 558px"></div>
 		</figure>
 	</div>
 	</div></div>
@@ -555,462 +556,149 @@ body .custom-background {
 	</div></div>
 </div></div></div>
 </div>
-<div class="wpb_column vc_column_container vc_col-sm-6"><div class="vc_column-inner thegem-custom-inner-6200e8dd6c95d "><div class="wpb_wrapper"></div></div></div>
+<div class="wpb_column vc_column_container vc_col-sm-6"><div class="vc_column-inner thegem-custom-inner-6200e8e377727 "><div class="wpb_wrapper"></div></div></div>
 </div></div></div>
 </div>
+
+
+
+
+
+
+
+
+
+
+
+
 <div class="vc_row-full-width vc_clearfix"></div>
-<div class="vc_row-full-width-before"></div>
-<div id="vc_row-6200e8dd6cdaa" data-vc-full-width="true" data-vc-full-width-init="false" class="vc_row wpb_row vc_row-fluid vc_custom_1605697215706 thegem-custom-6200e8dd6cd883438 vc_row-has-fill">
-<script type="text/javascript">if (typeof(gem_fix_fullwidth_position) == "function") { gem_fix_fullwidth_position(document.getElementById("vc_row-6200e8dd6cdaa")); }</script><div class="wpb_column vc_column_container vc_col-sm-12 vc_hidden-sm vc_hidden-xs thegem-custom-6200e8dd6d1887970"><div class="vc_column-inner thegem-custom-inner-6200e8dd6d18c vc_custom_1605612907095"><div class="wpb_wrapper">
+<div id="vc_row-6200e8e377a2b" class="vc_row wpb_row vc_row-fluid vc_custom_1601017115585 thegem-custom-6200e8e377a159583"><div class="wpb_column vc_column_container vc_col-sm-12 thegem-custom-6200e8e377ca63216"><div class="vc_column-inner thegem-custom-inner-6200e8e377ca9 vc_custom_1601017107795"><div class="wpb_wrapper">
 <div class="clearboth"></div>
 <div class="gem-divider " style="margin-top: 60px;"></div>
+	
+		<div class="wpb_text_column wpb_content_element  wpb_animate_when_almost_visible wpb_bottom-to-top bottom-to-top">
+			<div class="wpb_wrapper">
+				<div class="title-h1">Contact <span class="light">information</span>
+</div>
+
+			</div>
+		</div>
+	
+<div class="clearboth"></div>
+<div class="gem-divider " style="margin-top: -10px;"></div>
+<div class="vc_row wpb_row vc_inner vc_row-fluid custom-inner-column-6200e8e378046">
+<div class="wpb_column vc_column_container vc_col-sm-12 vc_col-lg-6 vc_col-md-6"><div class="vc_column-inner thegem-custom-inner-6200e8e37827a "><div class="wpb_wrapper">
+<div class="clearboth"></div>
+<div class="gem-divider " style="margin-top: 30px;"></div>
+	
+		<div class="wpb_text_column wpb_content_element  wpb_animate_when_almost_visible wpb_bottom-to-top bottom-to-top">
+			<div class="wpb_wrapper">
+				<p style="text-align: justify;">Vegans Fresh delivers you an entire range of fresh fruits, vegetables and groceries delivered at your doorstep directly from the farm to your home. We do not stock any of the products. As per the orders, we are collecting fresh fruits and vegetables directly from the farms of Uttar Pradesh and Uttarakhand. The groceries including the grains and spices are specially grounded as per the orders and we hope you get them delivered hot as freshly grinded grains and spices are!</p>
+
+			</div>
+		</div>
+	
+<div class="clearboth"></div>
+<div class="gem-divider " style="margin-top: 90px;"></div>
 </div></div></div>
-<div class="shadow-quick wpb_column vc_column_container vc_col-sm-12 thegem-custom-6200e8dd6d3f74499" id="courses"><div class="vc_column-inner thegem-custom-inner-6200e8dd6d3fa vc_custom_1605785286777"><div class="wpb_wrapper">
-	
-		<div class="wpb_text_column wpb_content_element  wpb_animate_when_almost_visible wpb_fadeInLeft fadeInLeft" style="-webkit-animation-delay: 200ms;-moz-animation-delay: 200ms;-o-animation-delay: 200ms;animation-delay: 200ms;">
-			<div class="wpb_wrapper">
-				<div class="title-h2" style="text-align: center;">Explore Our Categories</div>
-
-			</div>
-		</div>
-	
+<div class="line-block2 wpb_column vc_column_container vc_col-sm-6 vc_col-lg-3 vc_col-md-3"><div class="vc_column-inner thegem-custom-inner-6200e8e3785c6 vc_custom_1601992302822"><div class="wpb_wrapper">
 <div class="clearboth"></div>
-<div class="gem-divider " style="margin-top: 110px;"></div>
-<div id="fullwidth-block-6200e8dd6deec" class="fullwidth-block clearfix">
-<script type="text/javascript">if (typeof(gem_fix_fullwidth_position) == "function") { gem_fix_fullwidth_position(document.getElementById("fullwidth-block-6200e8dd6deec")); }</script><div class="fullwidth-block-background" style="background-image: url({{asset('website/img/13.png')}});background-repeat: no-repeat; background-size: cover;background-position: center top;"></div>
-<div class="fullwidth-block-inner"><div class="container">
-	
-	<div class="wpb_single_image wpb_content_element vc_align_right   pink-rectangle-right-bg">
-		
-		<figure class="wpb_wrapper vc_figure">
-			<div class="vc_single_image-wrapper   vc_box_border_grey"><img width="510" height="641" src="{{asset('website/img/11.png')}}" class="vc_single_image-img attachment-full" alt="" ></div>
-		</figure>
-	</div>
-	
-<div class="clearboth"></div>
-<div class="gem-divider " style="margin-top: -90px;"></div>
-<div class="vc_row wpb_row vc_inner vc_row-fluid custom-inner-column-6200e8dd6eb16">
-<div class="wpb_column vc_column_container vc_col-sm-3"><div class="vc_column-inner thegem-custom-inner-6200e8dd6ee05 "><div class="wpb_wrapper"><div class="lazy-loading" data-ll-item-delay="0"><div class="gem-textbox  lazy-loading-item" data-ll-effect="move-up"><div class="gem-textbox-inner" style="border-top-left-radius: 20px;border-top-right-radius: 20px;border-bottom-right-radius: 20px;border-bottom-left-radius: 20px;"><div class="gem-textbox-content" style="background-color: #ffffff;background-position: center top;padding-top: 20px;padding-bottom: 20px;padding-left: 20px;padding-right: 20px;">
-<div class="centered-box gem-image-centered-box"><div class="gem-image gem-wrapbox gem-wrapbox-style-default gem-wrapbox-position-centered lazy-loading"><div class="gem-wrapbox-inner  lazy-loading-item" data-ll-effect="move-up"><img class="gem-wrapbox-element img-responsive" src="{{asset('website/img/Fresh-Fruits.png')}}" alt=""></div></div></div>
-	
-		<div class="wpb_text_column wpb_content_element ">
-			<div class="wpb_wrapper">
-				<div class="title-h5" style="text-align: center;"><span style="color: #282828;">FRESH FRUITS</span></div>
-
-			</div>
-		</div>
-	
-</div></div></div></div></div></div></div>
-<div class="wpb_column vc_column_container vc_col-sm-3"><div class="vc_column-inner thegem-custom-inner-6200e8dd6fc30 "><div class="wpb_wrapper"><div class="lazy-loading" data-ll-item-delay="0"><div class="gem-textbox  lazy-loading-item" data-ll-effect="move-up"><div class="gem-textbox-inner" style="border-top-left-radius: 20px;border-top-right-radius: 20px;border-bottom-right-radius: 20px;border-bottom-left-radius: 20px;"><div class="gem-textbox-content" style="background-color: #ffffff;background-position: center top;padding-top: 20px;padding-bottom: 20px;padding-left: 20px;padding-right: 20px;">
-<div class="centered-box gem-image-centered-box"><div class="gem-image gem-wrapbox gem-wrapbox-style-default gem-wrapbox-position-centered lazy-loading"><div class="gem-wrapbox-inner  lazy-loading-item" data-ll-effect="move-up"><img class="gem-wrapbox-element img-responsive" src="{{asset('website/img/Fresh-Vegetable.png')}}" alt=""></div></div></div>
-	
-		<div class="wpb_text_column wpb_content_element ">
-			<div class="wpb_wrapper">
-				<div class="title-h5" style="text-align: center;"><span style="color: #282828;">FRESH VEGETABLES</span></div>
-
-			</div>
-		</div>
-	
-</div></div></div></div></div></div></div>
-<div class="wpb_column vc_column_container vc_col-sm-3"><div class="vc_column-inner thegem-custom-inner-6200e8dd70b14 "><div class="wpb_wrapper"><div class="lazy-loading" data-ll-item-delay="0"><div class="gem-textbox  lazy-loading-item" data-ll-effect="move-up"><div class="gem-textbox-inner" style="border-top-left-radius: 20px;border-top-right-radius: 20px;border-bottom-right-radius: 20px;border-bottom-left-radius: 20px;"><div class="gem-textbox-content" style="background-color: #ffffff;background-position: center top;padding-top: 20px;padding-bottom: 20px;padding-left: 20px;padding-right: 20px;">
-<div class="centered-box gem-image-centered-box"><div class="gem-image gem-wrapbox gem-wrapbox-style-default gem-wrapbox-position-centered lazy-loading"><div class="gem-wrapbox-inner  lazy-loading-item" data-ll-effect="move-up"><img class="gem-wrapbox-element img-responsive" src="{{asset('website/img/Pulses-and-Grains.png')}}" alt=""></div></div></div>
-	
-		<div class="wpb_text_column wpb_content_element ">
-			<div class="wpb_wrapper">
-				<div class="title-h5" style="text-align: center;"><span style="color: #282828;">PULSES/GRAINS</span></div>
-
-			</div>
-		</div>
-	
-</div></div></div></div></div></div></div>
-<div class="wpb_column vc_column_container vc_col-sm-3"><div class="vc_column-inner thegem-custom-inner-6200e8dd714e6 "><div class="wpb_wrapper"><div class="lazy-loading" data-ll-item-delay="0"><div class="gem-textbox  lazy-loading-item" data-ll-effect="move-up"><div class="gem-textbox-inner" style="border-top-left-radius: 20px;border-top-right-radius: 20px;border-bottom-right-radius: 20px;border-bottom-left-radius: 20px;"><div class="gem-textbox-content" style="background-color: #ffffff;background-position: center top;padding-top: 20px;padding-bottom: 20px;padding-left: 20px;padding-right: 20px;">
-<div class="centered-box gem-image-centered-box"><div class="gem-image gem-wrapbox gem-wrapbox-style-default gem-wrapbox-position-centered lazy-loading"><div class="gem-wrapbox-inner  lazy-loading-item" data-ll-effect="move-up"><img class="gem-wrapbox-element img-responsive" src="{{asset('website/img/Spices.png')}}" alt=""></div></div></div>
-	
-		<div class="wpb_text_column wpb_content_element ">
-			<div class="wpb_wrapper">
-				<div class="title-h5" style="text-align: center;"><span style="color: #282828;">SPICES</span></div>
-
-			</div>
-		</div>
-	
-</div></div></div></div></div></div></div>
-</div>
-<div class="vc_row wpb_row vc_inner vc_row-fluid custom-inner-column-6200e8dd72002">
-<div class="wpb_column vc_column_container vc_col-sm-3"><div class="vc_column-inner thegem-custom-inner-6200e8dd72236 "><div class="wpb_wrapper"><div class="lazy-loading" data-ll-item-delay="0"><div class="gem-textbox  lazy-loading-item" data-ll-effect="move-up"><div class="gem-textbox-inner" style="border-top-left-radius: 20px;border-top-right-radius: 20px;border-bottom-right-radius: 20px;border-bottom-left-radius: 20px;"><div class="gem-textbox-content" style="background-color: #ffffff;background-position: center top;padding-top: 20px;padding-bottom: 20px;padding-left: 20px;padding-right: 20px;">
-<div class="centered-box gem-image-centered-box"><div class="gem-image gem-wrapbox gem-wrapbox-style-default gem-wrapbox-position-centered lazy-loading"><div class="gem-wrapbox-inner  lazy-loading-item" data-ll-effect="move-up"><img class="gem-wrapbox-element img-responsive" src="{{asset('website/img/Flour-and-Rice.png')}}" alt=""></div></div></div>
-	
-		<div class="wpb_text_column wpb_content_element ">
-			<div class="wpb_wrapper">
-				<div class="title-h5" style="text-align: center;"><span style="color: #282828;">FLOUR/RICE</span></div>
-
-			</div>
-		</div>
-	
-</div></div></div></div></div></div></div>
-<div class="wpb_column vc_column_container vc_col-sm-3"><div class="vc_column-inner thegem-custom-inner-6200e8dd72d4e "><div class="wpb_wrapper"><div class="lazy-loading" data-ll-item-delay="0"><div class="gem-textbox  lazy-loading-item" data-ll-effect="move-up"><div class="gem-textbox-inner" style="border-top-left-radius: 20px;border-top-right-radius: 20px;border-bottom-right-radius: 20px;border-bottom-left-radius: 20px;"><div class="gem-textbox-content" style="background-color: #ffffff;background-position: center top;padding-top: 20px;padding-bottom: 20px;padding-left: 20px;padding-right: 20px;">
-<div class="centered-box gem-image-centered-box"><div class="gem-image gem-wrapbox gem-wrapbox-style-default gem-wrapbox-position-centered lazy-loading"><div class="gem-wrapbox-inner  lazy-loading-item" data-ll-effect="move-up"><img class="gem-wrapbox-element img-responsive" src="{{asset('website/img/Dry-Fruits.png')}}" alt=""></div></div></div>
-	
-		<div class="wpb_text_column wpb_content_element ">
-			<div class="wpb_wrapper">
-				<div class="title-h5" style="text-align: center;"><span style="color: #282828;">DRY FRUITS</span></div>
-
-			</div>
-		</div>
-	
-</div></div></div></div></div></div></div>
-<div class="wpb_column vc_column_container vc_col-sm-3"><div class="vc_column-inner thegem-custom-inner-6200e8dd73930 "><div class="wpb_wrapper"><div class="lazy-loading" data-ll-item-delay="0"><div class="gem-textbox  lazy-loading-item" data-ll-effect="move-up"><div class="gem-textbox-inner" style="border-top-left-radius: 20px;border-top-right-radius: 20px;border-bottom-right-radius: 20px;border-bottom-left-radius: 20px;"><div class="gem-textbox-content" style="background-color: #ffffff;background-position: center top;padding-top: 20px;padding-bottom: 20px;padding-left: 20px;padding-right: 20px;">
-<div class="centered-box gem-image-centered-box"><div class="gem-image gem-wrapbox gem-wrapbox-style-default gem-wrapbox-position-centered lazy-loading"><div class="gem-wrapbox-inner  lazy-loading-item" data-ll-effect="move-up"><img class="gem-wrapbox-element img-responsive" src="{{asset('website/img/Seeds.png')}}" alt=""></div></div></div>
-	
-		<div class="wpb_text_column wpb_content_element ">
-			<div class="wpb_wrapper">
-				<div class="title-h5" style="text-align: center;"><span style="color: #282828;">SEEDS</span></div>
-
-			</div>
-		</div>
-	
-</div></div></div></div></div></div></div>
-<div class="wpb_column vc_column_container vc_col-sm-3"><div class="vc_column-inner thegem-custom-inner-6200e8dd74b0f "><div class="wpb_wrapper"><div class="lazy-loading" data-ll-item-delay="0"><div class="gem-textbox  lazy-loading-item" data-ll-effect="move-up"><div class="gem-textbox-inner" style="border-top-left-radius: 20px;border-top-right-radius: 20px;border-bottom-right-radius: 20px;border-bottom-left-radius: 20px;"><div class="gem-textbox-content" style="background-color: #ffffff;background-position: center top;padding-top: 20px;padding-bottom: 20px;padding-left: 20px;padding-right: 20px;">
-<div class="centered-box gem-image-centered-box"><div class="gem-image gem-wrapbox gem-wrapbox-style-default gem-wrapbox-position-centered lazy-loading"><div class="gem-wrapbox-inner  lazy-loading-item" data-ll-effect="move-up"><img class="gem-wrapbox-element img-responsive" src="{{asset('website/img/English-Groceries.png')}}" alt=""></div></div></div>
-	
-		<div class="wpb_text_column wpb_content_element ">
-			<div class="wpb_wrapper">
-				<div class="title-h5" style="text-align: center;"><span style="color: #282828;">ENGLISH GROCERIES</span></div>
-
-			</div>
-		</div>
-	
-</div></div></div></div></div></div></div>
-</div>
+<div class="gem-divider hide" style="margin-top: -21px;"></div>
+<div class="gem-textbox  gem-interactions-enabled centered-box" data-vertical_scroll_enable="yes" data-vertical_scroll_speed="-0.8" data-disable_effects_tablet="disable" data-disable_effects_mobile="disable"><div class="gem-textbox-inner" style="border-top-left-radius: 21px;border-top-right-radius: 21px;border-bottom-right-radius: 21px;border-bottom-left-radius: 21px;"><div class="gem-textbox-content" style="background-color: #B77C66;background-position: center top;">
+<div class="gem-icon gem-icon-pack-thegemdemo gem-icon-size-large  gem-icon-shape-square gem-simple-icon" style="margin-top: 40px;opacity: 1;"><div class="gem-icon-inner">
+<span class="gem-icon-half-1" style="color: #283d40;"><span class="back-angle">&#xe929;</span></span><span class="gem-icon-half-2" style="color: #283d40;"><span class="back-angle">&#xe929;</span></span>
+</div></div>
 <div class="clearboth"></div>
 <div class="gem-divider " style="margin-top: 60px;"></div>
-<div class="vc_row wpb_row vc_inner vc_row-fluid vc_custom_1642668946451 custom-inner-column-6200e8dd75add">
-<div class="wpb_column vc_column_container vc_col-sm-12 vc_col-lg-6 vc_col-md-6"><div class="vc_column-inner thegem-custom-inner-6200e8dd76016 vc_custom_1605606119273"><div class="wpb_wrapper">
-	
-		<div class="wpb_text_column wpb_content_element  wpb_animate_when_almost_visible wpb_fadeInLeft fadeInLeft" id="learn-courses" style="-webkit-animation-delay: 100ms;-moz-animation-delay: 100ms;-o-animation-delay: 100ms;animation-delay: 100ms;">
-			<div class="wpb_wrapper">
-				<div class="title-h2">Our Features</div>
-
-			</div>
-		</div>
-	
-<div class="clearboth"></div>
-<div class="gem-divider " style="margin-top: -25px;"></div>
-<div class="vc_tta-container" data-vc-action="collapse"><div class="vc_general vc_tta vc_tta-accordion vc_tta-color-thegem vc_tta-style-classic vc_tta-shape-round vc_tta-o-shape-group vc_tta-gap-2 vc_tta-controls-align-left"><div class="vc_tta-panels-container"><div class="vc_tta-panels">
-<div class="vc_tta-panel vc_active" id="1605257404807-a88db36c-5c24" data-vc-content=".vc_tta-panel-body">
-<div class="vc_tta-panel-heading"><h4 class="vc_tta-panel-title vc_tta-controls-icon-position-left"><a href="#1605257404807-a88db36c-5c24" data-vc-accordion data-vc-container=".vc_tta-container"><span class="vc_tta-title-text">Organically Grown</span><i class="vc_tta-controls-icon vc_tta-controls-icon-outlined_rounded"></i></a></h4></div>
-<div class="vc_tta-panel-body">
 	
 		<div class="wpb_text_column wpb_content_element ">
 			<div class="wpb_wrapper">
-				<p style="text-align: justify;"><strong><span style="color: #283d40;">Our entire range of products are organically grown without any adulteration and use of other toxic chemicals. We only deliver organically grown products which are healthy for your health.</span></strong></p>
+				<p style="text-align: center;">info@vegansfresh.com<br>
+support@vegansfresh.com</p>
 
 			</div>
 		</div>
 	
-</div>
-</div>
-<div class="vc_tta-panel" id="1605257404856-22b9649f-22fe" data-vc-content=".vc_tta-panel-body">
-<div class="vc_tta-panel-heading"><h4 class="vc_tta-panel-title vc_tta-controls-icon-position-left"><a href="#1605257404856-22b9649f-22fe" data-vc-accordion data-vc-container=".vc_tta-container"><span class="vc_tta-title-text">No preservatives</span><i class="vc_tta-controls-icon vc_tta-controls-icon-outlined_rounded"></i></a></h4></div>
-<div class="vc_tta-panel-body">
-	
-		<div class="wpb_text_column wpb_content_element ">
-			<div class="wpb_wrapper">
-				<p style="text-align: justify;"><strong><span style="color: #283d40;">We ensure that there is no preservative used in our product. We provide you  the best available healthy and hygienic range of groceries.</span></strong></p>
-
-			</div>
-		</div>
-	
-</div>
-</div>
-<div class="vc_tta-panel" id="1605257532039-3ff4a8f8-d3ca" data-vc-content=".vc_tta-panel-body">
-<div class="vc_tta-panel-heading"><h4 class="vc_tta-panel-title vc_tta-controls-icon-position-left"><a href="#1605257532039-3ff4a8f8-d3ca" data-vc-accordion data-vc-container=".vc_tta-container"><span class="vc_tta-title-text">Eco Friendly</span><i class="vc_tta-controls-icon vc_tta-controls-icon-outlined_rounded"></i></a></h4></div>
-<div class="vc_tta-panel-body">
-	
-		<div class="wpb_text_column wpb_content_element ">
-			<div class="wpb_wrapper">
-				<p style="text-align: justify;"><strong><span style="color: #283d40;">Our fruits, vegetables and entire range of groceries are eco-friendly along with their packaging. We deliver our entire range of products in compostable biodegradable bags for safe and hygienic delivery.</span></strong></p>
-
-			</div>
-		</div>
-	
-</div>
-</div>
-<div class="vc_tta-panel" id="1605257561004-4c9bd086-22a4" data-vc-content=".vc_tta-panel-body">
-<div class="vc_tta-panel-heading"><h4 class="vc_tta-panel-title vc_tta-controls-icon-position-left"><a href="#1605257561004-4c9bd086-22a4" data-vc-accordion data-vc-container=".vc_tta-container"><span class="vc_tta-title-text">Sustainable production</span><i class="vc_tta-controls-icon vc_tta-controls-icon-outlined_rounded"></i></a></h4></div>
-<div class="vc_tta-panel-body">
-	
-		<div class="wpb_text_column wpb_content_element ">
-			<div class="wpb_wrapper">
-				<p style="text-align: justify;"><strong><span style="color: #283d40;">We also ensure that resources we are using to grow the products will remain in their natural form by not using any kind of pesticides or chemicals and make our soil much fertile for future use.</span></strong></p>
-
-			</div>
-		</div>
-	
-</div>
-</div>
-</div></div></div></div>
-</div></div></div>
-<div class="wpb_column vc_column_container vc_col-sm-12 vc_col-lg-6 vc_col-md-6"><div class="vc_column-inner thegem-custom-inner-6200e8dd780da vc_custom_1605606109682"><div class="wpb_wrapper">
-<div class="clearboth"></div>
-<div class="gem-divider " style="margin-top: 70px;"></div>
-	<div class="gem-interactions-enabled " data-vertical_scroll_enable="yes" data-vertical_scroll_speed="3" data-mouse_effects="yes" data-mouse_effects_direction="-1" data-mouse_effects_speed="0.4"><div class="mouse-effects-container">
-	<div class="wpb_single_image wpb_content_element vc_align_center">
-		
-		<figure class="wpb_wrapper vc_figure">
-			<div class="vc_single_image-wrapper   vc_box_border_grey"><img width="608" height="648" src="{{asset('website/img/Vegans-Fresh-Features.png')}}" class="vc_single_image-img attachment-full" alt="" ></div>
-		</figure>
-	</div>
-	</div></div>
-</div></div></div>
-</div>
-<div class="clearboth"></div>
-<div class="gem-divider " style="margin-top: -20pxpx;"></div>
-<style type="text/css">.thegem-button-6200e8dd79371457.lazy-loading-before-start-animation .lazy-loading-item {opacity: 0;}</style>
-<div class="gem-button-container gem-button-position-center thegem-button-6200e8dd79371457 lazy-loading lazy-loading-before-start-animation"><a title="httpwww.sarovarmicrofinance.com/about/" class="gem-button gem-button-size-large gem-button-style-flat gem-button-text-weight-normal gem-button-no-uppercase lazy-loading-item" data-ll-effect="drop-right-without-wrap" style="border-radius: 25px;background-color: #283d40;background: linear-gradient(to bottom, #283d40, #b77c66);color: #ffffff;" onmouseleave="this.style.backgroundColor='#283d40';this.style.color='#ffffff';this.style.background='linear-gradient(to bottom , #283d40 , #b77c66)';" onmouseenter="this.style.backgroundColor='#b77c66';this.style.color='#ffffff';this.style.background='linear-gradient(to bottom , #b77c66 , #283d40)';" href="/about/" target="_blank">Explore More</a></div> <div class="clearboth"></div>
-<div class="gem-divider " style="margin-top: 10px;"></div>
-	<div class="gem-interactions-enabled   pink-rectangle-left-bg" data-vertical_scroll_enable="yes" data-vertical_scroll_speed="3" data-mouse_effects="yes" data-mouse_effects_direction="-1" data-mouse_effects_speed="0.8"><div class="mouse-effects-container">
-	<div class="wpb_single_image wpb_content_element vc_align_left">
-		
-		<figure class="wpb_wrapper vc_figure">
-			<div class="vc_single_image-wrapper   vc_box_border_grey"><img width="510" height="641" src="{{asset('website/img/11.png')}}" class="vc_single_image-img attachment-full" alt="" ></div>
-		</figure>
-	</div>
-	</div></div>
-<div class="vc_row wpb_row vc_inner vc_row-fluid vc_custom_1613988121942 custom-inner-column-6200e8dd79b2f"><div class="wpb_column vc_column_container vc_col-sm-12"><div class="vc_column-inner thegem-custom-inner-6200e8dd79f8a vc_custom_1605261995808"><div class="wpb_wrapper">
-<div class="clearboth"></div>
-<div class="gem-divider " style="margin-top: -15px;"></div>
-	
-		<div class="wpb_text_column wpb_content_element  wpb_animate_when_almost_visible wpb_fadeInLeft fadeInLeft" style="-webkit-animation-delay: 200ms;-moz-animation-delay: 200ms;-o-animation-delay: 200ms;animation-delay: 200ms;">
-			<div class="wpb_wrapper">
-				<div class="title-h2" style="text-align: center;">Our App Features</div>
-
-			</div>
-		</div>
-	
-</div></div></div></div>
-</div></div>
-</div>
-</div></div></div>
-</div>
-<div class="vc_row-full-width vc_clearfix"></div>
-<div class="vc_row-full-width-before"></div>
-<div id="services" data-vc-full-width="true" data-vc-full-width-init="false" class="vc_row wpb_row vc_row-fluid vc_custom_1613988058805 thegem-custom-6200e8dd7ad5d7720 vc_row-has-fill">
-<script type="text/javascript">if (typeof(gem_fix_fullwidth_position) == "function") { gem_fix_fullwidth_position(document.getElementById("services")); }</script><div class="new-app-icon wpb_column vc_column_container vc_col-sm-12 thegem-custom-6200e8dd7b2ee4212"><div class="vc_column-inner thegem-custom-inner-6200e8dd7b2f4 vc_custom_1605530522965"><div class="wpb_wrapper">
-<div class="clearboth"></div>
-<div class="gem-divider " style="margin-top: 70px;"></div>
-	<div class="gem-interactions-enabled   bg-under-phone" data-vertical_scroll_enable="yes" data-vertical_scroll_speed="3" data-mouse_effects="yes" data-mouse_effects_direction="1" data-mouse_effects_speed="1"><div class="mouse-effects-container">
-	<div class="wpb_single_image wpb_content_element vc_align_center">
-		
-		<figure class="wpb_wrapper vc_figure">
-			<div class="vc_single_image-wrapper   vc_box_border_grey"></div>
-		</figure>
-	</div>
-	</div></div>
-<div class="vc_row wpb_row vc_inner vc_row-fluid custom-inner-column-6200e8dd7c96f">
-<div class="wpb_column vc_column_container vc_col-sm-6 vc_col-lg-4 vc_col-md-4"><div class="vc_column-inner thegem-custom-inner-6200e8dd7cd31 "><div class="wpb_wrapper">
-<div class="clearboth"></div>
-<div class="gem-divider " style="margin-top: 30px;"></div>
-<div class="gem-icon-with-text gem-icon-with-text-icon-size-medium disable-mobile-centered gem-icon-with-text-flow">
-<div style="margin-bottom:0px;margin-top:0px; " class="gem-icon-with-text-icon"><div class="gem-icon gem-icon-pack-thegemdemo gem-icon-size-medium  gem-icon-shape-circle" style="border-color: #ffffff;opacity: 1;"><div class="gem-icon-inner" style="background-color: #ffffff;">
-<span class="gem-icon-half-1" style="color: #283d40;"><span class="back-angle">&#xe907;</span></span><span class="gem-icon-half-2" style="color: #283d40;"><span class="back-angle">&#xe907;</span></span>
-</div></div></div>
-<div class="gem-icon-with-text-content"><div class="gem-icon-with-text-text">
-	
-		<div class="wpb_text_column wpb_content_element ">
-			<div class="wpb_wrapper">
-				<div class="title-h4"><span style="color: #000000;">Order in the Morning, Get it in the Evening </span></div>
-
-			</div>
-		</div>
-	
-</div></div>
-<div class="clearboth"></div>
-</div>
 <div class="clearboth"></div>
 <div class="gem-divider " style="margin-top: 20px;"></div>
-<div class="gem-icon-with-text gem-icon-with-text-icon-size-medium disable-mobile-centered gem-icon-with-text-flow">
-<div style="margin-bottom:0px;margin-top:0px; " class="gem-icon-with-text-icon"><div class="gem-icon gem-icon-pack-thegemdemo gem-icon-size-medium  gem-icon-shape-circle" style="border-color: #ffffff;opacity: 1;"><div class="gem-icon-inner" style="background-color: #ffffff;">
-<span class="gem-icon-half-1" style="color: #283d40;"><span class="back-angle">&#xe92d;</span></span><span class="gem-icon-half-2" style="color: #283d40;"><span class="back-angle">&#xe92d;</span></span>
 </div></div></div>
-<div class="gem-icon-with-text-content"><div class="gem-icon-with-text-text">
-	
-		<div class="wpb_text_column wpb_content_element ">
-			<div class="wpb_wrapper">
-				<div class="title-h4" style="text-align: left;"><span style="color: #000000;"> Easy to Use </span></div>
-
-			</div>
-		</div>
-	
-</div></div>
-<div class="clearboth"></div>
-</div>
-<div class="clearboth"></div>
-<div class="gem-divider " style="margin-top: 20px;"></div>
-<div class="gem-icon-with-text gem-icon-with-text-icon-size-medium disable-mobile-centered gem-icon-with-text-flow">
-<div style="margin-bottom:0px;margin-top:0px; " class="gem-icon-with-text-icon"><div class="gem-icon gem-icon-pack-thegemdemo gem-icon-size-medium  gem-icon-shape-circle" style="border-color: #ffffff;opacity: 1;"><div class="gem-icon-inner" style="background-color: #ffffff;">
-<span class="gem-icon-half-1" style="color: #283d40;"><span class="back-angle">&#xe913;</span></span><span class="gem-icon-half-2" style="color: #283d40;"><span class="back-angle">&#xe913;</span></span>
 </div></div></div>
-<div class="gem-icon-with-text-content"><div class="gem-icon-with-text-text">
-	
-		<div class="wpb_text_column wpb_content_element ">
-			<div class="wpb_wrapper">
-				<div class="title-h4" style="text-align: left;"><span style="color: #000000;"> Entire Variety in a Single Application</span></div>
-
-			</div>
-		</div>
-	
-</div></div>
+<div class="line-block2 wpb_column vc_column_container vc_col-sm-6 vc_col-lg-3 vc_col-md-3"><div class="vc_column-inner thegem-custom-inner-6200e8e378ac7 vc_custom_1644052656142"><div class="wpb_wrapper">
 <div class="clearboth"></div>
-</div>
-<div class="clearboth"></div>
-<div class="gem-divider " style="margin-top: 20px;"></div>
-<div class="gem-icon-with-text gem-icon-with-text-icon-size-medium disable-mobile-centered gem-icon-with-text-flow">
-<div style="margin-bottom:0px;margin-top:0px; " class="gem-icon-with-text-icon"><div class="gem-icon gem-icon-pack-thegemdemo gem-icon-size-medium  gem-icon-shape-circle" style="border-color: #ffffff;opacity: 1;"><div class="gem-icon-inner" style="background-color: #ffffff;">
-<span class="gem-icon-half-1" style="color: #283d40;"><span class="back-angle">&#xe934;</span></span><span class="gem-icon-half-2" style="color: #283d40;"><span class="back-angle">&#xe934;</span></span>
-</div></div></div>
-<div class="gem-icon-with-text-content"><div class="gem-icon-with-text-text">
-	
-		<div class="wpb_text_column wpb_content_element ">
-			<div class="wpb_wrapper">
-				<div class="title-h4" style="text-align: left;"><span style="color: #000000;"><br>
-Search and Discover</span></div>
-
-			</div>
-		</div>
-	
-</div></div>
-<div class="clearboth"></div>
-</div>
-</div></div></div>
-<div class="wpb_column vc_column_container vc_col-sm-12 vc_col-lg-4 vc_col-md-4 vc_hidden-sm vc_hidden-xs"><div class="vc_column-inner thegem-custom-inner-6200e8dd7dddc "><div class="wpb_wrapper">
-	<div class="gem-interactions-enabled   phone" data-mouse_effects="yes" data-mouse_effects_direction="-1" data-mouse_effects_speed="0.4"><div class="mouse-effects-container">
-	<div class="wpb_single_image wpb_content_element vc_align_center  wpb_animate_when_almost_visible wpb_fadeInUp fadeInUp" style="-webkit-animation-delay: 100ms;-moz-animation-delay: 100ms;-o-animation-delay: 100ms;animation-delay: 100ms;">
-		
-		<figure class="wpb_wrapper vc_figure">
-			<div class="vc_single_image-wrapper   vc_box_border_grey"><img width="250" height="516" 
-			src="{{asset('website/img/test.png')}}" class="vc_single_image-img attachment-full" alt="" ></div>
-		</figure>
-	</div>
-	</div></div>
-
-	<div class="gem-interactions-enabled   figure-bg" data-vertical_scroll_enable="yes" data-vertical_scroll_speed="-1.5" data-mouse_effects="yes" data-mouse_effects_direction="1" data-mouse_effects_speed="0.2"><div class="mouse-effects-container">
-	<div class="wpb_single_image wpb_content_element vc_align_left  wpb_animate_when_almost_visible wpb_fadeInUp fadeInUp" style="-webkit-animation-delay: 200ms;-moz-animation-delay: 200ms;-o-animation-delay: 200ms;animation-delay: 200ms;">
-		
-		<figure class="wpb_wrapper vc_figure">
-			<div class="vc_single_image-wrapper   vc_box_border_grey"><img width="469" height="274" src="{{asset('website/img/App-Feature-Element-1.png')}}" class="vc_single_image-img attachment-full" alt="" sizes="(max-width: 469px) 100vw, 469px"></div>
-		</figure>
-	</div>
-	</div></div>
-</div></div></div>
-<div class="wpb_column vc_column_container vc_col-sm-6 vc_col-lg-4 vc_col-md-4"><div class="vc_column-inner thegem-custom-inner-6200e8dd7f178 vc_custom_1605619014839"><div class="wpb_wrapper">
-<div class="clearboth"></div>
-<div class="gem-divider " style="margin-top: 30px;"></div>
-<div class="gem-icon-with-text gem-icon-with-text-icon-size-medium disable-mobile-centered gem-icon-with-text-float-right gem-icon-with-text-flow">
-<div style="margin-bottom:0px;padding-left: 20px;margin-top:0px; " class="gem-icon-with-text-icon"><div class="gem-icon gem-icon-pack-thegemdemo gem-icon-size-medium  gem-icon-shape-circle" style="border-color: #ffffff;opacity: 1;"><div class="gem-icon-inner" style="background-color: #ffffff;">
-<span class="gem-icon-half-1" style="color: #283d40;"><span class="back-angle">&#xe907;</span></span><span class="gem-icon-half-2" style="color: #283d40;"><span class="back-angle">&#xe907;</span></span>
-</div></div></div>
-<div class="gem-icon-with-text-content"><div class="gem-icon-with-text-text">
-	
-		<div class="wpb_text_column wpb_content_element ">
-			<div class="wpb_wrapper">
-				<div class="title-h4" style="text-align: right;"><span style="color: #000000;">Order in the Evening, Get in the Morning</span></div>
-
-			</div>
-		</div>
-	
-</div></div>
-<div class="clearboth"></div>
-</div>
-<div class="clearboth"></div>
-<div class="gem-divider " style="margin-top: 20px;"></div>
-<div class="gem-icon-with-text gem-icon-with-text-icon-size-medium disable-mobile-centered gem-icon-with-text-float-right gem-icon-with-text-flow">
-<div style="margin-bottom:0px;padding-left: 20px;margin-top:0px; " class="gem-icon-with-text-icon"><div class="gem-icon gem-icon-pack-thegemdemo gem-icon-size-medium  gem-icon-shape-circle" style="border-color: #ffffff;opacity: 1;"><div class="gem-icon-inner" style="background-color: #ffffff;">
-<span class="gem-icon-half-1" style="color: #283d40;"><span class="back-angle">&#xe925;</span></span><span class="gem-icon-half-2" style="color: #283d40;"><span class="back-angle">&#xe925;</span></span>
-</div></div></div>
-<div class="gem-icon-with-text-content"><div class="gem-icon-with-text-text">
-	
-		<div class="wpb_text_column wpb_content_element ">
-			<div class="wpb_wrapper">
-				<div class="title-h4" style="text-align: right;"><span style="color: #000000;"> Coupon Codes Available</span></div>
-
-			</div>
-		</div>
-	
-</div></div>
-<div class="clearboth"></div>
-</div>
-<div class="clearboth"></div>
-<div class="gem-divider " style="margin-top: 20px;"></div>
-<div class="gem-icon-with-text gem-icon-with-text-icon-size-medium disable-mobile-centered gem-icon-with-text-float-right gem-icon-with-text-flow">
-<div style="margin-bottom:0px;padding-left: 20px;margin-top:0px; " class="gem-icon-with-text-icon"><div class="gem-icon gem-icon-pack-thegemdemo gem-icon-size-medium  gem-icon-shape-circle" style="border-color: #ffffff;opacity: 1;"><div class="gem-icon-inner" style="background-color: #ffffff;">
+<div class="gem-divider hide" style="margin-top: 80px;"></div>
+<div class="gem-textbox  gem-interactions-enabled centered-box" data-vertical_scroll_enable="yes" data-vertical_scroll_speed="0.6" data-disable_effects_tablet="disable" data-disable_effects_mobile="disable"><div class="gem-textbox-inner" style="border-top-left-radius: 21px;border-top-right-radius: 21px;border-bottom-right-radius: 21px;border-bottom-left-radius: 21px;"><div class="gem-textbox-content" style="background-color: #b77c66;background-position: center top;">
+<div class="gem-icon gem-icon-pack-thegemdemo gem-icon-size-large  gem-icon-shape-square gem-simple-icon" style="margin-top: 40px;opacity: 1;"><div class="gem-icon-inner">
 <span class="gem-icon-half-1" style="color: #283d40;"><span class="back-angle">&#xe904;</span></span><span class="gem-icon-half-2" style="color: #283d40;"><span class="back-angle">&#xe904;</span></span>
-</div></div></div>
-<div class="gem-icon-with-text-content"><div class="gem-icon-with-text-text">
+</div></div>
+<div class="clearboth"></div>
+<div class="gem-divider " style="margin-top: 60px;"></div>
 	
 		<div class="wpb_text_column wpb_content_element ">
 			<div class="wpb_wrapper">
-				<div class="title-h4" style="text-align: right;"><span style="color: #000000;">Quick Results</span></div>
+				<p style="text-align: center;">Monday-Sunday: 10:00 – 19:00</p>
 
 			</div>
 		</div>
 	
+<div class="clearboth"></div>
+<div class="gem-divider " style="margin-top: 20px;"></div>
+</div></div></div>
+</div></div></div>
+<style type="text/css">@media screen and (max-width: 1023px) {.thegem-custom-inner-6200e8e378ac7.vc_column-inner {margin-bottom: 50px !important;}}@media screen and (max-width: 767px) {.thegem-custom-inner-6200e8e378ac7.vc_column-inner {margin-bottom: 50px !important;}}</style>
+<div class="line-block2 wpb_column vc_column_container vc_col-sm-6 vc_col-lg-3 vc_col-md-3"><div class="vc_column-inner thegem-custom-inner-6200e8e378e4b vc_custom_1644052673640"><div class="wpb_wrapper">
+<div class="clearboth"></div>
+<div class="gem-divider hide" style="margin-top: -215px;"></div>
+<div class="gem-textbox  gem-interactions-enabled centered-box" data-vertical_scroll_enable="yes" data-vertical_scroll_speed="-0.6" data-disable_effects_tablet="disable" data-disable_effects_mobile="disable"><div class="gem-textbox-inner" style="border-top-left-radius: 21px;border-top-right-radius: 21px;border-bottom-right-radius: 21px;border-bottom-left-radius: 21px;"><div class="gem-textbox-content" style="background-color: #b77c66;background-position: center top;">
+<div class="gem-icon gem-icon-pack-thegemdemo gem-icon-size-large  gem-icon-shape-square gem-simple-icon" style="margin-top: 40px;opacity: 1;"><div class="gem-icon-inner">
+<span class="gem-icon-half-1" style="color: #283d40;"><span class="back-angle">&#xe90d;</span></span><span class="gem-icon-half-2" style="color: #283d40;"><span class="back-angle">&#xe90d;</span></span>
 </div></div>
 <div class="clearboth"></div>
+<div class="gem-divider " style="margin-top: 60px;"></div>
+	
+		<div class="wpb_text_column wpb_content_element ">
+			<div class="wpb_wrapper">
+				<p style="text-align: center;">BLK-13, SECTOR 116<br>
+NOIDA, U.P.</p>
+
+			</div>
+		</div>
+	
+<div class="clearboth"></div>
+<div class="gem-divider " style="margin-top: 20px;"></div>
+</div></div></div>
+</div></div></div>
+<style type="text/css">@media screen and (max-width: 1023px) {.thegem-custom-inner-6200e8e378e4b.vc_column-inner {padding-top: 50px !important;}}@media screen and (max-width: 767px) {.thegem-custom-inner-6200e8e378e4b.vc_column-inner {padding-top: 50px !important;}}</style>
+<div class="line-block2 wpb_column vc_column_container vc_col-sm-6 vc_col-lg-3 vc_col-md-3"><div class="vc_column-inner thegem-custom-inner-6200e8e3791ca vc_custom_1644052686542"><div class="wpb_wrapper">
+<div class="clearboth"></div>
+<div class="gem-divider hide" style="margin-top: -205px;"></div>
+<div class="gem-textbox  gem-interactions-enabled centered-box" data-vertical_scroll_enable="yes" data-vertical_scroll_speed="1" data-disable_effects_tablet="disable" data-disable_effects_mobile="disable"><div class="gem-textbox-inner" style="border-top-left-radius: 21px;border-top-right-radius: 21px;border-bottom-right-radius: 21px;border-bottom-left-radius: 21px;"><div class="gem-textbox-content" style="background-color: #b77c66;background-position: center top;">
+<div class="gem-icon gem-icon-pack-thegemdemo gem-icon-size-large  gem-icon-shape-square gem-simple-icon" style="margin-top: 40px;opacity: 1;"><div class="gem-icon-inner">
+<span class="gem-icon-half-1" style="color: #283d40;"><span class="back-angle">&#xe905;</span></span><span class="gem-icon-half-2" style="color: #283d40;"><span class="back-angle">&#xe905;</span></span>
+</div></div>
+<div class="clearboth"></div>
+<div class="gem-divider " style="margin-top: 60px;"></div>
+	
+		<div class="wpb_text_column wpb_content_element ">
+			<div class="wpb_wrapper">
+				<p style="text-align: center;">Mobile: +91-761-761-3434<br>
+Whatsapp: +91-761-761-2828</p>
+
+			</div>
+		</div>
+	
+<div class="clearboth"></div>
+<div class="gem-divider " style="margin-top: 20px;"></div>
+</div></div></div>
+</div></div></div>
+<style type="text/css">@media screen and (max-width: 1023px) {.thegem-custom-inner-6200e8e3791ca.vc_column-inner {padding-top: 100px !important;}}@media screen and (max-width: 767px) {.thegem-custom-inner-6200e8e3791ca.vc_column-inner {padding-top: 100px !important;}}</style>
 </div>
 <div class="clearboth"></div>
 <div class="gem-divider " style="margin-top: 20px;"></div>
-<div class="gem-icon-with-text gem-icon-with-text-icon-size-medium disable-mobile-centered gem-icon-with-text-float-right gem-icon-with-text-flow">
-<div style="margin-bottom:0px;padding-left: 20px;margin-top:0px; " class="gem-icon-with-text-icon"><div class="gem-icon gem-icon-pack-thegemdemo gem-icon-size-medium  gem-icon-shape-circle" style="border-color: #ffffff;opacity: 1;"><div class="gem-icon-inner" style="background-color: #ffffff;">
-<span class="gem-icon-half-1" style="color: #283d40;"><span class="back-angle">&#xe932;</span></span><span class="gem-icon-half-2" style="color: #283d40;"><span class="back-angle">&#xe932;</span></span>
-</div></div></div>
-<div class="gem-icon-with-text-content"><div class="gem-icon-with-text-text">
-	
-		<div class="wpb_text_column wpb_content_element ">
-			<div class="wpb_wrapper">
-				<div class="title-h4" style="text-align: right;"><span style="color: #000000;">100% Secure</span></div>
-
-			</div>
-		</div>
-	
-</div></div>
-<div class="clearboth"></div>
-</div>
-</div></div></div>
-</div>
-</div></div></div>
-<div class="wpb_column vc_column_container vc_col-sm-12 thegem-custom-6200e8dd801a29810"><div class="vc_column-inner thegem-custom-inner-6200e8dd801a7 vc_custom_1605265403541"><div class="wpb_wrapper">
-<div class="clearboth"></div>
-<div class="gem-divider " style="margin-top: 15px;"></div>
-<div class="vc_row wpb_row vc_inner vc_row-fluid custom-inner-column-6200e8dd804c8">
-<div class="wpb_column vc_column_container vc_col-sm-6"><div class="vc_column-inner thegem-custom-inner-6200e8dd8075b "><div class="wpb_wrapper">
-	
-	<div class="wpb_single_image wpb_content_element vc_align_center">
-		
-		<figure class="wpb_wrapper vc_figure">
-			<a href="https://apps.apple.com/kz/app/vegans-fresh/id1596436378" target="_blank" class="vc_single_image-wrapper   vc_box_border_grey"><img width="300" height="111" src="{{asset('website/img/App-Store-300x111.png')}}" class="vc_single_image-img attachment-medium" alt=""  sizes="(max-width: 300px) 100vw, 300px"></a>
-		</figure>
-	</div>
-	
-</div></div></div>
-<div class="wpb_column vc_column_container vc_col-sm-6"><div class="vc_column-inner thegem-custom-inner-6200e8dd80e07 "><div class="wpb_wrapper">
-	
-	<div class="wpb_single_image wpb_content_element vc_align_center">
-		
-		<figure class="wpb_wrapper vc_figure">
-			<a href="https://play.google.com/store/apps/details?id=com.vegansFresh.vegansFresh" target="_blank" class="vc_single_image-wrapper   vc_box_border_grey"><img width="300" height="105" src="{{asset('website/img/Android-300x105.png')}}" class="vc_single_image-img attachment-medium" alt=""sizes="(max-width: 300px) 100vw, 300px"></a>
-		</figure>
-	</div>
-	
-</div></div></div>
-</div>
-</div></div></div>
-</div>
-<div class="vc_row-full-width vc_clearfix"></div>
+</div></div></div></div>
 <div class="vc_row-full-width-before"></div>
-<div id="vc_row-6200e8dd8165f" data-vc-full-width="true" data-vc-full-width-init="false" class="vc_row wpb_row vc_row-fluid vc_custom_1644049764338 thegem-custom-6200e8dd8163b4104 vc_row-has-fill">
-<script type="text/javascript">if (typeof(gem_fix_fullwidth_position) == "function") { gem_fix_fullwidth_position(document.getElementById("vc_row-6200e8dd8165f")); }</script><div class="background-team pricing wpb_column vc_column_container vc_col-sm-12 thegem-custom-6200e8dd819836770"><div class="vc_column-inner thegem-custom-inner-6200e8dd81987 vc_custom_1605607624746"><div class="wpb_wrapper">
-<div id="fullwidth-block-6200e8dd8211d" class="fullwidth-block clearfix" style="padding-left: 21px;padding-right: 21px;">
-<script type="text/javascript">if (typeof(gem_fix_fullwidth_position) == "function") { gem_fix_fullwidth_position(document.getElementById("fullwidth-block-6200e8dd8211d")); }</script><div class="fullwidth-block-background" style="background-image: url({{asset('website/img/counter.jpg')}});background-repeat: no-repeat; background-size: cover;background-position: center top;"></div>
+<div id="pricing" data-vc-full-width="true" data-vc-full-width-init="false" class="vc_row wpb_row vc_row-fluid vc_custom_1642758499725 thegem-custom-6200e8e3797028980 vc_row-has-fill">
+<script type="text/javascript">if (typeof(gem_fix_fullwidth_position) == "function") { gem_fix_fullwidth_position(document.getElementById("pricing")); }</script><div class="background-team pricing wpb_column vc_column_container vc_col-sm-12 thegem-custom-6200e8e3799661842"><div class="vc_column-inner thegem-custom-inner-6200e8e379969 vc_custom_1605607624746"><div class="wpb_wrapper"><div id="fullwidth-block-6200e8e37a011" class="fullwidth-block clearfix" style="padding-left: 21px;padding-right: 21px;">
+<script type="text/javascript">if (typeof(gem_fix_fullwidth_position) == "function") { gem_fix_fullwidth_position(document.getElementById("fullwidth-block-6200e8e37a011")); }</script><div class="fullwidth-block-background" style="background-image: url({{asset('website/img/counter.jpg')}});background-repeat: no-repeat; background-size: cover;background-position: center top;"></div>
 <div class="fullwidth-block-inner"><div class="container">
 	<div class="gem-interactions-enabled   blue-triangle-2" data-vertical_scroll_enable="yes" data-vertical_scroll_speed="-2" data-mouse_effects="yes" data-mouse_effects_direction="1" data-mouse_effects_speed="0.4"><div class="mouse-effects-container">
 	<div class="wpb_single_image wpb_content_element vc_align_right">
@@ -1020,12 +708,12 @@ Search and Discover</span></div>
 		</figure>
 	</div>
 	</div></div>
-<div class="vc_row wpb_row vc_inner vc_row-fluid vc_custom_1642758159792 custom-inner-column-6200e8dd826fc">
-<div class="wpb_column vc_column_container vc_col-sm-12 vc_hidden-sm vc_hidden-xs"><div class="vc_column-inner thegem-custom-inner-6200e8dd829c2 vc_custom_1605616923242"><div class="wpb_wrapper">
+<div class="vc_row wpb_row vc_inner vc_row-fluid vc_custom_1642758159792 custom-inner-column-6200e8e37a61b">
+<div class="wpb_column vc_column_container vc_col-sm-12 vc_hidden-sm vc_hidden-xs"><div class="vc_column-inner thegem-custom-inner-6200e8e37a82f vc_custom_1605616923242"><div class="wpb_wrapper">
 <div class="clearboth"></div>
 <div class="gem-divider " style="margin-top: 340px;"></div>
 </div></div></div>
-<div class="wpb_column vc_column_container vc_col-sm-3 vc_col-lg-3 vc_col-md-3 vc_hidden-xs"><div class="vc_column-inner thegem-custom-inner-6200e8dd82bed vc_custom_1605615684720"><div class="wpb_wrapper">
+<div class="wpb_column vc_column_container vc_col-sm-3 vc_col-lg-3 vc_col-md-3 vc_hidden-xs"><div class="vc_column-inner thegem-custom-inner-6200e8e37a9ce vc_custom_1605615684720"><div class="wpb_wrapper">
 <div class="centered-box gem-image-centered-box"><div class="gem-image gem-wrapbox gem-wrapbox-style-default gem-wrapbox-position-centered lazy-loading"><div class="gem-wrapbox-inner  lazy-loading-item" data-ll-effect="move-up"><img class="gem-wrapbox-element img-responsive" src="{{asset('website/img/Offers_New.png')}}" alt=""></div></div></div>
 <div class="clearboth"></div>
 <div class="gem-divider " style="margin-top: -70px;"></div>
@@ -1037,7 +725,7 @@ Search and Discover</span></div>
 <div class="gem-counter-text styled-subtitle" style="color: #ffffff">Offers</div>
 </div></div></div>
 </div></div></div>
-<div class="wpb_column vc_column_container vc_col-sm-3 vc_col-lg-3 vc_col-md-3 vc_hidden-xs"><div class="vc_column-inner thegem-custom-inner-6200e8dd836a1 vc_custom_1605615688064"><div class="wpb_wrapper">
+<div class="wpb_column vc_column_container vc_col-sm-3 vc_col-lg-3 vc_col-md-3 vc_hidden-xs"><div class="vc_column-inner thegem-custom-inner-6200e8e37b1bc vc_custom_1605615688064"><div class="wpb_wrapper">
 <div class="centered-box gem-image-centered-box"><div class="gem-image gem-wrapbox gem-wrapbox-style-default gem-wrapbox-position-centered lazy-loading"><div class="gem-wrapbox-inner  lazy-loading-item" data-ll-effect="move-up"><img class="gem-wrapbox-element img-responsive" src="{{asset('website/img/Download_New.png')}}" alt=""></div></div></div>
 <div class="clearboth"></div>
 <div class="gem-divider " style="margin-top: -70px;"></div>
@@ -1049,7 +737,7 @@ Search and Discover</span></div>
 <div class="gem-counter-text styled-subtitle" style="color: #ffffff">Downloads</div>
 </div></div></div>
 </div></div></div>
-<div class="wpb_column vc_column_container vc_col-sm-3 vc_col-lg-3 vc_col-md-3 vc_hidden-xs"><div class="vc_column-inner thegem-custom-inner-6200e8dd83ecf vc_custom_1605615691352"><div class="wpb_wrapper">
+<div class="wpb_column vc_column_container vc_col-sm-3 vc_col-lg-3 vc_col-md-3 vc_hidden-xs"><div class="vc_column-inner thegem-custom-inner-6200e8e37b820 vc_custom_1605615691352"><div class="wpb_wrapper">
 <div class="centered-box gem-image-centered-box"><div class="gem-image gem-wrapbox gem-wrapbox-style-default gem-wrapbox-position-centered lazy-loading"><div class="gem-wrapbox-inner  lazy-loading-item" data-ll-effect="move-up"><img class="gem-wrapbox-element img-responsive" src="{{asset('website/img/Order.png')}}" alt=""></div></div></div>
 <div class="clearboth"></div>
 <div class="gem-divider " style="margin-top: -70px;"></div>
@@ -1061,7 +749,7 @@ Search and Discover</span></div>
 <div class="gem-counter-text styled-subtitle" style="color: #ffffff">Orders</div>
 </div></div></div>
 </div></div></div>
-<div class="wpb_column vc_column_container vc_col-sm-3 vc_col-lg-3 vc_col-md-3 vc_hidden-xs"><div class="vc_column-inner thegem-custom-inner-6200e8dd848f9 vc_custom_1605615695160"><div class="wpb_wrapper">
+<div class="wpb_column vc_column_container vc_col-sm-3 vc_col-lg-3 vc_col-md-3 vc_hidden-xs"><div class="vc_column-inner thegem-custom-inner-6200e8e37be77 vc_custom_1605615695160"><div class="wpb_wrapper">
 <div class="centered-box gem-image-centered-box"><div class="gem-image gem-wrapbox gem-wrapbox-style-default gem-wrapbox-position-centered lazy-loading"><div class="gem-wrapbox-inner  lazy-loading-item" data-ll-effect="move-up"><img class="gem-wrapbox-element img-responsive" src="{{asset('website/img/Categories.png')}}" alt=""></div></div></div>
 <div class="clearboth"></div>
 <div class="gem-divider " style="margin-top: -70px;"></div>
@@ -1076,10 +764,8 @@ Search and Discover</span></div>
 <div class="gem-divider " style="margin-top: -70px;"></div>
 </div></div></div>
 </div>
-</div></div>
-</div>
-<div class="vc_row wpb_row vc_inner vc_row-fluid vc_custom_1644050517861 vc_row-has-fill custom-inner-column-6200e8dd851f7">
-<div class="wpb_column vc_column_container vc_col-sm-3 vc_col-lg-3 vc_hidden-lg vc_col-md-3 vc_hidden-md vc_hidden-sm"><div class="vc_column-inner thegem-custom-inner-6200e8dd853eb vc_custom_1605616085437"><div class="wpb_wrapper">
+<div class="vc_row wpb_row vc_inner vc_row-fluid vc_custom_1605702651735 vc_row-has-fill custom-inner-column-6200e8e37c5a5">
+<div class="wpb_column vc_column_container vc_col-sm-3 vc_col-lg-3 vc_hidden-lg vc_col-md-3 vc_hidden-md vc_hidden-sm"><div class="vc_column-inner thegem-custom-inner-6200e8e37c78a vc_custom_1605616085437"><div class="wpb_wrapper">
 <div class="centered-box gem-image-centered-box"><div class="gem-image gem-wrapbox gem-wrapbox-style-default gem-wrapbox-position-centered lazy-loading"><div class="gem-wrapbox-inner  lazy-loading-item" data-ll-effect="move-up"><img class="gem-wrapbox-element img-responsive" src="{{asset('website/img/Offers_New.png')}}" alt=""></div></div></div>
 <div class="clearboth"></div>
 <div class="gem-divider " style="margin-top: -70px;"></div>
@@ -1091,7 +777,7 @@ Search and Discover</span></div>
 <div class="gem-counter-text styled-subtitle">Offers</div>
 </div></div></div>
 </div></div></div>
-<div class="wpb_column vc_column_container vc_col-sm-3 vc_col-lg-3 vc_hidden-lg vc_col-md-3 vc_hidden-md vc_hidden-sm"><div class="vc_column-inner thegem-custom-inner-6200e8dd857ee vc_custom_1605616075894"><div class="wpb_wrapper">
+<div class="wpb_column vc_column_container vc_col-sm-3 vc_col-lg-3 vc_hidden-lg vc_col-md-3 vc_hidden-md vc_hidden-sm"><div class="vc_column-inner thegem-custom-inner-6200e8e37cad7 vc_custom_1605616075894"><div class="wpb_wrapper">
 <div class="centered-box gem-image-centered-box"><div class="gem-image gem-wrapbox gem-wrapbox-style-default gem-wrapbox-position-centered lazy-loading"><div class="gem-wrapbox-inner  lazy-loading-item" data-ll-effect="move-up"><img class="gem-wrapbox-element img-responsive" src="{{asset('website/img/Download_New.png')}}" alt=""></div></div></div>
 <div class="clearboth"></div>
 <div class="gem-divider " style="margin-top: -70px;"></div>
@@ -1103,7 +789,7 @@ Search and Discover</span></div>
 <div class="gem-counter-text styled-subtitle">Downloads</div>
 </div></div></div>
 </div></div></div>
-<div class="wpb_column vc_column_container vc_col-sm-3 vc_col-lg-3 vc_hidden-lg vc_col-md-3 vc_hidden-md vc_hidden-sm"><div class="vc_column-inner thegem-custom-inner-6200e8dd85bf1 vc_custom_1605616071293"><div class="wpb_wrapper">
+<div class="wpb_column vc_column_container vc_col-sm-3 vc_col-lg-3 vc_hidden-lg vc_col-md-3 vc_hidden-md vc_hidden-sm"><div class="vc_column-inner thegem-custom-inner-6200e8e37cdc5 vc_custom_1605616071293"><div class="wpb_wrapper">
 <div class="centered-box gem-image-centered-box"><div class="gem-image gem-wrapbox gem-wrapbox-style-default gem-wrapbox-position-centered lazy-loading"><div class="gem-wrapbox-inner  lazy-loading-item" data-ll-effect="move-up"><img class="gem-wrapbox-element img-responsive" src="{{asset('website/img/Order.png')}}" alt=""></div></div></div>
 <div class="clearboth"></div>
 <div class="gem-divider " style="margin-top: -70px;"></div>
@@ -1115,8 +801,8 @@ Search and Discover</span></div>
 <div class="gem-counter-text styled-subtitle">Orders</div>
 </div></div></div>
 </div></div></div>
-<div class="wpb_column vc_column_container vc_col-sm-3 vc_col-lg-3 vc_hidden-lg vc_col-md-3 vc_hidden-md vc_hidden-sm"><div class="vc_column-inner thegem-custom-inner-6200e8dd85fe6 vc_custom_1605616065871"><div class="wpb_wrapper">
-<div class="centered-box gem-image-centered-box"><div class="gem-image gem-wrapbox gem-wrapbox-style-default gem-wrapbox-position-centered lazy-loading"><div class="gem-wrapbox-inner  lazy-loading-item" data-ll-effect="move-up"><img class="gem-wrapbox-element img-responsive" src="{{asset('img/Categories.png')}}" alt=""></div></div></div>
+<div class="wpb_column vc_column_container vc_col-sm-3 vc_col-lg-3 vc_hidden-lg vc_col-md-3 vc_hidden-md vc_hidden-sm"><div class="vc_column-inner thegem-custom-inner-6200e8e37d15f vc_custom_1605616065871"><div class="wpb_wrapper">
+<div class="centered-box gem-image-centered-box"><div class="gem-image gem-wrapbox gem-wrapbox-style-default gem-wrapbox-position-centered lazy-loading"><div class="gem-wrapbox-inner  lazy-loading-item" data-ll-effect="move-up"><img class="gem-wrapbox-element img-responsive" src="{{asset('website/img/Categories.png')}}" alt=""></div></div></div>
 <div class="clearboth"></div>
 <div class="gem-divider " style="margin-top: -70px;"></div>
 <div data-number-format="(ddd).ddd" class="gem-counter-box row inline-row inline-row-center gem-counter-style-1 lazy-loading lazy-loading-not-hide"><div class="gem-counter col-xs-12 inline-column gem-counter-effect-simple"><div class="gem-counter-inner">
@@ -1126,21 +812,20 @@ Search and Discover</span></div>
 </div>
 <div class="gem-counter-text styled-subtitle">Categories</div>
 </div></div></div>
-<div class="clearboth"></div>
-<div class="gem-divider " style="margin-top: -70px;"></div>
 </div></div></div>
 </div>
-</div></div></div>
+</div></div>
+</div></div></div></div>
 </div>
 <div class="vc_row-full-width vc_clearfix"></div>
 <style>@media (max-width: 768px){
-    #vc_row-6200e8dd8165f .pricing .pricing-column-wrapper.inline-column {
+    #pricing .pricing .pricing-column-wrapper.inline-column {
         width: 50%;
     }
 }</style>
 <div class="vc_row-full-width-before"></div>
-<div id="vc_row-6200e8dd86849" data-vc-full-width="true" data-vc-full-width-init="false" class="vc_row wpb_row vc_row-fluid vc_custom_1605859462966 thegem-custom-6200e8dd868251819 vc_row-has-fill">
-<script type="text/javascript">if (typeof(gem_fix_fullwidth_position) == "function") { gem_fix_fullwidth_position(document.getElementById("vc_row-6200e8dd86849")); }</script><div class="wpb_column vc_column_container vc_col-sm-12 thegem-custom-6200e8dd86b6b4440"><div class="vc_column-inner thegem-custom-inner-6200e8dd86b70 vc_custom_1605858466731"><div class="wpb_wrapper">
+<div id="vc_row-6200e8e37d76c" data-vc-full-width="true" data-vc-full-width-init="false" class="vc_row wpb_row vc_row-fluid vc_custom_1605859462966 thegem-custom-6200e8e37d7542279 vc_row-has-fill">
+<script type="text/javascript">if (typeof(gem_fix_fullwidth_position) == "function") { gem_fix_fullwidth_position(document.getElementById("vc_row-6200e8e37d76c")); }</script><div class="wpb_column vc_column_container vc_col-sm-12 thegem-custom-6200e8e37d9b29259"><div class="vc_column-inner thegem-custom-inner-6200e8e37d9b5 vc_custom_1605858466731"><div class="wpb_wrapper">
 	<div class="gem-interactions-enabled   bg-enroll-now" data-vertical_scroll_enable="yes" data-vertical_scroll_speed="-0.8" data-mouse_effects="yes" data-mouse_effects_direction="1" data-mouse_effects_speed="0.6"><div class="mouse-effects-container">
 	<div class="wpb_single_image wpb_content_element vc_align_center">
 		
@@ -1171,8 +856,8 @@ Search and Discover</span></div>
 	</div></div>
 <div class="clearboth"></div>
 <div class="gem-divider " style="margin-top: 25px;"></div>
-<div class="vc_row wpb_row vc_inner vc_row-fluid custom-inner-column-6200e8dd87cfa">
-<div class="wpb_column vc_column_container vc_col-sm-6"><div class="vc_column-inner thegem-custom-inner-6200e8dd87ee1 "><div class="wpb_wrapper">
+<div class="vc_row wpb_row vc_inner vc_row-fluid custom-inner-column-6200e8e37e727">
+<div class="wpb_column vc_column_container vc_col-sm-6"><div class="vc_column-inner thegem-custom-inner-6200e8e37e9a1 "><div class="wpb_wrapper">
 	
 	<div class="wpb_single_image wpb_content_element vc_align_center">
 		
@@ -1182,12 +867,12 @@ Search and Discover</span></div>
 	</div>
 	
 </div></div></div>
-<div class="wpb_column vc_column_container vc_col-sm-6"><div class="vc_column-inner thegem-custom-inner-6200e8dd88579 "><div class="wpb_wrapper">
+<div class="wpb_column vc_column_container vc_col-sm-6"><div class="vc_column-inner thegem-custom-inner-6200e8e37ee24 "><div class="wpb_wrapper">
 	
 	<div class="wpb_single_image wpb_content_element vc_align_center">
 		
 		<figure class="wpb_wrapper vc_figure">
-			<a href="https://play.google.com/store/apps/details?id=com.vegansFresh.vegansFresh" target="_blank" class="vc_single_image-wrapper   vc_box_border_grey"><img width="300" height="105" src="{{asset('website/img/Android-300x105.png')}}" class="vc_single_image-img attachment-medium" alt=""  sizes="(max-width: 300px) 100vw, 300px"></a>
+			<a href="https://play.google.com/store/apps/details?id=com.vegansFresh.vegansFresh" target="_blank" class="vc_single_image-wrapper   vc_box_border_grey"><img width="300" height="105" src="{{asset('website/img/Android-300x105.png')}}" class="vc_single_image-img attachment-medium" alt=""   sizes="(max-width: 300px) 100vw, 300px"></a>
 		</figure>
 	</div>
 	
@@ -1196,34 +881,19 @@ Search and Discover</span></div>
 </div></div></div>
 </div>
 <div class="vc_row-full-width vc_clearfix"></div>
-<div class="vc_row-full-width-before"></div>
-<div id="vc_row-6200e8dd88d26" data-vc-full-width="true" data-vc-full-width-init="false" data-vc-stretch-content="true" class="vc_row wpb_row vc_row-fluid vc_custom_1644070481953 thegem-custom-6200e8dd88cfa541 vc_row-has-fill vc_row-no-padding">
-<script type="text/javascript">if (typeof(gem_fix_fullwidth_position) == "function") { gem_fix_fullwidth_position(document.getElementById("vc_row-6200e8dd88d26")); }</script><div class="wpb_column vc_column_container vc_col-sm-12 thegem-custom-6200e8dd88ffc8843"><div class="vc_column-inner thegem-custom-inner-6200e8dd89001 "><div class="wpb_wrapper">
-<div class="clearboth"></div>
-<div class="gem-divider " style="margin-top: 100px;"></div>
-<div class="preloader"><div class="preloader-spin"></div></div>
-<div class="size-medium style1 gem-testimonials fullwidth-block" data-autoscroll="5000" style="background-color:"> 
-
-
-<div id="post-39308" class="gem-testimonial-item post-39308 thegem_testimonial type-thegem_testimonial status-publish has-post-thumbnail"> <div class="gem-testimonial-wrapper quote-color-added "> <div class="gem-testimonial-image"> <img width="160" height="160" src="{{asset('website/img/testimonial-team-thegem-person-160.jpeg')}}" class="img-responsive img-circle wp-post-image" alt="testimonial-team" sizes="100vw"> </div> <div class="gem-testimonial-content"> <div class="gem-testimonial-name">Rashmi</div> <div class="gem-testimonial-text" style="color: #ffffff"> <p>Thank you Vegans Fresh for providing me fresh groceries, no wait now! Great packaging as well as quality!</p> </div> </div> <span style="color: #b77c66 " class="custom-color-blockqute-mark">&#xe60c;</span> </div> </div>
-
-
- 
-
-<div id="post-39308" class="gem-testimonial-item post-39308 thegem_testimonial type-thegem_testimonial status-publish has-post-thumbnail"> <div class="gem-testimonial-wrapper quote-color-added "> <div class="gem-testimonial-image"> <img width="160" height="160" src="{{asset('website/img/testimonial-team-thegem-person-160.jpeg')}}" class="img-responsive img-circle wp-post-image" alt="testimonial-team" sizes="100vw"> </div> <div class="gem-testimonial-content"> <div class="gem-testimonial-name">Jai</div> <div class="gem-testimonial-text" style="color: #ffffff"> <p>Now I don’t have to plan for any grocery trip for my family. All I need is the app from where I am ordering fresh fruits, veggies and groceries.</p> </div> </div> <span style="color: #b77c66 " class="custom-color-blockqute-mark">&#xe60c;</span> </div> </div>
-
- 
-
-
-
-
- <div id="post-39308" class="gem-testimonial-item post-39308 thegem_testimonial type-thegem_testimonial status-publish has-post-thumbnail"> <div class="gem-testimonial-wrapper quote-color-added "> <div class="gem-testimonial-image"> <img width="160" height="160" src="{{asset('website/img/testimonial-team-thegem-person-160.jpeg')}}" class="img-responsive img-circle wp-post-image" alt="testimonial-team" sizes="100vw"> </div> <div class="gem-testimonial-content"> <div class="gem-testimonial-name">Vinay</div> <div class="gem-testimonial-text" style="color: #ffffff"> <p>No discount but direct genuine prices; great deal Vegans Fresh! Thank you letting me know about you!</p> </div> </div> <span style="color: #b77c66 " class="custom-color-blockqute-mark">&#xe60c;</span> </div> </div> <div id="post-39309" class="gem-testimonial-item post-39309 thegem_testimonial type-thegem_testimonial status-publish has-post-thumbnail"> <div class="gem-testimonial-wrapper quote-color-added "> <div class="gem-testimonial-image"> <img width="160" height="160" src="{{asset('website/img/testimonial-team-thegem-person-160.jpeg')}}" class="img-responsive img-circle wp-post-image" alt="testimonial-team"   sizes="100vw"> </div> <div class="gem-testimonial-content"> <div class="gem-testimonial-name">Aditi</div> <div class="gem-testimonial-text" style="color: #ffffff"> <p>First order free! Wow, a great deal as well as great products! I really appreciate the quality and packaging.</p> </div> </div> <span style="color: #b77c66 " class="custom-color-blockqute-mark">&#xe60c;</span> </div> </div> <div id="post-39311" class="gem-testimonial-item post-39311 thegem_testimonial type-thegem_testimonial status-publish has-post-thumbnail"> <div class="gem-testimonial-wrapper quote-color-added "> <div class="gem-testimonial-image"> <img width="160" height="160" src="{{asset('website/img/testimonial-team-thegem-person-160.jpeg')}}" class="img-responsive img-circle wp-post-image" alt="testimonial-team" sizes="100vw"> </div> <div class="gem-testimonial-content"> <div class="gem-testimonial-name">Neha</div> <div class="gem-testimonial-text" style="color: #ffffff"> <p>After a long time, I got fresh atta and spices for my home from Vegans Fresh. Highly appreciated and recommended.</p> </div> </div> <span style="color: #b77c66 " class="custom-color-blockqute-mark">&#xe60c;</span> </div> </div> <div class="testimonials_svg"><svg style="fill: " width="100" height="50"><path d="M 0,-1 Q 45,5 50,50 Q 55,5 100,-1"></path></svg></div>
+<div id="vc_row-6200e8e37f374" class="vc_row wpb_row vc_row-fluid vc_custom_1642771636364 thegem-custom-6200e8e37f35d2406"><div class="wpb_column vc_column_container vc_col-sm-12 thegem-custom-6200e8e37f5747642"><div class="vc_column-inner thegem-custom-inner-6200e8e37f577 "><div class="wpb_wrapper"><div id="fullwidth-block-6200e8e37f6f1" class="fullwidth-block clearfix" style="padding-top: 0pxpx;">
+<script type="text/javascript">if (typeof(gem_fix_fullwidth_position) == "function") { gem_fix_fullwidth_position(document.getElementById("fullwidth-block-6200e8e37f6f1")); }</script><div class="fullwidth-block-inner"><div class="gem-map-with-text">
+<div class="gem-map-with-text-content"></div>
+<div class="gem-map-with-text-map">
+<div class="wpb_gmaps_widget wpb_content_element">
+		<div class="wpb_wrapper">
+		<div class="wpb_map_wraper ">
+			<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d28039.855400331497!2d77.44408253955079!3d28.540263000000003!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390ce95affffffe9%3A0xceb1986192e6cc95!2sVegan%20Fresh!5e0!3m2!1sen!2sin!4v1642771003231!5m2!1sen!2sin" width="600" height="576" style="border:0;" allowfullscreen="" loading="lazy"></iframe>		</div>
+	</div>
 </div>
-<div class="clearboth"></div>
-<div class="gem-divider " style="margin-top: 100px;"></div>
-</div></div></div>
 </div>
-<div class="vc_row-full-width vc_clearfix"></div>
+</div></div>
+</div></div></div></div></div>
 					</div>
 <!-- .entry-content -->
 
@@ -1254,11 +924,11 @@ Search and Discover</span></div>
 												<footer class="custom-footer">
 													<div class="container">
 <div class="vc_row-full-width-before"></div>
-<div id="vc_row-6200e8dd8fcd3" data-vc-full-width="true" data-vc-full-width-init="false" class="vc_row wpb_row vc_row-fluid vc_custom_1605700148026 thegem-custom-6200e8dd8fca84610 vc_row-has-fill">
-<script type="text/javascript">if (typeof(gem_fix_fullwidth_position) == "function") { gem_fix_fullwidth_position(document.getElementById("vc_row-6200e8dd8fcd3")); }</script><div class="wpb_column vc_column_container vc_col-sm-12 thegem-custom-6200e8dd900812678"><div class="vc_column-inner thegem-custom-inner-6200e8dd90086 vc_custom_1605517138173"><div class="wpb_wrapper"><div id="fullwidth-block-6200e8dd9081f" class="fullwidth-block clearfix" style="padding-top: 20px;">
-<script type="text/javascript">if (typeof(gem_fix_fullwidth_position) == "function") { gem_fix_fullwidth_position(document.getElementById("fullwidth-block-6200e8dd9081f")); }</script><div class="fullwidth-block-background" style="background-image: url({{asset('website/img/contact-main.jpg')}});background-repeat: no-repeat; background-size: cover;background-position: center top;"></div>
+<div id="vc_row-6200e8e380dcf" data-vc-full-width="true" data-vc-full-width-init="false" class="vc_row wpb_row vc_row-fluid vc_custom_1605700148026 thegem-custom-6200e8e380db53381 vc_row-has-fill">
+<script type="text/javascript">if (typeof(gem_fix_fullwidth_position) == "function") { gem_fix_fullwidth_position(document.getElementById("vc_row-6200e8e380dcf")); }</script><div class="wpb_column vc_column_container vc_col-sm-12 thegem-custom-6200e8e38106c7967"><div class="vc_column-inner thegem-custom-inner-6200e8e38106f vc_custom_1605517138173"><div class="wpb_wrapper"><div id="fullwidth-block-6200e8e381681" class="fullwidth-block clearfix" style="padding-top: 20px;">
+<script type="text/javascript">if (typeof(gem_fix_fullwidth_position) == "function") { gem_fix_fullwidth_position(document.getElementById("fullwidth-block-6200e8e381681")); }</script><div class="fullwidth-block-background" style="background-image: url({{asset('website/img/contact-main.jpg')}});background-repeat: no-repeat; background-size: cover;background-position: center top;"></div>
 <div class="fullwidth-block-inner"><div class="container">
-<div class="vc_row wpb_row vc_inner vc_row-fluid vc_custom_1605701220622 custom-inner-column-6200e8dd90b58"><div class="wpb_column vc_column_container vc_col-sm-12 vc_hidden-md vc_hidden-sm vc_hidden-xs"><div class="vc_column-inner thegem-custom-inner-6200e8dd90e37 vc_custom_1605704083290"><div class="wpb_wrapper">
+<div class="vc_row wpb_row vc_inner vc_row-fluid vc_custom_1605701220622 custom-inner-column-6200e8e3818b5"><div class="wpb_column vc_column_container vc_col-sm-12 vc_hidden-md vc_hidden-sm vc_hidden-xs"><div class="vc_column-inner thegem-custom-inner-6200e8e381acf vc_custom_1605704083290"><div class="wpb_wrapper">
 	
 		<div class="wpb_text_column wpb_content_element  wpb_animate_when_almost_visible wpb_fadeInLeft fadeInLeft">
 			<div class="wpb_wrapper">
@@ -1283,8 +953,15 @@ Search and Discover</span></div>
 <div class="screen-reader-response">
 <p role="status" aria-live="polite" aria-atomic="true"></p> <ul></ul>
 </div>
-<form action="{{route('contact-form')}}" method="post" class="wpcf7-form init gem-contact-form-white">
-
+<form action="/contact-us/#wpcf7-f39039-o1" method="post" class="wpcf7-form init gem-contact-form-white" novalidate="novalidate" data-status="init">
+<div style="display: none;">
+<input type="hidden" name="_wpcf7" value="39039">
+<input type="hidden" name="_wpcf7_version" value="5.5.3">
+<input type="hidden" name="_wpcf7_locale" value="en_US">
+<input type="hidden" name="_wpcf7_unit_tag" value="wpcf7-f39039-o1">
+<input type="hidden" name="_wpcf7_container_post" value="0">
+<input type="hidden" name="_wpcf7_posted_data_hash" value="">
+</div>
 <div class="contact-form" style="width: 70%; margin: 0 auto;">
 <div class="col-lg-6 col-md-6 col-xs-12" style="margin-bottom:20px;">
 <div class="form-line"><span class="wpcf7-form-control-wrap your-name"><input type="text" name="your-name" value="" size="40" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true" aria-invalid="false" placeholder="Name*"></span></div>
@@ -1303,9 +980,7 @@ Search and Discover</span></div>
 </div>
 <div class="col-lg-12 col-md-12 col-xs-12" style="display: flex; justify-content: center;">
 <div class="form-line">
-<div class="gem-button-container gem-button-position-fullwidth thegem-button-6200e8dd927a69362">
-
-<input class="gem-button gem-button-size-medium gem-button-style-flat gem-button-text-weight-normal gem-button-no-uppercase wpcf7-form-control wpcf7-submit gem-button-wpcf-custom" style="border-radius: 40px;background-color: #283D40FF;color: #ffffff;" onmouseleave="this.style.backgroundColor='#283D40FF';this.style.color='#ffffff';" onmouseenter="this.style.backgroundColor='#B77C66FF';this.style.color='#ffffff';" id="" tabindex="" type="submit" value="Send Message"></div> </div>
+<div class="gem-button-container gem-button-position-fullwidth thegem-button-6200e8e382d379635"><input class="gem-button gem-button-size-medium gem-button-style-flat gem-button-text-weight-normal gem-button-no-uppercase wpcf7-form-control wpcf7-submit gem-button-wpcf-custom" style="border-radius: 40px;background-color: #283D40FF;color: #ffffff;" onmouseleave="this.style.backgroundColor='#283D40FF';this.style.color='#ffffff';" onmouseenter="this.style.backgroundColor='#B77C66FF';this.style.color='#ffffff';" id="" tabindex="" type="submit" value="Send Message"></div> </div>
 </div>
 </div>
 <div class="wpcf7-response-output" aria-hidden="true"></div>
@@ -1331,12 +1006,12 @@ Search and Discover</span></div>
 	</div></div>
 <div class="clearboth"></div>
 <div class="gem-divider " style="margin-top: 15px;"></div>
-<div class="vc_row wpb_row vc_inner vc_row-fluid footer vc_custom_1605614794668 custom-inner-column-6200e8dd93569">
-<div class="wpb_column vc_column_container vc_col-sm-12 vc_hidden-xs"><div class="vc_column-inner thegem-custom-inner-6200e8dd93899 vc_custom_1605615385133"><div class="wpb_wrapper">
+<div class="vc_row wpb_row vc_inner vc_row-fluid footer vc_custom_1605614794668 custom-inner-column-6200e8e3836e6">
+<div class="wpb_column vc_column_container vc_col-sm-12 vc_hidden-xs"><div class="vc_column-inner thegem-custom-inner-6200e8e38391c vc_custom_1605615385133"><div class="wpb_wrapper">
 <div class="clearboth"></div>
 <div class="gem-divider " style="margin-top: 65px;"></div>
 </div></div></div>
-<div class="wpb_column vc_column_container vc_col-sm-4"><div class="vc_column-inner thegem-custom-inner-6200e8dd93ab3 vc_custom_1605518427047"><div class="wpb_wrapper">
+<div class="wpb_column vc_column_container vc_col-sm-4"><div class="vc_column-inner thegem-custom-inner-6200e8e383abc vc_custom_1605518427047"><div class="wpb_wrapper">
 <div class="centered-box"><div class="gem-icon gem-icon-pack-thegemdemo gem-icon-size-large  gem-icon-shape-square gem-simple-icon" style="opacity: 1;"><div class="gem-icon-inner">
 <span class="gem-icon-half-1" style="color: #283d40;"><span class="back-angle">&#xe914;</span></span><span class="gem-icon-half-2" style="color: #283d40;"><span class="back-angle">&#xe914;</span></span>
 </div></div></div>
@@ -1361,7 +1036,7 @@ Search and Discover</span></div>
 		</div>
 	
 </div></div></div>
-<div class="wpb_column vc_column_container vc_col-sm-4"><div class="vc_column-inner thegem-custom-inner-6200e8dd9409b vc_custom_1605518430311"><div class="wpb_wrapper">
+<div class="wpb_column vc_column_container vc_col-sm-4"><div class="vc_column-inner thegem-custom-inner-6200e8e383e52 vc_custom_1605518430311"><div class="wpb_wrapper">
 <div class="centered-box"><div class="gem-icon gem-icon-pack-thegemdemo gem-icon-size-large  gem-icon-shape-square gem-simple-icon" style="opacity: 1;"><div class="gem-icon-inner">
 <span class="gem-icon-half-1" style="color: #283d40;"><span class="back-angle">&#xe925;</span></span><span class="gem-icon-half-2" style="color: #283d40;"><span class="back-angle">&#xe925;</span></span>
 </div></div></div>
@@ -1386,7 +1061,7 @@ support@vegansfresh.com</span></p>
 		</div>
 	
 </div></div></div>
-<div class="wpb_column vc_column_container vc_col-sm-4"><div class="vc_column-inner thegem-custom-inner-6200e8dd94563 vc_custom_1605518434095"><div class="wpb_wrapper">
+<div class="wpb_column vc_column_container vc_col-sm-4"><div class="vc_column-inner thegem-custom-inner-6200e8e3841b9 vc_custom_1605518434095"><div class="wpb_wrapper">
 <div class="centered-box"><div class="gem-icon gem-icon-pack-thegemdemo gem-icon-size-large  gem-icon-shape-square gem-simple-icon" style="opacity: 1;"><div class="gem-icon-inner">
 <span class="gem-icon-half-1" style="color: #283d40;"><span class="back-angle">&#xe918;</span></span><span class="gem-icon-half-2" style="color: #283d40;"><span class="back-angle">&#xe918;</span></span>
 </div></div></div>
@@ -1425,21 +1100,21 @@ support@vegansfresh.com</span></p>
 <div class="clearboth"></div>
 <div class="gem-divider " style="margin-top: 30px;"></div>
 <div class="socials socials-list socials-colored-hover socials-rounded socials-alignment-center">
-<a class="socials-item" target="_blank" href="https://www.facebook.com/vegansfresh/" style="color: #ffffff;"><i class="socials-item-icon facebook" style="font-size: 40px"></i></a><a class="socials-item" target="_blank" href="https://www.instagram.com/vegansfresh/" style="color: #ffffff;"><i class="socials-item-icon instagram" style="font-size: 40px"></i></a><a class="socials-item" target="_blank" href="https://twitter.com/VegansFresh" style="color: #ffffff;"><i class="socials-item-icon twitter" style="font-size: 40px"></i></a><a class="socials-item" target="_blank" href="https://youtube.com/channel/UCaCbJkqespqec1Zez0j58Dg" style="color: #ffffff;"><i class="socials-item-icon youtube" style="font-size: 40px"></i></a><a class="socials-item" target="_blank" href="https://www.linkedin.com/company/vegans-fresh" style="color: #ffffff;"><i class="socials-item-icon linkedin" style="font-size: 40px"></i></a>
+<a class="socials-item" target="_blank" href="https://www.facebook.com/vegansfresh/" style="color: #ffffff;"><i class="socials-item-icon facebook" style="font-size: 40px"></i></a><a class="socials-item" target="_blank" href="https://www.instagram.com/vegansfresh/" style="color: #ffffff;"><i class="socials-item-icon instagram" style="font-size: 40px"></i></a><a class="socials-item" target="_blank" href="https://twitter.com/VegansFresh" style="color: #ffffff;"><i class="socials-item-icon twitter" style="font-size: 40px"></i></a><a class="socials-item" target="_blank" href="https://youtube.com/channel/UCaCbJkqespqec1Zez0j58Dg" style="color: #ffffff;"><i class="socials-item-icon youtube" style="font-size: 40px"></i></a><a class="socials-item" target="_blank" href="https://www.linkedin.com/company/vegan-fresh" style="color: #ffffff;"><i class="socials-item-icon linkedin" style="font-size: 40px"></i></a>
 </div>
 <div class="clearboth"></div>
 <div class="gem-divider " style="margin-top: 55px;"></div>
-<div class="vc_row wpb_row vc_inner vc_row-fluid vc_row-o-content-middle vc_row-flex custom-inner-column-6200e8dd94cb4">
-<div class="wpb_column vc_column_container vc_col-sm-1/5"><div class="vc_column-inner thegem-custom-inner-6200e8dd94f5a "><div class="wpb_wrapper">
-<div class="gem-button-container gem-button-position-center thegem-button-6200e8dd951b11166"><a title="httpwww.sarovarmicrofinance.com/v-privacy-policy/" class="gem-button gem-button-size-medium gem-button-style-flat gem-button-text-weight-normal gem-button-no-uppercase" style="border-radius: 40px;background-color: #283d40;background: linear-gradient(to bottom, #283d40, #b77c66);color: #ffffff;" onmouseleave="this.style.backgroundColor='#283d40';this.style.color='#ffffff';this.style.background='linear-gradient(to bottom , #283d40 , #b77c66)';" onmouseenter="this.style.backgroundColor='#ffffff';this.style.color='#ffffff';this.style.background='linear-gradient(to bottom , #b77c66 , #283d40)';" href="v-privacy-policy/index.html" target="_blank">Privacy Policy</a></div> </div></div></div>
-<div class="wpb_column vc_column_container vc_col-sm-1/5"><div class="vc_column-inner thegem-custom-inner-6200e8dd9531d "><div class="wpb_wrapper">
-<div class="gem-button-container gem-button-position-center thegem-button-6200e8dd954aa8489"><a title="httpwww.sarovarmicrofinance.com/v-cookies/" class="gem-button gem-button-size-medium gem-button-style-flat gem-button-text-weight-normal gem-button-no-uppercase" style="border-radius: 40px;background-color: #283d40;background: linear-gradient(to bottom, #283d40, #b77c66);color: #ffffff;" onmouseleave="this.style.backgroundColor='#283d40';this.style.color='#ffffff';this.style.background='linear-gradient(to bottom , #283d40 , #b77c66)';" onmouseenter="this.style.backgroundColor='#ffffff';this.style.color='#ffffff';this.style.background='linear-gradient(to bottom , #b77c66 , #283d40)';" href="v-cookies/index.html" target="_blank">Cookies</a></div> </div></div></div>
-<div class="wpb_column vc_column_container vc_col-sm-1/5"><div class="vc_column-inner thegem-custom-inner-6200e8dd95602 "><div class="wpb_wrapper">
-<div class="gem-button-container gem-button-position-center thegem-button-6200e8dd9577c6740"><a title="httpwww.sarovarmicrofinance.com/v-covid-19-precautions/" class="gem-button gem-button-size-medium gem-button-style-flat gem-button-text-weight-normal gem-button-no-uppercase" style="border-radius: 40px;background-color: #283d40;background: linear-gradient(to bottom, #283d40, #b77c66);color: #ffffff;" onmouseleave="this.style.backgroundColor='#283d40';this.style.color='#ffffff';this.style.background='linear-gradient(to bottom , #283d40 , #b77c66)';" onmouseenter="this.style.backgroundColor='#ffffff';this.style.color='#ffffff';this.style.background='linear-gradient(to bottom , #b77c66 , #283d40)';" href="v-covid-19-precautions/index.html" target="_blank">Covid 19 Precautions</a></div> </div></div></div>
-<div class="wpb_column vc_column_container vc_col-sm-1/5"><div class="vc_column-inner thegem-custom-inner-6200e8dd958da "><div class="wpb_wrapper">
-<div class="gem-button-container gem-button-position-center thegem-button-6200e8dd95a473038"><a title="httpwww.sarovarmicrofinance.com/v-careers/" class="gem-button gem-button-size-medium gem-button-style-flat gem-button-text-weight-normal gem-button-no-uppercase" style="border-radius: 40px;background-color: #283d40;background: linear-gradient(to bottom, #283d40, #b77c66);color: #ffffff;" onmouseleave="this.style.backgroundColor='#283d40';this.style.color='#ffffff';this.style.background='linear-gradient(to bottom , #283d40 , #b77c66)';" onmouseenter="this.style.backgroundColor='#ffffff';this.style.color='#ffffff';this.style.background='linear-gradient(to bottom , #b77c66 , #283d40)';" href="v-careers/index.html" target="_blank">Careers</a></div> </div></div></div>
-<div class="wpb_column vc_column_container vc_col-sm-1/5"><div class="vc_column-inner thegem-custom-inner-6200e8dd95bcc "><div class="wpb_wrapper">
-<div class="gem-button-container gem-button-position-center thegem-button-6200e8dd95d3b7556"><a title="httpwww.sarovarmicrofinance.com/fssai-license/" class="gem-button gem-button-size-medium gem-button-style-flat gem-button-text-weight-normal gem-button-no-uppercase" style="border-radius: 40px;background-color: #283d40;background: linear-gradient(to bottom, #283d40, #b77c66);color: #ffffff;" onmouseleave="this.style.backgroundColor='#283d40';this.style.color='#ffffff';this.style.background='linear-gradient(to bottom , #283d40 , #b77c66)';" onmouseenter="this.style.backgroundColor='#ffffff';this.style.color='#ffffff';this.style.background='linear-gradient(to bottom , #b77c66 , #283d40)';" href="fssai-license/index.html" target="_blank">FSSAI License</a></div> </div></div></div>
+<div class="vc_row wpb_row vc_inner vc_row-fluid vc_row-o-content-middle vc_row-flex custom-inner-column-6200e8e384700">
+<div class="wpb_column vc_column_container vc_col-sm-1/5"><div class="vc_column-inner thegem-custom-inner-6200e8e3848e9 "><div class="wpb_wrapper">
+<div class="gem-button-container gem-button-position-center thegem-button-6200e8e384a905651"><a title="httpwww.sarovarmicrofinance.com/v-privacy-policy/" class="gem-button gem-button-size-medium gem-button-style-flat gem-button-text-weight-normal gem-button-no-uppercase" style="border-radius: 40px;background-color: #283d40;background: linear-gradient(to bottom, #283d40, #b77c66);color: #ffffff;" onmouseleave="this.style.backgroundColor='#283d40';this.style.color='#ffffff';this.style.background='linear-gradient(to bottom , #283d40 , #b77c66)';" onmouseenter="this.style.backgroundColor='#ffffff';this.style.color='#ffffff';this.style.background='linear-gradient(to bottom , #b77c66 , #283d40)';" href="../v-privacy-policy/index.html" target="_blank">Privacy Policy</a></div> </div></div></div>
+<div class="wpb_column vc_column_container vc_col-sm-1/5"><div class="vc_column-inner thegem-custom-inner-6200e8e384b95 "><div class="wpb_wrapper">
+<div class="gem-button-container gem-button-position-center thegem-button-6200e8e384ca34657"><a title="httpwww.sarovarmicrofinance.com/v-cookies/" class="gem-button gem-button-size-medium gem-button-style-flat gem-button-text-weight-normal gem-button-no-uppercase" style="border-radius: 40px;background-color: #283d40;background: linear-gradient(to bottom, #283d40, #b77c66);color: #ffffff;" onmouseleave="this.style.backgroundColor='#283d40';this.style.color='#ffffff';this.style.background='linear-gradient(to bottom , #283d40 , #b77c66)';" onmouseenter="this.style.backgroundColor='#ffffff';this.style.color='#ffffff';this.style.background='linear-gradient(to bottom , #b77c66 , #283d40)';" href="../v-cookies/index.html" target="_blank">Cookies</a></div> </div></div></div>
+<div class="wpb_column vc_column_container vc_col-sm-1/5"><div class="vc_column-inner thegem-custom-inner-6200e8e384d9b "><div class="wpb_wrapper">
+<div class="gem-button-container gem-button-position-center thegem-button-6200e8e384eb64844"><a title="httpwww.sarovarmicrofinance.com/v-covid-19-precautions/" class="gem-button gem-button-size-medium gem-button-style-flat gem-button-text-weight-normal gem-button-no-uppercase" style="border-radius: 40px;background-color: #283d40;background: linear-gradient(to bottom, #283d40, #b77c66);color: #ffffff;" onmouseleave="this.style.backgroundColor='#283d40';this.style.color='#ffffff';this.style.background='linear-gradient(to bottom , #283d40 , #b77c66)';" onmouseenter="this.style.backgroundColor='#ffffff';this.style.color='#ffffff';this.style.background='linear-gradient(to bottom , #b77c66 , #283d40)';" href="../v-covid-19-precautions/index.html" target="_blank">Covid 19 Precautions</a></div> </div></div></div>
+<div class="wpb_column vc_column_container vc_col-sm-1/5"><div class="vc_column-inner thegem-custom-inner-6200e8e384fb0 "><div class="wpb_wrapper">
+<div class="gem-button-container gem-button-position-center thegem-button-6200e8e3850c0242"><a title="httpwww.sarovarmicrofinance.com/v-careers/" class="gem-button gem-button-size-medium gem-button-style-flat gem-button-text-weight-normal gem-button-no-uppercase" style="border-radius: 40px;background-color: #283d40;background: linear-gradient(to bottom, #283d40, #b77c66);color: #ffffff;" onmouseleave="this.style.backgroundColor='#283d40';this.style.color='#ffffff';this.style.background='linear-gradient(to bottom , #283d40 , #b77c66)';" onmouseenter="this.style.backgroundColor='#ffffff';this.style.color='#ffffff';this.style.background='linear-gradient(to bottom , #b77c66 , #283d40)';" href="../v-careers/index.html" target="_blank">Careers</a></div> </div></div></div>
+<div class="wpb_column vc_column_container vc_col-sm-1/5"><div class="vc_column-inner thegem-custom-inner-6200e8e3851bd "><div class="wpb_wrapper">
+<div class="gem-button-container gem-button-position-center thegem-button-6200e8e3852cc2755"><a title="httpwww.sarovarmicrofinance.com/fssai-license/" class="gem-button gem-button-size-medium gem-button-style-flat gem-button-text-weight-normal gem-button-no-uppercase" style="border-radius: 40px;background-color: #283d40;background: linear-gradient(to bottom, #283d40, #b77c66);color: #ffffff;" onmouseleave="this.style.backgroundColor='#283d40';this.style.color='#ffffff';this.style.background='linear-gradient(to bottom , #283d40 , #b77c66)';" onmouseenter="this.style.backgroundColor='#ffffff';this.style.color='#ffffff';this.style.background='linear-gradient(to bottom , #b77c66 , #283d40)';" href="../fssai-license/index.html" target="_blank">FSSAI License</a></div> </div></div></div>
 </div>
 <div class="clearboth"></div>
 <div class="gem-divider " style="margin-top: 15px;"></div>
@@ -1482,8 +1157,8 @@ support@vegansfresh.com</span></p>
 			</div>
 <!-- #page -->
 
-	
-	<script type="text/html" id="wpb-modifications"></script><div id="qlwapp" class="qlwapp-free qlwapp-bubble qlwapp-bottom-right qlwapp-all qlwapp-rounded">
+		
+<script type="text/html" id="wpb-modifications"></script><div id="qlwapp" class="qlwapp-free qlwapp-bubble qlwapp-bottom-right qlwapp-all qlwapp-rounded">
   <div class="qlwapp-container">
           <div class="qlwapp-box">
                   <div class="qlwapp-header">
