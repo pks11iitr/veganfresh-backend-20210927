@@ -494,72 +494,111 @@ body .custom-background {
 <div class="clearboth"></div>
 <div class="gem-divider " style="margin-top: 200px;"></div>
 </div></div></div></div>
-<div class="vc_row wpb_row vc_inner vc_row-fluid vc_custom_1605599337996 custom-inner-column-6200e8dd69ad4">
-<div class="wpb_column vc_column_container vc_col-sm-12 vc_hidden-sm vc_hidden-xs"><div class="vc_column-inner thegem-custom-inner-6200e8dd69dd2 vc_custom_1605602707148"><div class="wpb_wrapper">
-	<div class="gem-interactions-enabled   spot-bg" data-vertical_scroll_enable="yes" data-vertical_scroll_speed="1.4" data-mouse_effects="yes" data-mouse_effects_direction="1" data-mouse_effects_speed="0.2"><div class="mouse-effects-container">
-	<div class="wpb_single_image wpb_content_element vc_align_left">
-		
-		<figure class="wpb_wrapper vc_figure">
-			<div class="vc_single_image-wrapper   vc_box_border_grey"><img width="619" height="715" src="{{asset('website/img/home-about.jpg')}}" class="vc_single_image-img attachment-full" alt=""  ></div>
-		</figure>
-	</div>
-	</div></div>
-</div></div></div>
-<div class="wpb_column vc_column_container vc_col-sm-12"><div class="vc_column-inner thegem-custom-inner-6200e8dd6a9b0 vc_custom_1605604266513"><div class="wpb_wrapper">
+<div class="vc_row wpb_row vc_inner vc_row-fluid vc_custom_1605599337996 custom-inner-column-6200e8df70c15"><div class="wpb_column vc_column_container vc_col-sm-12"><div class="vc_column-inner thegem-custom-inner-6200e8df70ef2 vc_custom_1605604266513"><div class="wpb_wrapper">
 <div class="clearboth"></div>
 <div class="gem-divider " style="margin-top: 230px;"></div>
-</div></div></div>
-<div class="wpb_column vc_column_container vc_col-sm-6"><div class="vc_column-inner thegem-custom-inner-6200e8dd6ac83 vc_custom_1605250594281"><div class="wpb_wrapper"></div></div></div>
-<div class="wpb_column vc_column_container vc_col-sm-12 vc_col-lg-6 vc_col-md-6"><div class="vc_column-inner thegem-custom-inner-6200e8dd6ae01 vc_custom_1605604395645"><div class="wpb_wrapper">
-<div class="clearboth"></div>
-<div class="gem-divider " style="margin-top: 40px;"></div>
-	
-		<div class="wpb_text_column wpb_content_element  wpb_animate_when_almost_visible wpb_fadeInRight fadeInRight" style="-webkit-animation-delay: 100ms;-moz-animation-delay: 100ms;-o-animation-delay: 100ms;animation-delay: 100ms;">
-			<div class="wpb_wrapper">
-				<div class="title-h2">VEGANS FRESH</div>
-
-			</div>
-		</div>
-	
-<div class="clearboth"></div>
-<div class="gem-divider " style="margin-top: 50px;"></div>
-	
-		<div class="wpb_text_column wpb_content_element  wpb_animate_when_almost_visible wpb_fadeInRight fadeInRight" style="-webkit-animation-delay: 200ms;-moz-animation-delay: 200ms;-o-animation-delay: 200ms;animation-delay: 200ms;">
-			<div class="wpb_wrapper">
-				<p style="text-align: justify;">In this modern scenario, the world is suffering from a heart breaking disease very well known to all of us: Covid – 19. This disease has given us a warning to see to our health as the primary parameter to survive rather than anything else.</p>
-<p style="text-align: justify;">With this hope, we at Vegans Fresh brings to you the best of the organically grown fruits, vegetables and grocery items delivering at your doorsteps without the hassle of going out in the market, struggling for healthy items, bargaining for the best prices as well as going in the crowd getting prone to the deadly virus.</p>
-
-			</div>
-		</div>
-	
-<div class="clearboth"></div>
-<div class="gem-divider " style="margin-top: 60px;"></div>
-<div class="gem-button-container gem-button-position-left thegem-button-6200e8dd6b3c11027"><a title="httpwww.sarovarmicrofinance.com/about/" class="gem-button gem-button-size-medium gem-button-style-flat gem-button-text-weight-normal gem-button-no-uppercase" style="border-radius: 25px;background-color: #283d40;background: linear-gradient(to bottom, #283d40, #b77c66);color: #ffffff;" onmouseleave="this.style.backgroundColor='#283d40';this.style.color='#ffffff';this.style.background='linear-gradient(to bottom , #283d40 , #b77c66)';" onmouseenter="this.style.backgroundColor='#b77c66';this.style.color='#ffffff';this.style.background='linear-gradient(to bottom , #b77c66 , #283d40)';" href="/about/" target="_blank">About Us</a></div> </div></div></div>
-<div class="wpb_column vc_column_container vc_col-sm-12 vc_hidden-sm vc_hidden-xs"><div class="vc_column-inner thegem-custom-inner-6200e8dd6b554 vc_custom_1605602973015"><div class="wpb_wrapper">
-	<div class="gem-interactions-enabled   laptop" data-vertical_scroll_enable="yes" data-vertical_scroll_speed="-0.4" data-mouse_effects="yes" data-mouse_effects_direction="-1" data-mouse_effects_speed="0.3"><div class="mouse-effects-container">
-	<div class="wpb_single_image wpb_content_element vc_align_left">
-		
-		<figure class="wpb_wrapper vc_figure">
-			<div class="vc_single_image-wrapper   vc_box_border_grey"><img width="558" height="365" src="{{asset('website/img/Home-About-Element-3.png')}}" class="vc_single_image-img attachment-full" alt="" ></div>
-		</figure>
-	</div>
-	</div></div>
-
-	<div class="gem-interactions-enabled   magnifier" data-vertical_scroll_enable="yes" data-vertical_scroll_speed="4" data-mouse_effects="yes" data-mouse_effects_direction="-1" data-mouse_effects_speed="1"><div class="mouse-effects-container">
-	<div class="wpb_single_image wpb_content_element vc_align_left">
-		
-		<figure class="wpb_wrapper vc_figure">
-			<div class="vc_single_image-wrapper   vc_box_border_grey"><img width="198" height="149" src="{{asset('website/img/Home-About-Element-4.png')}}" class="vc_single_image-img attachment-full" alt=""></div>
-		</figure>
-	</div>
-	</div></div>
-</div></div></div>
-</div>
-<div class="wpb_column vc_column_container vc_col-sm-6"><div class="vc_column-inner thegem-custom-inner-6200e8dd6c95d "><div class="wpb_wrapper"></div></div></div>
+</div></div></div></div>
 </div></div></div>
 </div>
 <div class="vc_row-full-width vc_clearfix"></div>
-<div class="vc_row-full-width-before"></div>
+<div id="animation-block" class="vc_row wpb_row vc_row-fluid animation-block vc_custom_1600934705638 thegem-custom-6200e8df713b45725"><div class="about wpb_column vc_column_container vc_col-sm-12 thegem-custom-6200e8df717384657"><div class="vc_column-inner thegem-custom-inner-6200e8df7173c vc_custom_1613490979027"><div class="wpb_wrapper">
+<div class="vc_row wpb_row vc_inner vc_row-fluid custom-inner-column-6200e8df71ab3"><div class="wpb_column vc_column_container vc_col-sm-12"><div class="vc_column-inner thegem-custom-inner-6200e8df71d82 "><div class="wpb_wrapper">
+	
+		<div class="wpb_text_column wpb_content_element  wpb_animate_when_almost_visible wpb_bottom-to-top bottom-to-top">
+			<div class="wpb_wrapper">
+				<div class="title-h1" style="text-align: center;">Vegans Fresh</div>
+
+			</div>
+		</div>
+	
+
+	
+		<div class="wpb_text_column wpb_content_element ">
+			<div class="wpb_wrapper">
+				<p style="text-align: justify;">In this modern scenario, the world is suffering from a heartbreaking disease very well known to all of us: Covid – 19. This disease has given us the warning to see our health as the primary parameter to survive rather than anything else.</p>
+<p style="text-align: justify;">With this hope, we at Vegans Fresh brings to you the best of the organically grown fruits, vegetables, and grocery items delivered at your doorsteps without the hassle of going out in the market, struggling for healthy items, bargaining for the best prices as well as going in the crowd getting prone to the deadly virus.</p>
+<p style="text-align: justify;">Vegans fresh is an organically grown food brand from farms to your home with online delivery of grocery items. All of our fruits, vegetables as well as grocery items delivered to your doorstep are properly organically grown with zero adulteration and no preservatives used. Vegans Fresh delivers the best of the grocery as well as fruits and vegetables which are organically grown. We ensure that there is no adulteration with the use of any hazardous chemicals or pesticides in the groceries delivered at your doorstep.</p>
+<p style="text-align: justify;">Vegans Fresh delivers you an entire range of fresh fruits, vegetables, and groceries delivered at your doorstep directly from the farms to your home. We do not stock any of the products. As per the orders, we are collecting fresh fruits and vegetables directly from the farms of Uttar Pradesh and Uttarakhand. The groceries including the grains and spices are specially grounded as per the orders and we hope you get them delivered hot as freshly ground grains and spices are!</p>
+<p style="text-align: justify;">Vegans Fresh main motto is to deliver the best of quality with the lowest price available. We at Vegans Fresh take care of the shelf life of our entire range of products and keep it secure in order to deliver you the best. Vegans Fresh is a real caretaker of your health by providing you with fresh and healthy fruits, vegetables, and groceries delivered at your doorstep.</p>
+
+			</div>
+		</div>
+	
+</div></div></div></div>
+<div class="vc_row wpb_row vc_inner vc_row-fluid vc_custom_1600346529487 custom-inner-column-6200e8df7239a"><div class="line-block wpb_column vc_column_container vc_col-sm-12 vc_col-has-fill"><div class="vc_column-inner thegem-custom-inner-6200e8df7259a vc_custom_1601205920097"><div class="wpb_wrapper">
+	
+		<div class="wpb_text_column wpb_content_element  wpb_animate_when_almost_visible wpb_bottom-to-top bottom-to-top">
+			<div class="wpb_wrapper">
+				<div class="title-h1" style="text-align: center;">Mission &amp; Vision</div>
+
+			</div>
+		</div>
+	
+</div></div></div></div>
+<div class="vc_tta-container" data-vc-action="collapse"><div class="vc_general vc_tta vc_tta-accordion vc_tta-color-thegem vc_tta-style-classic vc_tta-shape-round vc_tta-o-shape-group vc_tta-gap-5 vc_tta-controls-align-left  about-border vc_custom_1603281343601 wpb_animate_when_almost_visible wpb_bottom-to-top bottom-to-top"><div class="vc_tta-panels-container"><div class="vc_tta-panels">
+<div class="vc_tta-panel vc_active" id="1600329818506-3780852f-5a0c1292-140e" data-vc-content=".vc_tta-panel-body">
+<div class="vc_tta-panel-heading"><h4 class="vc_tta-panel-title vc_tta-controls-icon-position-left"><a href="#1600329818506-3780852f-5a0c1292-140e" data-vc-accordion data-vc-container=".vc_tta-container"><span class="vc_tta-title-text">Mission</span><i class="vc_tta-controls-icon vc_tta-controls-icon-outlined_rounded"></i></a></h4></div>
+<div class="vc_tta-panel-body"><div class="vc_row wpb_row vc_inner vc_row-fluid vc_custom_1600338381365 custom-inner-column-6200e8df72ebe">
+<div class="wpb_column vc_column_container vc_col-sm-6 disable-custom-paggings-tablet disable-custom-paggings-mobile"><div class="vc_column-inner thegem-custom-inner-6200e8df730c7 vc_custom_1600337585554"><div class="wpb_wrapper">
+<div class="clearboth"></div>
+<div class="gem-divider " style="margin-top: 20px;"></div>
+	
+		<div class="wpb_text_column wpb_content_element ">
+			<div class="wpb_wrapper">
+				<p style="text-align: justify;">Vegans Fresh is founded with a mission to provide the purest organically grown fruits, vegetables, and grocery items delivered at your doorsteps and become a caretaker of your health!</p>
+<p style="text-align: justify;">We aim to help people live better, healthier, and wholesome life by providing them with 100% organically grown food.</p>
+
+			</div>
+		</div>
+	
+</div></div></div>
+<div class="line-block wpb_column vc_column_container vc_col-sm-6"><div class="vc_column-inner thegem-custom-inner-6200e8df73564 "><div class="wpb_wrapper">
+	
+	<div class="wpb_single_image wpb_content_element vc_align_left">
+		
+		<figure class="wpb_wrapper vc_figure">
+			<div class="vc_single_image-wrapper   vc_box_border_grey"><img width="242" height="300" src="
+            {{asset('website/img/Vegans-Fresh-242x300.png')}}" class="vc_single_image-img attachment-medium" alt="" ></div>
+		</figure>
+	</div>
+	
+</div></div></div>
+</div></div>
+</div>
+<div class="vc_tta-panel" id="1600338205090-5343eaa2-dfe61292-140e" data-vc-content=".vc_tta-panel-body">
+<div class="vc_tta-panel-heading"><h4 class="vc_tta-panel-title vc_tta-controls-icon-position-left"><a href="#1600338205090-5343eaa2-dfe61292-140e" data-vc-accordion data-vc-container=".vc_tta-container"><span class="vc_tta-title-text">Vision</span><i class="vc_tta-controls-icon vc_tta-controls-icon-outlined_rounded"></i></a></h4></div>
+<div class="vc_tta-panel-body"><div class="vc_row wpb_row vc_inner vc_row-fluid vc_custom_1600338386701 custom-inner-column-6200e8df744bc">
+<div class="line-block wpb_column vc_column_container vc_col-sm-6"><div class="vc_column-inner thegem-custom-inner-6200e8df746c8 "><div class="wpb_wrapper">
+	
+	<div class="wpb_single_image wpb_content_element vc_align_left">
+		
+		<figure class="wpb_wrapper vc_figure">
+			<div class="vc_single_image-wrapper   vc_box_border_grey"><img width="300" height="196" 
+            src="{{asset('website/img/Home-About-Element-3-300x196.png')}}" class="vc_single_image-img attachment-medium" alt="" ></div>
+		</figure>
+	</div>
+	
+</div></div></div>
+<div class="wpb_column vc_column_container vc_col-sm-6 disable-custom-paggings-tablet disable-custom-paggings-mobile"><div class="vc_column-inner thegem-custom-inner-6200e8df75197 vc_custom_1600338432506"><div class="wpb_wrapper">
+<div class="clearboth"></div>
+<div class="gem-divider " style="margin-top: 20px;"></div>
+	
+		<div class="wpb_text_column wpb_content_element ">
+			<div class="wpb_wrapper">
+				<p>Our Vision: Vegans Fresh provides Fresh Atta that is same-day milled, packed, and delivered and Fresh Spices that are same-day ground, packed, and delivered so that fresh food is available for the customers for a healthy life and a tasty tongue.</p>
+<p>Same day milled and ground groceries are the best for our body strengthening our immunity and health.</p>
+<p>Vegans Fresh Vision is very simple! We want us to have a great taste and healthy life with 100% organically grown groceries, fruits, and vegetables!</p>
+
+			</div>
+		</div>
+	
+</div></div></div>
+</div></div>
+</div>
+</div></div></div></div>
+<div class="clearboth"></div>
+<div class="gem-divider " style="margin-top: 20px;"></div>
+</div></div></div></div>
 <div id="vc_row-6200e8dd6cdaa" data-vc-full-width="true" data-vc-full-width-init="false" class="vc_row wpb_row vc_row-fluid vc_custom_1605697215706 thegem-custom-6200e8dd6cd883438 vc_row-has-fill">
 <script type="text/javascript">if (typeof(gem_fix_fullwidth_position) == "function") { gem_fix_fullwidth_position(document.getElementById("vc_row-6200e8dd6cdaa")); }</script><div class="wpb_column vc_column_container vc_col-sm-12 vc_hidden-sm vc_hidden-xs thegem-custom-6200e8dd6d1887970"><div class="vc_column-inner thegem-custom-inner-6200e8dd6d18c vc_custom_1605612907095"><div class="wpb_wrapper">
 <div class="clearboth"></div>

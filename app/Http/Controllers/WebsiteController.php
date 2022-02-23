@@ -19,6 +19,11 @@ class WebsiteController extends Controller
     }
 
 
+    public function aboutus(){
+       
+        return view('Website.about');
+    }   
+
 
 
 

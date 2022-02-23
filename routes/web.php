@@ -21,7 +21,8 @@ Route::get('/home', function () {
 });
 
 Route::post('contact-form','WebsiteController@sendmail')->name('contact-form');
-
+Route::get('about','WebsiteController@aboutus');
+Route::get('aboutapp','WebsiteController@aboutus');
 
 Auth::routes();
 
