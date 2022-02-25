@@ -24,6 +24,11 @@ Route::post('contact-form','WebsiteController@sendmail')->name('contact-form');
 Route::get('about','WebsiteController@aboutus');
 Route::get('aboutapp','WebsiteController@aboutus');
 Route::get('contactus','WebsiteController@contactus');
+Route::get('privacy','WebsiteController@privacy');
+Route::get('cookies','WebsiteController@cookies');
+Route::get('covied','WebsiteController@covied');
+Route::get('carrers','WebsiteController@carrers');
+Route::get('fssai','WebsiteController@fssai');
 
 Auth::routes();
 

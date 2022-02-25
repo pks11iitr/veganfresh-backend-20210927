@@ -30,6 +30,27 @@ class WebsiteController extends Controller
     }
 
 
+    public function privacy(){
+        return view('Website.privacy');
+    }
+
+    public function cookies(){
+        return view('Website.cookies');
+    }
+
+    public function covied(){
+        return view('Website.covied');
+    }
+
+    public function carrers(){
+        return view('Website.carrers');
+    }
+
+    public function fssai(){
+        return view('Website.fssai');
+    }
+
+
 
 
 }

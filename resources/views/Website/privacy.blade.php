@@ -154,6 +154,7 @@ body .custom-background {
         background-position: center top !important;
     }
 }
+#page-title {background-color: #FFFFFF00;padding-top: 225px;padding-bottom: 150px;}#page-title h1,#page-title .title-rich-content {color: #ffffff;}.page-title-excerpt {color: #ffffff;margin-top: 18px;}#page-title .page-title-title {margin-top: 0px;}.page-title-inner,body .breadcrumbs{padding-left: 0px;padding-right: 0px;}body .breadcrumbs,body .breadcrumbs a,body .bc-devider:before {color: #ffffff;}body .breadcrumbs .current {	color: #ff6a6d;	border-bottom: 3px solid #ff6a6d;}body .breadcrumbs a:hover {	color: #ff6a6d;}body .page-title-block .breadcrumbs-container{	text-align: center;}.page-breadcrumbs ul li a,.page-breadcrumbs ul li:not(:last-child):after{	color: #99A9B5FF;}.page-breadcrumbs ul li{	color: #3C3950FF;}.page-breadcrumbs ul li a:hover{	color: #3C3950FF;}.block-content {padding-top: 130px;}.block-content:last-of-type {padding-bottom: 30px;}#top-area {	display: block;}.header-background:before {	opacity: 0;}@media (max-width: 991px) {#page-title {padding-top: 225px;padding-bottom: 150px;}.page-title-inner, body .breadcrumbs{padding-left: 0px;padding-right: 0px;}.page-title-excerpt {margin-top: 18px;}#page-title .page-title-title {margin-top: 0px;}.block-content {}.block-content:last-of-type {}#top-area {	display: block;}}@media (max-width: 767px) {#page-title {padding-top: 225px;padding-bottom: 150px;}.page-title-inner,body .breadcrumbs{padding-left: 0px;padding-right: 0px;}.page-title-excerpt {margin-top: 18px;}#page-title .page-title-title {margin-top: 0px;}.block-content {}.block-content:last-of-type {}#top-area {	display: block;}
 .main-bg.vc_row[data-vc-full-width] { overflow: visible;}
 .button-main .gem-button{ width: 214px;}</style>
 <style type="text/css" data-type="vc_shortcodes-custom-css">.vc_custom_1643461802737{margin-bottom: 0px !important;padding-top: 245px !important;background: #ffffff url(http://www.socialatglance.com/wp-content/uploads/2022/01/Home-Main1-1-1.jpg?id=39206) !important;background-position: 0 0 !important;background-repeat: no-repeat !important;}.vc_custom_1605697215706{margin-bottom: 0px !important;background-color: #ffffff !important;}.vc_custom_1613988058805{margin-bottom: 0px !important;background: #ffffff url(http://www.socialatglance.com/wp-content/uploads/2020/11/17.png?id=171) !important;background-position: 0 0 !important;background-repeat: no-repeat !important;}.vc_custom_1644049764338{margin-top: -10px !important;margin-bottom: 0px !important;background-color: #ffffff !important;}.vc_custom_1605859462966{margin-bottom: 0px !important;background-color: #ffffff !important;}.vc_custom_1644070481953{margin-bottom: 0px !important;background-image: url({{asset('website/img/beauty-bg1.jpg')}}?id=26) !important;background-position: center !important;background-repeat: no-repeat !important;background-size: cover !important;}.vc_custom_1605526200310{padding-top: 0px !important;}.vc_custom_1612878351066{margin-bottom: 0px !important;}.vc_custom_1605599337996{margin-bottom: 0px !important;}.vc_custom_1612878355298{padding-top: 0px !important;}.vc_custom_1605602707148{padding-top: 0px !important;}.vc_custom_1605604266513{padding-top: 0px !important;}.vc_custom_1605250594281{padding-top: 0px !important;padding-right: 120px !important;}.vc_custom_1605604395645{padding-top: 0px !important;}.vc_custom_1605602973015{padding-top: 0px !important;}.vc_custom_1605612907095{padding-top: 0px !important;}.vc_custom_1605785286777{padding-top: 0px !important;}.vc_custom_1642668946451{margin-bottom: 0px !important;}.vc_custom_1613988121942{margin-bottom: 0px !important;}.vc_custom_1605606119273{padding-top: 0px !important;}.vc_custom_1605606109682{padding-top: 0px !important;}.vc_custom_1605261995808{padding-top: 0px !important;}.vc_custom_1605530522965{padding-top: 0px !important;}.vc_custom_1605265403541{padding-top: 0px !important;}.vc_custom_1605619014839{padding-top: 0px !important;}.vc_custom_1605607624746{padding-top: 0px !important;}.vc_custom_1644050517861{margin-bottom: 0px !important;background-color: #ffffff !important;}.vc_custom_1642758159792{margin-bottom: 0px !important;}.vc_custom_1605616923242{padding-top: 0px !important;}.vc_custom_1605615684720{padding-top: 0px !important;}.vc_custom_1605615688064{padding-top: 0px !important;}.vc_custom_1605615691352{padding-top: 0px !important;}.vc_custom_1605615695160{padding-top: 0px !important;}.vc_custom_1605616085437{padding-top: 0px !important;}.vc_custom_1605616075894{padding-top: 0px !important;}.vc_custom_1605616071293{padding-top: 0px !important;}.vc_custom_1605616065871{padding-top: 0px !important;}.vc_custom_1605858466731{padding-top: 0px !important;}.vc_custom_1642681208296{margin-top: -5px !important;}</style>
@@ -397,503 +398,151 @@ body .custom-background {
 
 <div id="main-content" class="main-content">
 
-
-<div class="block-content no-bottom-margin no-top-margin">
+<div id="page-title" class="page-title-block page-title-alignment-left page-title-style-1 ">
+						
+						
+						
+						
+						
+						<div class="container"><div class="page-title-inner"><div class="page-title-title"><h1>  V Privacy Policy</h1></div></div></div>
+						
+					</div>
+<div class="block-content">
 	<div class="container">
 		<div class="panel row">
 
 			<div class="panel-center col-xs-12">
-				<article id="post-39009" class="post-39009 page type-page status-publish">
+				<article id="post-39151" class="post-39151 page type-page status-publish">
 
 					<div class="entry-content post-content">
                         
 						
 							
 						
-						<div class="vc_row-full-width-before"></div>
-<div id="home" data-vc-full-width="true" data-vc-full-width-init="false" class="vc_row wpb_row vc_row-fluid custom-background main-bg vc_custom_1643461802737 thegem-custom-6200e8dd5b7272706 vc_row-has-fill">
-<script type="text/javascript">if (typeof(gem_fix_fullwidth_position) == "function") { gem_fix_fullwidth_position(document.getElementById("home")); }</script><div class="wpb_column vc_column_container vc_col-sm-12 thegem-custom-6200e8dd5fe889047"><div class="vc_column-inner thegem-custom-inner-6200e8dd5fe92 vc_custom_1605526200310"><div class="wpb_wrapper">
-	<div class="gem-interactions-enabled   pink-circle-1" data-vertical_scroll_enable="yes" data-vertical_scroll_speed="-4" data-mouse_effects="yes" data-mouse_effects_direction="-1" data-mouse_effects_speed="2"><div class="mouse-effects-container">
-	<div class="wpb_single_image wpb_content_element vc_align_left  wpb_animate_when_almost_visible wpb_fadeIn fadeIn">
-		
-		<figure class="wpb_wrapper vc_figure">
-			<div class="vc_single_image-wrapper   vc_box_border_grey">
-			<img width="200" height="169" src="{{asset('website/img/Home-Page-Element-1.png')}}" class="vc_single_image-img attachment-full" alt=""></div>
-		</figure>
-	</div>
-	</div></div>
-
-	<div class="gem-interactions-enabled   blue-circle-1" data-vertical_scroll_enable="yes" data-vertical_scroll_speed="1.4" data-mouse_effects="yes" data-mouse_effects_direction="1" data-mouse_effects_speed="1"><div class="mouse-effects-container">
-	<div class="wpb_single_image wpb_content_element vc_align_right  wpb_animate_when_almost_visible wpb_fadeIn fadeIn" style="-webkit-animation-delay: 200ms;-moz-animation-delay: 200ms;-o-animation-delay: 200ms;animation-delay: 200ms;">
-		
-		<figure class="wpb_wrapper vc_figure">
-			<div class="vc_single_image-wrapper   vc_box_border_grey"><img width="185" height="173" src="{{asset('website/img/Vegans-Fresh-copy.png')}}" class="vc_single_image-img attachment-full" alt=""></div>
-		</figure>
-	</div>
-	</div></div>
-
-	<div class="gem-interactions-enabled   girl" data-vertical_scroll_enable="yes" data-vertical_scroll_speed="4" data-mouse_effects="yes" data-mouse_effects_direction="-1" data-mouse_effects_speed="0.6"><div class="mouse-effects-container">
-	<div class="wpb_single_image wpb_content_element vc_align_right  wpb_animate_when_almost_visible wpb_fadeIn fadeIn" style="-webkit-animation-delay: 400ms;-moz-animation-delay: 400ms;-o-animation-delay: 400ms;animation-delay: 400ms;">
-		
-		<figure class="wpb_wrapper vc_figure">
-			<div class="vc_single_image-wrapper   vc_box_border_grey"><img width="725" height="898" src="{{asset('website/img/Vegans-Fresh-New-Image.png')}}" class="vc_single_image-img attachment-full" alt="" ></div>
-		</figure>
-	</div>
-	</div></div>
-
-	<div class="gem-interactions-enabled   blue-triangle-1" data-vertical_scroll_enable="yes" data-vertical_scroll_speed="-2" data-mouse_effects="yes" data-mouse_effects_direction="1" data-mouse_effects_speed="0.2"><div class="mouse-effects-container">
-	<div class="wpb_single_image wpb_content_element vc_align_right  wpb_animate_when_almost_visible wpb_fadeIn fadeIn" style="-webkit-animation-delay: 600ms;-moz-animation-delay: 600ms;-o-animation-delay: 600ms;animation-delay: 600ms;">
-		
-		<figure class="wpb_wrapper vc_figure">
-			<div class="vc_single_image-wrapper   vc_box_border_grey"><img width="153" height="174" src="{{asset('website/img/Home-Page-Element-4.png')}}" class="vc_single_image-img attachment-full" alt=""></div>
-		</figure>
-	</div>
-	</div></div>
-<div class="vc_row wpb_row vc_inner vc_row-fluid vc_custom_1612878351066 custom-inner-column-6200e8dd657f5"><div class="wpb_column vc_column_container vc_col-sm-12"><div class="vc_column-inner thegem-custom-inner-6200e8dd67eef vc_custom_1612878355298"><div class="wpb_wrapper">
+						<div id="vc_row-6200e8e43b32b" class="vc_row wpb_row vc_row-fluid thegem-custom-6200e8e43b2839699"><div class="wpb_column vc_column_container vc_col-sm-12 thegem-custom-6200e8e43f7e34164"><div class="vc_column-inner thegem-custom-inner-6200e8e43f7eb "><div class="wpb_wrapper">
 	
-		<div class="wpb_text_column wpb_content_element  wpb_animate_when_almost_visible wpb_fadeIn fadeIn" style="-webkit-animation-delay: 200ms;-moz-animation-delay: 200ms;-o-animation-delay: 200ms;animation-delay: 200ms;">
+		<div class="wpb_text_column wpb_content_element ">
 			<div class="wpb_wrapper">
-				<div class="title-h1"><span style="color: #ffffff;">Organically Grown</span></div>
+				<h2><strong>Privacy Policy</strong></h2>
 
 			</div>
 		</div>
 	
-<div class="clearboth"></div>
-<div class="gem-divider " style="margin-top: -15px;"></div>
+
 	
-		<div class="wpb_text_column wpb_content_element  wpb_animate_when_almost_visible wpb_fadeIn fadeIn" style="-webkit-animation-delay: 500ms;-moz-animation-delay: 500ms;-o-animation-delay: 500ms;animation-delay: 500ms;">
+		<div class="wpb_text_column wpb_content_element ">
 			<div class="wpb_wrapper">
-				<div class="title-h2">
-<span style="color: #ffffff;">Fruits, Vegetables &amp; Groceries</span><br>
-<span style="color: #ffffff;">At Your DoorStep</span>
+				<p style="text-align: justify;">This Privacy Policy (“Policy”) describes the policies and procedures applicable to the collection, use, disclosure and protection of your information when you use the website at vegansfresh.com, or the Vegans Fresh app(collectively, “Platform”). The Platform is owned by VegansFresh Organics Private Limited, a Company incorporated under the Companies Act, 2013 and having its registered office at BLK 13, Sector 116, Noida Uttar Pradesh. VegansFresh Organics Private Limited is competent to license the Platform and brand Vegansfresh to the Third Parties.</p>
+<p style="text-align: justify;">For the purpose of this Privacy Policy, wherever the context so requires, the terms “Vegans Fresh”, “we”, “us” or “our” shall mean VegansFresh Organics Private Limited and its Licensees and the terms “you” and “your” shall refer to the User of the Platform. Please note that the services on the Platform are provided by DSPL and/or any other Licensee of VegansFresh Organics Private Limited, and that VegansFresh Organics Private Limited does not provide any service to You, and merely licenses its Platform to DSPL/Licensees.</p>
+<p style="text-align: justify;">“User” shall mean any natural or legal person who uses the Platform with or without having duly completed the registration process on the Platform, and has consented to the use of their data as outlined in this Privacy Policy. Delivery partners (“Delivery Partners”) mean any natural or legal person registered on the Platform for providing Services to the Users.</p>
+<p style="text-align: justify;">Please read this Policy before using the Platform or submitting any personal information to VEGANSFRESH ORGANICS PRIVATE LIMITED. This Policy is a part of and incorporated within, and is to be read along with, the Terms of Use.</p>
+
+			</div>
+		</div>
+	
+
+	
+		<div class="wpb_text_column wpb_content_element ">
+			<div class="wpb_wrapper">
+				<h4><strong>YOUR CONSENT:</strong></h4>
+
+			</div>
+		</div>
+	
+
+	
+		<div class="wpb_text_column wpb_content_element ">
+			<div class="wpb_wrapper">
+				<p style="text-align: justify;">By using the Platform and the Services, you agree and consent to the collection, transfer, use, storage, disclosure and sharing of your information as described and collected by us in accordance with this Policy. If you do not agree with the Policy, you may exercise your option to opt-out of the Privacy Policy by writing to us at care@vegansfresh.com. We reserve the right to discontinue our Services to You in case You do not agree with any of the provisions of this Policy.</p>
+
+			</div>
+		</div>
+	
+
+	
+		<div class="wpb_text_column wpb_content_element ">
+			<div class="wpb_wrapper">
+				<h4><strong>POLICY CHANGES:</strong></h4>
+
+			</div>
+		</div>
+	
+
+	
+		<div class="wpb_text_column wpb_content_element ">
+			<div class="wpb_wrapper">
+				<p style="text-align: justify;">We may occasionally update this Policy and such changes will be posted on this page. If we make any significant changes to this Policy, we will endeavour to provide you with reasonable notice of such changes, such as via prominent notice on the Platform or to your email address on record and where required by applicable law, we will obtain your consent. To the extent permitted under the applicable law, your continued use of our Services after we publish or send a notice about our changes to this Policy shall constitute your consent to the updated Policy.</p>
+
+			</div>
+		</div>
+	
+
+	
+		<div class="wpb_text_column wpb_content_element ">
+			<div class="wpb_wrapper">
+				<h4><strong>LINKS TO OTHER WEBSITES:</strong></h4>
+
+			</div>
+		</div>
+	
+
+	
+		<div class="wpb_text_column wpb_content_element ">
+			<div class="wpb_wrapper">
+				<p style="text-align: justify;">The Platform may contain links to other websites. Any personal information about you collected whilst visiting such websites is not governed by this Policy. VegansFresh Organics Private Limited shall not be responsible for and has no control over the practices and content of any website accessed using the links contained on the Platform.</p>
+<p style="text-align: justify;">This Policy shall not apply to any information disclosed by you to any of our service providers/service personnel or where such information has not been directly collected by the Platform under this Policy.</p>
+
+			</div>
+		</div>
+	
+
+	
+		<div class="wpb_text_column wpb_content_element ">
+			<div class="wpb_wrapper">
+				<h4><strong>INFORMATION WE COLLECT FROM YOU:</strong></h4>
+
+			</div>
+		</div>
+	
+
+	
+		<div class="wpb_text_column wpb_content_element ">
+			<div class="wpb_wrapper">
+				<p style="text-align: justify;">We will collect and process the following information about you:</p>
+<p style="text-align: justify;">Information you give us &#8211; This includes information submitted when you:</p>
+<p style="text-align: justify;">Create or update your VegansFresh account, which may from time to time include your name, email, phone number, login name and password, address, payment or banking or financial information, date of birth and profile picture.</p>
+<p style="text-align: justify;">Sign in to the Platform through third-party sign-in services such as Facebook, Google Plus or Gmail or any other social networking or similar site (collectively, “SNS”). When you sign in to the Platform through an SNS, you also consent to the Platform passing through and receiving your log-in information and other user data from the SNS.</p>
+<p style="text-align: justify;">Provide content to us, which may include reviews, ordering details and history, favorite vendors requests, contact information of people you refer to us and other information you provide on the Platform (“Your Content”).</p>
+<p style="text-align: justify;">Use our Services, we may collect and store information about you to process your requests and automatically complete forms for future transactions, including (but not limited to) your phone number, address, email and billing information.</p>
+<p style="text-align: justify;">Correspond with the Licensees for customer support;</p>
+<p style="text-align: justify;">Participate in the interactive services offered by the Platform such as discussion boards, competitions, promotions or surveys, other social media functions or make payments etc., or</p>
+<p style="text-align: justify;">Enable features that require the Licensee’s access to your address book or calendar;</p>
+<p style="text-align: justify;">Report problems for troubleshooting.</p>
+<p style="text-align: justify;">Information we collect about you &#8211; With regard to each of your visits to the Platform, we will automatically collect and analyse the following demographic and other information:</p>
+<p style="text-align: justify;">If you sign up to use our Services as a Delivery Partner, We may at our sole discretion, collect location details, copies of government identification documents and other details (KYC), call and SMS details in order to provide better services to the Users.</p>
+<p style="text-align: justify;">When you communicate with us (via email, phone, through the Platform or otherwise), we may maintain a record of your communication;</p>
+<p style="text-align: justify;">Location information: Depending on the Services you use, and your app settings or device permissions, we may collect your real time information, or approximate location information as determined through data such as GPS, IP address; physically visiting the addresses, click photographs of the same, and doing all other things which we feel are necessary for endeavouring better delivery and service experience for you.</p>
+<p style="text-align: justify;">Usage and Preference Information: We collect information as to how you interact with our Services, preferences expressed and settings chosen. Platform includes the VegansFresh Organics Private Limited advertising services (“Ad Services”), which may collect user activity and browsing history within the Platform and across third party sites and online services, including those sites and services that include our ad pixels (“Pixels”), widgets, plug-ins, buttons, or related services or through the use of cookies. Our Ad Services collect browsing information including without limitation your Internet protocol (IP) address and location, your login information, browser type and version, date and time stamp, user agent, VegansFresh Organics Private Limited cookie ID (if applicable), time zone setting, browser plug-in types and versions, operating system and platform, and other information about user activities on the Platform, as well as on third party sites and services that have embedded our Pixels, widgets, plug-ins, buttons, or related services;</p>
+<p style="text-align: justify;">Transaction Information: We collect transaction details related to your use of our Services, and information about your activity on the Services, including the full Uniform Resource Locators (URL). Please note that we generally do not collect or store any banking or financial information of our Users on our Platform, but collect the same from the Users only when necessary to process refund. The payment services are provided by third parties and not Us.</p>
+<p style="text-align: justify;">The type of Services you requested or provided, comments, domain names, search results selected, number of clicks, information and pages viewed and searched for, the order of those pages, length of your visit to our Services, the date and time you used the Services, amount charged, details regarding application of promotional code, methods used to browse away from the page and any phone number used to call our customer service number and other related transaction details;</p>
+<p style="text-align: justify;">Device Information: We may collect information about the devices you use to access our Services, including the hardware models, operating systems and versions, software, file names and versions, preferred languages, unique device identifiers, advertising identifiers, serial numbers, device motion information and mobile network information. Analytics companies/Vendors may use mobile device IDs to track your usage of the Platform;</p>
+<p style="text-align: justify;">If you are a User or a Delivery Partner, we will, additionally, record your calls with us made from the device used to provide Services, related call details, SMS details location and address details.</p>
+<p style="text-align: justify;">Information we receive from other sources:</p>
+
+			</div>
+		</div>
+	
+<div class="gem-list gem-list-type-arrow gem-list-color-8">
+<ul>
+<li>When you sign in to Platform with your SNS account (provided such facility is facilitated by us), or otherwise connect to your SNS account with the Services, you consent to our collection, storage, and use, in accordance with this Policy, of the information that you make available to us through the social media interface. This could include, without limitation, any information that you have made public through your social media account, information that the social media service shares with us, or information that is disclosed during the sign-in process. Please see your social media provider’s privacy policy and help center for more information about how they share information when you choose to connect your account.</li>
+<li>We may receive information about you from third parties, such as other users, partners (including ad partners, analytics providers, search information providers), or our affiliated entities or if you use any of the other websites/apps we operate or the other Services we provide. Users of our Ad Services and other third-parties may share information with us such as the cookie ID, device ID, or demographic or interest data, and information about content viewed or actions taken on a third-party website, online services or apps. For example, users of our Ad Services may also be able to share customer list information (e.g., email or phone number) with us to create customised audience segments for their ad campaigns.</li>
+<li>If you are a customer or a delivery partner, we may, additionally, receive feedback and rating from other users.</li>
+</ul>
+<ol>
+<li style="list-style-type: none;">
+</ol>
 </div>
-
-			</div>
-		</div>
-	
-<div class="clearboth"></div>
-<div class="gem-divider hide-mob" style="margin-top: 55px;"></div>
-	
-	<div class="wpb_single_image wpb_content_element vc_align_left">
-		
-		<figure class="wpb_wrapper vc_figure">
-			<a href="https://apps.apple.com/kz/app/vegans-fresh/id1596436378" target="_blank" class="vc_single_image-wrapper   vc_box_border_grey">
-			<img width="300" height="111" src="{{asset('website/img/App-Store-300x111.png')}}" class="vc_single_image-img attachment-medium" alt="" ></a>
-		</figure>
-	</div>
-	
-
-	
-	<div class="wpb_single_image wpb_content_element vc_align_left">
-		
-		<figure class="wpb_wrapper vc_figure">
-			<a href="https://play.google.com/store/apps/details?id=com.vegansFresh.vegansFresh" target="_blank" class="vc_single_image-wrapper   vc_box_border_grey"><img width="300" height="105" src="{{asset('website/img/Android-300x105.png')}}" class="vc_single_image-img attachment-medium" alt=""></a>
-		</figure>
-	</div>
-	
-<div class="clearboth"></div>
-<div class="gem-divider " style="margin-top: 200px;"></div>
 </div></div></div></div>
-<div class="vc_row wpb_row vc_inner vc_row-fluid vc_custom_1605599337996 custom-inner-column-6200e8dd69ad4">
-<div class="wpb_column vc_column_container vc_col-sm-12 vc_hidden-sm vc_hidden-xs"><div class="vc_column-inner thegem-custom-inner-6200e8dd69dd2 vc_custom_1605602707148"><div class="wpb_wrapper">
-	<div class="gem-interactions-enabled   spot-bg" data-vertical_scroll_enable="yes" data-vertical_scroll_speed="1.4" data-mouse_effects="yes" data-mouse_effects_direction="1" data-mouse_effects_speed="0.2"><div class="mouse-effects-container">
-	<div class="wpb_single_image wpb_content_element vc_align_left">
-		
-		<figure class="wpb_wrapper vc_figure">
-			<div class="vc_single_image-wrapper   vc_box_border_grey"><img width="619" height="715" src="{{asset('website/img/home-about.jpg')}}" class="vc_single_image-img attachment-full" alt=""  ></div>
-		</figure>
-	</div>
-	</div></div>
-</div></div></div>
-<div class="wpb_column vc_column_container vc_col-sm-12"><div class="vc_column-inner thegem-custom-inner-6200e8dd6a9b0 vc_custom_1605604266513"><div class="wpb_wrapper">
-<div class="clearboth"></div>
-<div class="gem-divider " style="margin-top: 230px;"></div>
-</div></div></div>
-<div class="wpb_column vc_column_container vc_col-sm-6"><div class="vc_column-inner thegem-custom-inner-6200e8dd6ac83 vc_custom_1605250594281"><div class="wpb_wrapper"></div></div></div>
-<div class="wpb_column vc_column_container vc_col-sm-12 vc_col-lg-6 vc_col-md-6"><div class="vc_column-inner thegem-custom-inner-6200e8dd6ae01 vc_custom_1605604395645"><div class="wpb_wrapper">
-<div class="clearboth"></div>
-<div class="gem-divider " style="margin-top: 40px;"></div>
-	
-		<div class="wpb_text_column wpb_content_element  wpb_animate_when_almost_visible wpb_fadeInRight fadeInRight" style="-webkit-animation-delay: 100ms;-moz-animation-delay: 100ms;-o-animation-delay: 100ms;animation-delay: 100ms;">
-			<div class="wpb_wrapper">
-				<div class="title-h2">VEGANS FRESH</div>
-
-			</div>
-		</div>
-	
-<div class="clearboth"></div>
-<div class="gem-divider " style="margin-top: 50px;"></div>
-	
-		<div class="wpb_text_column wpb_content_element  wpb_animate_when_almost_visible wpb_fadeInRight fadeInRight" style="-webkit-animation-delay: 200ms;-moz-animation-delay: 200ms;-o-animation-delay: 200ms;animation-delay: 200ms;">
-			<div class="wpb_wrapper">
-				<p style="text-align: justify;">In this modern scenario, the world is suffering from a heart breaking disease very well known to all of us: Covid – 19. This disease has given us a warning to see to our health as the primary parameter to survive rather than anything else.</p>
-<p style="text-align: justify;">With this hope, we at Vegans Fresh brings to you the best of the organically grown fruits, vegetables and grocery items delivering at your doorsteps without the hassle of going out in the market, struggling for healthy items, bargaining for the best prices as well as going in the crowd getting prone to the deadly virus.</p>
-
-			</div>
-		</div>
-	
-	
-<div class="clearboth"></div>
-<div class="gem-divider " style="margin-top: 60px;"></div>
-<div class="gem-button-container gem-button-position-left thegem-button-6200e8e3768388084"><a title="httpwww.sarovarmicrofinance.com/about/" class="gem-button gem-button-size-medium gem-button-style-flat gem-button-text-weight-normal gem-button-no-uppercase" style="border-radius: 25px;background-color: #283d40;background: linear-gradient(to bottom, #283d40, #b77c66);color: #ffffff;" onmouseleave="this.style.backgroundColor='#283d40';this.style.color='#ffffff';this.style.background='linear-gradient(to bottom , #283d40 , #b77c66)';" onmouseenter="this.style.backgroundColor='#b77c66';this.style.color='#ffffff';this.style.background='linear-gradient(to bottom , #b77c66 , #283d40)';" href="/about/" target="_blank">About Us</a></div> </div></div></div>
-<div class="wpb_column vc_column_container vc_col-sm-12 vc_hidden-sm vc_hidden-xs"><div class="vc_column-inner thegem-custom-inner-6200e8e376963 vc_custom_1605602973015"><div class="wpb_wrapper">
-	<div class="gem-interactions-enabled   laptop" data-vertical_scroll_enable="yes" data-vertical_scroll_speed="-0.4" data-mouse_effects="yes" data-mouse_effects_direction="-1" data-mouse_effects_speed="0.3"><div class="mouse-effects-container">
-	<div class="wpb_single_image wpb_content_element vc_align_left">
-		
-		<figure class="wpb_wrapper vc_figure">
-			<div class="vc_single_image-wrapper   vc_box_border_grey"><img width="558" height="365" src="{{asset('website/img/Home-About-Element-3.png')}}" class="vc_single_image-img attachment-full" alt=""  sizes="(max-width: 558px) 100vw, 558px"></div>
-		</figure>
-	</div>
-	</div></div>
-
-	<div class="gem-interactions-enabled   magnifier" data-vertical_scroll_enable="yes" data-vertical_scroll_speed="4" data-mouse_effects="yes" data-mouse_effects_direction="-1" data-mouse_effects_speed="1"><div class="mouse-effects-container">
-	<div class="wpb_single_image wpb_content_element vc_align_left">
-		
-		<figure class="wpb_wrapper vc_figure">
-			<div class="vc_single_image-wrapper   vc_box_border_grey"><img width="198" height="149" src="{{asset('website/img/Home-About-Element-4.png')}}" class="vc_single_image-img attachment-full" alt=""></div>
-		</figure>
-	</div>
-	</div></div>
-</div></div></div>
-</div>
-<div class="wpb_column vc_column_container vc_col-sm-6"><div class="vc_column-inner thegem-custom-inner-6200e8e377727 "><div class="wpb_wrapper"></div></div></div>
-</div></div></div>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="vc_row-full-width vc_clearfix"></div>
-<div id="vc_row-6200e8e377a2b" class="vc_row wpb_row vc_row-fluid vc_custom_1601017115585 thegem-custom-6200e8e377a159583"><div class="wpb_column vc_column_container vc_col-sm-12 thegem-custom-6200e8e377ca63216"><div class="vc_column-inner thegem-custom-inner-6200e8e377ca9 vc_custom_1601017107795"><div class="wpb_wrapper">
-<div class="clearboth"></div>
-<div class="gem-divider " style="margin-top: 60px;"></div>
-	
-		<div class="wpb_text_column wpb_content_element  wpb_animate_when_almost_visible wpb_bottom-to-top bottom-to-top">
-			<div class="wpb_wrapper">
-				<div class="title-h1">Contact <span class="light">information</span>
-</div>
-
-			</div>
-		</div>
-	
-<div class="clearboth"></div>
-<div class="gem-divider " style="margin-top: -10px;"></div>
-<div class="vc_row wpb_row vc_inner vc_row-fluid custom-inner-column-6200e8e378046">
-<div class="wpb_column vc_column_container vc_col-sm-12 vc_col-lg-6 vc_col-md-6"><div class="vc_column-inner thegem-custom-inner-6200e8e37827a "><div class="wpb_wrapper">
-<div class="clearboth"></div>
-<div class="gem-divider " style="margin-top: 30px;"></div>
-	
-		<div class="wpb_text_column wpb_content_element  wpb_animate_when_almost_visible wpb_bottom-to-top bottom-to-top">
-			<div class="wpb_wrapper">
-				<p style="text-align: justify;">Vegans Fresh delivers you an entire range of fresh fruits, vegetables and groceries delivered at your doorstep directly from the farm to your home. We do not stock any of the products. As per the orders, we are collecting fresh fruits and vegetables directly from the farms of Uttar Pradesh and Uttarakhand. The groceries including the grains and spices are specially grounded as per the orders and we hope you get them delivered hot as freshly grinded grains and spices are!</p>
-
-			</div>
-		</div>
-	
-<div class="clearboth"></div>
-<div class="gem-divider " style="margin-top: 90px;"></div>
-</div></div></div>
-<div class="line-block2 wpb_column vc_column_container vc_col-sm-6 vc_col-lg-3 vc_col-md-3"><div class="vc_column-inner thegem-custom-inner-6200e8e3785c6 vc_custom_1601992302822"><div class="wpb_wrapper">
-<div class="clearboth"></div>
-<div class="gem-divider hide" style="margin-top: -21px;"></div>
-<div class="gem-textbox  gem-interactions-enabled centered-box" data-vertical_scroll_enable="yes" data-vertical_scroll_speed="-0.8" data-disable_effects_tablet="disable" data-disable_effects_mobile="disable"><div class="gem-textbox-inner" style="border-top-left-radius: 21px;border-top-right-radius: 21px;border-bottom-right-radius: 21px;border-bottom-left-radius: 21px;"><div class="gem-textbox-content" style="background-color: #B77C66;background-position: center top;">
-<div class="gem-icon gem-icon-pack-thegemdemo gem-icon-size-large  gem-icon-shape-square gem-simple-icon" style="margin-top: 40px;opacity: 1;"><div class="gem-icon-inner">
-<span class="gem-icon-half-1" style="color: #283d40;"><span class="back-angle">&#xe929;</span></span><span class="gem-icon-half-2" style="color: #283d40;"><span class="back-angle">&#xe929;</span></span>
-</div></div>
-<div class="clearboth"></div>
-<div class="gem-divider " style="margin-top: 60px;"></div>
-	
-		<div class="wpb_text_column wpb_content_element ">
-			<div class="wpb_wrapper">
-				<p style="text-align: center;">info@vegansfresh.com<br>
-support@vegansfresh.com</p>
-
-			</div>
-		</div>
-	
-<div class="clearboth"></div>
-<div class="gem-divider " style="margin-top: 20px;"></div>
-</div></div></div>
-</div></div></div>
-<div class="line-block2 wpb_column vc_column_container vc_col-sm-6 vc_col-lg-3 vc_col-md-3"><div class="vc_column-inner thegem-custom-inner-6200e8e378ac7 vc_custom_1644052656142"><div class="wpb_wrapper">
-<div class="clearboth"></div>
-<div class="gem-divider hide" style="margin-top: 80px;"></div>
-<div class="gem-textbox  gem-interactions-enabled centered-box" data-vertical_scroll_enable="yes" data-vertical_scroll_speed="0.6" data-disable_effects_tablet="disable" data-disable_effects_mobile="disable"><div class="gem-textbox-inner" style="border-top-left-radius: 21px;border-top-right-radius: 21px;border-bottom-right-radius: 21px;border-bottom-left-radius: 21px;"><div class="gem-textbox-content" style="background-color: #b77c66;background-position: center top;">
-<div class="gem-icon gem-icon-pack-thegemdemo gem-icon-size-large  gem-icon-shape-square gem-simple-icon" style="margin-top: 40px;opacity: 1;"><div class="gem-icon-inner">
-<span class="gem-icon-half-1" style="color: #283d40;"><span class="back-angle">&#xe904;</span></span><span class="gem-icon-half-2" style="color: #283d40;"><span class="back-angle">&#xe904;</span></span>
-</div></div>
-<div class="clearboth"></div>
-<div class="gem-divider " style="margin-top: 60px;"></div>
-	
-		<div class="wpb_text_column wpb_content_element ">
-			<div class="wpb_wrapper">
-				<p style="text-align: center;">Monday-Sunday: 10:00 – 19:00</p>
-
-			</div>
-		</div>
-	
-<div class="clearboth"></div>
-<div class="gem-divider " style="margin-top: 20px;"></div>
-</div></div></div>
-</div></div></div>
-<style type="text/css">@media screen and (max-width: 1023px) {.thegem-custom-inner-6200e8e378ac7.vc_column-inner {margin-bottom: 50px !important;}}@media screen and (max-width: 767px) {.thegem-custom-inner-6200e8e378ac7.vc_column-inner {margin-bottom: 50px !important;}}</style>
-<div class="line-block2 wpb_column vc_column_container vc_col-sm-6 vc_col-lg-3 vc_col-md-3"><div class="vc_column-inner thegem-custom-inner-6200e8e378e4b vc_custom_1644052673640"><div class="wpb_wrapper">
-<div class="clearboth"></div>
-<div class="gem-divider hide" style="margin-top: -215px;"></div>
-<div class="gem-textbox  gem-interactions-enabled centered-box" data-vertical_scroll_enable="yes" data-vertical_scroll_speed="-0.6" data-disable_effects_tablet="disable" data-disable_effects_mobile="disable"><div class="gem-textbox-inner" style="border-top-left-radius: 21px;border-top-right-radius: 21px;border-bottom-right-radius: 21px;border-bottom-left-radius: 21px;"><div class="gem-textbox-content" style="background-color: #b77c66;background-position: center top;">
-<div class="gem-icon gem-icon-pack-thegemdemo gem-icon-size-large  gem-icon-shape-square gem-simple-icon" style="margin-top: 40px;opacity: 1;"><div class="gem-icon-inner">
-<span class="gem-icon-half-1" style="color: #283d40;"><span class="back-angle">&#xe90d;</span></span><span class="gem-icon-half-2" style="color: #283d40;"><span class="back-angle">&#xe90d;</span></span>
-</div></div>
-<div class="clearboth"></div>
-<div class="gem-divider " style="margin-top: 60px;"></div>
-	
-		<div class="wpb_text_column wpb_content_element ">
-			<div class="wpb_wrapper">
-				<p style="text-align: center;">BLK-13, SECTOR 116<br>
-NOIDA, U.P.</p>
-
-			</div>
-		</div>
-	
-<div class="clearboth"></div>
-<div class="gem-divider " style="margin-top: 20px;"></div>
-</div></div></div>
-</div></div></div>
-<style type="text/css">@media screen and (max-width: 1023px) {.thegem-custom-inner-6200e8e378e4b.vc_column-inner {padding-top: 50px !important;}}@media screen and (max-width: 767px) {.thegem-custom-inner-6200e8e378e4b.vc_column-inner {padding-top: 50px !important;}}</style>
-<div class="line-block2 wpb_column vc_column_container vc_col-sm-6 vc_col-lg-3 vc_col-md-3"><div class="vc_column-inner thegem-custom-inner-6200e8e3791ca vc_custom_1644052686542"><div class="wpb_wrapper">
-<div class="clearboth"></div>
-<div class="gem-divider hide" style="margin-top: -205px;"></div>
-<div class="gem-textbox  gem-interactions-enabled centered-box" data-vertical_scroll_enable="yes" data-vertical_scroll_speed="1" data-disable_effects_tablet="disable" data-disable_effects_mobile="disable"><div class="gem-textbox-inner" style="border-top-left-radius: 21px;border-top-right-radius: 21px;border-bottom-right-radius: 21px;border-bottom-left-radius: 21px;"><div class="gem-textbox-content" style="background-color: #b77c66;background-position: center top;">
-<div class="gem-icon gem-icon-pack-thegemdemo gem-icon-size-large  gem-icon-shape-square gem-simple-icon" style="margin-top: 40px;opacity: 1;"><div class="gem-icon-inner">
-<span class="gem-icon-half-1" style="color: #283d40;"><span class="back-angle">&#xe905;</span></span><span class="gem-icon-half-2" style="color: #283d40;"><span class="back-angle">&#xe905;</span></span>
-</div></div>
-<div class="clearboth"></div>
-<div class="gem-divider " style="margin-top: 60px;"></div>
-	
-		<div class="wpb_text_column wpb_content_element ">
-			<div class="wpb_wrapper">
-				<p style="text-align: center;">Mobile: +91-761-761-3434<br>
-Whatsapp: +91-761-761-2828</p>
-
-			</div>
-		</div>
-	
-<div class="clearboth"></div>
-<div class="gem-divider " style="margin-top: 20px;"></div>
-</div></div></div>
-</div></div></div>
-<style type="text/css">@media screen and (max-width: 1023px) {.thegem-custom-inner-6200e8e3791ca.vc_column-inner {padding-top: 100px !important;}}@media screen and (max-width: 767px) {.thegem-custom-inner-6200e8e3791ca.vc_column-inner {padding-top: 100px !important;}}</style>
-</div>
-<div class="clearboth"></div>
-<div class="gem-divider " style="margin-top: 20px;"></div>
-</div></div></div></div>
-<div class="vc_row-full-width-before"></div>
-<div id="pricing" data-vc-full-width="true" data-vc-full-width-init="false" class="vc_row wpb_row vc_row-fluid vc_custom_1642758499725 thegem-custom-6200e8e3797028980 vc_row-has-fill">
-<script type="text/javascript">if (typeof(gem_fix_fullwidth_position) == "function") { gem_fix_fullwidth_position(document.getElementById("pricing")); }</script><div class="background-team pricing wpb_column vc_column_container vc_col-sm-12 thegem-custom-6200e8e3799661842"><div class="vc_column-inner thegem-custom-inner-6200e8e379969 vc_custom_1605607624746"><div class="wpb_wrapper"><div id="fullwidth-block-6200e8e37a011" class="fullwidth-block clearfix" style="padding-left: 21px;padding-right: 21px;">
-<script type="text/javascript">if (typeof(gem_fix_fullwidth_position) == "function") { gem_fix_fullwidth_position(document.getElementById("fullwidth-block-6200e8e37a011")); }</script><div class="fullwidth-block-background" style="background-image: url({{asset('website/img/counter.jpg')}});background-repeat: no-repeat; background-size: cover;background-position: center top;"></div>
-<div class="fullwidth-block-inner"><div class="container">
-	<div class="gem-interactions-enabled   blue-triangle-2" data-vertical_scroll_enable="yes" data-vertical_scroll_speed="-2" data-mouse_effects="yes" data-mouse_effects_direction="1" data-mouse_effects_speed="0.4"><div class="mouse-effects-container">
-	<div class="wpb_single_image wpb_content_element vc_align_right">
-		
-		<figure class="wpb_wrapper vc_figure">
-			<div class="vc_single_image-wrapper   vc_box_border_grey"><img width="153" height="174" src="{{asset('website/img/Home-Page-Element-4.png')}}" class="vc_single_image-img attachment-full" alt=""></div>
-		</figure>
-	</div>
-	</div></div>
-<div class="vc_row wpb_row vc_inner vc_row-fluid vc_custom_1642758159792 custom-inner-column-6200e8e37a61b">
-<div class="wpb_column vc_column_container vc_col-sm-12 vc_hidden-sm vc_hidden-xs"><div class="vc_column-inner thegem-custom-inner-6200e8e37a82f vc_custom_1605616923242"><div class="wpb_wrapper">
-<div class="clearboth"></div>
-<div class="gem-divider " style="margin-top: 340px;"></div>
-</div></div></div>
-<div class="wpb_column vc_column_container vc_col-sm-3 vc_col-lg-3 vc_col-md-3 vc_hidden-xs"><div class="vc_column-inner thegem-custom-inner-6200e8e37a9ce vc_custom_1605615684720"><div class="wpb_wrapper">
-<div class="centered-box gem-image-centered-box"><div class="gem-image gem-wrapbox gem-wrapbox-style-default gem-wrapbox-position-centered lazy-loading"><div class="gem-wrapbox-inner  lazy-loading-item" data-ll-effect="move-up"><img class="gem-wrapbox-element img-responsive" src="{{asset('website/img/Offers_New.png')}}" alt=""></div></div></div>
-<div class="clearboth"></div>
-<div class="gem-divider " style="margin-top: -70px;"></div>
-<div data-number-format="(ddd).ddd" class="gem-counter-box row inline-row inline-row-center gem-counter-style-1 lazy-loading lazy-loading-not-hide"><div class="gem-counter col-xs-12 inline-column gem-counter-effect-simple"><div class="gem-counter-inner">
-<div class="gem-counter-number" style="color: #ffffff">
-<div class="gem-counter-odometer" data-to="20">0</div>
-<span class="gem-counter-suffix">+</span>
-</div>
-<div class="gem-counter-text styled-subtitle" style="color: #ffffff">Offers</div>
-</div></div></div>
-</div></div></div>
-<div class="wpb_column vc_column_container vc_col-sm-3 vc_col-lg-3 vc_col-md-3 vc_hidden-xs"><div class="vc_column-inner thegem-custom-inner-6200e8e37b1bc vc_custom_1605615688064"><div class="wpb_wrapper">
-<div class="centered-box gem-image-centered-box"><div class="gem-image gem-wrapbox gem-wrapbox-style-default gem-wrapbox-position-centered lazy-loading"><div class="gem-wrapbox-inner  lazy-loading-item" data-ll-effect="move-up"><img class="gem-wrapbox-element img-responsive" src="{{asset('website/img/Download_New.png')}}" alt=""></div></div></div>
-<div class="clearboth"></div>
-<div class="gem-divider " style="margin-top: -70px;"></div>
-<div data-number-format="(ddd).ddd" class="gem-counter-box row inline-row inline-row-center gem-counter-style-1 lazy-loading lazy-loading-not-hide"><div class="gem-counter col-xs-12 inline-column gem-counter-effect-simple"><div class="gem-counter-inner">
-<div class="gem-counter-number" style="color: #ffffff">
-<div class="gem-counter-odometer" data-to="2000">0</div>
-<span class="gem-counter-suffix">+</span>
-</div>
-<div class="gem-counter-text styled-subtitle" style="color: #ffffff">Downloads</div>
-</div></div></div>
-</div></div></div>
-<div class="wpb_column vc_column_container vc_col-sm-3 vc_col-lg-3 vc_col-md-3 vc_hidden-xs"><div class="vc_column-inner thegem-custom-inner-6200e8e37b820 vc_custom_1605615691352"><div class="wpb_wrapper">
-<div class="centered-box gem-image-centered-box"><div class="gem-image gem-wrapbox gem-wrapbox-style-default gem-wrapbox-position-centered lazy-loading"><div class="gem-wrapbox-inner  lazy-loading-item" data-ll-effect="move-up"><img class="gem-wrapbox-element img-responsive" src="{{asset('website/img/Order.png')}}" alt=""></div></div></div>
-<div class="clearboth"></div>
-<div class="gem-divider " style="margin-top: -70px;"></div>
-<div data-number-format="(ddd).ddd" class="gem-counter-box row inline-row inline-row-center gem-counter-style-1 lazy-loading lazy-loading-not-hide"><div class="gem-counter col-xs-12 inline-column gem-counter-effect-simple"><div class="gem-counter-inner">
-<div class="gem-counter-number" style="color: #ffffff">
-<div class="gem-counter-odometer" data-to="3000">0</div>
-<span class="gem-counter-suffix">+</span>
-</div>
-<div class="gem-counter-text styled-subtitle" style="color: #ffffff">Orders</div>
-</div></div></div>
-</div></div></div>
-<div class="wpb_column vc_column_container vc_col-sm-3 vc_col-lg-3 vc_col-md-3 vc_hidden-xs"><div class="vc_column-inner thegem-custom-inner-6200e8e37be77 vc_custom_1605615695160"><div class="wpb_wrapper">
-<div class="centered-box gem-image-centered-box"><div class="gem-image gem-wrapbox gem-wrapbox-style-default gem-wrapbox-position-centered lazy-loading"><div class="gem-wrapbox-inner  lazy-loading-item" data-ll-effect="move-up"><img class="gem-wrapbox-element img-responsive" src="{{asset('website/img/Categories.png')}}" alt=""></div></div></div>
-<div class="clearboth"></div>
-<div class="gem-divider " style="margin-top: -70px;"></div>
-<div data-number-format="(ddd).ddd" class="gem-counter-box row inline-row inline-row-center gem-counter-style-1 lazy-loading lazy-loading-not-hide"><div class="gem-counter col-xs-12 inline-column gem-counter-effect-simple"><div class="gem-counter-inner">
-<div class="gem-counter-number" style="color: #ffffff">
-<div class="gem-counter-odometer" data-to="15">0</div>
-<span class="gem-counter-suffix">+</span>
-</div>
-<div class="gem-counter-text styled-subtitle" style="color: #ffffff">Categories</div>
-</div></div></div>
-<div class="clearboth"></div>
-<div class="gem-divider " style="margin-top: -70px;"></div>
-</div></div></div>
-</div>
-<div class="vc_row wpb_row vc_inner vc_row-fluid vc_custom_1605702651735 vc_row-has-fill custom-inner-column-6200e8e37c5a5">
-<div class="wpb_column vc_column_container vc_col-sm-3 vc_col-lg-3 vc_hidden-lg vc_col-md-3 vc_hidden-md vc_hidden-sm"><div class="vc_column-inner thegem-custom-inner-6200e8e37c78a vc_custom_1605616085437"><div class="wpb_wrapper">
-<div class="centered-box gem-image-centered-box"><div class="gem-image gem-wrapbox gem-wrapbox-style-default gem-wrapbox-position-centered lazy-loading"><div class="gem-wrapbox-inner  lazy-loading-item" data-ll-effect="move-up"><img class="gem-wrapbox-element img-responsive" src="{{asset('website/img/Offers_New.png')}}" alt=""></div></div></div>
-<div class="clearboth"></div>
-<div class="gem-divider " style="margin-top: -70px;"></div>
-<div data-number-format="(ddd).ddd" class="gem-counter-box row inline-row inline-row-center gem-counter-style-1 lazy-loading lazy-loading-not-hide"><div class="gem-counter col-xs-12 inline-column gem-counter-effect-simple"><div class="gem-counter-inner">
-<div class="gem-counter-number" style="color: #030080">
-<div class="gem-counter-odometer" data-to="20">0</div>
-<span class="gem-counter-suffix">+</span>
-</div>
-<div class="gem-counter-text styled-subtitle">Offers</div>
-</div></div></div>
-</div></div></div>
-<div class="wpb_column vc_column_container vc_col-sm-3 vc_col-lg-3 vc_hidden-lg vc_col-md-3 vc_hidden-md vc_hidden-sm"><div class="vc_column-inner thegem-custom-inner-6200e8e37cad7 vc_custom_1605616075894"><div class="wpb_wrapper">
-<div class="centered-box gem-image-centered-box"><div class="gem-image gem-wrapbox gem-wrapbox-style-default gem-wrapbox-position-centered lazy-loading"><div class="gem-wrapbox-inner  lazy-loading-item" data-ll-effect="move-up"><img class="gem-wrapbox-element img-responsive" src="{{asset('website/img/Download_New.png')}}" alt=""></div></div></div>
-<div class="clearboth"></div>
-<div class="gem-divider " style="margin-top: -70px;"></div>
-<div data-number-format="(ddd).ddd" class="gem-counter-box row inline-row inline-row-center gem-counter-style-1 lazy-loading lazy-loading-not-hide"><div class="gem-counter col-xs-12 inline-column gem-counter-effect-simple"><div class="gem-counter-inner">
-<div class="gem-counter-number" style="color: #030080">
-<div class="gem-counter-odometer" data-to="2000">0</div>
-<span class="gem-counter-suffix">+</span>
-</div>
-<div class="gem-counter-text styled-subtitle">Downloads</div>
-</div></div></div>
-</div></div></div>
-<div class="wpb_column vc_column_container vc_col-sm-3 vc_col-lg-3 vc_hidden-lg vc_col-md-3 vc_hidden-md vc_hidden-sm"><div class="vc_column-inner thegem-custom-inner-6200e8e37cdc5 vc_custom_1605616071293"><div class="wpb_wrapper">
-<div class="centered-box gem-image-centered-box"><div class="gem-image gem-wrapbox gem-wrapbox-style-default gem-wrapbox-position-centered lazy-loading"><div class="gem-wrapbox-inner  lazy-loading-item" data-ll-effect="move-up"><img class="gem-wrapbox-element img-responsive" src="{{asset('website/img/Order.png')}}" alt=""></div></div></div>
-<div class="clearboth"></div>
-<div class="gem-divider " style="margin-top: -70px;"></div>
-<div data-number-format="(ddd).ddd" class="gem-counter-box row inline-row inline-row-center gem-counter-style-1 lazy-loading lazy-loading-not-hide"><div class="gem-counter col-xs-12 inline-column gem-counter-effect-simple"><div class="gem-counter-inner">
-<div class="gem-counter-number" style="color: #030080">
-<div class="gem-counter-odometer" data-to="3000">0</div>
-<span class="gem-counter-suffix">+</span>
-</div>
-<div class="gem-counter-text styled-subtitle">Orders</div>
-</div></div></div>
-</div></div></div>
-<div class="wpb_column vc_column_container vc_col-sm-3 vc_col-lg-3 vc_hidden-lg vc_col-md-3 vc_hidden-md vc_hidden-sm"><div class="vc_column-inner thegem-custom-inner-6200e8e37d15f vc_custom_1605616065871"><div class="wpb_wrapper">
-<div class="centered-box gem-image-centered-box"><div class="gem-image gem-wrapbox gem-wrapbox-style-default gem-wrapbox-position-centered lazy-loading"><div class="gem-wrapbox-inner  lazy-loading-item" data-ll-effect="move-up"><img class="gem-wrapbox-element img-responsive" src="{{asset('website/img/Categories.png')}}" alt=""></div></div></div>
-<div class="clearboth"></div>
-<div class="gem-divider " style="margin-top: -70px;"></div>
-<div data-number-format="(ddd).ddd" class="gem-counter-box row inline-row inline-row-center gem-counter-style-1 lazy-loading lazy-loading-not-hide"><div class="gem-counter col-xs-12 inline-column gem-counter-effect-simple"><div class="gem-counter-inner">
-<div class="gem-counter-number" style="color: #030080">
-<div class="gem-counter-odometer" data-to="15">0</div>
-<span class="gem-counter-suffix">+</span>
-</div>
-<div class="gem-counter-text styled-subtitle">Categories</div>
-</div></div></div>
-</div></div></div>
-</div>
-</div></div>
-</div></div></div></div>
-</div>
-<div class="vc_row-full-width vc_clearfix"></div>
-<style>@media (max-width: 768px){
-    #pricing .pricing .pricing-column-wrapper.inline-column {
-        width: 50%;
-    }
-}</style>
-<div class="vc_row-full-width-before"></div>
-<div id="vc_row-6200e8e37d76c" data-vc-full-width="true" data-vc-full-width-init="false" class="vc_row wpb_row vc_row-fluid vc_custom_1605859462966 thegem-custom-6200e8e37d7542279 vc_row-has-fill">
-<script type="text/javascript">if (typeof(gem_fix_fullwidth_position) == "function") { gem_fix_fullwidth_position(document.getElementById("vc_row-6200e8e37d76c")); }</script><div class="wpb_column vc_column_container vc_col-sm-12 thegem-custom-6200e8e37d9b29259"><div class="vc_column-inner thegem-custom-inner-6200e8e37d9b5 vc_custom_1605858466731"><div class="wpb_wrapper">
-	<div class="gem-interactions-enabled   bg-enroll-now" data-vertical_scroll_enable="yes" data-vertical_scroll_speed="-0.8" data-mouse_effects="yes" data-mouse_effects_direction="1" data-mouse_effects_speed="0.6"><div class="mouse-effects-container">
-	<div class="wpb_single_image wpb_content_element vc_align_center">
-		
-		<figure class="wpb_wrapper vc_figure">
-			<div class="vc_single_image-wrapper   vc_box_border_grey"></div>
-		</figure>
-	</div>
-	</div></div>
-<div class="clearboth"></div>
-<div class="gem-divider " style="margin-top: 50px;"></div>
-	<div class="gem-interactions-enabled " data-vertical_scroll_enable="yes" data-vertical_scroll_speed="2" data-rellax-max-y="8" data-mouse_effects="yes" data-mouse_effects_direction="1" data-mouse_effects_speed="0.1"><div class="mouse-effects-container">
-		<div class="wpb_text_column wpb_content_element  vc_custom_1642681208296">
-			<div class="wpb_wrapper">
-				<div class="title-xlarge" style="text-align: center;">Download Now!</div>
-
-			</div>
-		</div>
-	</div></div>
-<div class="clearboth"></div>
-<div class="gem-divider " style="margin-top: 25px;"></div>
-	<div class="gem-interactions-enabled " data-vertical_scroll_enable="yes" data-vertical_scroll_speed="1" data-rellax-max-y="5" data-mouse_effects="yes" data-mouse_effects_direction="-1" data-mouse_effects_speed="0.1"><div class="mouse-effects-container">
-		<div class="wpb_text_column wpb_content_element ">
-			<div class="wpb_wrapper">
-				<div class="title-h3" style="text-align: center;">Is Your Area Missing? Don&#8217;t Worry, We’re Coming Soon!</div>
-
-			</div>
-		</div>
-	</div></div>
-<div class="clearboth"></div>
-<div class="gem-divider " style="margin-top: 25px;"></div>
-<div class="vc_row wpb_row vc_inner vc_row-fluid custom-inner-column-6200e8e37e727">
-<div class="wpb_column vc_column_container vc_col-sm-6"><div class="vc_column-inner thegem-custom-inner-6200e8e37e9a1 "><div class="wpb_wrapper">
-	
-	<div class="wpb_single_image wpb_content_element vc_align_center">
-		
-		<figure class="wpb_wrapper vc_figure">
-			<a href="https://apps.apple.com/kz/app/vegans-fresh/id1596436378" target="_blank" class="vc_single_image-wrapper   vc_box_border_grey"><img width="300" height="111" src="{{asset('website/img/App-Store-300x111.png')}}" class="vc_single_image-img attachment-medium" alt=""   sizes="(max-width: 300px) 100vw, 300px"></a>
-		</figure>
-	</div>
-	
-</div></div></div>
-<div class="wpb_column vc_column_container vc_col-sm-6"><div class="vc_column-inner thegem-custom-inner-6200e8e37ee24 "><div class="wpb_wrapper">
-	
-	<div class="wpb_single_image wpb_content_element vc_align_center">
-		
-		<figure class="wpb_wrapper vc_figure">
-			<a href="https://play.google.com/store/apps/details?id=com.vegansFresh.vegansFresh" target="_blank" class="vc_single_image-wrapper   vc_box_border_grey"><img width="300" height="105" src="{{asset('website/img/Android-300x105.png')}}" class="vc_single_image-img attachment-medium" alt=""   sizes="(max-width: 300px) 100vw, 300px"></a>
-		</figure>
-	</div>
-	
-</div></div></div>
-</div>
-</div></div></div>
-</div>
-<div class="vc_row-full-width vc_clearfix"></div>
-<div id="vc_row-6200e8e37f374" class="vc_row wpb_row vc_row-fluid vc_custom_1642771636364 thegem-custom-6200e8e37f35d2406"><div class="wpb_column vc_column_container vc_col-sm-12 thegem-custom-6200e8e37f5747642"><div class="vc_column-inner thegem-custom-inner-6200e8e37f577 "><div class="wpb_wrapper"><div id="fullwidth-block-6200e8e37f6f1" class="fullwidth-block clearfix" style="padding-top: 0pxpx;">
-<script type="text/javascript">if (typeof(gem_fix_fullwidth_position) == "function") { gem_fix_fullwidth_position(document.getElementById("fullwidth-block-6200e8e37f6f1")); }</script><div class="fullwidth-block-inner"><div class="gem-map-with-text">
-<div class="gem-map-with-text-content"></div>
-<div class="gem-map-with-text-map">
-<div class="wpb_gmaps_widget wpb_content_element">
-		<div class="wpb_wrapper">
-		<div class="wpb_map_wraper ">
-			<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d28039.855400331497!2d77.44408253955079!3d28.540263000000003!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390ce95affffffe9%3A0xceb1986192e6cc95!2sVegan%20Fresh!5e0!3m2!1sen!2sin!4v1642771003231!5m2!1sen!2sin" width="600" height="576" style="border:0;" allowfullscreen="" loading="lazy"></iframe>		</div>
-	</div>
-</div>
-</div>
-</div></div>
-</div></div></div></div></div>
 					</div>
 <!-- .entry-content -->
 
@@ -918,7 +567,7 @@ Whatsapp: +91-761-761-2828</p>
 
 
 		</div>
-		<!-- #main -->
+        <!-- #main -->
 		<div id="lazy-loading-point"></div>
 
 												<footer class="custom-footer">
