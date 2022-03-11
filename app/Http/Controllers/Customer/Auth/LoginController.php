@@ -10,7 +10,7 @@ use App\Services\SMS\ConnectExpress;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-
+use App\Models\Configuration;
 class LoginController extends Controller
 {
 
@@ -105,6 +105,7 @@ class LoginController extends Controller
      */
 
     public function loginWithOtp(Request $request){
+       // return $request;
         $this->validateOTPLogin($request);
 
         $user=Customer::where('mobile', $request->mobile)->first();
@@ -116,11 +117,11 @@ class LoginController extends Controller
             $user=Customer::create([
                 'mobile'=>$request->mobile,
             ]);
-
 //            /// welcome bonus
-//            Wallet::updatewallet($user->id, 'Welcome Bonus', 'Credit', 51, 'CASH', null);
+            $config=Configuration::where('param','welcome_bonus')->first();
+            Wallet::updatewallet($user->id, 'Welcome Bonus', 'Credit', $config->value, 'CASH', null);
 
-        }else{
+        }else{          
             if(!in_array($user->status, [0,1]))
                 return ['status'=>'failed', 'message'=>'This account has been blocked'];
         }

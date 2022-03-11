@@ -254,12 +254,8 @@ class OrderController extends Controller
             'text'=>$express_delivery->description??'',
             'price'=>$express_delivery->value??0
         ];
-
-
         $order->delivery_charge=$delivery_charge->value??0;
-
         $order->save();
-
         $prices=[
             'basket_total'=>$cost,
             'delivery_charge'=>$order->delivery_charge,
