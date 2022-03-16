@@ -194,7 +194,7 @@
             <TR>
                 <TD class="tr7 td20"><P class="p4 ft5">&nbsp;</P></TD>
                 <TD class="tr7 td21"><P class="p4 ft5">&nbsp;</P></TD>
-                <TD colspan=2 class="tr7 td22"><P class="p3 ft3">@if($orders->delivery_charge==0){{'(Total Shipping Charges Rs. 0.00)'}}@else{{'(Total Shipping Charges Rs. '.$orders->delivery_charge.')'}}@endif</P></TD>
+                <TD colspan=2 class="tr7 td22"><P class="p3 ft3">@if($orders->delivery_charge==0){{'(Total Shipping Charges ₹ 0.00)'}}@else{{'(Total Shipping Charges ₹ '.$orders->delivery_charge.')'}}@endif</P></TD>
                 <TD class="tr7 td23"><P class="p4 ft5">&nbsp;</P></TD>
                 <TD class="tr7 td24"><P class="p4 ft5">&nbsp;</P></TD>
                 <TD class="tr7 td25"><P class="p4 ft5">&nbsp;</P></TD>
@@ -229,12 +229,12 @@
                 <TD class="tr9 td36"><P class="p2 ft3">{{$product->name}}</P></TD>
                 <TD colspan=2 class="tr9 td37"><P class="p5 ft7">{{$product->size->size}}</P></TD>
                 <TD class="tr9 td38"><P class="p9 ft8">
-                        Rs. {{$product->price}}</P></TD>
+                ₹ {{$product->price}}</P></TD>
                 <TD class="tr9 td38"><P class="p9 ft8">
-                        Rs. {{$product->price}}</P></TD>
+                ₹ {{$product->price}}</P></TD>
                 <TD class="tr9 td23"><P class="p6 ft3">{{$product->quantity}}</P></TD>
-                <TD class="tr9 td24"><P class="p7 ft8">Rs. 0.00</P></TD>
-                <TD class="tr9 td39"><P class="p10 ft8">Rs. {{$product->price * $product->quantity}}</P></TD>
+                <TD class="tr9 td24"><P class="p7 ft8">₹ 0.00</P></TD>
+                <TD class="tr9 td39"><P class="p10 ft8">₹ {{$product->price * $product->quantity}}</P></TD>
             </TR>
             @endforeach
 {{--            <TR>--}}
@@ -270,7 +270,7 @@
                 <TD class="tr12 td38"><P class="p4 ft5">&nbsp;</P></TD>
                 <TD class="tr12 td23"><P class="p4 ft5">&nbsp;</P></TD>
                 <TD class="tr12 td24"><P class="p12 ft10">Subtotal:</P></TD>
-                <TD class="tr12 td39"><P class="p10 ft8">Rs. {{$orders->total_cost}}</P></TD>
+                <TD class="tr12 td39"><P class="p10 ft8">₹ {{$orders->total_cost}}</P></TD>
             </TR>
             <TR>
                 <TD class="tr3 td36"><P class="p4 ft5">&nbsp;</P></TD>
@@ -278,7 +278,7 @@
                 <TD class="tr3 td40"><P class="p4 ft5">&nbsp;</P></TD>
                 <TD class="tr3 td38"><P class="p4 ft5">&nbsp;</P></TD>
                 <TD colspan=2 class="tr3 td41"><P class="p12 ft10">Grand Total:</P></TD>
-                <TD class="tr3 td39"><P class="p10 ft8">Rs. {{$orders->total_cost}}</P></TD>
+                <TD class="tr3 td39"><P class="p10 ft8">₹ {{$orders->total_cost}}</P></TD>
             </TR>
         </TABLE>
     </DIV>
