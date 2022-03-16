@@ -52,10 +52,10 @@ class CustomerController extends Controller
      }
 
     public function edit(Request $request,$id){
-            // return $caddress=CustomerAddress::where('user_id',$id);
-            return $customers = Customer::with('membership')->findOrFail($id);
-             $memberships=Membership::get();
-                 return view('admin.customer.edit',['customers'=>$customers, 'memberships'=>$memberships, 'caddress'=>$caddress]);
+               $caddress=CustomerAddress::where('user_id',$id)->get();
+              $customers = Customer::with('membership')->findOrFail($id);
+              $memberships=Membership::get();
+                 return view('admin.customer.edit',['customers'=>$customers, 'memberships'=>$memberships,'caddress'=>$caddress ]);
              }
 
     public function update(Request $request,$id){

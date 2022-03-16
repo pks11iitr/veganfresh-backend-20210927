@@ -133,7 +133,47 @@
               <div class="card-header">
                   <h3 class="card-title">Customer Address</h3>
               </div>
-                  
+              <table id="example2" class="table table-bordered table-hover">
+                  <thead>
+                  <tr>
+                      <th>Name</th>
+                      
+                      <th>Mobile</th>
+                      <th>Email</th> 
+                      <th>House No</th>
+                      <th>Floor</th> 
+                      <th>Appertment Name</th> 
+                    <th>street </th>
+                    <th>landmark </th>
+                    <th>area </th>
+                    <th>city </th>
+                    
+                    <th>Address Type </th> 
+                   
+                  </tr>
+                  </thead>
+                  <tbody>
+                  @foreach($caddress as $cat)
+                    <tr>
+                        <td>{{$cat->first_name}} {{$cat->last_name}}</td>
+                        
+                        <td>{{$cat->mobile_no}}</td>
+                        <td>{{$cat->email}}</td>
+                        <td>{{$cat->house_no}}</td>
+                        <td>{{$cat->floor}}</td>
+                        <td>{{$cat->appertment_name}}</td>
+                        <td>{{$cat->street}}</td>
+                        <td>{{$cat->landmark}}</td>
+                        <td>{{$cat->area}}</td>
+                         
+                        <td>{{$cat->city}} {{$cat->pincode}}</td>
+                       
+                        <td>{{$cat->address_type}}</td>
+                    </tr>
+
+                  @endforeach
+                  </tbody>
+              </table>
             </div>
             <!-- /.card -->
           </div>

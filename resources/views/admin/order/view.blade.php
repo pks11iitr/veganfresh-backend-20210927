@@ -131,7 +131,7 @@
                                                         <option value="pending" {{ request('status')=='confirmed'?'selected':''}}>New Order</option>
                                                         <option value="confirmed" {{ request('status')==='dispatched'?'selected':''}}>Dispatched</option>
                                                         <option value="cancelled" {{ request('status')=='cancelled'?'selected':''}}>Cancelled</option>
-                                                        <option value="cancelled" {{ request('status')=='completed'?'selected':''}}>Completed</option>
+                                                        <option value="completed" {{ request('status')=='completed'?'selected':''}}>Completed</option>
                                                     </select>
 
                                                 </div><br><br>
