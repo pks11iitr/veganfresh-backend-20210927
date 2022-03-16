@@ -6,6 +6,8 @@ use App\Models\Traits\DocumentUploadTrait;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Facades\Storage;
 use Tymon\JWTAuth\Contracts\JWTSubject;
+use Kreait\Firebase\DynamicLink\CreateDynamicLink;
+use Kreait\Firebase\DynamicLink\AndroidInfo;
 
 class Customer extends Authenticatable implements JWTSubject
 {
@@ -67,5 +69,30 @@ class Customer extends Authenticatable implements JWTSubject
     public function area(){
         return $this->belongsTo('App\Models\Area', 'area_id');
     }
+
+
+    public function getDynamicLink(){
+
+        $dynamic_links=app('firebase.dynamic_links');
+        $url='https://fresh2arrive.com/?customer_id='.($this->id??'');
+        $action = CreateDynamicLink::forUrl($url)
+            ->withDynamicLinkDomain(env('FIREBASE_DYNAMIC_LINKS_DEFAULT_DOMAIN'))
+            ->withUnguessableSuffix() // default
+            // or
+            ->withShortSuffix()
+            ->withAndroidInfo(
+                AndroidInfo::new()
+                    ->withPackageName('com.fresh.arrive')
+            );
+
+        $link = (string)$dynamic_links->createDynamicLink($action)->uri();
+
+       //$link = (string)$dynamic_links->createShortLink($url)->uri();
+
+        return $link;
+    }
+
+
+
 
 }

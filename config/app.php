@@ -179,6 +179,7 @@ return [
         LaravelFCM\FCMServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
         Kodeine\Acl\AclServiceProvider::class,
+        Kreait\Laravel\Firebase\ServiceProvider::class
 
     ],
 

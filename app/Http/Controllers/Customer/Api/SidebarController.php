@@ -42,7 +42,7 @@ class SidebarController extends Controller
 
         $refer_link= [
             'link'=>!empty($user)?$user->getDynamicLink():'https://play.google.com/store/apps/details?id=com.fresh.arrive',
-            'image'=>$share->image,
+            'image'=>$share->image??'',
             'product_text'=>'I am using fresh2arrive app for online purchase fresh veggies & fruits. Use my refferal link & you will get Rs.51 in your wallet.',
             'app_text'=>'Order Now'
             //'qr_image'=>'https://images.freekaamaal.com/featured_images/174550_beereebn.png'
