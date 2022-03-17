@@ -149,12 +149,12 @@
             <td colspan="1">{{$product->entity->company}}--{{$product->name}}-{{$product->size->size??''}}</td>
             <td colspan="1">{{$product->quantity}}</td>
             <td colspan="1">{{$product->cut_price}}</td>
-            <td colspan="1">₹. {{$product->price}}</td>
-            <td colspan="1">₹. {{$product->cut_price - $product->price}}</td>
-            <td colspan="1">₹. {{round($product->price*($product->size->cgst??'0')/100,2)}}</td>
-            <td colspan="1">₹. {{round($product->price*($product->size->sgst??'0')/100,2)}}</td>
-            <td colspan="1">₹. 0.0</td>
-            <td colspan="1">₹. {{round(($product->price - $product->price*(($product->size->cgst??0)+($product->size->sgst??0))/100)*$product->quantity, 2)}}</td>
+            <td colspan="1"><img src="{{asset('admin-theme/rupee.png')}}" style="width:10px;height:10px;">. {{$product->price}}</td>
+            <td colspan="1"><img src="{{asset('admin-theme/rupee.png')}}" style="width:10px;height:10px;">. {{$product->cut_price - $product->price}}</td>
+            <td colspan="1"><img src="{{asset('admin-theme/rupee.png')}}" style="width:10px;height:10px;">. {{round($product->price*($product->size->cgst??'0')/100,2)}}</td>
+            <td colspan="1"><img src="{{asset('admin-theme/rupee.png')}}" style="width:10px;height:10px;">. {{round($product->price*($product->size->sgst??'0')/100,2)}}</td>
+            <td colspan="1"><img src="{{asset('admin-theme/rupee.png')}}" style="width:10px;height:10px;">. 0.0</td>
+            <td colspan="1"><img src="{{asset('admin-theme/rupee.png')}}" style="width:10px;height:10px;">. {{round(($product->price - $product->price*(($product->size->cgst??0)+($product->size->sgst??0))/100)*$product->quantity, 2)}}</td>
             @php
                 $subtotal=$subtotal+($product->price - $product->price*(($product->size->cgst??0)+($product->size->sgst??0))/100)*$product->quantity;
                 $cgst=$cgst+$product->price*($product->size->cgst??'0')/100*$product->quantity;
@@ -172,35 +172,35 @@
         <tr class="border-right">
             <td rowspan="8" width="60%">{{$invoice->t_n_c??''}}</td>
             <td  style="padding-left: 20px;"><strong>SubTotal</strong></td>
-            <td style="padding-right: 20px;">₹. {{round($subtotal,2)}}</td>
+            <td style="padding-right: 20px;"><img src="{{asset('admin-theme/rupee.png')}}" style="width:10px;height:10px;">. {{round($subtotal,2)}}</td>
         </tr>
         <tr class="border-right">
             <td  style="padding-left: 20px;"><strong>Coupon Discount</strong></td>
-            <td style="padding-right: 20px;">₹. {{$orders->coupon_discount}}</td>
+            <td style="padding-right: 20px;"><img src="{{asset('admin-theme/rupee.png')}}" style="width:10px;height:10px;">. {{$orders->coupon_discount}}</td>
         </tr>
         <tr class="border-bottom border-right">
             <td  style="padding-left: 20px;"><strong>Shipping Charge</strong></td>
-            <td style="padding-right: 20px;">₹. {{$orders->delivery_charge}}</td>
+            <td style="padding-right: 20px;"><img src="{{asset('admin-theme/rupee.png')}}" style="width:10px;height:10px;">. {{$orders->delivery_charge}}</td>
         </tr>
         <tr class="border-bottom border-right">
             <td  style="padding-left: 20px;"><strong>CGST</strong></td>
-            <td style="padding-right: 20px;">₹. {{round($cgst,2)}}</td>
+            <td style="padding-right: 20px;"><img src="{{asset('admin-theme/rupee.png')}}" style="width:10px;height:10px;">. {{round($cgst,2)}}</td>
         </tr>
         <tr class="border-bottom border-right">
             <td  style="padding-left: 20px;"><strong>SGST</strong></td>
-            <td style="padding-right: 20px;">₹. {{round($sgst,2)}}</td>
+            <td style="padding-right: 20px;"><img src="{{asset('admin-theme/rupee.png')}}" style="width:10px;height:10px;">. {{round($sgst,2)}}</td>
         </tr>
         <tr class="border-bottom border-right">
             <td  style="padding-left: 20px;"><strong>Cess</strong></td>
-            <td style="padding-right: 20px;">₹. 0.0</td>
+            <td style="padding-right: 20px;"><img src="{{asset('admin-theme/rupee.png')}}" style="width:10px;height:10px;">. 0.0</td>
         </tr>
         <tr class="border-bottom border-right">
             <td  style="padding-left: 20px;"><strong>Grand Total</strong></td>
-            <td style="padding-right: 20px;">₹. {{round($grand_total+ $orders->delivery_charge - $orders->coupon_discount,2)}}</td>
+            <td style="padding-right: 20px;"><img src="{{asset('admin-theme/rupee.png')}}" style="width:10px;height:10px;">. {{round($grand_total+ $orders->delivery_charge - $orders->coupon_discount,2)}}</td>
         </tr>
         <tr class="border-bottom border-right">
             <td  style="padding-left: 20px;"><strong>Total(round-off)</strong></td>
-            <td style="padding-right: 20px;">₹. {{round($subtotal + $cgst + $sgst+ $orders->delivery_charge - $orders->coupon_discount)}}</td>
+            <td style="padding-right: 20px;"><img src="{{asset('admin-theme/rupee.png')}}" style="width:10px;height:10px;">. {{round($subtotal + $cgst + $sgst+ $orders->delivery_charge - $orders->coupon_discount)}}</td>
         </tr>
         </tbody>
     </table>
@@ -232,4 +232,3 @@
 </div>
 </body>
 </html>
-
