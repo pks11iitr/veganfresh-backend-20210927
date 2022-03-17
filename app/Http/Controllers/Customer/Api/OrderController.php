@@ -113,6 +113,29 @@ class OrderController extends Controller
             'delivery_charge'=>$delivery_charge->value??0,
         ]);
 
+         $username=auth()->guard('customerapi')->user()->name;
+         $to = "lnkt56@gmail.com";
+         $subject = "New Order";
+         
+         $message = "<b>User Name : $username --TotalAmount : $total_cost </b>";
+         //$message .= "<h1>This is headline.</h1>";
+         
+         $header = "From:lnkt56@gmail.com \r\n";
+         $header .= "Cc:lnkt56@gmail.com \r\n";
+         $header .= "MIME-Version: 1.0\r\n";
+         $header .= "Content-type: text/html\r\n";
+         
+         $retval = mail ($to,$subject,$message,$header);
+         
+        //  if( $retval == true ) {
+        //     echo "Message sent successfully...";
+        //  }else {
+        //     echo "Message could not be sent...";
+        //  }
+
+
+ 
+
         foreach($remaining as $item){
             // var_dump($item->product_id);die();
             OrderDetail::create([
