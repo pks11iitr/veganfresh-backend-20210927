@@ -65,7 +65,6 @@ class OrderController extends Controller
             'status'=>'success',
             'data'=>$lists
         ];
-
     }
 
     public function initiateOrder(Request $request){

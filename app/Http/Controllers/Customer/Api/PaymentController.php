@@ -42,11 +42,11 @@ class PaymentController extends Controller
 
         //$timeslot=TimeSlot::getNextDeliverySlot();
 
-        $order=Order::with(['details.entity', 'details.size'])
+         $order=Order::with(['details.entity', 'details.size'])
             ->where('user_id', $user->id)
             ->where('status', 'pending')
             ->find($id);
-
+         
         if(!$order)
             return [
                 'status'=>'failed',
@@ -137,7 +137,14 @@ class PaymentController extends Controller
             if($result['status']=='success'){
 
                 event(new OrderConfirmed($order));
-
+                
+                 
+                $username= auth()->guard('customerapi')->user()->name;
+                $etotal_order=$order->total_cost;
+                $msg = "Name - $username \n Total - $etotal_order";
+                $msg = wordwrap($msg,70);
+                mail("order@vegansfresh.com","Order",$msg);
+                
                 return [
                     'status'=>'success',
                     'message'=>'Congratulations! Your order at Vegans Fresh is successful',
@@ -156,7 +163,15 @@ class PaymentController extends Controller
             if($result['status']=='success'){
 
                 event(new OrderConfirmed($order));
-
+                
+                $username= auth()->guard('customerapi')->user()->name;
+                $etotal_order=$order->total_cost;
+                $msg = "Name - $username \n Total - $etotal_order";
+                $msg = wordwrap($msg,70);
+                mail("order@vegansfresh.com","Order",$msg);
+                
+                
+                
                 return [
                     'status'=>'success',
                     'message'=>'Congratulations! Your order at Vegans Fresh is successful',
@@ -175,8 +190,19 @@ class PaymentController extends Controller
 //                'status'=>'failed',
 //                'message'=>'Your Account Has Been Blocked'
 //            ];
+
+                $username= auth()->guard('customerapi')->user()->name;
+                $etotal_order=$order->total_cost;
+                $msg = "Name - $username \n Total - $etotal_order";
+                $msg = wordwrap($msg,70);
+                mail("order@vegansfresh.com","Order",$msg);
+
             $result=$this->initiateCODPayment($order);
         }else{
+            
+                
+            
+            
             $result=$this->initiateGatewayPayment($order);
         }
 
@@ -319,6 +345,14 @@ class PaymentController extends Controller
         //$responsearr=json_decode($response);
         //var_dump($responsearr);die;
         if($response){
+            
+                $username= auth()->guard('customerapi')->user()->name;
+                $etotal_order=$order->total_cost;
+                $msg = "Name - $username \n Total - $etotal_order";
+                $msg = wordwrap($msg,70);
+                mail("order@vegansfresh.com","Order",$msg);
+            
+            
             //$order->order_id=$responsearr->id;
             //$order->order_id_response=$response;
             //$order->save();
@@ -608,5 +642,7 @@ class PaymentController extends Controller
             ];
         }
     }
+     
+    
 
 }
