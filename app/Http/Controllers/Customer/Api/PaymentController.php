@@ -34,15 +34,14 @@ class PaymentController extends Controller
     public function initiatePayment(Request $request, $id){
         $user=auth()->guard('customerapi')->user();
         if(!$user)
+
             return [
                 'status'=>'failed',
                 'message'=>'Please login to continue'
             ];
-
-
-        //$timeslot=TimeSlot::getNextDeliverySlot();
-
-         $order=Order::with(['details.entity', 'details.size'])
+         
+            //$timeslot=TimeSlot::getNextDeliverySlot();
+            $order=Order::with(['details.entity', 'details.size'])
             ->where('user_id', $user->id)
             ->where('status', 'pending')
             ->find($id);

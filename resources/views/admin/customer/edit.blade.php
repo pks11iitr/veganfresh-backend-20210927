@@ -143,7 +143,7 @@
                       <th>House No</th>
                       <th>Floor</th> 
                       <th>Appertment Name</th> 
-                    <th>street </th>
+                    <th>society </th>
                     <th>landmark </th>
                     <th>area </th>
                     <th>city </th>
