@@ -5,10 +5,11 @@ namespace App\Http\Controllers\Customer\Auth;
 use App\Events\SendOtp;
 use App\Models\Customer;
 use App\Models\OTPModel;
+use App\Models\Configuration;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Services\SMS\ConnectExpress;
 use Illuminate\Support\Facades\Auth;
-
 class OtpController extends Controller
 {
 
@@ -69,13 +70,17 @@ class OtpController extends Controller
     }
 
     protected function verifyRegister(Request $request){
-        $user=Customer::where('mobile', $request->mobile)->first();
+         $user=Customer::where('mobile', $request->mobile)->first();
         if($user->status==0){
             if(OTPModel::verifyOTP('customer',$user->id,$request->type,$request->otp)){
-                $user->notification_token=$request->token;
-                $user->status=1;
-                $user->save();
+               $user->notification_token=$request->token;
+               $user->status=1;
+               $user->save();
 
+                  $welcome_bonus=Configuration::where('param','welcome_bonus')->first();
+
+                  $msg=str_replace('{#var#}', $welcome_bonus->value, config('sms-templates.welcomeBonus'));
+                  event(new SendOtp($user->mobile, $msg, env('LOGIN_OTP')));
                 return [
                     'status'=>'success',
                     'message'=>'OTP has been verified successfully',

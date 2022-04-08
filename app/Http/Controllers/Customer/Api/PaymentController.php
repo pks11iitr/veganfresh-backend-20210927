@@ -53,13 +53,13 @@ class PaymentController extends Controller
                 'message'=>'No record found'
             ];
 
-        // foreach($order->details as $detail){
-        //     if(OrderDetail::removeOutOfStockItems($detail))
-        //         return [
-        //             'status'=>'failed',
-        //             'message'=>'Some items from your cart are not available'
-        //         ];
-        // }
+        foreach($order->details as $detail){
+            if(OrderDetail::removeOutOfStockItems($detail))
+                return [
+                    'status'=>'failed',
+                    'message'=>'Some items from your cart are not available'
+                ];
+        }
 
         if(!$order)
             return [
@@ -73,46 +73,46 @@ class PaymentController extends Controller
             $timeslot=explode('**', $request->time_slot);
         }
 
-        // if(!empty($request->express_delivery)){
+        if(!empty($request->express_delivery)){
 
-        //     $express_delivery=Configuration::where('param', 'express_delivery')->first();
-        //     $express_delivery=[
-        //         'text'=>$express_delivery->description??'',
-        //         'price'=>$express_delivery->value??$order->delivery_charge
-        //     ];
+            $express_delivery=Configuration::where('param', 'express_delivery')->first();
+            $express_delivery=[
+                'text'=>$express_delivery->description??'',
+                'price'=>$express_delivery->value??$order->delivery_charge
+            ];
 
-        //     $order->update([
-        //         'use_balance'=>false,
-        //         'use_points'=>false,
-        //         'points_used'=>0,
-        //         'balance_used'=>0,
-        //         'coupon_applied'=>null,
-        //         'coupon_discount'=>0,
-        //         'delivery_slot'=>$timeslot[0]??null,
-        //         'delivery_date'=>$timeslot[1]??null,
-        //         'delivery_charge'=>$express_delivery['price'],
-        //         'is_express_delivery'=>true
-        //     ]);
-        // }else{
-        //     if(empty($timeslot)){
-        //         return [
-        //             'status'=>'failed',
-        //             'message'=>'Please select delivery time'
-        //         ];
-        //     }
-        //     $order->update([
-        //         'use_balance'=>false,
-        //         'use_points'=>false,
-        //         'points_used'=>0,
-        //         'balance_used'=>0,
-        //         'coupon_applied'=>null,
-        //         'coupon_discount'=>0,
-        //         'delivery_slot'=>$timeslot[0]??null,
-        //         'delivery_date'=>$timeslot[1]??null,
-        //         'is_express_delivery'=>false
+            $order->update([
+                'use_balance'=>false,
+                'use_points'=>false,
+                'points_used'=>0,
+                'balance_used'=>0,
+                'coupon_applied'=>null,
+                'coupon_discount'=>0,
+                'delivery_slot'=>$timeslot[0]??null,
+                'delivery_date'=>$timeslot[1]??null,
+                'delivery_charge'=>$express_delivery['price'],
+                'is_express_delivery'=>true
+            ]);
+        }else{
+            if(empty($timeslot)){
+                return [
+                    'status'=>'failed',
+                    'message'=>'Please select delivery time'
+                ];
+            }
+            $order->update([
+                'use_balance'=>false,
+                'use_points'=>false,
+                'points_used'=>0,
+                'balance_used'=>0,
+                'coupon_applied'=>null,
+                'coupon_discount'=>0,
+                'delivery_slot'=>$timeslot[0]??null,
+                'delivery_date'=>$timeslot[1]??null,
+                'is_express_delivery'=>false
 
-        //     ]);
-        // }
+            ]);
+        }
 
         if(!empty($request->coupon)){
             $coupon=Coupon::active()->where('code', $request->coupon)->first();
@@ -200,7 +200,6 @@ class PaymentController extends Controller
             $result=$this->initiateCODPayment($order);
         }else{
             $result=$this->initiateGatewayPayment($order);
-            
         }
 
 
@@ -289,7 +288,7 @@ class PaymentController extends Controller
             ]);
 
             if($order->points_used)
-            Wallet::updatewallet($order->user_id, 'Paid For Order ID: '.$order->refid, 'DEBIT',$order->points_used, 'POINT', $order->id);
+                Wallet::updatewallet($order->user_id, 'Paid For Order ID: '.$order->refid, 'DEBIT',$order->points_used, 'POINT', $order->id);
 
             Wallet::updatewallet($order->user_id, 'Paid For Order ID: '.$order->refid, 'DEBIT',$order->balance_used, 'CASH', $order->id);
 
@@ -342,8 +341,12 @@ class PaymentController extends Controller
         //$responsearr=json_decode($response);
         //var_dump($responsearr);die;
         if($response){
-            
-            
+        $user=auth()->guard('customerapi')->user();            
+        $etotal_order=$order->total_cost;    
+        $msg = "Name - $user->name\n";
+        $msg.="Total - $etotal_order";
+        $msg = wordwrap($msg,70);
+        mail("order@vegansfresh.com","Order",$msg);
             
             
             //$order->order_id=$responsearr->id;
@@ -617,14 +620,12 @@ class PaymentController extends Controller
             //event(new OrderSuccessfull($order));
             event(new OrderConfirmed($order));
 
-         $user=auth()->guard('customerapi')->user();      
-         $etotal_order=$order->total_cost;    
-         $msg = "Name - $user->name\n";
-         $msg.="Total - $etotal_order";
-         $msg = wordwrap($msg,70);
-         mail("order@vegansfresh.com","Order",$msg);
-
-
+            $user=auth()->guard('customerapi')->user();            
+            $etotal_order=$order->total_cost??'';    
+            $msg = "Name - $user->name\n";
+            $msg.="Total - $etotal_order??''";
+            $msg = wordwrap($msg,70);
+            mail("order@vegansfresh.com","Order",$msg);
 
 
             return [

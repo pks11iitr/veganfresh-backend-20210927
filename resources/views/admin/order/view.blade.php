@@ -203,26 +203,29 @@
                                         <th>Delivery Slot</th>
                                         <th>Cost</th>
                                         <th>Status</th>
-{{--                                        <th>Payment Status</th>--}}
+{{--                                    <th>Payment Status</th>--}}
                                         <th>Payment Mode</th>
                                         <th>Action</th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     @foreach($orders as $order)
+
+  <?php $date=date_create($order->delivery_date);$cdate=date_format($date,"d/m/Y");?>
+
                                             <tr>
                                                 <td>{{$order->refid}}</td>
                                                 <td>{{$order->customer->name??''}} <br>Mob: {{$order->customer->mobile??''}}</td>
 
                                                 <td>{{$order->storename->name??''}}</td>
                                                 <td>{{$order->rider->name??''}}</td>
-                                                                                               <td>{{date('d/m/Y H:i A', strtotime($order->created_at))}}</td>
-                                                <td>@if($order->is_express_delivery)
-                                                        Express Delivery
-                                                    @else
-                                                        {{date('d/m/Y', strtotime($order->delivery_date))}} {{$order->timeslot->name??''}}
+                                    <td>{{date('d/m/Y H:i A', strtotime($order->created_at))}}</td>
+<td>@if($order->is_express_delivery)
+Express Delivery
+@else
+{{$cdate??''}} {{$order->timeslot->name??''}}
 
- @endif                                                       </td>
+@endif                                                      </td>
                                                 <td>{{$order->total_cost+$order->delivery_charge}}</td>
                                                 <td>{{$order->status}}</td>
 {{--                                                <td>{{$order->payment_status}}</td>--}}

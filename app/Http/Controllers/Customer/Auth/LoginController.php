@@ -121,7 +121,7 @@ class LoginController extends Controller
             $config=Configuration::where('param','welcome_bonus')->first();
             Wallet::updatewallet($user->id, 'Welcome Bonus', 'Credit', $config->value, 'CASH', null);
 
-        }else{          
+        }else{
             if(!in_array($user->status, [0,1]))
                 return ['status'=>'failed', 'message'=>'This account has been blocked'];
         }

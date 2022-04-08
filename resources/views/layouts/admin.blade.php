@@ -82,7 +82,7 @@
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
         <!-- Brand Logo -->
         <a href="{{route('home')}}" class="brand-link">
-           <img src="{{asset('website/images/logo.jpeg')}}"  class="brand-image img-circle elevation-3"
+           <img src="{{asset('website/img/logo_9f049dac806250a5f34e70bca9da999f_1x.png')}}"  class="brand-image img-circle elevation-3"
                  style="opacity: .8">
             <span class="brand-text font-weight-light">VegansFresh CMS</span>
         </a>

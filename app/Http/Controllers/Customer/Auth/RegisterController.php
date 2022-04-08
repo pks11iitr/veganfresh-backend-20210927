@@ -45,6 +45,7 @@ class RegisterController extends Controller
 
     public function register(Request $request)
     {
+
         $this->validator($request->all())->validate();
 
         if($customer=Customer::where('mobile', $request->mobile)->orWhere('email', $request->email)->first()){
