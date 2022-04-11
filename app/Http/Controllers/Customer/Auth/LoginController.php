@@ -116,6 +116,7 @@ class LoginController extends Controller
         if(!$user){
             $user=Customer::create([
                 'mobile'=>$request->mobile,
+                'reffered_by'=>$request->customer_id??null,
             ]);
 //            /// welcome bonus
             $config=Configuration::where('param','welcome_bonus')->first();
