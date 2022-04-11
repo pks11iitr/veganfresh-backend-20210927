@@ -65,6 +65,8 @@ $api->get('coupons-list', ['as'=>'coupons.list', 'uses'=>'Customer\Api\CouponCon
 
 $api->group(['middleware' => ['customer-auth']], function ($api) {
 
+
+    $api->get('refer-details', 'MobileApps\Customers\SidebarController@referDetails');
     $api->get('profile', ['as'=>'profile', 'uses'=>'Customer\Api\ProfileController@view']);
     $api->post('update-profile', ['as'=>'profile', 'uses'=>'Customer\Api\ProfileController@update']);
 
@@ -113,7 +115,7 @@ $api->group(['middleware' => ['customer-auth']], function ($api) {
     $api->get('wallet-history', ['as'=>'wallet.history', 'uses'=>'Customer\Api\WalletController@history']);
     $api->post('recharge', ['as'=>'wallet.add.money', 'uses'=>'Customer\Api\WalletController@addMoney']);
     $api->post('verify-recharge', ['as'=>'wallet.add.money', 'uses'=>'Customer\Api\WalletController@verifyRecharge']);
-    
+
 
 
     //complaints api
@@ -127,7 +129,7 @@ $api->group(['middleware' => ['customer-auth']], function ($api) {
     $api->post('verify-subscription', ['as'=>'membership.verify', 'uses'=>'Customer\Api\MembershipController@verify']);
 
 });
-    
+
 $api->post('success-url','Customer\Api\WalletController@surl');
 $api->post('fail-url','Customer\Api\WalletController@furl');
 $api->get('about','CommonController@about');

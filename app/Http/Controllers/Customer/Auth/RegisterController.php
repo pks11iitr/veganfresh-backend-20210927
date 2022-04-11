@@ -40,6 +40,7 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
             'mobile'=>$data['mobile'],
+            'reffered_by'=>$request->customer_id??null,
         ]);
     }
 

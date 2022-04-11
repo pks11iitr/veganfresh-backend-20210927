@@ -74,7 +74,7 @@ class Customer extends Authenticatable implements JWTSubject
     public function getDynamicLink(){
 
         $dynamic_links=app('firebase.dynamic_links');
-        $url='https://fresh2arrive.com/?customer_id='.($this->id??'');
+        $url='https://vegansfresh.com/?customer_id='.($this->id??'');
         $action = CreateDynamicLink::forUrl($url)
             ->withDynamicLinkDomain(env('FIREBASE_DYNAMIC_LINKS_DEFAULT_DOMAIN'))
             ->withUnguessableSuffix() // default
@@ -82,7 +82,7 @@ class Customer extends Authenticatable implements JWTSubject
             ->withShortSuffix()
             ->withAndroidInfo(
                 AndroidInfo::new()
-                    ->withPackageName('com.fresh.arrive')
+                    ->withPackageName('com.vegansFresh.vegansFresh')
             );
 
         $link = (string)$dynamic_links->createDynamicLink($action)->uri();
@@ -93,6 +93,28 @@ class Customer extends Authenticatable implements JWTSubject
     }
 
 
+    public static function creditReferralAmount($user){
 
+        if($user->reffered_by){
+            $customer =Customer::find($user->reffered_by);
+            if($customer){
+                $order=Order::where('user_id', $user->id)
+                    ->orderBy('id', 'desc')
+                    ->get();
+                 if(count($order)<=1){
+
+                    $refferal_amount = Configuration::where('param', 'refer_amount')
+                        ->first();
+
+                    $amount = ($refferal_amount->value??0);
+                    if($amount > 0){
+                        Wallet::updatewallet($customer->id, 'Referral Credit', 'Credit', $amount, 'CASH', $order[0]->id);
+                    }
+                }
+            }
+        }
+
+
+    }
 
 }
