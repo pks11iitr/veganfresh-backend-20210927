@@ -76,10 +76,8 @@ class OtpController extends Controller
                $user->notification_token=$request->token;
                $user->status=1;
                $user->save();
-
-                  $welcome_bonus=Configuration::where('param','welcome_bonus')->first();
-
-                  $msg=str_replace('{#var#}', $welcome_bonus->value, config('sms-templates.welcomeBonus'));
+               $welcome_bonus=Configuration::where('param','welcome_bonus')->first();
+               $msg=str_replace('{#var#}', $welcome_bonus->value, config('sms-templates.welcomeBonus'));
                   event(new SendOtp($user->mobile, $msg, env('LOGIN_OTP')));
                 return [
                     'status'=>'success',
