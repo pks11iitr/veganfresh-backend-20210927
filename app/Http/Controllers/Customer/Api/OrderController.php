@@ -149,7 +149,7 @@ class OrderController extends Controller
                 'name'=>$item->product->name,
             ]);
         }
-        Customer::creditReferralAmount($user);
+
         return [
 
             'status'=>'success',

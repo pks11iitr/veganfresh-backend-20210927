@@ -441,7 +441,7 @@ class PaymentController extends Controller
         event(new OrderConfirmed($order));
 
         Cart::where('user_id', $order->user_id)->delete();
-
+        Customer::creditReferralAmount($user);
 
         return [
             'status'=>'success',
@@ -570,6 +570,7 @@ class PaymentController extends Controller
 //        $paymentresult=$this->pay->verifypayment($request->all());
 //        if($paymentresult) {
             if ($order->use_points == true) {
+
                 $walletpoints = Wallet::points($order->user_id);
                 if ($walletpoints < $order->points_used) {
                     return response()->json([
@@ -627,7 +628,7 @@ class PaymentController extends Controller
             $msg.="Total - $etotal_order??''";
             $msg = wordwrap($msg,70);
             mail("order@vegansfresh.com","Order",$msg);
-
+            Customer::creditReferralAmount($user);
 
             return [
                 'status'=>'success',
