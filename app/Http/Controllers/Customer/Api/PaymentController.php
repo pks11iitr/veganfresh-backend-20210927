@@ -296,7 +296,8 @@ class PaymentController extends Controller
             Order::deductInventory($order);
 
             Cart::where('user_id', $order->user_id)->delete();
-
+            $user=auth()->guard('customerapi')->user();
+            Customer::creditReferralAmount($user);
             return [
                 'status'=>'success',
             ];
