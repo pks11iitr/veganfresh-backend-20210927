@@ -76,8 +76,10 @@ class OtpController extends Controller
                $user->notification_token=$request->token;
                $user->status=1;
                $user->save();
-               $welcome_bonus=Configuration::where('param','welcome_bonus')->first();
-               $msg=str_replace('{#var#}', $welcome_bonus->value, config('sms-templates.welcomeBonus'));
+
+                  $welcome_bonus=Configuration::where('param','welcome_bonus')->first();
+
+                  $msg=str_replace('{#var#}', $welcome_bonus->value, config('sms-templates.welcomeBonus'));
                   event(new SendOtp($user->mobile, $msg, env('LOGIN_OTP')));
                 return [
                     'status'=>'success',
@@ -117,7 +119,19 @@ class OtpController extends Controller
                 $user->notification_token=$request->token;
                 $user->status=1;
                 $user->save();
-
+                
+                 
+            if($user->first_time==1){ 
+                $welcome_bonus=Configuration::where('param','welcome_bonus')->first();
+                $msg=str_replace('{#var#}', $welcome_bonus->value, config('sms-templates.welcomeBonus'));
+                event(new SendOtp($user->mobile, $msg, env('LOGIN_OTP')));
+                $user->first_time=2;
+                $user->save();
+            }
+                
+                
+                
+                
                 return [
                     'status'=>'success',
                     'message'=>'OTP has been verified successfully',
