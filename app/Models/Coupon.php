@@ -40,23 +40,11 @@ class Coupon extends Model
         if($this->expiry_date<date('Y-m-d')){
             return false;
         }
-
-        switch($this->usage_type){
-            case 'single-singleuser':
-                $order=Order::where('coupon_applied', $this->code)
-                    ->where(function($order){
-                        $order->where('payment_mode', 'COD')
-                            ->orWhere(function($order){
-                                $order->where('payment_mode', 'online')
-                                    ->where('payment_status', 'paid');
-                            });
-                    })
-                    ->first();
-                if($order)
-                    return false;
-                break;
-            case 'single-multipleuser':break;
-                $order=Order::where('coupon_applied', $this->code)
+        
+        if($this->usage_type=="single-multipleuser"){
+            
+            
+             $order=Order::where('coupon_applied', $this->code)
                     ->where('user_id', $user->id)
                     ->where(function($order){
                         $order->where('payment_mode', 'COD')
@@ -67,14 +55,64 @@ class Coupon extends Model
                     })
                     ->first();
                 if($order)
-                    return false;
-                break;
-            case 'multiple-multipleuser':
-                break;
-
+                    return  false;
+                else{
+                    return true;
+                }
+                
+        }else if($this->usage_type=="single-singleuser"){
+                 $order=Order::where('coupon_applied', $this->code)
+                    ->where(function($order){
+                        $order->where('payment_mode', 'COD')
+                            ->orWhere(function($order){
+                                $order->where('payment_mode', 'online')
+                                    ->where('payment_status', 'paid');
+                            });
+                    })
+                    ->first();
+                if($order)
+                    return  false;
+                else{
+                    return true;
+                }
+        }else if($this->usage_type=="multiple-multipleuser"){
+                    return  true;
         }
 
-        return true;
+        // switch($this->usage_type){
+        //     case 'single-singleuser':
+        //         $order=Order::where('coupon_applied', $this->code)
+        //             ->where(function($order){
+        //                 $order->where('payment_mode', 'COD')
+        //                     ->orWhere(function($order){
+        //                         $order->where('payment_mode', 'online')
+        //                             ->where('payment_status', 'paid');
+        //                     });
+        //             })
+        //             ->first();
+        //         if($order)
+        //             return false;
+        //         break;
+        //     case 'single-multipleuser':break;
+        //         $order=Order::where('coupon_applied', $this->code)
+        //             ->where('user_id', $user->id)
+        //             ->where(function($order){
+        //                 $order->where('payment_mode', 'COD')
+        //                     ->orWhere(function($order){
+        //                         $order->where('payment_mode', 'online')
+        //                             ->where('payment_status', 'paid');
+        //                     });
+        //             })
+        //             ->first();
+        //         if($order)
+        //             return false;
+        //         break;
+        //     case 'multiple-multipleuser':
+        //         break;
+
+        // }
+
+        //return true;
 
     }
 

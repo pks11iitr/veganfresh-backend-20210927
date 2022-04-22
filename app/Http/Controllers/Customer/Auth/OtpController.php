@@ -128,10 +128,7 @@ class OtpController extends Controller
                 $user->first_time=2;
                 $user->save();
             }
-                
-                
-                
-                
+                 
                 return [
                     'status'=>'success',
                     'message'=>'OTP has been verified successfully',
